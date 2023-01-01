@@ -21,6 +21,11 @@ Steps
 ![-6](https://user-images.githubusercontent.com/103989404/210139131-ee224146-b242-4c1c-ac96-35ef0ca591f1.jpg)
 ![image](https://user-images.githubusercontent.com/103989404/210139721-919be130-fbba-4e3a-aa58-8a563e8c7792.png)
 
+### NOTE: 
+*If you are using an X1 or X1C printer, make sure you do not select the 'Flow calibration' option.*  
+![uncheck](https://user-images.githubusercontent.com/103989404/210161706-608ba4ef-d7be-497d-8286-40eac2c8be21.jpg)
+
+
 # Pressure Advance
 I will present two approaches for calibrating the pressure advance value. Both methods have their own advantages and disadvantages. It is important to note that each method has two versions: one for a direct drive extruder and one for a Bowden extruder. Make sure to select the appropriate version for your test.  
 
@@ -47,7 +52,9 @@ Steps:
 ![tower](https://user-images.githubusercontent.com/103989404/210140231-e886b98d-280a-4464-9781-c74ed9b7d44e.jpg)
 
 ![tower_measure](https://user-images.githubusercontent.com/103989404/210140232-885b549b-e3b8-46b9-a24c-5229c9182408.jpg)
-
+### NOTE: 
+*If you are using an X1 or X1C printer, make sure you do not select the 'Flow calibration' option.*  
+![uncheck](https://user-images.githubusercontent.com/103989404/210161706-608ba4ef-d7be-497d-8286-40eac2c8be21.jpg)
 
 ***
 *Credits:*  
