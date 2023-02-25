@@ -1,11 +1,12 @@
-- [Temp tower]
 - [Flow rate](#Flow-rate)
 - [Pressure Advance](#Pressure-Advance)
   1. [Line method](#Line-method)
   2. [Tower method](#Tower-method)
+- [Temp tower](#Temp-tower)
 - [Advanced calibration]
   1. [Max Volumetric speed]
-  2. [VFA]
+  2. [VFA]  
+
 **NOTE**: After completing the calibration process, remember to create a new project in order to exit the calibration mode.
 # Flow rate
 ![flowrate](https://user-images.githubusercontent.com/103989404/210137579-3fd141ad-f2da-4542-a1fd-fc4b4d673908.gif)
@@ -20,21 +21,20 @@ Steps
 
 5. Update the flow ratio in the filament settings using the following equation: `FlowRatio_old*(100 + modifier)/100`. If your previous flow ratio was `0.98` and you selected the block with a flow rate modifier of `+5`, the new value should be calculated as follows: `0.98x(100+5)/100 = 1.029`. ** Remember** to save the filament profile.
 6. Perform the `Pass 2` calibration. This process is similar to `Pass 1`, but a new project with ten blocks will be generated. The flow rate modifiers for this project will range from `-9 to 0`.
-7. Repeat steps 4 and 5. In this case, if your previous flow ratio was 1.029 and you selected the block with a flow rate modifier of -6, the new value should be calculated as follows: `1.029x(100-6)/100 = 0.96726`. ** Remember** to save the filament profile.  
+7. Repeat steps 4 and 5. In this case, if your previous flow ratio was 1.029 and you selected the block with a flow rate modifier of -6, the new value should be calculated as follows: `1.029x(100-6)/100 = 0.96726`. ** Remember ** to save the filament profile.  
 ![pass2](https://user-images.githubusercontent.com/103989404/210139072-f2fa91a6-4e3b-4d2a-81f2-c50155e1ff6d.jpg)
 ![-6](https://user-images.githubusercontent.com/103989404/210139131-ee224146-b242-4c1c-ac96-35ef0ca591f1.jpg)
 ![image](https://user-images.githubusercontent.com/103989404/210139721-919be130-fbba-4e3a-aa58-8a563e8c7792.png)
 
 ### NOTE: 
-*If you are using an X1 or X1C printer, make sure you do not select the 'Flow calibration' option.*  
-![uncheck](https://user-images.githubusercontent.com/103989404/210161706-608ba4ef-d7be-497d-8286-40eac2c8be21.jpg)
-
+* For Bambulab X1/X1C users, make sure you do not select the 'Flow calibration' option.*  
+![uncheck](https://user-images.githubusercontent.com/103989404/221345187-3c317a46-4d85-4221-99b9-adb5c7f48026.jpeg)
 
 # Pressure Advance
 I will present two approaches for calibrating the pressure advance value. Both methods have their own advantages and disadvantages. It is important to note that each method has two versions: one for a direct drive extruder and one for a Bowden extruder. Make sure to select the appropriate version for your test.  
 
 ### Line method
-The line method is quick and straightforward to test. However, its accuracy highly depends on your first layer quality. Make you turn on your bed mesh for this test.
+The line method is quick and straightforward to test. However, its accuracy highly depends on your first layer quality. It is suggested to turn on the bed mesh leveling for this test.
 Steps:
   1. Select the printer, filament, and process you would like to use for the test.
   2. Print the project and check the result. You can select the value of the most even line and update your PA value in the filament settings.
@@ -57,12 +57,17 @@ Steps:
 
 ![tower_measure](https://user-images.githubusercontent.com/103989404/210140232-885b549b-e3b8-46b9-a24c-5229c9182408.jpg)
 ### NOTE: 
-*If you are using an X1 or X1C printer, make sure you do not select the 'Flow calibration' option.*  
-![uncheck](https://user-images.githubusercontent.com/103989404/210161706-608ba4ef-d7be-497d-8286-40eac2c8be21.jpg)
+* For Bambulab X1/X1C users, make sure you do not select the 'Flow calibration' option.*  
+![uncheck](https://user-images.githubusercontent.com/103989404/221345187-3c317a46-4d85-4221-99b9-adb5c7f48026.jpeg)
+
+# Temp tower 
+![temp_tower](https://user-images.githubusercontent.com/103989404/221344534-40e1a629-450c-4ad5-a051-8e240e261a51.jpeg)  
+Temp tower is a straightforward test. The temp tower is a vertical tower with multiple blocks, each printed at a different temperature. Once the print is complete, we can examine each block of the tower and determine the optimal temperature for the filament. The optimal temperature is the one that produces the highest quality print with the least amount of issues, such as stringing, layer adhesion, warping (overhang), and bridging.
 
 ***
 *Credits:*  
 - *Flowrate test is inspired by [SuperSlicer](https://github.com/supermerill/SuperSlicer)*  
 - *PA Line method is inspired by [K-factor Calibration Pattern](https://marlinfw.org/tools/lin_advance/k-factor.html)*     
 - *PA Tower method is inspired by [Klipper](https://www.klipper3d.org/Pressure_Advance.html)*
+- *Temp tower model is remixed from [Smart compact temperature calibration tower](https://www.thingiverse.com/thing:2729076)
 - *chapgpt* ;)
