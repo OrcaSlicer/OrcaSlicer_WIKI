@@ -1,0 +1,323 @@
+name: Validate OrcaSlicer Images
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '**/*.markdown'
+      - '**/*.mdown'
+      - '**/*.mkd'
+      - '**/*.mkdn'
+      - '**/*.mdx'
+
+jobs:
+  image-link-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      ERROR_BLOCK: ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate OrcaSlicer image references
+        id: validate_images
+        uses: actions/github-script@v7
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          script: |
+            const { execSync } = require('child_process');
+            const fs = require('fs');
+            const path = require('path');
+
+            const OWNER = 'OrcaSlicer';
+            const ownerLower = OWNER.toLowerCase();
+            const currentRepo = context.repo.repo;
+            const workspace = process.cwd();
+            const allowedExt = new Set(['.md', '.markdown', '.mdown', '.mkd', '.mkdn', '.mdx']);
+
+            const baseSha = process.env.BASE_SHA;
+            const headSha = process.env.HEAD_SHA;
+            if (!baseSha || !headSha) {
+              core.setFailed('Missing base/head commit SHAs.');
+              return;
+            }
+
+            // Identify changed files in this PR so we scan only touched docs.
+            let diffOutput = '';
+            try {
+              diffOutput = execSync(`git diff --name-only ${baseSha}..${headSha}`, { encoding: 'utf8' }).trim();
+            } catch (error) {
+              core.setFailed(`git diff failed: ${error.message}`);
+              return;
+            }
+
+            if (!diffOutput) {
+              core.info('No files changed; skipping image validation.');
+              return;
+            }
+
+            // Filter only existing Markdown files because HTML snippets appear inside them.
+            const candidateFiles = diffOutput.split(/\r?\n/)
+              .map((file) => file.trim())
+              .filter(Boolean)
+              .filter((file) => allowedExt.has(path.extname(file).toLowerCase()))
+              .filter((file) => fs.existsSync(path.join(workspace, file)));
+
+            if (!candidateFiles.length) {
+              core.info('No Markdown or HTML files changed; skipping image validation.');
+              return;
+            }
+
+            // Regex helpers for Markdown images and inline HTML <img> tags.
+            const markdownImagePattern = /!\[(?<alt>[^\]]*)\]\(\s*(?<url>[^)\s]+)(?:\s+"[^"]*")?\s*\)/g;
+            const htmlImagePattern = /<img\b[^>]*>/gi;
+
+            const references = [];
+
+            for (const relativePath of candidateFiles) {
+              const absolutePath = path.join(workspace, relativePath);
+              const text = fs.readFileSync(absolutePath, 'utf8');
+
+              // Collect every image reference with enough metadata for validation.
+              const addReference = (url, index, altText = '', options = {}) => {
+                const line = lineFromIndex(text, index);
+                const repoPath = parseOrcaLink(url);
+                if (repoPath) {
+                  references.push({
+                    filePath: relativePath,
+                    line,
+                    url,
+                    repoPath,
+                    altText: altText.trim(),
+                    isHtml: Boolean(options.isHtml),
+                    altBeforeSrc: options.altBeforeSrc !== false,
+                  });
+                }
+              };
+
+              markdownImagePattern.lastIndex = 0;
+              let match;
+              while ((match = markdownImagePattern.exec(text)) !== null) {
+                const url = match.groups ? match.groups.url : match[2];
+                if (url) {
+                  const alt = match.groups ? match.groups.alt : match[1];
+                  addReference(url.trim(), match.index, (alt || '').trim());
+                }
+              }
+
+              htmlImagePattern.lastIndex = 0;
+              while ((match = htmlImagePattern.exec(text)) !== null) {
+                const tag = match[0];
+                const attrs = {};
+                const attrPattern = /([a-zA-Z_:][\w:.-]*)\s*=\s*("([^"]*)"|'([^']*)')/g;
+                const attrOrder = [];
+                let attrMatch;
+                while ((attrMatch = attrPattern.exec(tag)) !== null) {
+                  const name = attrMatch[1].toLowerCase();
+                  const value = attrMatch[3] !== undefined ? attrMatch[3] : attrMatch[4] || '';
+                  attrs[name] = value;
+                  attrOrder.push({ name, index: attrMatch.index });
+                }
+                const url = attrs.src;
+                if (url) {
+                  const altEntry = attrOrder.find((entry) => entry.name === 'alt');
+                  const srcEntry = attrOrder.find((entry) => entry.name === 'src');
+                  const altBeforeSrc = srcEntry && altEntry ? altEntry.index < srcEntry.index : true;
+                  addReference(
+                    url.trim(),
+                    match.index,
+                    (attrs.alt || '').trim(),
+                    { isHtml: true, altBeforeSrc }
+                  );
+                }
+              }
+            }
+
+            if (!references.length) {
+              core.info('No OrcaSlicer image links found in updated files.');
+              return;
+            }
+
+            const cache = new Map();
+
+            const failures = [];
+            for (const reference of references) {
+              if (reference.repoPath.needsRawQuery && !reference.repoPath.hasRawQuery) {
+                failures.push({ ...reference, reason: 'missingRawQuery' });
+                continue;
+              }
+              if (reference.isHtml && reference.altText && !reference.altBeforeSrc) {
+                failures.push({ ...reference, reason: 'altOrder' });
+                continue;
+              }
+              const expectedAlt = expectedAltFromRepoPath(reference.repoPath);
+              const actualAlt = reference.altText || '';
+              if (expectedAlt && actualAlt !== expectedAlt) {
+                failures.push({ ...reference, reason: 'altMismatch', expectedAlt, actualAlt });
+                continue;
+              }
+              // eslint-disable-next-line no-await-in-loop
+              const exists = await repoPathExists(reference.repoPath, currentRepo, workspace, cache);
+              if (!exists) {
+                failures.push({ ...reference, reason: 'missingFile' });
+              }
+            }
+
+            if (failures.length) {
+              const lines = failures.map((failure) => {
+                const rp = failure.repoPath;
+                if (failure.reason === 'missingRawQuery') {
+                  return `${failure.filePath} line ${failure.line}: add ?raw=true to ${failure.url}`;
+                }
+                if (failure.reason === 'altMismatch') {
+                  return `${failure.filePath} line ${failure.line}: alt text must be "${failure.expectedAlt}" but was "${failure.actualAlt}"`;
+                }
+                if (failure.reason === 'altOrder') {
+                  return `${failure.filePath} line ${failure.line}: alt attribute must appear before src for ${failure.url}`;
+                }
+                return `${failure.filePath} line ${failure.line}: missing ${OWNER}/${rp.repo}:${rp.ref}/${rp.path}`;
+              });
+              const block = lines.join('\n');
+              core.exportVariable('ERROR_BLOCK', block);
+              return;
+            }
+
+            core.exportVariable('ERROR_BLOCK', '');
+            core.info(`Validated ${references.length} OrcaSlicer image link(s). All exist.`);
+
+            function lineFromIndex(text, index) {
+              let line = 1;
+              for (let i = 0; i < index; i += 1) {
+                if (text.charCodeAt(i) === 10) {
+                  line += 1;
+                }
+              }
+              return line;
+            }
+
+            // Parse GitHub URLs and normalize owner/repo/ref/path info.
+            function parseOrcaLink(rawUrl) {
+              let parsed;
+              try {
+                parsed = new URL(rawUrl);
+              } catch (_) {
+                return null;
+              }
+
+              const scheme = parsed.protocol.replace(':', '').toLowerCase();
+              if (!['http', 'https'].includes(scheme)) {
+                return null;
+              }
+
+              const hostname = parsed.hostname.toLowerCase();
+              if (!['github.com', 'raw.githubusercontent.com'].includes(hostname)) {
+                return null;
+              }
+
+              const parts = parsed.pathname.split('/').filter(Boolean);
+              if (!parts.length || parts[0].toLowerCase() !== ownerLower) {
+                return null;
+              }
+
+              if (hostname === 'github.com') {
+                if (parts.length < 5) {
+                  return null;
+                }
+                const repo = parts[1];
+                const blobOrRaw = parts[2];
+                const ref = decodeURIComponent(parts[3]);
+                if (!['blob', 'raw'].includes(blobOrRaw)) {
+                  return null;
+                }
+                const relPath = decodeURIComponent(parts.slice(4).join('/'));
+                const rawParam = parsed.searchParams.get('raw');
+                const hasRawQuery = typeof rawParam === 'string' && rawParam.toLowerCase() === 'true';
+                return { repo, ref, path: relPath, needsRawQuery: true, hasRawQuery };
+              }
+
+              if (hostname === 'raw.githubusercontent.com') {
+                if (parts.length < 4) {
+                  return null;
+                }
+                const repo = parts[1];
+                const ref = decodeURIComponent(parts[2]);
+                const relPath = decodeURIComponent(parts.slice(3).join('/'));
+                return { repo, ref, path: relPath, needsRawQuery: false, hasRawQuery: true };
+              }
+
+              return null;
+            }
+
+            // Expected alt text is the asset filename without extension.
+            function expectedAltFromRepoPath(repoPath) {
+              const baseName = path.basename(repoPath.path || '');
+              if (!baseName) {
+                return '';
+              }
+              const dotIndex = baseName.lastIndexOf('.');
+              if (dotIndex <= 0) {
+                return baseName;
+              }
+              return baseName.slice(0, dotIndex);
+            }
+
+            async function repoPathExists(repoPath, currentRepoName, root, cacheMap) {
+              const key = `${repoPath.repo}|${repoPath.ref}|${repoPath.path}`;
+              if (cacheMap.has(key)) {
+                return cacheMap.get(key);
+              }
+
+              let exists;
+              if (repoPath.repo === currentRepoName) {
+                const normalized = path.normalize(repoPath.path);
+                const candidate = path.join(root, normalized);
+                exists = candidate.startsWith(root) && fs.existsSync(candidate);
+              } else {
+                exists = await remoteExists(repoPath);
+              }
+
+              cacheMap.set(key, exists);
+              return exists;
+            }
+
+            async function remoteExists(repoPath) {
+              const encodedPath = repoPath.path
+                .split('/')
+                .filter(Boolean)
+                .map((segment) => encodeURIComponent(segment))
+                .join('/');
+              const ref = encodeURIComponent(repoPath.ref);
+              const url = `https://api.github.com/repos/${OWNER}/${repoPath.repo}/contents/${encodedPath}?ref=${ref}`;
+              const headers = {
+                Accept: 'application/vnd.github+json',
+                'User-Agent': 'orca-image-validator',
+                'X-GitHub-Api-Version': '2022-11-28',
+              };
+              if (process.env.GITHUB_TOKEN) {
+                headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+              }
+
+              const response = await fetch(url, { headers });
+              if (response.status === 200) {
+                return true;
+              }
+              if (response.status === 404) {
+                return false;
+              }
+              const body = await response.text();
+              throw new Error(`GitHub API ${response.status} for ${url}: ${body}`);
+            }
+
+      - name: Show invalid image references
+        if: env.ERROR_BLOCK != ''
+        run: |
+          echo 'Invalid OrcaSlicer image references:'
+          printf "\`\`\`\n%s\n\`\`\`\n" "${{ env.ERROR_BLOCK }}"
+          exit 1
