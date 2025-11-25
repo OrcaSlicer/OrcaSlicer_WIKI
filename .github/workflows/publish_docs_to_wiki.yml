@@ -1,6 +1,5 @@
 name: Publish docs to Wiki
 
-# Trigger this action only if there are changes pushed to the doc/** directory under the main branch
 on:
   push:
     branches:
@@ -21,11 +20,15 @@ env:
 
 jobs:
   publish_docs_to_wiki:
-    name: Publish docs to Wiki
+    name: Updated OrcaSlicer Wiki
     runs-on: ubuntu-latest
     steps:  
       - name: Checkout repository
         uses: actions/checkout@v5
+
+      - name: debug info
+        run: |
+          cat ./Home.md
 
       # Publish content to wiki
       - name: Pull content from wiki
@@ -34,8 +37,13 @@ jobs:
           git config --global user.name "$USER_NAME"
           git config --global user.email "$USER_NAME"@users.noreply.github.com
           git clone https://"$USER_TOKEN"@github.com/"$OWNER"/"$REPOSITORY_NAME".wiki.git tmp_wiki
+          echo "---debug info before rsync---"
+          cat ./tmp_wiki/Home.md
+
           rsync -av --delete ${{ github.workspace }} tmp_wiki/ --exclude .git
           cd tmp_wiki
+          echo "---debug info after rsync---"
+          cat ./Home.md
           git add .
           git commit -m "Updated Wiki content" 
           git push origin master
