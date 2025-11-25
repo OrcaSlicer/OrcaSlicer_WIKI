@@ -1,8 +1,6 @@
+# <span style="display: block; text-align: center; line-height: 1.15; margin: 0 0 0.35em;"><img alt="OrcaSlicer" src="https://github.com/OrcaSlicer/OrcaSlicer/raw/main/resources/images/OrcaSlicer.png?raw=true" width="15%" height="15%" style="display: block; margin: 0 auto 0.2em;">OrcaSlicer Wiki</span>
+
 <div align="center">
-
-<img alt="OrcaSlicer" src="https://github.com/OrcaSlicer/OrcaSlicer/raw/main/resources/images/OrcaSlicer.png" width="15%" height="15%">
-
-# OrcaSlicer WIKI
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/OrcaSlicer/OrcaSlicer_WIKI)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/stargazers) [![Publish docs to Wiki](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/publish_docs_to_wiki.yml/badge.svg)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/publish_docs_to_wiki.yml)
 
