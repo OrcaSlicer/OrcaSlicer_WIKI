@@ -73,7 +73,7 @@ Layer time variability refers to the differences in time it takes to print each 
 > This **WILL NOT** be the same for all models and only serves as a standard guideline.
 
 > [!TIP]
-> You can see how this analysis was made in [infill-analysis](https://github.com/OrcaSlicer/OrcaSlicer/tree/main/doc/print_settings/strength/infill-analysis) folder:
+> You can see how this analysis was made in [infill-analysis](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis) folder:
 >  - [Infill calculator Project](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis/infill_calculator.3mf?raw=true) to generate the gcode files and images.
 >  - [infill_desc_calculator.xlsx](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis/infill_desc_calculator.xlsx?raw=true) used to calculate the values above.  
 >  - Time, and material usage where simulated with the same [Klipper Estimator](https://github.com/Annex-Engineering/klipper_estimator) values to maintain consistency.

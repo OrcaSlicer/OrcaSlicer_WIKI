@@ -26,10 +26,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: debug info
-        run: |
-          cat ./Home.md
-
       # Publish content to wiki
       - name: Pull content from wiki
         working-directory: ${{ github.workspace }}/..
@@ -37,14 +33,9 @@ jobs:
           git config --global user.name "$USER_NAME"
           git config --global user.email "$USER_NAME"@users.noreply.github.com
           git clone https://"$USER_TOKEN"@github.com/"$OWNER"/"$REPOSITORY_NAME".wiki.git tmp_wiki
-          echo "---debug info before rsync---"
-          cat ./tmp_wiki/Home.md
-          echo "---github workspace---"
           echo ${{ github.workspace }}
-          rsync -av --delete ${{ github.workspace }} tmp_wiki/ --exclude .git
+          rsync -av --delete ${{ github.workspace }}/ tmp_wiki/ --exclude .git
           cd tmp_wiki
-          echo "---debug info after rsync---"
-          cat ./Home.md
           git add .
           git commit -m "Updated Wiki content" 
           git push origin master
