@@ -19,10 +19,29 @@ OrcaSlicer includes three approaches for calibrating the Pressure Advance value.
 
 ## Calibration
 
-You can use different methods to calibrate the Pressure Advance value, each with its own advantages and disadvantages.
+You can use different methods to calibrate the Pressure Advance value, each with its own pros and cons.  
+OrcaSlicer includes three calibration methods, and each one has two versions: one for direct-drive and one for Bowden extruders. Make sure to choose the correct version for your setup.
 
-The results from these methods should be saved to the material profile.  
-![pressure_advance_enable](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable.png?raw=true)
+The nozzle size also plays a key role in determining the optimal PA value. A smaller nozzle increases flow resistance, which changes how pressure builds up and releases. Even with the same material, you’ll need to recalibrate PA when switching nozzle sizes.
+
+The results from these methods should be saved to the material profile in one of the following ways:
+
+- Nozzle, Pressure Advance **- Recommended**: This applies the value for the selected nozzle size. If the exact size is not listed, it uses linear interpolation between the nearest larger and smaller nozzle values. If the size is below the minimum or above the maximum listed, it uses the minimum or maximum value.
+  ```c++
+  0.25,0.09
+  0.3,0.065
+  0.35,0.05
+  0.4,0.02
+  0.5,0.018
+  0.6,0.012
+  0.8,0.01
+  ```
+  ![pressure_advance_enable_multi](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/pa/pressure_advance_enable_multi.png?raw=true)
+- Global, Pressure Advance **- Legacy**: This applies a single Pressure Advance (PA) value with no per-nozzle entries. Not recommended unless you use only one nozzle size.
+  ```c++
+  0.02
+  ```
+  ![pressure_advance_enable_single](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/pa/pressure_advance_enable_single.png?raw=true)
 
 > [!TIP]
 > Consider using the [Adaptive Pressure Advance](adaptive-pressure-advance-calib) method for more accurate results.  
