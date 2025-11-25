@@ -42,7 +42,7 @@ Each object gets its own skirt printed separately.
 
 Minimum filament extrusion length in mm when printing the skirt. Zero means this feature is disabled.  
 Using a non-zero value is useful if the printer is set up to print without a prime line.  
-Final number of loops is not taking into account while arranging or validating objects distance. Increase loop number in such case.
+Final number of loops is not taken into account while arranging or validating objects distance. Increase loop number in such case.
 
 ## Distance
 
