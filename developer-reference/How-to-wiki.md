@@ -2,10 +2,9 @@
 
 This guide explains how to contribute to the OrcaSlicer wiki.
 
-OrcaSlicer uses GitHub's wiki feature, which lets users and developers create and edit documentation collaboratively.
+OrcaSlicer uses GitHub's wiki feature, which is automatically generated based on the documents in the [OrcaSlicer_WIKI repository](https://github.com/OrcaSlicer/OrcaSlicer_WIKI).
 
-We encourage developers and users to contribute by updating existing pages and adding new content. This helps keep the documentation accurate and useful.
-
+We encourage developers and users to contribute by updating existing pages and adding new content. This helps keep the documentation accurate and useful.  
 When adding new features, consider updating the wiki so users can access the latest guidance.
 
 - [Wiki Structure](#wiki-structure)
@@ -31,7 +30,8 @@ When adding new features, consider updating the wiki so users can access the lat
 
 ## Wiki Structure
 
-Each wiki page is a Markdown file located in the `doc` directory of the repository. The wiki is organized into sections that cover different areas of the project.
+Each page of the Wiki is a Markdown file located in the [OrcaSlicer_WIKI repository](https://github.com/OrcaSlicer/OrcaSlicer_WIKI).  
+The wiki is organized into sections that cover different areas of the project.
 
 ### Home
 
