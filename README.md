@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="OrcaSlicer" src="https://github.com/OrcaSlicer/OrcaSlicer/raw/main/resources/images/OrcaSlicer.png" width="15%" height="15%">
+<img alt="OrcaSlicer" src="https://github.com/OrcaSlicer/OrcaSlicer/raw/main/resources/images/OrcaSlicer.png?raw=true" width="15%" height="15%">
 
 # OrcaSlicer WIKI
 
