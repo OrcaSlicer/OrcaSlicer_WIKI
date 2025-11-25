@@ -36,7 +36,7 @@ Theoretically, 100% means a solid bridge, but due to the tendency of bridge extr
 ## Thick bridges
 
 When enabled, bridge extrusion uses a line height equal to the nozzle diameter.  
-![thick-bridges](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/bridging/thick-bridges.png?raw=true)  
+![thick-bridges](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/thick-bridges.png?raw=true)  
 This improves the strength and reliability of bridges, allowing you to span longer distances; however, it may produce a rougher surface finish.  
 Disabling this option can improve bridge appearance, but it is recommended only for shorter spans or when using large nozzles.  
 We recommend enabling this option for internal bridges, as it increases their reliability when printed over sparse infill.
@@ -78,8 +78,8 @@ This option creates bridges for counterbore holes, allowing them to be printed w
 Available modes include:
 
 - **None:** No bridge is created.  
-  ![bridge-counterbore-none](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/bridging/bridge-counterbore-none.png?raw=true)
+  ![bridge-counterbore-none](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-counterbore-none.png?raw=true)
 - **Partially Bridged:** Only a part of the unsupported area will be bridged, creating a supporting layer for the next layer.  
-  ![bridge-counterbore-partially](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/bridging/bridge-counterbore-partially.gif?raw=true)
+  ![bridge-counterbore-partially](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-counterbore-partially.gif?raw=true)
 - **Sacrificial Layer:** A full sacrificial bridge layer is created. This will close the counterbore hole, allowing the next layer to be printed without sagging. The sacrificial layer must be broken through after printing.  
-  ![bridge-counterbore-sacrificial](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/bridging/bridge-counterbore-sacrificial.png?raw=true)
+  ![bridge-counterbore-sacrificial](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-counterbore-sacrificial.png?raw=true)

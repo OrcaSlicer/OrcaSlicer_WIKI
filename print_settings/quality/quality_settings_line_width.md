@@ -79,7 +79,7 @@ Typically set to **100%** to balance material usage and functionality. Reducing 
 Bridges are printed in mid-air, so the bridge line width can't exceed the nozzle diameter.
 To achieve proper bridge lines union between contiguous lines and reduce sagging, it's recommended to use **~100%** of the nozzle diameter and increase [Bridge density](quality_settings_bridging#bridge-density) or [Bridge Flow Rate](quality_settings_bridging#flow-ratio) **~1.5**.
 
-![bridge_line_width_1](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/bridging/bridge_line_width_1.svg?raw=true)
-![bridge_line_width_2](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/bridging/bridge_line_width_2.svg?raw=true)
+![bridge_line_width_1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge_line_width_1.svg?raw=true)
+![bridge_line_width_2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge_line_width_2.svg?raw=true)
 
 If disabled (set to 0), [Internal Solid Infill](#internal-solid-infill) line width will be used for bridges.
