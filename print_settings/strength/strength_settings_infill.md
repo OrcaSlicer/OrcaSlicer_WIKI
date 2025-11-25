@@ -5,6 +5,9 @@ Infill is the internal structure of a 3D print, providing strength and support. 
 - [Sparse infill density](#sparse-infill-density)
 - [Fill Multiline](#fill-multiline)
   - [Use cases](#use-cases)
+  - [Strategy](#strategy)
+    - [Classic Strategy](#classic-strategy)
+    - [Non-Crossing Strategy](#non-crossing-strategy)
 - [Direction and Rotation](#direction-and-rotation)
   - [Direction](#direction)
   - [Rotation](#rotation)
@@ -64,10 +67,22 @@ This setting allows you to generate your selected [infill pattern](#sparse-infil
 
 ![infill-multiline-aesthetic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-aesthetic.gif?raw=true)
 
-> [!WARNING]
-> For self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubic), [Grid](strength_settings_patterns#grid)) multiline count greater than 3 may cause layer shift, extruder clog or other issues due to overlapping of lines on intersection points.
->
-> ![infill-multiline-overlapping](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-overlapping.gif?raw=true)
+### Strategy
+
+The way multiple lines are generated depends on the selected infill pattern.  
+Some patterns will expand the lines outward from the center, while others may use a non-crossing strategy to improve speed, strength, and printability.
+
+#### Classic Strategy
+
+For some self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
+
+![infill-multiline-closed-loops](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-closed-loops.png?raw=true)
+
+#### Non-Crossing Strategy
+
+Some patterns (e.g. [Grid](strength_settings_patterns#grid), [Triangle](strength_settings_patterns#triangle)) use a Non-crossing multiline strategy.
+
+![infill-multiline-non-crossing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-non-crossing.png?raw=true)
 
 ## Direction and Rotation
 
