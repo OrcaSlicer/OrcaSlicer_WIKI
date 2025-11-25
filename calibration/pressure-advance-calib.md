@@ -36,12 +36,12 @@ The results from these methods should be saved to the material profile in one of
   0.6,0.012
   0.8,0.01
   ```
-  ![pressure_advance_enable_multi](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/pa/pressure_advance_enable_multi.png?raw=true)
+  ![pressure_advance_enable_multi](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable_multi.png?raw=true)
 - Global, Pressure Advance **- Legacy**: This applies a single Pressure Advance (PA) value with no per-nozzle entries. Not recommended unless you use only one nozzle size.
   ```c++
   0.02
   ```
-  ![pressure_advance_enable_single](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/doc/images/pa/pressure_advance_enable_single.png?raw=true)
+  ![pressure_advance_enable_single](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable_single.png?raw=true)
 
 > [!TIP]
 > Consider using the [Adaptive Pressure Advance](adaptive-pressure-advance-calib) method for more accurate results.  
