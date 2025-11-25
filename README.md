@@ -12,5 +12,4 @@ Documents in this Repository are automatically synchronized with the [OrcaSlicer
 
 To learn how to contribute to the wiki, please refer to the following guide: **[How-to-wiki](https://github.com/OrcaSlicer/OrcaSlicer/wiki/How-to-wiki)**
 
-> [!NOTE]
-> The wiki is a work in progress. We appreciate your patience as we continue to develop and improve it!
+Please Note that this wiki is a work in progress. We appreciate your patience as we continue to develop and improve it!
