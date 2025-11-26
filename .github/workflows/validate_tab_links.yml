@@ -1,0 +1,295 @@
+name: Validate Tab Links
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 1'
+
+jobs:
+  tab-link-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      ERROR_BLOCK: ''
+    steps:
+      - name: Checkout wiki
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate OrcaSlicer Tab links
+        id: validate_tab_links
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const TAB_URL = 'https://raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/main/src/slic3r/GUI/Tab.cpp';
+            const workspaceRoot = process.cwd();
+            const markdownNameIndex = new Map();
+            const fileContents = new Map();
+            const headingCache = new Map();
+            let markdownIndexReady = false;
+
+            const response = await fetch(TAB_URL);
+            if (!response.ok) {
+              core.setFailed(`Failed to download Tab.cpp: ${response.status} ${response.statusText}`);
+              return;
+            }
+            const source = await response.text();
+
+            const references = collectReferences(source);
+            if (!references.length) {
+              core.info('No double-string append_single_option_line entries found.');
+              return;
+            }
+
+            ensureMarkdownIndex();
+
+            const failures = [];
+            for (const reference of references) {
+              const target = reference.target;
+              const hashCount = (target.match(/#/g) || []).length;
+              if (hashCount > 1) {
+                failures.push(formatFailure(reference, 'hashCount', target));
+                continue;
+              }
+
+              const hasAnchor = hashCount === 1;
+              const hashIndex = hasAnchor ? target.indexOf('#') : -1;
+              const docName = hasAnchor ? target.slice(0, hashIndex).trim() : target.trim();
+              const anchorRaw = hasAnchor ? target.slice(hashIndex + 1).trim() : '';
+
+              if (!docName) {
+                failures.push(formatFailure(reference, 'missingDocName', target));
+                continue;
+              }
+              if (/[\\/]/.test(docName)) {
+                failures.push(formatFailure(reference, 'pathNotAllowed', target));
+                continue;
+              }
+              if (docName.toLowerCase().endsWith('.md')) {
+                failures.push(formatFailure(reference, 'extensionNotAllowed', target));
+                continue;
+              }
+
+              const matches = findMarkdownDocuments(docName);
+              if (!matches.length) {
+                failures.push(formatFailure(reference, 'missingDocument', `${docName}.md`));
+                continue;
+              }
+              if (matches.length > 1) {
+                failures.push(formatFailure(reference, 'ambiguousDocument', `${docName} -> ${matches.slice(0, 5).join(', ')}`));
+                continue;
+              }
+
+              if (!hasAnchor) {
+                continue;
+              }
+
+              const relativePath = matches[0];
+              const absolutePath = path.join(workspaceRoot, relativePath);
+              if (!fs.existsSync(absolutePath)) {
+                failures.push(formatFailure(reference, 'missingDocument', relativePath));
+                continue;
+              }
+
+              if (!anchorRaw) {
+                failures.push(formatFailure(reference, 'missingAnchor', target));
+                continue;
+              }
+
+              const anchors = getAnchors(relativePath);
+              const anchorSlug = normalizeAnchor(anchorRaw);
+              if (!anchorSlug) {
+                failures.push(formatFailure(reference, 'missingAnchor', target));
+                continue;
+              }
+              if (!anchors.has(anchorSlug)) {
+                failures.push(formatFailure(reference, 'missingCrossDocAnchor', `${docName}#${anchorRaw}`));
+              }
+            }
+
+            if (failures.length) {
+              const block = failures.join('\n');
+              core.exportVariable('ERROR_BLOCK', block);
+              return;
+            }
+
+            core.exportVariable('ERROR_BLOCK', '');
+            core.info(`Validated ${references.length} Tab link(s). All good.`);
+
+            function collectReferences(text) {
+              const pattern = /append_single_option_line\s*\(\s*"([^"]+)"\s*(?:,\s*"([^"]+)")?/g;
+              const refs = [];
+              let match;
+              while ((match = pattern.exec(text)) !== null) {
+                if (!match[2]) {
+                  continue;
+                }
+                refs.push({
+                  option: match[1],
+                  target: match[2].trim(),
+                  line: lineFromIndex(text, match.index),
+                });
+              }
+              return refs;
+            }
+
+            function ensureMarkdownIndex() {
+              if (markdownIndexReady) {
+                return;
+              }
+              indexMarkdownFiles('');
+              markdownIndexReady = true;
+            }
+
+            function indexMarkdownFiles(relativeDir) {
+              const absoluteDir = relativeDir ? path.join(workspaceRoot, relativeDir) : workspaceRoot;
+              let entries;
+              try {
+                entries = fs.readdirSync(absoluteDir, { withFileTypes: true });
+              } catch (_) {
+                return;
+              }
+
+              for (const entry of entries) {
+                if (entry.name === '.git') {
+                  continue;
+                }
+                const relativePath = relativeDir ? `${relativeDir}/${entry.name}` : entry.name;
+                if (entry.isDirectory()) {
+                  indexMarkdownFiles(relativePath);
+                } else if (entry.isFile() && entry.name.toLowerCase().endsWith('.md')) {
+                  const key = entry.name.slice(0, -3).toLowerCase();
+                  const normalized = relativePath.replace(/\\/g, '/');
+                  if (markdownNameIndex.has(key)) {
+                    markdownNameIndex.get(key).push(normalized);
+                  } else {
+                    markdownNameIndex.set(key, [normalized]);
+                  }
+                }
+              }
+            }
+
+            function findMarkdownDocuments(baseName) {
+              const key = baseName.toLowerCase();
+              return markdownNameIndex.get(key) || [];
+            }
+
+            function getAnchors(relativePath) {
+              if (headingCache.has(relativePath)) {
+                return headingCache.get(relativePath);
+              }
+              if (!fileContents.has(relativePath)) {
+                const absolutePath = path.join(workspaceRoot, relativePath);
+                if (!fs.existsSync(absolutePath)) {
+                  headingCache.set(relativePath, new Set());
+                  return headingCache.get(relativePath);
+                }
+                const text = fs.readFileSync(absolutePath, 'utf8');
+                fileContents.set(relativePath, text);
+              }
+              const text = fileContents.get(relativePath);
+              const anchors = collectHeadingAnchors(text);
+              headingCache.set(relativePath, anchors);
+              return anchors;
+            }
+
+            function collectHeadingAnchors(text) {
+              const anchors = new Set();
+              const slugCounts = new Map();
+              const lines = text.split(/\r?\n/);
+              for (const line of lines) {
+                const match = line.match(/^\s{0,3}(#{1,6})\s+(.*)$/);
+                if (!match) {
+                  continue;
+                }
+                let headingText = match[2].trim();
+                headingText = headingText.replace(/\s+#+\s*$/, '').trim();
+                if (!headingText) {
+                  continue;
+                }
+                let slug = slugify(headingText);
+                if (!slug) {
+                  continue;
+                }
+                const count = slugCounts.get(slug) || 0;
+                if (count === 0) {
+                  slugCounts.set(slug, 1);
+                  anchors.add(slug);
+                } else {
+                  slugCounts.set(slug, count + 1);
+                  anchors.add(`${slug}-${count}`);
+                }
+              }
+              return anchors;
+            }
+
+            function slugify(value) {
+              const normalized = value
+                .normalize('NFKD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .trim()
+                .toLowerCase();
+              const cleaned = normalized
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+              return cleaned;
+            }
+
+            function normalizeAnchor(raw) {
+              if (!raw) {
+                return '';
+              }
+              let decoded = raw.trim();
+              try {
+                decoded = decodeURIComponent(decoded);
+              } catch (_) {
+                // ignore decode failures
+              }
+              return slugify(decoded);
+            }
+
+            function lineFromIndex(text, index) {
+              let line = 1;
+              for (let i = 0; i < index; i += 1) {
+                if (text.charCodeAt(i) === 10) {
+                  line += 1;
+                }
+              }
+              return line;
+            }
+
+            function formatFailure(reference, reason, details) {
+              switch (reason) {
+                case 'hashCount':
+                  return `Tab.cpp line ${reference.line}: link "${details}" cannot contain more than one '#'.`;
+                case 'missingDocName':
+                  return `Tab.cpp line ${reference.line}: link "${details}" must include a document name.`;
+                case 'missingAnchor':
+                  return `Tab.cpp line ${reference.line}: link "${details}" must include a heading name after '#'.`;
+                case 'pathNotAllowed':
+                  return `Tab.cpp line ${reference.line}: link "${details}" must omit any directory segments.`;
+                case 'extensionNotAllowed':
+                  return `Tab.cpp line ${reference.line}: link "${details}" must omit the .md suffix.`;
+                case 'missingDocument':
+                  return `Tab.cpp line ${reference.line}: document ${details} does not exist in the wiki.`;
+                case 'ambiguousDocument':
+                  return `Tab.cpp line ${reference.line}: document reference is ambiguous (${details}).`;
+                case 'missingCrossDocAnchor':
+                  return `Tab.cpp line ${reference.line}: heading ${details} was not found.`;
+                default:
+                  return `Tab.cpp line ${reference.line}: invalid link ${details}.`;
+              }
+            }
+
+      - name: Show invalid Tab links
+        if: env.ERROR_BLOCK != ''
+        run: |
+          echo 'Invalid Tab links:'
+          printf '```\n%s\n```\n' "${{ env.ERROR_BLOCK }}"
+          exit 1
