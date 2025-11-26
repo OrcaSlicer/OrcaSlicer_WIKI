@@ -4,8 +4,7 @@
 
 # OrcaSlicer WIKI
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/OrcaSlicer/OrcaSlicer_WIKI)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/stargazers) [![Publish docs to Wiki](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/publish_docs_to_wiki.yml/badge.svg)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/publish_docs_to_wiki.yml)
-
+[![GitHub Repo stars](https://img.shields.io/github/stars/OrcaSlicer/OrcaSlicer_WIKI)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/stargazers) [![Publish docs to Wiki](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/publish_docs_to_wiki.yml/badge.svg)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/publish_docs_to_wiki.yml)[![Validate Tab Links](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/validate_tab_links.yml/badge.svg)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/validate_tab_links.yml)
 </div>
 
 This is the official Wiki Repository for [OrcaSlicer](https://github.com/OrcaSlicer/OrcaSlicer).
