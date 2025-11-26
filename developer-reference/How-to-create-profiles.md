@@ -114,17 +114,17 @@ The following sample JSON file shows how to create a new generic filament profil
 
 ```json
 {
-    "name": "OrcaFilamentLibrary",
-    "version": "02.02.00.04",
-    "force_update": "0",
-    "description": "Orca Filament Library",
-    "filament_list": [
-        // ...
-        {
-            "name": "Generic PLA-GF @System",
-            "sub_path": "filament/Generic PLA-GF @System.json"
-        }
-    ]
+  "name": "OrcaFilamentLibrary",
+  "version": "02.02.00.04",
+  "force_update": "0",
+  "description": "Orca Filament Library",
+  "filament_list": [
+    // ...
+    {
+      "name": "Generic PLA-GF @System",
+      "sub_path": "filament/Generic PLA-GF @System.json"
+    }
+  ]
 }
 ```
 
@@ -135,15 +135,16 @@ The following sample JSON file shows how to create a new generic filament profil
 
 > [!TIP]
 > **Testing Profile Changes**
-> 
+>
 > When developing profiles, you may notice that changes aren't reflected in OrcaSlicer after editing profile files. This happens because OrcaSlicer caches profiles in the system folder.
 > To force OrcaSlicer to load your updated profiles:
-> 1. **Access the configuration folder**: Go to **Help** → **Show Configuration Folder**
+>
+> 1. **Access the configuration folder**: Go to **Help** → **Show Configuration Folder**.  
 >    ![go-to-configuration-folder](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/go-to-configuration-folder.png?raw=true)
-> 2. **Clear the cache**: Delete the `system` folder to remove cached profiles
+> 2. **Clear the cache**: Delete the `system` folder to remove cached profiles.  
 >    ![profile-delete-system-folder](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/profile-delete-system-folder.png?raw=true)
-> 3. **Restart OrcaSlicer**: Launch the application to load your updated profiles
-> This process forces OrcaSlicer to update its profile cache from the source files in the `resources/profiles/` directory.
+> 3. **Restart OrcaSlicer**: Launch the application to load your updated profiles.  
+>    This process forces OrcaSlicer to update its profile cache from the source files in the `resources/profiles/` directory.
 
 ### Adding Filament Profiles to Printer Vendor Library
 
@@ -248,7 +249,7 @@ Example:
 resources\profiles\vendor_name\machine\
 ```
 
-- Each vendor's folder may contain an image named:
+- Each vendor's folder may contain an 240x240px image named:
 
 ```shell
 [machine_model_list.name]_cover.png
