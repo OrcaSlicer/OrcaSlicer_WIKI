@@ -78,12 +78,19 @@ jobs:
             // Regex helpers for Markdown images and inline HTML <img> tags.
             const markdownImagePattern = /!\[(?<alt>[^\]]*)\]\(\s*(?<url>[^)\s]+)(?:\s+"[^"]*")?\s*\)/g;
             const htmlImagePattern = /<img\b[^>]*>/gi;
+            const codeBlockPattern = /^```+[\s\S]*?^```+$/gm;
+
+            // Helper function to remove code blocks from text
+            function removeCodeBlocks(text) {
+              return text.replace(codeBlockPattern, '');
+            }
 
             const references = [];
 
             for (const relativePath of candidateFiles) {
               const absolutePath = path.join(workspace, relativePath);
               const text = fs.readFileSync(absolutePath, 'utf8');
+              const textWithoutCodeBlocks = removeCodeBlocks(text);
 
               // Collect every image reference with enough metadata for validation.
               const addReference = (url, index, altText = '', options = {}) => {
@@ -104,7 +111,7 @@ jobs:
 
               markdownImagePattern.lastIndex = 0;
               let match;
-              while ((match = markdownImagePattern.exec(text)) !== null) {
+              while ((match = markdownImagePattern.exec(textWithoutCodeBlocks)) !== null) {
                 const url = match.groups ? match.groups.url : match[2];
                 if (url) {
                   const alt = match.groups ? match.groups.alt : match[1];
@@ -113,7 +120,7 @@ jobs:
               }
 
               htmlImagePattern.lastIndex = 0;
-              while ((match = htmlImagePattern.exec(text)) !== null) {
+              while ((match = htmlImagePattern.exec(textWithoutCodeBlocks)) !== null) {
                 const tag = match[0];
                 const attrs = {};
                 const attrPattern = /([a-zA-Z_:][\w:.-]*)\s*=\s*("([^"]*)"|'([^']*)')/g;
@@ -177,7 +184,8 @@ jobs:
                   return `${failure.filePath} line ${failure.line}: add ?raw=true to ${failure.url}`;
                 }
                 if (failure.reason === 'altMismatch') {
-                  return `${failure.filePath} line ${failure.line}: alt text must be "${failure.expectedAlt}" but was "${failure.actualAlt}"`;
+                  const actualDisplay = failure.actualAlt || '(empty)';
+                  return `${failure.filePath} line ${failure.line}: alt text must be "${failure.expectedAlt}" but was "${actualDisplay}"`;
                 }
                 if (failure.reason === 'altOrder') {
                   return `${failure.filePath} line ${failure.line}: alt attribute must appear before src for ${failure.url}`;
