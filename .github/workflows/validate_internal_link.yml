@@ -1,0 +1,472 @@
+name: Validate Internal Links
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '**/*.markdown'
+      - '**/*.mdown'
+      - '**/*.mkd'
+      - '**/*.mkdn'
+      - '**/*.mdx'
+
+jobs:
+  internal-link-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      ERROR_BLOCK: ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Validate internal documentation links
+        id: validate_internal_links
+        uses: actions/github-script@v8
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        with:
+          script: |
+            const { execSync } = require('child_process');
+            const fs = require('fs');
+            const path = require('path');
+
+            const workspace = process.cwd();
+            const workspaceRoot = path.resolve(workspace);
+            const allowedExt = new Set(['.md', '.markdown', '.mdown', '.mkd', '.mkdn', '.mdx']);
+            const markdownNameIndex = new Map();
+            let markdownIndexReady = false;
+
+            const baseSha = process.env.BASE_SHA;
+            const headSha = process.env.HEAD_SHA;
+            if (!baseSha || !headSha) {
+              core.setFailed('Missing base/head commit SHAs.');
+              return;
+            }
+
+            let diffOutput = '';
+            try {
+              diffOutput = execSync(`git diff --name-only ${baseSha}..${headSha}`, { encoding: 'utf8' }).trim();
+            } catch (error) {
+              core.setFailed(`git diff failed: ${error.message}`);
+              return;
+            }
+
+            if (!diffOutput) {
+              core.info('No files changed; skipping internal link validation.');
+              return;
+            }
+
+            const candidateFiles = diffOutput.split(/\r?\n/)
+              .map((file) => file.trim())
+              .filter(Boolean)
+              .filter((file) => allowedExt.has(path.extname(file).toLowerCase()))
+              .filter((file) => fs.existsSync(path.join(workspaceRoot, file)));
+
+            if (!candidateFiles.length) {
+              core.info('No Markdown files changed; skipping internal link validation.');
+              return;
+            }
+
+            const fileContents = new Map();
+            const references = [];
+            const markdownLinkPattern = /\[(?<text>[^\]]*)\]\(\s*(?<url><[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\s*\)/g;
+
+            for (const relativePath of candidateFiles) {
+              const absolutePath = path.join(workspaceRoot, relativePath);
+              const text = fs.readFileSync(absolutePath, 'utf8');
+              fileContents.set(relativePath, text);
+
+              markdownLinkPattern.lastIndex = 0;
+              let match;
+              while ((match = markdownLinkPattern.exec(text)) !== null) {
+                const previousChar = match.index > 0 ? text[match.index - 1] : '';
+                if (previousChar === '!') {
+                  continue; // Skip images.
+                }
+                const url = match.groups ? match.groups.url : match[2];
+                if (!url) {
+                  continue;
+                }
+                let target = url.trim();
+                if (!target) {
+                  continue;
+                }
+                if (target.startsWith('<') && target.endsWith('>')) {
+                  target = target.slice(1, -1).trim();
+                }
+                if (!target) {
+                  continue;
+                }
+                references.push({
+                  filePath: relativePath,
+                  line: lineFromIndex(text, match.index),
+                  target,
+                });
+              }
+            }
+
+            if (!references.length) {
+              core.info('No markdown links found in updated files.');
+              return;
+            }
+
+            const headingCache = new Map();
+            const failures = [];
+
+            for (const reference of references) {
+              const classification = classifyTarget(reference.target);
+              if (classification.type === 'external' || classification.type === 'ignore') {
+                continue;
+              }
+
+              if (classification.type === 'invalidHashCount') {
+                failures.push(formatFailure(reference, 'invalidHashCount', classification.raw));
+                continue;
+              }
+
+              if (classification.type === 'sameDocAnchor') {
+                if (!classification.anchorSlug) {
+                  failures.push(formatFailure(reference, 'sameDocEmptyAnchor', reference.target));
+                  continue;
+                }
+                const anchors = getAnchors(reference.filePath);
+                if (!anchors.has(classification.anchorSlug)) {
+                  failures.push(formatFailure(reference, 'missingSameDocAnchor', `#${classification.anchorRaw}`));
+                }
+                continue;
+              }
+
+              if (classification.type === 'docOnly' || classification.type === 'docWithAnchor') {
+                const docResult = resolveDocumentPath(reference.filePath, classification.docPathRaw);
+                if (docResult.error) {
+                  failures.push(formatFailure(reference, docResult.error, docResult.detail || classification.docPathRaw));
+                  continue;
+                }
+
+                if (!fs.existsSync(docResult.absolutePath)) {
+                  failures.push(formatFailure(reference, 'missingDocument', docResult.relativePath || `${docResult.linkPath}.md`));
+                  continue;
+                }
+
+                if (classification.type === 'docOnly') {
+                  continue;
+                }
+
+                if (!classification.anchorSlug) {
+                  failures.push(formatFailure(reference, 'crossDocEmptyAnchor', reference.target));
+                  continue;
+                }
+
+                const anchors = getAnchors(docResult.relativePath);
+                if (!anchors.has(classification.anchorSlug)) {
+                  failures.push(formatFailure(reference, 'missingCrossDocAnchor', `${docResult.linkPath}#${classification.anchorRaw}`));
+                }
+              }
+            }
+
+            if (failures.length) {
+              const block = failures.join('\n');
+              core.exportVariable('ERROR_BLOCK', block);
+              return;
+            }
+
+            core.exportVariable('ERROR_BLOCK', '');
+            core.info(`Validated ${references.length} internal markdown link(s). All constraints satisfied.`);
+
+            function classifyTarget(target) {
+              const trimmed = target.trim();
+              if (!trimmed) {
+                return { type: 'ignore' };
+              }
+
+              if (trimmed.startsWith('#')) {
+                if (trimmed.indexOf('#', 1) !== -1) {
+                  return { type: 'invalidHashCount', raw: trimmed };
+                }
+                const anchorRaw = trimmed.slice(1);
+                return {
+                  type: 'sameDocAnchor',
+                  anchorRaw,
+                  anchorSlug: normalizeAnchor(anchorRaw),
+                };
+              }
+
+              if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(trimmed) || trimmed.startsWith('//')) {
+                return { type: 'external' };
+              }
+
+              const firstHash = trimmed.indexOf('#');
+              if (firstHash !== -1 && trimmed.indexOf('#', firstHash + 1) !== -1) {
+                return { type: 'invalidHashCount', raw: trimmed };
+              }
+
+              const hashIndex = firstHash;
+              if (hashIndex === -1) {
+                return {
+                  type: 'docOnly',
+                  docPathRaw: trimmed,
+                };
+              }
+
+              const docPathRaw = trimmed.slice(0, hashIndex);
+              const anchorRaw = trimmed.slice(hashIndex + 1);
+              return {
+                type: docPathRaw ? 'docWithAnchor' : 'sameDocAnchor',
+                docPathRaw,
+                anchorRaw,
+                anchorSlug: normalizeAnchor(anchorRaw),
+              };
+            }
+
+            function resolveDocumentPath(fromFile, rawPath) {
+              const result = {
+                error: null,
+                relativePath: null,
+                absolutePath: null,
+                linkPath: null,
+                detail: rawPath,
+              };
+
+              if (!rawPath) {
+                result.error = 'emptyDocPath';
+                return result;
+              }
+
+              if (rawPath.includes('?')) {
+                result.error = 'queryNotAllowed';
+                return result;
+              }
+
+              let decoded = rawPath;
+              try {
+                decoded = decodeURIComponent(rawPath);
+              } catch (_) {
+                // Keep original when decoding fails.
+              }
+
+              const sanitized = decoded.replace(/\\/g, '/');
+              if (!sanitized || sanitized === '.' || sanitized === '..') {
+                result.error = 'missingDocName';
+                result.detail = rawPath;
+                return result;
+              }
+
+              if (sanitized.includes('/') || sanitized.includes('\\')) {
+                result.error = 'pathNotAllowed';
+                result.detail = rawPath;
+                return result;
+              }
+
+              if (sanitized.toLowerCase().endsWith('.md')) {
+                result.error = 'extensionNotAllowed';
+                result.detail = rawPath;
+                return result;
+              }
+
+              ensureMarkdownIndex();
+              const matches = findMarkdownDocuments(sanitized);
+              if (!matches.length) {
+                result.error = 'missingDocument';
+                result.detail = `${sanitized}.md`;
+                result.linkPath = sanitized;
+                return result;
+              }
+
+              if (matches.length > 1) {
+                result.error = 'ambiguousDocument';
+                result.detail = matches.slice(0, 5).join(', ');
+                result.linkPath = sanitized;
+                return result;
+              }
+
+              const relativePath = matches[0];
+              const absolutePath = path.join(workspaceRoot, relativePath);
+              const normalizedAbsolute = path.normalize(absolutePath);
+              const relativeToWorkspace = path.relative(workspaceRoot, normalizedAbsolute);
+              if (relativeToWorkspace.startsWith('..') || path.isAbsolute(relativeToWorkspace)) {
+                result.error = 'outsideWorkspace';
+                result.detail = rawPath;
+                return result;
+              }
+
+              result.relativePath = relativePath;
+              result.absolutePath = normalizedAbsolute;
+              result.linkPath = sanitized;
+              result.detail = relativePath;
+              return result;
+            }
+
+            function ensureMarkdownIndex() {
+              if (markdownIndexReady) {
+                return;
+              }
+              indexMarkdownFiles('');
+              markdownIndexReady = true;
+            }
+
+            function indexMarkdownFiles(relativeDir) {
+              const absoluteDir = relativeDir ? path.join(workspaceRoot, relativeDir) : workspaceRoot;
+              let entries;
+              try {
+                entries = fs.readdirSync(absoluteDir, { withFileTypes: true });
+              } catch (_) {
+                return;
+              }
+
+              for (const entry of entries) {
+                if (entry.name === '.git') {
+                  continue;
+                }
+                const relativePath = relativeDir ? `${relativeDir}/${entry.name}` : entry.name;
+                if (entry.isDirectory()) {
+                  indexMarkdownFiles(relativePath);
+                } else if (entry.isFile() && entry.name.toLowerCase().endsWith('.md')) {
+                  const key = entry.name.slice(0, -3).toLowerCase();
+                  const normalized = relativePath.replace(/\\/g, '/');
+                  if (markdownNameIndex.has(key)) {
+                    markdownNameIndex.get(key).push(normalized);
+                  } else {
+                    markdownNameIndex.set(key, [normalized]);
+                  }
+                }
+              }
+            }
+
+            function findMarkdownDocuments(baseName) {
+              const key = baseName.toLowerCase();
+              return markdownNameIndex.get(key) || [];
+            }
+
+            function getAnchors(relativePath) {
+              if (headingCache.has(relativePath)) {
+                return headingCache.get(relativePath);
+              }
+
+              if (!fileContents.has(relativePath)) {
+                const absolutePath = path.join(workspaceRoot, relativePath);
+                if (!fs.existsSync(absolutePath)) {
+                  headingCache.set(relativePath, new Set());
+                  return headingCache.get(relativePath);
+                }
+                const text = fs.readFileSync(absolutePath, 'utf8');
+                fileContents.set(relativePath, text);
+              }
+
+              const text = fileContents.get(relativePath);
+              const anchors = collectHeadingAnchors(text);
+              headingCache.set(relativePath, anchors);
+              return anchors;
+            }
+
+            function collectHeadingAnchors(text) {
+              const anchors = new Set();
+              const slugCounts = new Map();
+              const lines = text.split(/\r?\n/);
+
+              for (const line of lines) {
+                const match = line.match(/^\s{0,3}(#{1,6})\s+(.*)$/);
+                if (!match) {
+                  continue;
+                }
+                let headingText = match[2].trim();
+                headingText = headingText.replace(/\s+#+\s*$/, '').trim();
+                if (!headingText) {
+                  continue;
+                }
+                let slug = slugify(headingText);
+                if (!slug) {
+                  continue;
+                }
+                const count = slugCounts.get(slug) || 0;
+                if (count === 0) {
+                  slugCounts.set(slug, 1);
+                  anchors.add(slug);
+                } else {
+                  slugCounts.set(slug, count + 1);
+                  anchors.add(`${slug}-${count}`);
+                }
+              }
+
+              return anchors;
+            }
+
+            function slugify(value) {
+              const normalized = value
+                .normalize('NFKD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .trim()
+                .toLowerCase();
+              const cleaned = normalized
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+              return cleaned;
+            }
+
+            function normalizeAnchor(raw) {
+              if (!raw) {
+                return '';
+              }
+              let decoded = raw.trim();
+              try {
+                decoded = decodeURIComponent(decoded);
+              } catch (_) {
+                // Ignore decode failure.
+              }
+              return slugify(decoded);
+            }
+
+            function lineFromIndex(text, index) {
+              let line = 1;
+              for (let i = 0; i < index; i += 1) {
+                if (text.charCodeAt(i) === 10) {
+                  line += 1;
+                }
+              }
+              return line;
+            }
+
+            function formatFailure(reference, reason, details) {
+              switch (reason) {
+                case 'sameDocEmptyAnchor':
+                  return `${reference.filePath} line ${reference.line}: anchor reference "${details}" must include a heading name.`;
+                case 'missingSameDocAnchor':
+                  return `${reference.filePath} line ${reference.line}: heading ${details} was not found in the same document.`;
+                case 'emptyDocPath':
+                  return `${reference.filePath} line ${reference.line}: link target must include a document name.`;
+                case 'queryNotAllowed':
+                  return `${reference.filePath} line ${reference.line}: document links cannot include query parameters (${details}).`;
+                case 'outsideWorkspace':
+                  return `${reference.filePath} line ${reference.line}: document path "${details}" resolves outside the repository.`;
+                case 'pathNotAllowed':
+                  return `${reference.filePath} line ${reference.line}: document links must not include directories; use just the filename (got "${details}").`;
+                case 'extensionNotAllowed':
+                  return `${reference.filePath} line ${reference.line}: link target "${details}" must omit the .md suffix.`;
+                case 'missingDocName':
+                  return `${reference.filePath} line ${reference.line}: document link "${details}" must include a file name (without .md).`;
+                case 'missingDocument':
+                  return `${reference.filePath} line ${reference.line}: linked document ${details} does not exist.`;
+                case 'ambiguousDocument':
+                  return `${reference.filePath} line ${reference.line}: document link matches multiple files (${details}).`;
+                case 'crossDocEmptyAnchor':
+                  return `${reference.filePath} line ${reference.line}: link to ${details} must include a heading name after '#'.`;
+                case 'missingCrossDocAnchor':
+                  return `${reference.filePath} line ${reference.line}: heading ${details} was not found.`;
+                case 'invalidHashCount':
+                  return `${reference.filePath} line ${reference.line}: link target "${details}" cannot contain more than one '#'.`;
+                default:
+                  return `${reference.filePath} line ${reference.line}: invalid link target ${details}.`;
+              }
+            }
+
+      - name: Show invalid internal links
+        if: env.ERROR_BLOCK != ''
+        run: |
+          echo 'Invalid markdown links:'
+          printf '```\n%s\n```\n' "${{ env.ERROR_BLOCK }}"
+          exit 1
