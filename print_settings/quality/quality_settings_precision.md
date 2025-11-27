@@ -28,11 +28,11 @@ Smaller value means higher resolution and more time to slice. If you are using b
 
 Enable this to combine moves by approximating multiple straight segments into fewer arcs which use [G2 and G3](https://marlinfw.org/docs/gcode/G002-G003.html) moves. Ensure first that the printer supports said commands.
 
-This combination results in a "compression" of the G-Code, which will need fewer commands, which was in fact the original purpose of this feature.
+This combination results in a "compression" of the G-Code, which will need fewer commands, which was in fact the original purpose of this feature: printers receiving G-code via USB are likely to be choked by the number of short moves required to print arcs.
 
 This feature could potentially improve the print quality of some low resolution STL models if curved surfaces were approximated using rough segments. In such models, the printer will also be able to move in a more fluid manner, since the rough moves are replaced with a smoother motion. 
 
-__STLs generated at a good resolution and modern printers will not benefit in from this feature and could experience a reduction the surface quality__, therefore use arc fitting only where needed and not blindly as default. The preferred way to improve print quality is to use a higher resolution STL.
+__Good quality STLs and modern printers will not benefit in from this feature and could experience a reduction the surface quality__, therefore use arc fitting only where needed, which is typically for USB-connected printers and for some low quality models for which a higher resolution is not available.
 
 ![arc-fitting](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/arc-fitting.svg?raw=true)
 
