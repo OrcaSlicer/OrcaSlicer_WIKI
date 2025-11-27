@@ -28,7 +28,7 @@ Smaller value means higher resolution and more time to slice. If you are using b
 
 Enable this to get a G-code file which has [G2 and G3](https://marlinfw.org/docs/gcode/G002-G003.html) moves.
 
-After a model is sliced this feature will try to guess where multiple straight segments can be replaced with arcs and it will perform the replacement where possible.
+After a model is sliced this feature will try to _guess_ where multiple straight segments can be replaced with arcs and it will perform the replacement where possible.
 
 This feature can be used to improve the print quality for low resolution STL models, since it might allow the printer to bring back a curved shape which was lost during the generation of said STL files. In such models, the printer will also be able to move in a more fluid manner, since rough segments are replaced with arcs. 
 
