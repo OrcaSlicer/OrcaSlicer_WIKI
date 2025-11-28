@@ -63,8 +63,6 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - Cooling
   - ![param_cooling_specific_layer](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_specific_layer.svg?raw=true) [Cooling for specific layer](material_cooling_for_specific_layer)
   - ![param_cooling_part_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_part_fan.svg?raw=true) [Part Cooling Fan](material_part_cooling_fan)
-  - ![param_cooling_aux_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_aux_fan.svg?raw=true) [Auxiliary part cooling Fan](material_auxiliary_cooling_fan)//TODO: RELATE IT TO printer_basic_information_accessory#auxiliary-part-cooling-fan
-  - ![param_cooling_exhaust](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_exhaust.svg?raw=true) [Exhaust Fan](material_exhaust_fan)
 - [Setting Overrides](material_setting_overrides)
 - ![param_gcode](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true) [Advanced](material_advanced)
 - Multimaterial

@@ -15,6 +15,11 @@ These settings control the behavior of the part cooling fan during printing. Pro
 - [Internal bridges fan speed](#internal-bridges-fan-speed)
 - [Support interface fan speed](#support-interface-fan-speed)
 - [Ironing fan speed](#ironing-fan-speed)
+- [Auxiliary part cooling fan](#auxiliary-part-cooling-fan)
+- [Exhaust fan](#exhaust-fan)
+  - [Activate air filtration](#activate-air-filtration)
+  - [During print](#during-print)
+  - [Complete print](#complete-print)
 
 ## Fan speed threshold
 
@@ -29,7 +34,6 @@ If a minimum speed threshold is defined, the slicer may also slow down the G-cod
 
 Layers with an estimated time below the maximum time may trigger additional print-speed reduction to improve cooling.
 When auto-cooling is enabled, the fan speed may increase as needed, up to the defined maximum fan speed, which acts as the upper limit for cooling adjustments.
-
 
 ## Keep fan always on
 
@@ -81,3 +85,23 @@ This setting is overridden by disable_fan_first_layers.
 
 This part cooling fan speed is applied when ironing. Setting this parameter to a lower than regular speed reduces possible nozzle clogging due to the low volumetric flow rate, making the interface smoother.  
 Set to -1 to disable it.
+
+## Auxiliary part cooling fan
+
+Enable this option if [machine has auxiliary](printer_basic_information_accessory#auxiliary-part-cooling-fan) part cooling fan. G-code command: M106 P2 S(0-255).
+
+## Exhaust fan
+
+Missing tooltip for this entry
+
+### Activate air filtration
+
+Activate for better air filtration. G-code command: M106 P3 S(0-255)
+
+### During print
+
+Missing tooltip for this entry
+
+### Complete print
+
+Missing tooltip for this entry
