@@ -37,8 +37,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
   - [Accessory](printer_basic_information_accessory)
 - [Machine G_Code](printer_machine_gcode)
 - Multimaterial
-  - [Single Extruder Multimaterial](semm)//TODO: RENAME OR MOVE
-  - [Single extruder multi_material setup](printer_multimaterial_semm_setup)
+  - [Multimaterial setup](printer_multimaterial_setup)
   - [Wipe tower](printer_multimaterial_wipe_tower)
   - [Single extruder multi_material parameters](printer_multimaterial_semm_parameters)
   - [Advanced](printer_multimaterial_advanced)
