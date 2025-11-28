@@ -39,6 +39,7 @@ This section describes the general built-in placeholders variables available for
 - **in_head_wrap_detect_zone**: Indicates if the first layer overlaps with the head wrap zone.
 
 ## Print Statistics
+
 - **print_time**: Total time taken for the print.
 - **normal_print_time**: Total time taken for the print in normal mode.
 - **silent_print_time**: Total time taken for the print in silent mode.
