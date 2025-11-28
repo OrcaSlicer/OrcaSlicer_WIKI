@@ -29,24 +29,24 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 ![printer](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/printer.svg?raw=true) Settings related to the 3D printer hardware and its configuration.
 
 - Basic Information
-  - [Printable space](printer_basic_information_printable_space)
-  - [Advanced](printer_basic_information_advanced)
-  - [Cooling Fan](printer_basic_information_cooling_fan)
-  - [Extruder Clearance](printer_basic_information_extruder_clearance)
-  - [Adaptive bed mesh](printer_basic_information_adaptive_bed_mesh)
-  - [Accessory](printer_basic_information_accessory)
-- [Machine G_Code](printer_machine_gcode)
+  - ![param_printable_space](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_printable_space.svg?raw=true) [Printable space](printer_basic_information_printable_space)
+  - ![param_advanced](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true) [Advanced](printer_basic_information_advanced)
+  - ![param_cooling_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_fan.svg?raw=true) [Cooling Fan](printer_basic_information_cooling_fan)
+  - ![param_extruder_clearence](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_clearence.svg?raw=true) [Extruder Clearance](printer_basic_information_extruder_clearance)
+  - ![param_adaptive_mesh](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_adaptive_mesh.svg?raw=true) [Adaptive bed mesh](printer_basic_information_adaptive_bed_mesh)
+  - ![param_accessory](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_accessory.svg?raw=true) [Accessory](printer_basic_information_accessory)
+- ![param_gcode](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true) [Machine G_Code](printer_machine_gcode)
 - Multimaterial
-  - [Multimaterial setup](printer_multimaterial_setup)
-  - [Wipe tower](printer_multimaterial_wipe_tower)
-  - [Single extruder multi_material parameters](printer_multimaterial_semm_parameters)
-  - [Advanced](printer_multimaterial_advanced)
+  - ![param_multi_material](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_multi_material.svg?raw=true) [Multimaterial setup](printer_multimaterial_setup)
+  - ![param_tower](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tower.svg?raw=true) [Wipe tower](printer_multimaterial_wipe_tower)
+  - ![param_settings](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_settings.svg?raw=true) [Single extruder multi_material parameters](printer_multimaterial_semm_parameters)
+  - ![param_advanced](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true) [Advanced](printer_multimaterial_advanced)
 - Extruder
-  - [Basic Information](printer_extruder_basic_information)
-  - [Retraction](printer_extruder_retraction)
-    - [Retraction when switching materials](printer_extruder_retraction#retraction-when-switching-materials)
-  - [Z_Hop](printer_extruder_z_hop)
-- [Motion ability](printer_motion_ability)
+  - ![param_information](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_information.svg?raw=true) [Basic Information](printer_extruder_basic_information)
+  - ![param_retraction](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true) [Retraction](printer_extruder_retraction)
+    - ![param_retraction_material_change](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction_material_change.svg?raw=true) [Retraction when switching materials](printer_extruder_retraction#retraction-when-switching-materials)
+  - ![param_extruder_lift_enforcement](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_lift_enforcement.svg?raw=true) [Z_Hop](printer_extruder_z_hop)
+- ![param_acceleration](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_acceleration.svg?raw=true) [Motion ability](printer_motion_ability)
 
 ## Material Settings
 
