@@ -28,20 +28,46 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 ![printer](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/printer.svg?raw=true) Settings related to the 3D printer hardware and its configuration.
 
-- [Air filtration/Exhaust fan handling](air-filtration)
-- [Auxiliary fan handling](Auxiliary-fan)
-- [Chamber temperature control](chamber-temperature)
-- [Adaptive Bed Mesh](adaptive-bed-mesh)
-- [Using different bed types in Orca](bed-types)
+- Basic Information
+  - [Printable space](printer_basic_information_printable_space)
+    - [Using different bed types in Orca](bed-types) //TODO: Move or link
+  - [Advanced](printer_basic_information_advanced)
+    - [Pellet Printers (pellet flow coefficient)](pellet-flow-coefficient)//TODO: MOVE TO ADVANCED, RENAME OR LINK
+  - [Cooling Fan](printer_basic_information_cooling_fan)
+  - [Extruder Clearance](printer_basic_information_extruder_clearance)
+  - [Adaptive bed mesh](printer_basic_information_adaptive_bed_mesh)
+    - [Adaptive Bed Mesh](adaptive-bed-mesh) //TODO: RENAME AND REVIEW
+  - [Accessory](printer_basic_information_accessory)
+    - [Auxiliary fan handling](Auxiliary-fan)//TODO: MOVE TO ACCESSORY, RENAME OR LINK
+    - [Chamber temperature control](chamber-temperature)//TODO: MOVE TO ACCESSORY, RENAME OR LINK
+    - [Air filtration/Exhaust fan handling](air-filtration)//TODO: MOVE TO ACCESSORY, RENAME OR LINK
+- [Machine G_Code](printer_machine_gcode)
+- Multimaterial
+  - [Single Extruder Multimaterial](semm)//TODO: RENAME OR MOVE
+  - [Single extruder multi_material setup](printer_multimaterial_semm_setup)
+  - [Wipe tower](printer_multimaterial_wipe_tower)
+  - [Single extruder multi_material parameters](printer_multimaterial_semm_parameters)
+  - [Advanced](printer_multimaterial_advanced)
+- Extruder
+  - [Basic Information](printer_extruder_basic_information)
+  - [Layer height limits](printer_extruder_layer_height_limits)
+  - [Position](printer_extruder_position)
+  - [Retraction](printer_extruder_retraction)
+  - [Z_Hop](printer_extruder_z_hop)
+  - [Retraction when switching materials](printer_extruder_retraction_when_switching_materials)
+- Motion ability
+  - [Advanced](printer_motion_ability_advanced)
+  - [Resonance Avoidance](printer_motion_ability_resonance_avoidance)
+  - [Speed limitation](printer_motion_ability_speed_limitation)
+  - [Acceleration limitation](printer_motion_ability_acceleration_limitation)
+  - [Jerk limitation](printer_motion_ability_jerk_limitation)
+- [Notes](printer_notes)
 
 ## Material Settings
 
 ![filament-preset](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/GUI/filament-preset.png?raw=true)
 
 ![filament](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/filament.svg?raw=true) Settings related to the 3D printing material.
-
-- [Single Extruder Multimaterial](semm)
-- [Pellet Printers (pellet flow coefficient)](pellet-flow-coefficient)
 
 ## Process Settings
 
