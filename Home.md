@@ -35,9 +35,6 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
   - [Extruder Clearance](printer_basic_information_extruder_clearance)
   - [Adaptive bed mesh](printer_basic_information_adaptive_bed_mesh)
   - [Accessory](printer_basic_information_accessory)
-    - [Auxiliary fan handling](Auxiliary-fan)//TODO: MOVE TO ACCESSORY, RENAME OR LINK
-    - [Chamber temperature control](chamber-temperature)//TODO: MOVE TO ACCESSORY, RENAME OR LINK
-    - [Air filtration/Exhaust fan handling](air-filtration)//TODO: MOVE TO ACCESSORY, RENAME OR LINK
 - [Machine G_Code](printer_machine_gcode)
 - Multimaterial
   - [Single Extruder Multimaterial](semm)//TODO: RENAME OR MOVE
