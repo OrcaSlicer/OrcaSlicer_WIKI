@@ -39,13 +39,16 @@ This section describes the general built-in placeholders variables available for
 - **in_head_wrap_detect_zone**: Indicates if the first layer overlaps with the head wrap zone.
 
 ## Print Statistics
-
-- **extruded_volume**: Total filament volume extruded per extruder during the entire print.
-- **extruded_volume_total**: Total volume of filament used during the entire print.
-- **extruded_weight**: Total filament weight extruded per extruder during the entire print.
-- **extruded_weight_total**: Total weight of filament used during the entire print.
-- **total_print_time**: Total time taken for the print.
-- **total_layer_count**: Total number of layers in the print.
+- **print_time**: Total time taken for the print.
+- **normal_print_time**: Total time taken for the print in normal mode.
+- **silent_print_time**: Total time taken for the print in silent mode.
+- **used_filament**: Total length of filament used during the entire print.
+- **extruded_volume**: Total volume of filament used during the entire print.
+- **total_weight**: Total weight of filament used during the entire print.
+- **total_cost**: Total cost of filament used during the entire print.
+- **total_toolchanges**: Number of tool changes performed during the print.
+- **total_wipe_tower_cost**: Total cost of filament used for the wipe tower during the entire print.
+- **total_wipe_tower_filament**: Total length of filament used for the wipe tower during the entire print.
 
 ## Objects Info
 
