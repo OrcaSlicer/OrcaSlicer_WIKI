@@ -40,16 +40,16 @@ This section describes the general built-in placeholders variables available for
 
 ## Print Statistics
 
-- **print_time**: Total time taken for the print.
-- **normal_print_time**: Total time taken for the print in normal mode.
-- **silent_print_time**: Total time taken for the print in silent mode.
-- **used_filament**: Total length of filament used during the entire print.
+- **print_time**: Estimated print time when printed in normal mode (i.e. not in silent mode). Same as normal_print_time.
+- **normal_print_time**: Estimated print time when printed in normal mode (i.e. not in silent mode). Same as print_time.
+- **silent_print_time**: Estimated print time when printed in silent mode.
+- **used_filament**: Total length of filament used in the print.
 - **extruded_volume**: Total volume of filament used during the entire print.
-- **total_weight**: Total weight of filament used during the entire print.
-- **total_cost**: Total cost of filament used during the entire print.
-- **total_toolchanges**: Number of tool changes performed during the print.
-- **total_wipe_tower_cost**: Total cost of filament used for the wipe tower during the entire print.
-- **total_wipe_tower_filament**: Total length of filament used for the wipe tower during the entire print.
+- **total_weight**: Total weight of the print. Calculated from filament_density value in Filament Settings.
+- **total_cost**: Total cost of all material used in the print. Calculated from filament_cost value in Filament Settings.
+- **total_toolchanges**: Number of tool changes during the print.
+- **total_wipe_tower_cost**: Total cost of the material wasted on the wipe tower. Calculated from filament_cost value in Filament Settings.
+- **total_wipe_tower_filament**: Total filament volume extruded on the wipe tower.
 
 ## Objects Info
 
