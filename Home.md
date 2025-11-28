@@ -65,10 +65,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
   - ![param_cooling_part_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_part_fan.svg?raw=true) [Part Cooling Fan](material_part_cooling_fan)
 - [Setting Overrides](material_setting_overrides)
 - ![param_gcode](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true) [Advanced](material_advanced)
-- Multimaterial
-  - ![param_tower](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tower.svg?raw=true) [Wipe tower parameters](material_multimaterial_wipe_tower_parameters)
-  - ![param_toolchange](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_toolchange.svg?raw=true) [Tool change parameters with single extruder MM printers](material_multimaterial_tool_change_parameters_with_single_extruder_mm_printers)
-  - ![param_toolchange_multi_extruder](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_toolchange_multi_extruder.svg?raw=true) [Tool change parameters with multi extruder MM printers](material_multimaterial_tool_change_parameters_with_multi_extruder_mm_printers)
+- [Multimaterial](material_multimaterial)
 - ![param_dependencies_printers](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_dependencies_printers.svg?raw=true) [Dependencies](material_dependencies)
 
 
