@@ -43,11 +43,9 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
   - [Advanced](printer_multimaterial_advanced)
 - Extruder
   - [Basic Information](printer_extruder_basic_information)
-  - [Layer height limits](printer_extruder_layer_height_limits)
-  - [Position](printer_extruder_position)
   - [Retraction](printer_extruder_retraction)
+    - [Retraction when switching materials](printer_extruder_retraction#retraction-when-switching-materials)
   - [Z_Hop](printer_extruder_z_hop)
-  - [Retraction when switching materials](printer_extruder_retraction_when_switching_materials)
 - Motion ability
   - [Advanced](printer_motion_ability_advanced)
   - [Resonance Avoidance](printer_motion_ability_resonance_avoidance)
