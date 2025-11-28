@@ -30,9 +30,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 - Basic Information
   - [Printable space](printer_basic_information_printable_space)
-    - [Using different bed types in Orca](bed-types) //TODO: Move or link
   - [Advanced](printer_basic_information_advanced)
-    - [Pellet Printers (pellet flow coefficient)](pellet-flow-coefficient)//TODO: MOVE TO ADVANCED, RENAME OR LINK
   - [Cooling Fan](printer_basic_information_cooling_fan)
   - [Extruder Clearance](printer_basic_information_extruder_clearance)
   - [Adaptive bed mesh](printer_basic_information_adaptive_bed_mesh)
