@@ -8,7 +8,7 @@ Enforce Z-Hop behavior. This setting is impacted by the above settings (Only lif
 
 ## Z-hop type
 
-- Auto:
+- Auto: Selects automatically between Spiral based on whether the travel move crosses over overhang areas
 - Normal Lift: The nozzle is lifted vertically during retraction and lowered back down before resuming printing.
 - Slope: The nozzle moves diagonally (at an angle) during retraction, creating a sloped path.
 - Spiral: The nozzle moves in a spiral pattern while lifting, which can help reduce stringing and improve print quality.
