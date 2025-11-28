@@ -159,17 +159,17 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 ![tab_calibration_active](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_calibration_active.svg?raw=true) The [Calibration Guide](Calibration) outlines Orca’s key calibration tests and their suggested order of execution.
 
-- [Temperature](temp-calib)
-- [Volumetric Speed](volumetric-speed-calib)
-- [Pressure Advance](pressure-advance-calib)
+- ![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) [Temperature](temp-calib)
+- ![param_volumetric_speed](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true) [Volumetric Speed](volumetric-speed-calib)
+- ![param_flow_ratio_and_pressure_advance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true) [Pressure Advance](pressure-advance-calib)
   - [Adaptive Pressure Advance Guide](adaptive-pressure-advance-calib)
-- [Flow Rate](flow-rate-calib)
-- [Retraction](retraction-calib)
-- [Tolerance](tolerance-calib)
+- ![param_line_width](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line_width.svg?raw=true) [Flow Rate](flow-rate-calib)
+- ![param_retraction](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true) [Retraction](retraction-calib)
+- ![param_precision](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_precision.svg?raw=true) [Tolerance](tolerance-calib)
 - Advanced:
-  - [Cornering (Jerk & Junction Deviation)](cornering-calib)
-  - [Input Shaping](input-shaping-calib)
-  - [VFA](vfa-calib)
+  - ![param_jerk](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_jerk.svg?raw=true) [Cornering (Jerk & Junction Deviation)](cornering-calib)
+  - ![param_resonance_avoidance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_resonance_avoidance.svg?raw=true) [Input Shaping](input-shaping-calib)
+    - [VFA](vfa-calib)
 
 ## Developer Section
 
