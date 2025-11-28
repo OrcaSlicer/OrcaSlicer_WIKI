@@ -54,6 +54,27 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 ![filament](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/filament.svg?raw=true) Settings related to the 3D printing material.
 
+- Material settings
+  - ![param_information](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_information.svg?raw=true) [Basic Information](material_basic_information)
+  - ![param_flow_ratio_and_pressure_advance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true) [Flow Ratio and Pressure Advance](material_flow_ratio_and_pressure_advance)
+  - ![param_chamber_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_chamber_temp.svg?raw=true) [Print Chamber temperature](material_print_chamber_temperature)
+  - ![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) [Print temperature](material_print_temperature)
+  - ![param_bed_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_bed_temp.svg?raw=true) [Bed temperature](material_bed_temperature)
+  - ![param_volumetric_speed](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true) [Volumetric Speed limitation](material_volumetric_speed_limitation)
+- Cooling
+  - ![param_cooling_specific_layer](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_specific_layer.svg?raw=true) [Cooling for specific layer](material_cooling_for_specific_layer)
+  - ![param_cooling_part_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_part_fan.svg?raw=true) [Part Cooling Fan](material_part_cooling_fan)
+  - ![param_cooling_aux_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_aux_fan.svg?raw=true) [Auxiliary part cooling Fan](material_auxiliary_cooling_fan)//TODO: RELATE IT TO printer_basic_information_accessory#auxiliary-part-cooling-fan
+  - ![param_cooling_exhaust](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_exhaust.svg?raw=true) [Exhaust Fan](material_exhaust_fan)
+- [Setting Overrides](material_setting_overrides)
+- ![param_gcode](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true) [Advanced](material_advanced)
+- Multimaterial
+  - ![param_tower](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tower.svg?raw=true) [Wipe tower parameters](material_multimaterial_wipe_tower_parameters)
+  - ![param_toolchange](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_toolchange.svg?raw=true) [Tool change parameters with single extruder MM printers](material_multimaterial_tool_change_parameters_with_single_extruder_mm_printers)
+  - ![param_toolchange_multi_extruder](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_toolchange_multi_extruder.svg?raw=true) [Tool change parameters with multi extruder MM printers](material_multimaterial_tool_change_parameters_with_multi_extruder_mm_printers)
+- ![param_dependencies_printers](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_dependencies_printers.svg?raw=true) [Dependencies](material_dependencies)
+
+
 ## Process Settings
 
 ![process-preset](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/GUI/process-preset.png?raw=true)
