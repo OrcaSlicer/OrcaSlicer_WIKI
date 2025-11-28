@@ -49,6 +49,33 @@ Unprintable area in XY plane. For example, X1 Series printers use the front left
 
 This is the maximum printable height which is limited by the height of the build area.
 
+## Support multi bed types
+
+You can enable it in printer settings.
+
+Once enabled, you can select the bed type in the drop-down menu, corresponding bed temperature will be set automatically.
+You can set the bed temperature for each bed type in the filament settings as demonstrated in the following image.
+
+![bed-types](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bed-types.gif?raw=true)//TODO: UPDATE IMAGE
+
+Orca also support `curr_bed_type` variable in custom G-code.
+For example, the following sample G-codes can detect the selected bed type and adjust the G-code offset accordingly for Klipper:
+
+```c++
+{if curr_bed_type=="Textured PEI Plate"}
+  SET_GCODE_OFFSET Z=-0.05
+{else}
+  SET_GCODE_OFFSET Z=0.0
+{endif}
+```
+
+Available bed types are:
+
+- Cool Plate
+- Engineering Plate
+- High Temp Plate
+- Textured PEI Plate
+
 ## Best object position
 
 Best auto arranging position in range [0,1] w.r.t. bed shape.
