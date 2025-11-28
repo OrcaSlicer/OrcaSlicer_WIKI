@@ -45,6 +45,25 @@ This G-code is inserted when filament is changed, including T commands to trigge
 
 This G-code is inserted when the extrusion role is changed.
 
+Example G-codes:
+
+- Marlin g-code to set fan speed to 10% (S25 out of S255) for BridgeInfill role and 30% (S75 out of S255) for other roles:
+  ```c++
+  {if( extrusion_role == "BridgeInfill")}
+  M106 S25
+  {else}
+  M106 S75
+  {endif}
+  ```
+- Marlin g-code to set pressure advance to 0 for InternalInfill role and restore it to previous value for other roles:
+  ```c++
+  {if( extrusion_role == "InternalInfill")}
+  M900 K0
+  {else}
+  M900 K{pressure_advance[0]}
+  {endif}
+  ```
+
 ## Pause G-code
 
 This G-code will be used as a code for the pause print. Users can insert pause G-code in the G-code viewer.
