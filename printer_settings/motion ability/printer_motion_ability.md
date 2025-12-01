@@ -22,6 +22,9 @@ This option will be ignored if the G-code flavor is set to Klipper.
 
 By reducing the speed of the outer wall to avoid the resonance zone of the printer, ringing on the surface of the model are avoided.
 
+> [!TIP]
+> Check the [VFA Calibration](vfa-calib).
+
 ## Speed limitation
 
 Safeguard maximum speeds for all axes.
@@ -35,6 +38,9 @@ This will cap the acceleration set by the process if it exceeds these values.
 ## Jerk limitation
 
 Safeguard maximum jerks for all axes.
+
+> [!TIP]
+> Check the [Cornering Calibration](cornering-calib).
 
 ### Maximum Junction Deviation
 

@@ -57,8 +57,10 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - Material settings
   - [![param_information](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_information.svg?raw=true) Basic Information](material_basic_information)
   - [![param_flow_ratio_and_pressure_advance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true) Flow Ratio and Pressure Advance](material_flow_ratio_and_pressure_advance)
-  - [![param_chamber_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_chamber_temp.svg?raw=true) Print Chamber temperature](material_print_chamber_temperature)
-  - [![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) Material temperatures ![param_bed_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_bed_temp.svg?raw=true)](material_temperatures)
+  - [![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) Material temperatures](material_temperatures)
+    - [![param_chamber_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_chamber_temp.svg?raw=true) Print Chamber temperature](material_temperatures#print-chamber-temperature)
+    - [![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) Print temperature](material_temperatures#nozzle)
+    - [![param_bed_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_bed_temp.svg?raw=true) Bed temperature](material_temperatures#bed)
   - [![param_volumetric_speed](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true) Volumetric Speed limitation](material_volumetric_speed_limitation)
 - [![param_cooling_part_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_part_fan.svg?raw=true) Material Cooling](material_cooling)
 - [![param_settings](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_settings.svg?raw=true) Setting Overrides](material_setting_overrides)

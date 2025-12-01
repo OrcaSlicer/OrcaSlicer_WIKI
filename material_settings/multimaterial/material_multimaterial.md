@@ -2,6 +2,28 @@
 
 This page documents the settings used when printing with multiple materials in Orca Slicer. It explains wipe-tower parameters, tool-change behaviour for both single-extruder and multi-extruder multimaterial setups, and ramming/purge options that help ensure reliable, contamination-free material changes.
 
+- [Multimaterial Wipe Tower Parameters](#multimaterial-wipe-tower-parameters)
+  - [Minimal purge on wipe tower](#minimal-purge-on-wipe-tower)
+- [Multi Filament](#multi-filament)
+- [Tool change parameters with single extruder](#tool-change-parameters-with-single-extruder)
+  - [Loading speed at the start](#loading-speed-at-the-start)
+  - [Loading speed](#loading-speed)
+  - [Unloading speed at the start](#unloading-speed-at-the-start)
+  - [Unloading speed](#unloading-speed)
+  - [Delay after unloading](#delay-after-unloading)
+  - [Number of cooling moves](#number-of-cooling-moves)
+  - [Speed of the first cooling move](#speed-of-the-first-cooling-move)
+  - [Speed of the last cooling move](#speed-of-the-last-cooling-move)
+  - [Stamping loading speed](#stamping-loading-speed)
+  - [Stamping distance](#stamping-distance)
+  - [Ramming parameters](#ramming-parameters)
+    - [Total ramming](#total-ramming)
+    - [Ramming line](#ramming-line)
+- [Tool change parameters with multi extruder](#tool-change-parameters-with-multi-extruder)
+  - [Enable ramming for multi-tool setups](#enable-ramming-for-multi-tool-setups)
+    - [Multi-tool ramming volume](#multi-tool-ramming-volume)
+    - [Multi-tool ramming flow](#multi-tool-ramming-flow)
+
 ## Multimaterial Wipe Tower Parameters
 
 Wipe towers are sacrificial structures printed alongside the main object to purge excess material from the nozzle after a tool change in multimaterial printing. This ensures that the next extrusion uses the correct filament color or type without contamination from the previous material.
@@ -10,7 +32,11 @@ Wipe towers are sacrificial structures printed alongside the main object to purg
 
 After a tool change, the exact position of the newly loaded filament inside the nozzle may not be known, and the filament pressure is likely not yet stable. Before purging the print head into an infill or a sacrificial object, Orca Slicer will always prime this amount of material into the wipe tower to produce successive infill or sacrificial object extrusions reliably.
 
-## Tool change parameters with single extruder MM printers
+## Multi Filament
+
+Enable long retraction when extruder change and it's retraction distance when extruder change value.
+
+## Tool change parameters with single extruder
 
 These settings control filament loading and unloading for single-extruder multimaterial systems (where multiple filaments are fed to a single hotend). They govern how much filament is primed or purged on the wipe tower, the speeds used during load/unload phases, delays for flexible materials, cooling-move behaviour, stamping and the ramming routine. Proper tuning reduces cross-contamination between filaments and improves tool-change reliability.
 
@@ -50,8 +76,9 @@ Cooling moves are gradually accelerating towards this speed.
 
 Speed used for stamping.
 
-### Stamping distance measured from the center of the cooling tube
+### Stamping distance
 
+Stamping distance measured from the center of the cooling tube.
 If set to non-zero value, filament is moved toward the nozzle between the individual cooling moves ("stamping"). This option configures how long this movement should be before the filament is retracted again.
 
 ### Ramming parameters
@@ -66,7 +93,7 @@ The total amount of filament that will be forcibly extruded (rammed) into the no
 
 Defines the geometry or pattern used when ramming material (for example a short line or dot on the wipe tower). The ramming line parameters control where the rammed material is deposited so it is reliably captured by the wipe structure instead of contaminating the printed part.
 
-## Tool change parameters with multi extruder MM printers
+## Tool change parameters with multi extruder
 
 These options apply to printers that use multiple independent extruders or hotends (multi-tool setups). When enabled, ramming and related parameters define a small, controlled extrusion on the wipe tower immediately before a tool change to ensure the outgoing tool is cleared and the incoming tool begins with consistent filament at the nozzle. Use these settings to tune multi-tool handoffs and avoid color or material mixing.
 
