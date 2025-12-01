@@ -3,26 +3,9 @@
 In FDM 3D printing, the temperature is a critical factor that affects the quality of the print.
 There is no other calibration that can have such a big impact on the print quality as temperature calibration.
 
-- [Standard Temperature Ranges](#standard-temperature-ranges)
 - [Nozzle Temp tower](#nozzle-temp-tower)
 - [Bed Temperature](#bed-temperature)
 - [Chamber Temperature](#chamber-temperature)
-
-## Standard Temperature Ranges
-
-|   Material   | [Nozzle Temp (°C)](#nozzle-temp-tower) | [Bed Temp (°C)](#bed-temperature) | [Chamber Temp (°C)](#chamber-temperature) |
-|:------------:|:--------------------------------------:|:---------------------------------:|:-----------------------------------------:|
-| PLA          | 180-220                                | 50-60                             | Ambient                                   |
-| ABS          | 230-250                                | 90-100                            | 50-70                                     |
-| ASA          | 240-260                                | 90-100                            | 50-70                                     |
-| Nylon 6      | 230-260                                | 90-110                            | 70-100                                    |
-| Nylon 12     | 225-260                                | 90-110                            | 70-100                                    |
-| TPU          | 220-245                                | 40-60                             | Ambient                                   |
-| PC           | 270-310                                | 100-120                           | 80-100                                    |
-| PC-ABS       | 260-280                                | 95-110                            | 60-80                                     |
-| HIPS         | 220-250                                | 90-110                            | 50-70                                     |
-| PP           | 220-270                                | 80-105                            | 40-70                                     |
-| Acetal (POM) | 210-240                                | 100-130                           | 70-100                                    |
 
 ## Nozzle Temp tower
 

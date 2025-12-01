@@ -13,7 +13,6 @@
   - [Klipper Chamber Temperature](#klipper-chamber-temperature)
 - [Support air filtration](#support-air-filtration)
 
-
 ## Nozzle type
 
 The metallic material of the nozzle: This determines the abrasive resistance of the nozzle and what kind of filament can be printed.
@@ -180,7 +179,7 @@ Pick the variant that best fits your workflow; the advanced version provides ext
 
 OrcaSlicer use `M141/M191` command to control active chamber heater.
 
-If your Filament's `Activate temperature control` and your printer `Support control chamber temperature` option are checked , OrcaSlicer will insert `M191` command at the beginning of the gcode (before `Machine G-code`).
+If your Filament's [Activate temperature control](material_temperatures#print-chamber-temperature) and your printer `Support control chamber temperature` option are checked , OrcaSlicer will insert `M191` command at the beginning of the gcode (before `Machine G-code`).
 
 ![Chamber-Temperature-Control-Printer](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Chamber/Chamber-Temperature-Control-Printer.png?raw=true)
 ![Chamber-Temperature-Control-Material](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Chamber/Chamber-Temperature-Control-Material.png?raw=true)

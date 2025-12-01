@@ -8,6 +8,7 @@ Machine G-code are custom G-code scripts that are executed at specific points du
 - [Before layer change G-code](#before-layer-change-g-code)
 - [Layer change G-code](#layer-change-g-code)
 - [Timelapse G-code](#timelapse-g-code)
+- [Clumping detection G-code](#clumping-detection-g-code)
 - [Change filament G-code](#change-filament-g-code)
 - [Change extrusion role G-code](#change-extrusion-role-g-code)
 - [Pause G-code](#pause-g-code)
@@ -36,6 +37,10 @@ This G-code is inserted at every layer change after the Z lift.
 ## Timelapse G-code
 
 This G-code is used for capturing timelapse videos. It typically includes commands to move the print head out of the way for a photo and then return it to the previous position.
+
+## Clumping detection G-code
+
+This G-code is executed when clumping is detected during printing. It can be used to pause the print, retract filament, or perform other actions to address the clumping issue.
 
 ## Change filament G-code
 

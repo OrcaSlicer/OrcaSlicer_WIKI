@@ -5,6 +5,8 @@ Advanced settings related to the printer configuration.
 - [Printer structure](#printer-structure)
 - [G-code flavor](#g-code-flavor)
 - [Pellet Modded Printer](#pellet-modded-printer)
+- [Use 3rd-party print host](#use-3rd-party-print-host)
+- [Scan first layer](#scan-first-layer)
 - [Disable set remaining print time](#disable-set-remaining-print-time)
 - [G-code thumbnails](#g-code-thumbnails)
 - [Use relative E distances](#use-relative-e-distances)
@@ -41,6 +43,14 @@ We are translating the pellet_flow_coefficient into filament_diameter so that ev
 sqrt just makes the relationship between flow_coefficient and volume linear.
 
 Higher packing density -> more material extruded by single turn -> higher pellet_flow_coefficient -> treated as if a filament of larger diameter is being used. All other calculations remain the same for slicing.
+
+## Use 3rd-party print host
+
+Allow controlling BambuLab's printer through 3rd party print hosts.
+
+## Scan first layer
+
+Enable this to enable the camera on printer to check the quality of first layer.
 
 ## Disable set remaining print time
 
