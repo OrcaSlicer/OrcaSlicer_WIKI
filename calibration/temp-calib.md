@@ -46,7 +46,7 @@ In general, following the manufacturer’s recommendations, maintaining a clean 
 Chamber temperature can affect the print quality, especially for high-temperature filaments.  
 A heated chamber can help to maintain a consistent temperature throughout the print, reducing the risk of warping and improving layer adhesion. However, it is important to monitor the chamber temperature to ensure that it does not exceed the filament's deformation temperature.
 
-See: [Chamber temperature printer settings](Chamber-temperature)
+See: [Chamber temperature printer settings](material_temperatures#print-chamber-temperature)
 
 > [!IMPORTANT]
 > Low temperature Filaments like PLA can clog the nozzle if the chamber temperature is too high.
