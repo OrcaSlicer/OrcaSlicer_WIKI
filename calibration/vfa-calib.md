@@ -17,6 +17,6 @@ The VFA Speed Test in OrcaSlicer helps identify which print speeds trigger MRR a
 
 After printing, inspect the tower for MRR artifacts. Look for speeds where the surface becomes visibly smoother or rougher. This allows you to pinpoint problematic speed ranges.
 
-You can then configure the **Resonance Avoidance Speed Range** in the printer profile to skip speeds that cause visible artifacts.
+You can then configure the [Resonance Avoidance Speed Range](printer_motion_ability#resonance-avoidance-speed) in the printer profile to skip speeds that cause visible artifacts.
 
 ![vfa_resonance_avoidance](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/vfa/vfa_resonance_avoidance.png?raw=true)

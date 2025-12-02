@@ -4,8 +4,6 @@ In FDM 3D printing, the temperature is a critical factor that affects the qualit
 There is no other calibration that can have such a big impact on the print quality as temperature calibration.
 
 - [Nozzle Temp tower](#nozzle-temp-tower)
-- [Bed Temperature](#bed-temperature)
-- [Chamber Temperature](#chamber-temperature)
 
 ## Nozzle Temp tower
 
@@ -23,30 +21,3 @@ Once the print is complete, we can examine each block of the tower and determine
 > [!NOTE]
 > If a range of temperatures looks good, you may want to use the middle of that range as the optimal temperature.  
 > But if you are planning to print at higher [speeds](speed_settings_other_layers_speed)/[flow rates](volumetric-speed-calib), you may want to use the higher end of that range as the optimal temperature.
-
-## Bed Temperature
-
-Bed temperature plays a crucial role in ensuring proper filament adhesion to the build surface, which directly impacts both print success and quality.  
-Most materials have a relatively broad optimal range for bed temperature (typically +/-5°C).  
-In general, following the manufacturer’s recommendations, maintaining a clean bed (free from oils or fingerprints), ensuring a stable [chamber temperature](#chamber-temperature), and having a properly leveled bed will produce reliable results.
-
-- If the bed temperature is too low, the filament may fail to adhere properly, leading to warping, weak layer bonding, or complete detachment. In severe cases, the printed part may dislodge entirely and stick to the nozzle or other printer components, potentially causing mechanical damage.
-- If the bed temperature is too high, the lower layers can overheat and soften excessively, resulting in deformation such as [elephant foot](quality_settings_precision#elephant-foot-compensation).
-
-> [!TIP]
-> As a general guideline, you can use the [glass transition temperature](https://en.wikipedia.org/wiki/Glass_transition) (Tg) of the material and subtract 5–10 °C to estimate a safe upper limit for bed temperature.  
-> See [this article](https://magigoo.com/blog/prevent-warping-temperature-and-first-layer-adhesion-magigoo/) for a detailed explanation.
-
-> [!NOTE]
-> For challenging prints involving materials with **high shrinkage** (e.g., nylons or polycarbonate) or geometries prone to warping, dialed-in settings are critical.  
-> In these cases, [chamber temperature](#chamber-temperature) becomes a **major factor** in preventing detachment and ensuring print success.
-
-## Chamber Temperature
-
-Chamber temperature can affect the print quality, especially for high-temperature filaments.  
-A heated chamber can help to maintain a consistent temperature throughout the print, reducing the risk of warping and improving layer adhesion. However, it is important to monitor the chamber temperature to ensure that it does not exceed the filament's deformation temperature.
-
-See: [Chamber temperature printer settings](material_temperatures#print-chamber-temperature)
-
-> [!IMPORTANT]
-> Low temperature Filaments like PLA can clog the nozzle if the chamber temperature is too high.

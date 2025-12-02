@@ -4,6 +4,9 @@ Ironing is a process used to improve the surface finish of 3D prints by smoothin
 
 ![ironing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ironing/ironing.png?raw=true)
 
+> [!TIP]
+> For Multi-material print, consider using [Material Setting Overrides](material_setting_overrides#ironing) to customize ironing settings for each material.
+
 > [!IMPORTANT]
 > Ironing can cause filament to move very slowly through the hotend, which increases the risk of heat creep and potential clogging. Monitor your printer during ironing and ensure your hotend cooling is adequate to prevent jams.
 

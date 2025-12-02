@@ -6,6 +6,8 @@ This section covers the settings that affect the precision of your prints. These
 - [Resolution](#resolution)
 - [Arc fitting](#arc-fitting)
 - [X-Y Compensation](#x-y-compensation)
+  - [X-Y hole compensation](#x-y-hole-compensation)
+  - [X-Y contour compensation](#x-y-contour-compensation)
 - [Elephant foot compensation](#elephant-foot-compensation)
 - [Precise wall](#precise-wall)
   - [Technical explanation](#technical-explanation)
@@ -44,7 +46,20 @@ Klipper does not benefit from arc commands as these are split again into line se
 Used to compensate external dimensions of the model.
 With this option you can compensate material expansion or shrinkage, which can occur due to various factors such as the type of filament used, temperature fluctuations, or printer calibration issues.
 
-Follow the [Calibration Guide](https://github.com/OrcaSlicer/OrcaSlicer/wiki/Calibration) and [Filament Tolerance Calibration](https://github.com/OrcaSlicer/OrcaSlicer/wiki/tolerance-calib) to determine the correct value for your printer and filament combination.
+> [!TIP]
+> Follow the [Calibration Guide](https://github.com/OrcaSlicer/OrcaSlicer/wiki/Calibration) and [Filament Tolerance Calibration](https://github.com/OrcaSlicer/OrcaSlicer/wiki/tolerance-calib) to determine the correct value for your printer and filament combination.
+
+### X-Y hole compensation
+
+Holes in objects will expand or contract in the XY plane by the configured value.  
+Positive values make holes bigger, negative values make holes smaller.  
+This function is used to adjust sizes slightly when the objects have assembling issues.
+
+### X-Y contour compensation
+
+Contours of objects will expand or contract in the XY plane by the configured value.  
+Positive values make contours bigger, negative values make contours smaller.  
+This function is used to adjust sizes slightly when the objects have assembling issues.
 
 ## Elephant foot compensation
 

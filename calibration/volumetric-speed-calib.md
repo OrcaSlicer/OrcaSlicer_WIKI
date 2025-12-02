@@ -1,8 +1,6 @@
 # Max Volumetric Speed (FlowRate) Calibration
 
-Each material profile includes a **maximum volumetric speed** setting, which limits your [print speed](speed_settings_other_layers_speed) to prevent issues like nozzle clogs, under-extrusion, or poor layer adhesion.
-
-This value varies depending on your **material**, **machine**, **nozzle diameter**, and even your **extruder setup**, so it’s important to calibrate it for your specific printer and each filament you use.
+[Max Volumetric Speed](material_volumetric_speed_limitation) value varies depending on your **material**, **machine**, **nozzle diameter**, and even your **extruder setup**, so it’s important to calibrate it for your specific printer and each filament you use.
 
 > [!NOTE]
 > Even for the same material type (e.g., PLA), the **brand** and **color** can significantly affect the maximum flow rate.
@@ -44,6 +42,3 @@ After you have determined the maximum volumetric speed, you can set it in the fi
 > This test is a best case scenario and doesn't take into account Retraction or other settings that can increase clogs or under-extrusion.  
 > You may want to reduce the flow by 10%-20% (or even further) to ensure print quality/strength.  
 > **Printing at high volumetric speed can lead to poor layer adhesion or even clogs in the nozzle.**
-
-> [!TIP]
-> @ItsDeidara has made a html to help with the calculation. Check it out if those equations give you a headache [here](https://github.com/ItsDeidara/Orca-Slicer-Assistant).

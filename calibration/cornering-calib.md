@@ -44,7 +44,7 @@ This test will be set detect automatically your printer firmware type and will a
       ![jd_second_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/JunctionDeviation/jd_second_slicer_measure.png?raw=true)
 3. Save the settings
    - Into your OrcaSlicer printer profile (**RECOMMENDED**):
-     1. Go to Printer settings → Motion ability → Jerk limitation:
+     1. Go to Printer [settings → Motion ability → Jerk limitation](printer_motion_ability#jerk-limitation):
      2. Set your maximum Jerk X and Y or Junction Deviation values.  
         ![jd_printer_jerk_limitation](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/JunctionDeviation/jd_printer_jerk_limitation.png?raw=true)
    - Directly into your printer firmware:

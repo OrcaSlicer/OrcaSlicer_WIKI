@@ -1,6 +1,9 @@
 # Material Volumetric Speed Limitation
 
-This setting allows you to limit the volumetric speed of extrusion for a specific material. It helps to prevent issues such as under-extrusion or poor layer adhesion that can occur when printing at high speeds.
+Each material profile includes a **maximum volumetric speed** setting, which limits your [print speed](speed_settings_other_layers_speed) to prevent issues like nozzle clogs, under-extrusion, or poor layer adhesion.
+
+> [!TIP]
+> Calibrating the maximum volumetric speed for each filament you use is highly recommended. Refer to the [Max Volumetric Speed (FlowRate) Calibration](volumetric-speed-calib) guide for detailed instructions on how to perform this calibration.
 
 ## Adaptive volumetric speed
 

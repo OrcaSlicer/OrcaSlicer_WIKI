@@ -1,6 +1,6 @@
 # Pressure Advance
 
-Pressure Advance is a feature that compensates for the lag in filament pressure within the nozzle during acceleration and deceleration. It helps improve print quality by reducing issues like blobs, oozing, and inconsistent extrusion, especially at corners or during fast movements.
+[Pressure Advance](material_flow_ratio_and_pressure_advance#pressure-advance) calibration helps compensate for the lag in extrusion pressure that occurs when the print head changes speed. Properly calibrated Pressure Advance can significantly improve print quality, especially during rapid acceleration and deceleration.
 
 OrcaSlicer includes three approaches for calibrating the Pressure Advance value. Each method has its own advantages and disadvantages. It is important to note that each method has two versions: one for a direct-drive extruder and one for a Bowden extruder. Make sure to select the appropriate version for your test.
 

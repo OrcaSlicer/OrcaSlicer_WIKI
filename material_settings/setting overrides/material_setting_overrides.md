@@ -4,8 +4,8 @@ Material setting overrides allow you to customize specific settings for differen
 
 ## Retraction
 
-This group of settings allows you to override the default retraction settings for the selected material. You can specify custom retraction distances, speeds, and other parameters to optimize print quality for specific materials.
+This group of settings allows you to override the [default retraction](printer_extruder_retraction) settings for the selected material. You can specify custom retraction distances, speeds, and other parameters to optimize print quality for specific materials.
 
 ## Ironing
 
-These settings control the ironing process, which smooths the top surfaces of prints by moving the nozzle over them without extruding material. You can adjust parameters such as ironing speed, flow rate, and pattern to achieve the desired surface finish.
+This group of settings allows you to override the [Process ironing settings](quality_settings_ironing) for the selected material.

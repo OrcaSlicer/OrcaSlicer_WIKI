@@ -1,6 +1,6 @@
 # Adaptive Pressure Advance
 
-This feature aims to dynamically adjust the printer’s pressure advance to better match the conditions the toolhead is facing during a print. Specifically, to more closely align to the ideal values as flow rate, acceleration, and bridges are encountered.  
+This feature aims to dynamically adjust the [material’s pressure advance](material_flow_ratio_and_pressure_advance#enable-adaptive-pressure-advance-beta) to better match the conditions the toolhead is facing during a print. Specifically, to more closely align to the ideal values as flow rate, acceleration, and bridges are encountered.  
 This wiki page aims to explain how this feature works, the prerequisites required to get the most out of it as well as how to calibrate it and set it up.
 
 ## Settings Overview

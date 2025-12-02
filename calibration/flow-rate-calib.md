@@ -1,7 +1,6 @@
-
 # Flow Rate Calibration
 
-Flow ratio determines how much filament is extruded and is crucial for high-quality prints.  
+[Flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio) determines how much filament is extruded and is crucial for high-quality prints.  
 A properly calibrated flow ratio ensures consistent layer adhesion and accurate dimensions.
 
 - Too **low** flow ratio causes under-extrusion, which leads to gaps, weak layers, and poor structural integrity.
