@@ -28,20 +28,20 @@ Smaller value means higher resolution and more time to slice. If you are using b
 
 Enable this to combine moves by approximating multiple straight segments into fewer arcs which use [G2 and G3](https://marlinfw.org/docs/gcode/G002-G003.html) moves. __Ensure first that the printer supports said commands__.
 
-This combination results in a "compression" of the G-Code, which will need fewer commands to print arcs. This was in fact the original purpose of this feature, since printers receiving G-code via USB are likely to be choked by the number of short moves required to print arcs.
+This combination results in a "compression" of the G-Code, which will need fewer commands to print arcs. This is the main purpose of this feature, since printers receiving G-code via USB are likely to be overloaded by the number of short moves required to print arcs. It can also be useful when a long series of quick segments is generated, for example like those used to perform spiral Z hop.
 
-This feature could potentially improve the print quality of some low resolution STL models if curved surfaces were approximated using rough segments. In such models, the printer will also be able to move in a more fluid manner, since the rough moves are replaced with a smoother motion. 
+This feature could potentially improve the print quality of some _low resolution_ STL models if curved surfaces were approximated using rough segments. In such models, the printer will also be able to move in a more fluid manner, since the rough moves are replaced with a smoother motion. 
 
 __Good quality STLs and modern printers will not benefit from this feature and could experience a reduction the surface quality__, therefore use arc fitting only where needed, which is typically for USB-connected printers and for some low quality models for which a higher resolution is not available.
 
 ![arc-fitting](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/arc-fitting.svg?raw=true)
 
 > [!IMPORTANT]
-> The printer will internally convert the arcs back into a series of segments, which are often less accurate than those already defined in high quality, modern STLs.
+> The printer will internally convert the arcs back into a series of segments, which are in many printers by default less accurate than those already defined in high quality, modern STLs.
 >
 > For Klipper printers see the [https://www.klipper3d.org/Config_Reference.html#gcode_arcs](documentation) for setting the resolution of the arcs generated internally.
 >
-> The internal generation of segments from arcs requires higher CPU usage from the printer microcontroller and therefore it might cause slow-downs (and reduced surface quality) on printers using slow microcontrollers.
+> The internal generation of segments from arcs requires higher CPU usage from the printer microcontroller and therefore it might cause slow-downs (and reduced surface quality) on printers using 8-bit microcontrollers.
 
 ## X-Y Compensation
 
