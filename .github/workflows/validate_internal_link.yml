@@ -26,12 +26,8 @@ jobs:
       - name: Validate internal documentation links
         id: validate_internal_links
         uses: actions/github-script@v8
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         with:
           script: |
-            const { execSync } = require('child_process');
             const fs = require('fs');
             const path = require('path');
 
@@ -40,35 +36,9 @@ jobs:
             const allowedExt = new Set(['.md', '.markdown', '.mdown', '.mkd', '.mkdn', '.mdx']);
             const markdownNameIndex = new Map();
             let markdownIndexReady = false;
-
-            const baseSha = process.env.BASE_SHA;
-            const headSha = process.env.HEAD_SHA;
-            if (!baseSha || !headSha) {
-              core.setFailed('Missing base/head commit SHAs.');
-              return;
-            }
-
-            let diffOutput = '';
-            try {
-              diffOutput = execSync(`git diff --name-only ${baseSha}..${headSha}`, { encoding: 'utf8' }).trim();
-            } catch (error) {
-              core.setFailed(`git diff failed: ${error.message}`);
-              return;
-            }
-
-            if (!diffOutput) {
-              core.info('No files changed; skipping internal link validation.');
-              return;
-            }
-
-            const candidateFiles = diffOutput.split(/\r?\n/)
-              .map((file) => file.trim())
-              .filter(Boolean)
-              .filter((file) => allowedExt.has(path.extname(file).toLowerCase()))
-              .filter((file) => fs.existsSync(path.join(workspaceRoot, file)));
-
+            const candidateFiles = collectMarkdownFiles('');
             if (!candidateFiles.length) {
-              core.info('No Markdown files changed; skipping internal link validation.');
+              core.info('No Markdown files found; skipping internal link validation.');
               return;
             }
 
@@ -462,6 +432,34 @@ jobs:
                 default:
                   return `${reference.filePath} line ${reference.line}: invalid link target ${details}.`;
               }
+            }
+
+            function collectMarkdownFiles(relativeDir) {
+              const files = [];
+              const absoluteDir = relativeDir ? path.join(workspaceRoot, relativeDir) : workspaceRoot;
+              let entries;
+              try {
+                entries = fs.readdirSync(absoluteDir, { withFileTypes: true });
+              } catch (_) {
+                return files;
+              }
+
+              for (const entry of entries) {
+                if (entry.name === '.git') {
+                  continue;
+                }
+                const relPath = relativeDir ? `${relativeDir}/${entry.name}` : entry.name;
+                if (entry.isDirectory()) {
+                  files.push(...collectMarkdownFiles(relPath));
+                } else if (entry.isFile()) {
+                  const ext = path.extname(entry.name).toLowerCase();
+                  if (allowedExt.has(ext)) {
+                    files.push(relPath.replace(/\\/g, '/'));
+                  }
+                }
+              }
+
+              return files;
             }
 
       - name: Show invalid internal links

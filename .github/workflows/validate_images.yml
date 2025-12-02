@@ -27,12 +27,9 @@ jobs:
         id: validate_images
         uses: actions/github-script@v8
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
-            const { execSync } = require('child_process');
             const fs = require('fs');
             const path = require('path');
 
@@ -41,37 +38,9 @@ jobs:
             const currentRepo = context.repo.repo;
             const workspace = process.cwd();
             const allowedExt = new Set(['.md', '.markdown', '.mdown', '.mkd', '.mkdn', '.mdx']);
-
-            const baseSha = process.env.BASE_SHA;
-            const headSha = process.env.HEAD_SHA;
-            if (!baseSha || !headSha) {
-              core.setFailed('Missing base/head commit SHAs.');
-              return;
-            }
-
-            // Identify changed files in this PR so we scan only touched docs.
-            let diffOutput = '';
-            try {
-              diffOutput = execSync(`git diff --name-only ${baseSha}..${headSha}`, { encoding: 'utf8' }).trim();
-            } catch (error) {
-              core.setFailed(`git diff failed: ${error.message}`);
-              return;
-            }
-
-            if (!diffOutput) {
-              core.info('No files changed; skipping image validation.');
-              return;
-            }
-
-            // Filter only existing Markdown files because HTML snippets appear inside them.
-            const candidateFiles = diffOutput.split(/\r?\n/)
-              .map((file) => file.trim())
-              .filter(Boolean)
-              .filter((file) => allowedExt.has(path.extname(file).toLowerCase()))
-              .filter((file) => fs.existsSync(path.join(workspace, file)));
-
+            const candidateFiles = collectMarkdownFiles('');
             if (!candidateFiles.length) {
-              core.info('No Markdown or HTML files changed; skipping image validation.');
+              core.info('No Markdown files found; skipping image validation.');
               return;
             }
 
@@ -321,6 +290,34 @@ jobs:
               }
               const body = await response.text();
               throw new Error(`GitHub API ${response.status} for ${url}: ${body}`);
+            }
+
+            function collectMarkdownFiles(relativeDir) {
+              const files = [];
+              const absoluteDir = relativeDir ? path.join(workspace, relativeDir) : workspace;
+              let entries;
+              try {
+                entries = fs.readdirSync(absoluteDir, { withFileTypes: true });
+              } catch (_) {
+                return files;
+              }
+
+              for (const entry of entries) {
+                if (entry.name === '.git') {
+                  continue;
+                }
+                const relPath = relativeDir ? `${relativeDir}/${entry.name}` : entry.name;
+                if (entry.isDirectory()) {
+                  files.push(...collectMarkdownFiles(relPath));
+                } else if (entry.isFile()) {
+                  const ext = path.extname(entry.name).toLowerCase();
+                  if (allowedExt.has(ext)) {
+                    files.push(relPath.replace(/\\/g, '/'));
+                  }
+                }
+              }
+
+              return files;
             }
 
       - name: Show invalid image references
