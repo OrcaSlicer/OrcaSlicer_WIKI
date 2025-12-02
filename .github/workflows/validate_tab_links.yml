@@ -39,6 +39,7 @@ jobs:
               return;
             }
             const source = await response.text();
+            const lineOffsets = buildLineOffsets(source);
 
             const references = collectReferences(source);
             if (!references.length) {
@@ -113,7 +114,8 @@ jobs:
             }
 
             if (failures.length) {
-              const block = failures.join('\n');
+              failures.sort((a, b) => a.line - b.line);
+              const block = failures.map(failure => failure.message).join('\n');
               core.exportVariable('ERROR_BLOCK', block);
               return;
             }
@@ -132,29 +134,111 @@ jobs:
                 refs.push({
                   option: match[1],
                   target: match[2].trim(),
-                  line: lineFromIndex(text, match.index),
+                  line: lineFromIndex(match.index),
                 });
               }
 
-              const labelPathPattern = /label_path\s*=\s*"([^"]+)"/g;
+              const labelPathPattern = /\bline\s*\.\s*label_path\s*=\s*"([^"]+)"/g;
               while ((match = labelPathPattern.exec(text)) !== null) {
                 refs.push({
                   option: 'label_path',
                   target: match[1].trim(),
-                  line: lineFromIndex(text, match.index),
+                  line: lineFromIndex(match.index),
                 });
               }
 
-              const appendOptionLinePattern = /append_option_line\s*\(\s*[^,]+,\s*[^,]+,\s*"([^"]+)"/g;
-              while ((match = appendOptionLinePattern.exec(text)) !== null) {
-                refs.push({
-                  option: 'append_option_line',
-                  target: match[1].trim(),
-                  line: lineFromIndex(text, match.index),
-                });
+              for (const reference of collectAppendOptionLineReferences(text)) {
+                refs.push(reference);
               }
 
               return refs;
+            }
+
+            function collectAppendOptionLineReferences(text) {
+              const refs = [];
+              const pattern = /append_option_line\s*\(/g;
+              let match;
+              while ((match = pattern.exec(text)) !== null) {
+                const callStart = match.index;
+                const argsResult = parseCallArguments(text, pattern.lastIndex);
+                if (!argsResult.args) {
+                  pattern.lastIndex = argsResult.endIndex;
+                  continue;
+                }
+                pattern.lastIndex = argsResult.endIndex;
+                if (argsResult.args.length < 3) {
+                  continue;
+                }
+                const targetLiteral = extractStringLiteral(argsResult.args[2]);
+                if (!targetLiteral) {
+                  continue;
+                }
+                refs.push({
+                  option: 'append_option_line',
+                  target: targetLiteral.trim(),
+                  line: lineFromIndex(callStart),
+                });
+              }
+              return refs;
+            }
+
+            function parseCallArguments(text, startIndex) {
+              const args = [];
+              let current = '';
+              let depth = 1;
+              let inString = false;
+              let stringChar = '';
+              let escaped = false;
+              let i = startIndex;
+              for (; i < text.length; i += 1) {
+                const ch = text[i];
+                if (inString) {
+                  current += ch;
+                  if (escaped) {
+                    escaped = false;
+                  } else if (ch === '\\') {
+                    escaped = true;
+                  } else if (ch === stringChar) {
+                    inString = false;
+                  }
+                  continue;
+                }
+                if (ch === '"' || ch === '\'') {
+                  inString = true;
+                  stringChar = ch;
+                  current += ch;
+                  continue;
+                }
+                if (ch === '(') {
+                  depth += 1;
+                  current += ch;
+                  continue;
+                }
+                if (ch === ')') {
+                  depth -= 1;
+                  if (depth === 0) {
+                    args.push(current.trim());
+                    return { args, endIndex: i + 1 };
+                  }
+                  current += ch;
+                  continue;
+                }
+                if (ch === ',' && depth === 1) {
+                  args.push(current.trim());
+                  current = '';
+                  continue;
+                }
+                current += ch;
+              }
+              return { args: null, endIndex: text.length };
+            }
+
+            function extractStringLiteral(argumentText) {
+              const trimmed = argumentText.trim();
+              if (!trimmed.startsWith('"') || !trimmed.endsWith('"')) {
+                return '';
+              }
+              return trimmed.slice(1, -1);
             }
 
             function ensureMarkdownIndex() {
@@ -273,37 +357,63 @@ jobs:
               return slugify(decoded);
             }
 
-            function lineFromIndex(text, index) {
-              let line = 1;
-              for (let i = 0; i < index; i += 1) {
+            function buildLineOffsets(text) {
+              const offsets = [0];
+              for (let i = 0; i < text.length; i += 1) {
                 if (text.charCodeAt(i) === 10) {
-                  line += 1;
+                  offsets.push(i + 1);
                 }
               }
-              return line;
+              return offsets;
+            }
+
+            function lineFromIndex(position) {
+              let low = 0;
+              let high = lineOffsets.length - 1;
+              while (low <= high) {
+                const mid = (low + high) >> 1;
+                if (lineOffsets[mid] <= position) {
+                  low = mid + 1;
+                } else {
+                  high = mid - 1;
+                }
+              }
+              return high + 1;
             }
 
             function formatFailure(reference, reason, details) {
+              const link = `https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/slic3r/GUI/Tab.cpp#L${reference.line}`;
+              const lineInfo = `[Tab.cpp line ${reference.line}](${link})`;
+              const failure = { line: reference.line, message: '' };
               switch (reason) {
                 case 'hashCount':
-                  return `Tab.cpp line ${reference.line}: link "${details}" cannot contain more than one '#'.`;
+                  failure.message = `${lineInfo}: link "${details}" cannot contain more than one '#'.`;
+                  break;
                 case 'missingDocName':
-                  return `Tab.cpp line ${reference.line}: link "${details}" must include a document name.`;
+                  failure.message = `${lineInfo}: link "${details}" must include a document name.`;
+                  break;
                 case 'missingAnchor':
-                  return `Tab.cpp line ${reference.line}: link "${details}" must include a heading name after '#'.`;
+                  failure.message = `${lineInfo}: link "${details}" must include a heading name after '#'.`;
+                  break;
                 case 'pathNotAllowed':
-                  return `Tab.cpp line ${reference.line}: link "${details}" must omit any directory segments.`;
+                  failure.message = `${lineInfo}: link "${details}" must omit any directory segments.`;
+                  break;
                 case 'extensionNotAllowed':
-                  return `Tab.cpp line ${reference.line}: link "${details}" must omit the .md suffix.`;
+                  failure.message = `${lineInfo}: link "${details}" must omit the .md suffix.`;
+                  break;
                 case 'missingDocument':
-                  return `Tab.cpp line ${reference.line}: document ${details} does not exist in the wiki.`;
+                  failure.message = `${lineInfo}: document ${details} does not exist in the wiki.`;
+                  break;
                 case 'ambiguousDocument':
-                  return `Tab.cpp line ${reference.line}: document reference is ambiguous (${details}).`;
+                  failure.message = `${lineInfo}: document reference is ambiguous (${details}).`;
+                  break;
                 case 'missingCrossDocAnchor':
-                  return `Tab.cpp line ${reference.line}: heading ${details} was not found.`;
+                  failure.message = `${lineInfo}: heading ${details} was not found.`;
+                  break;
                 default:
-                  return `Tab.cpp line ${reference.line}: invalid link ${details}.`;
+                  failure.message = `${lineInfo}: invalid link ${details}.`;
               }
+              return failure;
             }
 
       - name: Show invalid Tab links
