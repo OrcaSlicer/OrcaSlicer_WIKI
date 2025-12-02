@@ -42,7 +42,7 @@ jobs:
 
             const references = collectReferences(source);
             if (!references.length) {
-              core.info('No double-string append_single_option_line entries found.');
+              core.info('No Tab link references found.');
               return;
             }
 
@@ -122,10 +122,10 @@ jobs:
             core.info(`Validated ${references.length} Tab link(s). All good.`);
 
             function collectReferences(text) {
-              const pattern = /append_single_option_line\s*\(\s*"([^"]+)"\s*(?:,\s*"([^"]+)")?/g;
               const refs = [];
+              const appendSinglePattern = /append_single_option_line\s*\(\s*"([^"]+)"\s*(?:,\s*"([^"]+)")?/g;
               let match;
-              while ((match = pattern.exec(text)) !== null) {
+              while ((match = appendSinglePattern.exec(text)) !== null) {
                 if (!match[2]) {
                   continue;
                 }
@@ -135,6 +135,25 @@ jobs:
                   line: lineFromIndex(text, match.index),
                 });
               }
+
+              const labelPathPattern = /label_path\s*=\s*"([^"]+)"/g;
+              while ((match = labelPathPattern.exec(text)) !== null) {
+                refs.push({
+                  option: 'label_path',
+                  target: match[1].trim(),
+                  line: lineFromIndex(text, match.index),
+                });
+              }
+
+              const appendOptionLinePattern = /append_option_line\s*\(\s*[^,]+,\s*[^,]+,\s*"([^"]+)"/g;
+              while ((match = appendOptionLinePattern.exec(text)) !== null) {
+                refs.push({
+                  option: 'append_option_line',
+                  target: match[1].trim(),
+                  line: lineFromIndex(text, match.index),
+                });
+              }
+
               return refs;
             }
 

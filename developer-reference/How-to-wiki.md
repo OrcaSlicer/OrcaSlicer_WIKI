@@ -88,20 +88,50 @@ When creating new pages, follow these file-naming conventions:
 
 OrcaSlicer can redirect users from the GUI to the appropriate wiki pages, making it easier to find relevant documentation.
 
-The option-to-wiki mapping is defined in [src/slic3r/GUI/Tab.cpp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/slic3r/GUI/Tab.cpp). Any option added with `append_single_option_line` can be mapped to a wiki page using a second string argument.
+The option-to-wiki mapping is defined in [src/slic3r/GUI/Tab.cpp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/slic3r/GUI/Tab.cpp).
+The links naming uses the same format as the [Wiki Navigation described above](#index-and-navigation), `[filename]#[section(optional)]` e.g. `quality_settings_seam` or `quality_settings_seam#scarf-joint-seam`.
+
+There are 3 main ways to set up these links:
+
+1. Using `append_single_option_line` with a second string argument for the wiki page.
 
 ```cpp
-optgroup->append_single_option_line("OPTION_NAME"); // Option without wiki page/redirection
-optgroup->append_single_option_line("OPTION_NAME", "WIKI_PAGE"); // Option with wiki page and redirection
+optgroup->append_single_option_line("[OPTION_NAME]"); // Option without wiki page/redirection
+optgroup->append_single_option_line("[OPTION_NAME]", "[WIKI_LINK]"); // Option with wiki page and redirection
 ```
-
-You can also point to a specific section within a wiki page by appending a fragment identifier (for example `#section-name`).
 
 Example:
 
 ```cpp
 optgroup->append_single_option_line("seam_gap","quality_settings_seam"); // Wiki page and redirection
 optgroup->append_single_option_line("seam_slope_type", "quality_settings_seam#scarf-joint-seam"); // Wiki page and redirection to `Scarf Joint Seam` section
+```
+
+2. Using `append_option_line` with a third string argument for the wiki page.
+
+```cpp
+append_option_line([optgroup], [opt_key], "[WIKI_LINK]");
+```
+
+Example:
+
+```cpp
+append_option_line(optgroup, "machine_max_acceleration_x", "printer_motion_ability#acceleration-limitation");
+```
+
+3. Using grouped rows with `append_line` and setting the wiki target via `line.label_path`.
+
+```cpp
+line.label_path = "[WIKI_LINK]";
+```
+
+Example:
+
+```cpp
+Line line = { L("Overhang speed"), L("...") };
+line.label_path = "speed_settings_overhang_speed#slow-down-for-overhang";
+line.append_option(optgroup->get_option("overhang_1_4_speed"));
+optgroup->append_line(line);
 ```
 
 ## Formatting and Style
