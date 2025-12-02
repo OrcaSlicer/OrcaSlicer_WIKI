@@ -139,11 +139,11 @@ The following sample JSON file shows how to create a new generic filament profil
 > When developing profiles, you may notice that changes aren't reflected in OrcaSlicer after editing profile files. This happens because OrcaSlicer caches profiles in the system folder.
 > To force OrcaSlicer to load your updated profiles:
 >
-> 1. **Access the configuration folder**: Go to **Help** → **Show Configuration Folder**.  
+> 1. **Access the configuration folder**: Go to **Help** → **Show Configuration Folder**.
 >    ![go-to-configuration-folder](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/go-to-configuration-folder.png?raw=true)
-> 2. **Clear the cache**: Delete the `system` folder to remove cached profiles.  
+> 2. **Clear the cache**: Delete the `system` folder to remove cached profiles.
 >    ![profile-delete-system-folder](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/profile-delete-system-folder.png?raw=true)
-> 3. **Restart OrcaSlicer**: Launch the application to load your updated profiles.  
+> 3. **Restart OrcaSlicer**: Launch the application to load your updated profiles.
 >    This process forces OrcaSlicer to update its profile cache from the source files in the `resources/profiles/` directory.
 
 ### Adding Filament Profiles to Printer Vendor Library
@@ -364,7 +364,7 @@ You can validate your profiles using both the **OrcaSlicer profile validator** a
 You can run OrcaSlicer to verify if the filament you just added is available and usable. You can also use the [Orca profile validator](https://github.com/SoftFever/Orca_tools/releases/tag/1) tool to help debug any errors.
 
 > [!IMPORTANT]
-> You need to delete the `%appdata%/OrcaSlicer/system` folder to force OrcaSlicer to reload your lastest changes.
+> You need to delete the `%appdata%/OrcaSlicer/system` folder to force OrcaSlicer to reload your latest changes.
 
 The process is the same if you want to add a new brand filament profile into the global library. You need to create a new file in the `resources\profiles\OrcaFilamentLibrary\filament\brand_name` folder. The only difference is that you should put the file into the brand's own subfolder.
 

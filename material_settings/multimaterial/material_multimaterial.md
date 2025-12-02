@@ -1,6 +1,6 @@
 # Material Multimaterial Settings
 
-This page documents the settings used when printing with multiple materials in Orca Slicer. It explains wipe-tower parameters, tool-change behaviour for both single-extruder and multi-extruder multimaterial setups, and ramming/purge options that help ensure reliable, contamination-free material changes.
+This page documents the settings used when printing with multiple materials in Orca Slicer. It explains wipe-tower parameters, tool-change behavior for both single-extruder and multi-extruder multimaterial setups, and ramming/purge options that help ensure reliable, contamination-free material changes.
 
 - [Multimaterial Wipe Tower Parameters](#multimaterial-wipe-tower-parameters)
   - [Minimal purge on wipe tower](#minimal-purge-on-wipe-tower)
@@ -38,7 +38,7 @@ Enable long retraction when the extruder changes and set its retraction distance
 
 ## Tool change parameters with single extruder
 
-These settings control filament loading and unloading for single-extruder multimaterial systems (where multiple filaments are fed to a single hotend). They govern how much filament is primed or purged on the wipe tower, the speeds used during load/unload phases, delays for flexible materials, cooling-move behaviour, stamping and the ramming routine. Proper tuning reduces cross-contamination between filaments and improves tool-change reliability.
+These settings control filament loading and unloading for single-extruder multimaterial systems (where multiple filaments are fed to a single hotend). They govern how much filament is primed or purged on the wipe tower, the speeds used during load/unload phases, delays for flexible materials, cooling-move behavior, stamping and the ramming routine. Proper tuning reduces cross-contamination between filaments and improves tool-change reliability.
 
 ### Loading speed at the start
 

@@ -23,12 +23,12 @@ The slicing mode determines how the model is sliced into layers and how the G-co
 
 ### Regular
 
-This is the default slicing mode. It slices the model layer by layer, generating G-code for each layer.  
+This is the default slicing mode. It slices the model layer by layer, generating G-code for each layer.
 Use this for most prints where no special modifications are needed.
 
 ### Close Holes
 
-Use "Close holes" to automatically close all holes in the model during slicing in the XY plane.  
+Use "Close holes" to automatically close all holes in the model during slicing in the XY plane.
 This can help with models that have gaps or incomplete surfaces, ensuring a more solid print.
 
 ![close-holes](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/slicing-mode/close-holes.png?raw=true)
@@ -49,7 +49,7 @@ This option prints all objects layer by layer, one layer at a time. This is effi
 
 Determines the print order within a single layer.
 
-- **Default**: Prints objects based on their position on the bed and travel distance to optimise movement.
+- **Default**: Prints objects based on their position on the bed and travel distance to optimize movement.
 - **As object list**: Prints objects in the order they appear in the object list, which can be useful for custom sequencing or debugging.
 
 ### By Object
@@ -60,12 +60,12 @@ This setting requires more models separation and may not be suitable for all pri
 
 ## Spiral vase
 
-Spiral vase mode transforms a solid model into a single-walled print with solid bottom layers, eliminating seams by continuously spiralling the outer contour.  
+Spiral vase mode transforms a solid model into a single-walled print with solid bottom layers, eliminating seams by continuously spiralling the outer contour.
 This creates a smooth, vase-like appearance.
 
 ### Smooth Spiral
 
-When enabled, Smooth Spiral smooths out X and Y moves as well, resulting in no visible seams even on non-vertical walls.  
+When enabled, Smooth Spiral smooths out X and Y moves as well, resulting in no visible seams even on non-vertical walls.
 This produces the smoothest possible spiral print.
 
 > [!NOTE]
@@ -73,18 +73,18 @@ This produces the smoothest possible spiral print.
 
 #### Max XY Smoothing
 
-Maximum distance to move points in XY to achieve a smooth spiral. If expressed as a percentage, it is calculated relative to the nozzle diameter.  
+Maximum distance to move points in XY to achieve a smooth spiral. If expressed as a percentage, it is calculated relative to the nozzle diameter.
 Higher values allow more smoothing but may distort the model slightly.
 
 ### Spiral starting flow ratio
 
-Sets the starting flow ratio when transitioning from the last bottom layer to the spiral.  
-Normally, the flow scales from 0% to 100% during the first loop, which can sometimes cause under-extrusion at the start.  
+Sets the starting flow ratio when transitioning from the last bottom layer to the spiral.
+Normally, the flow scales from 0% to 100% during the first loop, which can sometimes cause under-extrusion at the start.
 Adjust this to fine-tune the transition and prevent issues.
 
 ### Spiral finishing flow ratio
 
-Sets the finishing flow ratio when ending the spiral. Normally, the flow scales from 100% to 0% during the last loop, which can lead to under-extrusion at the end.  
+Sets the finishing flow ratio when ending the spiral. Normally, the flow scales from 100% to 0% during the last loop, which can lead to under-extrusion at the end.
 Use this to control the ending and ensure consistent extrusion.
 
 ## Timelapse

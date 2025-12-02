@@ -16,12 +16,12 @@ This section covers the settings that affect the precision of your prints. These
 
 ## Slice gap closing radius
 
-Cracks smaller than 2x gap closing radius are being filled during the triangle mesh slicing.  
+Cracks smaller than 2x gap closing radius are being filled during the triangle mesh slicing.
 The gap closing operation may reduce the final print resolution, therefore it is advisable to keep the value reasonably low.
 
 ## Resolution
 
-The G-code path is generated after simplifying the contour of models to avoid too many points and G-code lines.  
+The G-code path is generated after simplifying the contour of models to avoid too many points and G-code lines.
 Smaller value means higher resolution and more time to slice. If you are using big models in low processing power machines, you may want to increase this value to speed up the slicing process.
 
 ## Arc fitting
@@ -51,14 +51,14 @@ With this option you can compensate material expansion or shrinkage, which can o
 
 ### X-Y hole compensation
 
-Holes in objects will expand or contract in the XY plane by the configured value.  
-Positive values make holes bigger, negative values make holes smaller.  
+Holes in objects will expand or contract in the XY plane by the configured value.
+Positive values make holes bigger, negative values make holes smaller.
 This function is used to adjust sizes slightly when the objects have assembling issues.
 
 ### X-Y contour compensation
 
-Contours of objects will expand or contract in the XY plane by the configured value.  
-Positive values make contours bigger, negative values make contours smaller.  
+Contours of objects will expand or contract in the XY plane by the configured value.
+Positive values make contours bigger, negative values make contours smaller.
 This function is used to adjust sizes slightly when the objects have assembling issues.
 
 ## Elephant foot compensation
@@ -76,7 +76,7 @@ To mitigate this effect, OrcaSlicer allows you to specify a negative distance th
 
 ![elephant-foot-compensation](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/elephant-foot-compensation.png?raw=true)
 
-The compensation works as follows:  
+The compensation works as follows:
 When the `current_layer` is <= `input_compensation_layers`
 ```c++
 compensation = input_compensation_distance - (input_compensation_distance / input_compensation_layers) × (current_layer - 1)
@@ -109,7 +109,7 @@ The 'Precise Wall' is a distinctive feature introduced by OrcaSlicer, aimed at i
 
 ### Technical explanation
 
-First, it's important to understand some basic concepts like flow, extrusion width, and space.  
+First, it's important to understand some basic concepts like flow, extrusion width, and space.
 Slic3r has an excellent document that covers these topics in detail. You can refer to this [article](https://manual.slic3r.org/advanced/flow-math).
 
 Slic3r and its forks, such as PrusaSlicer, SuperSlicer and OrcaSlicer, assume that the extrusion path has an oval shape, which accounts for the overlaps. For example, if we set the wall width to 0.4mm and the layer height to 0.2mm, the combined thickness of two walls laid side by side is 0.714mm instead of 0.8mm due to the overlapping.

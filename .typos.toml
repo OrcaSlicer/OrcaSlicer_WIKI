@@ -1,0 +1,54 @@
+[default]
+extend-ignore-re = [
+  # Ignore URLs
+  "https?://[^\\s]+",
+  # Ignore code blocks
+  "```[\\s\\S]*?```",
+]
+
+[files]
+extend-exclude = [
+  "*.svg",
+  "*.png",
+  "*.jpg",
+  "*.jpeg",
+  "*.gif",
+  "*.json",
+  ".git/",
+]
+
+[default.extend-words]
+# Technical terms and proper nouns that should not be flagged
+Orca = "Orca"
+Bambu = "Bambu"
+Klipper = "Klipper"
+Marlin = "Marlin"
+RepRap = "RepRap"
+gcode = "gcode"
+G-code = "G-code"
+infill = "infill"
+perimeter = "perimeter"
+filament = "filament"
+PETG = "PETG"
+SEMM = "SEMM"
+ooze = "ooze"
+
+# Common abbreviations
+XY = "XY"
+Z = "Z"
+xyz = "xyz"
+XYZ = "XYZ"
+
+# Allow some technical variants
+flowrate = "flowrate"
+toolhead = "toolhead"
+hotend = "hotend"
+endstop = "endstop"
+
+# Input shaping types - these are actual technical terms
+DAA = "DAA"
+EI = "EI"
+
+# Code-related terms that are intentional
+seh = "seh"
+Nd = "Nd"

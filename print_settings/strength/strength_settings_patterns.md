@@ -1,11 +1,11 @@
 # Patterns
 
-Patterns determine how material is distributed within a print. Different patterns can affect strength, flexibility and print speed using the same density setting.  
+Patterns determine how material is distributed within a print. Different patterns can affect strength, flexibility and print speed using the same density setting.
 The infill pattern also impacts the uniformity of the layer times, since the patterns may be constant, or present significant variations between adjacent layers.
 
 There is no one-size-fits-all solution, as the best pattern depends on the specific print and its requirements.
 
-Many patterns may look similar and have similar overall specifications, but they can behave very differently in practice.  
+Many patterns may look similar and have similar overall specifications, but they can behave very differently in practice.
 As most settings in 3D printing, experience is the best way to determine which pattern works best for your specific needs.
 
 ## Analysis parameters
@@ -17,16 +17,16 @@ As most settings in 3D printing, experience is the best way to determine which p
 
 ### Material Usage
 
-Not all patterns use the same amount of material due to their **Density Calculations** and adjustments to the paths.  
+Not all patterns use the same amount of material due to their **Density Calculations** and adjustments to the paths.
 This leads to patterns that do not use the specified percentage but rather variations of it.
 
 ### Print Time
 
-Print time can vary significantly between patterns due to differences in their pathing and infill strategies.  
+Print time can vary significantly between patterns due to differences in their pathing and infill strategies.
 Some patterns may complete faster due to more efficient use of the print head's movement, while others may take longer due to more complex paths.
 
 > [!NOTE]
-> OrcaSlicer Time estimations are not always accurate, especially with complex patterns.  
+> OrcaSlicer Time estimations are not always accurate, especially with complex patterns.
 > This analysis was estimated with [Klipper Estimator](https://github.com/Annex-Engineering/klipper_estimator).
 
 ### Layer Time Variability
@@ -69,13 +69,13 @@ Layer time variability refers to the differences in time it takes to print each 
 | <img alt="param_octagramspiral" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_octagramspiral.svg?raw=true" height="45"> | [Octagram Spiral](#octagram-spiral) | X-Y: 🟡 Low<br> Z: ⚪️ Normal | ⚪️ Normal | ⚪️ Normal | 🟢 None |
 
 > [!NOTE]
-> This estimations are based in a Cube model to maintain consistency.  
+> This estimations are based in a Cube model to maintain consistency.
 > This **WILL NOT** be the same for all models and only serves as a standard guideline.
 
 > [!TIP]
 > You can see how this analysis was made in [infill-analysis](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis) folder:
 >  - [Infill calculator Project](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis/infill_calculator.3mf?raw=true) to generate the gcode files and images.
->  - [infill_desc_calculator.xlsx](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis/infill_desc_calculator.xlsx?raw=true) used to calculate the values above.  
+>  - [infill_desc_calculator.xlsx](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis/infill_desc_calculator.xlsx?raw=true) used to calculate the values above.
 >  - Time, and material usage where simulated with the same [Klipper Estimator](https://github.com/Annex-Engineering/klipper_estimator) values to maintain consistency.
 
 ## Monotonic
@@ -88,7 +88,7 @@ Layer time variability refers to the differences in time it takes to print each 
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
@@ -106,7 +106,7 @@ Layer time variability refers to the differences in time it takes to print each 
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
@@ -124,7 +124,7 @@ Parallel lines spaced according to infill density. Each layer is printed perpend
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🔵 Unnoticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -145,7 +145,7 @@ Recommended with layer anchoring to improve not perpendicular strength.
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🔵 Unnoticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -164,7 +164,7 @@ Similar to [rectilinear](#rectilinear) with consistent pattern between layers. A
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🔵 Unnoticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -181,7 +181,7 @@ Similar to [Zig Zag](#zig-zag) but displacing each layer with Infill shift step 
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🔵 Unnoticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -200,7 +200,7 @@ When using this fill, you can individually modify the density of the skeleton an
 Skin density * ( Infill Area - Skin Area + lock depth area) + ( Skin density * Skin area).
   - **Material Usage:** ⚪️ Normal-High
   - **Print Time:** ⚪️ Normal-High
-    - **Material/Time (Higher better):** ⚪️ Normal  
+    - **Material/Time (Higher better):** ⚪️ Normal
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -217,7 +217,7 @@ Similar to [rectilinear](#rectilinear), but each line is slightly rotated to imp
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -234,7 +234,7 @@ Two-layer pattern of perpendicular lines, forming a grid. Overlapping points may
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🟣 Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -251,7 +251,7 @@ Triangle-based grid, offering strong X-Y strength but with triple overlaps at in
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -268,7 +268,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -285,7 +285,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🔵 Unnoticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -302,7 +302,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
 - **Density Calculation:** Same as [Cubic](#cubic) but reduced in the center
   - **Material Usage:** 🟣 Low
   - **Print Time:** 🟣 Low
-    - **Material/Time (Higher better):** ⚪️ Normal  
+    - **Material/Time (Higher better):** ⚪️ Normal
     - **Layer time Variability:** 🔵 Unnoticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -319,7 +319,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🔵 Unnoticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -336,7 +336,7 @@ Support |Cubic is a variation of the [Cubic](#cubic) infill pattern that is spec
 - **Density Calculation:** % of layer before top shell layers
   - **Material Usage:** 🔵 Extra-Low
   - **Print Time:** 🔵 Extra-Low
-    - **Material/Time (Higher better):** 🟡 Low  
+    - **Material/Time (Higher better):** 🟡 Low
     - **Layer time Variability:** 🔴 Likely Noticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -353,7 +353,7 @@ Ultra-fast, ultra-low material infill. Designed for speed and efficiency, ideal 
 - **Density Calculation:** % of layer before top shell layers
   - **Material Usage:** 🟢 Ultra-Low
   - **Print Time:** 🟢 Ultra-Low
-    - **Material/Time (Higher better):** ⚪️ Normal-Low  
+    - **Material/Time (Higher better):** ⚪️ Normal-Low
     - **Layer time Variability:** 🔴 Likely Noticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -370,7 +370,7 @@ Hexagonal pattern balancing strength and material use. Double walls in each hexa
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** 🟡 High
   - **Print Time:** 🔴 Ultra-High
-    - **Material/Time (Higher better):** 🟡 Low  
+    - **Material/Time (Higher better):** 🟡 Low
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -387,7 +387,7 @@ This infill tries to generate a printable honeycomb structure by printing square
 - **Density Calculation:** Unknown
   - **Material Usage:** 🔘 Normal-Low
   - **Print Time:** 🟠 Extra-High
-    - **Material/Time (Higher better):** 🟡 Low  
+    - **Material/Time (Higher better):** 🟡 Low
     - **Layer time Variability:** 🟡 Possibly Noticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -404,7 +404,7 @@ Vertical Honeycomb pattern. Acceptable torsional stiffness. Developed for low de
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🟡 Possibly Noticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -421,7 +421,7 @@ Low-strength pattern with good flexibility. You can adjust **Angle 1** and **Ang
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🔵 Unnoticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -439,7 +439,7 @@ Easier to slice but consider using [TPMS-D](#tpms-d) or [Gyroid](#gyroid) for be
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🟡 High
-    - **Material/Time (Higher better):** 🟡 Low  
+    - **Material/Time (Higher better):** 🟡 Low
     - **Layer time Variability:** 🔴 Likely Noticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -456,7 +456,7 @@ Triply Periodic Minimal Surface (Schwarz Diamond). Hybrid between [Cross Hatch](
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🟡 High
-    - **Material/Time (Higher better):** 🟡 Low  
+    - **Material/Time (Higher better):** 🟡 Low
     - **Layer time Variability:** 🟡 Possibly Noticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -473,7 +473,7 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔴 Ultra-High
-    - **Material/Time (Higher better):** 🟡 Low  
+    - **Material/Time (Higher better):** 🟡 Low
     - **Layer time Variability:** 🟡 Possibly Noticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -490,7 +490,7 @@ Mathematical, isotropic surface providing equal strength in all directions. Exce
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔴 Ultra-High
-    - **Material/Time (Higher better):** 🟡 Low  
+    - **Material/Time (Higher better):** 🟡 Low
     - **Layer time Variability:** 🔵 Unnoticeable
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -507,7 +507,7 @@ Fills the area with progressively smaller versions of the outer contour, creatin
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -528,7 +528,7 @@ Print speed is very low due to the complexity of the path, which can lead to lon
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🟠 Extra-High
-    - **Material/Time (Higher better):** 🟡 Low  
+    - **Material/Time (Higher better):** 🟡 Low
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -547,7 +547,7 @@ Spiral pattern that fills the area with concentric arcs, creating a smooth and c
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** 🔘 Normal-Low
-    - **Material/Time (Higher better):** 🔘 Normal-High  
+    - **Material/Time (Higher better):** 🔘 Normal-High
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
@@ -566,7 +566,7 @@ Aesthetic pattern with low strength and high print time.
 - **Density Calculation:**  % of  total infill volume
   - **Material Usage:** ⚪️ Normal
   - **Print Time:** ⚪️ Normal
-    - **Material/Time (Higher better):** ⚪️ Normal  
+    - **Material/Time (Higher better):** ⚪️ Normal
     - **Layer time Variability:** 🟢 None
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**

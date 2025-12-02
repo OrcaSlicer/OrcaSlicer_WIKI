@@ -21,7 +21,7 @@ This section contains basic information about the filament material.
 
 ## Type
 
-Material base type (e.g., PLA, ABS, PETG, etc.).  
+Material base type (e.g., PLA, ABS, PETG, etc.).
 This setting affects coefficients used in various calculations, such as brim width or temperature warnings.
 
 ## Vendor
@@ -46,7 +46,7 @@ Minimum HRC of nozzle required to print the filament. A value of 0 means no chec
 
 ## Default color
 
-Default filament color.  
+Default filament color.
 Right click to reset value to system default.
 
 ## Diameter
@@ -63,8 +63,8 @@ Filament density, for statistical purposes only.
 
 ## Shrinkage (XY)
 
-Enter the shrinkage percentage that the filament will get after cooling (94% if you measure 94mm instead of 100mm).  
-The part will be scaled in XY to compensate. Only the filament used for the perimeter is taken into account.  
+Enter the shrinkage percentage that the filament will get after cooling (94% if you measure 94mm instead of 100mm).
+The part will be scaled in XY to compensate. Only the filament used for the perimeter is taken into account.
 Be sure to allow enough space between objects, as this compensation is done after the checks.
 
 ## Shrinkage (Z)

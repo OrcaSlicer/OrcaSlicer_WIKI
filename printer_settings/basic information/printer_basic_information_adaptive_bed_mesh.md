@@ -1,8 +1,8 @@
 # Adaptive Bed Mesh
 
-OrcaSlicer introduces comprehensive support for adaptive bed meshing across a variety of firmware, including Marlin, Klipper, and RepRapFirmware (RRF).  
-This feature allows users to seamlessly integrate adaptive bed mesh commands within the Machine Start G-code.  
-The implementation is designed to be straightforward, requiring no additional plugins or alterations to firmware settings, thereby enhancing user experience and print quality directly from OrcaSlicer.  
+OrcaSlicer introduces comprehensive support for adaptive bed meshing across a variety of firmware, including Marlin, Klipper, and RepRapFirmware (RRF).
+This feature allows users to seamlessly integrate adaptive bed mesh commands within the Machine Start G-code.
+The implementation is designed to be straightforward, requiring no additional plugins or alterations to firmware settings, thereby enhancing user experience and print quality directly from OrcaSlicer.
 ![ABM-PrinterConfig](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Adaptative-Bed-Mesh/ABM-PrinterConfig.png?raw=true)
 
 - [Bed mesh min](#bed-mesh-min)
@@ -57,7 +57,7 @@ G29 L{adaptive_bed_mesh_min[0]} R{adaptive_bed_mesh_max[0]} F{adaptive_bed_mesh_
 
 ```gcode
 ; Always pass `ADAPTIVE_MARGIN=0` because Orca has already handled `adaptive_bed_mesh_margin` internally
-; Make sure to set ADAPTIVE to 0 otherwise Klipper will use it's own adaptive bed mesh logic
+; Make sure to set ADAPTIVE to 0 otherwise Klipper will use its own adaptive bed mesh logic
 BED_MESH_CALIBRATE mesh_min={adaptive_bed_mesh_min[0]},{adaptive_bed_mesh_min[1]} mesh_max={adaptive_bed_mesh_max[0]},{adaptive_bed_mesh_max[1]} ALGORITHM=[bed_mesh_algo] PROBE_COUNT={bed_mesh_probe_count[0]},{bed_mesh_probe_count[1]} ADAPTIVE=0 ADAPTIVE_MARGIN=0
 ```
 

@@ -16,7 +16,7 @@
 
 ## Walls printing order
 
-Print sequence of the internal (inner) and external (outer) walls.  
+Print sequence of the internal (inner) and external (outer) walls.
 
 ### Inner/Outer
 
@@ -50,8 +50,8 @@ When using this option is recommended to use the [Precise Wall](quality_settings
 
 ## Wall loop direction
 
-The direction which the wall loops are extruded when looking down from the top.  
-By default all walls are extruded in counter-clockwise, unless [Reverse on even](quality_settings_overhangs#reverse-on-even) is enabled.  
+The direction which the wall loops are extruded when looking down from the top.
+By default all walls are extruded in counter-clockwise, unless [Reverse on even](quality_settings_overhangs#reverse-on-even) is enabled.
 Set this to any option other than Auto will force the wall direction regardless of the [Reverse on even](quality_settings_overhangs#reverse-on-even).
 
 > [!NOTE]
@@ -59,7 +59,7 @@ Set this to any option other than Auto will force the wall direction regardless 
 
 ## Surface flow ratio
 
-This factor affects the amount of material for [top or bottom solid infill](strength_settings_top_bottom_shells). You can decrease it slightly to have smooth surface finish.  
+This factor affects the amount of material for [top or bottom solid infill](strength_settings_top_bottom_shells). You can decrease it slightly to have smooth surface finish.
 The actual top or bottom surface flow used is calculated by multiplying this value by the filament flow ratio, and if set, the object's flow ratio.
 
 Other flow ratios, such as ratios for the first layer (does not affect brims and skirts), outer and inner walls, overhang perimeters, sparse infill, internal solid infill, gap fill, support, and support interfaces, can also be adjusted after enabling the "Set other flow ratios" option.
@@ -70,13 +70,13 @@ Other flow ratios, such as ratios for the first layer (does not affect brims and
 ## Only one wall
 
 Use only one wall on flat surfaces, to give more space to the [top infill pattern](strength_settings_top_bottom_shells#surface-pattern).
-Specially useful in small features, like letters, where the top surface is very small and [concentric pattern](strength_settings_patterns#concentric) from walls would not cover it properly.
+Especially useful in small features, like letters, where the top surface is very small and [concentric pattern](strength_settings_patterns#concentric) from walls would not cover it properly.
 
 ![only-one-wall](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/only-one-wall.gif?raw=true)
 
 ### Threshold
 
-If a top surface has to be printed and it's partially covered by another layer, it won't be considered at a top layer where its width is below this value. This can be useful to not let the 'one perimeter on top' trigger on surface that should be covered only by perimeters.  
+If a top surface has to be printed and it's partially covered by another layer, it won't be considered at a top layer where its width is below this value. This can be useful to not let the 'one perimeter on top' trigger on surface that should be covered only by perimeters.
 This value can be a mm or a % of the perimeter extrusion width.
 
 ![only-one-wall-threshold](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/only-one-wall-threshold.png?raw=true)
@@ -86,10 +86,10 @@ This value can be a mm or a % of the perimeter extrusion width.
 
 ## Avoid crossing walls
 
-This option instructs the slicer to avoid crossing perimeters (walls) during travel moves.  
+This option instructs the slicer to avoid crossing perimeters (walls) during travel moves.
 Instead of traveling directly through a wall, the print head will detour around it, which can significantly reduce surface defects and stringing.
 
-While this increases print time slightly, the improvement in print quality—especially with materials prone to stringing like **PETG** or **TPU**, often justifies the tradeoff.  
+While this increases print time slightly, the improvement in print quality—especially with materials prone to stringing like **PETG** or **TPU**, often justifies the tradeoff.
 Highly recommended for detailed or aesthetic prints.
 
 ![avoid-crossing-walls](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/avoid-crossing-walls.png?raw=true)
@@ -111,7 +111,7 @@ Use this setting to balance between print time and wall quality—longer detours
 ## Small area flow compensation
 
 Enables adaptive flow control for small infill areas.
-This feature helps address extrusion problems that often occur in small regions of solid infill, such as the tops of narrow letters or fine features.  
+This feature helps address extrusion problems that often occur in small regions of solid infill, such as the tops of narrow letters or fine features.
 In these cases, standard extrusion flow may be too much for the available space, leading to over-extrusion or poor surface quality.
 
 ![flow-compensation-model](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/flow-compensation-model.png?raw=true)
@@ -122,7 +122,7 @@ This is a native implementation of @Alexander-T-Moss [Small Area Flow Compensati
 
 ### Flow Compensation Model
 
-The model uses a list of Extrusion Length and Flow Correction Factor value pairs. Each pair defines how much flow should be used for a specific Extrusion Length.  
+The model uses a list of Extrusion Length and Flow Correction Factor value pairs. Each pair defines how much flow should be used for a specific Extrusion Length.
 For values between the listed points, the flow is calculated using linear interpolation.
 
 ![flow-compensation-model-graph](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/flow-compensation-model-graph.png?raw=true)

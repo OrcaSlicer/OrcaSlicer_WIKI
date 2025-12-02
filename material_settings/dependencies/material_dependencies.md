@@ -8,7 +8,7 @@ Set of printers that this material profile is compatible with if you want to lim
 
 ### Printer Condition
 
- boolean expression using the configuration values of an active printer profile.  
+ boolean expression using the configuration values of an active printer profile.
  If this expression evaluates to true, this profile is considered compatible with the active printer profile.
 
 ## Compatible process profiles
@@ -17,5 +17,5 @@ Set of process profiles that this material profile is compatible with if you wan
 
 ### Process Condition
 
-A boolean expression using the configuration values of an active print profile.  
+A boolean expression using the configuration values of an active print profile.
 If this expression evaluates to true, this profile is considered compatible with the active print profile.

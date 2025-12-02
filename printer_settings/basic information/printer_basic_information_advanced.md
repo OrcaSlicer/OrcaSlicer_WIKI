@@ -32,7 +32,7 @@ It is FDM printing, but instead of filaments, it uses pellets.
 The difference here is that where filaments have a filament_diameter that is used to calculate the volume of filament ingested, pellets have a particular flow_coefficient that is empirically devised for that particular pellet.
 
 pellet_flow_coefficient is basically a measure of the packing density of a particular pellet.
-Shape, material and density of an individual pellet will determine the packing density and the only thing that matters for 3d printing is how much of that pellet material is extruded by one turn of whatever feeding mehcanism/gear your printer uses. You can emperically derive that for your own pellets for a particular printer model.
+Shape, material and density of an individual pellet will determine the packing density and the only thing that matters for 3d printing is how much of that pellet material is extruded by one turn of whatever feeding mehcanism/gear your printer uses. You can empirically derive that for your own pellets for a particular printer model.
 
 We are translating the pellet_flow_coefficient into filament_diameter so that everything works just like it does already with very minor adjustments.
 

@@ -29,8 +29,8 @@ Infill density determines the amount of material used to fill the interior of a 
   - Print time.
 
 > [!NOTE]
-> Density usually is calculated as a % of the total infill volume, not the total print volume.  
-> Nevertheless, **not all patterns interpret density the same way**, so the actual material usage may vary.  
+> Density usually is calculated as a % of the total infill volume, not the total print volume.
+> Nevertheless, **not all patterns interpret density the same way**, so the actual material usage may vary.
 > You can see each pattern's material usage in the [Patterns section](strength_settings_patterns).
 
 ## Fill Multiline
@@ -82,7 +82,7 @@ Controls the direction of the infill lines to optimize or strengthen the print.
 
 ### Rotation
 
-This parameter adds a rotation to the sparse infill direction for each layer according to the specified template.  
+This parameter adds a rotation to the sparse infill direction for each layer according to the specified template.
 The template is a comma-separated list of angles in degrees.
 
 For example:
@@ -125,7 +125,7 @@ Infill area is enlarged slightly to overlap with wall for better bonding. The pe
 
 ## Apply gap fill
 
-Enables gap fill for the selected solid surfaces.  
+Enables gap fill for the selected solid surfaces.
 The minimum gap length that will be filled can be controlled from the filter out tiny gaps option.
 
 1. **Everywhere:** Applies gap fill to top, bottom and internal solid surfaces for maximum strength.
@@ -141,7 +141,7 @@ However this is not advised, as gap fill between perimeters is contributing to t
 
 ## Filter out tiny gaps
 
-Don't print gap fill with a length is smaller than the threshold specified (in mm).  
+Don't print gap fill with a length is smaller than the threshold specified (in mm).
 This setting applies to top, bottom and solid infill and, if using the [classic perimeter generator](quality_settings_wall_generator#classic), to wall gap fill.
 
 ## Anchor

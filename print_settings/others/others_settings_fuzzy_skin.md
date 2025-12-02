@@ -1,6 +1,6 @@
 # Fuzzy Skin
 
-Fuzzy skin randomly perturbs the wall path to produce a deliberately rough, matte appearance on the model surface.  
+Fuzzy skin randomly perturbs the wall path to produce a deliberately rough, matte appearance on the model surface.
 These settings control where the effect is applied, how the noise is generated, and how aggressive the displacement or extrusion modulation is.
 
 Useful for creating a textures or hide surface imperfections but will increase print time and will affect dimensional accuracy.
@@ -33,7 +33,7 @@ Choose which parts of the model receive the fuzzy-skin effect.
 
 ### Contour
 
-Apply fuzzy skin only to the outermost contour (external perimeter) of the model.  
+Apply fuzzy skin only to the outermost contour (external perimeter) of the model.
 Useful for creating a textured edge while keeping the inner surfaces smooth.
 
 ### Contour and Hole
@@ -52,7 +52,7 @@ Select the underlying method used to produce the fuzzy effect. Each mode has dif
 
 ![Fuzzy-skin-Displacement-mode](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-Displacement-mode.png?raw=true)
 
-The classic method is when the pattern on the walls is achieved by shifting the printhead perpendicular to the wall.  
+The classic method is when the pattern on the walls is achieved by shifting the printhead perpendicular to the wall.
 It gives a predictable result, but decreases the strength entire shells and open the pores inside the walls. It also increases the mechanical stress on the kinematics of the printer. The speed of general printing is slowing down.
 
 ### Extrusion
@@ -62,7 +62,7 @@ It gives a predictable result, but decreases the strength entire shells and open
 The fuzzy skin condition is obtained by changing the amount of extruded plastic as the print head moves linearly. There is no extra load on the kinematics, there is no decrease in the printing speed, the pores do not open, but the drawing turns out to be smoother by a factor of 2. It is suitable for creating "loose" walls to reduce internal stress into extruded plastic, or masking printing defects on the side walls - a matte effect.
 
 > [!CAUTION]
-> The "Fuzzy skin thicknesses" parameter cannot be more than about 70%-125% (selected individually for different conditions) of the nozzle diameter! This is a complex condition that also depends on the height of the layer, and determines how thin the lines can be extruded.  
+> The "Fuzzy skin thicknesses" parameter cannot be more than about 70%-125% (selected individually for different conditions) of the nozzle diameter! This is a complex condition that also depends on the height of the layer, and determines how thin the lines can be extruded.
 > [Arachne](quality_settings_wall_generator#arachne) wall generator mode should also be enabled.
 
 ### Combined
@@ -110,12 +110,12 @@ Creates sharp, jagged features and high-contrast detail. Useful for stone- or ma
 
 ## Point distance
 
-Average distance between random sample points along each line segment.  
+Average distance between random sample points along each line segment.
 Smaller values add more detail and increase computation; larger values produce coarser, faster results.
 
 ## Skin thickness
 
-Maximum lateral width (in mm) over which points can be displaced. This defines how far the wall can be jittered.  
+Maximum lateral width (in mm) over which points can be displaced. This defines how far the wall can be jittered.
 Keep this below or near your outer wall line width and within nozzle/flow limits for reliable prints.
 
 ## Skin feature size

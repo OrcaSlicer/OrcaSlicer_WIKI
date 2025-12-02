@@ -4,7 +4,7 @@ The Wall Generator defines how the outer and inner walls (perimeters) of the mod
 
 - [Classic](#classic)
 - [Arachne](#arachne)
-  - [Wall transitioning threshhold angle](#wall-transitioning-threshhold-angle)
+  - [Wall transitioning threshold angle](#wall-transitioning-threshold-angle)
   - [Wall transitioning filter margin](#wall-transitioning-filter-margin)
   - [Wall transitioning length](#wall-transitioning-length)
   - [Wall distribution count](#wall-distribution-count)
@@ -29,7 +29,7 @@ The Arachne wall generator dynamically adjusts extrusion width to follow the sha
 > [!NOTE]
 > [A Framework for Adaptive Width Control of Dense Contour-Parallel Toolpaths in Fused Deposition Modeling](https://www.sciencedirect.com/science/article/pii/S0010448520301007?via%3Dihub)
 
-### Wall transitioning threshhold angle
+### Wall transitioning threshold angle
 
 Defines the minimum angle (in degrees) required for the algorithm to create a transition between an even and odd number of walls. If a wedge shape exceeds this angle, no extra center wall will be added. Lowering this value reduces center walls but may cause under- or over-extrusion in sharp corners.
 
@@ -65,7 +65,7 @@ Minimum width required for a model feature to be printed. Features below this va
 
 ### Minimum wall length
 
-Avoids very short or isolated wall segments that add unnecessary time.  
+Avoids very short or isolated wall segments that add unnecessary time.
 Increasing this value removes short unconnected walls, **improving efficiency**.
 
 > [!NOTE]

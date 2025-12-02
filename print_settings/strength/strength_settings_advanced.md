@@ -10,15 +10,15 @@
 
 ## Align infill direction to model
 
-Aligns infill and surface fill directions to follow the model's orientation on the build plate.  
+Aligns infill and surface fill directions to follow the model's orientation on the build plate.
 When enabled, fill directions rotate with the model to maintain optimal characteristics.
 
 ![fill-direction-to-model](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-direction-to-model.png?raw=true)
 
 ## Bridge infill direction
 
-Bridging angle override.  
-If left at zero, the bridging angle will be calculated automatically. Otherwise, the provided angle will be used for bridges.  
+Bridging angle override.
+If left at zero, the bridging angle will be calculated automatically. Otherwise, the provided angle will be used for bridges.
 Use 180° to represent a zero angle.
 
 ## Minimum sparse infill threshold
@@ -34,7 +34,7 @@ Automatically combine [sparse infill](strength_settings_infill) of several layer
 
 ### Max layer height
 
-Maximum layer height for the combined sparse infill.  
+Maximum layer height for the combined sparse infill.
 Set it to 0 or 100% to use the nozzle diameter (for maximum reduction in print time), or to a value of ~80% to maximize sparse infill strength.
 
 The number of layers over which infill is combined is derived by dividing this value by the layer height and rounding down to the nearest decimal.

@@ -243,7 +243,7 @@ gcode:
 
 ## Support air filtration
 
-Air Filtration/Exhaust Fan Control in OrcaSlicer.  
+Air Filtration/Exhaust Fan Control in OrcaSlicer.
 OrcaSlicer use `M106 P3` command to control air-filtration/exhaust fan.
 
 If you are using Klipper, you can define a `M106` macro to control both the normal part cooling fan, auxiliary fan, and exhaust fan.

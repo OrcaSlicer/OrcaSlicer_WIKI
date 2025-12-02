@@ -48,7 +48,7 @@ Limit support generation to specific areas defined by manual placement in the pr
 
 ## Style
 
-Style and shape of the support.  
+Style and shape of the support.
 
 ### Grid
 

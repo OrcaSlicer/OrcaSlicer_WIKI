@@ -6,7 +6,7 @@ Controls how the top and bottom solid layers (shells) are generated.
 
 ## Shell Layers
 
-This is the number of solid shell layers, including the surface layer.  
+This is the number of solid shell layers, including the surface layer.
 When the thickness calculated from this value is less than [shell thickness](#shell-thickness), the shell layers will be increased.
 
 These layers are printed over the [sparse infill](strength_settings_infill), so increasing **shell layers** will increase overall part strength and top surface quality.
@@ -14,17 +14,17 @@ It's usually recommended to have at least 3 shell layers for most prints.
 
 ## Shell Thickness
 
-The number of solid layers is increased during slicing if the thickness calculated from shell layers is thinner than this value. This avoids having too thin a shell when layer height is small.  
+The number of solid layers is increased during slicing if the thickness calculated from shell layers is thinner than this value. This avoids having too thin a shell when layer height is small.
 0 means this setting is disabled and shell thickness is determined entirely by [shell layers](#shell-layers).
 
 ## Surface Density
 
-This setting controls the density of the top and bottom surfaces. A value of 100% means a solid surface, while lower values create a sparse surface.  
+This setting controls the density of the top and bottom surfaces. A value of 100% means a solid surface, while lower values create a sparse surface.
 This can be used for aesthetic purposes, improving grip or creating interfaces.
 
 ## Infill/Wall Overlap
 
-The top solid infill area is slightly enlarged to overlap with walls for better bonding and to minimize pinholes where the infill meets the walls.  
+The top solid infill area is slightly enlarged to overlap with walls for better bonding and to minimize pinholes where the infill meets the walls.
 A value of 25-30% is a good starting point. The percentage value is relative to the line width of the sparse infill.
 
 > [!TIP]
@@ -32,7 +32,7 @@ A value of 25-30% is a good starting point. The percentage value is relative to 
 
 ## Surface Pattern
 
-This setting controls the pattern of the surfaces.  
+This setting controls the pattern of the surfaces.
 If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be applied to the outermost shell layer only and the rest will use [Internal Solid Infill Pattern](strength_settings_infill#internal-solid-infill).
 
 > [!TIP]

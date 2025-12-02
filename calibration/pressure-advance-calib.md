@@ -5,7 +5,7 @@
 OrcaSlicer includes three approaches for calibrating the Pressure Advance value. Each method has its own advantages and disadvantages. It is important to note that each method has two versions: one for a direct-drive extruder and one for a Bowden extruder. Make sure to select the appropriate version for your test.
 
 > [!WARNING]
-> **Marlin Printers:** Linear Advance must be enabled in firmware (M900).  
+> **Marlin Printers:** Linear Advance must be enabled in firmware (M900).
 > **Not all printers have it enabled by default.**
 
 > [!WARNING]
@@ -21,11 +21,11 @@ OrcaSlicer includes three approaches for calibrating the Pressure Advance value.
 
 You can use different methods to calibrate the Pressure Advance value, each with its own advantages and disadvantages.
 
-The results from these methods should be saved to the material profile.  
+The results from these methods should be saved to the material profile.
 ![pressure_advance_enable](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable.png?raw=true)
 
 > [!TIP]
-> Consider using the [Adaptive Pressure Advance](adaptive-pressure-advance-calib) method for more accurate results.  
+> Consider using the [Adaptive Pressure Advance](adaptive-pressure-advance-calib) method for more accurate results.
 > Especially for high-speed printers.
 
 ### Tower method

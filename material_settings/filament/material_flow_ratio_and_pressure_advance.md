@@ -12,8 +12,8 @@ Flow ratio and pressure advance settings for the selected material.
 
 ## Flow Ratio
 
-The material may have volumetric change after switching between molten and crystalline states. This setting changes all extrusion flow of this filament in G-code proportionally.  
-The recommended value range is between 0.95 and 1.05. You may be able to tune this value to get a nice flat surface if there is slight overflow or underflow.  
+The material may have volumetric change after switching between molten and crystalline states. This setting changes all extrusion flow of this filament in G-code proportionally.
+The recommended value range is between 0.95 and 1.05. You may be able to tune this value to get a nice flat surface if there is slight overflow or underflow.
 The final object flow ratio is this value multiplied by the filament flow ratio.
 
 > [!TIP]
@@ -46,13 +46,13 @@ Enable adaptive PA for overhangs as well as when flow changes within the same fe
 
 #### Pressure advance for bridges
 
-Pressure advance value for bridges. Set to 0 to disable.  
-A lower PA value when printing bridges helps reduce the appearance of slight under extrusion immediately after bridges.  
+Pressure advance value for bridges. Set to 0 to disable.
+A lower PA value when printing bridges helps reduce the appearance of slight under extrusion immediately after bridges.
 This is caused by the pressure drop in the nozzle when printing in the air and a lower PA helps counteract this.
 
 #### Adaptive pressure advance measurements (beta)
 
-Add sets of pressure advance (PA) values, the volumetric flow speeds and accelerations they were measured at, separated by a comma.  
+Add sets of pressure advance (PA) values, the volumetric flow speeds and accelerations they were measured at, separated by a comma.
 One set of values per line. For example:
 
 ```json

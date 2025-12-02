@@ -1,0 +1,118 @@
+name: Typos Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  typos-check:
+    name: Check for typos
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check for typos
+        id: typos-check
+        uses: crate-ci/typos@master
+        with:
+          config: ./.typos.toml
+        continue-on-error: true
+
+      - name: Fix typos automatically
+        if: steps.typos-check.outcome == 'failure' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          # Install typos-cli
+          curl -LsSf https://github.com/crate-ci/typos/releases/latest/download/typos-x86_64-unknown-linux-musl.tar.gz | tar xzf - -C /usr/local/bin
+
+          # Fix typos in place
+          typos --write-changes --config ./.typos.toml
+
+      - name: Create Pull Request with fixes
+        if: steps.typos-check.outcome == 'failure' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'fix: correct typos found by typos checker'
+          title: 'Fix typos detected in documentation'
+          body: |
+            This PR was automatically created by the typos checker workflow.
+
+            The following typos were detected and automatically corrected:
+
+            Please review the changes and merge if they look correct.
+          branch: automated/fix-typos
+          delete-branch: true
+          labels: |
+            automated
+            documentation
+            typo-fix
+
+      - name: Fail on typos for PRs
+        if: steps.typos-check.outcome == 'failure' && github.event_name == 'pull_request'
+        run: |
+          # Capture typos output
+          typos --format json --config ./.typos.toml > typos-output.json || true
+
+          # Create a markdown summary
+          echo "## Typos Detected" >> typos-comment.md
+          echo "" >> typos-comment.md
+          echo "The following typos were found in this PR:" >> typos-comment.md
+          echo "" >> typos-comment.md
+
+          # Parse JSON and create markdown table
+          echo "| File | Line | Typo | Suggestion |" >> typos-comment.md
+          echo "|------|------|------|------------|" >> typos-comment.md
+
+          typos --config ./.typos.toml 2>&1 | grep -E "error:|should be" | while IFS= read -r line; do
+            if [[ $line =~ "error: \`([^']+)\` should be \`([^']+)\`" ]]; then
+              typo="${BASH_REMATCH[1]}"
+              suggestion="${BASH_REMATCH[2]}"
+            elif [[ $line =~ ╭▸[[:space:]]+(.*):([0-9]+): ]]; then
+              file="${BASH_REMATCH[1]}"
+              lineno="${BASH_REMATCH[2]}"
+              echo "| \`$file\` | $lineno | \`$typo\` | \`$suggestion\` |" >> typos-comment.md
+            fi
+          done
+
+          echo "" >> typos-comment.md
+          echo "### How to fix" >> typos-comment.md
+          echo "" >> typos-comment.md
+          echo "You can automatically fix these typos by running:" >> typos-comment.md
+          echo '```bash' >> typos-comment.md
+          echo "typos --write-changes" >> typos-comment.md
+          echo '```' >> typos-comment.md
+
+      - name: Comment PR with typo corrections
+        if: steps.typos-check.outcome == 'failure' && github.event_name == 'pull_request'
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            let comment = '';
+            try {
+              comment = fs.readFileSync('typos-comment.md', 'utf8');
+            } catch (e) {
+              comment = '## Typos Detected\n\nPlease run `typos --write-changes` locally to fix the typos.';
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Fail the check for PRs with typos
+        if: steps.typos-check.outcome == 'failure' && github.event_name == 'pull_request'
+        run: |
+          echo "::error::Typos detected in pull request. Please review the comment with corrections and run 'typos --write-changes' locally."
+          exit 1

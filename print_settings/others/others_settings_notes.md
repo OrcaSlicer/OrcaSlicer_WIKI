@@ -1,6 +1,6 @@
 # Notes
 
-You can put your notes regarding the filament.  
+You can put your notes regarding the filament.
 This will result in a commented note inside the G-code.
 
 ```gcode

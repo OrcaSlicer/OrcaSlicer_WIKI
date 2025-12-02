@@ -1,6 +1,6 @@
 # Flow Rate Calibration
 
-[Flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio) determines how much filament is extruded and is crucial for high-quality prints.  
+[Flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio) determines how much filament is extruded and is crucial for high-quality prints.
 A properly calibrated flow ratio ensures consistent layer adhesion and accurate dimensions.
 
 - Too **low** flow ratio causes under-extrusion, which leads to gaps, weak layers, and poor structural integrity.
@@ -38,12 +38,12 @@ This method uses the [Archimedean Chords](strength_settings_patterns#archimedean
    1. The smoothest top surface.
    2. No visible gaps between the pattern arcs.
    3. Minimal or no visible line between the Inner Spiral and the Outer Arcs.
-   ![flowcalibration-guide](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowcalibration-guide.png?raw=true)  
-   In this example, the block with a flow modifier of `+0.01` produced the best results, despite a visible line between the Inner Spiral and the Outer Arcs; reducing the flow further begins to show gaps between the lines.  
+   ![flowcalibration-guide](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowcalibration-guide.png?raw=true)
+   In this example, the block with a flow modifier of `+0.01` produced the best results, despite a visible line between the Inner Spiral and the Outer Arcs; reducing the flow further begins to show gaps between the lines.
    ![flowcalibration-example](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowcalibration-example.png?raw=true)
 5. Update the flow ratio in the filament settings using the equation: `OldFlowRatio ± modifier`.
-   If your previous flow ratio was `0.98` and you selected the block with a flow rate modifier of `+0.01`, the new value would be: `0.98 + 0.01 = 0.99`.  
-   **Remember** to save the filament profile.  
+   If your previous flow ratio was `0.98` and you selected the block with a flow rate modifier of `+0.01`, the new value would be: `0.98 + 0.01 = 0.99`.
+   **Remember** to save the filament profile.
    ![flowcalibration_update_flowrate](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowcalibration_update_flowrate.png?raw=true)
 
 > [!NOTE]
@@ -59,7 +59,7 @@ This example uses the Monotonic Line pattern with the 2-Pass Calibration approac
 2. In the `Calibration` menu, under the `Flow Rate` section, select `Pass 1`.
 3. A new project with nine blocks will be created, each with a different flow rate modifier. Slice and print the project.
 4. Examine the blocks and determine which one has the smoothest top surface.
-   ![flowrate-pass1-monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowrate-pass1-monotonic.jpg?raw=true)  
+   ![flowrate-pass1-monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowrate-pass1-monotonic.jpg?raw=true)
    ![flowrate-0-5-monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowrate-0-5-monotonic.jpg?raw=true)
 5. Update the flow ratio in the filament settings using the equation: `OldFlowRatio * (100 + modifier) / 100`.
    For example, if your previous flow ratio was `0.98` and you selected the block with a flow rate modifier of `+5`, the new value would be: `0.98 × (100 + 5) / 100 = 1.029`.
@@ -67,8 +67,8 @@ This example uses the Monotonic Line pattern with the 2-Pass Calibration approac
 6. Perform the `Pass 2` calibration. This process is similar to `Pass 1`, but a new project with ten blocks will be generated. The flow rate modifiers for this project will range from `-9` to `0`.
 7. Repeat steps 4 and 5. For example, if your previous flow ratio was `1.029` and you selected the block with a flow rate modifier of `-6`, the new value would be: `1.029 × (100 - 6) / 100 = 0.96726`.
    **Remember** to save the filament profile.
-   ![flowrate-pass2-monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowrate-pass2-monotonic.jpg?raw=true)  
-   ![flowrate-6-monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowrate-6-monotonic.jpg?raw=true)  
+   ![flowrate-pass2-monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowrate-pass2-monotonic.jpg?raw=true)
+   ![flowrate-6-monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowrate-6-monotonic.jpg?raw=true)
    ![flowcalibration_update_flowrate_monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowcalibration_update_flowrate_monotonic.png?raw=true)
 
 > [!TIP]

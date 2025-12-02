@@ -1,7 +1,7 @@
 # Acceleration
 
-Acceleration in 3D printing is usually set on the printer's firmware settings.  
-This setting will try to override the acceleration when [normal printing acceleration](#normal-printing) value is different than 0.  
+Acceleration in 3D printing is usually set on the printer's firmware settings.
+This setting will try to override the acceleration when [normal printing acceleration](#normal-printing) value is different from 0.
 Orca will limit the acceleration to not exceed the acceleration set in the Printer's Motion Ability settings.
 
 - [Normal printing](#normal-printing)
@@ -47,7 +47,7 @@ Acceleration of [initial layer](speed_settings_initial_layer_speed). Using a low
 
 ## Top surface
 
-Acceleration of [top surface infill](speed_settings_other_layers_speed#top-surface). Using a lower value may improve top surface quality.  
+Acceleration of [top surface infill](speed_settings_other_layers_speed#top-surface). Using a lower value may improve top surface quality.
 Recommended to use a similar value to the [outer wall acceleration](#outer-wall).
 
 ## Travel

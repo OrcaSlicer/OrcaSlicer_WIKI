@@ -1,6 +1,6 @@
 # Adaptive Pressure Advance
 
-This feature aims to dynamically adjust the [material’s pressure advance](material_flow_ratio_and_pressure_advance#enable-adaptive-pressure-advance-beta) to better match the conditions the toolhead is facing during a print. Specifically, to more closely align to the ideal values as flow rate, acceleration, and bridges are encountered.  
+This feature aims to dynamically adjust the [material’s pressure advance](material_flow_ratio_and_pressure_advance#enable-adaptive-pressure-advance-beta) to better match the conditions the toolhead is facing during a print. Specifically, to more closely align to the ideal values as flow rate, acceleration, and bridges are encountered.
 This wiki page aims to explain how this feature works, the prerequisites required to get the most out of it as well as how to calibrate it and set it up.
 
 ## Settings Overview
@@ -11,7 +11,7 @@ This feature introduces the below options under the filament settings:
 2. **Enable adaptive pressure advance for overhangs:** Enable adaptive PA for overhangs as well as when flow changes within the same feature. This is an experimental option because if the PA profile is not set accurately, it will cause uniformity issues on the external surfaces before and after overhangs. It is recommended to start with this option switched off and enable it after the core adaptive pressure advance feature is calibrated correctly.
 3. **Pressure advance for bridges:** Sets the desired pressure advance value for bridges. Set it to 0 to disable this feature. Experiments have shown that a lower PA value when printing bridges helps reduce the appearance of slight under extrusion immediately after a bridge, which is caused by the pressure drop in the nozzle when printing in the air. Therefore, a lower pressure advance value helps counteract this. A good starting point is approximately half your usual PA value.
 4. **Adaptive pressure advance measurements:** This field contains the calibration values used to generate the pressure advance profile for the nozzle/printer. Input sets of pressure advance (PA) values and the corresponding volumetric flow speeds and accelerations they were measured at, separated by a comma. Add one set of values per line. More information on how to calibrate the model follows in the sections below.
-5. **Pressure advance:** The old field is still needed and is required to be populated with a PA value. A “good enough” median PA value should be entered here, as this will act as a fallback value when performing tool changes, printing a purge/wipe tower for multi-color prints as well as a fallback in case the model fails to identify an appropriate value (unlikely but it’s the ultimate backstop).  
+5. **Pressure advance:** The old field is still needed and is required to be populated with a PA value. A “good enough” median PA value should be entered here, as this will act as a fallback value when performing tool changes, printing a purge/wipe tower for multi-color prints as well as a fallback in case the model fails to identify an appropriate value (unlikely but it’s the ultimate backstop).
 ![apa-material-config](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/apa-material-config.png?raw=true)
 
 ## Pre-Requisites
@@ -19,8 +19,8 @@ This feature introduces the below options under the filament settings:
 This feature has been tested with Klipper-based printers. While it may work with Marlin or Bambu lab printers, it is currently untested with them. It shouldn't adversely affect the machine; however, the quality results from enabling it are not validated.
 
 > [!IMPORTANT]
-> Versions of Klipper older than July 11th, 2024 might in some cases produce artifacts when dynamic PA is used.  
-> This has been fixed in Klipper stable version 0.13.0 (20250411), or in developer versions starting [from July 11th, 2024](https://github.com/Klipper3d/klipper/commit/c84d78f3f169bc5163d11b74837f9880b0b7dba4).  
+> Versions of Klipper older than July 11th, 2024 might in some cases produce artifacts when dynamic PA is used.
+> This has been fixed in Klipper stable version 0.13.0 (20250411), or in developer versions starting [from July 11th, 2024](https://github.com/Klipper3d/klipper/commit/c84d78f3f169bc5163d11b74837f9880b0b7dba4).
 > If you experience issues or print quality lower than expected you might want to ensure you have a Klipper firmware which contains the fix.
 
 > [!TIP]
@@ -48,16 +48,16 @@ Finally, if during calibration you notice that there is little to no variance be
 
 ### Expected results
 
-With this feature enabled there should be absolutely no bulge in the corners, just the smooth rounding caused by the square corner velocity of your printer.  
+With this feature enabled there should be absolutely no bulge in the corners, just the smooth rounding caused by the square corner velocity of your printer.
 ![apa-expected-results](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/apa-expected-results.jpg?raw=true)
 
-In addition, seams should appear smooth with no bulging or under extrusion.  
+In addition, seams should appear smooth with no bulging or under extrusion.
 ![apa-expected-seam](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/apa-expected-seam.jpg?raw=true)
 
-Solid infill should have no gaps, pinholes, or separation from the perimeters.  
+Solid infill should have no gaps, pinholes, or separation from the perimeters.
 ![apa-expected-solid-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/apa-expected-solid-infill.jpg?raw=true)
 
-Compared to with this feature disabled, where the internal solid infill and external-internal perimeters show signs of separation and under extrusion, when PA is tuned for optimal external perimeter performance as shown below.  
+Compared to with this feature disabled, where the internal solid infill and external-internal perimeters show signs of separation and under extrusion, when PA is tuned for optimal external perimeter performance as shown below.
 ![apa-unexpected-solid-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/apa-unexpected-solid-infill.jpg?raw=true)
 
 ## How to calibrate the adaptive pressure advance model
@@ -90,7 +90,7 @@ Similarly, if the maximum value recommended is 12k, run PA tests as below:
 1. **Accelerations:** 1k, 2k, 4k, 8k, 12k
 2. **Print speeds:** 50mm/sec, 100mm/sec, 150mm/sec, 200mm/sec.
 
-So, at worst case you will need to run 5x4 = 20 PA tests if your printer acceleration is on the upper end! In essence, you want enough granularity of data points to create a meaningful model while also not overdoing it with the number of tests. So, doubling the speed and acceleration is a good compromise to arrive at the optimal number of tests.  
+So, at worst case you will need to run 5x4 = 20 PA tests if your printer acceleration is on the upper end! In essence, you want enough granularity of data points to create a meaningful model while also not overdoing it with the number of tests. So, doubling the speed and acceleration is a good compromise to arrive at the optimal number of tests.
 For this example, let’s assume that the baseline number of tests is adequate for your printer:
 
 1. **Accelerations:** 1k, 2k, 4k

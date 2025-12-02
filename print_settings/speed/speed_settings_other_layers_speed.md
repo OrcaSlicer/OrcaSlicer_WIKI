@@ -44,7 +44,7 @@ If expressed as percentage (for example: 80%) it will be calculated on the [oute
 
 ### Small perimeters threshold
 
-**Radius** in millimeters below which the speed of perimeters will be reduced to the [small perimeters speed](#small-perimeters).  
+**Radius** in millimeters below which the speed of perimeters will be reduced to the [small perimeters speed](#small-perimeters).
 To know the length of the perimeter, you can use the formula:
 
 ```math
@@ -62,13 +62,13 @@ For example, if the threshold is set to 5 mm, then the perimeter length must be 
 
 ## Sparse infill
 
-Speed of [sparse infill](strength_settings_infill) which is printed faster than solid infill to reduce print time.  
+Speed of [sparse infill](strength_settings_infill) which is printed faster than solid infill to reduce print time.
 In case you are using your [Infill Pattern](strength_settings_infill) as aesthetic feature, you may want to set it closer to the [outer wall speed](#outer-wall) to get better quality.
 
 ## Internal solid infill
 
-Speed of internal solid infill, which fills the interior of the model with solid layers.  
-This is typically set faster than the [top surface speed](#top-surface) to optimize print time, while still ensuring adequate strength and layer adhesion. Adjusting this speed can help balance print quality and efficiency, especially for models requiring strong internal structures.  
+Speed of internal solid infill, which fills the interior of the model with solid layers.
+This is typically set faster than the [top surface speed](#top-surface) to optimize print time, while still ensuring adequate strength and layer adhesion. Adjusting this speed can help balance print quality and efficiency, especially for models requiring strong internal structures.
 Solid infill is also considered when [infill % is set to 100%](strength_settings_infill#internal-solid-infill).
 
 ## Top surface

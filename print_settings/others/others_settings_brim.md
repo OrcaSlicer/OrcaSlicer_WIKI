@@ -48,21 +48,21 @@ Generates a brim only on areas that have been painted ![toolbar_brimears_dark](h
 
 ### Outer
 
-Creates a brim around the model's outer perimeter.  
+Creates a brim around the model's outer perimeter.
 Easier to remove than an inner brim, but may affect the model's appearance if not removed cleanly.
 
 ![brim-outer](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim-outer.png?raw=true)
 
 ### Inner
 
-Creates a brim around inner perimeters.  
+Creates a brim around inner perimeters.
 More difficult to remove and less effective than an outer brim and may obscure fine inner details, but it can hide the brim removal seam.
 
 ![brim-inner](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim-inner.png?raw=true)
 
 ### Outer and Inner
 
-Creates a brim around both the outer and inner perimeters of the model.  
+Creates a brim around both the outer and inner perimeters of the model.
 This approach combines the **disadvantages** of both brim types, making it more difficult to remove while potentially obscuring fine details but improving overall adhesion.
 
 ![brim-outer-inner](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim-outer-inner.png?raw=true)
@@ -72,7 +72,7 @@ This approach combines the **disadvantages** of both brim types, making it more 
 
 ### Mouse Ears
 
-Mouse ears are small, local brim extensions (typically placed near corners and sharp features) that improve bed adhesion and reduce warping while using less material than a full brim.  
+Mouse ears are small, local brim extensions (typically placed near corners and sharp features) that improve bed adhesion and reduce warping while using less material than a full brim.
 The geometry analysis routine selects candidate locations based on the configured angle threshold and detection radius.
 
 ![brim-mouse-ears](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim-mouse-ears.png?raw=true)
@@ -87,16 +87,16 @@ Angle threshold (degrees) used to decide where mouse ears may be placed:
 
 #### Ear detection radius
 
-The geometry will be decimated before detecting sharp angles.  
-This parameter indicates the minimum length of the deviation for the decimation.  
+The geometry will be decimated before detecting sharp angles.
+This parameter indicates the minimum length of the deviation for the decimation.
 0 to deactivate.
 
 ## Width
 
-Distance between the model and the outermost brim line.  
+Distance between the model and the outermost brim line.
 Increasing this value widens the brim, which can improve adhesion but increases material usage.
 
 ## Brim-Object Gap
 
-Gap between the innermost brim line and the object.  
+Gap between the innermost brim line and the object.
 Increasing the gap makes the brim easier to remove but reduces its adhesion benefit; very large gaps may eliminate contact and negate the brim's purpose.

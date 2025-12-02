@@ -11,20 +11,20 @@
 
 ## Flow ratio
 
-Decrease this value slightly (for example 0.9) to reduce the amount of material for bridge, to improve sag.  
+Decrease this value slightly (for example 0.9) to reduce the amount of material for bridge, to improve sag.
 The actual bridge flow used is calculated by multiplying this value with the filament flow ratio, and if set, the object's flow ratio.
 
 ## Bridge density
 
-This value governs the thickness of the bridge layer. This is the first layer over sparse infill. Decrease this value slightly (for example 0.9) to improve surface quality over sparse infill.  
+This value governs the thickness of the bridge layer. This is the first layer over sparse infill. Decrease this value slightly (for example 0.9) to improve surface quality over sparse infill.
 The actual internal bridge flow used is calculated by multiplying this value with the [bridge flow ratio](#flow-ratio), the filament flow ratio, and if set, the object's flow ratio.
 
 ## Thick bridges
 
 ![thick-bridges](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/thick-bridges.png?raw=true)
 
-When enabled, thick bridges increase the reliability and strength of bridges, allowing you to span longer distances. However, this may result in a rougher surface finish.  
-Disabling this option can improve the visual quality of bridges, but is recommended only for shorter spans or when using large nozzle sizes.  
+When enabled, thick bridges increase the reliability and strength of bridges, allowing you to span longer distances. However, this may result in a rougher surface finish.
+Disabling this option can improve the visual quality of bridges, but is recommended only for shorter spans or when using large nozzle sizes.
 It's recommended to enable this option for internal bridges, as it helps improve the reliability of internal bridges over sparse infill.
 
 ## Extra bridge layers
@@ -60,12 +60,12 @@ Enabling limited filtering or no filtering will print internal bridge layer over
 
 When printing counterbore holes, the unsupported area can lead to sagging or poor surface quality. Also the perimeters of the counterbore hole may not be printed correctly, leading to gaps or weak points in the structure.
 
-This option creates bridges for counterbore holes, allowing them to be printed without support.  
+This option creates bridges for counterbore holes, allowing them to be printed without support.
 Available modes include:
 
-- **None:** No bridge is created.  
+- **None:** No bridge is created.
   ![bridge-counterbore-none](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-counterbore-none.png?raw=true)
-- **Partially Bridged:** Only a part of the unsupported area will be bridged, creating a supporting layer for the next layer.  
+- **Partially Bridged:** Only a part of the unsupported area will be bridged, creating a supporting layer for the next layer.
   ![bridge-counterbore-partially](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-counterbore-partially.gif?raw=true)
-- **Sacrificial Layer:** A full sacrificial bridge layer is created. This will close the counterbore hole, allowing the next layer to be printed without sagging. The sacrificial layer must be broken through after printing.  
+- **Sacrificial Layer:** A full sacrificial bridge layer is created. This will close the counterbore hole, allowing the next layer to be printed without sagging. The sacrificial layer must be broken through after printing.
   ![bridge-counterbore-sacrificial](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-counterbore-sacrificial.png?raw=true)

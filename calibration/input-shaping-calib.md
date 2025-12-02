@@ -14,12 +14,12 @@ During high-speed movements, vibrations can cause a phenomenon called "ringing,"
 
 ## Types
 
-It is usually recommended to use MZV, EI (specially for Delta printers) or ZV as a simple and effective solution.  
+It is usually recommended to use MZV, EI (especially for Delta printers) or ZV as a simple and effective solution.
 Not all Input Shaping types are available in all firmware and their performance may vary depending on the firmware implementation and the printer's mechanics.
 
 ### Default
 
-When "Default" is selected, the firmware's default input shaper will be used.  
+When "Default" is selected, the firmware's default input shaper will be used.
 Every firmware and even its version may have a different default type but usually are:
 
 - Klipper: MZV
@@ -53,33 +53,33 @@ Every firmware and even its version may have a different default type but usuall
       2. Speed high enough to trigger ringing (e.g., 200 mm/s).
 
 > [!IMPORTANT]
-> It's recommended to use the fastest [acceleration](speed_settings_acceleration), [speed](speed_settings_other_layers_speed) and [Jerk/Junction Deviation](speed_settings_jerk_xy) your printer can handle without losing steps.  
+> It's recommended to use the fastest [acceleration](speed_settings_acceleration), [speed](speed_settings_other_layers_speed) and [Jerk/Junction Deviation](speed_settings_jerk_xy) your printer can handle without losing steps.
 > This test **will set the values to high values** limited by your printer's motion ability and the filament's max volumetric speed (avoid materials below 10 mm³/s).
 
 1. Select the Test Model ´Ringing Tower´ (Recommended) or ´Fast Tower´ (Reduced version useful for printers with high ringing).
 2. Select the [Input Shaper Type](#types) you want to test. Each firmware has different types available and each type has different performance.
 3. Select a range of frequencies to test. The Default 15hz to 110hz range is usually a good start.
-4. Select your damping. Usually, a value between 0.1 and 0.2 is a good start but you can change it to 0 and your printer will use the firmware default value (if available).  
+4. Select your damping. Usually, a value between 0.1 and 0.2 is a good start but you can change it to 0 and your printer will use the firmware default value (if available).
    ![IS_freq_menu](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_freq_menu.png?raw=true)
-   1. Measure the X and Y heights and read the frequency set at that point in OrcaSlicer.  
+   1. Measure the X and Y heights and read the frequency set at that point in OrcaSlicer.
       ![IS_freq_marlin_print_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_freq_marlin_print_measure.jpg?raw=true)
-   - Marlin:  
+   - Marlin:
      ![IS_freq_marlin_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_freq_marlin_slicer_measure.png?raw=true)
-   - Klipper:  
+   - Klipper:
      ![IS_freq_klipper_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_freq_klipper_slicer_measure.png?raw=true)
    2. If not a clear result, you can measure a X and Y min and max acceptable heights and repeat the test with that min and max value.
-5. Print the Damping test setting your X and Y frequency to the value you found in the previous step.  
+5. Print the Damping test setting your X and Y frequency to the value you found in the previous step.
    ![IS_damp_menu](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_menu.png?raw=true)
-   1. Measure the X and Y heights and read the damping set at that point in OrcaSlicer.  
+   1. Measure the X and Y heights and read the damping set at that point in OrcaSlicer.
       ![IS_damp_marlin_print_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_marlin_print_measure.jpg?raw=true)
-   - Marlin:  
+   - Marlin:
      ![IS_damp_marlin_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_marlin_slicer_measure.png?raw=true)
-   - Klipper:  
+   - Klipper:
      ![IS_damp_klipper_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_klipper_slicer_measure.png?raw=true)
 
-6. **Restore your 3D Printer settings to avoid keep using high acceleration and jerk values.**
+6. **Restore your 3D Printer settings to avoid keeping high acceleration and jerk values.**
 7. Save the settings
-   - Into your printer firmware settings save the values you found (Type, frequency/cies and damp)
+   - Into your printer firmware settings save the values you found (Type, frequencies and damp)
    - Save it into Orca's printer profile settings in Printer settings/ Machine G-code/ Machine start G-code using the following G-code:
      - Klipper:
        - Skeleton

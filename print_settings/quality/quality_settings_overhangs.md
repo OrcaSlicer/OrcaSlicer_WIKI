@@ -18,12 +18,12 @@ When detecting line width with 100% overhang, bridge options are used.
 
 ## Make overhang printable
 
-This setting will modify the geometry to print overhangs without support material.  
+This setting will modify the geometry to print overhangs without support material.
 Every overhang exceeding the [maximum angle](#maximum-angle) will be modified to be printable.
 
 ### Maximum angle
 
-Maximum angle of overhangs to allow after making more steep overhangs printable.  
+Maximum angle of overhangs to allow after making more steep overhangs printable.
 90° will not change the model at all and allow any overhang, while 0 will replace all overhangs with conical material.
 
 ![overhang-printable](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/overhangs/overhang-printable.png?raw=true)
@@ -33,7 +33,7 @@ Maximum angle of overhangs to allow after making more steep overhangs printable.
 
 ### Hole area
 
-Maximum area of a hole in the base of the model before it's filled by conical material.  
+Maximum area of a hole in the base of the model before it's filled by conical material.
 A value of 0 will fill all the holes in the model base.
 
 ## Extra perimeters on overhangs
@@ -46,7 +46,7 @@ Create additional perimeter (overhang wall) paths over steep overhangs and areas
 
 Extrude perimeters in the reverse direction on even layers. This alternating pattern can drastically improve steep overhangs thanks to material squishing direction.
 
-This setting can also help reduce part warping due to the reduction of stresses as they are now distributed in alternating directions. Useful for warp prone material, like ABS/ASA, and also for elastic filaments, like TPU and Silk PLA.  
+This setting can also help reduce part warping due to the reduction of stresses as they are now distributed in alternating directions. Useful for warp prone material, like ABS/ASA, and also for elastic filaments, like TPU and Silk PLA.
 It can also help reduce warping on floating regions over supports.
 
 For this setting to be the most effective, it is recommended to set the [Reverse Threshold](#reverse-threshold) to 0 so that all walls print in alternating directions on even layers irrespective of their overhang degree.
@@ -76,6 +76,6 @@ This could result in uneven texture, sometimes considered worse than the full re
 
 > [!NOTE]
 > Only available when:
-> - [Detect overhang wall](#detect-overhang-wall) is enabled 
+> - [Detect overhang wall](#detect-overhang-wall) is enabled
 > - [Reverse internal only](#reverse-internal-only) is disabled
 > If those conditions are not met, this setting will be hidden.

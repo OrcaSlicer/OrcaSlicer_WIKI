@@ -35,7 +35,7 @@ Unless printed in spiral vase mode, every layer needs to begin somewhere and end
 
 Controlling the position of seams can help improve the appearance and strength of the final print.
 
-Typically, [Aligned Back](#aligned-back), [Aligned](#aligned), or [Back](#back) work the best, especially in combination with seam painting.  
+Typically, [Aligned Back](#aligned-back), [Aligned](#aligned), or [Back](#back) work the best, especially in combination with seam painting.
 However, as seams create weak points and slight surface "bulges" or "divots", [random](#random) seam placement may be optimal for parts that need higher strength as that weak point is spread to different locations between layers (e.g., a pin meant to fit through a hole).
 
 ### Aligned
@@ -46,8 +46,8 @@ Will attempt to align the seam to a hidden internal facet of the model.
 
 ### Aligned Back
 
-Combines [Aligned](#aligned) and [Back](#back) strategies by prioritizing seam placement away from the front-facing side while still finding optimal hidden locations for other orientations.  
-This is particularly useful for directional models like sculptures or figurines that have a clear front view.  
+Combines [Aligned](#aligned) and [Back](#back) strategies by prioritizing seam placement away from the front-facing side while still finding optimal hidden locations for other orientations.
+This is particularly useful for directional models like sculptures or figurines that have a clear front view.
 Unlike "Back" which always places seams at the rearmost position, "Aligned Back" uses intelligent positioning that avoids the front while maintaining sophisticated seam hiding capabilities.
 
 ![seam-aligned-back](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-aligned-back.png?raw=true)
@@ -122,15 +122,15 @@ Dynamically applies scarf joints only on smooth, curved perimeters where traditi
 
 #### Scarf joint speed
 
-This option sets the printing speed for scarf joints.  
-It is recommended to print scarf joints at a slow speed (less than 100 mm/s).  
+This option sets the printing speed for scarf joints.
+It is recommended to print scarf joints at a slow speed (less than 100 mm/s).
 It's also advisable to enable [Extrusion rate smoothing](speed_settings_advanced) if the set speed varies significantly from the speed of the outer or inner walls. If the speed specified here is higher than the speed of the outer or inner walls, the printer will default to the slower of the two speeds. When specified as a percentage (e.g., 80%), the speed is calculated based on the respective outer or inner wall speed. The default value is set to 100%.
 
 #### Scarf joint height
 
-Defines the vertical offset for the start of the scarf ramp, specified either in millimeters or as a percentage of the current layer height.  
-A value of 0 means the scarf begins at the same height as the current layer and ramps up to the full layer height over the scarf length.  
-For example, on the second layer with a 0.2 mm layer height, setting this to 50% (0.1 mm) will start the scarf at 0.3 mm and ramp up to 0.4 mm by the end of the scarf length, while the rest of the lines print at 0.4 mm.  
+Defines the vertical offset for the start of the scarf ramp, specified either in millimeters or as a percentage of the current layer height.
+A value of 0 means the scarf begins at the same height as the current layer and ramps up to the full layer height over the scarf length.
+For example, on the second layer with a 0.2 mm layer height, setting this to 50% (0.1 mm) will start the scarf at 0.3 mm and ramp up to 0.4 mm by the end of the scarf length, while the rest of the lines print at 0.4 mm.
 This setting helps create a smoother transition and can reduce visible seam artifacts.
 
 #### Scarf around entire wall
@@ -143,12 +143,12 @@ Defines the horizontal length over which the scarf ramp transitions. A value of 
 
 #### Scarf steps
 
-Minimum number of segments used to build the scarf transition.  
+Minimum number of segments used to build the scarf transition.
 More steps create a smoother gradient, but the default value (10) is sufficient in most cases.
 
 #### Scarf joint flow ratio
 
-Adjusts extrusion flow during scarf printing. A value of 100% applies standard flow. Lower values reduce flow but may introduce under-extrusion.  
+Adjusts extrusion flow during scarf printing. A value of 100% applies standard flow. Lower values reduce flow but may introduce under-extrusion.
 Recommended to keep at 100%.
 
 #### Scarf joint for inner walls
@@ -157,7 +157,7 @@ When enabled, scarf joints are also applied to inner perimeters (e.g., holes). T
 
 ### Role based wipe speed
 
-Controls the speed of a wipe motion, i.e., how fast the nozzle will move over a printed area to "clean" it before traveling to another area of the model.  
+Controls the speed of a wipe motion, i.e., how fast the nozzle will move over a printed area to "clean" it before traveling to another area of the model.
 It is recommended to turn this option on, to ensure the nozzle performs the wipe motion with the same speed that the feature was printed with.
 
 ### Wipe speed
@@ -166,7 +166,7 @@ If role-based wipe speed is disabled, set this field to the absolute wipe speed 
 
 ### Wipe on loop (inward movement)
 
-When finishing printing a "loop" (i.e., an extrusion that starts and ends at the same point), move the nozzle slightly inwards towards the part. That move aims to reduce seam unevenness by tucking in the end of the seam to the part. It also slightly cleans the nozzle before traveling to the next area of the model, reducing stringing.  
+When finishing printing a "loop" (i.e., an extrusion that starts and ends at the same point), move the nozzle slightly inwards towards the part. That move aims to reduce seam unevenness by tucking in the end of the seam to the part. It also slightly cleans the nozzle before traveling to the next area of the model, reducing stringing.
 This setting will use your printer/material Wipe Distance and retract amount before wipe values.
 
 ![seam-wipe-on-loop](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-wipe-on-loop.png?raw=true)

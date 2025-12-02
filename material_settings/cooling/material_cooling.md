@@ -25,12 +25,12 @@
 
 ## Material Cooling for Specific Layer
 
-This setting allows you to customize the cooling behavior of your 3D printer for specific layers of your print.  
+This setting allows you to customize the cooling behavior of your 3D printer for specific layers of your print.
 Proper cooling is essential for achieving high-quality prints, especially when dealing with overhangs and bridges.
 
 ### No cooling for the first
 
-Number of layers to turn off cooling fans.  
+Number of layers to turn off cooling fans.
 Turn off all cooling fans for the first few layers. This can be used to improve build plate adhesion.
 
 ### Full fan speed at layer
@@ -97,13 +97,13 @@ Reducing the internal bridges fan speed, compared to your regular fan speed, can
 
 ### Support interface fan speed
 
-This part cooling fan speed is applied when printing support interfaces. Setting this parameter to a higher than regular speed reduces the layer binding strength between supports and the supported part, making them easier to separate.  
-Set to -1 to disable it.  
+This part cooling fan speed is applied when printing support interfaces. Setting this parameter to a higher than regular speed reduces the layer binding strength between supports and the supported part, making them easier to separate.
+Set to -1 to disable it.
 This setting is overridden by disable_fan_first_layers.
 
 ### Ironing fan speed
 
-This part cooling fan speed is applied when ironing. Setting this parameter to a lower than regular speed reduces possible nozzle clogging due to the low volumetric flow rate, making the interface smoother.  
+This part cooling fan speed is applied when ironing. Setting this parameter to a lower than regular speed reduces possible nozzle clogging due to the low volumetric flow rate, making the interface smoother.
 Set to -1 to disable it.
 
 ### Auxiliary part cooling fan

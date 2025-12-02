@@ -1,7 +1,7 @@
 # Retraction
 
-Retraction is the process of pulling the filament back into the nozzle to prevent oozing and stringing during non-print moves.  
-If the retraction length is too short, it may not effectively prevent oozing, while if it's too long, it can lead to clogs or under-extrusion.  
+Retraction is the process of pulling the filament back into the nozzle to prevent oozing and stringing during non-print moves.
+If the retraction length is too short, it may not effectively prevent oozing, while if it's too long, it can lead to clogs or under-extrusion.
 Filaments like PETG and TPU are more prone to stringing, so they may require longer retraction lengths compared to PLA or ABS. You can override your printer's default retraction settings for each filament in [Material Setting Overrides](material_setting_overrides#retraction).
 
 > [!TIP]
@@ -49,7 +49,7 @@ This moves the nozzle along the last extrusion path when retracting to clean any
 
 ## Wipe distance
 
-Describe how long the nozzle will move along the last path when retracting.  
+Describe how long the nozzle will move along the last path when retracting.
 Depending on how long the wipe operation lasts, how fast and long the extruder/filament retraction settings are, a retraction move may be needed to retract the remaining filament.
 Setting a value in the retract amount before wipe setting below will perform any excess retraction before the wipe, else it will be performed after.
 
