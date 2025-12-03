@@ -1,6 +1,6 @@
 # Placeholders Variables
 
-This page describes the built-in placeholder variables that OrcaSlicer exposes while expanding custom G-code snippets and template expressions.
+Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-code snippets and template expressions.
 
 - [Conventions](#conventions)
 - [Global Slicing State](#global-slicing-state)
@@ -31,11 +31,11 @@ This page describes the built-in placeholder variables that OrcaSlicer exposes w
 - Unless noted otherwise distances are in millimetres, temperatures in °C, volumes in mm³, weights in grams, feedrates in mm/min, and booleans return `0`/`1`.
 - Points and bounding boxes are stored as `[x, y]` pairs expressed in mm.
 - `layer_num` is one-based (first layer is `1`). All other indices use zero-based numbering.
-- Every print/filament/printer setting is also available under its config key (hover the label in the UI to see the key). The tables below focus on the additional runtime placeholders.
+- Every print/filament/printer setting is also available under its config key. Hover the label in the UI to see the key. The tables below focus on additional runtime placeholders.
 
 ## Global Slicing State
 
-Captures the momentary toolhead state whenever OrcaSlicer hands control to a custom G-code block.
+Momentary toolhead state when a custom G-code block runs.
 
 ### Read Only
 
@@ -186,7 +186,7 @@ Only placeholders that are already present in the global parser at that time can
 - Object metadata injected up front: `input_filename`, `input_filename_base`, `num_objects`, `num_instances`, `scale[]`, `plate_name`, `model_name`, plus the timestamp and user placeholders.
 - Print statistics computed right after slicing such as `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `extruded_volume`, `total_cost`, `total_toolchanges`, `total_weight`, and wipe-tower totals.
 
-Placeholders that are populated later—during per-layer or per-tool G-code generation—are **not** available inside `filename_format`. This includes everything under *Global Slicing State*, *Slicing State*, *Layer-aware*, *Toolchange*, *Filament start/end*, *Timelapse*, *Extrusion role*, and *Pause/color change helpers*. Using them in the template causes the filename evaluation to fail because they are unset when the template is processed.
+Placeholders that are populated later, during per-layer or per-tool G-code generation, are **not** available inside `filename_format`. This includes everything under *Global Slicing State*, *Slicing State*, *Layer-aware*, *Toolchange*, *Filament start/end*, *Timelapse*, *Extrusion role*, and *Pause/color change helpers*. Using them in templates causes filename evaluation to fail because they are unset when the template is processed.
 
 ## Custom G-code Contexts
 
@@ -265,4 +265,4 @@ All `layer_*` placeholders from the previous section are also available inside `
 | --- | --- | --- |
 | `color_change_extruder` | int | Extruder index associated with a color-change (`M600`) event. Populated when OrcaSlicer triggers `machine_pause_gcode` for a color change. |
 
-Use these tables as a reference when designing custom start/end sequences, toolchange macros, or template snippets. Combine them with your preset-specific placeholders (e.g. `nozzle_temperature`, `filament_diameter`, etc.) to script advanced behaviours.
+Use these tables as a reference when designing custom start/end sequences, toolchange macros, or template snippets. Combine them with preset-specific placeholders (e.g. `nozzle_temperature`, `filament_diameter`) to script advanced behaviours.
