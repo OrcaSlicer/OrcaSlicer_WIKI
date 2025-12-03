@@ -34,7 +34,7 @@ After a tool change, the exact position of the newly loaded filament inside the 
 
 ## Multi Filament
 
-Enable long retraction when extruder change and it's retraction distance when extruder change value.
+Enable long retraction when the extruder changes and set its retraction distance value for extruder changes.
 
 ## Tool change parameters with single extruder
 
