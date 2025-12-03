@@ -33,7 +33,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
   - [![param_printable_space](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_printable_space.svg?raw=true) Printable space](printer_basic_information_printable_space)
   - [![param_advanced](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true) Advanced](printer_basic_information_advanced)
   - [![param_cooling_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_fan.svg?raw=true) Cooling Fan](printer_basic_information_cooling_fan)
-  - [![param_extruder_clearence](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_clearence.svg?raw=true) Extruder Clearance](printer_basic_information_extruder_clearance)
+  - [![param_extruder_clearance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_clearance.svg?raw=true) Extruder Clearance](printer_basic_information_extruder_clearance)
   - [![param_adaptive_mesh](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_adaptive_mesh.svg?raw=true) Adaptive bed mesh](printer_basic_information_adaptive_bed_mesh)
   - [![param_accessory](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_accessory.svg?raw=true) Accessory](printer_basic_information_accessory)
 - [![param_gcode](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true) Machine G_Code](printer_machine_gcode)
