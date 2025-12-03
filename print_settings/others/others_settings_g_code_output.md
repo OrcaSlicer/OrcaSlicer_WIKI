@@ -49,4 +49,4 @@ For example:
 Can be used to generate filenames like `OrcaCube_PLA_1h15m.gcode`.
 
 > [!TIP]
-> Check [Built in placeholders variables](built-in-placeholders-variables) for available tokens and their meanings.
+> Check [Naming Built in placeholders variables](built-in-placeholders-variables#filename-templates) for available tokens and their meanings.
