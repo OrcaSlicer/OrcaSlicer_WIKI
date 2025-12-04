@@ -13,6 +13,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
   - [Others Settings](#others-settings)
 - [Prepare](#prepare)
 - [Calibrations](#calibrations)
+- [General Settings](#general-settings)
 - [Developer Section](#developer-section)
 
 > [!WARNING]
@@ -171,6 +172,10 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
   - [![param_jerk](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_jerk.svg?raw=true) Cornering (Jerk & Junction Deviation)](cornering-calib)
   - [![param_resonance_avoidance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_resonance_avoidance.svg?raw=true) Input Shaping](input-shaping-calib)
     - [VFA](vfa-calib)
+
+## General Settings
+
+- [Keyboard Shortcuts](keyboard-shortcuts)
 
 ## Developer Section
 
