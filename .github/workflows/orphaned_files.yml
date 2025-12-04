@@ -1,0 +1,229 @@
+name: Find Orphaned Markdown Files
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '**/*.markdown'
+      - '**/*.mdown'
+      - '**/*.mkd'
+      - '**/*.mkdn'
+      - '**/*.mdx'
+  workflow_dispatch: {}
+
+jobs:
+  orphaned-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      ERROR_BLOCK: ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Find orphaned markdown docs
+        id: find_orphaned
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const workspace = process.cwd();
+            const workspaceRoot = path.resolve(workspace);
+            const allowedExt = new Set(['.md', '.markdown', '.mdown', '.mkd', '.mkdn', '.mdx']);
+
+            function collectMarkdownFiles(relativeDir) {
+              const files = [];
+              const absoluteDir = relativeDir ? path.join(workspaceRoot, relativeDir) : workspaceRoot;
+              let entries;
+              try {
+                entries = fs.readdirSync(absoluteDir, { withFileTypes: true });
+              } catch (_) {
+                return files;
+              }
+
+              for (const entry of entries) {
+                if (entry.name === '.git') continue;
+                if (entry.isDirectory() && entry.name.startsWith('.')) continue; // skip hidden directories like .github
+                const relPath = relativeDir ? `${relativeDir}/${entry.name}` : entry.name;
+                if (entry.isDirectory()) {
+                  files.push(...collectMarkdownFiles(relPath));
+                } else if (entry.isFile()) {
+                  const ext = path.extname(entry.name).toLowerCase();
+                  if (allowedExt.has(ext)) files.push(relPath.replace(/\\/g, '/'));
+                }
+              }
+              return files;
+            }
+
+            function lineFromIndex(text, index) {
+              let line = 1;
+              for (let i = 0; i < index; i += 1) {
+                if (text.charCodeAt(i) === 10) line += 1;
+              }
+              return line;
+            }
+
+            // Build index for 'basename' => list of paths
+            const markdownFiles = collectMarkdownFiles('');
+            if (!markdownFiles.length) {
+              core.info('No Markdown files found; skipping orphan check.');
+              return;
+            }
+
+            const nameIndex = new Map();
+            for (const p of markdownFiles) {
+              const baseName = path.basename(p, path.extname(p));
+              const lower = baseName.toLowerCase();
+              if (!nameIndex.has(lower)) nameIndex.set(lower, []);
+              nameIndex.get(lower).push(p);
+            }
+
+            // A regex to capture markdown links: [text](url) but ignore images and code blocks
+            const codeBlockPattern = /^```+([\s\S]*?)^```+$/gm;
+            const markdownLinkPattern = /(?<!\!)\[(?:[^\[\]]|\[[^\[\]]*\])*\]\(\s*(<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\s*\)/g;
+
+            const links = [];
+            const fileContents = new Map();
+
+            for (const filePath of markdownFiles) {
+              const absolute = path.join(workspaceRoot, filePath);
+              let text = fs.readFileSync(absolute, 'utf8');
+              fileContents.set(filePath, text);
+              text = text.replace(codeBlockPattern, '');
+              markdownLinkPattern.lastIndex = 0;
+              let m;
+              while ((m = markdownLinkPattern.exec(text)) !== null) {
+                const url = m[2] || m[1];
+                const idx = m.index;
+                // Skip images (the negative lookbehind should have helped), but be safe
+                const prevChar = idx > 0 ? text[idx - 1] : '';
+                if (prevChar === '!') continue;
+                links.push({ source: filePath, url: url.trim(), line: lineFromIndex(text, idx) });
+              }
+            }
+
+            // Helpers
+            function isExternal(target) {
+              if (!target) return true;
+              if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(target)) return true; // scheme:   / http(s), etc.
+              if (target.startsWith('//')) return true; // protocol relative
+              return false;
+            }
+
+            function normalizeTarget(raw) {
+              if (!raw) return '';
+              let t = raw.trim();
+              if (!t) return '';
+              if (t.startsWith('<') && t.endsWith('>')) t = t.slice(1, -1).trim();
+              // Drop query strings (e.g., ?raw=true), we'll still detect underlying path
+              const qIdx = t.indexOf('?');
+              if (qIdx !== -1) t = t.slice(0, qIdx);
+              // Ignore anchor-only refs
+              if (t.startsWith('#')) return '#';
+              try {
+                return decodeURIComponent(t);
+              } catch (_) {
+                return t;
+              }
+            }
+
+            function tryResolve(sourceFile, rawPath) {
+              // Return absolute repo-relative path if exists, else null
+              let sanitized = rawPath.replace(/\\/g, '/');
+              if (sanitized.startsWith('/')) sanitized = sanitized.slice(1);
+              // Since references never contain paths, only names, always resolve by basename
+              const lower = path.basename(sanitized, path.extname(sanitized)).toLowerCase();
+              const matches = nameIndex.get(lower) || [];
+              if (matches.length === 1) return matches[0];
+              if (matches.length > 1) {
+                // prefer candidate in the same folder as source file
+                const folder = path.dirname(sourceFile);
+                for (const m of matches) {
+                  if (path.dirname(m) === folder) return m;
+                }
+                // ambiguous - return the first match to err on side of counting references
+                return matches[0];
+              }
+              return null;
+            }
+
+            // Counting map
+            const counts = new Map();
+            for (const f of markdownFiles) counts.set(f, { home: 0, others: 0 });
+
+            for (const link of links) {
+              const normalized = normalizeTarget(link.url);
+              if (!normalized || normalized === '#') continue; // ignore anchors, empty
+              if (isExternal(normalized)) continue;
+              // separate fragment only once
+              const hash = normalized.indexOf('#');
+              const docPart = hash === -1 ? normalized : normalized.slice(0, hash);
+              const resolved = tryResolve(link.source, docPart);
+              if (!resolved) continue;
+              // skip referencing itself
+              if (resolved === link.source) continue;
+              if (!counts.has(resolved)) {
+                // may be referencing a file with different extension or missing; ignore
+                continue;
+              }
+              const isHome = link.source.toLowerCase().includes('home.md');
+              const entry = counts.get(resolved);
+              if (isHome) entry.home += 1; else entry.others += 1;
+            }
+
+            // Build ranking = list of files sorted by total refs (home + others) descending
+            const rankingArray = [];
+            const excludedFromRanking = ['home.md', 'readme.md'];
+            for (const [f, obj] of counts) {
+              if (excludedFromRanking.includes(path.basename(f).toLowerCase())) {
+                // keep Home.md and README.md out of ranking as they are not referenced or never referenced
+                continue;
+              }
+              rankingArray.push({ file: f, home: obj.home, others: obj.others, total: (obj.home + obj.others) });
+            }
+            rankingArray.sort((a, b) => {
+              const diff = b.total - a.total;
+              if (diff !== 0) return diff;
+              return a.file.localeCompare(b.file);
+            });
+            const rankingLines = rankingArray.map(r => `${r.file}, ${r.home}, ${r.others} (${r.total})`);
+            core.exportVariable('RANKING_BLOCK', rankingLines.join('\n'));
+
+            // Gather orphaned = files with both counts zero except home.md itself
+            const orphanLines = [];
+            const excludedFromOrphans = ['home.md', 'readme.md'];
+            for (const [f, obj] of counts) {
+              if (excludedFromOrphans.includes(path.basename(f).toLowerCase())) continue; // skip home.md and readme.md
+              if (obj.home === 0 && obj.others === 0) {
+                const name = f;
+                orphanLines.push(`${name}, ${obj.home}, ${obj.others}`);
+              }
+            }
+
+            if (orphanLines.length) {
+              const block = orphanLines.join('\n');
+              core.exportVariable('ERROR_BLOCK', block);
+              core.info(`Found ${orphanLines.length} orphaned markdown file(s).`);
+              return;
+            }
+
+            core.exportVariable('ERROR_BLOCK', '');
+            core.info('No orphaned markdown files found.');
+
+
+      - name: Show reference ranking
+        run: |
+          echo 'Markdown files ranking (from most to least referenced):'
+          printf '```\n%s\n```\n' "$RANKING_BLOCK"
+
+      - name: Show orphaned files
+        if: env.ERROR_BLOCK != ''
+        run: |
+          echo 'Orphaned markdown files (Name, [refs in Home.md], [refs in other files]):'
+          printf '```\n%s\n```\n' "$ERROR_BLOCK"
+          exit 1
