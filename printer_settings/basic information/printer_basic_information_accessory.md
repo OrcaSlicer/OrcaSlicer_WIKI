@@ -19,15 +19,30 @@ The metallic material of the nozzle: This determines the abrasive resistance of 
 
 ## Nozzle HRC
 
-The nozzle's hardness. Zero means no checking for nozzle hardness during slicing.
+The Nozzle Hardness ([Hardness Rockwell C](https://en.wikipedia.org/wiki/Rockwell_hardness_test)) value is used in OrcaSlicer to validate nozzle compatibility with abrasive filaments and prevent nozzle damage during printing.
+
+| Material          | Value |
+|-------------------|-------|
+| Disable Check     | 0     |
+| Brass             | 2     |
+| Stainless Steel   | 20    |
+| Hardened Steel    | 55    |
+| Tungsten Carbide  | 85    |
 
 ## Auxiliary Part Cooling Fan
 
-Enable this option if machine has auxiliary part cooling fan. G-code command: M106 P2 S(0-255).
+Enable this option if machine has auxiliary part cooling fan.
+
+G-code command:
+
+```gcode
+M106 P2 S(0-255)
+```
 
 ### Auxiliary Fan
 
-OrcaSlicer uses `M106 P#` / `M107 P#` to control any fans managed by the slicer.
+OrcaSlicer uses `M106 P#` (Set Fan Speed) / `M107 P#` (Fan Off) to control any fans managed by the slicer.
+The `P` parameter indicates the fan index as defined by OrcaSlicer:
 
 - `P0`: part cooling fan (default layer fan)
 - `P1` (if present): an additional fan
