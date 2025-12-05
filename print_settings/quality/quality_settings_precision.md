@@ -26,20 +26,24 @@ Smaller value means higher resolution and more time to slice. If you are using b
 
 ## Arc fitting
 
-Enable this to get a G-code file which has [G2 and G3](https://marlinfw.org/docs/gcode/G002-G003.html) moves.
+Enable this to combine moves by approximating multiple straight segments into fewer arcs which use [G2 and G3](https://marlinfw.org/docs/gcode/G002-G003.html) moves. __Ensure first that the printer supports said commands__.
 
-After a model is sliced this feature will replace straight line segments with arcs where possible. This is particularly useful for curved surfaces, as it allows the printer to move in a more fluid manner, reducing the number of G-code commands and improving the overall print quality.
+This combination results in a "compression" of the G-Code, which will need fewer commands to print arcs. This is the main purpose of this feature, since printers receiving G-code via USB are likely to be overloaded by the number of short moves required to print arcs. It can also be useful when a long series of quick segments is generated, for example like those used to perform spiral Z hop.
 
-This will result in a smaller G-code file for the same model, as arcs are used instead of many short line segments. This can improve print quality and reduce printing time, especially for curved surfaces.
+This feature could potentially improve the print quality of some _low resolution_ STL models if curved surfaces were approximated using rough segments. In such models, the printer will also be able to move in a more fluid manner, since the rough moves are replaced with a smoother motion. 
+
+__Good quality STLs and modern printers will not benefit from this feature and could experience a reduction the surface quality__, therefore use arc fitting only where needed, which is typically for USB-connected printers and for some low quality models for which a higher resolution is not available.
 
 ![arc-fitting](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/arc-fitting.svg?raw=true)
 
 > [!IMPORTANT]
-> This option is only available for machines that support G2 and G3 commands and may impact in CPU usage on the printer.
-
-> [!NOTE]
-> **Klipper machines**, this option is recommended to be disabled.
-Klipper does not benefit from arc commands as these are split again into line segments by the firmware. This results in a reduction in surface quality as line segments are converted to arcs by the slicer and then back to line segments by the firmware.
+> The printer will internally convert the arcs back into a series of segments, which are in many printers by default less accurate than those already defined in high quality, modern STLs.
+>
+> For Klipper printers see the [documentation](https://www.klipper3d.org/Config_Reference.html#gcode_arcs) for setting the resolution of the arcs generated internally.
+>
+> In general, this feature should be used to solve problems and not as a default setting, unless the settings of the printer firmware are carefully checked to ensure a sufficiently high resolution which _exceeds_ the resolution of the original STL.
+> 
+> The internal generation of segments from arcs requires higher CPU usage from the printer microcontroller and therefore it might cause slow-downs (and reduced surface quality) on printers using 8-bit microcontrollers.
 
 ## X-Y Compensation
 
