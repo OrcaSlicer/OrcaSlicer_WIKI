@@ -6,7 +6,7 @@ This wiki page describes how to build and run tests on Linux. It should eventual
 
 Can be built with the `-t` flag for `build_linux.sh`:
 
-```
+```shell
 build_linux.sh -t
 ```
 
@@ -20,7 +20,7 @@ Test binaries will then appear under `build/tests` or `build-dbginfo/tests` or `
 
 For rebuilding after changes, you can look into `build_linux.sh` for the cmake command which triggers the build and adapt it to running independently. You'll be able to use something like:
 
-```
+```shell
 # Obviously only use the appropriate one
 BUILD_CONFIG=Release
 BUILD_CONFIG=RelWithDebInfo
@@ -38,14 +38,14 @@ If you change any CMakeLists.txt file, you'll need to rerun the configuration ge
 
 ### Run All
 
-```
+```shell
 cd $BUILD_DIR # build or build-dbginfo probably
 ctest --test-dir tests
 ```
 
 ### Run a Specific Set
 
-```
+```shell
 cd $BUILD_DIR # build or build-dbginfo probably
 ctest --test-dir tests/slic3rutils
 ```
