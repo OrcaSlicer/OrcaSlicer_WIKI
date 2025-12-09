@@ -2,6 +2,13 @@
 
 Machine G-code are custom G-code scripts that are executed at specific points during the printing process. These scripts can be used to customize printer behavior, such as setting temperatures, moving the print head, or controlling fans.
 
+> [!TIP]
+> See your printer's firmware documentation for supported G-code commands and features.
+>
+> - [Marlin G-code](https://marlinfw.org/meta/gcode/)
+> - [RepRap G-code](https://reprap.org/wiki/G-code)
+> - [Klipper G-code](https://www.klipper3d.org/G-Codes)
+
 > [!IMPORTANT]
 > Machine G-code scripts are powerful tools for customizing your printing process. However, they can also cause issues if not used correctly.  
 > It's recommended to use a known base of G-code commands for your specific printer firmware (e.g., Marlin, RepRap, etc.) and to understand the implications of each command used in the scripts.  
