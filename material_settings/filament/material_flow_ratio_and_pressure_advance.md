@@ -52,8 +52,15 @@ This is caused by the pressure drop in the nozzle when printing in the air and a
 
 #### Adaptive pressure advance measurements (beta)
 
-Add sets of pressure advance (PA) values, the volumetric flow speeds and accelerations they were measured at, separated by a comma.  
+Add sets of **pressure advance** (PA) values, the **volumetric flow speeds** and **accelerations** they were measured at, separated by a comma.  
 One set of values per line. For example:
+
+```json
+[PA 1],[FLOW 1],[ACCELERATION 1]
+[PA 2],[FLOW 2],[ACCELERATION 2]
+...
+[PA n],[FLOW n],[ACCELERATION n]
+```
 
 ```json
 0.04,3.96,3000

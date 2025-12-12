@@ -100,18 +100,18 @@ We, therefore, need to run 12 PA tests as below:
 
 | Speed | Acceleration |
 |-------|--------------|
-| 50    | 1k           |
-| 100   | 1k           |
-| 150   | 1k           |
-| 200   | 1k           |
-| 50    | 2k           |
-| 100   | 2k           |
-| 150   | 2k           |
-| 200   | 2k           |
-| 50    | 4k           |
-| 100   | 4k           |
-| 150   | 4k           |
-| 200   | 4k           |
+| 50    | 1000         |
+| 100   | 1000         |
+| 150   | 1000         |
+| 200   | 1000         |
+| 50    | 2000         |
+| 100   | 2000         |
+| 150   | 2000         |
+| 200   | 2000         |
+| 50    | 4000         |
+| 100   | 4000         |
+| 150   | 4000         |
+| 200   | 4000         |
 
 ### Identifying the flow rates from the print speed
 
@@ -186,6 +186,21 @@ Now run the tests and note the optimal PA value, the flow, and the acceleration.
 |   200 | 15.35 |         4000 | 0.024 | 0.024 , 15.35 , 4000 |
 
 Concatenate the PA value, the flow value, and the acceleration value into the final comma-separated sets to create the values entered in the model as shown above.
+
+```json
+0.036 , 3.84 , 1000
+0.036 , 7.68 , 1000
+0.036 , 11.51 , 1000
+0.036 , 15.35 , 1000
+0.036 , 3.84 , 2000
+0.03 , 7.68 , 2000
+0.029 , 11.51 , 2000
+0.028 , 15.35 , 2000
+0.032 , 3.84 , 4000
+0.028 , 7.68 , 4000
+0.026 , 11.51 , 4000
+0.024 , 15.35 , 4000
+```
 
 **You’re now done! The PA profile is created and calibrated!**
 
