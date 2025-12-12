@@ -55,12 +55,8 @@ Enable this to enable the camera on printer to check the quality of first layer.
 
 ## Power Loss Recovery
 
-Enable or Disable power loss recovery by inserting commands in generated G-code.  
+Enable power loss recovery by inserting commands in generated G-code.  
 Only for [Bambu Lab](https://wiki.bambulab.com/en/knowledge-sharing/power-loss-recovery) or [Marlin 2 firmware](https://marlinfw.org/docs/gcode/M413.html) based printers.
-
-Power loss recovery saves the current execution point to non-volatile memory (SD card).  
-When the slicer generates many short moves (e.g. curves), frequent save/read operations can introduce pauses that may leave blobs.  
-Repeated writes also increase wear on the memory device and its Terabytes Written (TBW).
 
 > [!TIP]
 > If enabled, it's recommended to enable [Arc fitting](quality_settings_precision#arc-fitting) in `Quality Settings > Precision` to reduce the number of G-code commands.
