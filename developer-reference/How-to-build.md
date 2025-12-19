@@ -116,13 +116,13 @@ How to building with Visual Studio on Windows 64-bit.
 > [!TIP]
 > If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
 
-1. If successful, you will find the Visual Studio solution file in:
+3. If successful, you will find the Visual Studio solution file in:
    ```shell
    build\OrcaSlicer.sln
    ```
-2. Open the solution in Visual Studio, set the build configuration to `Release` and run the `Local Windows Debugger`.  
+4. Open the solution in Visual Studio, set the build configuration to `Release` and run the `Local Windows Debugger`.  
    ![compile_vs_local_debugger](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/compile_vs_local_debugger.png?raw=true)
-3. Your resulting executable will be located in:
+5. Your resulting executable will be located in:
    ```shell
    \build\src\Release\orca-slicer.exe
    ```
