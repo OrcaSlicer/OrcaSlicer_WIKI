@@ -137,7 +137,9 @@ How to building with Visual Studio on Windows 64-bit.
 > If the "Fix model" option is missing from an object's context menu, it may indicate that your build did not properly include the Windows SDK. To quickly resolve this, follow these steps:
 >
 > 1. Locate the `winrt` folder in your Windows SDK installation. For example:  
->    `C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\winrt`  
+>    ```shell
+>    C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\winrt
+>    ```  
 >    *(Note: the exact path may vary depending on your Windows SDK version.)*
 >
 > 2. In Visual Studio 2022, open the **libslic3r_gui** project properties:  
