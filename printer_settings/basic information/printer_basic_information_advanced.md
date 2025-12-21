@@ -7,6 +7,7 @@ Advanced settings related to the printer configuration.
 - [Pellet Modded Printer](#pellet-modded-printer)
 - [Use 3rd-party print host](#use-3rd-party-print-host)
 - [Scan first layer](#scan-first-layer)
+- [Power Loss Recovery](#power-loss-recovery)
 - [Disable set remaining print time](#disable-set-remaining-print-time)
 - [G-code thumbnails](#g-code-thumbnails)
 - [Use relative E distances](#use-relative-e-distances)
@@ -51,6 +52,17 @@ Allow controlling BambuLab's printer through 3rd party print hosts.
 ## Scan first layer
 
 Enable this to enable the camera on printer to check the quality of first layer.
+
+## Power Loss Recovery
+
+Enable power loss recovery by inserting commands in generated G-code.  
+Only for [Bambu Lab](https://wiki.bambulab.com/en/knowledge-sharing/power-loss-recovery) or [Marlin 2 firmware](https://marlinfw.org/docs/gcode/M413.html) based printers.
+
+> [!TIP]
+> If enabled, it's recommended to enable [Arc fitting](quality_settings_precision#arc-fitting) in `Quality Settings > Precision` to reduce the number of G-code commands.
+
+> [!CAUTION]
+> High warping models or materials will not be recovered properly due to bed adhesion loss after power-off.
 
 ## Disable set remaining print time
 

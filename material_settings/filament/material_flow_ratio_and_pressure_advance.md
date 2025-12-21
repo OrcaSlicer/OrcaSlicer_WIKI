@@ -52,8 +52,15 @@ This is caused by the pressure drop in the nozzle when printing in the air and a
 
 #### Adaptive pressure advance measurements (beta)
 
-Add sets of pressure advance (PA) values, the volumetric flow speeds and accelerations they were measured at, separated by a comma.  
+Add sets of **pressure advance** (PA) values, the **volumetric flow speeds** and **accelerations** they were measured at, separated by a comma.  
 One set of values per line. For example:
+
+```json
+[PA 1],[FLOW 1],[ACCELERATION 1]
+[PA 2],[FLOW 2],[ACCELERATION 2]
+...
+[PA n],[FLOW n],[ACCELERATION n]
+```
 
 ```json
 0.04,3.96,3000
@@ -66,6 +73,6 @@ One set of values per line. For example:
 
 It's highly recommended to use the [Adaptive Pressure Advance Calibration guide](adaptive-pressure-advance-calib).
 
-1. Run the pressure advance test for at least 3 speeds per acceleration value. It is recommended that the test is run for at least the speed of the external perimeters, the speed of the internal perimeters and the fastest feature print speed in your profile (usually its the sparse or solid infill). Then run them for the same speeds for the slowest and fastest print accelerations, and no faster than the recommended maximum acceleration as given by the Klipper input shaper.
+1. Run the pressure advance test for at least 3 speeds per acceleration value. It is recommended that the test is run for at least the speed of the external perimeters, the speed of the internal perimeters and the fastest feature print speed in your profile (usually it's the sparse or solid infill). Then run them for the same speeds for the slowest and fastest print accelerations, and no faster than the recommended maximum acceleration as given by the Klipper input shaper.
 2. Take note of the optimal PA value for each volumetric flow speed and acceleration. You can find the flow number by selecting "flow" from the color scheme drop down and move the horizontal slider over the PA pattern lines. The number should be visible at the bottom of the page. The ideal PA value should be decreasing the higher the volumetric flow is. If it is not, confirm that your extruder is functioning correctly. The slower and with less acceleration you print, the larger the range of acceptable PA values. If no difference is visible, use the PA value from the faster test.
 3. Enter the triplets of PA values, Flow and Accelerations in the text box here and save your filament profile.

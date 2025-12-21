@@ -56,6 +56,7 @@ How to building with Visual Studio on Windows 64-bit.
 
 > [!TIP]
 > GitHub Desktop (optional): A GUI for Git and Git LFS, which already includes both tools.
+>
 > ```shell
 > winget install --id=GitHub.GitHubDesktop -e
 > ```
@@ -84,6 +85,7 @@ How to building with Visual Studio on Windows 64-bit.
      ```shell
      git clone https://github.com/OrcaSlicer/OrcaSlicer
      ```
+
      2. Run lfs to download tools on Windows:
      ```shell
      git lfs pull
@@ -92,6 +94,7 @@ How to building with Visual Studio on Windows 64-bit.
    ```MD
    x64 Native Tools Command Prompt for VS
    ```
+
    1. Navigate to correct drive (if needed), e.g.:
       ```shell
       N:
@@ -113,13 +116,13 @@ How to building with Visual Studio on Windows 64-bit.
 > [!TIP]
 > If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
 
-1. If successful, you will find the Visual Studio solution file in:
+3. If successful, you will find the Visual Studio solution file in:
    ```shell
    build\OrcaSlicer.sln
    ```
-2. Open the solution in Visual Studio, set the build configuration to `Release` and run the `Local Windows Debugger`.  
+4. Open the solution in Visual Studio, set the build configuration to `Release` and run the `Local Windows Debugger`.  
    ![compile_vs_local_debugger](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/compile_vs_local_debugger.png?raw=true)
-3. Your resulting executable will be located in:
+5. Your resulting executable will be located in:
    ```shell
    \build\src\Release\orca-slicer.exe
    ```
@@ -132,6 +135,22 @@ How to building with Visual Studio on Windows 64-bit.
 
 > [!TIP]
 > If the build fails, try deleting the `build/` and `deps/build/` directories to clear any cached build data. Rebuilding after a clean-up is usually sufficient to resolve most issues.
+
+> [!TIP]
+> If the "Fix model" option is missing from an object's context menu, it may indicate that your build did not properly include the Windows SDK. To quickly resolve this, follow these steps:
+>
+> 1. Locate the `winrt` folder in your Windows SDK installation. For example:
+>    ```shell
+>    C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\winrt
+>    ```
+>    _(Note: the exact path may vary depending on your Windows SDK version.)_
+> 2. In Visual Studio 2022, open the **libslic3r_gui** project properties:  
+>    Go to **Configuration Properties > C/C++ > Preprocessor > Preprocessor Definitions**  
+>    ➕ Add: `HAS_WIN10SDK`
+> 3. In Visual Studio 2022, open the **OrcaSlicer_app_gui** project properties:  
+>    Go to **Configuration Properties > C/C++ > General > Additional Include Directories**  
+>    ➕ Add the path to the `winrt` folder from step 1.
+> 4. Build the solution.
 
 ## MacOS 64-bit
 
@@ -150,6 +169,7 @@ How to building with Xcode on MacOS 64-bit.
 
 > [!TIP]
 > You can install most of them by running:
+>
 > ```shell
 > brew install gettext libtool automake autoconf texinfo
 > ```
@@ -289,21 +309,25 @@ The build system supports multiple Linux distributions including Ubuntu/Debian a
 #### Linux Instructions
 
 1. **Install system dependencies:**
+
    ```shell
    ./build_linux.sh -u
    ```
 
 2. **Build dependencies:**
+
    ```shell
    ./build_linux.sh -d
    ```
 
 3. **Build OrcaSlicer with tests:**
+
    ```shell
    ./build_linux.sh -st
    ```
 
 4. **Build AppImage (optional):**
+
    ```shell
    ./build_linux.sh -i
    ```

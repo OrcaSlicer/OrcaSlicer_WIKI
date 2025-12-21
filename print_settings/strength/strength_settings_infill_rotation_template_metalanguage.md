@@ -3,7 +3,7 @@
 This metalanguage provides a way to define the [direction and rotation](strength_settings_infill#direction-and-rotation) of [patterns](strength_settings_patterns) in 3D printing.
 
 - [Basic instructions](#basic-instructions)
-  - [Quick examples](#quick-examples)
+- [Quick examples](#quick-examples)
   - [Defined angle](#defined-angle)
   - [Runtime instructions](#runtime-instructions)
   - [Joint sign](#joint-sign)
@@ -37,8 +37,6 @@ This metalanguage provides a way to define the [direction and rotation](strength
 
 `[±]α*` - just setting an initial rotation angle
 
- 
-
 > [!NOTE]
 > `[...]` - values in square brackets are optional
 
@@ -57,8 +55,6 @@ This metalanguage provides a way to define the [direction and rotation](strength
 - `*` - the mark of "dummy" instruction. It's needed for setting an initial angle. No further action will be taken
 - `*ℤ` - repeat the instruction ℤ times
 - `!` - the one-time running instruction
-
- 
 
 ### Joint sign
 
@@ -194,8 +190,6 @@ There are 2 letter signs `T` and `B` that can determine the number of shell laye
 
 - `B!, +30` - skip the first shell layers from rotation, then fill with 30 degree turn each layer  
 - `+30/1cm, T` - rotate one centimeter of infill linearly at a 30 degree angle, then skip the number of layers equal to the count of the upper shell layers without rotation.  
-
- 
 
 ## Complex template examples
 

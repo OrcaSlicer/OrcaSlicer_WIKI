@@ -138,7 +138,7 @@ jobs:
                 });
               }
 
-              const labelPathPattern = /\bline\s*\.\s*label_path\s*=\s*"([^"]+)"/g;
+              const labelPathPattern = /\b[A-Za-z_]\w*\s*\.\s*label_path\s*=\s*"([^"]+)"/g;
               while ((match = labelPathPattern.exec(text)) !== null) {
                 refs.push({
                   option: 'label_path',
