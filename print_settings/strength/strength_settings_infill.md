@@ -52,12 +52,11 @@ This setting allows you to generate your selected [infill pattern](#sparse-infil
 >| 40%                | 2            | 40%          | 80%                   |
 >| 10%                | 3            | 10%          | 30%                   |
 >| 25%                | 3            | 25%          | 75%                   |
->| 40%                | 3            | 40%          | 120% *                |
+>| 40%                | 3            | 40%          | 100%                  |
 >| 10%                | 5            | 10%          | 50%                   |
->| 25%                | 5            | 25%          | 125% *                |
->| 40%                | 5            | 40%          | 200% *                |
+>| 25%                | 5            | 25%          | 100%                  |
+>| 40%                | 5            | 40%          | 100%                  |
 >
-> *Other slicers may limit the result to 100%.
 
 ### Use cases
 
