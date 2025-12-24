@@ -40,6 +40,33 @@ Infill density determines the amount of material used to fill the interior of a 
 
 This setting allows you to generate your selected [infill pattern](#sparse-infill-pattern) using up to 10 parallel lines  while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
 
+Supported multiline infill patterns:  
+
+[Monotonic](#monotonic)  
+[Monotonic line](#monotonic-line)  
+[Rectilinear](#rectilinear)  
+[Aligned Rectilinear](#aligned-rectilinear)  
+[Grid](#grid)  
+[Triangles](#triangles)  
+[Tri-hexagon](#tri-hexagon)  
+[Cubic](#cubic)  
+[Adaptive Cubic](#adaptive-cubic)  
+[Quarter Cubic](#quarter-cubic)  
+[Support Cubic](#support-cubic)  
+[Lightning](#lightning)  
+[Honeycomb](#honeycomb)  
+[3D Honeycomb](#3d-honeycomb)  
+[Lateral Honeycomb](#lateral-honeycomb)  
+[Lateral Lattice](#lateral-lattice)  
+[Cross Hatch](#cross-hatch)  
+[TPMS-D](#tpms-d)  
+[TPMS-FK](#tpms-fk)  
+[Gyroid](#gyroid)  
+[Concentric](#concentric)  
+[Hilbert Curve](#hilbert-curve)  
+[Archimedean Chords](#archimedean-chords)  
+[Octagram Spiral](#octagram-spiral)  
+
 ![multiline-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/multiline-infill.png?raw=true)
 
 > [!NOTE]
@@ -74,14 +101,14 @@ Some patterns will expand the lines outward from the center, while others may us
 
 #### Classic Strategy
 
-For some self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
+For most self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
 
 ![infill-multiline-closed-loops](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-closed-loops.png?raw=true)
 
 #### Non-Crossing Strategy
 
 [Grid](strength_settings_patterns#grid) & [Triangles](strength_settings_patterns#triangles) patterns use a Non-crossing multiline strategy.
-For these fill patterns, alternative trajectories are used, which rotate on each layer to ensure isotropic strength.  
+For these infill patterns, alternative trajectories are used, which rotate on each layer to ensure isotropic strength.  
 
 ![infill-multiline-non-crossing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-non-crossing.gif?raw=true)
 
