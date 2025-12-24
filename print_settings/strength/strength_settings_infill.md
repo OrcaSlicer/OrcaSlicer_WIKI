@@ -40,7 +40,7 @@ Infill density determines the amount of material used to fill the interior of a 
 
 This setting allows you to generate your selected [infill pattern](#sparse-infill-pattern) using up to 10 parallel lines  while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
 
-![infill-multiline-1-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-1-5.gif?raw=true)
+![multiline-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/multiline-infill.png?raw=true)
 
 > [!NOTE]
 > Orca's approach is different from other slicers that simply multiply the number of lines and material usage, generating a denser infill than expected.
