@@ -80,7 +80,7 @@ For some self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubi
 
 #### Non-Crossing Strategy
 
-Some patterns (e.g. [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles)) use a Non-crossing multiline strategy.
+[Grid](strength_settings_patterns#grid) & [Triangles](strength_settings_patterns#triangles) patterns use a Non-crossing multiline strategy.
 For these fill patterns, alternative trajectories are used, which rotate on each layer to ensure isotropic strength.  
 
 ![infill-multiline-non-crossing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-non-crossing.gif?raw=true)
