@@ -44,6 +44,7 @@ This setting allows you to generate your selected [infill pattern](#sparse-infil
 
 > [!NOTE]
 > Orca's approach is different from other slicers that simply multiply the number of lines and material usage, generating a denser infill than expected.
+Orca Slicer keeps the cross-section constant for the set density.  
 >
 >| Infill   Density % | Infill Lines | Orca Density | Other Slicers Density |
 >|--------------------|--------------|--------------|-----------------------|
