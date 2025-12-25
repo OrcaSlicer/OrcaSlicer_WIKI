@@ -89,13 +89,14 @@ Orca Slicer keeps the cross-section constant for the set density.
 - Increasing the number of lines (e.g., 2 or 3) can **improve part strength** and **print speed** without increasing material usage.
 - **Fire-retardant applications:** Some flame-resistant materials (like PolyMax PC-FR) require a minimum printed wall/infill thickness—often 1.5–3 mm—to comply with standards. Since infill contributes to overall part thickness, using multiple lines helps achieve the necessary thickness without switching to a large nozzle or printing with 100% infill. This is especially useful for high-temperature materials like PC, which are prone to warping when fully solid.
 - Creating **aesthetic** infill patterns (like [Grid](strength_settings_patterns#grid) or [Honeycomb](strength_settings_patterns#honeycomb)) with multiple line widths—without relying on CAD modeling or being limited to a single extrusion width.
+- Increase stability for weak infill patterns like [Lightning](strength_settings_patterns#Lightning).  
 
 ![infill-multiline-aesthetic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-aesthetic.gif?raw=true)
 
 ### Strategy
 
 The way multiple lines are generated depends on the selected infill pattern.  
-The following describes possible strategies for generating infill.
+The following describes possible strategies for infill generation.
 
 #### Classic Strategy
 
