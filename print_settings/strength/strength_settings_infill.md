@@ -38,7 +38,7 @@ Infill density determines the amount of material used to fill the interior of a 
 
 ## Fill Multiline
 
-This setting allows you to generate your selected [infill pattern](#sparse-infill-pattern) using up to 10 parallel lines  while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
+This setting allows the selected [infill pattern](#sparse-infill-pattern) to be generated using up to 10 parallel extrusion lines per path, while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
 
 Supported multiline infill patterns:  
 
@@ -95,7 +95,7 @@ Orca Slicer keeps the cross-section constant for the set density.
 ### Strategy
 
 The way multiple lines are generated depends on the selected infill pattern.  
-Some patterns will expand the lines outward from the center, while others may use a non-crossing strategy to improve speed, strength, and printability.
+The following describes possible strategies for generating infill.
 
 #### Classic Strategy
 
@@ -106,7 +106,8 @@ For most self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubi
 #### Non-Crossing Strategy
 
 [Grid](strength_settings_patterns#grid) & [Triangles](strength_settings_patterns#triangles) patterns use a Non-crossing multiline strategy.
-For these infill patterns, alternative trajectories are used, which rotate on each layer to ensure isotropic strength.  
+For these infill patterns, an alternative approach is used, generating trapezoidal trajectories designed to avoid self-intersections of the infill lines. In each layer, the pattern rotates to ensure isotropic strength.  
+This strategy improves printing times by avoiding closed loops in favor of continuous printing paths.  
 
 ![infill-multiline-non-crossing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-non-crossing.gif?raw=true)
 
