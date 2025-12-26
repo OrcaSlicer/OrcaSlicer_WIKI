@@ -107,6 +107,14 @@ Example G-codes:
   M106 S75
   {endif}
   ```
+- Marlin g-code to set fan speed to 0% for InternalInfill role and first 3 layers and 30% (M106 S{0.3*255}) for other roles (this is for achieve a good layer adhesion while try to keep perimeter quality):
+  ```gcode
+  {if(extrusion_role)=="InternalInfill"||layer_num <4}
+  M106 S0
+  {else}
+  M106 S{0.3*255}
+  {endif}
+  ```
 - Marlin g-code to set pressure advance to 0 for InternalInfill role and restore it to previous value for other roles:
   ```gcode
   {if( extrusion_role == "InternalInfill")}
