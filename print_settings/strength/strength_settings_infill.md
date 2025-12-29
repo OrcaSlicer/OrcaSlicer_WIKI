@@ -5,6 +5,9 @@ Infill is the internal structure of a 3D print, providing strength and support. 
 - [Sparse infill density](#sparse-infill-density)
 - [Fill Multiline](#fill-multiline)
   - [Use cases](#use-cases)
+  - [Strategy](#strategy)
+    - [Classic Strategy](#classic-strategy)
+    - [Non-Crossing Strategy](#non-crossing-strategy)
 - [Direction and Rotation](#direction-and-rotation)
   - [Direction](#direction)
   - [Rotation](#rotation)
@@ -35,12 +38,38 @@ Infill density determines the amount of material used to fill the interior of a 
 
 ## Fill Multiline
 
-This setting allows you to generate your selected [infill pattern](#sparse-infill-pattern) using multiple parallel lines while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
+This setting allows the selected [infill pattern](#sparse-infill-pattern) to be generated using up to 10 parallel extrusion lines per path, while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
 
-![infill-multiline-1-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-1-5.gif?raw=true)
+Supported multiline infill patterns:
+
+- [Rectilinear](strength_settings_patterns#rectilinear)
+- [Aligned Rectilinear](strength_settings_patterns#aligned-rectilinear)
+- [Grid](strength_settings_patterns#grid)
+- [Triangles](strength_settings_patterns#triangles)
+- [Tri-hexagon](strength_settings_patterns#tri-hexagon)
+- [Cubic](strength_settings_patterns#cubic)
+- [Adaptive Cubic](strength_settings_patterns#adaptive-cubic)
+- [Quarter Cubic](strength_settings_patterns#quarter-cubic)
+- [Support Cubic](strength_settings_patterns#support-cubic)
+- [Lightning](strength_settings_patterns#lightning)
+- [Honeycomb](strength_settings_patterns#honeycomb)
+- [3D Honeycomb](strength_settings_patterns#3d-honeycomb)
+- [Lateral Honeycomb](strength_settings_patterns#lateral-honeycomb)
+- [Lateral Lattice](strength_settings_patterns#lateral-lattice)
+- [Cross Hatch](strength_settings_patterns#cross-hatch)
+- [TPMS-D](strength_settings_patterns#tpms-d)
+- [TPMS-FK](strength_settings_patterns#tpms-fk)
+- [Gyroid](strength_settings_patterns#gyroid)
+- [Concentric](strength_settings_patterns#concentric)
+- [Hilbert Curve](strength_settings_patterns#hilbert-curve)
+- [Archimedean Chords](strength_settings_patterns#archimedean-chords)
+- [Octagram Spiral](strength_settings_patterns#octagram-spiral)
+
+![multiline-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/multiline-infill.png?raw=true)
 
 > [!NOTE]
 > Orca's approach is different from other slicers that simply multiply the number of lines and material usage, generating a denser infill than expected.
+Orca Slicer keeps the cross-section constant for the set density.  
 >
 >| Infill   Density % | Infill Lines | Orca Density | Other Slicers Density |
 >|--------------------|--------------|--------------|-----------------------|
@@ -49,25 +78,40 @@ This setting allows you to generate your selected [infill pattern](#sparse-infil
 >| 40%                | 2            | 40%          | 80%                   |
 >| 10%                | 3            | 10%          | 30%                   |
 >| 25%                | 3            | 25%          | 75%                   |
->| 40%                | 3            | 40%          | 120% *                |
+>| 40%                | 3            | 40%          | 100%                  |
 >| 10%                | 5            | 10%          | 50%                   |
->| 25%                | 5            | 25%          | 125% *                |
->| 40%                | 5            | 40%          | 200% *                |
+>| 25%                | 5            | 25%          | 100%                  |
+>| 40%                | 5            | 40%          | 100%                  |
 >
-> *Other slicers may limit the result to 100%.
 
 ### Use cases
 
 - Increasing the number of lines (e.g., 2 or 3) can **improve part strength** and **print speed** without increasing material usage.
 - **Fire-retardant applications:** Some flame-resistant materials (like PolyMax PC-FR) require a minimum printed wall/infill thickness—often 1.5–3 mm—to comply with standards. Since infill contributes to overall part thickness, using multiple lines helps achieve the necessary thickness without switching to a large nozzle or printing with 100% infill. This is especially useful for high-temperature materials like PC, which are prone to warping when fully solid.
 - Creating **aesthetic** infill patterns (like [Grid](strength_settings_patterns#grid) or [Honeycomb](strength_settings_patterns#honeycomb)) with multiple line widths—without relying on CAD modeling or being limited to a single extrusion width.
+- Increase stability for weak infill patterns like [Lightning](strength_settings_patterns#Lightning).  
+- Printing gears and other mechanisms, because multiline infill transfer torque better.  
 
 ![infill-multiline-aesthetic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-aesthetic.gif?raw=true)
 
-> [!WARNING]
-> For self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubic), [Grid](strength_settings_patterns#grid)) multiline count greater than 3 may cause layer shift, extruder clog or other issues due to overlapping of lines on intersection points.
->
-> ![infill-multiline-overlapping](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-overlapping.gif?raw=true)
+### Strategy
+
+The way multiple lines are generated depends on the selected infill pattern.  
+The following describes possible strategies for infill generation.
+
+#### Classic Strategy
+
+For most self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
+
+![infill-multiline-closed-loops](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-closed-loops.png?raw=true)
+
+#### Non-Crossing Strategy
+
+[Grid](strength_settings_patterns#grid) & [Triangles](strength_settings_patterns#triangles) patterns use a Non-crossing multiline strategy.
+For these infill patterns, an alternative approach is used, generating trapezoidal trajectories designed to avoid self-intersections of the infill lines. In each layer, the pattern rotates to ensure isotropic strength.  
+This strategy improves printing times by avoiding closed loops in favor of continuous printing paths.  
+
+![infill-multiline-non-crossing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-non-crossing.gif?raw=true)
 
 ## Direction and Rotation
 
