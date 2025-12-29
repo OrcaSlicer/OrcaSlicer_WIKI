@@ -104,7 +104,9 @@ Increasing the gap makes the brim easier to remove but reduces its adhesion bene
 
 ### Brim use EFC outline
 
-When enabled, the brim is aligned with the first-layer perimeter geometry after Elephant Foot Compensation is applied.  
-This option is intended for cases where Elephant Foot Compensation significantly alters the first-layer footprint.
+When enabled, the brim is aligned with the first-layer perimeter geometry after [Elephant Foot Compensation](quality_settings_precision#elephant-foot-compensation) is applied.  
+This option is intended for cases where [Elephant Foot Compensation](quality_settings_precision#elephant-foot-compensation) significantly alters the first-layer footprint.
 
 If your current setup already works well, enabling it may be unnecessary and can cause the brim to fuse with upper layers.
+
+![brim-use-efc-outline](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim-use-efc-outline.svg)

@@ -68,7 +68,7 @@ This feature compensates for the "elephant foot" effect, which occurs when the f
 - Weight of the material above them.
 - Thermal expansion of the material.
 - Bed temperature being too high.
-- Inaccurate bed height.
+- Inaccurate bed height/Leveling.
 
 ![elephant-foot](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/elephant-foot.svg?raw=true)
 
@@ -102,6 +102,11 @@ Assuming the compensation value is 0.25 mm:
   - 4th layer: `0.25 − (0.25 / 5) × (4 - 1) = 0.1mm` compensation (40%)
   - 5th layer: `0.25 − (0.25 / 5) × (5 - 1) = 0.05mm` compensation (20%)
   - 6th layer and beyond: No compensation (0 mm).
+
+> [!NOTE]
+> This feature will look like the part have a smaller footprint on the build plate in the preview, but the final print (if calibrated correctly) will have the correct dimensions after slicing.  
+> That's why the Brim may look disconnected from the object when this feature is enabled. But in the final print, the brim will be correctly attached to the object.  
+> If you use a high value for the Elephant Foot Compensation Distance, you may want to enable the [Brim use EFC outline](others_settings_brim#brim-use-efc-outline) option to ensure proper brim attachment.
 
 ## Precise wall
 
