@@ -15,6 +15,7 @@ Brim is a flat layer printed around a model's base to improve adhesion to the pr
     - [Ear detection radius](#ear-detection-radius)
 - [Width](#width)
 - [Brim-Object Gap](#brim-object-gap)
+  - [Brim use EFC outline](#brim-use-efc-outline)
 
 ## Type
 
@@ -100,3 +101,10 @@ Increasing this value widens the brim, which can improve adhesion but increases 
 
 Gap between the innermost brim line and the object.  
 Increasing the gap makes the brim easier to remove but reduces its adhesion benefit; very large gaps may eliminate contact and negate the brim's purpose.
+
+### Brim use EFC outline
+
+When enabled, the brim is aligned with the first-layer perimeter geometry after Elephant Foot Compensation is applied.  
+This option is intended for cases where Elephant Foot Compensation significantly alters the first-layer footprint.
+
+If your current setup already works well, enabling it may be unnecessary and can cause the brim to fuse with upper layers.
