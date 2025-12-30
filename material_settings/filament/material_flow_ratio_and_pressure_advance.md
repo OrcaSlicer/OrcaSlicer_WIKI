@@ -25,7 +25,8 @@ Pressure advance [Klipper](https://www.klipper3d.org/Pressure_Advance.html) and 
 
 The standard Pressure Advance can be set in two ways:
 
-- **Single Pressure Advance:** This applies a single Pressure Advance (PA) value with no per-nozzle entries. **Not recommended unless you use only one nozzle size**.
+- **Single Pressure Advance:** This applies a single Pressure Advance (PA) value with no per-nozzle entries.  
+  **Not recommended unless you use only one nozzle size**.
   ```c++
   0.02
   ```

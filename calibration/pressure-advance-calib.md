@@ -26,7 +26,8 @@ The nozzle size also plays a key role in determining the optimal PA value. A sma
 
 The results from these methods should be saved to the [material profile](material_flow_ratio_and_pressure_advance#pressure-advance) in one of the following ways:
 
-- **Single Pressure Advance:** This applies a single Pressure Advance (PA) value with no per-nozzle entries. **Not recommended unless you use only one nozzle size**.
+- **Single Pressure Advance:** This applies a single Pressure Advance (PA) value with no per-nozzle entries.  
+  **Not recommended unless you use only one nozzle size**.
   ```c++
   0.02
   ```
