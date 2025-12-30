@@ -37,36 +37,36 @@ Layer time variability refers to the differences in time it takes to print each 
 
 ## Patterns Quick Reference
 
-| - | Pattern | Strength | Material Usage | Print Time | Layer time Variability |
-|---|---|---|---|---|---|
-| <img alt="param_monotonic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_monotonic.svg?raw=true" height="45"> | [Monotonic](#monotonic) | X-Y: ⚪️ Normal<br> Z: ⚪️ Normal | ⚪️ Normal | 🔘 Normal-Low | 🟢 None |
-| <img alt="param_monotonicline" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_monotonicline.svg?raw=true" height="45"> | [Monotonic line](#monotonic-line) | X-Y: ⚪️ Normal<br> Z: ⚪️ Normal | ⚪️ Normal | 🔘 Normal-Low | 🟢 None |
-| <img alt="param_rectilinear" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_rectilinear.svg?raw=true" height="45"> | [Rectilinear](#rectilinear) | X-Y: ⚪️ Normal-Low<br> Z: 🟡 Low | ⚪️ Normal | 🔘 Normal-Low | 🔵 Unnoticeable |
-| <img alt="param_alignedrectilinear" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_alignedrectilinear.svg?raw=true" height="45"> | [Aligned Rectilinear](#aligned-rectilinear) | X-Y: ⚪️ Normal-Low<br> Z: ⚪️ Normal | ⚪️ Normal | 🔘 Normal-Low | 🔵 Unnoticeable |
-| <img alt="param_zigzag" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_zigzag.svg?raw=true" height="45"> | [Zig Zag](#zig-zag) | X-Y: ⚪️ Normal-Low<br> Z: 🟡 Low | ⚪️ Normal | 🔘 Normal-Low | 🔵 Unnoticeable |
-| <img alt="param_crosszag" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_crosszag.svg?raw=true" height="45"> | [Cross Zag](#cross-zag) | X-Y: ⚪️ Normal<br> Z: 🟡 Low | ⚪️ Normal | 🔘 Normal-Low | 🔵 Unnoticeable |
-| <img alt="param_lockedzag" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lockedzag.svg?raw=true" height="45"> | [Locked Zag](#locked-zag) | X-Y: ⚪️ Normal-Low<br> Z: ⚪️ Normal-Low | ⚪️ Normal-High | ⚪️ Normal-High | 🟢 None |
-| <img alt="param_line" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line.svg?raw=true" height="45"> | [Line](#line) | X-Y: 🟡 Low<br> Z: 🟡 Low | ⚪️ Normal | 🔘 Normal-Low | 🟢 None |
-| <img alt="param_grid" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_grid.svg?raw=true" height="45"> | [Grid](#grid) | X-Y: 🟣 High<br> Z: 🟣 High | ⚪️ Normal | 🟣 Low | 🟢 None |
-| <img alt="param_triangles" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_triangles.svg?raw=true" height="45"> | [Triangles](#triangles) | X-Y: 🟣 High<br> Z: ⚪️ Normal | ⚪️ Normal | 🔘 Normal-Low | 🟢 None |
-| <img alt="param_tri-hexagon" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tri-hexagon.svg?raw=true" height="45"> | [Tri-hexagon](#tri-hexagon) | X-Y: 🟣 High<br> Z: 🔘 Normal-High | ⚪️ Normal | 🔘 Normal-Low | 🟢 None |
-| <img alt="param_cubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cubic.svg?raw=true" height="45"> | [Cubic](#cubic) | X-Y: 🟣 High<br> Z: 🟣 High | ⚪️ Normal | 🔘 Normal-Low | 🔵 Unnoticeable |
-| <img alt="param_adaptivecubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_adaptivecubic.svg?raw=true" height="45"> | [Adaptive Cubic](#adaptive-cubic) | X-Y: 🔘 Normal-High<br> Z: 🔘 Normal-High | 🟣 Low | 🟣 Low | 🔵 Unnoticeable |
-| <img alt="param_quartercubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_quartercubic.svg?raw=true" height="45"> | [Quarter Cubic](#quarter-cubic) | X-Y: 🟣 High<br> Z: 🟣 High | ⚪️ Normal | 🔘 Normal-Low | 🔵 Unnoticeable |
-| <img alt="param_supportcubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_supportcubic.svg?raw=true" height="45"> | [Support Cubic](#support-cubic) | X-Y: 🟡 Low<br> Z: 🟡 Low | 🔵 Extra-Low | 🔵 Extra-Low | 🔴 Likely Noticeable |
-| <img alt="param_lightning" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lightning.svg?raw=true" height="45"> | [Lightning](#lightning) | X-Y: 🟡 Low<br> Z: 🟡 Low | 🟢 Ultra-Low | 🟢 Ultra-Low | 🔴 Likely Noticeable |
-| <img alt="param_honeycomb" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_honeycomb.svg?raw=true" height="45"> | [Honeycomb](#honeycomb) | X-Y: 🟣 High<br> Z: 🟣 High | 🟡 High | 🔴 Ultra-High | 🟢 None |
-| <img alt="param_3dhoneycomb" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_3dhoneycomb.svg?raw=true" height="45"> | [3D Honeycomb](#3d-honeycomb) | X-Y: 🔘 Normal-High<br> Z: 🔘 Normal-High | 🔘 Normal-Low | 🟠 Extra-High | 🟡 Possibly Noticeable |
-| <img alt="param_lateral-honeycomb" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lateral-honeycomb.svg?raw=true" height="45"> | [Lateral Honeycomb](#lateral-honeycomb) | X-Y: ⚪️ Normal-Low<br> Z: ⚪️ Normal-Low | ⚪️ Normal | 🔘 Normal-Low | 🟡 Possibly Noticeable |
-| <img alt="param_lateral-lattice" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lateral-lattice.svg?raw=true" height="45"> | [Lateral Lattice](#lateral-lattice) | X-Y: ⚪️ Normal-Low<br> Z: 🟡 Low | ⚪️ Normal | 🔘 Normal-Low | 🔵 Unnoticeable |
-| <img alt="param_crosshatch" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_crosshatch.svg?raw=true" height="45"> | [Cross Hatch](#cross-hatch) | X-Y: 🔘 Normal-High<br> Z: 🔘 Normal-High | ⚪️ Normal | 🟡 High | 🔴 Likely Noticeable |
-| <img alt="param_tpmsd" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tpmsd.svg?raw=true" height="45"> | [TPMS-D](#tpms-d) | X-Y: 🟣 High<br> Z: 🟣 High | ⚪️ Normal | 🟡 High | 🟡 Possibly Noticeable |
-| <img alt="param_tpmsfk" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tpmsfk.svg?raw=true" height="45"> | [TPMS-FK](#tpms-fk) | X-Y: 🔘 Normal-High<br> Z: 🔘 Normal-High | ⚪️ Normal | 🔴 Ultra-High | 🟡 Possibly Noticeable |
-| <img alt="param_gyroid" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gyroid.svg?raw=true" height="45"> | [Gyroid](#gyroid) | X-Y: 🟣 High<br> Z: 🟣 High | ⚪️ Normal | 🔴 Ultra-High | 🔵 Unnoticeable |
-| <img alt="param_concentric" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_concentric.svg?raw=true" height="45"> | [Concentric](#concentric) | X-Y: 🟡 Low<br> Z: ⚪️ Normal | ⚪️ Normal | 🔘 Normal-Low | 🟢 None |
-| <img alt="param_hilbertcurve" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_hilbertcurve.svg?raw=true" height="45"> | [Hilbert Curve](#hilbert-curve) | X-Y: 🟡 Low<br> Z: ⚪️ Normal | ⚪️ Normal | 🟠 Extra-High | 🟢 None |
-| <img alt="param_archimedeanchords" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_archimedeanchords.svg?raw=true" height="45"> | [Archimedean Chords](#archimedean-chords) | X-Y: 🟡 Low<br> Z: ⚪️ Normal | ⚪️ Normal | 🔘 Normal-Low | 🟢 None |
-| <img alt="param_octagramspiral" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_octagramspiral.svg?raw=true" height="45"> | [Octagram Spiral](#octagram-spiral) | X-Y: 🟡 Low<br> Z: ⚪️ Normal | ⚪️ Normal | ⚪️ Normal | 🟢 None |
+| - | Pattern | Strength | Material Usage | Print Time | Layer time Variability | Multiline |
+|---|---|---|---|---|---|---|
+| <img   alt="param_monotonic"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_monotonic.svg?raw=true"   height="45"> | [Monotonic](#monotonic) | X-Y: ⚪️   Normal      Z: ⚪️ Normal  | ⚪️ Normal | 🔘 Normal-Low | 🟢 None | N/A |
+| <img   alt="param_monotonicline"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_monotonicline.svg?raw=true"   height="45"> | [Monotonic   line](#monotonic-line) | X-Y: ⚪️ Normal      Z: ⚪️ Normal  | ⚪️   Normal | 🔘   Normal-Low | 🟢   None | N/A |
+| <img   alt="param_rectilinear"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_rectilinear.svg?raw=true"   height="45"> | [Rectilinear](#rectilinear) | X-Y: ⚪️   Normal-Low      Z: 🟡 Low  | ⚪️ Normal | 🔘 Normal-Low | 🔵 Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_alignedrectilinear"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_alignedrectilinear.svg?raw=true"   height="45"> | [Aligned   Rectilinear](#aligned-rectilinear) | X-Y: ⚪️ Normal-Low      Z: ⚪️ Normal  | ⚪️   Normal | 🔘   Normal-Low | 🔵   Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_zigzag"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_zigzag.svg?raw=true"   height="45"> | [Zig Zag](#zig-zag) | X-Y: ⚪️   Normal-Low      Z: 🟡 Low  | ⚪️ Normal | 🔘 Normal-Low | 🔵 Unnoticeable | No |
+| <img   alt="param_crosszag"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_crosszag.svg?raw=true"   height="45"> | [Cross   Zag](#cross-zag) | X-Y: ⚪️ Normal      Z: 🟡 Low  | ⚪️   Normal | 🔘   Normal-Low | 🔵   Unnoticeable | No |
+| <img   alt="param_lockedzag"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lockedzag.svg?raw=true"   height="45"> | [Locked Zag](#locked-zag) | X-Y: ⚪️   Normal-Low      Z: ⚪️ Normal-Low  | ⚪️ Normal-High | ⚪️ Normal-High | 🟢 None | No |
+| <img   alt="param_line"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line.svg?raw=true"   height="45"> | [Line](#line) | X-Y: 🟡 Low      Z: 🟡 Low  | ⚪️   Normal | 🔘   Normal-Low | 🟢   None | No |
+| <img   alt="param_grid"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_grid.svg?raw=true"   height="45"> | [Grid](#grid) | X-Y: 🟣   High      Z: 🟣 High  | ⚪️ Normal | 🟣 Low | 🟢 None | [Non-Crossing](strength_settings_infill#non-crossing-strategy) |
+| <img   alt="param_triangles"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_triangles.svg?raw=true"   height="45"> | [Triangles](#triangles) | X-Y: 🟣 High      Z: ⚪️ Normal  | ⚪️   Normal | 🔘   Normal-Low | 🟢   None | [Non-Crossing](strength_settings_infill#non-crossing-strategy) |
+| <img   alt="param_tri-hexagon"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tri-hexagon.svg?raw=true"   height="45"> | [Tri-hexagon](#tri-hexagon) | X-Y: 🟣   High      Z: 🔘 Normal-High  | ⚪️ Normal | 🔘 Normal-Low | 🟢 None | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_cubic"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cubic.svg?raw=true"   height="45"> | [Cubic](#cubic) | X-Y: 🟣 High      Z: 🟣 High  | ⚪️   Normal | 🔘   Normal-Low | 🔵   Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_adaptivecubic"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_adaptivecubic.svg?raw=true"   height="45"> | [Adaptive   Cubic](#adaptive-cubic) | X-Y: 🔘   Normal-High      Z: 🔘 Normal-High  | 🟣 Low | 🟣 Low | 🔵 Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_quartercubic"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_quartercubic.svg?raw=true"   height="45"> | [Quarter   Cubic](#quarter-cubic) | X-Y: 🟣 High      Z: 🟣 High  | ⚪️   Normal | 🔘   Normal-Low | 🔵   Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_supportcubic"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_supportcubic.svg?raw=true"   height="45"> | [Support Cubic](#support-cubic) | X-Y: 🟡   Low      Z: 🟡 Low  | 🔵 Extra-Low | 🔵 Extra-Low | 🔴 Likely Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_lightning"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lightning.svg?raw=true"   height="45"> | [Lightning](#lightning) | X-Y: 🟡 Low      Z: 🟡 Low  | 🟢   Ultra-Low | 🟢   Ultra-Low | 🔴   Likely Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_honeycomb"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_honeycomb.svg?raw=true"   height="45"> | [Honeycomb](#honeycomb) | X-Y: 🟣   High      Z: 🟣 High  | 🟡 High | 🔴 Ultra-High | 🟢 None | [Non-Crossing](strength_settings_infill#non-crossing-strategy) |
+| <img   alt="param_3dhoneycomb"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_3dhoneycomb.svg?raw=true"   height="45"> | [3D   Honeycomb](#3d-honeycomb) | X-Y: 🔘 Normal-High      Z: 🔘 Normal-High  | 🔘   Normal-Low | 🟠   Extra-High | 🟡   Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_lateral-honeycomb"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lateral-honeycomb.svg?raw=true"   height="45"> | [Lateral   Honeycomb](#lateral-honeycomb) | X-Y: ⚪️   Normal-Low      Z: ⚪️ Normal-Low  | ⚪️ Normal | 🔘 Normal-Low | 🟡 Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_lateral-lattice"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lateral-lattice.svg?raw=true"   height="45"> | [Lateral   Lattice](#lateral-lattice) | X-Y: ⚪️ Normal-Low      Z: 🟡 Low  | ⚪️   Normal | 🔘   Normal-Low | 🔵   Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_crosshatch"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_crosshatch.svg?raw=true"   height="45"> | [Cross Hatch](#cross-hatch) | X-Y: 🔘   Normal-High      Z: 🔘 Normal-High  | ⚪️ Normal | 🟡 High | 🔴 Likely Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_tpmsd"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tpmsd.svg?raw=true"   height="45"> | [TPMS-D](#tpms-d) | X-Y: 🟣 High      Z: 🟣 High  | ⚪️   Normal | 🟡   High | 🟡   Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_tpmsfk"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tpmsfk.svg?raw=true"   height="45"> | [TPMS-FK](#tpms-fk) | X-Y: 🔘   Normal-High      Z: 🔘 Normal-High  | ⚪️ Normal | 🔴 Ultra-High | 🟡 Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_gyroid"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gyroid.svg?raw=true"   height="45"> | [Gyroid](#gyroid) | X-Y: 🟣 High      Z: 🟣 High  | ⚪️   Normal | 🔴   Ultra-High | 🔵   Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_concentric"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_concentric.svg?raw=true"   height="45"> | [Concentric](#concentric) | X-Y: 🟡   Low      Z: ⚪️ Normal  | ⚪️ Normal | 🔘 Normal-Low | 🟢 None | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_hilbertcurve"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_hilbertcurve.svg?raw=true"   height="45"> | [Hilbert   Curve](#hilbert-curve) | X-Y: 🟡 Low      Z: ⚪️ Normal  | ⚪️   Normal | 🟠   Extra-High | 🟢   None | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_archimedeanchords"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_archimedeanchords.svg?raw=true"   height="45"> | [Archimedean   Chords](#archimedean-chords) | X-Y: 🟡   Low      Z: ⚪️ Normal  | ⚪️ Normal | 🔘 Normal-Low | 🟢 None | [Classic](strength_settings_infill#classic-strategy) |
+| <img   alt="param_octagramspiral"   src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_octagramspiral.svg?raw=true"   height="45"> | [Octagram   Spiral](#octagram-spiral) | X-Y: 🟡 Low      Z: ⚪️ Normal  | ⚪️   Normal | ⚪️   Normal | 🟢   None | [Classic](strength_settings_infill#classic-strategy) |
 
 > [!NOTE]
 > This estimations are based in a Cube model to maintain consistency.  
@@ -90,6 +90,7 @@ Layer time variability refers to the differences in time it takes to print each 
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** N/A
 - **Applies to:**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
   - **[Surface](strength_settings_top_bottom_shells)**
@@ -108,6 +109,7 @@ Layer time variability refers to the differences in time it takes to print each 
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** N/A
 - **Applies to:**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
   - **[Surface](strength_settings_top_bottom_shells)**
@@ -126,6 +128,7 @@ Parallel lines spaced according to infill density. Each layer is printed perpend
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🔵 Unnoticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
@@ -147,6 +150,7 @@ Recommended with layer anchoring to improve not perpendicular strength.
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🔵 Unnoticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
@@ -166,6 +170,7 @@ Similar to [rectilinear](#rectilinear) with consistent pattern between layers. A
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🔵 Unnoticeable
+- **Multiline:** No
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -183,6 +188,7 @@ Similar to [Zig Zag](#zig-zag) but displacing each layer with Infill shift step 
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🔵 Unnoticeable
+- **Multiline:** No
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -202,6 +208,7 @@ Skin density * ( Infill Area - Skin Area + lock depth area) + ( Skin density * S
   - **Print Time:** ⚪️ Normal-High
     - **Material/Time (Higher better):** ⚪️ Normal  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** No
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -219,6 +226,7 @@ Similar to [rectilinear](#rectilinear), but each line is slightly rotated to imp
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** No
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -236,6 +244,7 @@ Two-layer pattern of perpendicular lines, forming a grid. Overlapping points may
   - **Print Time:** 🟣 Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -253,6 +262,7 @@ Triangle-based grid, offering strong X-Y strength but with triple overlaps at in
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -270,6 +280,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -287,6 +298,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🔵 Unnoticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -304,6 +316,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
   - **Print Time:** 🟣 Low
     - **Material/Time (Higher better):** ⚪️ Normal  
     - **Layer time Variability:** 🔵 Unnoticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -321,6 +334,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🔵 Unnoticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -338,6 +352,7 @@ Support |Cubic is a variation of the [Cubic](#cubic) infill pattern that is spec
   - **Print Time:** 🔵 Extra-Low
     - **Material/Time (Higher better):** 🟡 Low  
     - **Layer time Variability:** 🔴 Likely Noticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -355,6 +370,7 @@ Ultra-fast, ultra-low material infill. Designed for speed and efficiency, ideal 
   - **Print Time:** 🟢 Ultra-Low
     - **Material/Time (Higher better):** ⚪️ Normal-Low  
     - **Layer time Variability:** 🔴 Likely Noticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -372,6 +388,7 @@ Hexagonal pattern balancing strength and material use. Double walls in each hexa
   - **Print Time:** 🔴 Ultra-High
     - **Material/Time (Higher better):** 🟡 Low  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -389,6 +406,7 @@ This infill tries to generate a printable honeycomb structure by printing square
   - **Print Time:** 🟠 Extra-High
     - **Material/Time (Higher better):** 🟡 Low  
     - **Layer time Variability:** 🟡 Possibly Noticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -406,6 +424,7 @@ Vertical Honeycomb pattern. Acceptable torsional stiffness. Developed for low de
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🟡 Possibly Noticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -423,6 +442,7 @@ Low-strength pattern with good flexibility. You can adjust **Angle 1** and **Ang
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🔵 Unnoticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -441,6 +461,7 @@ Easier to slice but consider using [TPMS-D](#tpms-d) or [Gyroid](#gyroid) for be
   - **Print Time:** 🟡 High
     - **Material/Time (Higher better):** 🟡 Low  
     - **Layer time Variability:** 🔴 Likely Noticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -458,6 +479,7 @@ Triply Periodic Minimal Surface (Schwarz Diamond). Hybrid between [Cross Hatch](
   - **Print Time:** 🟡 High
     - **Material/Time (Higher better):** 🟡 Low  
     - **Layer time Variability:** 🟡 Possibly Noticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -475,6 +497,7 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
   - **Print Time:** 🔴 Ultra-High
     - **Material/Time (Higher better):** 🟡 Low  
     - **Layer time Variability:** 🟡 Possibly Noticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -492,6 +515,7 @@ Mathematical, isotropic surface providing equal strength in all directions. Exce
   - **Print Time:** 🔴 Ultra-High
     - **Material/Time (Higher better):** 🟡 Low  
     - **Layer time Variability:** 🔵 Unnoticeable
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -509,6 +533,7 @@ Fills the area with progressively smaller versions of the outer contour, creatin
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
@@ -530,6 +555,7 @@ Print speed is very low due to the complexity of the path, which can lead to lon
   - **Print Time:** 🟠 Extra-High
     - **Material/Time (Higher better):** 🟡 Low  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
@@ -549,6 +575,7 @@ Spiral pattern that fills the area with concentric arcs, creating a smooth and c
   - **Print Time:** 🔘 Normal-Low
     - **Material/Time (Higher better):** 🔘 Normal-High  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
@@ -568,6 +595,7 @@ Aesthetic pattern with low strength and high print time.
   - **Print Time:** ⚪️ Normal
     - **Material/Time (Higher better):** ⚪️ Normal  
     - **Layer time Variability:** 🟢 None
+- **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
   - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
   - **[Solid Infill](strength_settings_infill#internal-solid-infill)**

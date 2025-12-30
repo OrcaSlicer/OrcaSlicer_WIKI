@@ -40,30 +40,7 @@ Infill density determines the amount of material used to fill the interior of a 
 
 This setting allows the selected [infill pattern](#sparse-infill-pattern) to be generated using up to 10 parallel extrusion lines per path, while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
 
-Supported multiline infill patterns:
-
-- [Rectilinear](strength_settings_patterns#rectilinear)
-- [Aligned Rectilinear](strength_settings_patterns#aligned-rectilinear)
-- [Grid](strength_settings_patterns#grid)
-- [Triangles](strength_settings_patterns#triangles)
-- [Tri-hexagon](strength_settings_patterns#tri-hexagon)
-- [Cubic](strength_settings_patterns#cubic)
-- [Adaptive Cubic](strength_settings_patterns#adaptive-cubic)
-- [Quarter Cubic](strength_settings_patterns#quarter-cubic)
-- [Support Cubic](strength_settings_patterns#support-cubic)
-- [Lightning](strength_settings_patterns#lightning)
-- [Honeycomb](strength_settings_patterns#honeycomb)
-- [3D Honeycomb](strength_settings_patterns#3d-honeycomb)
-- [Lateral Honeycomb](strength_settings_patterns#lateral-honeycomb)
-- [Lateral Lattice](strength_settings_patterns#lateral-lattice)
-- [Cross Hatch](strength_settings_patterns#cross-hatch)
-- [TPMS-D](strength_settings_patterns#tpms-d)
-- [TPMS-FK](strength_settings_patterns#tpms-fk)
-- [Gyroid](strength_settings_patterns#gyroid)
-- [Concentric](strength_settings_patterns#concentric)
-- [Hilbert Curve](strength_settings_patterns#hilbert-curve)
-- [Archimedean Chords](strength_settings_patterns#archimedean-chords)
-- [Octagram Spiral](strength_settings_patterns#octagram-spiral)
+To check which patterns support multiline infill, see the Patterns Quick Reference table in the [Infill Patterns Wiki List](strength_settings_patterns#patterns-quick-reference).
 
 ![multiline-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/multiline-infill.png?raw=true)
 
@@ -102,6 +79,8 @@ The following describes possible strategies for infill generation.
 #### Classic Strategy
 
 For most self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
+
+In this example of [Cubic](strength_settings_patterns#cubic) and [Gyroid](strength_settings_patterns#gyroid) patterns, you can see (in purple) the closed loops generated to avoid overlapping lines.
 
 ![infill-multiline-closed-loops](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-closed-loops.png?raw=true)
 
