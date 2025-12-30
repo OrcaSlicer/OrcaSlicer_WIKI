@@ -109,4 +109,4 @@ This option is intended for cases where [Elephant Foot Compensation](quality_set
 
 If your current setup already works well, enabling it may be unnecessary and can cause the brim to fuse with upper layers.
 
-![brim-use-efc-outline](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim-use-efc-outline.svg)
+![brim-use-efc-outline](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim-use-efc-outline.svg?raw=true)
