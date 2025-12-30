@@ -24,9 +24,16 @@ OrcaSlicer includes three calibration methods, and each one has two versions: on
 
 The nozzle size also plays a key role in determining the optimal PA value. A smaller nozzle increases flow resistance, which changes how pressure builds up and releases. Even with the same material, you’ll need to recalibrate PA when switching nozzle sizes.
 
-The results from these methods should be saved to the material profile in one of the following ways:
+The results from these methods should be saved to the [material profile](material_flow_ratio_and_pressure_advance#pressure-advance) in one of the following ways:
 
-- Nozzle, Pressure Advance **- Recommended**: This applies the value for the selected nozzle size. If the exact size is not listed, it uses linear interpolation between the nearest larger and smaller nozzle values. If the size is below the minimum or above the maximum listed, it uses the minimum or maximum value.
+- **Single Pressure Advance:** This applies a single Pressure Advance (PA) value with no per-nozzle entries. **Not recommended unless you use only one nozzle size**.
+  ```c++
+  0.02
+  ```
+  ![pressure_advance_enable_single](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable_single.png?raw=true)
+- **Multi Nozzle Size Pressure Advance:** This allows you to set different Pressure Advance (PA) values for different nozzle sizes due to PA decreasing with larger nozzle diameters.
+  - If the exact value is not specified, [Piecewise Cubic Hermite Interpolating Polynomial (PCHIP)](https://www.mathworks.com/help/matlab/ref/pchip.html) will be used to calculate the corresponding value. Therefore, it is advisable to set only the values that were calibrated by yourself.
+  - If the size is below the minimum or above the maximum listed, it uses the minimum or maximum value.
   ```c++
   0.25,0.09
   0.3,0.065
@@ -37,11 +44,6 @@ The results from these methods should be saved to the material profile in one of
   0.8,0.01
   ```
   ![pressure_advance_enable_multi](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable_multi.png?raw=true)
-- Global, Pressure Advance **- Legacy**: This applies a single Pressure Advance (PA) value with no per-nozzle entries. Not recommended unless you use only one nozzle size.
-  ```c++
-  0.02
-  ```
-  ![pressure_advance_enable_single](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable_single.png?raw=true)
 
 > [!TIP]
 > Consider using the [Adaptive Pressure Advance](adaptive-pressure-advance-calib) method for more accurate results.  

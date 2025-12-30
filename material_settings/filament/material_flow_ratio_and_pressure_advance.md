@@ -21,7 +21,28 @@ The final object flow ratio is this value multiplied by the filament flow ratio.
 
 ## Pressure Advance
 
-Pressure advance [Klipper](https://www.klipper3d.org/Pressure_Advance.html) and [RepRap](https://docs.duet3d.com/User_manual/Tuning/Pressure_advance) AKA [Linear advance (Marlin)](https://marlinfw.org/docs/features/lin_advance.html) is a feature that compensates for the lag in filament pressure within the nozzle during acceleration and deceleration. It helps improve print quality by reducing issues like blobs, oozing, and inconsistent extrusion, especially at corners or during fast movements.
+Pressure advance [Klipper](https://www.klipper3d.org/Pressure_Advance.html) and [RepRap](https://docs.duet3d.com/User_manual/Tuning/Pressure_advance) AKA [Linear advance (Marlin)](https://marlinfw.org/docs/features/lin_advance.html) is a feature that compensates for the lag in filament pressure within the nozzle during acceleration and deceleration. It helps improve print quality by reducing issues like blobs, oozing, and inconsistent extrusion, especially at corners or during fast movements.  
+
+The standard Pressure Advance can be set in two ways:
+
+- **Single Pressure Advance:** This applies a single Pressure Advance (PA) value with no per-nozzle entries. **Not recommended unless you use only one nozzle size**.
+  ```c++
+  0.02
+  ```
+  ![pressure_advance_enable_single](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable_single.png?raw=true)
+- **Multi Nozzle Size Pressure Advance:** This allows you to set different Pressure Advance (PA) values for different nozzle sizes due to PA decreasing with larger nozzle diameters.
+  - If the exact value is not specified, [Piecewise Cubic Hermite Interpolating Polynomial (PCHIP)](https://www.mathworks.com/help/matlab/ref/pchip.html) will be used to calculate the corresponding value. Therefore, it is advisable to set only the values that were calibrated by yourself.
+  - If the size is below the minimum or above the maximum listed, it uses the minimum or maximum value.
+  ```c++
+  0.25,0.09
+  0.3,0.065
+  0.35,0.05
+  0.4,0.02
+  0.5,0.018
+  0.6,0.012
+  0.8,0.01
+  ```
+  ![pressure_advance_enable_multi](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable_multi.png?raw=true)
 
 > [!NOTE]
 > Auto calibration result will be overwritten once enabled
