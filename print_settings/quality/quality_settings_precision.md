@@ -56,6 +56,7 @@ Additionally, modern STLs often have a higher resolution than the segments gener
 
 > [!TIP]
 > For Klipper printers see the [Support for gcode arc (G2/G3) commands's documentation](https://www.klipper3d.org/Config_Reference.html#gcode_arcs) for setting the resolution of the arcs generated internally: the default is 1.0 mm per segment, which is very rough.  
+> For Marlin printers, you can adjust the variables under `#define ARC_SUPPORT` in `Configuration_adv.h`.
 
 > [!WARNING]
 > The internal generation of segments from arcs requires higher CPU usage from the printer microcontroller and therefore it might cause slow-downs (and reduced surface quality) on printers using 8-bit microcontrollers.
