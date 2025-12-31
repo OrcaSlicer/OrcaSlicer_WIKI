@@ -7,6 +7,10 @@ Each material profile includes a **maximum volumetric speed** setting, which lim
 
 ## Adaptive volumetric speed
 
+> [!WARNING]
+> Experimental and incomplete feature imported from BBS.  
+> Functional for some profiles that already have the variable saved.
+
 When enabled, the extrusion flow is limited by the smaller of the fitted value (calculated from line width and layer height) and the user-defined maximum flow. When disabled, only the user-defined maximum flow is applied.
 
 ## Max volumetric speed
