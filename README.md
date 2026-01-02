@@ -9,7 +9,7 @@
 
 This is the official Wiki Repository for [OrcaSlicer](https://github.com/OrcaSlicer/OrcaSlicer).
 
-Documents in this repository are the source files for the OrcaSlicer Wiki and are automatically synchronized with the [OrcaSlicer Wiki](https://github.com/OrcaSlicer/OrcaSlicer/wiki).
+Documents in this repository are the source files for the [OrcaSlicer Wiki](https://www.orcaslicer.com/wiki/) and are automatically synchronized with the [OrcaSlicer Github Wiki](https://github.com/OrcaSlicer/OrcaSlicer/wiki).
 
 How to contribute to the wiki guide: **[How-to-wiki](https://github.com/OrcaSlicer/OrcaSlicer/wiki/How-to-wiki)**
 
