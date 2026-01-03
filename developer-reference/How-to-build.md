@@ -118,7 +118,7 @@ How to building with Visual Studio on Windows 64-bit.
 
 3. If successful, you will find the Visual Studio solution file in:
    ```shell
-   build\OrcaSlicer.sln
+   build\OrcaSlicer.slnx
    ```
 4. Open the solution in Visual Studio, set the build configuration to `Release` and run the `Local Windows Debugger`.  
    ![compile_vs_local_debugger](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/compile_vs_local_debugger.png?raw=true)
