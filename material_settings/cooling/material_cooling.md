@@ -29,12 +29,14 @@ This setting allows you to customize the cooling behavior of your 3D printer for
 Proper cooling is essential for achieving high-quality prints, especially when dealing with overhangs and bridges.
 
 ### No cooling for the first
+
 Number of initial layers during which part-cooling fans are disabled.
 Disabling the fan for the first few layers improves build-plate adhesion and reduces early-layer warping.
 
 ### Full fan speed at layer
 
-Fan speed is increased linearly from 0% starting at the layer specified by [close_fan_the_first_x_layers](#no-cooling-for-the-first) up to the maximum part-cooling speed at the layer specified by `full_fan_speed_layer`. If `full_fan_speed_layer` is less than or equal to [close_fan_the_first_x_layers](#no-cooling-for-the-first), it is ignored and the fan will reach the maximum allowed speed on the layer immediately after [close_fan_the_first_x_layers](#no-cooling-for-the-first) (i.e. at layer [close_fan_the_first_x_layers](#no-cooling-for-the-first) + 1).  
+Fan speed is increased linearly from 0% starting at the layer specified by [close_fan_the_first_x_layers](#no-cooling-for-the-first) up to the maximum part-cooling speed at this specified layer.  
+If this layer is less than or equal to [close_fan_the_first_x_layers](#no-cooling-for-the-first), it is ignored and the fan will reach the maximum allowed speed on the layer immediately after [close_fan_the_first_x_layers](#no-cooling-for-the-first) (i.e. at layer [close_fan_the_first_x_layers](#no-cooling-for-the-first) + 1).  
 Set this option to `0` to disable the automatic ramp.
 
 ## Material Part Cooling Fan
