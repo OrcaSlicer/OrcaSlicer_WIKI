@@ -1,4 +1,4 @@
-site_name: OrcaSlicer WIKI
+site_name: OrcaSlicer Wiki
 site_description: Official Wiki for OrcaSlicer - A powerful open source slicer for FFF (FDM) 3D Printers
 site_url: https://www.orcaslicer.com/wiki
 
@@ -13,8 +13,36 @@ use_directory_urls: false
 # Theme configuration
 theme:
   name: material
+  logo: assets/images/OrcaSlicer.png
+  favicon: assets/images/OrcaSlicer.ico
   features:
       - content.code.copy  # Enables the copy-to-clipboard button
+      #- search.suggest
+      #- search.highlight
+      - navigation.path    # shows breadcumb
+      #- navigation.top    # adds back to top button - not working
+      - navigation.footer  # adds next and previous buttons
+      - navigation.indexes
+  palette: # show dark mode toggle
+    - scheme: default # light mode
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - scheme: slate # dark mode
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  
+extra_css:
+  - assets/stylesheets/extra.css
+
+plugins:
+  #- search          @ search didnt appear on my setup
+  - gh-admonitions   # converts github annotions to admonition
+  #- optimize        # automatically optimizes images
+  #- git-committers: # not works # adds committers to footer # pip install mkdocs-git-committers-plugin-2
+  #    repository: OrcaSlicer/OrcaSlicer_WIKI
+  #    branch: main
 
 # Markdown extensions (using built-in extensions to avoid extra dependencies)
 markdown_extensions:
@@ -29,6 +57,16 @@ markdown_extensions:
   - admonition
   - pymdownx.details  # For collapsible admonitions
   - pymdownx.superfences
+  
+extra:
+  generator: false # hides "Made with Material for MkDocs" from footer
+  social:          # adds links tofooter
+    - icon: fontawesome/brands/github 
+      link: https://github.com/OrcaSlicer/OrcaSlicer
+    - icon: fontawesome/brands/discord 
+      link: https://discord.gg/P4VE9UY9gJ
+
+copyright: Copyright &copy; 2022-2025 Li Jiang. All rights reserved.
 
 # Navigation structure based on Home.md
 nav:

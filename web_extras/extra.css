@@ -1,0 +1,283 @@
+:root,
+[data-md-color-scheme=default],
+[data-md-color-scheme=slate]{
+  /* Primary color (used in both light and dark) */
+  --md-primary-fg-color:               #009688;
+  --md-primary-fg-color--light:        #009688;
+  --md-primary-fg-color--dark:         #00675B;
+
+  /* Accent color */
+  --md-accent-fg-color:                #009688;
+
+  --md-typeset-a-color:                var(--md-primary-fg-color--light) !important;
+
+  --md-footer-bg-color:                var(--md-primary-fg-color) !important;
+  --md-footer-fg-color:                #FFFFFF;
+
+  --md-code-bg-color:                  #F2F2F2;
+
+  /* Use single color for codes. otherwise some parts gCodes etc. is hard to read */
+  --md-code-hl-color:                  var(--md-code-fg-color);
+  --md-code-hl-number-color:           var(--md-code-fg-color);
+  --md-code-hl-special-color:          var(--md-code-fg-color);
+  --md-code-hl-function-color:         var(--md-code-fg-color);
+  --md-code-hl-constant-color:         var(--md-code-fg-color); /* variables, gcodes */
+  --md-code-hl-keyword-color:          var(--md-code-fg-color);
+  --md-code-hl-string-color:           var(--md-code-fg-color);
+  --md-code-hl-name-color:             var(--md-code-fg-color);
+  --md-code-hl-color--light:           var(--md-default-fg-color--light);
+  --md-code-hl-operator-color:         var(--md-default-fg-color--light);
+  --md-code-hl-punctuation-color:      var(--md-default-fg-color--light);
+  --md-code-hl-comment-color:          var(--md-default-fg-color--light);
+  --md-code-hl-generic-color:          var(--md-default-fg-color--light);
+  --md-code-hl-variable-color:         var(--md-default-fg-color--light);
+}
+
+[data-md-color-scheme=slate]{
+  --md-default-bg-color:               #2D2D31;
+  --md-default-fg-color:               #B2B3B5;
+  --md-primary-fg-color:               #00675B;
+  --md-footer-bg-color--dark:          #00000052;
+  --md-code-bg-color:                  #36363C;
+}
+
+/* /////// HEADER */
+
+/* Reduce vertical margin on logo to make header more compact */
+.md-header__button.md-logo {
+    margin: 0 .2rem;
+}
+
+/* Increase size of logo on header */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+    height: 1.6rem;
+}
+
+/* Reduce margin between logo and title */
+[dir=ltr] .md-header__title {
+    margin-left: 0.5rem;
+}
+
+/* /////// SIDEBARS */
+
+/* Use bold font on selected navigation bar item */
+.md-nav__item .md-nav__link--active {
+    font-weight: 600;
+}
+
+@media screen and (min-width: 76.25em) {
+    /* Hide title on left sidebar */
+    .md-nav--primary .md-nav__title[for=__drawer] {
+        display:none;
+    }
+    /* Remove leftover margin for first item*/
+	.md-nav--primary .md-nav__item:nth-child(1) a{
+		margin-top: 0 !important;
+	}
+}
+
+/* Fixes unnecassary scrollbars on sidebars */
+.md-nav {
+    margin-bottom: 0;
+}
+
+/* remove top margin for page to gain space */
+.md-main__inner {
+    margin-top: 0;
+}
+
+/* /////// TITLES */
+
+/* Use bolder titles */
+.md-typeset h1{ font-weight: 550}
+.md-typeset h2{ font-weight: 550}
+.md-typeset h3{ font-weight: 550}
+.md-typeset h4{ font-weight: 700}
+
+/* Match color of titles */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+    color:var(--md-typeset-color);
+}
+
+/* Reduce margins after headers / titles */
+.md-typeset h1 {
+	margin-bottom: 0 !important;
+	margin-block-end: 0.4em;
+}
+.md-typeset h2 {
+	margin-bottom: 0 !important;
+	margin-top: 1.0em !important;
+	margin-block-end: 0.4em;
+}
+.md-typeset h3 {
+	margin-bottom: 0 !important;
+	margin-top: 1.0em !important;
+	margin-block-end: 0.3em;
+}
+.md-typeset h4 {
+	margin-bottom: 0 !important;
+	margin-block-end: 0.2em;
+}
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p{
+    margin-block-start: 0.4em;
+}
+
+h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+h1 + ol, h2 + ol, h3 + ol, h4 + ol{
+    margin-top: 0.4em !important;
+}
+
+/* Add thin borders for separation */
+.md-typeset  h2,
+.md-typeset  h3 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.md-typeset  h2::after,
+.md-typeset  h3::after {
+    content: '';
+    flex: 1;
+    height: 0.1em;
+    background-color: var(--md-typeset-table-color);
+    margin-left: 0.2em;
+}
+
+
+/* /////// LINKS */
+
+/* Show underline on links while hovering */
+.md-typeset a:hover {
+    text-decoration: underline;
+}
+
+/* /////// LISTS / BULLETS */
+
+/* Reduce left margin for bullets */
+[dir=ltr] .md-typeset ol li,
+[dir=ltr] .md-typeset ul li {
+    margin-left: 0.5em;
+}
+
+
+/* Reduce line height on lists */
+.md-typeset ol li,
+.md-typeset ul li {
+    margin-bottom: .3em;
+}
+
+/* Use circle instead disc as list item marker. just less distracting */
+.md-typeset ul {
+    list-style-type: circle;
+}
+
+/* Use bolder font on list markers */
+.md-typeset ol li::marker,
+.md-typeset ul li::marker {
+    font-weight: 550;
+}
+
+/* /////// ANNOTIONS */
+
+/* Use regular font size on annotions */
+.md-typeset .admonition,
+.md-typeset details {
+    font-size: .8rem;
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+    background-color: var(--md-admonition-bg-color);
+    border: none;
+    border-left: 0.3rem solid #448aff;
+    border-radius: 0;
+    margin: 1.2em 0;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+    background-color: transparent !important;
+    padding-bottom: 0 !important;
+    padding-top: .2rem !important;
+}
+
+.md-typeset .admonition-title:before,
+.md-typeset summary:before {
+    top: .4em !important;
+}
+
+.md-typeset .admonition>:last-child,
+.md-typeset details>:last-child {
+    margin-bottom: .4rem;
+}
+
+.md-typeset .admonition>:last-child, 
+.md-typeset details>:last-child {
+    margin-bottom: 0;
+    margin-block-start: 0.3em;
+    margin-block-end: 0.2em;
+}
+
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+    border-color: #ff9100;
+    background-color: #ff910005;
+}
+
+.md-typeset .admonition.warning .admonition-title,
+.md-typeset details.warning summary{
+    color: #ff9100;
+}
+
+.md-typeset .admonition.note,
+.md-typeset details.note {
+    border-color: #448aff;
+    background-color: #448aff05;
+}
+.md-typeset .admonition.note .admonition-title,
+.md-typeset details.note summary{
+    color: #448aff;
+}
+
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
+    border-color: #00bfa5;
+    background-color: #00bfa505;
+}
+.md-typeset .admonition.tip .admonition-title,
+.md-typeset details.tip summary{
+    color: #00bfa5;
+}
+
+.md-typeset .admonition.danger,
+.md-typeset details.danger {
+    border-color: #ff1744;
+    background-color: #ff174405;
+}
+.md-typeset .admonition.danger .admonition-title,
+.md-typeset details.danger summary{
+    color: #ff1744;
+}
+
+/* /////// TABLES */
+
+/* Slighly reduce table cell height */
+.md-typeset table:not([class]) td {
+    padding: .75em 1.25em;
+}
+
+/* /////// PAGE SPESIFIC CHANGES */
+/* :has selector might not work on old browsers */
+/* using ~body required to get elements properly */
+head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
+  background-color: transparent;
+  color: var(--md-typeset-color);
+  font-weight: 550;
+}
