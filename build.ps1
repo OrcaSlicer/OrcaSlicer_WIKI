@@ -8,7 +8,7 @@ Write-Host "Running build script from: $(Get-Location)`n" -ForegroundColor Cyan
 $ErrorActionPreference = 'Stop'
 
 # Parse command-line arguments
-$DownloadSvg = $true
+$DownloadSvg = $false
 foreach ($arg in $args) {
     switch ($arg) {
         '--download-svg' { $DownloadSvg = $true }
