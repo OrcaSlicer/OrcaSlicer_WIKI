@@ -29,13 +29,13 @@ This setting allows you to customize the cooling behavior of your 3D printer for
 Proper cooling is essential for achieving high-quality prints, especially when dealing with overhangs and bridges.
 
 ### No cooling for the first
-
-Number of layers to turn off cooling fans.  
-Turn off all cooling fans for the first few layers. This can be used to improve build plate adhesion.
+Number of initial layers during which part-cooling fans are disabled.
+Disabling the fan for the first few layers improves build-plate adhesion and reduces early-layer warping.
 
 ### Full fan speed at layer
 
-Fan speed will be ramped up linearly from zero at layer "close_fan_the_first_x_layers" to maximum at layer "full_fan_speed_layer". "full_fan_speed_layer" will be ignored if lower than "close_fan_the_first_x_layers", in which case the fan will be running at maximum allowed speed at layer "close_fan_the_first_x_layers" + 1. 0 to disable.
+Fan speed is increased linearly from 0% starting at the layer specified by [close_fan_the_first_x_layers](#no-cooling-for-the-first) up to the maximum part-cooling speed at the layer specified by `full_fan_speed_layer`. If `full_fan_speed_layer` is less than or equal to [close_fan_the_first_x_layers](#no-cooling-for-the-first), it is ignored and the fan will reach the maximum allowed speed on the layer immediately after [close_fan_the_first_x_layers](#no-cooling-for-the-first) (i.e. at layer [close_fan_the_first_x_layers](#no-cooling-for-the-first) + 1).  
+Set this option to `0` to disable the automatic ramp.
 
 ## Material Part Cooling Fan
 
@@ -61,7 +61,7 @@ Enabling this setting means that part cooling fan will never stop entirely and w
 
 ### Slow printing down for better layer cooling
 
-Enable this option to slow printing speed down to ensure that the final layer time is not shorter than the layer time threshold in "Max fan speed threshold", so that the layer can be cooled for a longer time. This can improve the quality for small details.
+Enable this option to slow printing speed down to ensure that the final layer time is not shorter than the layer time threshold in [Max fan speed threshold](#max-fan-speed-threshold), so that the layer can be cooled for a longer time. This can improve the quality for small details.
 
 ### Don't slow down outer walls
 
@@ -108,13 +108,17 @@ Set to -1 to disable it.
 
 ### Auxiliary part cooling fan
 
-Enable this option if [machine has auxiliary](printer_basic_information_accessory#auxiliary-part-cooling-fan) part cooling fan. G-code command: M106 P2 S(0-255).
+Set the speed for the auxiliary part-cooling fan if your printer provides one (see [auxiliary part-cooling fan](printer_basic_information_accessory#auxiliary-part-cooling-fan)). The auxiliary fan runs during printing but is disabled for the initial layers defined by [No cooling for the first](#no-cooling-for-the-first).
+
+G-code command: `M106 P2 S(0-255)`
 
 ### Exhaust fan
 
 #### Activate air filtration
 
-Activate for better air filtration. G-code command: M106 P3 S(0-255)
+Activate for better air filtration.
+
+G-code command: `M106 P3 S(0-255)`
 
 #### During print
 

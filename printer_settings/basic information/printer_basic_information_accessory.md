@@ -31,7 +31,8 @@ The Nozzle Hardness ([Hardness Rockwell C](https://en.wikipedia.org/wiki/Rockwel
 
 ## Auxiliary Part Cooling Fan
 
-Enable this option if machine has auxiliary part cooling fan.
+Enable this option if machine has auxiliary part cooling fan.  
+The speed will be set for each material in the [material cooling settings](material_cooling#auxiliary-part-cooling-fan).
 
 G-code command:
 
