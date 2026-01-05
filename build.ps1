@@ -27,6 +27,23 @@ if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
+# Check and install mkdocs-material (the theme)
+Write-Host "Checking for mkdocs-material..."
+try {
+    python -m pip show mkdocs-material > $null 2>&1
+    if ($LASTEXITCODE -ne 0) { throw }
+    Write-Host "mkdocs-material is already installed."
+}
+catch {
+    Write-Host "mkdocs-material not found. Installing..."
+    python -m pip install mkdocs-material
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Failed to install mkdocs-material."
+        exit 1
+    }
+    Write-Host "mkdocs-material installed successfully."
+}
+
 Write-Host "Checking for mkdocs-github-admonitions-plugin..."
 try {
     python -m pip show mkdocs-github-admonitions-plugin > $null 2>&1
