@@ -147,6 +147,9 @@ Get-ChildItem -Path wiki -Filter *.html -Recurse | Where-Object { $_.Name -ne 'i
     # Calculate relative path from wiki/ to the current HTML file
     $relPath = $htmlFile.Substring($wikiFull.Length).TrimStart('\','/')
 
+    # Normalize path separators to forward slashes for URLs
+    $relPath = $relPath -replace '\\', '/'
+
     $filename = [System.IO.Path]::GetFileNameWithoutExtension($htmlFile)
 
     # Skip if the file is already at the root of wiki/
@@ -167,9 +170,8 @@ Get-ChildItem -Path wiki -Filter *.html -Recurse | Where-Object { $_.Name -ne 'i
     # Relative URL: go up one level then down to the original file
     $relativeUrl = '../' + $relPath
 
-    # URL-encode spaces and special chars
-    Add-Type -AssemblyName System.Web
-    $encodedUrl = [System.Web.HttpUtility]::UrlEncode($relativeUrl)
+    # URL-encode spaces but keep forward slashes
+    $encodedUrl = $relativeUrl -replace ' ', '%20'
 
     $redirectHtml = @"
 <!DOCTYPE html>
