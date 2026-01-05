@@ -137,7 +137,7 @@ def scan_folder(folder: Path, base_path: Path) -> list:
     for md_file in md_files:
         title = get_file_title(md_file)
         rel_path = md_file.relative_to(base_path)
-        nav_items.append((title, str(rel_path)))
+        nav_items.append((title, str(rel_path).replace('\\', '/')))
     
     # Process subfolders recursively
     for subfolder in subfolders:
