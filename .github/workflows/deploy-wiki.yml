@@ -21,7 +21,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install mkdocs
-        run: pip install mkdocs mkdocs-material pymdown-extensions
+        run: pip install mkdocs mkdocs-material pymdown-extensions mkdocs-gh-admonitions-plugin
 
       - name: Build wiki content
         run: |
