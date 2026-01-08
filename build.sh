@@ -48,6 +48,7 @@ rsync -av \
   --exclude='Home.md' \
   --exclude='.gitignore' \
   --exclude='infill-analysis' \
+  --exclude='web_extras' \
   . docs/ 2>/dev/null || {
   # Fallback: manually copy directories and markdown files
   echo "Using fallback copy method..."
@@ -188,12 +189,6 @@ if [ -d "web_extras" ]; then
   cp "web_extras/*.css" "wiki/assets/stylesheets/"
   cp "web_extras/*.ico" "wiki/assets/images/"
   cp "web_extras/*.png" "wiki/assets/images/"
-fi
-
-# Clean up any old web_extras that might have been copied into the source tree
-if [ -d "wiki/web_extras" ]; then
-  echo "Removing duplicate wiki/web_extras directory..."
-  rm -rf "wiki/web_extras"
 fi
 
 echo "Build complete! HTML files are in the wiki/ folder."
