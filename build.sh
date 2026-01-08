@@ -179,4 +179,34 @@ create_redirects
 # Clean up docs directory after build
 rm -rf docs
 
+echo "Copying extra web assets to wiki folder..."
+mkdir -p wiki/assets/stylesheets
+mkdir -p wiki/assets/images
+
+# Copy shared assets that complement MkDocs' static site output
+if [ -f "web_extras/extra.css" ]; then
+  cp "web_extras/extra.css" wiki/assets/stylesheets/extra.css
+else
+  echo "Warning: web_extras/extra.css not found - skipping"
+fi
+
+if [ -f "web_extras/OrcaSlicer.ico" ]; then
+  cp "web_extras/OrcaSlicer.ico" wiki/assets/images/OrcaSlicer.ico
+else
+  echo "Warning: web_extras/OrcaSlicer.ico not found - skipping"
+fi
+
+if [ -f "web_extras/OrcaSlicer.png" ]; then
+  cp "web_extras/OrcaSlicer.png" wiki/assets/images/OrcaSlicer.png
+else
+  echo "Warning: web_extras/OrcaSlicer.png not found - skipping"
+fi
+
+if [ -d "web_extras" ]; then
+  mkdir -p wiki/web_extras
+  cp -r web_extras/* wiki/web_extras/ 2>/dev/null || true
+else
+  echo "Warning: web_extras directory not found - skipping"
+fi
+
 echo "Build complete! HTML files are in the wiki/ folder."

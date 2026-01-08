@@ -223,6 +223,14 @@ if (Test-Path "web_extras\OrcaSlicer.png") {
     Write-Host "Warning: web_extras\OrcaSlicer.png not found - skipping" -ForegroundColor Yellow
 }
 
+if (Test-Path "web_extras") {
+    New-Item -ItemType Directory -Path "wiki\web_extras" -Force | Out-Null
+    Copy-Item -Path "web_extras\*" -Destination "wiki\web_extras" -Recurse -Force -ErrorAction SilentlyContinue
+    Write-Host "Copied web_extras directory"
+} else {
+    Write-Host "Warning: web_extras directory not found - skipping" -ForegroundColor Yellow
+}
+
 Write-Host "`nBuild complete! HTML files are in the wiki/ folder." -ForegroundColor Green
 
 # === PREVENT WINDOW FROM CLOSING IMMEDIATELY WHEN DOUBLE-CLICKED ===
