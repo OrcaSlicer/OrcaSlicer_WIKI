@@ -17,8 +17,8 @@ theme:
   favicon: assets/images/OrcaSlicer.ico
   features:
       - content.code.copy  # Enables the copy-to-clipboard button
-      #- search.suggest
-      #- search.highlight
+      - search.suggest
+      - search.highlight
       - navigation.path    # shows breadcumb
       #- navigation.top    # adds back to top button - not working
       - navigation.footer  # adds next and previous buttons
@@ -37,7 +37,7 @@ extra_css:
   - assets/stylesheets/extra.css
 
 plugins:
-  #- search          @ search didnt appear on my setup
+  - search
   - gh-admonitions   # converts github annotions to admonition
   #- optimize        # automatically optimizes images
   #- git-committers: # not works # adds committers to footer # pip install mkdocs-git-committers-plugin-2
