@@ -26,9 +26,9 @@ Shortcuts that are available throughout the application.
 | `Ctrl + C` | Copy to clipboard |
 | `Ctrl + V` | Paste from clipboard |
 | `Ctrl + P` | Preferences |
-| `Ctrl + M` (Windows/Linux) / `Ctrl + Shift + M` (macOS) | Show/Hide 3Dconnexion devices settings dialog |
+| `Ctrl + M` (Windows/Linux)<br>`Ctrl + Shift + M` (macOS) | Show/Hide 3Dconnexion devices settings dialog |
 | `Ctrl + Tab` | Switch table page |
-| `Del` (Windows/Linux) / `Fn + Backspace` (macOS) | Delete selected |
+| `Del` (Windows/Linux)<br>`Fn + Backspace` (macOS) | Delete selected |
 | `?` | Show keyboard shortcuts list |
 
 ## Prepare
