@@ -189,6 +189,8 @@ if [ -d "web_extras" ]; then
   cp "web_extras/*.css" "wiki/assets/stylesheets/"
   cp "web_extras/*.ico" "wiki/assets/images/"
   cp "web_extras/*.png" "wiki/assets/images/"
+else
+  echo "Warning: web_extras directory not found - skipping"
 fi
 
 echo "Build complete! HTML files are in the wiki/ folder."
