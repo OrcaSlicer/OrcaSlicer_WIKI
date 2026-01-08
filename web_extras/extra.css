@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
+
+:root {
+  --md-text-font: "Noto Sans", sans-serif;  /* Body text, headings */
+  --md-code-font: "Roboto Mono", monospace; /* Body text, headings */
+}
+
 :root,
 [data-md-color-scheme=default],
 [data-md-color-scheme=slate]{
@@ -72,7 +80,7 @@
         display:none;
     }
     /* Remove leftover margin for first item*/
-	.md-nav--primary .md-nav__item:nth-child(1) a{
+	.md-nav--primary>.md-nav__list>.md-nav__item:first-of-type>a{
 		margin-top: 0 !important;
 	}
 }
@@ -153,6 +161,10 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
 
 /* /////// LINKS */
 
+/* Make hyperlinks slightly bolder */
+.md-typeset a{
+    font-weight: 500;
+}
 /* Show underline on links while hovering */
 .md-typeset a:hover {
     text-decoration: underline;
@@ -271,6 +283,12 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
 /* Slighly reduce table cell height */
 .md-typeset table:not([class]) td {
     padding: .75em 1.25em;
+}
+
+/* /////// FOOTER */
+/* Fixes sidebar content rendering over footer when all items expanded */
+.md-footer{
+    z-index: 10;
 }
 
 /* /////// PAGE SPESIFIC CHANGES */
