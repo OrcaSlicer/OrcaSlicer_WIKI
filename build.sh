@@ -193,7 +193,7 @@ fi
 # Clean up any old web_extras that might have been copied into the source tree
 if [ -d "wiki/web_extras" ]; then
   echo "Removing duplicate wiki/web_extras directory..."
-  rm -rf wiki/web_extras
+  rm -rf "wiki/web_extras"
 fi
 
 echo "Build complete! HTML files are in the wiki/ folder."
