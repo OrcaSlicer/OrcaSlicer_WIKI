@@ -184,29 +184,16 @@ mkdir -p wiki/assets/stylesheets
 mkdir -p wiki/assets/images
 
 # Copy shared assets that complement MkDocs' static site output
-if [ -f "web_extras/extra.css" ]; then
-  cp "web_extras/extra.css" wiki/assets/stylesheets/extra.css
-else
-  echo "Warning: web_extras/extra.css not found - skipping"
-fi
-
-if [ -f "web_extras/OrcaSlicer.ico" ]; then
-  cp "web_extras/OrcaSlicer.ico" wiki/assets/images/OrcaSlicer.ico
-else
-  echo "Warning: web_extras/OrcaSlicer.ico not found - skipping"
-fi
-
-if [ -f "web_extras/OrcaSlicer.png" ]; then
-  cp "web_extras/OrcaSlicer.png" wiki/assets/images/OrcaSlicer.png
-else
-  echo "Warning: web_extras/OrcaSlicer.png not found - skipping"
-fi
-
 if [ -d "web_extras" ]; then
-  mkdir -p wiki/web_extras
-  cp -r web_extras/* wiki/web_extras/ 2>/dev/null || true
-else
-  echo "Warning: web_extras directory not found - skipping"
+  cp "web_extras/*.css" "wiki/assets/stylesheets/"
+  cp "web_extras/*.ico" "wiki/assets/images/"
+  cp "web_extras/*.png" "wiki/assets/images/"
+fi
+
+# Clean up any old web_extras that might have been copied into the source tree
+if [ -d "wiki/web_extras" ]; then
+  echo "Removing duplicate wiki/web_extras directory..."
+  rm -rf wiki/web_extras
 fi
 
 echo "Build complete! HTML files are in the wiki/ folder."
