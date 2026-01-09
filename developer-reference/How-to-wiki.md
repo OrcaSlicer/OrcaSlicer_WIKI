@@ -18,11 +18,14 @@ When adding new features, consider updating the wiki so users can access the lat
   - [Markdown Formatting](#markdown-formatting)
   - [Alerts and Callouts](#alerts-and-callouts)
 - [Images](#images)
-  - [Image Naming](#image-naming)
-  - [Image Placement](#image-placement)
-  - [Linking Images](#linking-images)
-    - [Examples](#examples)
-    - [Avoid the Following](#avoid-the-following)
+  - [Image Sources](#image-sources)
+    - [OrcaSlicer Resources](#orcaslicer-resources)
+    - [Wiki Images](#wiki-images)
+      - [Image Naming](#image-naming)
+      - [Image Placement](#image-placement)
+      - [Linking Images](#linking-images)
+        - [Examples](#examples)
+  - [Avoid the Following](#avoid-the-following)
     - [Resize Images](#resize-images)
   - [Image Cropping and Highlighting](#image-cropping-and-highlighting)
   - [Recommended Formats](#recommended-formats)
@@ -177,12 +180,23 @@ Images are encouraged to enhance the clarity and quality of the wiki content. Th
 > [!CAUTION]
 > Do not use images from third-party sources unless you have the proper permissions.
 
-### Image Naming
+### Image Sources
+
+#### OrcaSlicer Resources
+
+Use images from the OrcaSlicer resources folder located at `\resources\images` in the OrcaSlicer repository. These images are designed to match the application's UI and maintain consistency.
+
+#### Wiki Images
+
+Use or add images in the `images/` directory of the [OrcaSlicer_WIKI repository](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/tree/main/images).  
+There you can find images already used in the wiki like screenshots, diagrams, and icons.
+
+##### Image Naming
 
 - Use clear, descriptive filenames that reflect the image content.
 - For section-specific images, include the section name or initials (for example `pa-[description].png` for Pressure Advance images).
 
-### Image Placement
+##### Image Placement
 
 - General images should be placed in the `images/` directory.
 - Section-specific images should be stored in their corresponding subdirectories (e.g., `images/calibration/` for calibration content).
@@ -190,7 +204,7 @@ Images are encouraged to enhance the clarity and quality of the wiki content. Th
 > [!TIP]
 > You can use `\resources\images` images used in the GUI.
 
-### Linking Images
+##### Linking Images
 
 Always use raw GitHub URLs for image links to ensure correct display:
 
@@ -208,7 +222,7 @@ Format = `![`filename`](` + Base URL + filename.extension + Raw tag + `)`
   ?raw=true
   ```
 
-#### Examples
+###### Examples
 
 - For an image in `images/` named `calibration.png`:
 
@@ -225,7 +239,7 @@ Format = `![`filename`](` + Base URL + filename.extension + Raw tag + `)`
 > [!IMPORTANT]
 > New or moved images may not appear in previews until the pull request is merged. Double-check paths and update links if you move files.
 
-#### Avoid the Following
+### Avoid the Following
 
 - Relative paths
 - GitHub Assets/user-content/user-images URLs
