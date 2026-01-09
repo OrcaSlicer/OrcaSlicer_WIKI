@@ -39,34 +39,34 @@ Layer time variability refers to the differences in time it takes to print each 
 
 | - | Pattern | Strength | Material Usage | Print Time | Layer time Variability | Multiline |
 |---|---|---|---|---|---|---|
-| <img alt="param_monotonic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_monotonic.svg?raw=true" height="45"> | [Monotonic](#monotonic) | X-Y: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | None | N/A |
-| <img alt="param_monotonicline" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_monotonicline.svg?raw=true" height="45"> | [Monotonic line](#monotonic-line) | X-Y: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | None | N/A |
-| <img alt="param_rectilinear" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_rectilinear.svg?raw=true" height="45"> | [Rectilinear](#rectilinear) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_alignedrectilinear" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_alignedrectilinear.svg?raw=true" height="45"> | [Aligned Rectilinear](#aligned-rectilinear) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_zigzag" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_zigzag.svg?raw=true" height="45"> | [Zig Zag](#zig-zag) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | No |
-| <img alt="param_crosszag" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_crosszag.svg?raw=true" height="45"> | [Cross Zag](#cross-zag) | X-Y: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | No |
-| <img alt="param_lockedzag" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lockedzag.svg?raw=true" height="45"> | [Locked Zag](#locked-zag) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true) | ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-5.svg?raw=true) | ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-5.svg?raw=true) | None | No |
-| <img alt="param_line" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line.svg?raw=true" height="45"> | [Line](#line) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | None | No |
-| <img alt="param_grid" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_grid.svg?raw=true" height="45"> | [Grid](#grid) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-2.svg?raw=true) | None | [Non-Crossing](strength_settings_infill#non-crossing-strategy) |
-| <img alt="param_triangles" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_triangles.svg?raw=true" height="45"> | [Triangles](#triangles) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | None | [Non-Crossing](strength_settings_infill#non-crossing-strategy) |
-| <img alt="param_tri-hexagon" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tri-hexagon.svg?raw=true" height="45"> | [Tri-hexagon](#tri-hexagon) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_cubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cubic.svg?raw=true" height="45"> | [Cubic](#cubic) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_adaptivecubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_adaptivecubic.svg?raw=true" height="45"> | [Adaptive Cubic](#adaptive-cubic) | X-Y: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-2.svg?raw=true) | ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-2.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_quartercubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_quartercubic.svg?raw=true" height="45"> | [Quarter Cubic](#quarter-cubic) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_supportcubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_supportcubic.svg?raw=true" height="45"> | [Support Cubic](#support-cubic) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-1.svg?raw=true) | ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-1.svg?raw=true) | Likely Noticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_lightning" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lightning.svg?raw=true" height="45"> | [Lightning](#lightning) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-0.svg?raw=true) | ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-0.svg?raw=true) | Likely Noticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_honeycomb" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_honeycomb.svg?raw=true" height="45"> | [Honeycomb](#honeycomb) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-6.svg?raw=true) | ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-8.svg?raw=true) | None | [Non-Crossing](strength_settings_infill#non-crossing-strategy) |
-| <img alt="param_3dhoneycomb" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_3dhoneycomb.svg?raw=true" height="45"> | [3D Honeycomb](#3d-honeycomb) | X-Y: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | ![level-to-worse-7](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-7.svg?raw=true) | Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_lateral-honeycomb" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lateral-honeycomb.svg?raw=true" height="45"> | [Lateral Honeycomb](#lateral-honeycomb) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_lateral-lattice" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lateral-lattice.svg?raw=true" height="45"> | [Lateral Lattice](#lateral-lattice) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_crosshatch" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_crosshatch.svg?raw=true" height="45"> | [Cross Hatch](#cross-hatch) | X-Y: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-6.svg?raw=true) | Likely Noticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_tpmsd" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tpmsd.svg?raw=true" height="45"> | [TPMS-D](#tpms-d) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-6.svg?raw=true) | Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_tpmsfk" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tpmsfk.svg?raw=true" height="45"> | [TPMS-FK](#tpms-fk) | X-Y: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-8.svg?raw=true) | Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_gyroid" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gyroid.svg?raw=true" height="45"> | [Gyroid](#gyroid) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-8.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_concentric" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_concentric.svg?raw=true" height="45"> | [Concentric](#concentric) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_hilbertcurve" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_hilbertcurve.svg?raw=true" height="45"> | [Hilbert Curve](#hilbert-curve) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-7](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-7.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_archimedeanchords" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_archimedeanchords.svg?raw=true" height="45"> | [Archimedean Chords](#archimedean-chords) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
-| <img alt="param_octagramspiral" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_octagramspiral.svg?raw=true" height="45"> | [Octagram Spiral](#octagram-spiral) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_monotonic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_monotonic.svg?raw=true" height="45"> | [Monotonic](#monotonic) | X-Y: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | None | N/A |
+| <img alt="param_monotonicline" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_monotonicline.svg?raw=true" height="45"> | [Monotonic line](#monotonic-line) | X-Y: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | None | N/A |
+| <img alt="param_rectilinear" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_rectilinear.svg?raw=true" height="45"> | [Rectilinear](#rectilinear) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_alignedrectilinear" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_alignedrectilinear.svg?raw=true" height="45"> | [Aligned Rectilinear](#aligned-rectilinear) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_zigzag" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_zigzag.svg?raw=true" height="45"> | [Zig Zag](#zig-zag) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | No |
+| <img alt="param_crosszag" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_crosszag.svg?raw=true" height="45"> | [Cross Zag](#cross-zag) | X-Y: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | No |
+| <img alt="param_lockedzag" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lockedzag.svg?raw=true" height="45"> | [Locked Zag](#locked-zag) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true) | ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) | ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) | None | No |
+| <img alt="param_line" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line.svg?raw=true" height="45"> | [Line](#line) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | None | No |
+| <img alt="param_grid" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_grid.svg?raw=true" height="45"> | [Grid](#grid) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) | None | [Non-Crossing](strength_settings_infill#non-crossing-strategy) |
+| <img alt="param_triangles" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_triangles.svg?raw=true" height="45"> | [Triangles](#triangles) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | None | [Non-Crossing](strength_settings_infill#non-crossing-strategy) |
+| <img alt="param_tri-hexagon" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tri-hexagon.svg?raw=true" height="45"> | [Tri-hexagon](#tri-hexagon) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_cubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cubic.svg?raw=true" height="45"> | [Cubic](#cubic) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_adaptivecubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_adaptivecubic.svg?raw=true" height="45"> | [Adaptive Cubic](#adaptive-cubic) | X-Y: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) | ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_quartercubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_quartercubic.svg?raw=true" height="45"> | [Quarter Cubic](#quarter-cubic) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_supportcubic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_supportcubic.svg?raw=true" height="45"> | [Support Cubic](#support-cubic) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true) | ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true) | Likely Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_lightning" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lightning.svg?raw=true" height="45"> | [Lightning](#lightning) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-0.svg?raw=true) | ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-0.svg?raw=true) | Likely Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_honeycomb" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_honeycomb.svg?raw=true" height="45"> | [Honeycomb](#honeycomb) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) | ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-8.svg?raw=true) | None | [Non-Crossing](strength_settings_infill#non-crossing-strategy) |
+| <img alt="param_3dhoneycomb" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_3dhoneycomb.svg?raw=true" height="45"> | [3D Honeycomb](#3d-honeycomb) | X-Y: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | ![level-to-worse-7](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-7.svg?raw=true) | Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_lateral-honeycomb" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lateral-honeycomb.svg?raw=true" height="45"> | [Lateral Honeycomb](#lateral-honeycomb) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_lateral-lattice" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_lateral-lattice.svg?raw=true" height="45"> | [Lateral Lattice](#lateral-lattice) | X-Y: ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)<br> Z: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_crosshatch" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_crosshatch.svg?raw=true" height="45"> | [Cross Hatch](#cross-hatch) | X-Y: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) | Likely Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_tpmsd" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tpmsd.svg?raw=true" height="45"> | [TPMS-D](#tpms-d) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) | Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_tpmsfk" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tpmsfk.svg?raw=true" height="45"> | [TPMS-FK](#tpms-fk) | X-Y: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)<br> Z: ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-8.svg?raw=true) | Possibly Noticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_gyroid" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gyroid.svg?raw=true" height="45"> | [Gyroid](#gyroid) | X-Y: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)<br> Z: ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-8.svg?raw=true) | Unnoticeable | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_concentric" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_concentric.svg?raw=true" height="45"> | [Concentric](#concentric) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_hilbertcurve" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_hilbertcurve.svg?raw=true" height="45"> | [Hilbert Curve](#hilbert-curve) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-7](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-7.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_archimedeanchords" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_archimedeanchords.svg?raw=true" height="45"> | [Archimedean Chords](#archimedean-chords) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
+| <img alt="param_octagramspiral" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_octagramspiral.svg?raw=true" height="45"> | [Octagram Spiral](#octagram-spiral) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | None | [Classic](strength_settings_infill#classic-strategy) |
 
 > [!NOTE]
 > This estimations are based in a Cube model to maintain consistency.  
@@ -83,12 +83,12 @@ Layer time variability refers to the differences in time it takes to print each 
 [Rectilinear](#rectilinear) in a uniform direction for a smoother visual surface.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
-  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Horizontal (X-Y):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
+  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** N/A
 - **Applies to:**
@@ -102,12 +102,12 @@ Layer time variability refers to the differences in time it takes to print each 
 [Monotonic](#monotonic) but avoids overlapping with the perimeter, reducing excess material at joints. May introduce visible seams and increase print time.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
-  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Horizontal (X-Y):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
+  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** N/A
 - **Applies to:**
@@ -121,12 +121,12 @@ Layer time variability refers to the differences in time it takes to print each 
 Parallel lines spaced according to infill density. Each layer is printed perpendicular to the previous, resulting in low vertical bonding. Consider using new [Zig Zag](#zig-zag) infill instead.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)
-  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
+  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** Unnoticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -143,12 +143,12 @@ Parallel lines spaced by the infill spacing, each layer printed in the same dire
 Recommended with layer anchoring to improve not perpendicular strength.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)
-  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
+  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** Unnoticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -163,12 +163,12 @@ Recommended with layer anchoring to improve not perpendicular strength.
 Similar to [rectilinear](#rectilinear) with consistent pattern between layers. Allows you to add a Symmetric infill Y axis for models with two symmetric parts.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)
-  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
+  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** Unnoticeable
 - **Multiline:** No
 - **Applies to:**
@@ -181,12 +181,12 @@ Similar to [rectilinear](#rectilinear) with consistent pattern between layers. A
 Similar to [Zig Zag](#zig-zag) but displacing each layer with Infill shift step parameter.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
-  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Horizontal (X-Y):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
+  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** Unnoticeable
 - **Multiline:** No
 - **Applies to:**
@@ -200,13 +200,13 @@ Version of [Zig Zag](#zig-zag) that adds extra skin.
 When using this fill, you can individually modify the density of the skeleton and skin, as well as the size of the skin and how much interconnection there is between the skin and the skeleton (a lock depth of 50% of the skin depth is recommended).
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)
-  - **Vertical (Z):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
+  - **Vertical (Z):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
 - **Density Calculation:** Similar to [Zig Zag](#zig-zag).
 Skin density * ( Infill Area - Skin Area + lock depth area) + ( Skin density * Skin area).
-  - **Material Usage:** Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-5.svg?raw=true)
-  - **Print Time:** Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-5.svg?raw=true)
-    - **Material/Time (Higher better):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Material Usage:** Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true)
+  - **Print Time:** Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true)
+    - **Material/Time (Higher better):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** No
 - **Applies to:**
@@ -219,12 +219,12 @@ Skin density * ( Infill Area - Skin Area + lock depth area) + ( Skin density * S
 Similar to [rectilinear](#rectilinear), but each line is slightly rotated to improve print speed.
 
 - **Strength**
-  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
-  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
+  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** No
 - **Applies to:**
@@ -237,12 +237,12 @@ Similar to [rectilinear](#rectilinear), but each line is slightly rotated to imp
 Two-layer pattern of perpendicular lines, forming a grid. Overlapping points may cause noise or artifacts.
 
 - **Strength**
-  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
-  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
+  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
+  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-2.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
 - **Applies to:**
@@ -255,12 +255,12 @@ Two-layer pattern of perpendicular lines, forming a grid. Overlapping points may
 Triangle-based grid, offering strong X-Y strength but with triple overlaps at intersections.
 
 - **Strength**
-  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
-  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
+  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
 - **Applies to:**
@@ -273,12 +273,12 @@ Triangle-based grid, offering strong X-Y strength but with triple overlaps at in
 Similar to the [triangles](#triangles) pattern but offset to prevent triple overlaps at intersections. This design combines triangles and hexagons, providing excellent X-Y strength.
 
 - **Strength**
-  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
-  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
+  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -291,12 +291,12 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
 3D cube pattern with corners facing down, distributing force in all directions. Triangles in the horizontal plane provide good X-Y strength.
 
 - **Strength**
-  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
-  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
+  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
+  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** Unnoticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -309,12 +309,12 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
 [Cubic](#cubic) pattern with adaptive density: denser near walls, sparser in the center. Saves material and time while maintaining strength, ideal for large prints.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
-  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
+  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
 - **Density Calculation:** Same as [Cubic](#cubic) but reduced in the center
-  - **Material Usage:** Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-2.svg?raw=true)
-  - **Print Time:** Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-2.svg?raw=true)
-    - **Material/Time (Higher better):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Material Usage:** Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true)
+  - **Print Time:** Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true)
+    - **Material/Time (Higher better):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
     - **Layer time Variability:** Unnoticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -327,12 +327,12 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
 [Cubic](#cubic) pattern with extra internal divisions, improving X-Y strength.
 
 - **Strength**
-  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
-  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
+  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
+  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** Unnoticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -345,12 +345,12 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
 Support |Cubic is a variation of the [Cubic](#cubic) infill pattern that is specifically designed for support top layers. Will use more material than Lightning infill but will provide better strength. Nevertheless, it is still a low-density infill pattern.
 
 - **Strength**
-  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
-  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
+  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
 - **Density Calculation:** % of layer before top shell layers
-  - **Material Usage:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-1.svg?raw=true)
-  - **Print Time:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-1.svg?raw=true)
-    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Material Usage:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true)
+  - **Print Time:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true)
+    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Layer time Variability:** Likely Noticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -363,12 +363,12 @@ Support |Cubic is a variation of the [Cubic](#cubic) infill pattern that is spec
 Ultra-fast, ultra-low material infill. Designed for speed and efficiency, ideal for quick prints or non-structural prototypes.
 
 - **Strength**
-  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
-  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
+  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
 - **Density Calculation:** % of layer before top shell layers
-  - **Material Usage:** Ultra-Low ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-0.svg?raw=true)
-  - **Print Time:** Ultra-Low ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-0.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)
+  - **Material Usage:** Ultra-Low ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-0.svg?raw=true)
+  - **Print Time:** Ultra-Low ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-0.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
     - **Layer time Variability:** Likely Noticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -381,12 +381,12 @@ Ultra-fast, ultra-low material infill. Designed for speed and efficiency, ideal 
 Hexagonal pattern balancing strength and material use. Double walls in each hexagon increase material consumption.
 
 - **Strength**
-  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
-  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
+  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
+  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-6.svg?raw=true)
-  - **Print Time:** Ultra-High ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-8.svg?raw=true)
-    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Material Usage:** High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true)
+  - **Print Time:** Ultra-High ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-8.svg?raw=true)
+    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
 - **Applies to:**
@@ -399,12 +399,12 @@ Hexagonal pattern balancing strength and material use. Double walls in each hexa
 This infill tries to generate a printable honeycomb structure by printing squares and octagons maintaining a vertical angle high enough to maintain contact with the previous layer.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
-  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
+  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
 - **Density Calculation:** Unknown
-  - **Material Usage:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-  - **Print Time:** Extra-High ![level-to-worse-7](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-7.svg?raw=true)
-    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Material Usage:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+  - **Print Time:** Extra-High ![level-to-worse-7](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-7.svg?raw=true)
+    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Layer time Variability:** Possibly Noticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -417,12 +417,12 @@ This infill tries to generate a printable honeycomb structure by printing square
 Vertical Honeycomb pattern. Acceptable torsional stiffness. Developed for low densities structures like wings. Improve over [Lateral Lattice](#lateral-lattice) offers same performance with lower densities.This infill includes a Overhang angle parameter to improve the point of contact between layers and reduce the risk of delamination.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)
-  - **Vertical (Z):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
+  - **Vertical (Z):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** Possibly Noticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -435,12 +435,12 @@ Vertical Honeycomb pattern. Acceptable torsional stiffness. Developed for low de
 Low-strength pattern with good flexibility. You can adjust **Angle 1** and **Angle 2** to optimize the infill for your specific model. Each angle adjusts the plane of each layer generated by the pattern. 0° is vertical.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-3.svg?raw=true)
-  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
+  - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** Unnoticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -454,12 +454,12 @@ Similar to [Gyroid](#gyroid) but with linear patterns, creating weak points at i
 Easier to slice but consider using [TPMS-D](#tpms-d) or [Gyroid](#gyroid) for better strength and flexibility.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
-  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
+  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-6.svg?raw=true)
-    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true)
+    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Layer time Variability:** Likely Noticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -472,12 +472,12 @@ Easier to slice but consider using [TPMS-D](#tpms-d) or [Gyroid](#gyroid) for be
 Triply Periodic Minimal Surface (Schwarz Diamond). Hybrid between [Cross Hatch](#cross-hatch) and [Gyroid](#gyroid), combining rigidity and smooth transitions. Isotropic and strong in all directions. This geometry is faster to slice than Gyroid, but slower than Cross Hatch.
 
 - **Strength**
-  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
-  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
+  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
+  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-6.svg?raw=true)
-    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true)
+    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Layer time Variability:** Possibly Noticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -490,12 +490,12 @@ Triply Periodic Minimal Surface (Schwarz Diamond). Hybrid between [Cross Hatch](
 Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuous geometry resembles trabecular bone microstructure, offering a balance between rigidity and energy absorption. Compared to [TPMS-D](#tpms-d), it has more complex curvature, which can improve load distribution and shock absorption in functional parts.
 
 - **Strength**
-  - **Horizontal (X-Y):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
-  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Horizontal (X-Y):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
+  - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Ultra-High ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-8.svg?raw=true)
-    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Ultra-High ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-8.svg?raw=true)
+    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Layer time Variability:** Possibly Noticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -508,12 +508,12 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 Mathematical, isotropic surface providing equal strength in all directions. Excellent for strong, flexible prints and resin filling due to its interconnected structure. This pattern may require more time to slice because of all the points needed to generate each curve. If your model has complex geometry, consider using a simpler infill pattern like [TPMS-D](#tpms-d) or [Cross Hatch](#cross-hatch).
 
 - **Strength**
-  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
-  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-6.svg?raw=true)
+  - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
+  - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Ultra-High ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-8.svg?raw=true)
-    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Ultra-High ![level-to-worse-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-8.svg?raw=true)
+    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Layer time Variability:** Unnoticeable
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -526,12 +526,12 @@ Mathematical, isotropic surface providing equal strength in all directions. Exce
 Fills the area with progressively smaller versions of the outer contour, creating a concentric pattern. Ideal for 100% infill or flexible prints.
 
 - **Strength**
-  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
-  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
+  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -548,12 +548,12 @@ Hilbert Curve is a space-filling curve that can be used to create a continuous i
 Print speed is very low due to the complexity of the path, which can lead to longer print times. It is not recommended for structural parts but can be used for aesthetic purposes.
 
 - **Strength**
-  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
-  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
+  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Extra-High ![level-to-worse-7](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-7.svg?raw=true)
-    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Extra-High ![level-to-worse-7](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-7.svg?raw=true)
+    - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -568,12 +568,12 @@ Print speed is very low due to the complexity of the path, which can lead to lon
 Spiral pattern that fills the area with concentric arcs, creating a smooth and continuous infill. Can be filled with resin thanks to its interconnected hollow structure, which allows the resin to flow through it and cure properly.
 
 - **Strength**
-  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
-  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
+  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-3.svg?raw=true)
-    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-5.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+    - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
@@ -588,12 +588,12 @@ Spiral pattern that fills the area with concentric arcs, creating a smooth and c
 Aesthetic pattern with low strength and high print time.
 
 - **Strength**
-  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-2.svg?raw=true)
-  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
+  - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
-  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-  - **Print Time:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-worse-4.svg?raw=true)
-    - **Material/Time (Higher better):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/images/misc/level-to-better-4.svg?raw=true)
+  - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+  - **Print Time:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+    - **Material/Time (Higher better):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
     - **Layer time Variability:** None
 - **Multiline:** [Classic](strength_settings_infill#classic-strategy)
 - **Applies to:**
