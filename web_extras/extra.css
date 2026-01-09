@@ -283,6 +283,12 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
 /* Slighly reduce table cell height */
 .md-typeset table:not([class]) td {
     padding: .75em 1.25em;
+    vertical-align: middle;
+}
+
+.md-typeset table:not([class]) {
+    width: auto;
+    table-layout: auto;
 }
 
 /* Vertical align table cells so icons sit in the middle */
