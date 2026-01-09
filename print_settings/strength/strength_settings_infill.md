@@ -45,7 +45,9 @@ To check which patterns support multiline infill, see the Patterns Quick Referen
 ![multiline-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/multiline-infill.png?raw=true)
 
 > [!NOTE]
-> Orca's approach is different from other slicers that simply multiply the number of lines and material usage, generating a denser infill than expected.<br>Orca Slicer keeps the cross-section constant for the set density.<br>
+> Orca's approach is different from other slicers that simply multiply the number of lines and material usage, generating a denser infill than expected.
+><br>Orca Slicer keeps the cross-section constant for the set density.
+>
 >| Infill   Density % | Infill Lines | Orca Density | Other Slicers Density |
 >|--------------------|--------------|--------------|-----------------------|
 >| 10%                | 2            | 10%          | 20%                   |
