@@ -49,9 +49,9 @@ The pattern method is adapted from [Andrew Ellis' pattern method generator](http
 
 The test configuration window allows the user to generate one or more tests in a single project. Multiple tests will be placed on the plate with extra plates added if needed.
 
-1. Single test \
+1. Single test  
    ![pa-pattern-single](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pa-pattern-single.png?raw=true)
-2. Batch mode testing (multiple tests on a single plate) \
+2. Batch mode testing (multiple tests on a single plate)  
    ![pa-pattern-batch](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pa-pattern-batch.png?raw=true)
 
 Once a test is generated, one or more small rectangular prisms will be placed on the plate, one for each test case. The prism object serves a few purposes:
