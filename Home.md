@@ -156,6 +156,35 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 ![tab_3d_active](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_3d_active.svg?raw=true) First steps to prepare your model/s for printing.
 
 - [STL Transformation](stl-transformation)
+- Toolbar
+  - [Basic](prepare_basic)
+    - [![toolbar_open_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_open_dark.svg?raw=true)Add Objects](prepare_basic#add-objects)
+    - [![toolbar_add_plate_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_add_plate_dark.svg?raw=true)Add Plate](prepare_basic#add-plate)
+    - [Instances](prepare_basic#instances)
+    - [Measure Tool](prepare_basic#measure-tool)
+  - [![toolbar_orient_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_orient_dark.svg?raw=true)Auto Orient](prepare_auto_orient)
+  - [![toolbar_arrange_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_arrange_dark.svg?raw=true)Auto Arrange](prepare_auto_arrange)
+  - [![split_parts_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/split_parts_dark.svg?raw=true)Split](prepare_split)
+  - [![toolbar_variable_layer_height_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_variable_layer_height_dark.svg?raw=true)Variable Layer Height](prepare_variable_layer_height)
+  - [Object Manipulation](prepare_object_manipulation)
+    - [![toolbar_move_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_move_dark.svg?raw=true)Move](prepare_object_manipulation#move)
+    - [![toolbar_rotate_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_rotate_dark.svg?raw=true)Rotate](prepare_object_manipulation#rotate)
+    - [![toolbar_scale_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_scale_dark.svg?raw=true)Scale](prepare_object_manipulation#scale)
+    - [![toolbar_flatten_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_flatten_dark.svg?raw=true)Lay on Face](prepare_object_manipulation#lay-on-face)
+  - [![toolbar_cut_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_cut_dark.svg?raw=true)Cutting Tool](prepare_cutting_tool)
+  - [![toolbar_meshboolean_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_meshboolean_dark.svg?raw=true)Mesh Boolean](prepare_mesh_boolean)
+  - Painting/Marking Tools
+    - [![objlist_support_painting](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/objlist_support_painting.svg?raw=true)Support Painting](prepare_support_painting)
+    - [![objlist_seam_painting](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/objlist_seam_painting.svg?raw=true)Seam Painting](prepare_seam_painting)
+    - [![toolbar_fuzzy_skin_paint_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_fuzzy_skin_paint_dark.svg?raw=true)Paint-on fuzzy skin](prepare_paint_on_fuzzy_skin)
+    - [![objlist_color_painting](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/objlist_color_painting.svg?raw=true)Color Painting](prepare_color_painting)
+    - [![toolbar_text_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_text_dark.svg?raw=true)Emboss](prepare_emboss)
+    - [![toolbar_brimears_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_brimears_dark.svg?raw=true)Brim Ears Painting](prepare_brim_ears_painting)
+  - [Assembly Tools](prepare_assembly_tools)
+    - [![toolbar_assembly_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_assembly_dark.svg?raw=true)Assemble](prepare_assembly_tools#assemble)
+    - [![toolbar_assemble_dark](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_assemble_dark.svg?raw=true)Assembly View](prepare_assembly_tools#assembly-view)
+- Right-Click Menu
+  - Work In Progress...
 
 ## Calibrations
 
