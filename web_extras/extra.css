@@ -290,7 +290,7 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
     max-width: none;
     max-height: none;
     width: auto;
-    height: unset;
+    height: unset !important;
 }
 
 /* /////// FOOTER */
