@@ -291,10 +291,12 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
     vertical-align: middle;
 }
 
+/* Keep pattern icons fixed at 45px inside tables */
+.md-typeset table img[alt^="param_"] {
     max-width: none;
     max-height: none;
     width: auto;
-    height: unset !important;
+    height: 45px !important;
 }
 
 /* /////// FOOTER */
