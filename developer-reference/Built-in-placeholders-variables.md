@@ -173,7 +173,7 @@ Names of the print, filament, and printer presets that provided the configuratio
 > [!TIP]
 > Others items shares its config key with the placeholder name.  
 > Hover the label to discover the key.  
-> ![variable_name](https://github.com//OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
+> ![variable_name](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
 
 ## Filename Templates
 
