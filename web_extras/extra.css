@@ -158,6 +158,13 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
     margin-left: 0.2em;
 }
 
+/* /////// Images */
+
+/* Vertically align images to make it inline with text */
+.md-typeset img {
+    vertical-align: middle;
+}
+
 
 /* /////// LINKS */
 
