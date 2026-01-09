@@ -59,8 +59,6 @@ markdown_extensions:
   - admonition
   - pymdownx.details  # For collapsible admonitions
   - pymdownx.superfences
-  - pymdownx.indent:
-      indent: 2   # Allow nested lists with two-space indentation instead of four
   
 extra:
   generator: false # hides "Made with Material for MkDocs" from footer
