@@ -285,6 +285,13 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
     padding: .75em 1.25em;
 }
 
+/* Keep the pattern icons at a fixed height inside tables */
+.md-typeset table img[alt^="param_"] {
+    height: 45px;
+    width: auto;
+    max-width: none;
+}
+
 /* /////// FOOTER */
 /* Fixes sidebar content rendering over footer when all items expanded */
 .md-footer{
