@@ -285,8 +285,12 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
     padding: .75em 1.25em;
 }
 
-/* Let table images respect their explicit dimensions */
-.md-typeset table img {
+/* Vertical align table cells so icons sit in the middle */
+.md-typeset table td,
+.md-typeset table th {
+    vertical-align: middle;
+}
+
     max-width: none;
     max-height: none;
     width: auto;
