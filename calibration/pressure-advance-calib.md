@@ -56,21 +56,21 @@ The test configuration window allows the user to generate one or more tests in a
 
 Once a test is generated, one or more small rectangular prisms will be placed on the plate, one for each test case. The prism object serves a few purposes:
 
-1. The test pattern itself is added in as custom G-Code at each layer, same as you could do by hand. The rectangular prism provides the layers in which to insert that G-Code. This also means that **you'll see the full test pattern when you move to the Preview pane:**
+3. The test pattern itself is added in as custom G-Code at each layer, same as you could do by hand. The rectangular prism provides the layers in which to insert that G-Code. This also means that **you'll see the full test pattern when you move to the Preview pane:**
 
 ![pa-pattern-batch-plater](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pa-pattern-batch-plater.png?raw=true)
 
-2. The prism acts as a handle, enabling you to move the test pattern wherever you'd like on the plate by moving the prism.
-3. Each test object is pre-configured with target parameters which are reflected in the object's name. Test parameters may be adjusted for each prism individually via the object list pane:
+4. The prism acts as a handle, enabling you to move the test pattern wherever you'd like on the plate by moving the prism.
+5. Each test object is pre-configured with target parameters which are reflected in the object's name. Test parameters may be adjusted for each prism individually via the object list pane:
 
 ![pa-pattern-batch-objects](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pa-pattern-batch-objects.png?raw=true)
 
 Next, Ellis' generator provided the ability to adjust specific printer, filament, and print profile settings. You can make these same changes in OrcaSlicer by adjusting the settings in the Prepare pane as you would with any other print. When you initiate the calibration test, Ellis' default settings are applied. A few things to note about these settings:
 
-1. Ellis specified line widths as a percent of filament diameter. The Orca pattern method does the same to provide its suggested defaults, making use of Ellis' percentages in combination with your specified nozzle diameter.
-2. In terms of line width, the pattern only makes use of the `Default` and `First layer` widths.
-3. In terms of speed, the pattern only uses the `First layer speed -> First layer` and `Other layers speed -> Outer wall` speeds.
-4. The infill pattern beneath the numbers cannot be changed because it's not actually an infill pattern pulled from the settings. All of the pattern G-Code is custom written, so that "infill" is, effectively, hand-drawn and not processed through the usual channels that would enable Orca to recognize it as infill.
+6. Ellis specified line widths as a percent of filament diameter. The Orca pattern method does the same to provide its suggested defaults, making use of Ellis' percentages in combination with your specified nozzle diameter.
+7. In terms of line width, the pattern only makes use of the `Default` and `First layer` widths.
+8. In terms of speed, the pattern only uses the `First layer speed -> First layer` and `Other layers speed -> Outer wall` speeds.
+9. The infill pattern beneath the numbers cannot be changed because it's not actually an infill pattern pulled from the settings. All of the pattern G-Code is custom written, so that "infill" is, effectively, hand-drawn and not processed through the usual channels that would enable Orca to recognize it as infill.
 
 ### Line method
 
