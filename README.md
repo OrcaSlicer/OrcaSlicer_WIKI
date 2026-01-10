@@ -2,7 +2,7 @@
 
 <img alt="OrcaSlicer" src="https://github.com/OrcaSlicer/OrcaSlicer/raw/main/resources/images/OrcaSlicer.png?raw=true" width="15%" height="15%">
 
-# OrcaSlicer WIKI
+# OrcaSlicer Wiki
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/OrcaSlicer/OrcaSlicer_WIKI)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/stargazers) [![Publish docs to Wiki](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/publish_docs_to_wiki.yml/badge.svg)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/publish_docs_to_wiki.yml)[![Validate Tab Links](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/validate_tab_links.yml/badge.svg)](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/actions/workflows/validate_tab_links.yml)
 </div>
@@ -25,7 +25,7 @@ We appreciate your patience as we continue to develop and improve it!
 <a href="https://github.com/OrcaSlicer/OrcaSlicer"><img src="https://img.shields.io/badge/OrcaSlicer-181717?style=flat&logo=github&logoColor=white" width="200" alt="GitHub Logo"/> </a>
 
 #### Wiki Repository:
-<a href="https://github.com/OrcaSlicer/OrcaSlicer_WIKI"><img src="https://img.shields.io/badge/OrcaSlicer_WIKI-181717?style=flat&logo=github&logoColor=white" width="200" alt="GitHub Logo"/> </a>
+<a href="https://github.com/OrcaSlicer/OrcaSlicer_WIKI"><img src="https://img.shields.io/badge/OrcaSlicer_Wiki-181717?style=flat&logo=github&logoColor=white" width="200" alt="GitHub Logo"/> </a>
 
 #### Follow us:
 <a href="https://twitter.com/real_OrcaSlicer"><img src="https://img.shields.io/badge/real__OrcaSlicer-000000?style=flat&logo=x&logoColor=white" width="200" alt="X Logo"/> </a>
