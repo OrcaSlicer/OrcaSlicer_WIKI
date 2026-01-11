@@ -4,5 +4,7 @@
     "editor.insertSpaces": true,
     "editor.tabSize": 4
   },
-  "markdown.extension.list.indentationSize": 4
+  "markdown.extension.list.indentationSize": 4,
+  "markdown.extension.toc.levels": "2..6",
+  "markdown.extension.toc.updateOnSave": true
 }
