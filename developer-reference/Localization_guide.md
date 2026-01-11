@@ -47,8 +47,7 @@ If you add new file resource, add it to the list of files containing macro `L()`
 
 ### Scenario 4. How do I use GNUgettext to localize my own application taking OrcaSlicer as an example
 
-1. For convenience create a list of files with this macro `L(s)`. We have
-    https://github.com/OrcaSlicer/OrcaSlicer/blob/master/localization/i18n/list.txt.
+1. For convenience create a list of files with this macro `L(s)`. We have [localization/i18n/list.txt](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/localization/i18n/list.txt).
 
 2. Create template file(*.POT) with GNUgettext command:
 

@@ -13,8 +13,8 @@ This test will be set detect automatically your printer firmware type and will a
 
 - Klipper: [square_corner_velocity](https://www.klipper3d.org/Config_Reference.html#printer)
 - Marlin 2:
-  - [Junction Deviation](https://marlinfw.org/docs/configuration/configuration.html#junction-deviation-) if `Maximum Junction Deviation` in Printer settings/Motion ability/Jerk limitations is bigger than `0`.
-  - [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-) if `Maximum Junction Deviation` is set to `0`.
+    - [Junction Deviation](https://marlinfw.org/docs/configuration/configuration.html#junction-deviation-) if `Maximum Junction Deviation` in Printer settings/Motion ability/Jerk limitations is bigger than `0`.
+    - [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-) if `Maximum Junction Deviation` is set to `0`.
 - Marlin Legacy: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-).
 - RepRap: [Maximum instantaneous speed changes](https://docs.duet3d.com/User_manual/Reference/Gcodes#m566-set-allowable-instantaneous-speed-change)
 

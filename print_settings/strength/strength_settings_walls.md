@@ -13,10 +13,10 @@ Adjusting wall settings can significantly affect layer adhesion, strength, appea
 
 "Wall loops" refers to the number of times the outer wall is printed in a loop.  
 Increasing the wall loops will:
-- Enhance: 
-  - Layer adhesion
-  - Strength
-  - Rigidity
+- Enhance:
+    - Layer adhesion
+    - Strength
+    - Rigidity
 - Reduce infill ghosting
 - Increase print time
 

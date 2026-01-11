@@ -16,7 +16,7 @@ A skirt is one or more additional perimeters printed around the model outline on
 
 ## Loops
 
-Number of skirt loops to print. 
+Number of skirt loops to print.  
 Usually 2 loops are recommended but increasing loops improve priming and give a larger buffer between the nozzle and the part, at the cost of extra filament and time.  
 Set to 0 to disable the skirt.
 

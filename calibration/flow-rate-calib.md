@@ -7,8 +7,8 @@ A properly calibrated flow ratio ensures consistent layer adhesion and accurate 
 - Too **high** flow ratio causes over-extrusion, resulting in excess material, rough surfaces, and dimensional inaccuracies.
 
 - [Calibration Types](#calibration-types)
-  - [OrcaSlicer \> 2.3.0 Archimedean chords + YOLO (Recommended)](#orcaslicer--230-archimedean-chords--yolo-recommended)
-  - [OrcaSlicer \<= 2.3.0 Monotonic Line + 2-Pass Calibration](#orcaslicer--230-monotonic-line--2-pass-calibration)
+    - [OrcaSlicer \> 2.3.0 Archimedean chords + YOLO (Recommended)](#orcaslicer--230-archimedean-chords--yolo-recommended)
+    - [OrcaSlicer \<= 2.3.0 Monotonic Line + 2-Pass Calibration](#orcaslicer--230-monotonic-line--2-pass-calibration)
 - [Credits](#credits)
 
 > [!WARNING]
@@ -21,8 +21,8 @@ A properly calibrated flow ratio ensures consistent layer adhesion and accurate 
 ## Calibration Types
 
 - **YOLO:** A simplified method that adjusts the flow rate in a single pass using the formula `OldFlowRatio ± modifier`.
-  - **Recommended:** calibration range `[-0.05, +0.05]`, flow rate step `0.01`.
-  - **Perfectionist:** calibration range `[-0.04, +0.035]`, flow rate step `0.005`.
+    - **Recommended:** calibration range `[-0.05, +0.05]`, flow rate step `0.01`.
+    - **Perfectionist:** calibration range `[-0.04, +0.035]`, flow rate step `0.005`.
 - **2-Pass Calibration:** the legacy method, using two passes to determine the optimal flow rate with the formula `OldFlowRatio * (100 + modifier) / 100`.
 
 ### OrcaSlicer > 2.3.0 Archimedean chords + YOLO (Recommended)

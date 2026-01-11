@@ -26,20 +26,20 @@ Controls how the brim is generated on a model's outer and/or inner sides.
 The Auto brim feature computes an optimal brim width by evaluating material properties, part geometry, printing speed, and thermal characteristics.
 
 - Model geometry
-  - Uses the model's bounding box to determine dimensions.
-  - Height-to-area ratio: `height/(width²*length)`.
+    - Uses the model's bounding box to determine dimensions.
+    - Height-to-area ratio: `height/(width²*length)`.
 - Printing speed
-  - Higher maximum printing speeds generally increase the recommended brim width.
+    - Higher maximum printing speeds generally increase the recommended brim width.
 - Thermal length
-  - Defined as the diagonal of the model's base.
-  - Reference thermal lengths (material-specific):
-    - ABS, PA-CF, PET-CF: 100
-    - PC: 40
-    - TPU: 1000
+    - Defined as the diagonal of the model's base.
+    - Reference thermal lengths (material-specific):
+        - ABS, PA-CF, PET-CF: 100
+        - PC: 40
+        - TPU: 1000
 - Material adhesion coefficient
-  - Default: 1
-  - PETG/PCTG: 2
-  - TPU: 0.5
+    - Default: 1
+    - PETG/PCTG: 2
+    - TPU: 0.5
 
 The computed brim width is capped at 20 mm and at 1.5× the thermal length. If the final width is under 5 mm and also less than 1.5× the thermal length, no brim will be generated (width = 0).
 

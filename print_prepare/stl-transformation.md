@@ -15,7 +15,7 @@ If you don't see this when opening a STEP file, check [Don't show again](#dont-s
 
 ![stl-transformation](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation.png?raw=true)
 
-### Parameters:
+### Parameters
 
 The transformation uses [Linear Deflection and Angular Deflection](https://dev.opencascade.org/doc/overview/html/occt_user_guides__mesh.html) parameters to control the mesh quality.
 A finer mesh will result in a more accurate representation of the original surface, but it will also increase the file size and processing time.

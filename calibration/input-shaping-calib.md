@@ -25,9 +25,9 @@ Every firmware and even its version may have a different default type but usuall
 - Klipper: MZV
 - Marlin: ZV
 - RepRap:
-  - Version >= 3.4: MZV
-  - Version < 3.4: DAA
-  - Version < 3.2: DAA (without damping option)
+    - Version >= 3.4: MZV
+    - Version < 3.4: DAA
+    - Version < 3.2: DAA (without damping option)
 
 ### Version Table
 
@@ -83,40 +83,55 @@ Every firmware and even its version may have a different default type but usuall
    - Save it into Orca's printer profile settings in Printer settings/ Machine G-code/ Machine start G-code using the following G-code:
      - Klipper:
        - Skeleton
+
        ```gcode
        SET_INPUT_SHAPER SHAPER_TYPE=TYPE SHAPER_FREQ_X=#Xfrequency DAMPING_RATIO_X=#XDamping SHAPER_FREQ_Y=#Yfrequency DAMPING_RATIO_Y=#YDamping
        ```
+
        Example
+
        ```gcode
        SET_INPUT_SHAPER SHAPER_TYPE=MZV SHAPER_FREQ_X=37.25 DAMPING_RATIO_X=0.16 SHAPER_FREQ_Y=37.5 DAMPING_RATIO_Y=0.06
        ```
+
      - Marlin:
        - Skeleton
+
        ```gcode
        M593 X F#Xfrequency D#XDamping
        M593 Y F#Yfrequency D#YDamping
        M500
        ```
+
        Example
+
        ```gcode
        M593 X F37.25 D0.16
        M593 Y F37.5 D0.06
        M500
        ```
+
      - RepRap:
        - Skeleton for RepRap 3.3 and later
+
          ```gcode
          M593 P#Type F#frequency S#Damping
          ```
+
          Example RepRap 3.4 and later
+
          ```gcode
          M593 P"ZVD" F37.25 S0.16
          ```
+
        - Skeleton for RepRap 3.2 and earlier
+
          ```gcode
          M593 F#frequency
          ```
+
          Example Legacy (RepRap 3.2 and earlier)
+
          ```gcode
          M593 F37.25
          ```

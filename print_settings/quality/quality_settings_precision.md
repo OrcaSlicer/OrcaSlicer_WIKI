@@ -37,12 +37,12 @@ Arc fitting mainly changes how the toolpath is *encoded* in G-code. It can be be
 **Advantages**
 
 - Smaller G-code files:
-  - Faster upload.
-  - Less storage usage.
-  - Reduces the amount of read/writes done in memory and makes an SD card consume less of its already limited TBW.
+    - Faster upload.
+    - Less storage usage.
+    - Reduces the amount of read/writes done in memory and makes an SD card consume less of its already limited TBW.
 - Fewer moves for the firmware planner to process:
-  - Help on slower controllers when doing simultaneous task like save the status for [Power Loss Recovery](printer_basic_information_advanced#power-loss-recovery).
-  - Help limited connections.
+    - Help on slower controllers when doing simultaneous task like save the status for [Power Loss Recovery](printer_basic_information_advanced#power-loss-recovery).
+    - Help limited connections.
 - Smoother curves when using a low poly model.
 
 **Disadvantages / risks**
@@ -98,10 +98,13 @@ To mitigate this effect, OrcaSlicer allows you to specify a negative distance th
 
 The compensation works as follows:  
 When the `current_layer` is <= `input_compensation_layers`
+
 ```c++
 compensation = input_compensation_distance - (input_compensation_distance / input_compensation_layers) × (current_layer - 1)
 ```
+
 According to the equation, we can establish the following rules:
+
 - In the 1st layer, since it is layer `1 - 1 = 0`, compensation is 100%.
 - The intermediate layers (between the first and input_compensation_layers) will have linear compensation.
 - Layers above the specified amount will not be compensated.
@@ -109,19 +112,19 @@ According to the equation, we can establish the following rules:
 Assuming the compensation value is 0.25 mm:
 
 - Elephant Foot Compensation Layers = 1 :
-  - 1st layer: `0.25mm` compensation (100%)
-  - 2nd layer and beyond: No compensation (0 mm)
+    - 1st layer: `0.25mm` compensation (100%)
+    - 2nd layer and beyond: No compensation (0 mm)
 - Elephant Foot Compensation Layers = 2 :
-  - 1st layer: `0.25mm` compensation (100%)
-  - 2nd layer: `0.25 − (0.25 / 2) × (2 - 1) = 0.125mm` compensation (50%)
-  - 3rd layer and beyond: No compensation (0 mm).
+    - 1st layer: `0.25mm` compensation (100%)
+    - 2nd layer: `0.25 − (0.25 / 2) × (2 - 1) = 0.125mm` compensation (50%)
+    - 3rd layer and beyond: No compensation (0 mm).
 - Elephant Foot Compensation Layers = 5 :
-  - 1st layer: `0.25mm` compensation (100%)
-  - 2nd layer: `0.25 − (0.25 / 5) × (2 - 1) = 0.2mm` compensation (80%)
-  - 3rd layer: `0.25 − (0.25 / 5) × (3 - 1) = 0.15mm` compensation (60%)
-  - 4th layer: `0.25 − (0.25 / 5) × (4 - 1) = 0.1mm` compensation (40%)
-  - 5th layer: `0.25 − (0.25 / 5) × (5 - 1) = 0.05mm` compensation (20%)
-  - 6th layer and beyond: No compensation (0 mm).
+    - 1st layer: `0.25mm` compensation (100%)
+    - 2nd layer: `0.25 − (0.25 / 5) × (2 - 1) = 0.2mm` compensation (80%)
+    - 3rd layer: `0.25 − (0.25 / 5) × (3 - 1) = 0.15mm` compensation (60%)
+    - 4th layer: `0.25 − (0.25 / 5) × (4 - 1) = 0.1mm` compensation (40%)
+    - 5th layer: `0.25 − (0.25 / 5) × (5 - 1) = 0.05mm` compensation (20%)
+    - 6th layer and beyond: No compensation (0 mm).
 
 > [!NOTE]
 > This feature will look like the part have a smaller footprint on the build plate in the preview, but the final print (if calibrated correctly) will have the correct dimensions after slicing.  

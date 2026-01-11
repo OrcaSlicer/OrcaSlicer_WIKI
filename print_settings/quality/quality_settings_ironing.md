@@ -36,7 +36,7 @@ The pattern that will be used when ironing. Usually, the best pattern is the one
 ## Flow
 
 The amount of material to extrude during ironing.  
-This % is a percentage of the normal flow rate. A lower value will result in a smoother finish but may not cover the surface completely. A higher value may cover the surface better but can lead to over extrusion or rougher finish. 
+This % is a percentage of the normal flow rate. A lower value will result in a smoother finish but may not cover the surface completely. A higher value may cover the surface better but can lead to over extrusion or rougher finish.
 
 A lower layer height may require higher flow due to less volumetric extrusion per distance.
 
@@ -55,7 +55,7 @@ If this value is set to 0, the ironing toolpath will start directly at the perim
 
 ## Angle Offset
 
-The angle of ironing lines offset relative to the top surface solid infill direction. 
+The angle of ironing lines offset relative to the top surface solid infill direction.
 
 Commonly used ironing angle offsets are 0°, 45°, and 90° each producing a [different surface finish](https://github.com/OrcaSlicer/OrcaSlicer/issues/10834#issuecomment-3322628589) which will depend on your printer nozzle.
 

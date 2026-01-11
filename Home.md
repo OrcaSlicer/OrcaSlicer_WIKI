@@ -30,23 +30,23 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 ![printer](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/printer.svg?raw=true) Settings related to the 3D printer hardware and its configuration.
 
 - Basic Information
-  - [![param_printable_space](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_printable_space.svg?raw=true) Printable space](printer_basic_information_printable_space)
-  - [![param_advanced](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true) Advanced](printer_basic_information_advanced)
-  - [![param_cooling_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_fan.svg?raw=true) Cooling Fan](printer_basic_information_cooling_fan)
-  - [![param_extruder_clearance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_clearance.svg?raw=true) Extruder Clearance](printer_basic_information_extruder_clearance)
-  - [![param_adaptive_mesh](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_adaptive_mesh.svg?raw=true) Adaptive bed mesh](printer_basic_information_adaptive_bed_mesh)
-  - [![param_accessory](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_accessory.svg?raw=true) Accessory](printer_basic_information_accessory)
+    - [![param_printable_space](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_printable_space.svg?raw=true) Printable space](printer_basic_information_printable_space)
+    - [![param_advanced](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true) Advanced](printer_basic_information_advanced)
+    - [![param_cooling_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_fan.svg?raw=true) Cooling Fan](printer_basic_information_cooling_fan)
+    - [![param_extruder_clearance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_clearance.svg?raw=true) Extruder Clearance](printer_basic_information_extruder_clearance)
+    - [![param_adaptive_mesh](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_adaptive_mesh.svg?raw=true) Adaptive bed mesh](printer_basic_information_adaptive_bed_mesh)
+    - [![param_accessory](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_accessory.svg?raw=true) Accessory](printer_basic_information_accessory)
 - [![param_gcode](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true) Machine G_Code](printer_machine_gcode)
 - Multimaterial
-  - [![param_multi_material](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_multi_material.svg?raw=true) Multimaterial setup](printer_multimaterial_setup)
-  - [![param_tower](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tower.svg?raw=true) Wipe tower](printer_multimaterial_wipe_tower)
-  - [![param_settings](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_settings.svg?raw=true) Single extruder multi_material parameters](printer_multimaterial_semm_parameters)
-  - [![param_advanced](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true) Advanced](printer_multimaterial_advanced)
+    - [![param_multi_material](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_multi_material.svg?raw=true) Multimaterial setup](printer_multimaterial_setup)
+    - [![param_tower](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tower.svg?raw=true) Wipe tower](printer_multimaterial_wipe_tower)
+    - [![param_settings](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_settings.svg?raw=true) Single extruder multi_material parameters](printer_multimaterial_semm_parameters)
+    - [![param_advanced](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true) Advanced](printer_multimaterial_advanced)
 - Extruder
-  - [![param_information](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_information.svg?raw=true) Basic Information](printer_extruder_basic_information)
-  - [![param_retraction](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true) Retraction](printer_extruder_retraction)
-    - [![param_retraction_material_change](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction_material_change.svg?raw=true) Retraction when switching materials](printer_extruder_retraction#retraction-when-switching-materials)
-  - [![param_extruder_lift_enforcement](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_lift_enforcement.svg?raw=true) Z_Hop](printer_extruder_z_hop)
+    - [![param_information](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_information.svg?raw=true) Basic Information](printer_extruder_basic_information)
+    - [![param_retraction](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true) Retraction](printer_extruder_retraction)
+        - [![param_retraction_material_change](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction_material_change.svg?raw=true) Retraction when switching materials](printer_extruder_retraction#retraction-when-switching-materials)
+    - [![param_extruder_lift_enforcement](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_lift_enforcement.svg?raw=true) Z_Hop](printer_extruder_z_hop)
 - [![param_acceleration](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_acceleration.svg?raw=true) Motion ability](printer_motion_ability)
 
 ## Material Settings
@@ -56,13 +56,13 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 ![filament](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/filament.svg?raw=true) Settings related to the 3D printing material.
 
 - Material settings
-  - [![param_information](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_information.svg?raw=true) Basic Information](material_basic_information)
-  - [![param_flow_ratio_and_pressure_advance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true) Flow Ratio and Pressure Advance](material_flow_ratio_and_pressure_advance)
-  - [![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) Material temperatures](material_temperatures)
-    - [![param_chamber_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_chamber_temp.svg?raw=true) Print Chamber temperature](material_temperatures#print-chamber-temperature)
-    - [![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) Print temperature](material_temperatures#nozzle)
-    - [![param_bed_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_bed_temp.svg?raw=true) Bed temperature](material_temperatures#bed)
-  - [![param_volumetric_speed](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true) Volumetric Speed limitation](material_volumetric_speed_limitation)
+    - [![param_information](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_information.svg?raw=true) Basic Information](material_basic_information)
+    - [![param_flow_ratio_and_pressure_advance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true) Flow Ratio and Pressure Advance](material_flow_ratio_and_pressure_advance)
+    - [![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) Material temperatures](material_temperatures)
+        - [![param_chamber_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_chamber_temp.svg?raw=true) Print Chamber temperature](material_temperatures#print-chamber-temperature)
+        - [![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) Print temperature](material_temperatures#nozzle)
+        - [![param_bed_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_bed_temp.svg?raw=true) Bed temperature](material_temperatures#bed)
+    - [![param_volumetric_speed](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true) Volumetric Speed limitation](material_volumetric_speed_limitation)
 - [![param_cooling_part_fan](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_cooling_part_fan.svg?raw=true) Material Cooling](material_cooling)
 - [![param_settings](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_settings.svg?raw=true) Setting Overrides](material_setting_overrides)
 - [![param_gcode](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true) Advanced](material_advanced)
@@ -98,8 +98,8 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [![param_wall](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_wall.svg?raw=true) Walls](strength_settings_walls)
 - [![param_shell](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_shell.svg?raw=true) Top and Bottom Shells](strength_settings_top_bottom_shells)
 - [![param_infill](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_infill.svg?raw=true) Infill](strength_settings_infill)
-  - [![param_concentric](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_concentric.svg?raw=true) Fill Patterns](strength_settings_patterns)
-  - [![param_gcode](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true) Template Metalanguage for infill rotation](strength_settings_infill_rotation_template_metalanguage)
+    - [![param_concentric](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_concentric.svg?raw=true) Fill Patterns](strength_settings_patterns)
+    - [![param_gcode](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true) Template Metalanguage for infill rotation](strength_settings_infill_rotation_template_metalanguage)
 - [![param_advanced](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true) Advanced](strength_settings_advanced)
 
 ### Speed Settings
@@ -164,14 +164,14 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [![param_extruder_temp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true) Temperature](temp-calib)
 - [![param_volumetric_speed](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true) Volumetric Speed](volumetric-speed-calib)
 - [![param_flow_ratio_and_pressure_advance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true) Pressure Advance](pressure-advance-calib)
-  - [Adaptive Pressure Advance Guide](adaptive-pressure-advance-calib)
+    - [Adaptive Pressure Advance Guide](adaptive-pressure-advance-calib)
 - [![param_line_width](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line_width.svg?raw=true) Flow Rate](flow-rate-calib)
 - [![param_retraction](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true) Retraction](retraction-calib)
 - [![param_precision](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_precision.svg?raw=true) Tolerance](tolerance-calib)
 - Advanced:
-  - [![param_jerk](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_jerk.svg?raw=true) Cornering (Jerk & Junction Deviation)](cornering-calib)
-  - [![param_resonance_avoidance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_resonance_avoidance.svg?raw=true) Input Shaping](input-shaping-calib)
-    - [VFA](vfa-calib)
+    - [![param_jerk](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_jerk.svg?raw=true) Cornering (Jerk & Junction Deviation)](cornering-calib)
+    - [![param_resonance_avoidance](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_resonance_avoidance.svg?raw=true) Input Shaping](input-shaping-calib)
+        - [VFA](vfa-calib)
 
 ## General Settings
 

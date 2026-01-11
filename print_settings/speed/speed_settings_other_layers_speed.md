@@ -4,7 +4,6 @@
 
 > [!IMPORTANT]
 > Every speed setting is limited by several parameters like:
->
 > - [Maximum Volumetric Speed](volumetric-speed-calib)
 > - Machine / Motion ability
 > - [Acceleration](speed_settings_acceleration)

@@ -18,17 +18,22 @@ We appreciate your patience as we continue to develop and improve it!
 
 ## Official links and community
 
-#### Official Website:
+#### Official Website
+
 <a href="https://www.orcaslicer.com/" style="font-size:2em;">OrcaSlicer.com</a>
 
-#### OrcaSlicer Repository:
+#### OrcaSlicer Repository
+
 <a href="https://github.com/OrcaSlicer/OrcaSlicer"><img src="https://img.shields.io/badge/OrcaSlicer-181717?style=flat&logo=github&logoColor=white" width="200" alt="GitHub Logo"/> </a>
 
-#### Wiki Repository:
+#### Wiki Repository
+
 <a href="https://github.com/OrcaSlicer/OrcaSlicer_WIKI"><img src="https://img.shields.io/badge/OrcaSlicer_Wiki-181717?style=flat&logo=github&logoColor=white" width="200" alt="GitHub Logo"/> </a>
 
-#### Follow us:
+#### Follow us
+
 <a href="https://twitter.com/real_OrcaSlicer"><img src="https://img.shields.io/badge/real__OrcaSlicer-000000?style=flat&logo=x&logoColor=white" width="200" alt="X Logo"/> </a>
 
-#### Join our Discord community:
+#### Join our Discord community
+
 <a href="https://discord.gg/P4VE9UY9gJ"><img src="https://img.shields.io/badge/-Discord-5865F2?style=flat&logo=discord&logoColor=fff" width="200" alt="discord logo"/> </a>
