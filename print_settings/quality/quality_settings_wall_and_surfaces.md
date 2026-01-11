@@ -1,18 +1,18 @@
 # Wall and surfaces
 
 - [Walls printing order](#walls-printing-order)
-  - [Inner/Outer](#innerouter)
-  - [Inner/Outer/Inner](#innerouterinner)
-  - [Outer/Inner](#outerinner)
-  - [Print infill first](#print-infill-first)
+    - [Inner/Outer](#innerouter)
+    - [Inner/Outer/Inner](#innerouterinner)
+    - [Outer/Inner](#outerinner)
+    - [Print infill first](#print-infill-first)
 - [Wall loop direction](#wall-loop-direction)
 - [Surface flow ratio](#surface-flow-ratio)
 - [Only one wall](#only-one-wall)
-  - [Threshold](#threshold)
+    - [Threshold](#threshold)
 - [Avoid crossing walls](#avoid-crossing-walls)
-  - [Max detour length](#max-detour-length)
+    - [Max detour length](#max-detour-length)
 - [Small area flow compensation](#small-area-flow-compensation)
-  - [Flow Compensation Model](#flow-compensation-model)
+    - [Flow Compensation Model](#flow-compensation-model)
 
 ## Walls printing order
 

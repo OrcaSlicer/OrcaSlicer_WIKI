@@ -3,5 +3,6 @@
     "editor.detectIndentation": false,
     "editor.insertSpaces": true,
     "editor.tabSize": 4
-  }
+  },
+  "markdown.extension.list.indentationSize": 4
 }

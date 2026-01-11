@@ -10,9 +10,9 @@ The implementation is designed to be straightforward, requiring no additional pl
 - [Mesh margin](#mesh-margin)
 - [Available g-code variables for Adaptive Bed Mesh Command](#available-g-code-variables-for-adaptive-bed-mesh-command)
 - [Example of Adaptive Bed Mesh usage in OrcaSlicer](#example-of-adaptive-bed-mesh-usage-in-orcaslicer)
-  - [Marlin](#marlin)
-  - [Klipper](#klipper)
-  - [RRF](#rrf)
+    - [Marlin](#marlin)
+    - [Klipper](#klipper)
+    - [RRF](#rrf)
 
 ## Bed mesh
 

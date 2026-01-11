@@ -6,26 +6,26 @@ It includes tool requirements, setup commands, and build steps for each platform
 Whether you're a contributor or just want a custom build, this guide will help you compile OrcaSlicer successfully.
 
 - [Windows 64-bit](#windows-64-bit)
-  - [Windows Tools Required](#windows-tools-required)
-  - [Windows Hardware Requirements](#windows-hardware-requirements)
-  - [Windows Instructions](#windows-instructions)
+    - [Windows Tools Required](#windows-tools-required)
+    - [Windows Hardware Requirements](#windows-hardware-requirements)
+    - [Windows Instructions](#windows-instructions)
 - [MacOS 64-bit](#macos-64-bit)
-  - [MacOS Tools Required](#macos-tools-required)
-  - [MacOS Instructions](#macos-instructions)
-  - [Debugging in Xcode](#debugging-in-xcode)
+    - [MacOS Tools Required](#macos-tools-required)
+    - [MacOS Instructions](#macos-instructions)
+    - [Debugging in Xcode](#debugging-in-xcode)
 - [Linux](#linux)
-  - [Using Docker](#using-docker)
-    - [Docker Dependencies](#docker-dependencies)
-    - [Docker Instructions](#docker-instructions)
-  - [Troubleshooting](#troubleshooting)
-  - [Linux Build](#linux-build)
-    - [Dependencies](#dependencies)
-      - [Common dependencies across distributions](#common-dependencies-across-distributions)
-      - [Additional dependencies for specific distributions](#additional-dependencies-for-specific-distributions)
-    - [Linux Instructions](#linux-instructions)
-    - [Unit Testing](#unit-testing)
+    - [Using Docker](#using-docker)
+        - [Docker Dependencies](#docker-dependencies)
+        - [Docker Instructions](#docker-instructions)
+    - [Troubleshooting](#troubleshooting)
+    - [Linux Build](#linux-build)
+        - [Dependencies](#dependencies)
+            - [Common dependencies across distributions](#common-dependencies-across-distributions)
+            - [Additional dependencies for specific distributions](#additional-dependencies-for-specific-distributions)
+        - [Linux Instructions](#linux-instructions)
+        - [Unit Testing](#unit-testing)
 - [Portable User Configuration](#portable-user-configuration)
-  - [Example folder structure](#example-folder-structure)
+    - [Example folder structure](#example-folder-structure)
 
 ## Windows 64-bit
 
@@ -141,6 +141,7 @@ How to building with Visual Studio on Windows 64-bit.
 4. Open the solution in Visual Studio, set the build configuration to `Release` and run the `Local Windows Debugger`.  
    ![compile_vs_local_debugger](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/compile_vs_local_debugger.png?raw=true)
 5. Your resulting executable will be located in:
+
    ```shell
    \build\src\Release\orca-slicer.exe
    ```

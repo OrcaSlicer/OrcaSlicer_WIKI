@@ -4,14 +4,14 @@ The Wall Generator defines how the outer and inner walls (perimeters) of the mod
 
 - [Classic](#classic)
 - [Arachne](#arachne)
-  - [Wall transitioning threshhold angle](#wall-transitioning-threshhold-angle)
-  - [Wall transitioning filter margin](#wall-transitioning-filter-margin)
-  - [Wall transitioning length](#wall-transitioning-length)
-  - [Wall distribution count](#wall-distribution-count)
-  - [Minimum wall width](#minimum-wall-width)
-    - [First layer minimum wall width](#first-layer-minimum-wall-width)
-  - [Minimum feature size](#minimum-feature-size)
-  - [Minimum wall length](#minimum-wall-length)
+    - [Wall transitioning threshhold angle](#wall-transitioning-threshhold-angle)
+    - [Wall transitioning filter margin](#wall-transitioning-filter-margin)
+    - [Wall transitioning length](#wall-transitioning-length)
+    - [Wall distribution count](#wall-distribution-count)
+    - [Minimum wall width](#minimum-wall-width)
+        - [First layer minimum wall width](#first-layer-minimum-wall-width)
+    - [Minimum feature size](#minimum-feature-size)
+    - [Minimum wall length](#minimum-wall-length)
 
 ## Classic
 

@@ -5,10 +5,10 @@ This section defines the printer’s physical build area and how the slicer maps
 Specify any excluded (unprintable) regions as a polygon so the arranger avoids them. Set the printable height to your maximum Z travel, and use Z offset to correct endstop inaccuracies (this value is added to every Z coordinate in exported G‑code). The best object position is a normalized [0–1] preference used by automatic arranging, and preferred orientation controls automatic Z-axis alignment on import.
 
 - [Printable area (Bed Shape)](#printable-area-bed-shape)
-  - [Shape](#shape)
-  - [Settings](#settings)
-  - [Texture](#texture)
-  - [Model](#model)
+    - [Shape](#shape)
+    - [Settings](#settings)
+    - [Texture](#texture)
+    - [Model](#model)
 - [Excluded bed area](#excluded-bed-area)
 - [Printable height](#printable-height)
 - [Support multi bed types](#support-multi-bed-types)

@@ -4,12 +4,12 @@ Settings related to the motion capabilities of the printer.
 
 - [Emit limits to G-code](#emit-limits-to-g-code)
 - [Resonance Avoidance](#resonance-avoidance)
-  - [Resonance Avoidance Speed](#resonance-avoidance-speed)
+    - [Resonance Avoidance Speed](#resonance-avoidance-speed)
 - [Speed limitation](#speed-limitation)
 - [Acceleration limitation](#acceleration-limitation)
 - [Jerk limitation](#jerk-limitation)
-  - [Maximum Junction Deviation](#maximum-junction-deviation)
-  - [Maximum Jerk](#maximum-jerk)
+    - [Maximum Junction Deviation](#maximum-junction-deviation)
+    - [Maximum Jerk](#maximum-jerk)
 
 ## Emit limits to G-code
 

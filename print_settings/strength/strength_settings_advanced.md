@@ -4,7 +4,7 @@
 - [Bridge infill direction](#bridge-infill-direction)
 - [Minimum sparse infill threshold](#minimum-sparse-infill-threshold)
 - [Infill Combination](#infill-combination)
-  - [Max layer height](#max-layer-height)
+    - [Max layer height](#max-layer-height)
 - [Detect narrow internal solid infill](#detect-narrow-internal-solid-infill)
 - [Ensure vertical shell thickness](#ensure-vertical-shell-thickness)
 

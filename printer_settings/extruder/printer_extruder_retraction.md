@@ -17,7 +17,7 @@ Filaments like PETG and TPU are more prone to stringing, so they may require lon
 - [Wipe distance](#wipe-distance)
 - [Retract amount before wipe](#retract-amount-before-wipe)
 - [Retraction When Switching Materials](#retraction-when-switching-materials)
-  - [Long retraction when cut (beta)](#long-retraction-when-cut-beta)
+    - [Long retraction when cut (beta)](#long-retraction-when-cut-beta)
 
 ## Length
 

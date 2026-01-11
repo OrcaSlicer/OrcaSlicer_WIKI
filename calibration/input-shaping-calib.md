@@ -6,10 +6,10 @@ During high-speed movements, vibrations can cause a phenomenon called "ringing,"
 > RepRap can only set one frequency for both X and Y axes so you will need to select a frequency that works well for both axes.
 
 - [Types](#types)
-  - [Default](#default)
-  - [Version Table](#version-table)
+    - [Default](#default)
+    - [Version Table](#version-table)
 - [Calibration Steps](#calibration-steps)
-  - [Fixed-Time Motion](#fixed-time-motion)
+    - [Fixed-Time Motion](#fixed-time-motion)
 - [Credits](#credits)
 
 ## Types

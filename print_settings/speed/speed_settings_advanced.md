@@ -10,8 +10,8 @@ This feature is especially helpful when printing at high accelerations and large
 ![ers-intro](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ERS/ers-intro.png?raw=true)
 
 - [Theory](#theory)
-  - [Acceleration vs. Extrusion rate smoothing](#acceleration-vs-extrusion-rate-smoothing)
-  - [Pressure advance vs extrusion rate smoothing](#pressure-advance-vs-extrusion-rate-smoothing)
+    - [Acceleration vs. Extrusion rate smoothing](#acceleration-vs-extrusion-rate-smoothing)
+    - [Pressure advance vs extrusion rate smoothing](#pressure-advance-vs-extrusion-rate-smoothing)
 - [Finding the ideal Extrusion Rate smoothing value](#finding-the-ideal-extrusion-rate-smoothing-value)
 - [A note for Bowden printers using Marlin without pressure advance](#a-note-for-bowden-printers-using-marlin-without-pressure-advance)
 - [A note on ERS Segment length](#a-note-on-ers-segment-length)

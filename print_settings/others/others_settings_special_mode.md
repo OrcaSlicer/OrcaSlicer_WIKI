@@ -3,18 +3,18 @@
 These settings control advanced slicing and printing behaviours, such as how layers are processed, object printing order, and special effects like spiral vase mode.
 
 - [Slicing Mode](#slicing-mode)
-  - [Regular](#regular)
-  - [Close Holes](#close-holes)
-  - [Even Odd](#even-odd)
+    - [Regular](#regular)
+    - [Close Holes](#close-holes)
+    - [Even Odd](#even-odd)
 - [Print Sequence](#print-sequence)
-  - [By Layer](#by-layer)
-    - [Intra-layer order](#intra-layer-order)
-  - [By Object](#by-object)
+    - [By Layer](#by-layer)
+        - [Intra-layer order](#intra-layer-order)
+    - [By Object](#by-object)
 - [Spiral vase](#spiral-vase)
-  - [Smooth Spiral](#smooth-spiral)
-    - [Max XY Smoothing](#max-xy-smoothing)
-  - [Spiral starting flow ratio](#spiral-starting-flow-ratio)
-  - [Spiral finishing flow ratio](#spiral-finishing-flow-ratio)
+    - [Smooth Spiral](#smooth-spiral)
+        - [Max XY Smoothing](#max-xy-smoothing)
+    - [Spiral starting flow ratio](#spiral-starting-flow-ratio)
+    - [Spiral finishing flow ratio](#spiral-finishing-flow-ratio)
 - [Timelapse](#timelapse)
 
 ## Slicing Mode

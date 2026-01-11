@@ -1,8 +1,8 @@
 # Overhang Speed
 
 - [Slow down for overhang](#slow-down-for-overhang)
-  - [Slow down for curled perimeters](#slow-down-for-curled-perimeters)
-  - [Speed](#speed)
+    - [Slow down for curled perimeters](#slow-down-for-curled-perimeters)
+    - [Speed](#speed)
 - [Bridge speed](#bridge-speed)
 
 ## Slow down for overhang

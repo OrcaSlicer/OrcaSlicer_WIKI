@@ -4,8 +4,8 @@ A skirt is one or more additional perimeters printed around the model outline on
 
 - [Loops](#loops)
 - [Type](#type)
-  - [Combined](#combined)
-  - [Per object](#per-object)
+    - [Combined](#combined)
+    - [Per object](#per-object)
 - [Minimum extrusion Length](#minimum-extrusion-length)
 - [Distance](#distance)
 - [Start point](#start-point)

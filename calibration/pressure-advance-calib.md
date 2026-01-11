@@ -13,9 +13,9 @@ OrcaSlicer includes three approaches for calibrating the Pressure Advance value.
 > ![flowrate-Bambulab-uncheck](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowrate-Bambulab-uncheck.png?raw=true)
 
 - [Calibration](#calibration)
-  - [Tower method](#tower-method)
-  - [Pattern method](#pattern-method)
-  - [Line method](#line-method)
+    - [Tower method](#tower-method)
+    - [Pattern method](#pattern-method)
+    - [Line method](#line-method)
 
 ## Calibration
 

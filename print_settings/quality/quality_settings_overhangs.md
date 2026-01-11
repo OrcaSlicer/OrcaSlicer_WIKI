@@ -2,12 +2,12 @@
 
 - [Detect overhang wall](#detect-overhang-wall)
 - [Make overhang printable](#make-overhang-printable)
-  - [Maximum angle](#maximum-angle)
-  - [Hole area](#hole-area)
+    - [Maximum angle](#maximum-angle)
+    - [Hole area](#hole-area)
 - [Extra perimeters on overhangs](#extra-perimeters-on-overhangs)
 - [Reverse on even](#reverse-on-even)
-  - [Reverse internal only](#reverse-internal-only)
-  - [Reverse threshold](#reverse-threshold)
+    - [Reverse internal only](#reverse-internal-only)
+    - [Reverse threshold](#reverse-threshold)
 
 ## Detect overhang wall
 
@@ -76,6 +76,7 @@ This could result in uneven texture, sometimes considered worse than the full re
 
 > [!NOTE]
 > Only available when:
-> - [Detect overhang wall](#detect-overhang-wall) is enabled 
+>
+> - [Detect overhang wall](#detect-overhang-wall) is enabled
 > - [Reverse internal only](#reverse-internal-only) is disabled
 > If those conditions are not met, this setting will be hidden.

@@ -4,11 +4,11 @@ Flow ratio and pressure advance settings for the selected material.
 
 - [Flow Ratio](#flow-ratio)
 - [Pressure Advance](#pressure-advance)
-  - [Enable adaptive Pressure Advance (beta)](#enable-adaptive-pressure-advance-beta)
-    - [Enable adaptive pressure advance for overhangs (beta)](#enable-adaptive-pressure-advance-for-overhangs-beta)
-    - [Pressure advance for bridges](#pressure-advance-for-bridges)
-    - [Adaptive pressure advance measurements (beta)](#adaptive-pressure-advance-measurements-beta)
-      - [How to calibrate Adaptive Pressure Advance](#how-to-calibrate-adaptive-pressure-advance)
+    - [Enable adaptive Pressure Advance (beta)](#enable-adaptive-pressure-advance-beta)
+        - [Enable adaptive pressure advance for overhangs (beta)](#enable-adaptive-pressure-advance-for-overhangs-beta)
+        - [Pressure advance for bridges](#pressure-advance-for-bridges)
+        - [Adaptive pressure advance measurements (beta)](#adaptive-pressure-advance-measurements-beta)
+            - [How to calibrate Adaptive Pressure Advance](#how-to-calibrate-adaptive-pressure-advance)
 
 ## Flow Ratio
 

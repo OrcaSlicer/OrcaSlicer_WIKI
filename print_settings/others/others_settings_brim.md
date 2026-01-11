@@ -5,17 +5,17 @@ Brim is a flat layer printed around a model's base to improve adhesion to the pr
 ![brim](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim.png?raw=true)
 
 - [Type](#type)
-  - [Auto](#auto)
-  - [Painted](#painted)
-  - [Outer](#outer)
-  - [Inner](#inner)
-  - [Outer and Inner](#outer-and-inner)
-  - [Mouse Ears](#mouse-ears)
-    - [Ear max angle](#ear-max-angle)
-    - [Ear detection radius](#ear-detection-radius)
+    - [Auto](#auto)
+    - [Painted](#painted)
+    - [Outer](#outer)
+    - [Inner](#inner)
+    - [Outer and Inner](#outer-and-inner)
+    - [Mouse Ears](#mouse-ears)
+        - [Ear max angle](#ear-max-angle)
+        - [Ear detection radius](#ear-detection-radius)
 - [Width](#width)
 - [Brim-Object Gap](#brim-object-gap)
-  - [Brim use EFC outline](#brim-use-efc-outline)
+    - [Brim use EFC outline](#brim-use-efc-outline)
 
 ## Type
 

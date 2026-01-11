@@ -4,8 +4,8 @@ Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-cod
 
 - [Conventions](#conventions)
 - [Global Slicing State](#global-slicing-state)
-  - [Read Only](#read-only)
-  - [Read Write](#read-write)
+    - [Read Only](#read-only)
+    - [Read Write](#read-write)
 - [Slicing State](#slicing-state)
 - [Print Statistics](#print-statistics)
 - [Objects](#objects)
@@ -17,12 +17,12 @@ Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-cod
 - [Preset Metadata](#preset-metadata)
 - [Filename Templates](#filename-templates)
 - [Custom G-code Contexts](#custom-g-code-contexts)
-  - [Layer-aware placeholders](#layer-aware-placeholders)
-  - [Toolchange and wipe tower placeholders](#toolchange-and-wipe-tower-placeholders)
-  - [Filament start/end placeholders](#filament-startend-placeholders)
-  - [Timelapse and wrapping detection](#timelapse-and-wrapping-detection)
-  - [Extrusion role changes](#extrusion-role-changes)
-  - [Pause / color change helpers](#pause--color-change-helpers)
+    - [Layer-aware placeholders](#layer-aware-placeholders)
+    - [Toolchange and wipe tower placeholders](#toolchange-and-wipe-tower-placeholders)
+    - [Filament start/end placeholders](#filament-startend-placeholders)
+    - [Timelapse and wrapping detection](#timelapse-and-wrapping-detection)
+    - [Extrusion role changes](#extrusion-role-changes)
+    - [Pause / color change helpers](#pause--color-change-helpers)
 
 ## Conventions
 

@@ -3,7 +3,7 @@
 - [Z distance](#z-distance)
 - [Support wall loops](#support-wall-loops)
 - [Base Pattern](#base-pattern)
-  - [Base pattern spacing](#base-pattern-spacing)
+    - [Base pattern spacing](#base-pattern-spacing)
 - [Pattern angle](#pattern-angle)
 - [Interface layers](#interface-layers)
 - [Interface pattern](#interface-pattern)

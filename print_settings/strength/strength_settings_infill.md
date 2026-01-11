@@ -4,21 +4,21 @@ Infill is the internal structure of a 3D print, providing strength and support. 
 
 - [Sparse infill density](#sparse-infill-density)
 - [Fill Multiline](#fill-multiline)
-  - [Use cases](#use-cases)
-  - [Strategy](#strategy)
-    - [Classic Strategy](#classic-strategy)
-    - [Non-Crossing Strategy](#non-crossing-strategy)
+    - [Use cases](#use-cases)
+    - [Strategy](#strategy)
+        - [Classic Strategy](#classic-strategy)
+        - [Non-Crossing Strategy](#non-crossing-strategy)
 - [Direction and Rotation](#direction-and-rotation)
-  - [Direction](#direction)
-  - [Rotation](#rotation)
+    - [Direction](#direction)
+    - [Rotation](#rotation)
 - [Infill Wall Overlap](#infill-wall-overlap)
 - [Apply gap fill](#apply-gap-fill)
 - [Filter out tiny gaps](#filter-out-tiny-gaps)
 - [Anchor](#anchor)
 - [Internal Solid Infill](#internal-solid-infill)
 - [Extra Solid Infill](#extra-solid-infill)
-  - [Interval Pattern](#interval-pattern)
-  - [Explicit Layer List](#explicit-layer-list)
+    - [Interval Pattern](#interval-pattern)
+    - [Explicit Layer List](#explicit-layer-list)
 - [Sparse Infill Pattern](#sparse-infill-pattern)
 - [Credits](#credits)
 
@@ -216,12 +216,14 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 ```
 
 > [!NOTE]
+>
 > - Layer numbers are 1-based (first layer is layer 1)
 > - `#K` is optional in both interval and explicit list entries (`N#` equals `N#1`)
 > - Solid layers are inserted in addition to the normal sparse infill pattern
 
 > [!TIP]
 > Use this feature to:
+>
 > - Add strength at stress concentration points
 > - Reinforce mounting holes or attachment points
 > - Create internal structure for functional parts
