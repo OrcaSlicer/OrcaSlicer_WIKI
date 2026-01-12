@@ -152,7 +152,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 <img alt="tab_3d_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_3d_active.svg?raw=true" height="22"> First steps to prepare your model/s for printing.
 
-- [STL Transformation](stl-transformation)
+- [STL Transformation](prepare_stl_transformation)
 - Toolbar
     - [Basic](prepare_basic)
         - [<img alt="toolbar_open_dark" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_open_dark.svg?raw=true" height="22"> Add Objects](prepare_basic#add-objects)
@@ -198,7 +198,6 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
     - [<img alt="param_jerk" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_jerk.svg?raw=true" height="22"> Cornering (Jerk & Junction Deviation)](cornering-calib)
     - [<img alt="param_resonance_avoidance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_resonance_avoidance.svg?raw=true" height="22"> Input Shaping](input-shaping-calib)
         - [VFA](vfa-calib)
-
 
 ## General Settings
 
