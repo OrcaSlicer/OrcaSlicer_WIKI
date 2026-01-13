@@ -27,7 +27,7 @@ A finer mesh will result in a more accurate representation of the original surfa
 
 #### Split compound and compsolid into multiple objects
 
-Enabling this option will split the imported 3D file into separate objects. This is especially useful for adjusting individual object positions, tweaking print settings, or optimizing the model through simplification.
+Enabling this option will split the imported 3D file into separate [objects](prepare_object_set). This is especially useful for adjusting individual object positions, tweaking print settings, or optimizing the model through simplification.
 
 ![stl-transformation-split](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-split.png?raw=true)
 
