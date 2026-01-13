@@ -104,7 +104,22 @@ nav:
   - Dependencies:
     - "Material Dependencies": material_settings/dependencies/material_dependencies.md
 - "Print Prepare":
-  - "STL Transformation": "print_prepare/stl-transformation.md"
+  - "Prepare Toolbar": print_prepare/prepare_basic.md
+  - "Assembly Tools": print_prepare/prepare_assembly_tools.md
+  - "Auto Arrange": print_prepare/prepare_auto_arrange.md
+  - "Auto Orientation": print_prepare/prepare_auto_orient.md
+  - "Brim ears Painting": print_prepare/prepare_brim_ears_painting.md
+  - "Color Painting": print_prepare/prepare_color_painting.md
+  - "Cutting Tool": print_prepare/prepare_cutting_tool.md
+  - Emboss: print_prepare/prepare_emboss.md
+  - "Mesh Boolean": print_prepare/prepare_mesh_boolean.md
+  - "Object Manipulation": print_prepare/prepare_object_manipulation.md
+  - "Object Set": print_prepare/prepare_object_set.md
+  - "Paint on Fuzzy Skin": print_prepare/prepare_paint_on_fuzzy_skin.md
+  - "Seam Painting": print_prepare/prepare_seam_painting.md
+  - "STL Transformation": print_prepare/prepare_stl_transformation.md
+  - "Support Painting": print_prepare/prepare_support_painting.md
+  - "Variable Layer Height": print_prepare/prepare_variable_layer_height.md
 - "Print Settings":
   - Multimaterial:
     - "Filament for Features": print_settings/multimaterial/multimaterial_settings_filament_for_features.md
