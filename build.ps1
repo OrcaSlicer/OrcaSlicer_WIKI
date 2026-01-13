@@ -86,6 +86,18 @@ if (Test-Path Home.md) {
     Copy-Item Home.md docs\index.md
 }
 
+# Make sure MkDocs can see custom CSS/JS during the build
+New-Item -ItemType Directory -Force -Path "docs/assets/stylesheets" | Out-Null
+New-Item -ItemType Directory -Force -Path "docs/assets/javascripts" | Out-Null
+
+if (Test-Path "web_extras\extra.css") {
+    Copy-Item "web_extras\extra.css" "docs/assets/stylesheets/extra.css" -Force
+}
+
+if (Test-Path "web_extras\icon-theme.js") {
+    Copy-Item "web_extras\icon-theme.js" "docs/assets/javascripts/icon-theme.js" -Force
+}
+
 Write-Host "Converting GitHub image URLs to local paths..."
 
 if ($DownloadSvg) {
@@ -102,6 +114,19 @@ if ($DownloadSvg) {
             $rawUrl = $url -replace 'github.com/OrcaSlicer/OrcaSlicer/blob/main', 'raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/main'
             Write-Host "Downloading: $filename"
             Invoke-WebRequest -Uri $rawUrl -OutFile $localPath -UseBasicParsing
+        }
+
+        # If a *_dark.svg is referenced, also download the non-dark variant for light mode
+        if ($filename -match '_dark(\.svg.*)$') {
+            $lightFile = $filename -replace '_dark(\.svg.*)$', '$1'
+            $lightLocalPath = "docs\images\orcaslicer-icons\$lightFile"
+
+            if (-not (Test-Path $lightLocalPath)) {
+                $lightUrl = $url -replace '_dark(\.svg.*)$', '$1'
+                $lightRawUrl = $lightUrl -replace 'github.com/OrcaSlicer/OrcaSlicer/blob/main', 'raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/main'
+                Write-Host "Downloading: $lightFile"
+                Invoke-WebRequest -Uri $lightRawUrl -OutFile $lightLocalPath -UseBasicParsing
+            }
         }
     }
 } else {
@@ -199,6 +224,7 @@ Write-Host "Copying extra web assets to wiki folder..."
 # Ensure target directories exist
 New-Item -ItemType Directory -Path "wiki\assets\stylesheets" -Force | Out-Null
 New-Item -ItemType Directory -Path "wiki\assets\images" -Force | Out-Null
+New-Item -ItemType Directory -Path "wiki\assets\javascripts" -Force | Out-Null
 
 # Copy extra.css
 if (Test-Path "web_extras\extra.css") {
@@ -221,6 +247,13 @@ if (Test-Path "web_extras\OrcaSlicer.png") {
     Write-Host "Copied OrcaSlicer.png"
 } else {
     Write-Host "Warning: web_extras\OrcaSlicer.png not found - skipping" -ForegroundColor Yellow
+}
+
+if (Test-Path "web_extras\icon-theme.js") {
+    Copy-Item "web_extras\icon-theme.js" "wiki\assets\javascripts\icon-theme.js" -Force
+    Write-Host "Copied icon-theme.js"
+} else {
+    Write-Host "Warning: web_extras\icon-theme.js not found - skipping" -ForegroundColor Yellow
 }
 
 if (Test-Path "web_extras") {

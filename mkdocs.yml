@@ -34,9 +34,12 @@ theme:
         name: Switch to light mode
   font: false # default font only pulls font with 300, 400, 400i and 700 weight
               # pulled fonts with CSS method. Fonts are pulled from Google and its same for Defaut behaviour
-  
+
 extra_css:
   - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/icon-theme.js
 
 plugins:
   - search
@@ -59,13 +62,13 @@ markdown_extensions:
   - admonition
   - pymdownx.details  # For collapsible admonitions
   - pymdownx.superfences
-  
+
 extra:
   generator: false # hides "Made with Material for MkDocs" from footer
   social:          # adds links tofooter
-    - icon: fontawesome/brands/github 
+    - icon: fontawesome/brands/github
       link: https://github.com/OrcaSlicer/OrcaSlicer
-    - icon: fontawesome/brands/discord 
+    - icon: fontawesome/brands/discord
       link: https://discord.gg/P4VE9UY9gJ
 
 copyright: Copyright &copy; 2022-2025 Li Jiang. All rights reserved.

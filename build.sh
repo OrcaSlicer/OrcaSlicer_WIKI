@@ -85,13 +85,26 @@ if [ "$DOWNLOAD_SVG" = true ]; then
     # Extract filename from URL
     filename=$(basename "$url")
     local_path="docs/images/orcaslicer-icons/$filename"
-    
+
     # Download if not already cached
     if [ ! -f "$local_path" ]; then
       # Convert blob URL to raw URL
       raw_url=$(echo "$url" | sed 's|github.com/OrcaSlicer/OrcaSlicer/blob/main|raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/main|')
       echo "  Downloading: $filename"
       curl -sL "$raw_url" -o "$local_path" 2>/dev/null || true
+    fi
+
+    # If this is a *_dark.svg icon, also fetch the light variant so theme swapping works offline
+    if echo "$filename" | grep -q "_dark\\.svg"; then
+      light_filename=$(echo "$filename" | sed 's/_dark\\(\\.svg.*\\)/\\1/')
+      light_local_path="docs/images/orcaslicer-icons/$light_filename"
+
+      if [ ! -f "$light_local_path" ]; then
+        light_url=$(echo "$url" | sed 's/_dark\\(\\.svg.*\\)/\\1/')
+        light_raw_url=$(echo "$light_url" | sed 's|github.com/OrcaSlicer/OrcaSlicer/blob/main|raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/main|')
+        echo "  Downloading: $light_filename"
+        curl -sL "$light_raw_url" -o "$light_local_path" 2>/dev/null || true
+      fi
     fi
   done
 else
@@ -102,20 +115,25 @@ find docs -name "*.md" -type f | while read md_file; do
   # Calculate relative path to images based on file depth
   depth=$(echo "$md_file" | tr -cd '/' | wc -c)
   depth=$((depth - 1))  # Subtract 1 for "docs/"
-  
+
   prefix=""
   for ((i=0; i<depth; i++)); do
     prefix="../$prefix"
   done
-  
+
   # Replace OrcaSlicer_WIKI GitHub URLs with relative paths
   sed -i '' "s|https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/\([^?]*\)?raw=true|${prefix}images/\1|g" "$md_file" 2>/dev/null || \
   sed -i "s|https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/\([^?]*\)?raw=true|${prefix}images/\1|g" "$md_file"
-  
+
   # Replace OrcaSlicer main repo icon URLs with local paths
   sed -i '' "s|https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/\([^?]*\)?raw=true|${prefix}images/orcaslicer-icons/\1|g" "$md_file" 2>/dev/null || \
   sed -i "s|https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/\([^?]*\)?raw=true|${prefix}images/orcaslicer-icons/\1|g" "$md_file"
 done
+
+# Ensure MkDocs can find custom assets during the build
+mkdir -p docs/assets/stylesheets docs/assets/javascripts
+[ -f "web_extras/extra.css" ] && cp "web_extras/extra.css" docs/assets/stylesheets/extra.css
+[ -f "web_extras/icon-theme.js" ] && cp "web_extras/icon-theme.js" docs/assets/javascripts/icon-theme.js
 
 # Build mkdocs and output to wiki folder
 mkdocs build --site-dir wiki
@@ -127,35 +145,35 @@ create_redirects() {
   find wiki -name "*.html" -type f ! -name "index.html" | while read html_file; do
     # Get the relative path from wiki/
     rel_path="${html_file#wiki/}"
-    
+
     # Extract the filename without .html extension
     filename=$(basename "$rel_path" .html)
-    
+
     # Skip files already at root level
     dir_of_file=$(dirname "$rel_path")
     if [ "$dir_of_file" = "." ]; then
       continue
     fi
-    
+
     # Create redirect directory at root level (for clean URLs without .html)
     redirect_dir="wiki/${filename}"
-    
+
     # Skip if directory already exists (could be a real content directory)
     if [ -d "$redirect_dir" ]; then
       continue
     fi
-    
+
     mkdir -p "$redirect_dir"
     redirect_file="${redirect_dir}/index.html"
-    
+
     # Calculate relative path from redirect directory to target
     # Redirect is at wiki/filename/, target is at wiki/rel_path
     # So we need to go up one level (../) then to rel_path
     relative_url="../${rel_path}"
-    
+
     # URL encode spaces in the path
     encoded_url=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "${relative_url}" 2>/dev/null || echo "${relative_url}" | sed 's/ /%20/g')
-    
+
     # Create redirect HTML content
     cat > "$redirect_file" <<EOF
 <!DOCTYPE html>
@@ -182,6 +200,7 @@ rm -rf docs
 echo "Copying extra web assets to wiki folder..."
 mkdir -p wiki/assets/stylesheets
 mkdir -p wiki/assets/images
+mkdir -p wiki/assets/javascripts
 
 # Copy shared assets that complement MkDocs' static site output
 if [ -f "web_extras/extra.css" ]; then
@@ -200,6 +219,12 @@ if [ -f "web_extras/OrcaSlicer.png" ]; then
   cp "web_extras/OrcaSlicer.png" wiki/assets/images/OrcaSlicer.png
 else
   echo "Warning: web_extras/OrcaSlicer.png not found - skipping"
+fi
+
+if [ -f "web_extras/icon-theme.js" ]; then
+  cp "web_extras/icon-theme.js" wiki/assets/javascripts/icon-theme.js
+else
+  echo "Warning: web_extras/icon-theme.js not found - skipping"
 fi
 
 if [ -d "web_extras" ]; then
