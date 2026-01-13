@@ -1,5 +1,3 @@
 # Cutting Tool
 
-Work In Progress...
-
-You can read about this feature in [Bambu Studio's documentation](https://wiki.bambulab.com/en/software/bambu-studio/cut-tool)
+This tool is used to cut 3D models into smaller parts for easier printing or assembly.
