@@ -1,5 +1,4 @@
 # Support Painting
 
-Work In Progress...
-
-You can read about this feature in [Bambu Studio's documentation](https://wiki.bambulab.com/en/software/bambu-studio/support-painting)
+This tool allows you to paint areas on your 3D model where you want to add or remove support structures during printing.  
+This is particularly useful for models with overhangs or complex geometries where you want to control the placement of supports for better print quality and easier removal.
