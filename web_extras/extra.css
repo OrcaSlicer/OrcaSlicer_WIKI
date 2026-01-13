@@ -329,5 +329,5 @@ head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
 
 /* Override theme's height: auto for images to respect explicit height attributes */
 .md-typeset img {
-  height: unset;
+  height: revert;
 }
