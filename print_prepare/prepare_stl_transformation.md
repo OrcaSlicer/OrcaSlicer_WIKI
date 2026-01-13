@@ -20,7 +20,7 @@ If you don't see this when opening a STEP file, check [Don't show again](#dont-s
 The transformation uses [Linear Deflection and Angular Deflection](https://dev.opencascade.org/doc/overview/html/occt_user_guides__mesh.html) parameters to control the mesh quality.
 A finer mesh will result in a more accurate representation of the original surface, but it will also increase the file size and processing time.
 
-![stl-transformation-params](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-params.png?raw=true)
+![stl-transformation-params](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-params.svg?raw=true)
 
 - **Linear Deflection:** Specifies the maximum distance allowed between the original surface and its polygonal approximation. Lower values produce a mesh that more accurately follows the original curvature.
 - **Angular Deflection:** Defines the maximum allowable angle difference between the actual surface and its tessellated counterpart. Smaller angular deflection values yield a more precise mesh.
