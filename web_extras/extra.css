@@ -165,6 +165,15 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
     vertical-align: middle;
 }
 
+img[height="22"] { /* Text icons */
+    height: 22px;
+}
+img[height="45"] { /* Patterns table */
+    height: 45px;
+}
+img[height="200"] { /* Calibrations guide preview */
+    height: 200px;
+}
 
 /* /////// LINKS */
 
@@ -237,7 +246,7 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
     margin-bottom: .4rem;
 }
 
-.md-typeset .admonition>:last-child, 
+.md-typeset .admonition>:last-child,
 .md-typeset details>:last-child {
     margin-bottom: 0;
     margin-block-start: 0.3em;
