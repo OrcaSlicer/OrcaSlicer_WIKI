@@ -13,3 +13,5 @@ Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF) to import into the current p
 Adds a new print plate to the current project.
 
 ## Measure Tool
+
+Use the Measure Tool to measure distances between points/edges/faces on your 3D model.
