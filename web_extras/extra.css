@@ -237,7 +237,7 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
     margin-bottom: .4rem;
 }
 
-.md-typeset .admonition>:last-child, 
+.md-typeset .admonition>:last-child,
 .md-typeset details>:last-child {
     margin-bottom: 0;
     margin-block-start: 0.3em;
@@ -325,4 +325,9 @@ head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
   background-color: transparent;
   color: var(--md-typeset-color);
   font-weight: 550;
+}
+
+/* Override theme's height: auto for images to respect explicit height attributes */
+.md-typeset img {
+  height: unset;
 }
