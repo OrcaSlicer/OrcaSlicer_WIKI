@@ -37,8 +37,12 @@ theme:
 
 extra_css:
   - assets/stylesheets/extra.css
+  - https://unpkg.com/katex@0/dist/katex.min.css
 
 extra_javascript:
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+  - assets/javascripts/katex.js
   - assets/javascripts/icon-theme.js
 
 plugins:
@@ -62,6 +66,8 @@ markdown_extensions:
   - admonition
   - pymdownx.details  # For collapsible admonitions
   - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
 
 extra:
   generator: false # hides "Made with Material for MkDocs" from footer

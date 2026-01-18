@@ -134,6 +134,7 @@ done
 mkdir -p docs/assets/stylesheets docs/assets/javascripts
 [ -f "web_extras/extra.css" ] && cp "web_extras/extra.css" docs/assets/stylesheets/extra.css
 [ -f "web_extras/icon-theme.js" ] && cp "web_extras/icon-theme.js" docs/assets/javascripts/icon-theme.js
+[ -f "web_extras/katex.js" ] && cp "web_extras/katex.js" docs/assets/javascripts/katex.js
 
 # Build mkdocs and output to wiki folder
 mkdocs build --site-dir wiki
@@ -225,6 +226,12 @@ if [ -f "web_extras/icon-theme.js" ]; then
   cp "web_extras/icon-theme.js" wiki/assets/javascripts/icon-theme.js
 else
   echo "Warning: web_extras/icon-theme.js not found - skipping"
+fi
+
+if [ -f "web_extras/katex.js" ]; then
+  cp "web_extras/katex.js" wiki/assets/javascripts/katex.js
+else
+  echo "Warning: web_extras/katex.js not found - skipping"
 fi
 
 if [ -d "web_extras" ]; then

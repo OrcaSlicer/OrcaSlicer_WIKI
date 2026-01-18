@@ -98,6 +98,10 @@ if (Test-Path "web_extras\icon-theme.js") {
     Copy-Item "web_extras\icon-theme.js" "docs/assets/javascripts/icon-theme.js" -Force
 }
 
+if (Test-Path "web_extras\katex.js") {
+    Copy-Item "web_extras\katex.js" "docs/assets/javascripts/katex.js" -Force
+}
+
 Write-Host "Converting GitHub image URLs to local paths..."
 
 if ($DownloadSvg) {
@@ -254,6 +258,13 @@ if (Test-Path "web_extras\icon-theme.js") {
     Write-Host "Copied icon-theme.js"
 } else {
     Write-Host "Warning: web_extras\icon-theme.js not found - skipping" -ForegroundColor Yellow
+}
+
+if (Test-Path "web_extras\katex.js") {
+    Copy-Item "web_extras\katex.js" "wiki\assets\javascripts\katex.js" -Force
+    Write-Host "Copied katex.js"
+} else {
+    Write-Host "Warning: web_extras\katex.js not found - skipping" -ForegroundColor Yellow
 }
 
 if (Test-Path "web_extras") {
