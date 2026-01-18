@@ -51,9 +51,9 @@ When a speed change is requested, the firmware look-ahead planner calculates the
 
 This deceleration move would happen over approximately 9.6mm. This is derived from the following equation:
 
-```math
+$$
 d = \frac{v_f^2 - v_i^2}{2a}
-```
+$$
 
 Where:
 
@@ -64,9 +64,9 @@ Where:
 
 The time taken to decelerate to this new speed would be approx. 0.08 seconds, derived from the following equation:
 
-```math
+$$
 t = \frac{v_f - v_i}{a}
-```
+$$
 
 A printer printing at 200mm/sec with a 0.42 line width and 0.16 layer height would be extruding plastic at approx. 12.16mm³/sec, as can also be seen from the below visual.
 

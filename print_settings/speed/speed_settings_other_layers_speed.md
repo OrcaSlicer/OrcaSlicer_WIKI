@@ -47,9 +47,9 @@ If expressed as percentage (for example: 80%) it will be calculated on the [oute
 **Radius** in millimeters below which the speed of perimeters will be reduced to the [small perimeters speed](#small-perimeters).  
 To know the length of the perimeter, you can use the formula:
 
-```math
+$$
 \frac{\text{Perimeter Length}}{2\pi} \leq \text{Threshold}
-```
+$$
 
 For example, if the threshold is set to 5 mm, then the perimeter length must be less than or equal to 31.4 mm (2 * π * 5 mm) to be considered a small perimeter.
 

@@ -26,9 +26,9 @@ Use calipers or a ruler to measure the **height** of the model just before the d
 
 - Use the following formula
 
-  ```math
+  $$
   Filament Max Volumetric Speed = start + (HeightMeasured * step)
-  ```
+  $$
 
   In this case (19mm), so the calculation would be: `5 + (19 * 0.5) = 14.5mm³/s`
 

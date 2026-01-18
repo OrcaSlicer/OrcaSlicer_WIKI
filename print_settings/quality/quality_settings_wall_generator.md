@@ -37,9 +37,9 @@ Defines the minimum angle (in degrees) required for the algorithm to create a tr
 
 Prevents rapid switching between more or fewer walls by defining a tolerance range around the minimum wall width. The extrusion width will stay within the range:
 
-```math
+$$
 \left[ \text{Minimum Wall Width} - \text{Margin},\ 2 \times \text{Minimum Wall Width} + \text{Margin} \right]
-```
+$$
 
 Higher values reduce transitions, travel moves, and extrusion starts/stops, but may increase extrusion variability and introduce print quality issues. Expressed as a percentage of nozzle diameter.
 

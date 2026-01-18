@@ -80,9 +80,9 @@ Higher values result in more aggressive cornering speeds, while lower values pro
 
 This value will **only be overwritten** if it is lower than the Junction Deviation value set in Printer settings > Motion ability. If it is higher, the value configured in Motion ability will be used.
 
-```math
+$$
 JD = 0,4 \cdot \frac{\text{Jerk}^2}{\text{Accel.}}
-```
+$$
 
 ## Useful links
 
