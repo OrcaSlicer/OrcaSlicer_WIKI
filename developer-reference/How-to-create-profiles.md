@@ -93,40 +93,40 @@ The following sample JSON file shows how to create a new generic filament profil
 
 1. The first step is to create a new file in the `resources\profiles\OrcaFilamentLibrary\filament` folder. The file name should be `Generic PLA-GF @System.json`. Please note that we leave the `compatible_printers` field empty so that it is available for all printers.
 
-```json
-{
-    "type": "filament",
-    "filament_id": "GFL99",
-    "setting_id": "GFSA05",
-    "name": "Generic PLA-GF @System",
-    "from": "system",
-    "instantiation": "true",
-    "inherits": "fdm_filament_pla",
-    "filament_type": ["PLA-GF"],
-    "filament_flow_ratio": [
-        "0.96"
-    ],
-    "compatible_printers": []
-}
-```
+   ```json
+   {
+       "type": "filament",
+       "filament_id": "GFL99",
+       "setting_id": "GFSA05",
+       "name": "Generic PLA-GF @System",
+       "from": "system",
+       "instantiation": "true",
+       "inherits": "fdm_filament_pla",
+       "filament_type": ["PLA-GF"],
+       "filament_flow_ratio": [
+           "0.96"
+       ],
+       "compatible_printers": []
+   }
+   ```
 
 2. Register the profile in `resources\profiles\OrcaFilamentLibrary.json`:
 
-```json
-{
-  "name": "OrcaFilamentLibrary",
-  "version": "02.02.00.04",
-  "force_update": "0",
-  "description": "Orca Filament Library",
-  "filament_list": [
-    // ...
-    {
-      "name": "Generic PLA-GF @System",
-      "sub_path": "filament/Generic PLA-GF @System.json"
-    }
-  ]
-}
-```
+   ```json
+   {
+     "name": "OrcaFilamentLibrary",
+     "version": "02.02.00.04",
+     "force_update": "0",
+     "description": "Orca Filament Library",
+     "filament_list": [
+       // ...
+       {
+         "name": "Generic PLA-GF @System",
+         "sub_path": "filament/Generic PLA-GF @System.json"
+       }
+     ]
+   }
+   ```
 
 3. The last step is to validate the newly added filament profiles see [Validate Profiles](#validate-profiles).
 

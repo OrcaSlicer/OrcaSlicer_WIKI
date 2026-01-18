@@ -92,14 +92,15 @@ How to building with Visual Studio on Windows 64-bit.
    - If using the command line:
      1. Clone the repository:
 
-     ```shell
-     git clone https://github.com/OrcaSlicer/OrcaSlicer
-     ```
+        ```shell
+        git clone https://github.com/OrcaSlicer/OrcaSlicer
+        ```
 
      2. Run lfs to download tools on Windows:
-     ```shell
-     git lfs pull
-     ```
+
+        ```shell
+        git lfs pull
+        ```
 
 2. Open the appropriate command prompt:
 
@@ -125,15 +126,16 @@ How to building with Visual Studio on Windows 64-bit.
       build_release_vs.bat
       ```
 
-![vs_cmd](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/vs_cmd.png?raw=true)
+    ![vs_cmd](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/vs_cmd.png?raw=true)
 
-> [!NOTE]
-> The build process will take a long time depending on your system but even with high-end hardware it can take up to 40 minutes.
+    > [!NOTE]
+    > The build process will take a long time depending on your system but even with high-end hardware it can take up to 40 minutes.
 
-> [!TIP]
-> If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
+    > [!TIP]
+    > If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
 
 3. If successful, you will find the Visual Studio solution file in:
+
    ```shell
    build\OrcaSlicer.slnx
    ```
@@ -201,15 +203,15 @@ Homebrew currently only offers the latest version of CMake (e.g. **4.X**), which
 2. Install the application (drag it to `/Applications`).
 3. Add the following line to your shell configuration file (`~/.zshrc` or `~/.bash_profile`):
 
-```sh
-export PATH="/Applications/CMake.app/Contents/bin:$PATH"
-```
+    ```sh
+    export PATH="/Applications/CMake.app/Contents/bin:$PATH"
+    ```
 
 4. Restart the terminal and check the version:
 
-```sh
-cmake --version
-```
+    ```sh
+    cmake --version
+    ```
 
 5. Make sure it reports a **3.31.x** version.
 

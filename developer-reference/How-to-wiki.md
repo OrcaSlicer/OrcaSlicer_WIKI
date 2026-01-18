@@ -96,46 +96,46 @@ The links naming uses the same format as the [Wiki Navigation described above](#
 
 There are 3 main ways to set up these links:
 
-1. Using `append_single_option_line` with a second string argument for the wiki page.
+1. Using `append_single_option_line` with a second string argument for the wiki page.  
 
-```cpp
-optgroup->append_single_option_line("[OPTION_NAME]"); // Option without wiki page/redirection
-optgroup->append_single_option_line("[OPTION_NAME]", "[WIKI_LINK]"); // Option with wiki page and redirection
-```
+   ```cpp
+   optgroup->append_single_option_line("[OPTION_NAME]"); // Option without wiki page/redirection
+   optgroup->append_single_option_line("[OPTION_NAME]", "[WIKI_LINK]"); // Option with wiki page and redirection
+   ```
 
-Example:
+    Example:
 
-```cpp
-optgroup->append_single_option_line("seam_gap","quality_settings_seam"); // Wiki page and redirection
-optgroup->append_single_option_line("seam_slope_type", "quality_settings_seam#scarf-joint-seam"); // Wiki page and redirection to `Scarf Joint Seam` section
-```
+   ```cpp
+   optgroup->append_single_option_line("seam_gap","quality_settings_seam"); // Wiki page and redirection
+   optgroup->append_single_option_line("seam_slope_type", "quality_settings_seam#scarf-joint-seam"); // Wiki page and redirection to `Scarf Joint Seam` section
+   ```
 
 2. Using `append_option_line` with a third string argument for the wiki page.
 
-```cpp
-append_option_line([optgroup], [opt_key], "[WIKI_LINK]");
-```
+   ```cpp
+   append_option_line([optgroup], [opt_key], "[WIKI_LINK]");
+   ```
 
-Example:
+    Example:
 
-```cpp
-append_option_line(optgroup, "machine_max_acceleration_x", "printer_motion_ability#acceleration-limitation");
-```
+   ```cpp
+   append_option_line(optgroup, "machine_max_acceleration_x", "printer_motion_ability#acceleration-limitation");
+   ```
 
 3. Using grouped rows with `append_line` and setting the wiki target via `line.label_path`.
 
-```cpp
-line.label_path = "[WIKI_LINK]";
-```
+   ```cpp
+   line.label_path = "[WIKI_LINK]";
+   ```
 
-Example:
+    Example:
 
-```cpp
-Line line = { L("Overhang speed"), L("...") };
-line.label_path = "speed_settings_overhang_speed#slow-down-for-overhang";
-line.append_option(optgroup->get_option("overhang_1_4_speed"));
-optgroup->append_line(line);
-```
+   ```cpp
+   Line line = { L("Overhang speed"), L("...") };
+   line.label_path = "speed_settings_overhang_speed#slow-down-for-overhang";
+   line.append_option(optgroup->get_option("overhang_1_4_speed"));
+   optgroup->append_line(line);
+   ```
 
 ## Formatting and Style
 

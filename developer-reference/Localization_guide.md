@@ -11,6 +11,8 @@ After GNUgettext is installed, it is recommended to add the path to gettext/bin 
 
 Full manual for GNUgettext can be seen here: [http://www.gnu.org/software/gettext/manual/gettext.html](http://www.gnu.org/software/gettext/manual/gettext.html)
 
+## Scenarios for translators
+
 ### Scenario 1. How do I add a translation or fix an existing translation
 
 1. Get PO-file 'OrcaSlicer_xx.pot' from corresponding sub-folder here:
