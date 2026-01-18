@@ -73,68 +73,68 @@ Pre-requisites:
    ![IS_damp_menu](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_menu.png?raw=true)
    1. Measure the X and Y heights and read the damping set at that point in OrcaSlicer.  
       ![IS_damp_marlin_print_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_marlin_print_measure.jpg?raw=true)
-   - Marlin:  
-     ![IS_damp_marlin_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_marlin_slicer_measure.png?raw=true)
-   - Klipper:  
-     ![IS_damp_klipper_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_klipper_slicer_measure.png?raw=true)
+        - Marlin:  
+        ![IS_damp_marlin_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_marlin_slicer_measure.png?raw=true)
+        - Klipper:  
+        ![IS_damp_klipper_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/IS_damp_klipper_slicer_measure.png?raw=true)
 6. **Restore your 3D Printer settings to avoid keep using high acceleration and jerk values.**
 7. **Save the settings**
-   - Into your printer firmware settings save the values you found (Type, frequency/cies and damp)
-   - Save it into Orca's printer profile settings in Printer settings/ Machine G-code/ Machine start G-code using the following G-code:
-     - Klipper:
-       - Skeleton
+    - Into your printer firmware settings save the values you found (Type, frequency/cies and damp)
+    - Save it into Orca's printer profile settings in Printer settings/ Machine G-code/ Machine start G-code using the following G-code:
+        - Klipper:
+            - Skeleton:
 
-       ```gcode
-       SET_INPUT_SHAPER SHAPER_TYPE=TYPE SHAPER_FREQ_X=#Xfrequency DAMPING_RATIO_X=#XDamping SHAPER_FREQ_Y=#Yfrequency DAMPING_RATIO_Y=#YDamping
-       ```
+            ```gcode
+            SET_INPUT_SHAPER SHAPER_TYPE=TYPE SHAPER_FREQ_X=#Xfrequency DAMPING_RATIO_X=#XDamping SHAPER_FREQ_Y=#Yfrequency DAMPING_RATIO_Y=#YDamping
+            ```
 
-       Example
+            - Example:
 
-       ```gcode
-       SET_INPUT_SHAPER SHAPER_TYPE=MZV SHAPER_FREQ_X=37.25 DAMPING_RATIO_X=0.16 SHAPER_FREQ_Y=37.5 DAMPING_RATIO_Y=0.06
-       ```
+            ```gcode
+            SET_INPUT_SHAPER SHAPER_TYPE=MZV SHAPER_FREQ_X=37.25 DAMPING_RATIO_X=0.16 SHAPER_FREQ_Y=37.5 DAMPING_RATIO_Y=0.06
+            ```
 
-     - Marlin:
-       - Skeleton
+        - Marlin:
+            - Skeleton:
 
-       ```gcode
-       M593 X F#Xfrequency D#XDamping
-       M593 Y F#Yfrequency D#YDamping
-       M500
-       ```
+            ```gcode
+            M593 X F#Xfrequency D#XDamping
+            M593 Y F#Yfrequency D#YDamping
+            M500
+            ```
 
-       Example
+            - Example
 
-       ```gcode
-       M593 X F37.25 D0.16
-       M593 Y F37.5 D0.06
-       M500
-       ```
+            ```gcode
+            M593 X F37.25 D0.16
+            M593 Y F37.5 D0.06
+            M500
+            ```
 
-     - RepRap:
-       - Skeleton for RepRap 3.3 and later
+        - RepRap:
+            - Skeleton: for RepRap 3.3 and later
 
-         ```gcode
-         M593 P#Type F#frequency S#Damping
-         ```
+            ```gcode
+            M593 P#Type F#frequency S#Damping
+            ```
 
-         Example RepRap 3.4 and later
+            - Example RepRap 3.4 and later
 
-         ```gcode
-         M593 P"ZVD" F37.25 S0.16
-         ```
+            ```gcode
+            M593 P"ZVD" F37.25 S0.16
+            ```
 
-       - Skeleton for RepRap 3.2 and earlier
+            - Skeleton: for RepRap 3.2 and earlier
 
-         ```gcode
-         M593 F#frequency
-         ```
+            ```gcode
+            M593 F#frequency
+            ```
 
-         Example Legacy (RepRap 3.2 and earlier)
+            - Example Legacy (RepRap 3.2 and earlier)
 
-         ```gcode
-         M593 F37.25
-         ```
+            ```gcode
+            M593 F37.25
+            ```
 
 ### Fixed-Time Motion
 

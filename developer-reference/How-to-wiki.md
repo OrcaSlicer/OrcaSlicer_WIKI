@@ -68,10 +68,28 @@ For long pages, include a table of contents at the top to help readers find sect
 
 ```markdown
 - [Wiki Structure](#wiki-structure)
-  - [Home](#home)
-    - [Index and Navigation](#index-and-navigation)
-  - [File Naming and Organization](#file-naming-and-organization)
+    - [Home](#home)
+        - [Index and Navigation](#index-and-navigation)
+    - [File Naming and Organization](#file-naming-and-organization)
+- [Orca to Wiki Redirection](#orca-to-wiki-redirection)
 - [Formatting and Style](#formatting-and-style)
+    - [Markdown Formatting](#markdown-formatting)
+    - [Alerts and Callouts](#alerts-and-callouts)
+- [Images](#images)
+    - [Image Sources](#image-sources)
+        - [OrcaSlicer Resources](#orcaslicer-resources)
+        - [Wiki Images](#wiki-images)
+            - [Image Naming](#image-naming)
+            - [Image Placement](#image-placement)
+            - [Linking Images](#linking-images)
+                - [Examples](#examples)
+    - [Avoid the Following](#avoid-the-following)
+        - [Resize Images](#resize-images)
+    - [Image Cropping and Highlighting](#image-cropping-and-highlighting)
+    - [Recommended Formats](#recommended-formats)
+- [Structuring Content](#structuring-content)
+- [Commands and Code Blocks](#commands-and-code-blocks)
+- [External Links](#external-links)
 ```
 
 > [!NOTE]

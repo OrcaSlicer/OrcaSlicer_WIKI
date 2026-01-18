@@ -43,84 +43,84 @@ This test will be set detect automatically your printer firmware type and will a
       ![jd_second_print_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/JunctionDeviation/jd_second_print_measure.jpg?raw=true)  
       ![jd_second_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/JunctionDeviation/jd_second_slicer_measure.png?raw=true)
 3. Save the settings
-   - Into your OrcaSlicer printer profile (**RECOMMENDED**):
-     1. Go to Printer [settings → Motion ability → Jerk limitation](printer_motion_ability#jerk-limitation):
-     2. Set your maximum Jerk X and Y or Junction Deviation values.  
+    - Into your OrcaSlicer printer profile (**RECOMMENDED**):
+        1. Go to Printer [settings → Motion ability → Jerk limitation](printer_motion_ability#jerk-limitation):
+        2. Set your maximum Jerk X and Y or Junction Deviation values.  
         ![jd_printer_jerk_limitation](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/JunctionDeviation/jd_printer_jerk_limitation.png?raw=true)
-   - Directly into your printer firmware:
-     - Restore your 3D Printer settings to avoid keeping high acceleration and jerk values used for the test.
+    - Directly into your printer firmware:
+        - Restore your 3D Printer settings to avoid keeping high acceleration and jerk values used for the test.
 
-     - Klipper:
-       - Skeleton
+        - Klipper:
+            - Skeleton:
 
-       ```gcode
-       SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=#SquareCornerVelocity
-       ```
+            ```gcode
+            SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=#SquareCornerVelocity
+            ```
 
-       Example:
+            Example:
 
-       ```gcode
-       SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=5.0
-       ```
+            ```gcode
+            SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=5.0
+            ```
 
-       Note: You can also set `square_corner_velocity` persistently in your `printer.cfg` (restart required).
+           Note: You can also set `square_corner_velocity` persistently in your `printer.cfg` (restart required).
 
-     - Marlin 2 (Junction Deviation enabled):
-       - Skeleton
+        - Marlin 2 (Junction Deviation enabled):
+            - Skeleton:
 
-       ```gcode
-       M205 J#JunctionDeviationValue
-       M500
-       ```
+            ```gcode
+            M205 J#JunctionDeviationValue
+            M500
+            ```
 
-       Example:
+            - Example:
 
-       ```gcode
-       M205 J0.012
-       M500
-       ```
+            ```gcode
+            M205 J0.012
+            M500
+            ```
 
-       - To make the change permanent in firmware, set in `Configuration.h` and recompile:
+        - To make the change permanent in firmware, set in `Configuration.h` and recompile:
 
-       ```cpp
-       #define JUNCTION_DEVIATION_MM 0.012  // (mm) Distance from real junction edge
-       ```
+        ```cpp
+        #define JUNCTION_DEVIATION_MM 0.012  // (mm) Distance from real junction edge
+        ```
 
-       Also ensure classic jerk is disabled if using junction deviation:
+        Also ensure classic jerk is disabled if using junction deviation:
 
-       ```cpp
-       //#define CLASSIC_JERK
-       ```
+        ```cpp
+        //#define CLASSIC_JERK
+         ```
 
-     - Marlin Classic Jerk / Marlin Legacy:
-       - Skeleton — set the per-axis jerk limits using `M205` (X/Y optional depending on firmware build):
+        - Marlin Classic Jerk / Marlin Legacy:
+            - Skeleton: — set the per-axis jerk limits using `M205` (X/Y optional depending on firmware build):
 
-       ```gcode
-       M205 X#JerkX Y#JerkY
-       M500
-       ```
+            ```gcode
+            M205 X#JerkX Y#JerkY
+            M500
+            ```
 
-       Example:
+            - Example:
 
-       ```gcode
-       M205 X10 Y10
-       M500
-       ```
+            ```gcode
+            M205 X10 Y10
+            M500
+            ```
 
-     - RepRap (Duet / RepRapFirmware):
-       **IMPORTANT:** Set in mm/min so convert from mm/s to mm/min multiply by 60.
-       - Skeleton
+        - RepRap (Duet / RepRapFirmware):  
+            **IMPORTANT:** Set in mm/min so convert from mm/s to mm/min multiply by 60.
+            - Skeleton:
 
-       ```gcode
-       M566 X#max_instantaneous_change Y#max_instantaneous_change
-       M500  ; if supported by your board
-       ```
+            ```gcode
+            M566 X#max_instantaneous_change Y#max_instantaneous_change
+            M500  ; if supported by your board
+            ```
 
-       Example (Duet-style):
+            - Example (Duet-style):
 
-       ```gcode
-       M566 X3000 Y3000
-       ```
+            ```gcode
+            M566 X3000 Y3000
+            ```
 
 > [!NOTE]
 > RepRapFirmware exposes `M566` to set allowable instantaneous speed changes; some boards may persist settings with `M500` or via their web/config files.

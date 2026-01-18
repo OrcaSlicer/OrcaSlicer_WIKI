@@ -88,65 +88,65 @@ How to building with Visual Studio on Windows 64-bit.
 ### Windows Instructions
 
 1. Clone the repository:
-   - If using GitHub Desktop clone the repository from the GUI.
-   - If using the command line:
-     1. Clone the repository:
+    - If using GitHub Desktop clone the repository from the GUI.
+    - If using the command line:
+        1. Clone the repository:
 
-        ```shell
-        git clone https://github.com/OrcaSlicer/OrcaSlicer
-        ```
+            ```shell
+            git clone https://github.com/OrcaSlicer/OrcaSlicer
+            ```
 
-     2. Run lfs to download tools on Windows:
+        2. Run lfs to download tools on Windows:
 
-        ```shell
-        git lfs pull
-        ```
+            ```shell
+            git lfs pull
+            ```
 
 2. Open the appropriate command prompt:
 
-   ```MD
-   x64 Native Tools Command Prompt for VS
-   ```
+    ```MD
+    x64 Native Tools Command Prompt for VS
+    ```
 
    1. Navigate to correct drive (if needed), e.g.:
 
-      ```shell
-      N:
-      ```
+        ```shell
+        N:
+        ```
 
    2. Change directory to the cloned repository, e.g.:
 
-      ```shell
-      cd N:\Repos\OrcaSlicer
-      ```
+        ```shell
+        cd N:\Repos\OrcaSlicer
+        ```
 
    3. Run the build script:
 
-      ```shell
-      build_release_vs.bat
-      ```
+        ```shell
+        build_release_vs.bat
+        ```
 
-    ![vs_cmd](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/vs_cmd.png?raw=true)
+        ![vs_cmd](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/vs_cmd.png?raw=true)
 
-    > [!NOTE]
-    > The build process will take a long time depending on your system but even with high-end hardware it can take up to 40 minutes.
+        > [!NOTE]
+        > The build process will take a long time depending on your system but even with high-end hardware it can take up to 40 minutes.
 
-    > [!TIP]
-    > If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
+        > [!TIP]
+        > If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
 
 3. If successful, you will find the Visual Studio solution file in:
 
-   ```shell
-   build\OrcaSlicer.slnx
-   ```
+    ```shell
+    build\OrcaSlicer.slnx
+    ```
 
 4. Open the solution in Visual Studio, set the build configuration to `Release` and run the `Local Windows Debugger`.  
    ![compile_vs_local_debugger](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/compile_vs_local_debugger.png?raw=true)
 5. Your resulting executable will be located in:
 
-   ```shell
-   \build\src\Release\orca-slicer.exe
-   ```
+    ```shell
+    \build\src\Release\orca-slicer.exe
+    ```
 
 > [!NOTE]
 > The first time you build a branch, it will take a long time.  
@@ -250,11 +250,11 @@ To build and debug directly in Xcode:
    ```
 
 2. In the menu bar:
-   - **Product > Scheme > OrcaSlicer**
-   - **Product > Scheme > Edit Scheme...**
-     - Under **Run > Info**, set **Build Configuration** to `RelWithDebInfo`
-     - Under **Run > Options**, uncheck **Allow debugging when browsing versions**
-   - **Product > Run**
+    - **Product > Scheme > OrcaSlicer**
+    - **Product > Scheme > Edit Scheme...**
+        - Under **Run > Info**, set **Build Configuration** to `RelWithDebInfo`
+        - Under **Run > Options**, uncheck **Allow debugging when browsing versions**
+    - **Product > Run**
 
 ## Linux
 
