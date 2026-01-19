@@ -51,7 +51,7 @@ $$
 \frac{\text{Perimeter Length}}{2\pi} \leq \text{Threshold}
 $$
 
-For example, if the threshold is set to 5 mm, then the perimeter length must be less than or equal to 31.4 mm (2 * π * 5 mm) to be considered a small perimeter.
+For example, if the threshold is set to 5 mm, then the perimeter length must be less than or equal to 31.4 mm `(2 * π * 5 mm)` to be considered a small perimeter.
 
 - A Circle with a diameter of 10 mm will have a perimeter length of approximately 31.4 mm, which is equal to the threshold, so it will be considered a small perimeter.
 - A Cube of 10mm x 10mm will have a perimeter length of 40 mm, which is greater than the threshold, so it will not be considered a small perimeter.

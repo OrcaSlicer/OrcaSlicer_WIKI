@@ -34,7 +34,7 @@ def folder_to_title(name: str) -> str:
     """Convert a folder name to a readable title."""
     # Replace separators with spaces
     title = name.replace('_', ' ').replace('-', ' ')
-    
+
     # Title case, preserving certain patterns
     words = title.split()
     result = []
@@ -74,11 +74,11 @@ def extract_title_from_md(filepath: Path) -> Optional[str]:
 def filename_to_title(filename: str) -> str:
     """Convert a filename to a readable title."""
     name = filename
-    
+
     # Remove common prefixes (settings files often have category prefixes)
     # This regex removes patterns like "printer_basic_information_", "quality_settings_", etc.
     name = re.sub(r'^[a-z]+_(?:[a-z]+_)*(?=\w)', '', name)
-    
+
     return folder_to_title(name)
 
 
@@ -115,65 +115,65 @@ def get_sort_key(path: Path) -> tuple:
 def scan_folder(folder: Path, base_path: Path) -> list:
     """Recursively scan a folder and build nav structure."""
     nav_items = []
-    
+
     try:
         items = list(folder.iterdir())
     except PermissionError:
         return nav_items
-    
+
     # Separate and sort files and folders
     md_files = sorted(
         [f for f in items if f.is_file() and f.suffix == '.md'],
         key=get_sort_key
     )
     subfolders = sorted(
-        [d for d in items if d.is_dir() 
-         and not d.name.startswith('.') 
+        [d for d in items if d.is_dir()
+         and not d.name.startswith('.')
          and d.name.lower() not in EXCLUDED_FOLDERS],
         key=get_sort_key
     )
-    
+
     # Process markdown files
     for md_file in md_files:
         title = get_file_title(md_file)
         rel_path = md_file.relative_to(base_path)
         nav_items.append((title, str(rel_path).replace('\\', '/')))
-    
+
     # Process subfolders recursively
     for subfolder in subfolders:
         sub_items = scan_folder(subfolder, base_path)
         if sub_items:
             folder_title = get_display_name(subfolder.name)
             nav_items.append((folder_title, sub_items))
-    
+
     return nav_items
 
 
 def generate_nav(base_path: Path) -> list:
     """Generate the complete navigation structure by scanning all folders."""
     nav = []
-    
+
     # Check for Home.md -> becomes index.md
     if (base_path / 'Home.md').exists():
         nav.append(("Home", "index.md"))
-    
+
     # Scan all top-level folders that contain markdown files
     top_level_folders = sorted(
-        [d for d in base_path.iterdir() 
-         if d.is_dir() 
+        [d for d in base_path.iterdir()
+         if d.is_dir()
          and not d.name.startswith('.')
          and d.name.lower() not in EXCLUDED_FOLDERS
          and any(d.rglob('*.md'))],  # Only include if has .md files
         key=get_sort_key
     )
-    
+
     # Build nav from each folder
     for folder in top_level_folders:
         items = scan_folder(folder, base_path)
         if items:
             section_title = get_display_name(folder.name)
             nav.append((section_title, items))
-    
+
     return nav
 
 
@@ -192,14 +192,14 @@ def nav_to_yaml(nav: list, indent: int = 2) -> str:
     """Convert nav structure to YAML string."""
     lines = []
     base_indent = " " * indent
-    
+
     def format_item(item, level):
         prefix = base_indent * level + "- "
         title, value = item
-        
+
         # Escape title to handle special characters
         escaped_title = escape_yaml_string(title)
-        
+
         if isinstance(value, list):
             lines.append(f"{prefix}{escaped_title}:")
             for sub_item in value:
@@ -208,30 +208,30 @@ def nav_to_yaml(nav: list, indent: int = 2) -> str:
             # Escape path value
             escaped_value = escape_yaml_string(value)
             lines.append(f"{prefix}{escaped_title}: {escaped_value}")
-    
+
     for item in nav:
         format_item(item, 0)
-    
+
     return '\n'.join(lines)
 
 
 def update_mkdocs_yml(mkdocs_path: Path, nav_yaml: str) -> None:
     """Update the nav section in mkdocs.yml."""
     content = mkdocs_path.read_text(encoding='utf-8')
-    
+
     # Find and replace the nav section
     # Match nav: followed by lines starting with - or whitespace until next top-level key or EOF
     nav_pattern = re.compile(
         r'^nav:\s*\n((?:[ \t-].*\n)*)',
         re.MULTILINE
     )
-    
+
     match = nav_pattern.search(content)
     if match:
         new_content = content[:match.start()] + f"nav:\n{nav_yaml}\n" + content[match.end():]
     else:
         new_content = content.rstrip() + f"\n\nnav:\n{nav_yaml}\n"
-    
+
     # Validate YAML before writing (basic check - try importing yaml if available)
     try:
         import yaml
@@ -241,7 +241,7 @@ def update_mkdocs_yml(mkdocs_path: Path, nav_yaml: str) -> None:
         pass
     except yaml.YAMLError as e:
         raise ValueError(f"Generated YAML is invalid: {e}") from e
-    
+
     mkdocs_path.write_text(new_content, encoding='utf-8')
     print(f"✅ Updated {mkdocs_path}")
 
@@ -270,7 +270,7 @@ def count_items(nav: list) -> int:
 
 def main():
     import argparse
-    
+
     parser = argparse.ArgumentParser(
         description='Generate mkdocs.yml navigation from folder structure (fully dynamic)'
     )
@@ -279,23 +279,23 @@ def main():
         help='Update mkdocs.yml directly (default: preview only)'
     )
     args = parser.parse_args()
-    
+
     script_dir = Path(__file__).parent
     mkdocs_path = script_dir / 'mkdocs.yml'
-    
+
     if not mkdocs_path.exists():
         print(f"❌ Error: {mkdocs_path} not found")
         return 1
-    
+
     print(f"📂 Scanning: {script_dir}\n")
     nav = generate_nav(script_dir)
     nav_yaml = nav_to_yaml(nav)
-    
+
     print("📋 Navigation Structure:\n")
     print_nav_tree(nav)
     print(f"\n📊 Total pages: {count_items(nav)}")
     print(f"📁 Total sections: {len(nav) - 1}")  # -1 for Home
-    
+
     if args.update:
         print()
         update_mkdocs_yml(mkdocs_path, nav_yaml)
@@ -305,7 +305,7 @@ def main():
         print("nav:")
         print(nav_yaml)
         print("=" * 60)
-    
+
     return 0
 
 

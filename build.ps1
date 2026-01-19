@@ -70,7 +70,7 @@ New-Item -ItemType Directory -Force -Path docs | Out-Null
 Write-Host "Preparing documentation structure..."
 
 $dirsToCopy = @('images', 'calibration', 'developer-reference', 'general-settings',
-                'material_settings', 'print_prepare', 'print_settings', 'printer_settings')
+    'material_settings', 'print_prepare', 'print_settings', 'printer_settings')
 
 foreach ($dir in $dirsToCopy) {
     if (Test-Path $dir) {
@@ -109,7 +109,7 @@ if ($DownloadSvg) {
     Write-Host "Downloading SVG icons from OrcaSlicer main repo..."
 
     $iconUrls = Select-String -Path docs\*.md -Pattern 'https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/[^?)"]*' -AllMatches |
-                ForEach-Object { $_.Matches.Value } | Sort-Object -Unique
+    ForEach-Object { $_.Matches.Value } | Sort-Object -Unique
 
     foreach ($url in $iconUrls) {
         $filename = [System.IO.Path]::GetFileName($url)
@@ -133,7 +133,8 @@ if ($DownloadSvg) {
             }
         }
     }
-} else {
+}
+else {
     Write-Host "Skipping SVG icon download (use --download-svg or -d to enable)"
 }
 
@@ -144,7 +145,7 @@ Get-ChildItem -Path docs -Filter *.md -Recurse | ForEach-Object {
     $docsFull = (Get-Item -Path docs -Force).FullName
 
     # Calculate relative path from docs to current file (as string)
-    $relPathFromDocs = $mdFile.Substring($docsFull.Length).TrimStart('\','/')
+    $relPathFromDocs = $mdFile.Substring($docsFull.Length).TrimStart('\', '/')
 
     # Count how many directory levels deep we are (number of \ or /)
     $depth = ($relPathFromDocs -split '[\\/]').Count - 1   # -1 because file itself doesn't count as level
@@ -155,11 +156,11 @@ Get-ChildItem -Path docs -Filter *.md -Recurse | ForEach-Object {
 
     # Replace GitHub wiki image URLs
     $content = $content -replace 'https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/([^?)"]*)\?raw=true',
-                                 "${prefix}images/`$1"
+    "${prefix}images/`$1"
 
     # Replace OrcaSlicer repo icon URLs
     $content = $content -replace 'https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/([^?)"]*)\?raw=true',
-                                 "${prefix}images/orcaslicer-icons/`$1"
+    "${prefix}images/orcaslicer-icons/`$1"
 
     Set-Content -Path $mdFile -Value $content -NoNewline
 }
@@ -174,7 +175,7 @@ Get-ChildItem -Path wiki -Filter *.html -Recurse | Where-Object { $_.Name -ne 'i
     $wikiFull = (Get-Item -Path wiki -Force).FullName
 
     # Calculate relative path from wiki/ to the current HTML file
-    $relPath = $htmlFile.Substring($wikiFull.Length).TrimStart('\','/')
+    $relPath = $htmlFile.Substring($wikiFull.Length).TrimStart('\', '/')
 
     # Normalize path separators to forward slashes for URLs
     $relPath = $relPath -replace '\\', '/'
@@ -234,7 +235,8 @@ New-Item -ItemType Directory -Path "wiki\assets\javascripts" -Force | Out-Null
 if (Test-Path "web_extras\extra.css") {
     Copy-Item "web_extras\extra.css" "wiki\assets\stylesheets\extra.css" -Force
     Write-Host "Copied extra.css"
-} else {
+}
+else {
     Write-Host "Warning: web_extras\extra.css not found - skipping" -ForegroundColor Yellow
 }
 
@@ -242,28 +244,32 @@ if (Test-Path "web_extras\extra.css") {
 if (Test-Path "web_extras\OrcaSlicer.ico") {
     Copy-Item "web_extras\OrcaSlicer.ico" "wiki\assets\images\OrcaSlicer.ico" -Force
     Write-Host "Copied OrcaSlicer.ico"
-} else {
+}
+else {
     Write-Host "Warning: web_extras\OrcaSlicer.ico not found - skipping" -ForegroundColor Yellow
 }
 
 if (Test-Path "web_extras\OrcaSlicer.png") {
     Copy-Item "web_extras\OrcaSlicer.png" "wiki\assets\images\OrcaSlicer.png" -Force
     Write-Host "Copied OrcaSlicer.png"
-} else {
+}
+else {
     Write-Host "Warning: web_extras\OrcaSlicer.png not found - skipping" -ForegroundColor Yellow
 }
 
 if (Test-Path "web_extras\icon-theme.js") {
     Copy-Item "web_extras\icon-theme.js" "wiki\assets\javascripts\icon-theme.js" -Force
     Write-Host "Copied icon-theme.js"
-} else {
+}
+else {
     Write-Host "Warning: web_extras\icon-theme.js not found - skipping" -ForegroundColor Yellow
 }
 
 if (Test-Path "web_extras\katex.js") {
     Copy-Item "web_extras\katex.js" "wiki\assets\javascripts\katex.js" -Force
     Write-Host "Copied katex.js"
-} else {
+}
+else {
     Write-Host "Warning: web_extras\katex.js not found - skipping" -ForegroundColor Yellow
 }
 
@@ -271,7 +277,8 @@ if (Test-Path "web_extras") {
     New-Item -ItemType Directory -Path "wiki\web_extras" -Force | Out-Null
     Copy-Item -Path "web_extras\*" -Destination "wiki\web_extras" -Recurse -Force -ErrorAction SilentlyContinue
     Write-Host "Copied web_extras directory"
-} else {
+}
+else {
     Write-Host "Warning: web_extras directory not found - skipping" -ForegroundColor Yellow
 }
 
