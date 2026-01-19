@@ -22,23 +22,23 @@
   --md-footer-bg-color:                var(--md-primary-fg-color) !important;
   --md-footer-fg-color:                #FFFFFF;
 
-  --md-code-bg-color:                  #F2F2F2;
+  /* --md-code-bg-color:                  #F2F2F2; */
 
   /* Use single color for codes. otherwise some parts gCodes etc. is hard to read */
-  --md-code-hl-color:                  var(--md-code-fg-color);
-  --md-code-hl-number-color:           var(--md-code-fg-color);
-  --md-code-hl-special-color:          var(--md-code-fg-color);
-  --md-code-hl-function-color:         var(--md-code-fg-color);
-  --md-code-hl-constant-color:         var(--md-code-fg-color); /* variables, gcodes */
-  --md-code-hl-keyword-color:          var(--md-code-fg-color);
-  --md-code-hl-string-color:           var(--md-code-fg-color);
-  --md-code-hl-name-color:             var(--md-code-fg-color);
-  --md-code-hl-color--light:           var(--md-default-fg-color--light);
-  --md-code-hl-operator-color:         var(--md-default-fg-color--light);
-  --md-code-hl-punctuation-color:      var(--md-default-fg-color--light);
-  --md-code-hl-comment-color:          var(--md-default-fg-color--light);
-  --md-code-hl-generic-color:          var(--md-default-fg-color--light);
-  --md-code-hl-variable-color:         var(--md-default-fg-color--light);
+  /* --md-code-hl-color:                  var(--md-code-fg-color); */
+  /* --md-code-hl-number-color:           var(--md-code-fg-color); */
+  /* --md-code-hl-special-color:          var(--md-code-fg-color); */
+  /* --md-code-hl-function-color:         var(--md-code-fg-color); */
+  /* --md-code-hl-constant-color:         var(--md-code-fg-color); *//* variables, gcodes */
+  /* --md-code-hl-keyword-color:          var(--md-code-fg-color); */
+  /* --md-code-hl-string-color:           var(--md-code-fg-color); */
+  /* --md-code-hl-name-color:             var(--md-code-fg-color); */
+  /* --md-code-hl-color--light:           var(--md-default-fg-color--light); */
+  /* --md-code-hl-operator-color:         var(--md-default-fg-color--light); */
+  /* --md-code-hl-punctuation-color:      var(--md-default-fg-color--light); */
+  /* --md-code-hl-comment-color:          var(--md-default-fg-color--light); */
+  /* --md-code-hl-generic-color:          var(--md-default-fg-color--light); */
+  /* --md-code-hl-variable-color:         var(--md-default-fg-color--light); */
 }
 
 [data-md-color-scheme=slate]{
@@ -46,7 +46,7 @@
   --md-default-fg-color:               #EFEFF0;
   --md-primary-fg-color:               #00675B;
   --md-footer-bg-color--dark:          #00000052;
-  --md-code-bg-color:                  #36363C;
+  /*--md-code-bg-color:                  #36363C;*/
 }
 
 /* /////// HEADER */
