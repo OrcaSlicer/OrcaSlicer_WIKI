@@ -235,7 +235,20 @@ def update_mkdocs_yml(mkdocs_path: Path, nav_yaml: str) -> None:
     # Validate YAML before writing (basic check - try importing yaml if available)
     try:
         import yaml
-        yaml.safe_load(new_content)
+
+        class IgnoreUnknownSafeLoader(yaml.SafeLoader):
+            """Safe loader that allows specific custom tags used in mkdocs.yml."""
+
+        def _pymdown_python_name(loader, node):
+            # Treat !!python/name:pymdownx.superfences.fence_code_format as its scalar value
+            return loader.construct_scalar(node)
+
+        IgnoreUnknownSafeLoader.add_constructor(
+            'tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format',
+            _pymdown_python_name,
+        )
+
+        yaml.load(new_content, Loader=IgnoreUnknownSafeLoader)
     except ImportError:
         # yaml module not available, skip validation
         pass
