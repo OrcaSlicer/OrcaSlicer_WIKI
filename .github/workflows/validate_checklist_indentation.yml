@@ -1,0 +1,131 @@
+name: Validate Checklist Indentation
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '**/*.markdown'
+      - '**/*.mdown'
+      - '**/*.mkd'
+      - '**/*.mkdn'
+      - '**/*.mdx'
+  workflow_dispatch:
+
+jobs:
+  checklist-indentation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Validate checklist indentation
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const workspace = process.cwd();
+            const allowedExt = new Set(['.md', '.markdown', '.mdown', '.mkd', '.mkdn', '.mdx']);
+
+            // Get changed files if running in PR context
+            let filesToCheck = [];
+            if (context.eventName === 'pull_request') {
+              const response = await github.rest.pulls.listFiles({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+              });
+              filesToCheck = response.data
+                .filter(file => {
+                  const ext = path.extname(file.filename).toLowerCase();
+                  return allowedExt.has(ext);
+                })
+                .map(file => file.filename);
+            } else {
+              // For workflow_dispatch, check all markdown files
+              filesToCheck = collectAllMarkdownFiles('');
+            }
+
+            if (!filesToCheck.length) {
+              core.info('No Markdown files found; skipping checklist validation.');
+              return;
+            }
+
+            const failures = [];
+
+            for (const relPath of filesToCheck) {
+              const absolutePath = path.join(workspace, relPath);
+              if (!fs.existsSync(absolutePath)) {
+                continue;
+              }
+
+              const text = fs.readFileSync(absolutePath, 'utf8');
+              const lines = text.split('\n');
+
+              lines.forEach((line, index) => {
+                const lineNum = index + 1;
+
+                // Match checklist patterns: "- [ ]", "- [x]", "[number]. [ ]", etc.
+                const checklistPattern = /^(\s*)(?:[-*]|\d+\.)\s+\[[\sx]\]/;
+                const match = line.match(checklistPattern);
+
+                if (match) {
+                  const indentation = match[1].length;
+
+                  // Check if indentation is 0 or a multiple of 4
+                  if (indentation !== 0 && indentation % 4 !== 0) {
+                    failures.push({
+                      filePath: relPath,
+                      line: lineNum,
+                      indentation: indentation,
+                      content: line.trim(),
+                    });
+                  }
+                }
+              });
+            }
+
+            if (failures.length) {
+              let errorMessage = 'Invalid checklist indentation found:\n\n';
+              failures.forEach(failure => {
+                errorMessage += `${failure.filePath}:${failure.line} - Indentation: ${failure.indentation} spaces (must be 0 or a multiple of 4)\n`;
+                errorMessage += `  "${failure.content}"\n\n`;
+              });
+
+              core.setFailed(errorMessage);
+            } else {
+              core.info(`Validated checklist indentation in ${filesToCheck.length} file(s). All valid.`);
+            }
+
+            function collectAllMarkdownFiles(relativeDir) {
+              const files = [];
+              const absoluteDir = relativeDir ? path.join(workspace, relativeDir) : workspace;
+              let entries;
+              try {
+                entries = fs.readdirSync(absoluteDir, { withFileTypes: true });
+              } catch (_) {
+                return files;
+              }
+
+              for (const entry of entries) {
+                if (entry.name === '.git' || entry.name === 'node_modules' || entry.name.startsWith('.')) {
+                  continue;
+                }
+                const relPath = relativeDir ? `${relativeDir}/${entry.name}` : entry.name;
+                if (entry.isDirectory()) {
+                  files.push(...collectAllMarkdownFiles(relPath));
+                } else if (entry.isFile()) {
+                  const ext = path.extname(entry.name).toLowerCase();
+                  if (allowedExt.has(ext)) {
+                    files.push(relPath.replace(/\\/g, '/'));
+                  }
+                }
+              }
+
+              return files;
+            }
