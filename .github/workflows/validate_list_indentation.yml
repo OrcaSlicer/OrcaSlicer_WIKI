@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      ERROR_BLOCK: ''
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -91,16 +93,16 @@ jobs:
             }
 
             if (failures.length) {
-              let errorMessage = 'Invalid list indentation found:\n\n';
-              failures.forEach(failure => {
-                errorMessage += `${failure.filePath}:${failure.line} - Indentation: ${failure.indentation} spaces (must be 0 or a multiple of 4)\n`;
-                errorMessage += `  "${failure.content}"\n\n`;
+              const lines = failures.map((failure) => {
+                return `${failure.filePath} line ${failure.line}: indentation is ${failure.indentation} spaces (must be 0 or a multiple of 4)`;
               });
-
-              core.setFailed(errorMessage);
-            } else {
-              core.info(`Validated list indentation in ${filesToCheck.length} file(s). All valid.`);
+              const block = lines.join('\n');
+              core.exportVariable('ERROR_BLOCK', block);
+              return;
             }
+
+            core.exportVariable('ERROR_BLOCK', '');
+            core.info(`Validated list indentation in ${filesToCheck.length} file(s). All valid.`);
 
             function collectAllMarkdownFiles(relativeDir) {
               const files = [];
@@ -129,3 +131,10 @@ jobs:
 
               return files;
             }
+
+      - name: Show invalid list indentation
+        if: env.ERROR_BLOCK != ''
+        run: |
+          echo 'Invalid list indentation:'
+          printf "\`\`\`\n%s\n\`\`\`\n" "${{ env.ERROR_BLOCK }}"
+          exit 1
