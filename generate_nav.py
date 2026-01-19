@@ -235,7 +235,17 @@ def update_mkdocs_yml(mkdocs_path: Path, nav_yaml: str) -> None:
     # Validate YAML before writing (basic check - try importing yaml if available)
     try:
         import yaml
-        yaml.safe_load(new_content)
+
+        class _MkDocsSafeLoader(yaml.SafeLoader):
+            """SafeLoader that tolerates mkdocs Python tags."""
+
+        # Allow !!python/name:... tags used by MkDocs/pymdownx without executing code
+        _MkDocsSafeLoader.add_constructor(
+            'tag:yaml.org,2002:python/name',
+            lambda loader, node: loader.construct_scalar(node)
+        )
+
+        yaml.load(new_content, Loader=_MkDocsSafeLoader)
     except ImportError:
         # yaml module not available, skip validation
         pass
