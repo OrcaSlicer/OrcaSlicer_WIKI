@@ -1,4 +1,4 @@
-name: Validate Checklist Indentation
+name: Validate List Indentation
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  checklist-indentation:
+  list-indentation:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Validate checklist indentation
+      - name: Validate list indentation
         uses: actions/github-script@v8
         with:
           script: |
@@ -52,7 +52,7 @@ jobs:
             }
 
             if (!filesToCheck.length) {
-              core.info('No Markdown files found; skipping checklist validation.');
+              core.info('No Markdown files found; skipping list indentation validation.');
               return;
             }
 
@@ -91,7 +91,7 @@ jobs:
             }
 
             if (failures.length) {
-              let errorMessage = 'Invalid checklist indentation found:\n\n';
+              let errorMessage = 'Invalid list indentation found:\n\n';
               failures.forEach(failure => {
                 errorMessage += `${failure.filePath}:${failure.line} - Indentation: ${failure.indentation} spaces (must be 0 or a multiple of 4)\n`;
                 errorMessage += `  "${failure.content}"\n\n`;
@@ -99,7 +99,7 @@ jobs:
 
               core.setFailed(errorMessage);
             } else {
-              core.info(`Validated checklist indentation in ${filesToCheck.length} file(s). All valid.`);
+              core.info(`Validated list indentation in ${filesToCheck.length} file(s). All valid.`);
             }
 
             function collectAllMarkdownFiles(relativeDir) {
