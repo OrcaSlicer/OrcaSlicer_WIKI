@@ -35,9 +35,9 @@ This method uses the [Archimedean Chords](strength_settings_patterns#archimedean
 3. A new project with eleven blocks will be created, each with a different flow rate modifier. Slice and print the project.
    ![flowcalibration-yolo](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowcalibration-yolo.gif?raw=true)
 4. Examine the printed blocks and identify the one with the best surface quality. Look for:
-   1. The smoothest top surface.
-   2. No visible gaps between the pattern arcs.
-   3. Minimal or no visible line between the Inner Spiral and the Outer Arcs.
+    1. The smoothest top surface.
+    2. No visible gaps between the pattern arcs.
+    3. Minimal or no visible line between the Inner Spiral and the Outer Arcs.
    ![flowcalibration-guide](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowcalibration-guide.png?raw=true)  
    In this example, the block with a flow modifier of `+0.01` produced the best results, despite a visible line between the Inner Spiral and the Outer Arcs; reducing the flow further begins to show gaps between the lines.  
    ![flowcalibration-example](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowcalibration-example.png?raw=true)
