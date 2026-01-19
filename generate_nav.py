@@ -236,19 +236,24 @@ def update_mkdocs_yml(mkdocs_path: Path, nav_yaml: str) -> None:
     try:
         import yaml
 
-        class IgnoreUnknownSafeLoader(yaml.SafeLoader):
-            """Safe loader that allows specific custom tags used in mkdocs.yml."""
+        # First try strict safe_load; if Python tags are present, fall back to a
+        # constrained loader that only permits the mermaid formatter tag.
+        try:
+            yaml.safe_load(new_content)
+        except yaml.constructor.ConstructorError:
+            class IgnoreUnknownSafeLoader(yaml.SafeLoader):
+                """Safe loader that allows specific custom tags used in mkdocs.yml."""
 
-        def _pymdown_python_name(loader, node):
-            # Treat !!python/name:pymdownx.superfences.fence_code_format as its scalar value
-            return loader.construct_scalar(node)
+            def _pymdown_python_name(loader, node):
+                # Treat !!python/name:pymdownx.superfences.fence_code_format as its scalar value
+                return loader.construct_scalar(node)
 
-        IgnoreUnknownSafeLoader.add_constructor(
-            'tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format',
-            _pymdown_python_name,
-        )
+            IgnoreUnknownSafeLoader.add_constructor(
+                'tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format',
+                _pymdown_python_name,
+            )
 
-        yaml.load(new_content, Loader=IgnoreUnknownSafeLoader)
+            yaml.load(new_content, Loader=IgnoreUnknownSafeLoader)
     except ImportError:
         # yaml module not available, skip validation
         pass
