@@ -70,9 +70,9 @@ jobs:
               lines.forEach((line, index) => {
                 const lineNum = index + 1;
 
-                // Match checklist patterns: "- [ ]", "- [x]", "[number]. [ ]", etc.
-                const checklistPattern = /^(\s*)(?:[-*]|\d+\.)\s+\[[\sx]\]/;
-                const match = line.match(checklistPattern);
+                // Match ALL list patterns: "- ", "* ", "[number]. "
+                const listPattern = /^(\s*)(?:[-*]|\d+\.)\s+/;
+                const match = line.match(listPattern);
 
                 if (match) {
                   const indentation = match[1].length;
