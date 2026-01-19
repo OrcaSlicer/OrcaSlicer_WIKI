@@ -108,19 +108,19 @@ How to building with Visual Studio on Windows 64-bit.
     x64 Native Tools Command Prompt for VS
     ```
 
-   1. Navigate to correct drive (if needed), e.g.:
+    1. Navigate to correct drive (if needed), e.g.:
 
         ```shell
         N:
         ```
 
-   2. Change directory to the cloned repository, e.g.:
+    2. Change directory to the cloned repository, e.g.:
 
         ```shell
         cd N:\Repos\OrcaSlicer
         ```
 
-   3. Run the build script:
+    3. Run the build script:
 
         ```shell
         build_release_vs.bat
