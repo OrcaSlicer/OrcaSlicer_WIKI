@@ -53,13 +53,13 @@ This test will be set detect automatically your printer firmware type and will a
         - Klipper:
             - Skeleton:
 
-            ```gcode
+            ```pwsh
             SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=#SquareCornerVelocity
             ```
 
             Example:
 
-            ```gcode
+            ```pwsh
             SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=5.0
             ```
 

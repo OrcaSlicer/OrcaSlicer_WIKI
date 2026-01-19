@@ -84,13 +84,13 @@ Pre-requisites:
         - Klipper:
             - Skeleton:
 
-            ```gcode
+            ```pwsh
             SET_INPUT_SHAPER SHAPER_TYPE=TYPE SHAPER_FREQ_X=#Xfrequency DAMPING_RATIO_X=#XDamping SHAPER_FREQ_Y=#Yfrequency DAMPING_RATIO_Y=#YDamping
             ```
 
             - Example:
 
-            ```gcode
+            ```pwsh
             SET_INPUT_SHAPER SHAPER_TYPE=MZV SHAPER_FREQ_X=37.25 DAMPING_RATIO_X=0.16 SHAPER_FREQ_Y=37.5 DAMPING_RATIO_Y=0.06
             ```
 

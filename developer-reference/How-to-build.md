@@ -35,38 +35,38 @@ How to building with Visual Studio on Windows 64-bit.
 
 - [Visual Studio](https://visualstudio.microsoft.com/vs/) 2026, 2022 or Visual Studio 2019
 
-  ```shell
+  ```pwsh
   winget install --id=Microsoft.VisualStudio.Community -e
   ```
 
 - [CMake](https://cmake.org/)
 
-  ```shell
+  ```pwsh
   winget install --id=Kitware.CMake -e
   ```
 
 - [Strawberry Perl](https://strawberryperl.com/)
 
-  ```shell
+  ```pwsh
   winget install --id=StrawberryPerl.StrawberryPerl -e
   ```
 
 - [Git](https://git-scm.com/)
 
-  ```shell
+  ```pwsh
   winget install --id=Git.Git -e
   ```
 
 - [git-lfs](https://git-lfs.com/)
 
-  ```shell
+  ```pwsh
   winget install --id=GitHub.GitLFS -e
   ```
 
 > [!TIP]
 > GitHub Desktop (optional): A GUI for Git and Git LFS, which already includes both tools.
 >
-> ```shell
+> ```pwsh
 > winget install --id=GitHub.GitHubDesktop -e
 > ```
 
@@ -92,13 +92,13 @@ How to building with Visual Studio on Windows 64-bit.
     - If using the command line:
         1. Clone the repository:
 
-            ```shell
+            ```pwsh
             git clone https://github.com/OrcaSlicer/OrcaSlicer
             ```
 
         2. Run lfs to download tools on Windows:
 
-            ```shell
+            ```pwsh
             git lfs pull
             ```
 
@@ -110,19 +110,19 @@ How to building with Visual Studio on Windows 64-bit.
 
     1. Navigate to correct drive (if needed), e.g.:
 
-        ```shell
+        ```pwsh
         N:
         ```
 
     2. Change directory to the cloned repository, e.g.:
 
-        ```shell
+        ```pwsh
         cd N:\Repos\OrcaSlicer
         ```
 
     3. Run the build script:
 
-        ```shell
+        ```pwsh
         build_release_vs.bat
         ```
 
@@ -136,7 +136,7 @@ How to building with Visual Studio on Windows 64-bit.
 
 3. If successful, you will find the Visual Studio solution file in:
 
-    ```shell
+    ```pwsh
     build\OrcaSlicer.slnx
     ```
 
@@ -144,7 +144,7 @@ How to building with Visual Studio on Windows 64-bit.
    ![compile_vs_local_debugger](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/compile_vs_local_debugger.png?raw=true)
 5. Your resulting executable will be located in:
 
-    ```shell
+    ```pwsh
     \build\src\Release\orca-slicer.exe
     ```
 
@@ -162,7 +162,7 @@ How to building with Visual Studio on Windows 64-bit.
 >
 > 1. Locate the `winrt` folder in your Windows SDK installation. For example:
 >
->    ```shell
+>    ```pwsh
 >    C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\winrt
 >    ```
 >
@@ -193,7 +193,7 @@ How to building with Xcode on MacOS 64-bit.
 > [!TIP]
 > You can install most of them by running:
 >
-> ```shell
+> ```pwsh
 > brew install gettext libtool automake autoconf texinfo
 > ```
 
@@ -209,7 +209,7 @@ Homebrew currently only offers the latest version of CMake (e.g. **4.X**), which
 
 4. Restart the terminal and check the version:
 
-    ```sh
+    ```pwsh
     cmake --version
     ```
 
@@ -222,20 +222,20 @@ Homebrew currently only offers the latest version of CMake (e.g. **4.X**), which
 
 1. Clone the repository:
 
-   ```shell
+   ```pwsh
    git clone https://github.com/OrcaSlicer/OrcaSlicer
    cd OrcaSlicer
    ```
 
 2. Build the application:
 
-   ```shell
+   ```pwsh
    ./build_release_macos.sh
    ```
 
 3. Open the application:
 
-   ```shell
+   ```pwsh
    open build/arm64/OrcaSlicer/OrcaSlicer.app
    ```
 
@@ -245,7 +245,7 @@ To build and debug directly in Xcode:
 
 1. Open the Xcode project:
 
-   ```shell
+   ```pwsh
    open build/arm64/OrcaSlicer.xcodeproj
    ```
 
@@ -271,7 +271,7 @@ How to build and run OrcaSlicer using Docker.
 
 #### Docker Instructions
 
-```shell
+```pwsh
 git clone https://github.com/OrcaSlicer/OrcaSlicer && cd OrcaSlicer && ./scripts/DockerBuild.sh && ./scripts/DockerRun.sh
 ```
 
@@ -340,31 +340,31 @@ The build system supports multiple Linux distributions including Ubuntu/Debian a
 
 1. **Install system dependencies:**
 
-   ```shell
+   ```pwsh
    ./build_linux.sh -u
    ```
 
 2. **Build dependencies:**
 
-   ```shell
+   ```pwsh
    ./build_linux.sh -d
    ```
 
 3. **Build OrcaSlicer with tests:**
 
-   ```shell
+   ```pwsh
    ./build_linux.sh -st
    ```
 
 4. **Build AppImage (optional):**
 
-   ```shell
+   ```pwsh
    ./build_linux.sh -i
    ```
 
 5. **All-in-one build (recommended):**
 
-   ```shell
+   ```pwsh
    ./build_linux.sh -dsti
    ```
 
@@ -406,7 +406,7 @@ This allows for multiple self-contained installations with separate user data.
 
 ### Example folder structure
 
-```shell
+```pwsh
 OrcaSlicer.exe
 data_dir/
 ```

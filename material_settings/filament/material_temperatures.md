@@ -78,7 +78,7 @@ For PLA, PETG, TPU, PVA, and other low-temperature materials, this option should
 
 If enabled, this parameter also sets a G-code variable named chamber_temperature, which can be used to pass the desired chamber temperature to your print start macro, or a heat soak macro like this:
 
-```gcode
+```pwsh
 PRINT_START (other variables) CHAMBER_TEMP=[chamber_temperature]
 ```
 

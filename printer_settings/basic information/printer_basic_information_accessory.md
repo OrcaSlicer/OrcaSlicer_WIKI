@@ -227,7 +227,7 @@ Bellow is a reference configuration for Klipper.
 > [!IMPORTANT]
 > Don't forget to change the pin name/values to the actual values you are using in the configuration.
 
-```gcode
+```pwsh
 [heater_generic chamber_heater]
 heater_pin:PB10
 max_power:1.0

@@ -61,7 +61,7 @@ resources\profiles\
 
 Template files for profiles are available in:
 
-```shell
+```pwsh
 OrcaSlicer\resources\profiles_template\Template
 ```
 
@@ -217,7 +217,7 @@ Process profiles define print quality and behavior. They follow a structure simi
 - Vendor-specific process profiles should inherit from the base using the `inherits` field.
 - Profiles are stored under:
 
-```shell
+```pwsh
 resources\profiles\vendor_name\process\
 ```
 
@@ -245,13 +245,13 @@ Example:
 - Example fields: `nozzle_diameter`, `bed_model`, `bed_texture`, `model_id`, etc.
 - Stored in:
 
-```shell
+```pwsh
 resources\profiles\vendor_name\machine\
 ```
 
 - Each vendor's folder may contain an 240x240px image named:
 
-```shell
+```pwsh
 [machine_model_list.name]_cover.png
 ```
 
@@ -305,13 +305,13 @@ Example variant profile:
 - The `model` directory under the vendor folder is intended to behave similarly to `machine` profiles.
 - Used for additional printer-related 3D models or definitions, stored at:
 
-```shell
+```pwsh
 resources\profiles\vendor_name\model\
 ```
 
 ## Vendor Meta File
 
-```shell
+```pwsh
 resources\profiles\vendor_name.json
 ```
 
@@ -370,7 +370,7 @@ The process is the same if you want to add a new brand filament profile into the
 
 #### Usage
 
-```shell
+```css
 -h [ --help ] help
 -p [ --path ] arg profile folder
 -v [ --vendor ] arg Vendor name. Optional, all profiles present in the folder will be validated if not specified
@@ -379,13 +379,13 @@ The process is the same if you want to add a new brand filament profile into the
 
 #### Example
 
-```shell
+```pwsh
 ./OrcaSlicer_profile_validator -p ~/codes/OrcaSlicer/resources/profiles -l 2 -v Custom
 ```
 
 #### Sample result with errors
 
-```shell
+```pwsh
 PS D:\codes\OrcaSlicer> ."D:/codes/OrcaSlicer/build/src/Release/OrcaSlicer_profile_validator.exe" --path d:\codes\OrcaSlicer\resources\profiles -l 2 -v Custom
 [2024-02-28 21:23:06.102138] [0x0000a4e8] [error]   Slic3r::ConfigBase::load_from_json: parse d:\codes\OrcaSlicer\resources\profiles/Custom/machine/fdm_klipper_common.json got a nlohmann::detail::parse_error, reason = [json.exception.parse_error.101] parse error at line 9, column 38: syntax error while parsing object - unexpected string literal; expected '}'
 ...
@@ -394,7 +394,7 @@ Validation failed
 
 #### Sample result with success
 
-```shell
+```pwsh
 PS D:\codes\OrcaSlicer\build\src\RelWithDebInfo> ."D:/codes/OrcaSlicer/build/src/Release/OrcaSlicer_profile_validator.exe" --path d:\codes\OrcaSlicer\resources\profiles -l 2 -v Custom
 Validation completed successfully
 ```
@@ -414,7 +414,7 @@ In addition to the Orca validator, you should run the `orca_extra_profile_check.
 
 #### Example command
 
-```shell
+```pwsh
 python ./orca_extra_profile_check.py
 ```
 
@@ -428,7 +428,7 @@ You can also enable or disable specific checks:
 
 #### Sample usage with all checks enabled
 
-```shell
+```pwsh
 python ./orca_extra_profile_check.py --vendor="vendor_name" --check-filaments --check-materials
 ```
 

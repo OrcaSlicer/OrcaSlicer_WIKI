@@ -53,7 +53,7 @@ If you add new file resource, add it to the list of files containing macro `L()`
 
 2. Create template file(*.POT) with GNUgettext command:
 
-    ```shell
+    ```pwsh
     xgettext --keyword=L --add-comments=TRN --from-code=UTF-8 --debug -o OrcaSlicer.pot -f list.txt
     ```
 
@@ -64,7 +64,7 @@ If you add new file resource, add it to the list of files containing macro `L()`
 
 4. To merge old PO-file with strings from created new POT-file use command:
 
-    ```shell
+    ```pwsh
     msgmerge -N -o new.po old.po new.pot
     ```
 
@@ -72,13 +72,13 @@ If you add new file resource, add it to the list of files containing macro `L()`
 
 5. To concatenate old PO-file with strings from new PO-file use command:
 
-    ```shell
+    ```pwsh
     msgcat -o new.po old.po
     ```
 
 6. Create an English translation catalog with command:
 
-   ```shell
+   ```pwsh
    msgen -o new.po old.po
    ```
 

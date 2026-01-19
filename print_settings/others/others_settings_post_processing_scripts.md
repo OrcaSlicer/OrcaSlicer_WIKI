@@ -7,6 +7,6 @@ Check the script's documentation for dependencies, available parameters and usag
 
 Example Python script:
 
-```shell
+```pwsh
 "C:\Your\Path\To\Python\python.exe" "C:\Your\Path\To\Script\pythonScript.py" -parameterToScript 1994;
 ```
