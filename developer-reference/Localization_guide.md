@@ -107,6 +107,6 @@ When you have Catalog to translation open POT or PO file in PoEdit and start tra
 
 - For units of measurement, use the international system of units. Use "s" instead of "sec".
 
-- If the phrase doesn't have a dot at the end, don't add it. And if it does, then don't forget to :)
+- If the phrase doesn't have a dot at the end, don't add it. And if it does, then don't forget to :).
 
 - It is useful to stick to the same terminology in the application (especially with basic terms such as "filament" and similar). Stay consistent. Otherwise it will confuse users.
