@@ -39,7 +39,7 @@ The tower method may take a bit more time to complete, but it does not rely on t
    ![pa-tower-measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pa-tower-measure.jpg?raw=true)
 
 > [!TIP]
-> @ItsDeidara has made an HTML tool to help with the calculation. Check it out if those equations give you a headache [here](https://github.com/ItsDeidara/Orca-Slicer-Assistant).
+> @ItsDeidara has created an HTML tool to help with these calculations. Check it out if you find the equations confusing: [Orca-Slicer-Assistant](https://github.com/ItsDeidara/Orca-Slicer-Assistant).
 
 ### Pattern method
 
