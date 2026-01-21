@@ -183,7 +183,13 @@ create_redirects() {
   <meta charset="utf-8">
   <meta http-equiv="refresh" content="0; url=${encoded_url}">
   <link rel="canonical" href="${encoded_url}">
-  <script>window.location.replace("${encoded_url}");</script>
+  <script>
+    (function() {
+      var hash = window.location.hash || "";
+      var target = "${encoded_url}" + hash;
+      window.location.replace(target);
+    })();
+  </script>
 </head>
 <body>
   <p>Redirecting to <a href="${encoded_url}">${filename}</a>...</p>

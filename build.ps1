@@ -207,10 +207,16 @@ Get-ChildItem -Path wiki -Filter *.html -Recurse | Where-Object { $_.Name -ne 'i
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=$encodedUrl">
-  <link rel="canonical" href="$encodedUrl">
-  <script>window.location.replace("$encodedUrl");</script>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url=$encodedUrl">
+    <link rel="canonical" href="$encodedUrl">
+    <script>
+        (function() {
+            var hash = window.location.hash || "";
+            var target = "$encodedUrl" + hash;
+            window.location.replace(target);
+        })();
+    </script>
 </head>
 <body>
   <p>Redirecting to <a href="$encodedUrl">$filename</a>...</p>
