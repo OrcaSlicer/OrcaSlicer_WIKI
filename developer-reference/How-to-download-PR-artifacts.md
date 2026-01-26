@@ -21,3 +21,10 @@ When a Pull Request (PR) is created or updated in the [OrcaSlicer repository](ht
         - `OrcaSlicer-Linux-flatpak_[PR_NUMBER]_aarch64.flatpak` : Flatpak for ARM64.
         - `OrcaSlicer_Linux_ubuntu_2404_[PR_NUMBER]` : Ubuntu 24.04 DEB package.
 7. Once downloaded, extract the ZIP file to access the build artifacts.
+
+> [!TIP]
+> Share this guide to others!
+>
+> ```css
+> https://www.orcaslicer.com/wiki/How-to-download-PR-artifacts
+> ```
