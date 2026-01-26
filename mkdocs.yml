@@ -210,6 +210,7 @@ nav:
   - "Placeholders Variables": "developer-reference/Built-in-placeholders-variables.md"
   - "How to Build": "developer-reference/How-to-build.md"
   - "Guide: Develop Profiles for OrcaSlicer": "developer-reference/How-to-create-profiles.md"
+  - "How to Download Pull Requests Artifacts for Testing": "developer-reference/How-to-download-PR-artifacts.md"
   - "How to Test": "developer-reference/How-to-test.md"
   - "How to Contribute to the Wiki": "developer-reference/How-to-wiki.md"
   - "Application Structure Overview": "developer-reference/plater-sidebar-tab-combobox.md"
