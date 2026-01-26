@@ -10,7 +10,8 @@ A Part represents a single 3D model or mesh that has been imported into the proj
 ## Instance
 
 An instance is a specific instance of an Object Set placed on the print bed.  
-All instances of the same Object Set share the same Parts, size, and settings. However, each instance can have its own position and rotation on the print bed.
+All instances of the same Object Set share the same Parts, size, and settings. However, each instance can have its own position and rotation on the print bed.  
+This could be useful when printing multiple copies of the same model while keeping same painted settings ([Color](prepare_color_painting), [Fuzzy Skin](prepare_paint_on_fuzzy_skin), [Seams](prepare_seam_painting), [supports](prepare_support_painting), etc).
 
 ## Splitting
 
