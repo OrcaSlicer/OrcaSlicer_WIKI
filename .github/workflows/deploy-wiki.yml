@@ -8,7 +8,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout OrcaSlicer_WIKI repository
         uses: actions/checkout@v4
@@ -39,27 +39,37 @@ jobs:
 
       - name: Clone orca-website repository
         run: |
-          git clone --depth 1 https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/OrcaSlicer/orca-website.git orca-website
+          for attempt in 1 2 3; do
+            echo "Clone attempt $attempt"
+            if git clone --depth 1 https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/OrcaSlicer/orca-website.git orca-website; then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "Clone failed after $attempt attempts"
+              exit 1
+            fi
+            sleep $((attempt * 15))
+          done
 
       - name: Deploy wiki content
         run: |
           # Remove old wiki folder if it exists
           rm -rf orca-website/wiki
-          
+
           # Copy new wiki content
           cp -r wiki orca-website/wiki
-          
+
           # Configure git
           cd orca-website
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           # Check if there are changes to commit
           if git diff --quiet && git diff --staged --quiet; then
             echo "No changes to deploy"
             exit 0
           fi
-          
+
           # Stage, commit and push
           git add wiki
           git commit -m "Update wiki content from OrcaSlicer_WIKI
