@@ -23,15 +23,21 @@ theme:
       #- navigation.top    # adds back to top button - not working
       - navigation.footer  # adds next and previous buttons
       - navigation.indexes
-  palette: # show dark mode toggle
-    - scheme: default # light mode
+  palette: # Automatic light/dark mode with toggle
+    - media: "(prefers-color-scheme)" # Auto-detect system preference
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)" # Light mode
+      scheme: default
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
-    - scheme: slate # dark mode
+    - media: "(prefers-color-scheme: dark)" # Dark mode
+      scheme: slate
       toggle:
         icon: material/weather-night
-        name: Switch to light mode
+        name: Switch to system preference
   font: false # default font only pulls font with 300, 400, 400i and 700 weight
               # pulled fonts with CSS method. Fonts are pulled from Google and its same for Defaut behaviour
 
