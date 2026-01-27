@@ -1,201 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
 
-/* ============================================================================
-   DESIGN TOKENS - Foundation variables for consistent theming
-   ============================================================================ */
-
 :root {
-    /* ========================================
-     Typography
-     ======================================== */
-    --md-text-font: "Noto Sans", sans-serif;
-    --md-code-font: "Roboto Mono", monospace;
-
-    /* ========================================
-     Font Sizes
-     ======================================== */
-    --font-size-xxs: 0.5rem;
-    --font-size-xs: 0.75rem;
-    --font-size-sm: 0.875rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.125rem;
-    --font-size-xl: 1.25rem;
-    --font-size-2xl: 1.5rem;
-
-    /* ========================================
-     Spacing Scale (8pt grid)
-     Use these instead of arbitrary values
-     ======================================== */
-    --space-0: 0;
-    --space-0_5: 0.125rem;
-    /* 2px */
-    --space-1: 0.25rem;
-    /* 4px */
-    --space-2: 0.5rem;
-    /* 8px */
-    --space-3: 0.75rem;
-    /* 12px */
-    --space-4: 1rem;
-    /* 16px */
-    --space-5: 1.25rem;
-    /* 20px */
-    --space-6: 1.5rem;
-    /* 24px */
-    --space-8: 2rem;
-    /* 32px */
-    --space-10: 2.5rem;
-    /* 40px */
-    --space-12: 3rem;
-    /* 48px */
-    --space-16: 4rem;
-    /* 64px */
-
-    /* ========================================
-     Border Radius Scale
-     ======================================== */
-    --radius-none: 0;
-    --radius-sm: 0.125rem;
-    /* 2px */
-    --radius-md: 0.25rem;
-    /* 4px */
-    --radius-lg: 0.5rem;
-    /* 8px */
-    --radius-xl: 1rem;
-    /* 16px */
-    --radius-full: 9999px;
-
-    /* ========================================
-     Shadows
-     ======================================== */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-
-    /* ========================================
-     Transitions
-     ======================================== */
-    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-xslow: 1000ms cubic-bezier(0.4, 0, 0.2, 1);
-
-    /* Reset for reduced motion preference */
-    @media (prefers-reduced-motion: reduce) {
-        --transition-fast: 0ms;
-        --transition-base: 0ms;
-        --transition-slow: 0ms;
-        --transition-xslow: 0ms;
-    }
-
+  --md-text-font: "Noto Sans", sans-serif;  /* Body text, headings */
+  --md-code-font: "Roboto Mono", monospace; /* Body text, headings */
 }
-
-/* ============================================================================
-   COLOR SYSTEM - Theme colors for light and dark modes
-   ============================================================================ */
 
 :root,
-[data-md-color-scheme=default] {
-    /* ========================================
-     Brand Colors (Light Mode)
-     ======================================== */
-    --md-primary-fg-color: #009688;
-    --md-primary-fg-color--light: #009688;
-    --md-primary-fg-color--dark: #00675B;
-    --md-accent-fg-color: #009688;
+[data-md-color-scheme=default],
+[data-md-color-scheme=slate]{
+  /* Primary color (used in both light and dark) */
+  --md-primary-fg-color:               #009688;
+  --md-primary-fg-color--light:        #009688;
+  --md-primary-fg-color--dark:         #00675B;
 
-    /* ========================================
-     Derived Colors (color-mix based)
-     ======================================== */
-    --color-primary-hover: color-mix(in srgb, var(--md-primary-fg-color) 80%, black);
-    --color-primary-subtle: color-mix(in srgb, var(--md-primary-fg-color) 8%, transparent);
-    --color-primary-muted: color-mix(in srgb, var(--md-primary-fg-color) 15%, transparent);
+  /* Accent color */
+  --md-accent-fg-color:                #009688;
 
-    /* ========================================
-     Semantic Colors
-     ======================================== */
-    --md-typeset-a-color: var(--md-primary-fg-color) !important;
-    --md-default-fg-color--link: var(--md-primary-fg-color);
-    --md-accent-fg-color--transparent: color-mix(in srgb, var(--md-primary-fg-color) 10%, transparent);
-    --md-footer-bg-color: var(--md-primary-fg-color) !important;
-    --md-footer-fg-color: #FFFFFF;
+  --md-typeset-a-color:                var(--md-primary-fg-color--light) !important;
+
+  --md-footer-bg-color:                var(--md-primary-fg-color) !important;
+  --md-footer-fg-color:                #FFFFFF;
+
+  /* --md-code-bg-color:                  #F2F2F2; */
+
+  /* Use single color for codes. otherwise some parts gCodes etc. is hard to read */
+  /* --md-code-hl-color:                  var(--md-code-fg-color); */
+  /* --md-code-hl-number-color:           var(--md-code-fg-color); */
+  /* --md-code-hl-special-color:          var(--md-code-fg-color); */
+  /* --md-code-hl-function-color:         var(--md-code-fg-color); */
+  /* --md-code-hl-constant-color:         var(--md-code-fg-color); *//* variables, gcodes */
+  /* --md-code-hl-keyword-color:          var(--md-code-fg-color); */
+  /* --md-code-hl-string-color:           var(--md-code-fg-color); */
+  /* --md-code-hl-name-color:             var(--md-code-fg-color); */
+  /* --md-code-hl-color--light:           var(--md-default-fg-color--light); */
+  /* --md-code-hl-operator-color:         var(--md-default-fg-color--light); */
+  /* --md-code-hl-punctuation-color:      var(--md-default-fg-color--light); */
+  /* --md-code-hl-comment-color:          var(--md-default-fg-color--light); */
+  /* --md-code-hl-generic-color:          var(--md-default-fg-color--light); */
+  /* --md-code-hl-variable-color:         var(--md-default-fg-color--light); */
 }
 
-[data-md-color-scheme=slate] {
-    /* ========================================
-     Brand Colors (Dark Mode)
-     ======================================== */
-    --md-default-bg-color: #2D2D31;
-    --md-default-fg-color: #EFEFF0;
-    --md-primary-fg-color: #14B8A6;
-    --md-accent-fg-color: #14B8A6;
-    --md-primary-fg-color--light: #14B8A6;
-    --md-primary-fg-color--dark: #00867b;
-
-    /* ========================================
-     Derived Colors (color-mix based)
-     ======================================== */
-    --color-primary-hover: color-mix(in srgb, var(--md-primary-fg-color) 60%, white);
-    --color-primary-subtle: color-mix(in srgb, var(--md-primary-fg-color) 12%, transparent);
-    --color-primary-muted: color-mix(in srgb, var(--md-primary-fg-color) 20%, transparent);
-
-    /* ========================================
-     Component Colors
-     ======================================== */
-    --md-typeset-a-color: var(--md-primary-fg-color) !important;
-    --md-default-fg-color--link: var(--md-primary-fg-color);
-    --md-accent-fg-color--transparent: color-mix(in srgb, var(--md-primary-fg-color) 15%, transparent);
-    --md-footer-bg-color--dark: #00000052;
-    --md-code-bg-color: #242428;
+[data-md-color-scheme=slate]{
+  --md-default-bg-color:               #2D2D31;
+  --md-default-fg-color:               #EFEFF0;
+  --md-primary-fg-color:               #00675B;
+  --md-footer-bg-color--dark:          #00000052;
+  --md-code-bg-color:                  #242428;
 }
-
-/* ============================================================================
-   GLOBAL ACCESSIBILITY & BEHAVIOR
-   ============================================================================ */
-
-/* Smooth scrolling with reduced motion support */
-html {
-    scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-/* Global focus ring for keyboard navigation */
-:focus-visible {
-    outline: 2px solid var(--md-accent-fg-color);
-    outline-offset: 2px;
-    border-radius: var(--radius-sm);
-}
-
-:focus:not(:focus-visible) {
-    outline: none;
-}
-
-/* ============================================================================
-   COMPONENT STYLES
-   ============================================================================ */
 
 /* /////// HEADER */
 
-.md-header {
-    background-color: light-dark(var(--md-primary-fg-color--light), var(--md-primary-fg-color--dark));
-}
-
 /* Reduce vertical margin on logo to make header more compact */
 .md-header__button.md-logo {
-    margin: 0 var(--space-1);
+    margin: 0 .2rem;
 }
 
 /* Increase size of logo on header */
@@ -206,101 +64,25 @@ html {
 
 /* Reduce margin between logo and title */
 [dir=ltr] .md-header__title {
-    margin-left: var(--space-2);
-}
-
-/* Header button interactions */
-.md-header__button {
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
-    border-radius: var(--radius-md);
-}
-
-.md-header__button:hover {
-    background-color: color-mix(in srgb, currentColor 10%, transparent);
-}
-
-.md-header__button:active {
-    transform: scale(0.95);
+    margin-left: 0.5rem;
 }
 
 /* /////// SIDEBARS */
 
-.md-nav__link[for],
-.md-nav__link[href] {
-    text-decoration: underline transparent;
-    transition: var(--transition-fast);
-
-    &:hover {
-        color: var(--color-primary-hover);
-        text-decoration: underline var(--color-primary-hover);
-        transition: var(--transition-base);
-    }
-
-    &:focus-visible {
-        color: var(--color-primary-hover);
-    }
-
-    &:focus:not(:focus-visible) {
-        /* resets clicked nav items to prevent focus styles from persisting */
-        color: unset;
-    }
-}
-
-/* Enhanced TOC active section indicator */
-.md-nav--secondary .md-nav__link {
-    transition: all var(--transition-base);
-    border-radius: var(--radius-md);
-    padding: 0 var(--space-3) 0 var(--space-5);
-    position: relative;
-    margin-left: calc(-1 * var(--space-1));
-}
-
-.md-nav--secondary .md-nav__link--active {
-    color: var(--md-primary-fg-color);
-    background-color: var(--color-primary-subtle);
-}
-
-.md-nav--secondary .md-nav__link--active::before {
-    content: '';
-    position: absolute;
-    left: var(--space-1);
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3px;
-    height: 65%;
-    background-color: var(--md-primary-fg-color);
-    border-radius: var(--radius-full);
-}
-
 /* Use bold font on selected navigation bar item */
 .md-nav__item .md-nav__link--active {
-    color: var(--md-primary-fg-color);
-    scale: 1.02;
-}
-
-/* Reset TOC styling for mobile/tablet (drawer mode) */
-@media screen and (max-width: 76.24em) {
-    .md-nav--secondary .md-nav__link {
-        padding: var(--space-2) var(--space-4);
-        margin-left: 0;
-    }
-
-    .md-nav--secondary .md-nav__link--active::before {
-        left: 0;
-    }
+    font-weight: 600;
 }
 
 @media screen and (min-width: 76.25em) {
-
     /* Hide title on left sidebar */
     .md-nav--primary .md-nav__title[for=__drawer] {
-        display: none;
+        display:none;
     }
-
     /* Remove leftover margin for first item*/
-    .md-nav--primary>.md-nav__list>.md-nav__item:first-of-type>a {
-        margin-top: 0 !important;
-    }
+	.md-nav--primary>.md-nav__list>.md-nav__item:first-of-type>a{
+		margin-top: 0 !important;
+	}
 }
 
 /* Fixes unnecassary scrollbars on sidebars */
@@ -316,86 +98,64 @@ html {
 /* /////// TITLES */
 
 /* Use bolder titles */
-.md-typeset h1 {
-    font-weight: 550
-}
-
-.md-typeset h2 {
-    font-weight: 550
-}
-
-.md-typeset h3 {
-    font-weight: 550
-}
-
-.md-typeset h4 {
-    font-weight: 700
-}
+.md-typeset h1{ font-weight: 550}
+.md-typeset h2{ font-weight: 550}
+.md-typeset h3{ font-weight: 550}
+.md-typeset h4{ font-weight: 700}
 
 /* Match color of titles */
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3,
 .md-typeset h4 {
-    color: var(--md-typeset-color);
+    color:var(--md-typeset-color);
 }
 
 /* Reduce margins after headers / titles */
 .md-typeset h1 {
-    margin-bottom: 0 !important;
-    margin-block-end: var(--space-2);
+	margin-bottom: 0 !important;
+	margin-block-end: 0.4em;
 }
-
 .md-typeset h2 {
-    margin-bottom: 0 !important;
-    margin-top: var(--space-4) !important;
-    margin-block-end: var(--space-2);
+	margin-bottom: 0 !important;
+	margin-top: 1.0em !important;
+	margin-block-end: 0.4em;
 }
-
 .md-typeset h3 {
-    margin-bottom: 0 !important;
-    margin-top: var(--space-4) !important;
-    margin-block-end: var(--space-1);
+	margin-bottom: 0 !important;
+	margin-top: 1.0em !important;
+	margin-block-end: 0.3em;
 }
-
 .md-typeset h4 {
-    margin-bottom: 0 !important;
-    margin-block-end: var(--space-1);
+	margin-bottom: 0 !important;
+	margin-block-end: 0.2em;
+}
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p{
+    margin-block-start: 0.4em;
 }
 
-h1+p,
-h2+p,
-h3+p,
-h4+p {
-    margin-block-start: var(--space-2);
-}
-
-h1+ul,
-h2+ul,
-h3+ul,
-h4+ul,
-h1+ol,
-h2+ol,
-h3+ol,
-h4+ol {
-    margin-top: var(--space-2) !important;
+h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+h1 + ol, h2 + ol, h3 + ol, h4 + ol{
+    margin-top: 0.4em !important;
 }
 
 /* Add thin borders for separation */
-.md-typeset h2,
-.md-typeset h3 {
+.md-typeset  h2,
+.md-typeset  h3 {
     display: flex;
     align-items: center;
     width: 100%;
 }
-
-.md-typeset h2::after,
-.md-typeset h3::after {
+.md-typeset  h2::after,
+.md-typeset  h3::after {
     content: '';
     flex: 1;
-    height: 1px;
+    height: 0.1em;
     background-color: var(--md-typeset-table-color);
-    margin-left: var(--space-1);
+    margin-left: 0.2em;
 }
 
 /* /////// Images */
@@ -405,43 +165,25 @@ h4+ol {
     vertical-align: middle;
 }
 
-img[height="22"] {
-    /* Text icons */
+img[height="22"] { /* Text icons */
     height: 22px;
 }
-
-img[height="45"] {
-    /* Patterns table */
+img[height="45"] { /* Patterns table */
     height: 45px;
 }
-
-img[height="200"] {
-    /* Calibrations guide preview */
+img[height="200"] { /* Calibrations guide preview */
     height: 200px;
 }
 
 /* /////// LINKS */
 
-.md-typeset a {
+/* Make hyperlinks slightly bolder */
+.md-typeset a{
     font-weight: 500;
 }
-
-.md-typeset a,
-.md-typeset a::before {
-    transition: var(--transition-fast);
-    text-decoration: underline transparent;
-
-    &:hover,
-    &:focus-visible {
-        color: var(--color-primary-hover);
-        transition: var(--transition-base);
-        text-decoration: underline var(--color-primary-hover);
-    }
-
-    &:focus:not(:focus-visible) {
-        color: unset;
-        text-decoration: underline transparent;
-    }
+/* Show underline on links while hovering */
+.md-typeset a:hover {
+    text-decoration: underline;
 }
 
 /* /////// LISTS / BULLETS */
@@ -449,13 +191,14 @@ img[height="200"] {
 /* Reduce left margin for bullets */
 [dir=ltr] .md-typeset ol li,
 [dir=ltr] .md-typeset ul li {
-    margin-left: var(--space-2);
+    margin-left: 0.5em;
 }
+
 
 /* Reduce line height on lists */
 .md-typeset ol li,
 .md-typeset ul li {
-    margin-bottom: var(--space-1);
+    margin-bottom: .3em;
 }
 
 /* Use circle instead disc as list item marker. just less distracting */
@@ -474,80 +217,80 @@ img[height="200"] {
 /* Use regular font size on annotions */
 .md-typeset .admonition,
 .md-typeset details {
-    font-size: var(--font-size-xs);
+    font-size: .8rem;
 }
 
 .md-typeset .admonition,
 .md-typeset details {
     background-color: var(--md-admonition-bg-color);
     border: none;
-    border-left: var(--space-1) solid #448aff;
-    border-radius: var(--radius-none);
-    margin: var(--space-5) 0;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    border-left: 0.3rem solid #448aff;
+    border-radius: 0;
+    margin: 1.2em 0;
 }
 
 .md-typeset .admonition-title,
 .md-typeset summary {
     background-color: transparent !important;
     padding-bottom: 0 !important;
-    padding-top: var(--space-1) !important;
+    padding-top: .2rem !important;
 }
 
 .md-typeset .admonition-title:before,
 .md-typeset summary:before {
-    top: var(--space-2) !important;
+    top: .4em !important;
+}
+
+.md-typeset .admonition>:last-child,
+.md-typeset details>:last-child {
+    margin-bottom: .4rem;
 }
 
 .md-typeset .admonition>:last-child,
 .md-typeset details>:last-child {
     margin-bottom: 0;
-    margin-block-start: var(--space-1);
-    margin-block-end: var(--space-1);
+    margin-block-start: 0.3em;
+    margin-block-end: 0.2em;
 }
 
 .md-typeset .admonition.warning,
 .md-typeset details.warning {
     border-color: #ff9100;
-    background-color: color-mix(in srgb, #ff9100 3%, transparent);
+    background-color: #ff910005;
 }
 
 .md-typeset .admonition.warning .admonition-title,
-.md-typeset details.warning summary {
+.md-typeset details.warning summary{
     color: #ff9100;
 }
 
 .md-typeset .admonition.note,
 .md-typeset details.note {
     border-color: #448aff;
-    background-color: color-mix(in srgb, #448aff 3%, transparent);
+    background-color: #448aff05;
 }
-
 .md-typeset .admonition.note .admonition-title,
-.md-typeset details.note summary {
+.md-typeset details.note summary{
     color: #448aff;
 }
 
 .md-typeset .admonition.tip,
 .md-typeset details.tip {
     border-color: #00bfa5;
-    background-color: color-mix(in srgb, #00bfa5 3%, transparent);
+    background-color: #00bfa505;
 }
-
 .md-typeset .admonition.tip .admonition-title,
-.md-typeset details.tip summary {
+.md-typeset details.tip summary{
     color: #00bfa5;
 }
 
 .md-typeset .admonition.danger,
 .md-typeset details.danger {
     border-color: #ff1744;
-    background-color: color-mix(in srgb, #ff1744 3%, transparent);
+    background-color: #ff174405;
 }
-
 .md-typeset .admonition.danger .admonition-title,
-.md-typeset details.danger summary {
+.md-typeset details.danger summary{
     color: #ff1744;
 }
 
@@ -555,7 +298,7 @@ img[height="200"] {
 
 /* Slighly reduce table cell height */
 .md-typeset table:not([class]) td {
-    padding: var(--space-3) var(--space-5);
+    padding: .75em 1.25em;
     vertical-align: middle;
 }
 
@@ -570,15 +313,6 @@ img[height="200"] {
     vertical-align: middle;
 }
 
-/* Hover effect on table rows */
-.md-typeset table:not([class]) tbody tr {
-    transition: background-color var(--transition-fast);
-}
-
-.md-typeset table:not([class]) tbody tr:hover {
-    background-color: var(--color-primary-subtle);
-}
-
 /* Keep pattern icons fixed at 45px inside tables */
 .md-typeset table img[alt^="param_"] {
     max-width: none;
@@ -587,28 +321,9 @@ img[height="200"] {
     height: 45px !important;
 }
 
-/* /////// CODE BLOCKS */
-
-/* Subtle hover effect on code blocks */
-.md-typeset pre,
-.md-typeset .highlight {
-    transition: box-shadow var(--transition-base), transform var(--transition-base);
-    border-radius: var(--radius-md);
-}
-
-.md-typeset pre:hover,
-.md-typeset .highlight:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
-}
-
-.md-typeset pre code {
-    border-radius: var(--radius-md);
-}
-
 /* /////// FOOTER */
 /* Fixes sidebar content rendering over footer when all items expanded */
-.md-footer {
+.md-footer{
     z-index: 10;
 }
 
@@ -616,7 +331,7 @@ img[height="200"] {
 /* :has selector might not work on old browsers */
 /* using ~body required to get elements properly */
 head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
-    background-color: transparent;
-    color: var(--md-typeset-color);
-    font-weight: 550;
+  background-color: transparent;
+  color: var(--md-typeset-color);
+  font-weight: 550;
 }
