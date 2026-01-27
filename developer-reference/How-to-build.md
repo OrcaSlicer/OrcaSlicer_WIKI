@@ -128,11 +128,11 @@ How to building with Visual Studio on Windows 64-bit.
 
         ![vs_cmd](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/vs_cmd.png?raw=true)
 
-> [!NOTE]
-> The build process will take a long time depending on your system but even with high-end hardware it can take up to 40 minutes.
+    > [!NOTE]
+    > The build process will take a long time depending on your system but even with high-end hardware it can take up to 40 minutes.
 
-> [!TIP]
-> If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
+    > [!TIP]
+    > If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
 
 3. If successful, you will find the Visual Studio solution file in:
 
