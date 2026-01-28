@@ -18,11 +18,12 @@ theme:
   features:
       - navigation.instant         # Enable instant loading (SPA behavior)
       - navigation.instant.progress # Show progress bar on slow connections
+      - navigation.instant.prefetch # Preload linked pages on hover
       - content.code.copy  # Enables the copy-to-clipboard button
       - search.suggest
       - search.highlight
       - navigation.path    # shows breadcumb
-      #- navigation.top    # adds back to top button - not working
+      # - navigation.top    # adds back to top button - not working || Custom implentation in scroll-to-top.js
       - navigation.footer  # adds next and previous buttons
       - navigation.indexes
   palette: # Automatic light/dark mode with toggle
@@ -52,6 +53,7 @@ extra_javascript:
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
   - assets/javascripts/katex.js
   - assets/javascripts/icon-theme.js
+  - assets/javascripts/scroll-to-top.js
 
 plugins:
   - search
