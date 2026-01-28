@@ -2,6 +2,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
 
 /* ============================================================================
+   TABLE OF CONTENTS
+   ============================================================================
+   
+   This stylesheet customizes the MkDocs Material theme for the OrcaSlicer Wiki.
+   All styles use design tokens for consistency and maintainability.
+   
+   STRUCTURE:
+   1. Design Tokens           - CSS variables for spacing, colors, typography
+   2. Color System            - Light/dark mode theme colors
+   3. Global Accessibility    - Focus states, reduced motion, smooth scroll
+   4. Component Styles:
+      - Header                - Top navigation bar
+      - Sidebars              - Left navigation and right TOC
+      - Typography            - Headings, paragraphs, emphasis
+      - Images                - Inline images and icons
+      - Links                 - Hyperlink styling
+      - Lists                 - Bullets and numbered lists
+      - Admonitions           - Callout boxes (note, warning, tip, etc.)
+      - Tables                - Data tables with responsive behavior
+      - Code Blocks           - Syntax highlighting containers
+      - Footer                - Bottom page footer
+      - Scroll-to-Top Button  - Custom circular progress button
+   5. Page Transitions        - Smooth content loading with instant navigation
+   6. Print Styles            - Optimized layout for printing
+   
+   NOTES FOR MAINTAINERS:
+   - Always use design tokens (--space-*, --radius-*, etc.) instead of hardcoded values
+   - Fluid typography uses clamp() for responsive scaling based on viewport width
+   - Media queries use rem units (16px base) for accessibility
+   - All transitions respect prefers-reduced-motion for accessibility
+   - Material theme classes are prefixed with .md- (e.g., .md-header, .md-nav)
+   
+   ============================================================================ */
+
+/* ============================================================================
    DESIGN TOKENS - Foundation variables for consistent theming
    ============================================================================ */
 
@@ -79,14 +114,6 @@
     --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-xslow: 1000ms cubic-bezier(0.4, 0, 0.2, 1);
-
-    /* Reset for reduced motion preference */
-    @media (prefers-reduced-motion: reduce) {
-        --transition-fast: 0ms;
-        --transition-base: 0ms;
-        --transition-slow: 0ms;
-        --transition-xslow: 0ms;
-    }
 
 }
 
@@ -187,7 +214,21 @@ html {
    COMPONENT STYLES
    ============================================================================ */
 
-/* /////// HEADER */
+/* ============================================================================
+   HEADER - Top navigation bar
+   ============================================================================
+   
+   Customizes the Material theme's header:
+   - Applies brand color with light/dark variants
+   - Reduces logo margins for more compact header
+   - Increases logo size for better visibility
+   - Adds hover/active states to header buttons (search, theme toggle, etc.)
+   
+   Classes used:
+   - .md-header: Main header container
+   - .md-header__button: Icon buttons in header
+   - .md-header__title: Site title
+   ============================================================================ */
 
 .md-header {
     background-color: light-dark(var(--md-primary-fg-color--light), var(--md-primary-fg-color--dark));
@@ -223,7 +264,29 @@ html {
     transform: scale(0.95);
 }
 
-/* /////// SIDEBARS */
+/* ============================================================================
+   SIDEBARS - Left navigation and right table of contents
+   ============================================================================
+   
+   Customizes both the left navigation sidebar and right TOC sidebar:
+   
+   LEFT NAVIGATION (.md-nav--primary):
+   - Removes title on desktop for cleaner look
+   - Bolds active navigation items
+   - Adds hover states with color transitions
+   
+   RIGHT TOC (.md-nav--secondary):
+   - Highlights current section with background and accent bar
+   - Smooth transitions when scrolling between sections
+   - Responsive: Resets styling on mobile (< 76.25rem) where TOC is in drawer
+   
+   FOCUS MANAGEMENT:
+   - Uses :focus-visible for keyboard navigation only
+   - Resets focus styles after mouse clicks to prevent persistent highlighting
+   
+   Material automatically updates .md-nav__link--active based on scroll position
+   using Intersection Observer API (no configuration needed).
+   ============================================================================ */
 
 .md-nav__link[for],
 .md-nav__link[href] {
@@ -246,6 +309,11 @@ html {
     }
 }
 
+.md-nav__title {
+    color: var(--md-typeset-color);
+    font-weight: 600;
+}
+
 /* Enhanced TOC active section indicator */
 .md-nav--secondary .md-nav__link {
     transition: all var(--transition-base);
@@ -253,6 +321,11 @@ html {
     padding: 0 var(--space-3) 0 var(--space-5);
     position: relative;
     margin-left: calc(-1 * var(--space-1));
+
+    /* Override for mobile/tablet */
+    @media screen and (max-width: 76.24rem) {
+        padding: var(--space-2) var(--space-3);
+    }
 }
 
 .md-nav--secondary .md-nav__link--active {
@@ -278,8 +351,8 @@ html {
     scale: 1.02;
 }
 
-/* Reset TOC styling for mobile/tablet (drawer mode) */
-@media screen and (max-width: 76.24em) {
+/* Reset TOC styling for mobile/tablet (drawer mode)
+@media screen and (max-width: 76.24rem) {
     .md-nav--secondary .md-nav__link {
         padding: var(--space-2) var(--space-4);
         margin-left: 0;
@@ -288,9 +361,9 @@ html {
     .md-nav--secondary .md-nav__link--active::before {
         left: 0;
     }
-}
+} */
 
-@media screen and (min-width: 76.25em) {
+@media screen and (min-width: 76.25rem) {
 
     /* Hide title on left sidebar */
     .md-nav--primary .md-nav__title[for=__drawer] {
@@ -551,32 +624,113 @@ img[height="200"] {
     color: #ff1744;
 }
 
-/* /////// TABLES */
+/* ============================================================================
+   TABLES - Enhanced styling with rounded corners and better spacing
+   ============================================================================
+   
+   Advanced responsive table system with multiple adaptation strategies:
+   
+   SELECTOR: table:not([class])
+   - Targets only markdown-generated tables (no class attribute)
+   - Avoids interfering with Material's own UI tables or plugin tables
+   
+   RESPONSIVE STRATEGY:
+   1. Desktop (> 76.25rem): Full table with comfortable spacing
+   2. Mobile (< 76.25rem): 
+      - Horizontal scroll enabled (with iOS smooth scrolling)
+      - Text wraps in cells (word-wrap: break-word)
+      - Fluid typography with clamp() scales font and padding
+      - Font: 13px (mobile) → 15px (tablet) based on viewport width
+   
+   VISUAL FEATURES:
+   - Rounded corners with overflow hidden
+   - Striped rows (nth-child(even)) for readability
+   - Hover effect with subtle scale and background change
+   - Header with teal background and 2px bottom border
+   - Pattern icons (alt^="param_") locked to 45px height
+   
+   WHY CLAMP() FOR RESPONSIVE TYPOGRAPHY:
+   - Simple viewport-based fluid scaling that backend devs understand
+   - Syntax: clamp(minimum, preferred, maximum)
+   - Automatically scales between min/max based on viewport width
+   - More maintainable than breakpoint-based approaches
+   ============================================================================ */
 
-/* Slighly reduce table cell height */
+/* Base table styling */
+.md-typeset table:not([class]) {
+    /* This selector targets tables without a class attribute */
+    width: auto;
+    table-layout: auto;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--font-size-sm);
+}
+
+/* Table header styling */
+.md-typeset table:not([class]) thead {
+    background-color: var(--color-primary-muted);
+}
+
+.md-typeset table:not([class]) th {
+    padding: var(--space-4) var(--space-5);
+    font-weight: 600;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 2px solid var(--md-primary-fg-color);
+}
+
+/* Table cell styling */
 .md-typeset table:not([class]) td {
     padding: var(--space-3) var(--space-5);
     vertical-align: middle;
 }
 
-.md-typeset table:not([class]) {
-    width: auto;
-    table-layout: auto;
-}
-
-/* Vertical align table cells so icons sit in the middle */
+/* Vertical align all table cells */
 .md-typeset table td,
 .md-typeset table th {
     vertical-align: middle;
 }
 
-/* Hover effect on table rows */
+/* Row styling with alternating backgrounds */
 .md-typeset table:not([class]) tbody tr {
-    transition: background-color var(--transition-fast);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    border-bottom: 1px solid color-mix(in srgb, var(--md-typeset-table-color) 30%, transparent);
 }
 
+.md-typeset table:not([class]) tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* Striped rows for better readability */
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, var(--md-default-fg-color) 2%, transparent);
+}
+
+/* Hover effect on table rows */
 .md-typeset table:not([class]) tbody tr:hover {
     background-color: var(--color-primary-subtle);
+    transform: scale(1.005);
+    cursor: pointer;
+}
+
+/* First and last cell rounded corners */
+.md-typeset table:not([class]) thead tr:first-child th:first-child {
+    border-top-left-radius: var(--radius-lg);
+}
+
+.md-typeset table:not([class]) thead tr:first-child th:last-child {
+    border-top-right-radius: var(--radius-lg);
+}
+
+.md-typeset table:not([class]) tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+}
+
+.md-typeset table:not([class]) tbody tr:last-child td:last-child {
+    border-bottom-right-radius: var(--radius-lg);
 }
 
 /* Keep pattern icons fixed at 45px inside tables */
@@ -587,6 +741,52 @@ img[height="200"] {
     height: 45px !important;
 }
 
+/* Responsive tables - mobile optimizations */
+@media screen and (max-width: 76.24rem) {
+
+    /* Table container scrolls horizontally */
+    .md-typeset table:not([class]) {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Smooth scrolling on iOS */
+        /* Fluid typography: scales from 13px (mobile) to 15px (tablet) */
+        font-size: clamp(0.8125rem, 0.75rem + 0.5vw, 0.9375rem);
+    }
+
+    /* Allow text to wrap in cells for better readability */
+    .md-typeset table:not([class]) td,
+    .md-typeset table:not([class]) th {
+        white-space: normal;
+        word-wrap: break-word;
+        min-width: 100px;
+        /* Prevent cells from becoming too narrow */
+    }
+
+    /* Responsive padding: scales from 0.5rem to 0.75rem */
+    .md-typeset table:not([class]) td {
+        padding: clamp(0.5rem, 0.4rem + 0.8vw, 0.75rem);
+    }
+
+    .md-typeset table:not([class]) th {
+        padding: clamp(0.75rem, 0.65rem + 0.8vw, 1rem);
+    }
+
+}
+
+/* Extra small screens - more aggressive optimizations */
+@media screen and (max-width: 30rem) {
+
+    .md-typeset table:not([class]) td,
+    .md-typeset table:not([class]) th {
+        min-width: 80px;
+    }
+
+    .md-typeset table:not([class]) {
+        font-size: var(--font-size-xs);
+    }
+}
+
 /* /////// CODE BLOCKS */
 
 /* Subtle hover effect on code blocks */
@@ -594,22 +794,186 @@ img[height="200"] {
 .md-typeset .highlight {
     transition: box-shadow var(--transition-base), transform var(--transition-base);
     border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    /* Using a shadow for subtle depth instead of movement, better for text meant to be coppied */
 }
 
 .md-typeset pre:hover,
 .md-typeset .highlight:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
 }
 
 .md-typeset pre code {
     border-radius: var(--radius-md);
 }
 
-/* /////// FOOTER */
+/* ====================================================================== FOOTER */
 /* Fixes sidebar content rendering over footer when all items expanded */
 .md-footer {
     z-index: 10;
+}
+
+/* ============================================================================
+   SCROLL-TO-TOP BUTTON - Custom circular button with progress indicator
+   ============================================================================
+   
+   Custom implementation to replace Material's navigation.top feature which
+   had issues. This provides better UX with visual scroll progress feedback.
+   
+   FEATURES:
+   - Circular SVG progress ring fills as you scroll down the page
+   - Shows after scrolling 300px down
+   - Smooth entrance/exit animations
+   - Desktop: Bottom-right corner (traditional placement)
+   - Mobile: Bottom-center (easier thumb access)
+   - Respects safe-area-inset for notched devices
+   
+   IMPLEMENTATION:
+   - JavaScript in scroll-to-top.js creates button and updates progress
+   - SVG uses viewBox for responsive scaling (works at any button size)
+   - Progress calculated: scrollTop / (documentHeight - windowHeight)
+   - Ring stroke-dashoffset animated to show progress
+   
+   ACCESSIBILITY:
+   - aria-label and title attributes
+   - Respects prefers-reduced-motion
+   - Keyboard accessible (focus-visible styles from global rules)
+   
+   WHY CUSTOM:
+   - Material's navigation.top was "broken and problematic" (per requirements)
+   - Progress indicator provides better user feedback than simple icon
+   - More modern and engaging UX
+   ============================================================================ */
+
+.scroll-to-top {
+    position: fixed;
+    bottom: var(--space-8);
+    right: var(--space-8);
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background-color: var(--md-primary-fg-color);
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: opacity var(--transition-base),
+        transform var(--transition-base),
+        visibility var(--transition-base),
+        background-color var(--transition-fast);
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.scroll-to-top:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 20px -5px rgb(0 0 0 / 0.25);
+}
+
+.scroll-to-top:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Progress ring SVG */
+.scroll-to-top .progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.scroll-to-top .progress-ring__background {
+    stroke: color-mix(in srgb, currentColor 20%, transparent);
+    stroke-width: 2;
+}
+
+.scroll-to-top .progress-ring__progress {
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dashoffset var(--transition-fast);
+}
+
+/* Arrow icon */
+.scroll-to-top .arrow-icon {
+    position: relative;
+    z-index: 1;
+    color: white;
+    width: 42%;
+    height: 42%;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 76.24rem) {
+    .scroll-to-top {
+        /* Center horizontally on mobile for thumb access */
+        left: 50%;
+        right: auto;
+        bottom: calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
+        width: 48px;
+        height: 48px;
+        /* Include centering transform in all states */
+        transform: translate(-50%, 20px) scale(0.8);
+    }
+
+    .scroll-to-top.visible {
+        transform: translate(-50%, 0) scale(1);
+    }
+
+    .scroll-to-top:hover {
+        transform: translate(-50%, -2px) scale(1.05);
+    }
+
+    .scroll-to-top:active {
+        transform: translate(-50%, 0) scale(0.95);
+    }
+}
+
+/* Very small mobile screens - adjust spacing */
+@media screen and (max-width: 30rem) {
+    .scroll-to-top {
+        bottom: calc(var(--space-12) + env(safe-area-inset-bottom, 0px));
+        width: 44px;
+        height: 44px;
+        transform: translate(-50%, 20px) scale(0.8);
+    }
+
+    .scroll-to-top.visible {
+        transform: translate(-50%, 0) scale(1);
+    }
+
+    .scroll-to-top:hover {
+        transform: translate(-50%, -2px) scale(1.05);
+    }
+
+    .scroll-to-top:active {
+        transform: translate(-50%, 0) scale(0.95);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .scroll-to-top {
+        transition: opacity var(--transition-fast),
+            visibility var(--transition-fast);
+    }
+
+    .scroll-to-top .progress-ring__progress {
+        transition: none;
+    }
 }
 
 /* /////// PAGE SPESIFIC CHANGES */
@@ -619,4 +983,141 @@ head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
     background-color: transparent;
     color: var(--md-typeset-color);
     font-weight: 550;
+}
+
+/* ============================================================================
+   PRINT STYLES - Optimized layout for printing documentation
+   ============================================================================
+   
+   Ensures printed documentation is clean, readable, and saves ink/paper.
+   These styles only apply when printing (or print preview).
+   
+   GOALS:
+   - Remove all navigation elements (users can't click them anyway)
+   - Expand all collapsed content (admonitions, details)
+   - Remove shadows and backgrounds (saves ink, improves readability)
+   - Ensure proper page breaks (keep related content together)
+   - Show link URLs for reference
+   ============================================================================ */
+
+@media print {
+
+    /* Hide non-printable elements */
+    .md-header,
+    .md-sidebar,
+    .md-footer,
+    .scroll-to-top,
+    .md-top {
+        display: none !important;
+    }
+
+    /* Main content takes full width */
+    .md-content {
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .md-content__inner {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Remove backgrounds and shadows to save ink */
+    * {
+        background: white !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* Ensure text is black for readability */
+    body {
+        color: black !important;
+    }
+
+    /* Make links visible */
+    a {
+        color: black !important;
+        text-decoration: underline !important;
+    }
+
+    /* Show URLs after links for reference */
+    a[href^="http"]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        font-weight: normal;
+    }
+
+    /* Don't show URLs for anchor links */
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    /* Expand all collapsed admonitions */
+    .md-typeset details {
+        display: block !important;
+    }
+
+    .md-typeset details>summary {
+        display: block !important;
+    }
+
+    .md-typeset details[open]>summary::after {
+        display: none !important;
+    }
+
+    /* Remove admonition borders for cleaner print */
+    .md-typeset .admonition,
+    .md-typeset details {
+        border: 1px solid #ddd !important;
+        border-left: 3px solid #444 !important;
+    }
+
+    /* Table improvements for printing */
+    .md-typeset table {
+        border-collapse: collapse !important;
+        border: 1px solid #ddd !important;
+    }
+
+    .md-typeset table th,
+    .md-typeset table td {
+        border: 1px solid #ddd !important;
+        padding: 8px !important;
+    }
+
+    .md-typeset table th {
+        background: #f5f5f5 !important;
+        font-weight: bold !important;
+    }
+
+    /* Code blocks */
+    .md-typeset pre,
+    .md-typeset code {
+        border: 1px solid #ddd !important;
+        page-break-inside: avoid;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+    }
+
+    /* Page break control */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* Keep images with their captions */
+    img {
+        page-break-inside: avoid;
+        max-width: 100% !important;
+    }
+
+    /* Prevent orphans and widows */
+    p {
+        orphans: 3;
+        widows: 3;
+    }
 }
