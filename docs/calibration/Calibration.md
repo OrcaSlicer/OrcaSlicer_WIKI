@@ -8,8 +8,8 @@ To access the calibration features, you can find them in the **Calibration** sec
 
 ![calibration](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/calibration.png?raw=true)
 
-!!! important
-    After completing the calibration process, remember to create a new project in order to exit the calibration mode.
+> [!IMPORTANT]
+> After completing the calibration process, remember to create a new project in order to exit the calibration mode.
 The recommended order for calibration is as follows:
 
 1. **[Temperature](temp-calib):** Start by calibrating the temperature of the nozzle and the bed. This is crucial as it affects the viscosity of the filament, which in turn influences how well it flows through the nozzle and adheres to the print bed.  

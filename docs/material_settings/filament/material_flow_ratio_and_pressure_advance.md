@@ -16,16 +16,16 @@ The material may have volumetric change after switching between molten and cryst
 The recommended value range is between 0.95 and 1.05. You may be able to tune this value to get a nice flat surface if there is slight overflow or underflow.  
 The final object flow ratio is this value multiplied by the filament flow ratio.
 
-!!! tip
-    Check the [Flow Rate Calibration guide](flow-rate-calib).
+> [!TIP]
+> Check the [Flow Rate Calibration guide](flow-rate-calib).
 ## Pressure Advance
 
 Pressure advance [Klipper](https://www.klipper3d.org/Pressure_Advance.html) and [RepRap](https://docs.duet3d.com/User_manual/Tuning/Pressure_advance) AKA [Linear advance (Marlin)](https://marlinfw.org/docs/features/lin_advance.html) is a feature that compensates for the lag in filament pressure within the nozzle during acceleration and deceleration. It helps improve print quality by reducing issues like blobs, oozing, and inconsistent extrusion, especially at corners or during fast movements.
 
-!!! note
-    Auto calibration result will be overwritten once enabled
-!!! tip
-    Check the [Pressure Advance Calibration guide](pressure-advance-calib).
+> [!NOTE]
+> Auto calibration result will be overwritten once enabled
+> [!TIP]
+> Check the [Pressure Advance Calibration guide](pressure-advance-calib).
 ### Enable adaptive Pressure Advance (beta)
 
 With increasing print speeds (and hence increasing volumetric flow through the nozzle) and increasing accelerations, it has been observed that the effective PA value typically decreases. This means that a single PA value is not always 100% optimal for all features and a compromise value is usually used that does not cause too much bulging on features with lower flow speed and accelerations while also not causing gaps on faster features.
@@ -34,8 +34,8 @@ This feature aims to address this limitation by modeling the response of your pr
 
 When enabled, the pressure advance value above is overridden. However, a reasonable default value above is strongly recommended to act as a fallback and for when tool changing.
 
-!!! tip
-    Check the [Adaptive Pressure Advance Calibration guide](adaptive-pressure-advance-calib).
+> [!TIP]
+> Check the [Adaptive Pressure Advance Calibration guide](adaptive-pressure-advance-calib).
 #### Enable adaptive pressure advance for overhangs (beta)
 
 Enable adaptive PA for overhangs as well as when flow changes within the same feature. This is an experimental option, as if the PA profile is not set accurately, it will cause uniformity issues on the external surfaces before and after overhangs.

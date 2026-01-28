@@ -28,8 +28,8 @@ Verbose mode produces much larger files and may slow down SD-card printing on so
 
 Insert comments that label moves with the object they belong to (object index or name). This is useful for integrations such as OctoPrint's Cancel Object plugin and for human inspection of the G-code.
 
-!!! important
-    Object labelling is not compatible with Single-Extruder Multi-Material configurations or with "Wipe into Object" / "Wipe into Infill" strategies. When those features are active, labels may be omitted.
+> [!IMPORTANT]
+> Object labelling is not compatible with Single-Extruder Multi-Material configurations or with "Wipe into Object" / "Wipe into Infill" strategies. When those features are active, labels may be omitted.
 ## Exclude Objects
 
 Add an `EXCLUDE OBJECT` marker or command in the exported G-code for objects flagged as excluded. This helps post-processors or custom scripts recognise excluded parts.
@@ -46,5 +46,5 @@ For example:
 
 Can be used to generate filenames like `OrcaCube_PLA_1h15m.gcode`.
 
-!!! tip
-    Check [Naming Built in placeholders variables](built-in-placeholders-variables#filename-templates) for available tokens and their meanings.
+> [!TIP]
+> Check [Naming Built in placeholders variables](built-in-placeholders-variables#filename-templates) for available tokens and their meanings.

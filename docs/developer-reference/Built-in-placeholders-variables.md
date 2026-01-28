@@ -170,8 +170,8 @@ Names of the print, filament, and printer presets that provided the configuratio
 | `filament_type[]` | string per extruder | Material type label reported by each filament preset (PLA, PETG, ABS, etc.). |
 | `printer_preset` | string | Logical printer preset used for slicing. |
 
-!!! tip
-    Others items shares its config key with the placeholder name. Hover the label to discover the key. ![variable_name](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
+> [!TIP]
+> Others items shares its config key with the placeholder name. Hover the label to discover the key. ![variable_name](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
 ## Filename Templates
 
 Notes about the limited placeholder set that is available when OrcaSlicer builds the export filename.

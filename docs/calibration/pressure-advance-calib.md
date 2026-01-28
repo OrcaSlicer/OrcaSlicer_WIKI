@@ -4,10 +4,10 @@
 
 OrcaSlicer includes three approaches for calibrating the Pressure Advance value. Each method has its own advantages and disadvantages. It is important to note that each method has two versions: one for a direct-drive extruder and one for a Bowden extruder. Make sure to select the appropriate version for your test.
 
-!!! warning
-    **Marlin Printers:** Linear Advance must be enabled in firmware (M900). **Not all printers have it enabled by default.**
-!!! warning
-    **Bambulab Printers:** make sure you do not select the 'Flow calibration' option. ![flowrate-Bambulab-uncheck](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowrate-Bambulab-uncheck.png?raw=true)
+> [!WARNING]
+> **Marlin Printers:** Linear Advance must be enabled in firmware (M900). **Not all printers have it enabled by default.**
+> [!WARNING]
+> **Bambulab Printers:** make sure you do not select the 'Flow calibration' option. ![flowrate-Bambulab-uncheck](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowrate-Bambulab-uncheck.png?raw=true)
 - [Calibration](#calibration)
     - [Tower method](#tower-method)
     - [Pattern method](#pattern-method)
@@ -20,8 +20,8 @@ You can use different methods to calibrate the Pressure Advance value, each with
 The results from these methods should be saved to the material profile.  
 ![pressure_advance_enable](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable.png?raw=true)
 
-!!! tip
-    Consider using the [Adaptive Pressure Advance](adaptive-pressure-advance-calib) method for more accurate results. Especially for high-speed printers.
+> [!TIP]
+> Consider using the [Adaptive Pressure Advance](adaptive-pressure-advance-calib) method for more accurate results. Especially for high-speed printers.
 ### Tower method
 
 The tower method may take a bit more time to complete, but it does not rely on the quality of the first layer.
@@ -32,8 +32,8 @@ The tower method may take a bit more time to complete, but it does not rely on t
    ![pa-tower](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pa-tower.jpg?raw=true)  
    ![pa-tower-measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pa-tower-measure.jpg?raw=true)
 
-!!! tip
-    @ItsDeidara has created an HTML tool to help with these calculations. Check it out if you find the equations confusing: [Orca-Slicer-Assistant](https://github.com/ItsDeidara/Orca-Slicer-Assistant).
+> [!TIP]
+> @ItsDeidara has created an HTML tool to help with these calculations. Check it out if you find the equations confusing: [Orca-Slicer-Assistant](https://github.com/ItsDeidara/Orca-Slicer-Assistant).
 ### Pattern method
 
 The pattern method is adapted from [Andrew Ellis' pattern method generator](https://ellis3dp.com/Pressure_Linear_Advance_Tool/), which was itself derived from the [Marlin pattern method](https://marlinfw.org/tools/lin_advance/k-factor.html) developed by [Sineos](https://github.com/Sineos/k-factorjs).

@@ -18,10 +18,10 @@ This feature introduces the below options under the filament settings:
 
 This feature has been tested with Klipper-based printers. While it may work with Marlin or Bambu lab printers, it is currently untested with them. It shouldn't adversely affect the machine; however, the quality results from enabling it are not validated.
 
-!!! important
-    Versions of Klipper older than July 11th, 2024 might in some cases produce artifacts when dynamic PA is used. This has been fixed in Klipper stable version 0.13.0 (20250411), or in developer versions starting [from July 11th, 2024](https://github.com/Klipper3d/klipper/commit/c84d78f3f169bc5163d11b74837f9880b0b7dba4). If you experience issues or print quality lower than expected you might want to ensure you have a Klipper firmware which contains the fix.
-!!! tip
-    **Advanced users**: the fix to ensure optimal quality when dynamic PA is used does not require flashing the toolhead MCU or the printer MCU, but only an update of the host Python code. If you are using a commercial printer which does not offer straightforward MCU flashing (for example, Qidi printers), you might be able to manually patch the host code yourself.
+> [!IMPORTANT]
+> Versions of Klipper older than July 11th, 2024 might in some cases produce artifacts when dynamic PA is used. This has been fixed in Klipper stable version 0.13.0 (20250411), or in developer versions starting [from July 11th, 2024](https://github.com/Klipper3d/klipper/commit/c84d78f3f169bc5163d11b74837f9880b0b7dba4). If you experience issues or print quality lower than expected you might want to ensure you have a Klipper firmware which contains the fix.
+> [!TIP]
+> **Advanced users**: the fix to ensure optimal quality when dynamic PA is used does not require flashing the toolhead MCU or the printer MCU, but only an update of the host Python code. If you are using a commercial printer which does not offer straightforward MCU flashing (for example, Qidi printers), you might be able to manually patch the host code yourself.
 ## Use case (what to expect)
 
 Following experimentation, it has been noticed that the optimal pressure advance value is less:
@@ -157,8 +157,8 @@ Setup your PA test as usual from the calibration menu in OrcaSlicer. Once setup,
 
 Now input your identified print speeds and accelerations in the fields above and run the PA tests.
 
-!!! important
-    Make sure your acceleration values are all the same in all text boxes. Same for the print speed values and Jerk (XY) values. Make sure your Jerk value is set to the external perimeter jerk used in your print profiles.
+> [!IMPORTANT]
+> Make sure your acceleration values are all the same in all text boxes. Same for the print speed values and Jerk (XY) values. Make sure your Jerk value is set to the external perimeter jerk used in your print profiles.
 #### Test results processing
 
 Now run the tests and note the optimal PA value, the flow, and the acceleration. You should produce a table like this:

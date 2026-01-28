@@ -52,8 +52,8 @@ The `P` parameter indicates the fan index as defined by OrcaSlicer:
 
 With Klipper you can create macros that translate both the OrcaSlicer numeric fan index `P` and **human‑readable names** for your physical fans. This keeps compatibility with generated G‑code (M106 P0 / M106 P2 …) while letting you address fans by name internally.
 
-!!! warning
-    Adjust pin names and parameters (power, cycle_time, etc.) to match your hardware.
+> [!WARNING]
+> Adjust pin names and parameters (power, cycle_time, etc.) to match your hardware.
 - [Nozzle type](#nozzle-type)
 - [Nozzle HRC](#nozzle-hrc)
 - [Auxiliary Part Cooling Fan](#auxiliary-part-cooling-fan)
@@ -199,8 +199,8 @@ If your Filament's [Activate temperature control](material_temperatures#print-ch
 ![Chamber-Temperature-Control-Printer](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Chamber/Chamber-Temperature-Control-Printer.png?raw=true)
 ![Chamber-Temperature-Control-Material](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Chamber/Chamber-Temperature-Control-Material.png?raw=true)
 
-!!! note
-    If the machine is equipped with an auxiliary fan, OrcaSlicer will automatically activate the fan during the heating period to help circulate air in the chamber.
+> [!NOTE]
+> If the machine is equipped with an auxiliary fan, OrcaSlicer will automatically activate the fan during the heating period to help circulate air in the chamber.
 ### Using Chamber Temperature Variables in Machine G-code
 
 You can use chamber temperature variables in your `Machine G-code` to control the chamber temperature manually, if desired:
@@ -222,8 +222,8 @@ You can use chamber temperature variables in your `Machine G-code` to control th
 If you are using Klipper, you can define these macros to control the active chamber heater.
 Bellow is a reference configuration for Klipper.
 
-!!! important
-    Don't forget to change the pin name/values to the actual values you are using in the configuration.
+> [!IMPORTANT]
+> Don't forget to change the pin name/values to the actual values you are using in the configuration.
 ```pwsh
 [heater_generic chamber_heater]
 heater_pin:PB10
@@ -266,8 +266,8 @@ If you are using Klipper, you can define a `M106` macro to control both the norm
 
 Below is a reference configuration for Klipper.
 
-!!! note
-    Don't forget to change the pin name to the actual pin name you are using in the configuration.
+> [!NOTE]
+> Don't forget to change the pin name to the actual pin name you are using in the configuration.
 ```ini
 # instead of using [fan], we define the default part cooling fan with [fan_generic] here
 # this is the default part cooling fan

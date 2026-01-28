@@ -32,8 +32,8 @@ Infill density determines the amount of material used to fill the interior of a 
     - Material usage
     - Print time.
 
-!!! note
-    Density usually is calculated as a % of the total infill volume, not the total print volume. Nevertheless, **not all patterns interpret density the same way**, so the actual material usage may vary. You can see each pattern's material usage in the [Patterns section](strength_settings_patterns).
+> [!NOTE]
+> Density usually is calculated as a % of the total infill volume, not the total print volume. Nevertheless, **not all patterns interpret density the same way**, so the actual material usage may vary. You can see each pattern's material usage in the [Patterns section](strength_settings_patterns).
 ## Fill Multiline
 
 This setting allows the selected [infill pattern](#sparse-infill-pattern) to be generated using up to 10 parallel extrusion lines per path, while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
@@ -42,8 +42,8 @@ To check which patterns support multiline infill, see the Patterns Quick Referen
 
 ![multiline-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/multiline-infill.png?raw=true)
 
-!!! note
-    Orca's approach is different from other slicers that simply multiply the number of lines and material usage, generating a denser infill than expected. Orca Slicer keeps the cross-section constant for the set density.</p>
+> [!NOTE]
+> Orca's approach is different from other slicers that simply multiply the number of lines and material usage, generating a denser infill than expected. Orca Slicer keeps the cross-section constant for the set density.</p>
 <p>| Infill   Density % | Infill Lines | Orca Density | Other Slicers Density | |--------------------|--------------|--------------|-----------------------| | 10%                | 2            | 10%          | 20%                   | | 25%                | 2            | 25%          | 50%                   | | 40%                | 2            | 40%          | 80%                   | | 10%                | 3            | 10%          | 30%                   | | 25%                | 3            | 25%          | 75%                   | | 40%                | 3            | 40%          | 100%                  | | 10%                | 5            | 10%          | 50%                   | | 25%                | 5            | 25%          | 100%                  | | 40%                | 5            | 40%          | 100%                  |
 ### Use cases
 
@@ -111,18 +111,18 @@ Other examples:
 0,60,120,180
 ```
 
-!!! note
-    If there are more layers than angles, the sequence repeats.
-!!! tip
-    You can use [Template Metalanguage for infill rotation](strength_settings_infill_rotation_template_metalanguage) to create more complex patterns.
-!!! important
-    Not all sparse [patterns](strength_settings_patterns) support rotation.
+> [!NOTE]
+> If there are more layers than angles, the sequence repeats.
+> [!TIP]
+> You can use [Template Metalanguage for infill rotation](strength_settings_infill_rotation_template_metalanguage) to create more complex patterns.
+> [!IMPORTANT]
+> Not all sparse [patterns](strength_settings_patterns) support rotation.
 ### Symmetric infill Y axis
 
 When enabled, the infill pattern will be mirrored along the Y-axis of the print bed. This can help achieve more uniform strength distribution in certain geometries.
 
-!!! important
-    This setting may not be supported by all infill patterns.
+> [!IMPORTANT]
+> This setting may not be supported by all infill patterns.
 You can apply this setting with multiple objects or using modifiers to control infill orientation for different parts of your print.  
 For example, you might want to mirror the infill pattern for specific components to enhance their structural integrity like planes's wings or boat hulls without the need of using 45° rotation.
 
@@ -210,17 +210,17 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 5,9#2,18    # Insert at 5; at 9 and 10 (because #2); and at 18
 ```
 
-!!! note
-    - Layer numbers are 1-based (first layer is layer 1) - `#K` is optional in both interval and explicit list entries (`N#` equals `N#1`) - Solid layers are inserted in addition to the normal sparse infill pattern
-!!! tip
-    Use this feature to:</p>
+> [!NOTE]
+> - Layer numbers are 1-based (first layer is layer 1) - `#K` is optional in both interval and explicit list entries (`N#` equals `N#1`) - Solid layers are inserted in addition to the normal sparse infill pattern
+> [!TIP]
+> Use this feature to:</p>
 <p>- Add strength at stress concentration points - Reinforce mounting holes or attachment points - Create internal structure for functional parts - Add periodic reinforcement for tall prints - Insert a single solid layer at a specific height by using an explicit list with a leading 0, which will be ignored because layer indices are 1-based. Example: `0,15` inserts a solid layer only at layer 15.
-!!! warning
-    Layers that include solid infill can take significantly longer than surrounding layers. This time differential may lead to z-banding-like bulges. Consider adjusting cooling or speeds if you observe artifacts.
+> [!WARNING]
+> Layers that include solid infill can take significantly longer than surrounding layers. This time differential may lead to z-banding-like bulges. Consider adjusting cooling or speeds if you observe artifacts.
 ## Sparse Infill Pattern
 
-!!! tip
-    See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
+> [!TIP]
+> See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
 ## Credits
 
 - **[Fill Multiline](#fill-multiline) implementation** - [@RF47](https://github.com/RF47)

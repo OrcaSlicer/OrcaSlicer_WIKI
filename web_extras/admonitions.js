@@ -16,22 +16,29 @@
     };
 
     function parseAdmonitions() {
+        console.log('Running parseAdmonitions...');
+        
         // Find all blockquote elements that haven't been processed
         const blockquotes = document.querySelectorAll('blockquote:not([data-admonition-processed])');
+        console.log(`Found ${blockquotes.length} unprocessed blockquotes`);
         
-        blockquotes.forEach(blockquote => {
+        blockquotes.forEach((blockquote, bqIndex) => {
             // Get all paragraphs in the blockquote
             const paragraphs = Array.from(blockquote.querySelectorAll('p'));
+            console.log(`Blockquote ${bqIndex} has ${paragraphs.length} paragraphs`);
+            
             if (paragraphs.length === 0) return;
             
             // Look for alert markers in any paragraph
             const alertParagraphs = [];
             paragraphs.forEach((p, index) => {
                 const text = p.textContent.trim();
+                console.log(`Paragraph ${index} text:`, text.substring(0, 50));
                 
                 // Match [!TYPE] at the start, with or without text after
                 const match = text.match(/^\[!(NOTE|WARNING|CAUTION|TIP|IMPORTANT|INFO)\]/i);
                 if (match) {
+                    console.log(`Found alert type: ${match[1]}`);
                     // Get the text after [!TYPE] including newlines
                     const afterMarker = text.replace(/^\[!(NOTE|WARNING|CAUTION|TIP|IMPORTANT|INFO)\]\s*/i, '');
                     alertParagraphs.push({ 
@@ -42,6 +49,8 @@
                     });
                 }
             });
+            
+            console.log(`Found ${alertParagraphs.length} alert paragraphs`);
             
             // If we found alert markers, process them
             if (alertParagraphs.length > 0) {
@@ -77,6 +86,7 @@
                 blockquote.dataset.admonitionProcessed = 'true';
                 
                 // Replace blockquote with the admonitions
+                console.log('Replacing blockquote with admonitions');
                 blockquote.parentNode.replaceChild(fragment, blockquote);
             }
         });
@@ -84,6 +94,8 @@
 
     // Run immediately and set up observers
     function init() {
+        console.log('Admonitions.js initialized');
+        
         // Initial parse
         parseAdmonitions();
         
@@ -98,6 +110,7 @@
                 });
             });
             if (shouldParse) {
+                console.log('Mutation detected, reparsing...');
                 parseAdmonitions();
             }
         });
@@ -108,6 +121,7 @@
                       document.querySelector('.md-content') || 
                       document.body;
         
+        console.log('Observing target:', target);
         observer.observe(target, {
             childList: true,
             subtree: true
@@ -122,6 +136,13 @@
     }
     
     // Also run after delays to catch any late-loading content
-    setTimeout(parseAdmonitions, 100);
-    setTimeout(parseAdmonitions, 500);
+    setTimeout(() => {
+        console.log('Running delayed parse (100ms)');
+        parseAdmonitions();
+    }, 100);
+    
+    setTimeout(() => {
+        console.log('Running delayed parse (500ms)');
+        parseAdmonitions();
+    }, 500);
 })();

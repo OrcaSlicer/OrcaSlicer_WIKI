@@ -18,14 +18,14 @@ Enable this option to slow down printing in areas where perimeters may have curl
 
 It is generally recommended to have this option switched on unless your printer cooling is powerful enough or the print speed slow enough that perimeter curling does not happen. If printing with a high external perimeter speed, this parameter may introduce slight artifacts when slowing down due to the large variance in print speeds. If you notice artifacts, ensure your pressure advance is tuned correctly.  
 
-!!! note
-    When this option is enabled, overhang perimeters are treated like overhangs, meaning the overhang speed is applied even if the overhanging perimeter is part of a bridge. For example, when the perimeters are 100% overhanging, with no wall supporting them from underneath, the 100% overhang speed will be applied.
+> [!NOTE]
+> When this option is enabled, overhang perimeters are treated like overhangs, meaning the overhang speed is applied even if the overhanging perimeter is part of a bridge. For example, when the perimeters are 100% overhanging, with no wall supporting them from underneath, the 100% overhang speed will be applied.
 ### Speed
 
 This is the speed for various overhang degrees. Overhang degrees are expressed as a percentage of [line width](quality_settings_line_width).  
 
-!!! note
-    0 speed means no slowing down for the overhang degree range and wall speed is used.
+> [!NOTE]
+> 0 speed means no slowing down for the overhang degree range and wall speed is used.
 ## Bridge speed
 
 Set speed for external and internal bridges.  

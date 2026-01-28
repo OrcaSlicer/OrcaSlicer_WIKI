@@ -10,5 +10,5 @@ In the dialog, you can select the start and end retraction length, as well as th
 
 ![retraction_test_print](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/retraction/retraction_test_print.jpg?raw=true)
 
-!!! note
-    When testing filaments such as PLA or ABS that have minimal oozing, the retraction settings can be highly effective. You may find that the retraction tower appears clean right from the start. In such situations, setting the retraction length to 0.2mm - 0.4mm using OrcaSlicer should suffice. On the other hand, if there is still a lot of stringing at the top of the tower, it is recommended to dry your filament and ensure that your nozzle is properly installed without any leaks.
+> [!NOTE]
+> When testing filaments such as PLA or ABS that have minimal oozing, the retraction settings can be highly effective. You may find that the retraction tower appears clean right from the start. In such situations, setting the retraction length to 0.2mm - 0.4mm using OrcaSlicer should suffice. On the other hand, if there is still a lot of stringing at the top of the tower, it is recommended to dry your filament and ensure that your nozzle is properly installed without any leaks.

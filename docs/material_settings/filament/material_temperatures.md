@@ -2,8 +2,8 @@
 
 Set the temperatures for the selected material.
 
-!!! tip
-    Check [Temperature calibration](temp-calib) to find the optimal nozzle temperature for your filament.
+> [!TIP]
+> Check [Temperature calibration](temp-calib) to find the optimal nozzle temperature for your filament.
 - [Standard Temperature Ranges](#standard-temperature-ranges)
 - [Nozzle](#nozzle)
 - [Bed](#bed)
@@ -47,24 +47,24 @@ In general, following the manufacturer’s recommendations, maintaining a clean 
 - If the bed temperature is too low, the filament may fail to adhere properly, leading to warping, weak layer bonding, or complete detachment. In severe cases, the printed part may dislodge entirely and stick to the nozzle or other printer components, potentially causing mechanical damage.
 - If the bed temperature is too high, the lower layers can overheat and soften excessively, resulting in deformation such as [elephant foot](quality_settings_precision#elephant-foot-compensation).
 
-!!! tip
-    As a general guideline, you can use the [glass transition temperature](https://en.wikipedia.org/wiki/Glass_transition) (Tg) of the material and subtract 5–10 °C to estimate a safe upper limit for bed temperature. See [this article](https://magigoo.com/blog/prevent-warping-temperature-and-first-layer-adhesion-magigoo/) for a detailed explanation.
-!!! note
-    For challenging prints involving materials with **high shrinkage** (e.g., nylons or polycarbonate) or geometries prone to warping, dialed-in settings are critical. In these cases, [chamber temperature](#print-chamber-temperature) becomes a **major factor** in preventing detachment and ensuring print success.
+> [!TIP]
+> As a general guideline, you can use the [glass transition temperature](https://en.wikipedia.org/wiki/Glass_transition) (Tg) of the material and subtract 5–10 °C to estimate a safe upper limit for bed temperature. See [this article](https://magigoo.com/blog/prevent-warping-temperature-and-first-layer-adhesion-magigoo/) for a detailed explanation.
+> [!NOTE]
+> For challenging prints involving materials with **high shrinkage** (e.g., nylons or polycarbonate) or geometries prone to warping, dialed-in settings are critical. In these cases, [chamber temperature](#print-chamber-temperature) becomes a **major factor** in preventing detachment and ensuring print success.
 ## Print Chamber Temperature
 
 Chamber temperature can affect the print quality, especially for high-temperature filaments.  
 A heated chamber can help to maintain a consistent temperature throughout the print, reducing the risk of warping and improving layer adhesion. However, it is important to monitor the chamber temperature to ensure that it does not exceed the filament's deformation temperature.
 
-!!! important
-    Low temperature Filaments like PLA can clog the nozzle if the chamber temperature is too high.
+> [!IMPORTANT]
+> Low temperature Filaments like PLA can clog the nozzle if the chamber temperature is too high.
 This option activates the emitting of an M191 command before the "machine_start_gcode" which sets the chamber temperature and waits until it is reached.  
 In addition, it emits an M141 command at the end of the print to turn off the chamber heater, if present.
 
 This option relies on the firmware supporting the M191 and M141 commands either via macros or natively and is usually used when an active chamber heater is installed.
 
-!!! note
-    Check [Support control chamber temperature](printer_basic_information_accessory#support-controlling-chamber-temperature) in your printer settings to enable chamber temperature control.
+> [!NOTE]
+> Check [Support control chamber temperature](printer_basic_information_accessory#support-controlling-chamber-temperature) in your printer settings to enable chamber temperature control.
 For high-temperature materials like ABS, ASA, PC, and PA, a higher chamber temperature can help suppress or reduce warping and potentially lead to higher interlayer bonding strength. However, at the same time, a higher chamber temperature will reduce the efficiency of air filtration for ABS and ASA.
 
 For PLA, PETG, TPU, PVA, and other low-temperature materials, this option should be disabled (set to 0) as the chamber temperature should be low to avoid extruder clogging caused by material softening at the heat break.

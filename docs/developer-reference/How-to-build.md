@@ -63,11 +63,11 @@ How to building with Visual Studio on Windows 64-bit.
   winget install --id=GitHub.GitLFS -e
   ```
 
-!!! tip
-    GitHub Desktop (optional): A GUI for Git and Git LFS, which already includes both tools.</p>
+> [!TIP]
+> GitHub Desktop (optional): A GUI for Git and Git LFS, which already includes both tools.</p>
 <p>```pwsh winget install --id=GitHub.GitHubDesktop -e ```
-!!! important
-    Check your CMake version. Run `cmake --version` in your terminal and verify it returns a **4.x** version. If you see an older version (e.g. 3.29), it's likely due to another copy in your system's PATH (e.g. from Strawberry Perl). You can run where cmake to check the active paths and rearrange your **System Environment Variables** > PATH, ensuring the correct CMake like `C:\Program Files\CMake\bin` appears before others like `C:\Strawberry\c\bin`.
+> [!IMPORTANT]
+> Check your CMake version. Run `cmake --version` in your terminal and verify it returns a **4.x** version. If you see an older version (e.g. 3.29), it's likely due to another copy in your system's PATH (e.g. from Strawberry Perl). You can run where cmake to check the active paths and rearrange your **System Environment Variables** > PATH, ensuring the correct CMake like `C:\Program Files\CMake\bin` appears before others like `C:\Strawberry\c\bin`.
 ![windows_variables_path](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/windows_variables_path.png?raw=true)
 ![windows_variables_order](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/windows_variables_order.png?raw=true)
 
@@ -121,11 +121,11 @@ How to building with Visual Studio on Windows 64-bit.
 
         ![vs_cmd](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/vs_cmd.png?raw=true)
 
-        > [!NOTE]
-        > The build process will take a long time depending on your system but even with high-end hardware it can take up to 40 minutes.
+> [!NOTE]
+> The build process will take a long time depending on your system but even with high-end hardware it can take up to 40 minutes.
 
-        > [!TIP]
-        > If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
+> [!TIP]
+> If you encounter issues, you can try to uninstall ZLIB from your Vcpkg library.
 
 3. If successful, you will find the Visual Studio solution file in:
 
@@ -141,12 +141,12 @@ How to building with Visual Studio on Windows 64-bit.
     \build\src\Release\orca-slicer.exe
     ```
 
-!!! note
-    The first time you build a branch, it will take a long time. Changes to .cpp files are quickly compiled. Changes to .hpp files take longer, depending on what you change. If you switch back and forth between branches, it also takes a long time to rebuild, even if you haven't made any changes.
-!!! tip
-    If the build fails, try deleting the `build/` and `deps/build/` directories to clear any cached build data. Rebuilding after a clean-up is usually sufficient to resolve most issues.
-!!! tip
-    If the "Fix model" option is missing from an object's context menu, it may indicate that your build did not properly include the Windows SDK. To quickly resolve this, follow these steps:</p>
+> [!NOTE]
+> The first time you build a branch, it will take a long time. Changes to .cpp files are quickly compiled. Changes to .hpp files take longer, depending on what you change. If you switch back and forth between branches, it also takes a long time to rebuild, even if you haven't made any changes.
+> [!TIP]
+> If the build fails, try deleting the `build/` and `deps/build/` directories to clear any cached build data. Rebuilding after a clean-up is usually sufficient to resolve most issues.
+> [!TIP]
+> If the "Fix model" option is missing from an object's context menu, it may indicate that your build did not properly include the Windows SDK. To quickly resolve this, follow these steps:</p>
 <p>1. Locate the `winrt` folder in your Windows SDK installation. For example:</p>
 <p>```pwsh C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\winrt ```</p>
 <p>_(Note: the exact path may vary depending on your Windows SDK version.)_ 2. In Visual Studio 2022, open the **libslic3r_gui** project properties: Go to **Configuration Properties > C/C++ > Preprocessor > Preprocessor Definitions** ➕ Add: `HAS_WIN10SDK` 3. In Visual Studio 2022, open the **OrcaSlicer_app_gui** project properties: Go to **Configuration Properties > C/C++ > General > Additional Include Directories** ➕ Add the path to the `winrt` folder from step 1. 4. Build the solution.
@@ -165,8 +165,8 @@ How to building with Xcode on MacOS 64-bit.
 - autoconf
 - texinfo
 
-!!! tip
-    You can install most of them by running:</p>
+> [!TIP]
+> You can install most of them by running:</p>
 <p>```pwsh brew install gettext libtool automake autoconf texinfo ```
 Homebrew currently only offers the latest version of CMake (e.g. **4.X**), which is not compatible. To install the required version **3.31.X**, follow these steps:
 
@@ -186,8 +186,8 @@ Homebrew currently only offers the latest version of CMake (e.g. **4.X**), which
 
 5. Make sure it reports a **3.31.x** version.
 
-!!! important
-    If you've recently upgraded Xcode, be sure to open Xcode at least once and install the required macOS build support.
+> [!IMPORTANT]
+> If you've recently upgraded Xcode, be sure to open Xcode at least once and install the required macOS build support.
 ### MacOS Instructions
 
 1. Clone the repository:
@@ -272,8 +272,8 @@ How to build OrcaSlicer on Linux.
 
 The build system supports multiple Linux distributions including Ubuntu/Debian and Arch Linux. All required dependencies will be installed automatically by the provided shell script where possible, however you may need to manually install some dependencies.
 
-!!! note
-    Fedora and other distributions are not currently supported, but you can try building manually by installing the required dependencies listed below.
+> [!NOTE]
+> Fedora and other distributions are not currently supported, but you can try building manually by installing the required dependencies listed below.
 ##### Common dependencies across distributions
 
 - autoconf / automake
@@ -349,12 +349,12 @@ The build system supports multiple Linux distributions including Ubuntu/Debian a
 - `-p`: Disable precompiled headers (boost ccache hit rate)
 - `-r`: Skip RAM and disk checks (for low-memory systems)
 
-!!! note
-    The build script automatically detects your Linux distribution and uses the appropriate package manager (apt, pacman) to install dependencies.
-!!! tip
-    For first-time builds, use `./build_linux.sh -u` to install dependencies, then `./build_linux.sh -dsti` to build everything.
-!!! warning
-    If you encounter memory issues during compilation, use `-j 1` or `-1` to limit parallel compilation and `-r` to skip memory checks.
+> [!NOTE]
+> The build script automatically detects your Linux distribution and uses the appropriate package manager (apt, pacman) to install dependencies.
+> [!TIP]
+> For first-time builds, use `./build_linux.sh -u` to install dependencies, then `./build_linux.sh -dsti` to build everything.
+> [!WARNING]
+> If you encounter memory issues during compilation, use `-j 1` or `-1` to limit parallel compilation and `-r` to skip memory checks.
 #### Unit Testing
 
 See [How to Test](How-to-test) for more details.
@@ -367,8 +367,8 @@ If you want OrcaSlicer to use a custom user configuration folder (e.g., for a po
 
 This allows for multiple self-contained installations with separate user data.
 
-!!! tip
-    This feature is especially useful if you want to run OrcaSlicer from a USB stick or keep different profiles isolated.
+> [!TIP]
+> This feature is especially useful if you want to run OrcaSlicer from a USB stick or keep different profiles isolated.
 ### Example folder structure
 
 ```pwsh

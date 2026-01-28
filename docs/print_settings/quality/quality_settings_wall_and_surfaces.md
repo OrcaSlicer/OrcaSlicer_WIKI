@@ -54,8 +54,8 @@ The direction which the wall loops are extruded when looking down from the top.
 By default all walls are extruded in counter-clockwise, unless [Reverse on even](quality_settings_overhangs#reverse-on-even) is enabled.  
 Set this to any option other than Auto will force the wall direction regardless of the [Reverse on even](quality_settings_overhangs#reverse-on-even).
 
-!!! note
-    This option will be disabled if spiral vase mode is enabled.
+> [!NOTE]
+> This option will be disabled if spiral vase mode is enabled.
 ## Surface flow ratio
 
 This factor affects the amount of material for [top or bottom solid infill](strength_settings_top_bottom_shells). You can decrease it slightly to have smooth surface finish.  
@@ -63,8 +63,8 @@ The actual top or bottom surface flow used is calculated by multiplying this val
 
 Other flow ratios, such as ratios for the first layer (does not affect brims and skirts), outer and inner walls, overhang perimeters, sparse infill, internal solid infill, gap fill, support, and support interfaces, can also be adjusted after enabling the "Set other flow ratios" option.
 
-!!! tip
-    Before using a value other than 1, it is recommended to [calibrate the flow ratio](flow-rate-calib) to ensure that the flow ratio is set correctly for your printer and filament.
+> [!TIP]
+> Before using a value other than 1, it is recommended to [calibrate the flow ratio](flow-rate-calib) to ensure that the flow ratio is set correctly for your printer and filament.
 ## Only one wall
 
 Use only one wall on flat surfaces, to give more space to the [top infill pattern](strength_settings_top_bottom_shells#surface-pattern).
@@ -79,8 +79,8 @@ This value can be a mm or a % of the perimeter extrusion width.
 
 ![only-one-wall-threshold](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/only-one-wall-threshold.png?raw=true)
 
-!!! warning
-    If enabled, artifacts can be created if you have some thin features on the next layer, like letters. Set this setting to 0 to remove these artifacts.
+> [!WARNING]
+> If enabled, artifacts can be created if you have some thin features on the next layer, like letters. Set this setting to 0 to remove these artifacts.
 ## Avoid crossing walls
 
 This option instructs the slicer to avoid crossing perimeters (walls) during travel moves.  
@@ -91,8 +91,8 @@ Highly recommended for detailed or aesthetic prints.
 
 ![avoid-crossing-walls](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/avoid-crossing-walls.png?raw=true)
 
-!!! note
-    This feature is not compatible with Timelapse mode, as it can cause unexpected travel moves.
+> [!NOTE]
+> This feature is not compatible with Timelapse mode, as it can cause unexpected travel moves.
 ### Max detour length
 
 Defines the maximum distance the printer is allowed to detour to avoid crossing a wall.

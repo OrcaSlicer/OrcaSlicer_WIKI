@@ -11,10 +11,10 @@ A properly calibrated flow ratio ensures consistent layer adhesion and accurate 
     - [OrcaSlicer \<= 2.3.0 Monotonic Line + 2-Pass Calibration](#orcaslicer--230-monotonic-line--2-pass-calibration)
 - [Credits](#credits)
 
-!!! warning
-    **BambuLab Printers:** Make sure you do **not** select the 'Flow calibration' option. ![flowrate-Bambulab-uncheck](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowrate-Bambulab-uncheck.png?raw=true)
-!!! note
-    After v2.3.0, the [Top Pattern](strength_settings_top_bottom_shells#surface-pattern) changed to [Archimedean chords](strength_settings_patterns#archimedean-chords) from [Monotonic Line](strength_settings_patterns#monotonic-line).
+> [!WARNING]
+> **BambuLab Printers:** Make sure you do **not** select the 'Flow calibration' option. ![flowrate-Bambulab-uncheck](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowrate-Bambulab-uncheck.png?raw=true)
+> [!NOTE]
+> After v2.3.0, the [Top Pattern](strength_settings_top_bottom_shells#surface-pattern) changed to [Archimedean chords](strength_settings_patterns#archimedean-chords) from [Monotonic Line](strength_settings_patterns#monotonic-line).
 ## Calibration Types
 
 - **YOLO:** A simplified method that adjusts the flow rate in a single pass using the formula `OldFlowRatio ± modifier`.
@@ -43,8 +43,8 @@ This method uses the [Archimedean Chords](strength_settings_patterns#archimedean
    **Remember** to save the filament profile.  
    ![flowcalibration_update_flowrate](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowcalibration_update_flowrate.png?raw=true)
 
-!!! note
-    The new Archimedean chords pattern uses a specific print order that prints the inner spiral last so you can check for material accumulation on the contact line at the end.
+> [!NOTE]
+> The new Archimedean chords pattern uses a specific print order that prints the inner spiral last so you can check for material accumulation on the contact line at the end.
 ### OrcaSlicer <= 2.3.0 Monotonic Line + 2-Pass Calibration
 
 This example uses the Monotonic Line pattern with the 2-Pass Calibration approach.
@@ -67,8 +67,8 @@ This example uses the Monotonic Line pattern with the 2-Pass Calibration approac
    ![flowrate-6-monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowrate-6-monotonic.jpg?raw=true)  
    ![flowcalibration_update_flowrate_monotonic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/monotonic-flow-rate/flowcalibration_update_flowrate_monotonic.png?raw=true)
 
-!!! tip
-    @ItsDeidara has created an HTML tool to help with these calculations. Check it out if you find the equations confusing: [Orca-Slicer-Assistant](https://github.com/ItsDeidara/Orca-Slicer-Assistant).
+> [!TIP]
+> @ItsDeidara has created an HTML tool to help with these calculations. Check it out if you find the equations confusing: [Orca-Slicer-Assistant](https://github.com/ItsDeidara/Orca-Slicer-Assistant).
 ## Credits
 
 - **[Archimedean Chords Idea](https://makerworld.com/es/models/189543-improved-flow-ratio-calibration-v3#profileId-209504)**: [Jimcorner](https://makerworld.com/es/@jimcorner)

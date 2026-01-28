@@ -18,8 +18,8 @@ Orca will limit the acceleration to not exceed the acceleration set in the Print
 
 The default acceleration of both normal printing and travel.
 
-!!! note
-    If this value is set to 0, the acceleration will be set to the printer's default acceleration.
+> [!NOTE]
+> If this value is set to 0, the acceleration will be set to the printer's default acceleration.
 ## Outer wall
 
 Acceleration for [outer wall](speed_settings_other_layers_speed#outer-wall) printing. This is usually set to a lower value than normal printing to ensure better quality.

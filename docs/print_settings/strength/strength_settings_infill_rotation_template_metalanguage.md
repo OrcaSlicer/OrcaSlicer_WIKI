@@ -37,8 +37,8 @@ This metalanguage provides a way to define the [direction and rotation](strength
 
 `[±]α*` - just setting an initial rotation angle
 
-!!! note
-    `[...]` - values in square brackets are optional
+> [!NOTE]
+> `[...]` - values in square brackets are optional
 ### Defined angle
 
 `[±]α` - command for setting rotation infill angle (for joint infills at some height range, this angle is finite):
@@ -122,8 +122,8 @@ This metalanguage provides a way to define the [direction and rotation](strength
 Each instruction is written by a combination of symbols and numbers and separated by a comma or a space.
 For more complex instructions, autoformatting is used to make the template easier to read.
 
-!!! note
-    All examples are shown with a 5% density rectilinear infill on a model of a cube 20x20x20mm which has 100 layers of 0.2mm thickness. Without walls and upper and lower shells. Initial angle is 0.
+> [!NOTE]
+> All examples are shown with a 5% density rectilinear infill on a model of a cube 20x20x20mm which has 100 layers of 0.2mm thickness. Without walls and upper and lower shells. Initial angle is 0.
 ### Simple absolute instructions
 
 They include a simple definition of the angle for each layer. Note that the initial setting of this angle is also affected by the value in the infill angle field.

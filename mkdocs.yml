@@ -54,6 +54,7 @@ extra_javascript:
   - assets/javascripts/katex.js
   - assets/javascripts/icon-theme.js
   - assets/javascripts/scroll-to-top.js
+  - assets/javascripts/admonitions.js
 
 # plugins:
   # - search

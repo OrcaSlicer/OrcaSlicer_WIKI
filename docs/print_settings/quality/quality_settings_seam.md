@@ -108,8 +108,8 @@ Disadvantages:
 - Less effective on sharp corners and overhangs
 - Requires tuning of parameters like length, speed, and flow for best results
 
-!!! note
-    Read more here: [Better Seams - An OrcaSlicer Guide](https://www.printables.com/model/783313-better-seams-an-orca-slicer-guide-to-using-scarf-s).
+> [!NOTE]
+> Read more here: [Better Seams - An OrcaSlicer Guide](https://www.printables.com/model/783313-better-seams-an-orca-slicer-guide-to-using-scarf-s).
 #### Scarf joint seam Type
 
 - **Contour:** Applies scarf seams exclusively to the outermost perimeter of the model.

@@ -6,15 +6,15 @@ Line width can be configured in two ways:
 - Fixed value in millimeters (mm)
 - Percentage of the nozzle diameter
 
-!!! tip
-    Using percentages allows the slicer to automatically adjust the line width when the nozzle size changes, helping maintain consistent print quality across different nozzle sizes.
+> [!TIP]
+> Using percentages allows the slicer to automatically adjust the line width when the nozzle size changes, helping maintain consistent print quality across different nozzle sizes.
 A good starting point is setting the line width to **100% of the nozzle diameter**. Values below this may lead to poor adhesion, while values above **150%** can cause **over-extrusion**, resulting in blobs or poor surface quality.  
 However, slightly wider lines generally improve **layer bonding** and **print strength**, especially for internal features like walls and infill.
 
-!!! note
-    **100% line width will extrude slightly narrower than the nozzle**, but once squished onto the layer below, it flattens to match the nozzle size. You can read more on the flow math here: [Flow Math](https://manual.slic3r.org/advanced/flow-math).
-!!! important
-    This will match only if using the [**Classic** wall generator](quality_settings_wall_generator#classic). [**Arachne**](quality_settings_wall_generator#arachne) will adjust the line width dynamically based on the model's geometry, using this values as a reference.
+> [!NOTE]
+> **100% line width will extrude slightly narrower than the nozzle**, but once squished onto the layer below, it flattens to match the nozzle size. You can read more on the flow math here: [Flow Math](https://manual.slic3r.org/advanced/flow-math).
+> [!IMPORTANT]
+> This will match only if using the [**Classic** wall generator](quality_settings_wall_generator#classic). [**Arachne**](quality_settings_wall_generator#arachne) will adjust the line width dynamically based on the model's geometry, using this values as a reference.
 ## Line Types
 
 In OrcaSlicer, you can assign different line widths to specific parts of the print. Each type can be customized:

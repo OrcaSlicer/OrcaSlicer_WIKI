@@ -26,8 +26,8 @@ The Arachne wall generator dynamically adjusts extrusion width to follow the sha
 
 ![wallgenerator-arachne](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/WallGenerator/wallgenerator-arachne.png?raw=true)
 
-!!! note
-    [A Framework for Adaptive Width Control of Dense Contour-Parallel Toolpaths in Fused Deposition Modeling](https://www.sciencedirect.com/science/article/pii/S0010448520301007?via%3Dihub)
+> [!NOTE]
+> [A Framework for Adaptive Width Control of Dense Contour-Parallel Toolpaths in Fused Deposition Modeling](https://www.sciencedirect.com/science/article/pii/S0010448520301007?via%3Dihub)
 ### Wall transitioning threshhold angle
 
 Defines the minimum angle (in degrees) required for the algorithm to create a transition between an even and odd number of walls. If a wedge shape exceeds this angle, no extra center wall will be added. Lowering this value reduces center walls but may cause under- or over-extrusion in sharp corners.
@@ -67,5 +67,5 @@ Minimum width required for a model feature to be printed. Features below this va
 Avoids very short or isolated wall segments that add unnecessary time.  
 Increasing this value removes short unconnected walls, **improving efficiency**.
 
-!!! note
-    Top and bottom surfaces are not affected by this setting to avoid visual artifacts. Use the One Wall Threshold (in Advanced settings) to adjust how aggressively OrcaSlicer considers a region a top surface. This option only appears when this setting exceeds 0.5, or if single-wall top surfaces are enabled.
+> [!NOTE]
+> Top and bottom surfaces are not affected by this setting to avoid visual artifacts. Use the One Wall Threshold (in Advanced settings) to adjust how aggressively OrcaSlicer considers a region a top surface. This option only appears when this setting exceeds 0.5, or if single-wall top surfaces are enabled.

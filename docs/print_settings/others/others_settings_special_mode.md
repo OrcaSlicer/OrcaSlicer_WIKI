@@ -68,8 +68,8 @@ This creates a smooth, vase-like appearance.
 When enabled, Smooth Spiral smooths out X and Y moves as well, resulting in no visible seams even on non-vertical walls.  
 This produces the smoothest possible spiral print.
 
-!!! note
-    If you are using absolute e distances, the smoothing may not work as expected.
+> [!NOTE]
+> If you are using absolute e distances, the smoothing may not work as expected.
 #### Max XY Smoothing
 
 Maximum distance to move points in XY to achieve a smooth spiral. If expressed as a percentage, it is calculated relative to the nozzle diameter.  

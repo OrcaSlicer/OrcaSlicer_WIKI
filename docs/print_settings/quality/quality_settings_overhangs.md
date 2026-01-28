@@ -28,8 +28,8 @@ Maximum angle of overhangs to allow after making more steep overhangs printable.
 
 ![overhang-printable](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/overhangs/overhang-printable.png?raw=true)
 
-!!! tip
-    Usually, a value between 45° and 60° works well for most printers and models.
+> [!TIP]
+> Usually, a value between 45° and 60° works well for most printers and models.
 ### Hole area
 
 Maximum area of a hole in the base of the model before it's filled by conical material.  
@@ -53,8 +53,8 @@ A disadvantage of this setting is that the outer wall may show a texture due to 
 
 ![reverse-odd-texture](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/reverse-odd-texture.png?raw=true)
 
-!!! note
-    Only be available if [Wall loop direction](quality_settings_wall_and_surfaces#wall-loop-direction) is set on **Auto** and [spiral vase mode](others_settings_special_mode#spiral-vase) is **disabled**.
+> [!NOTE]
+> Only be available if [Wall loop direction](quality_settings_wall_and_surfaces#wall-loop-direction) is set on **Auto** and [spiral vase mode](others_settings_special_mode#spiral-vase) is **disabled**.
 ### Reverse internal only
 
 A simple way to reduce the texture on the outer wall is to only reverse the internal walls.
@@ -72,6 +72,6 @@ Can be set as:
 When using this setting, the walls will make the reversal texture in the layers where the overhang is above the threshold, and the rest of the walls will be printed in the normal direction.
 This could result in uneven texture, sometimes considered worse than the full reversal texture, so it is recommended to use this setting only if you are sure that the overhang reversal will not be useful for your model.
 
-!!! note
-    Only available when:</p>
+> [!NOTE]
+> Only available when:</p>
 <p>- [Detect overhang wall](#detect-overhang-wall) is enabled - [Reverse internal only](#reverse-internal-only) is disabled If those conditions are not met, this setting will be hidden.

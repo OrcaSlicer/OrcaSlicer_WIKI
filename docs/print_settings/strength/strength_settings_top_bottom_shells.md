@@ -27,15 +27,15 @@ This can be used for aesthetic purposes, improving grip or creating interfaces.
 The top solid infill area is slightly enlarged to overlap with walls for better bonding and to minimize pinholes where the infill meets the walls.  
 A value of 25-30% is a good starting point. The percentage value is relative to the line width of the sparse infill.
 
-!!! tip
-    Check [Monotonic Line](strength_settings_patterns#monotonic-line) to learn about its overlaying differences with [Monotonic](strength_settings_patterns#monotonic) and [Rectilinear](strength_settings_patterns#rectilinear).
+> [!TIP]
+> Check [Monotonic Line](strength_settings_patterns#monotonic-line) to learn about its overlaying differences with [Monotonic](strength_settings_patterns#monotonic) and [Rectilinear](strength_settings_patterns#rectilinear).
 ## Surface Pattern
 
 This setting controls the pattern of the surfaces.  
 If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be applied to the outermost shell layer only and the rest will use [Internal Solid Infill Pattern](strength_settings_infill#internal-solid-infill).
 
-!!! tip
-    See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
+> [!TIP]
+> See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
  The surface patterns are:
 
 - **[Concentric](strength_settings_patterns#concentric)**

@@ -53,10 +53,10 @@ resources\profiles\
             └── Generic PLA @Orca 3D Fuse1@.json
 ```
 
-!!! tip
-    Use short vendor names in filenames to avoid excessive length.
-!!! note
-    Filament profiles are **optional**. Create them only if the vendor has specifically tuned profiles for the given printer. See [Filament profiles](#filament-profiles) for details.
+> [!TIP]
+> Use short vendor names in filenames to avoid excessive length.
+> [!NOTE]
+> Filament profiles are **optional**. Create them only if the vendor has specifically tuned profiles for the given printer. See [Filament profiles](#filament-profiles) for details.
 Template files for profiles are available in:
 
 ```pwsh
@@ -80,8 +80,8 @@ graph TD;
     OrcaFilamentLibrary-->Vendor_B_filament;
 ```
 
-!!! important
-    Create new filament profiles only if you have truly specifically tuned the filament for the given printer. Otherwise, use the global library. The global library has a better chance to receive optimizations and updates from OrcaSlicer contributors, which will benefit users of all printers.
+> [!IMPORTANT]
+> Create new filament profiles only if you have truly specifically tuned the filament for the given printer. Otherwise, use the global library. The global library has a better chance to receive optimizations and updates from OrcaSlicer contributors, which will benefit users of all printers.
 ### Adding Filament Profiles to the Global Library
 
 In this section, we will discuss how to add a new filament profile into the global library.
@@ -127,10 +127,10 @@ The following sample JSON file shows how to create a new generic filament profil
 
 3. The last step is to validate the newly added filament profiles see [Validate Profiles](#validate-profiles).
 
-!!! note
-    If the filament is compatible with AMS, ensure that the `filament_id` value **does not exceed 8 characters** to maintain AMS compatibility.
-!!! tip
-    **Testing Profile Changes**</p>
+> [!NOTE]
+> If the filament is compatible with AMS, ensure that the `filament_id` value **does not exceed 8 characters** to maintain AMS compatibility.
+> [!TIP]
+> **Testing Profile Changes**</p>
 <p>When developing profiles, you may notice that changes aren't reflected in OrcaSlicer after editing profile files. This happens because OrcaSlicer caches profiles in the system folder. To force OrcaSlicer to load your updated profiles:</p>
 <p>1. **Access the configuration folder**: Go to **Help** → **Show Configuration Folder**. ![go-to-configuration-folder](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/go-to-configuration-folder.png?raw=true) 2. **Clear the cache**: Delete the `system` folder to remove cached profiles. ![profile-delete-system-folder](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/profile-delete-system-folder.png?raw=true) 3. **Restart OrcaSlicer**: Launch the application to load your updated profiles. This process forces OrcaSlicer to update its profile cache from the source files in the `resources/profiles/` directory.
 ### Adding Filament Profiles to Printer Vendor Library
@@ -193,8 +193,8 @@ Please note that here we must leave the compatible_printers field non-empty, unl
 }
 ```
 
-!!! note
-    If the filament is compatible with AMS, ensure that the `filament_id` value **does not exceed 8 characters** to maintain AMS compatibility.
+> [!NOTE]
+> If the filament is compatible with AMS, ensure that the `filament_id` value **does not exceed 8 characters** to maintain AMS compatibility.
 ## Process Profiles
 
 Process profiles define print quality and behavior. They follow a structure similar to filament profiles:
@@ -342,14 +342,14 @@ Example:
 
 You can validate your profiles using both the **OrcaSlicer profile validator** and the **Python validation script**. These tools are designed to check different aspects of the profiles, so both should be executed and pass without errors to ensure full compatibility.
 
-!!! note
-    **✅ Recommendation:** Always run **both** the OrcaSlicer validator and the Python script to ensure all aspects of the profiles are valid.
+> [!NOTE]
+> **✅ Recommendation:** Always run **both** the OrcaSlicer validator and the Python script to ensure all aspects of the profiles are valid.
 ### 1. OrcaSlicer Profile Validator
 
 You can run OrcaSlicer to verify if the filament you just added is available and usable. You can also use the [Orca profile validator](https://github.com/SoftFever/Orca_tools/releases/tag/1) tool to help debug any errors.
 
-!!! important
-    You need to delete the `%appdata%/OrcaSlicer/system` folder to force OrcaSlicer to reload your lastest changes.
+> [!IMPORTANT]
+> You need to delete the `%appdata%/OrcaSlicer/system` folder to force OrcaSlicer to reload your lastest changes.
 The process is the same if you want to add a new brand filament profile into the global library. You need to create a new file in the `resources\profiles\OrcaFilamentLibrary\filament\brand_name` folder. The only difference is that you should put the file into the brand's own subfolder.
 
 #### Usage
@@ -383,8 +383,8 @@ PS D:\codes\OrcaSlicer\build\src\RelWithDebInfo> ."D:/codes/OrcaSlicer/build/src
 Validation completed successfully
 ```
 
-!!! warning
-    Use `OrcaSlicer_profile_validator` on Ubuntu and `OrcaSlicer_profile_validator.exe` on Windows.
+> [!WARNING]
+> Use `OrcaSlicer_profile_validator` on Ubuntu and `OrcaSlicer_profile_validator.exe` on Windows.
 ---
 
 ### 2. Python Profile Validation Script

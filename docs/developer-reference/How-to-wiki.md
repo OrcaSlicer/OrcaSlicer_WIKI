@@ -92,8 +92,8 @@ For long pages, include a table of contents at the top to help readers find sect
 - [External Links](#external-links)
 ```
 
-!!! note
-    If you're adding a new section, follow the existing structure and make sure it doesn't already fit an existing category. Link it from the Home page accordingly.
+> [!NOTE]
+> If you're adding a new section, follow the existing structure and make sure it doesn't already fit an existing category. Link it from the Home page accordingly.
 ### File Naming and Organization
 
 When creating new pages, follow these file-naming conventions:
@@ -171,26 +171,26 @@ Refer to the [GitHub Markdown Guide](https://guides.github.com/features/masterin
 Use GitHub's alert syntax to add inline notes and warnings:
 
 ```markdown
-!!! note
-    Useful information that readers should know.
-!!! tip
-    Helpful advice for doing things more easily.
-!!! important
-    Key information required to achieve a goal.
-!!! warning
-    Urgent information to avoid problems.
-!!! caution
-    Warnings about risks or negative outcomes.
+> [!NOTE]
+> Useful information that readers should know.
+> [!TIP]
+> Helpful advice for doing things more easily.
+> [!IMPORTANT]
+> Key information required to achieve a goal.
+> [!WARNING]
+> Urgent information to avoid problems.
+> [!CAUTION]
+> Warnings about risks or negative outcomes.
 ```
 
-!!! note
-    Refer to the [GitHub Alerts documentation](https://docs.github.com/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) for more details.
+> [!NOTE]
+> Refer to the [GitHub Alerts documentation](https://docs.github.com/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) for more details.
 ## Images
 
 Images are encouraged to enhance the clarity and quality of the wiki content. They help illustrate concepts, provide examples, and improve readability.
 
-!!! caution
-    Do not use images from third-party sources unless you have the proper permissions.
+> [!CAUTION]
+> Do not use images from third-party sources unless you have the proper permissions.
 ### Image Sources
 
 #### OrcaSlicer Resources
@@ -212,8 +212,8 @@ There you can find images already used in the wiki like screenshots, diagrams, a
 - General images should be placed in the `images/` directory.
 - Section-specific images should be stored in their corresponding subdirectories (e.g., `images/calibration/` for calibration content).
 
-!!! tip
-    You can use `\resources\images` images used in the GUI.
+> [!TIP]
+> You can use `\resources\images` images used in the GUI.
 ##### Linking Images
 
 Always use raw GitHub URLs for image links to ensure correct display:
@@ -246,8 +246,8 @@ Format = `![`filename`](` + Base URL + filename.extension + Raw tag + `)`
   ![combobox](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/GUI/combobox.png?raw=true)
   ```
 
-!!! important
-    New or moved images may not appear in previews until the pull request is merged. Double-check paths and update links if you move files.
+> [!IMPORTANT]
+> New or moved images may not appear in previews until the pull request is merged. Double-check paths and update links if you move files.
 ### Avoid the Following
 
 - Relative paths
@@ -256,8 +256,8 @@ Format = `![`filename`](` + Base URL + filename.extension + Raw tag + `)`
 - Images containing personal or sensitive information
 - Using images for content that can be expressed in text, such as equations or code—use Markdown syntax or Mermaid/Math formatting instead.
 
-!!! note
-    When contributing section-specific images, follow the naming conventions and directory structure.
+> [!NOTE]
+> When contributing section-specific images, follow the naming conventions and directory structure.
 #### Resize Images
 
 Avoid the resize of images and let the Wiki handle it automatically.

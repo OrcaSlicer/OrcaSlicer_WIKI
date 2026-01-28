@@ -25,8 +25,8 @@ This leads to patterns that do not use the specified percentage but rather varia
 Print time can vary significantly between patterns due to differences in their pathing and infill strategies.  
 Some patterns may complete faster due to more efficient use of the print head's movement, while others may take longer due to more complex paths.
 
-!!! note
-    OrcaSlicer Time estimations are not always accurate, especially with complex patterns. This analysis was estimated with [Klipper Estimator](https://github.com/Annex-Engineering/klipper_estimator).
+> [!NOTE]
+> OrcaSlicer Time estimations are not always accurate, especially with complex patterns. This analysis was estimated with [Klipper Estimator](https://github.com/Annex-Engineering/klipper_estimator).
 ### Layer Time Variability
 
 Layer time variability refers to the differences in time it takes to print each layer of a pattern. Some patterns may have consistent layer times, while others may experience significant fluctuations. These variations can potentially impact the outer appearance of the print due to differences in cooling and material flow between layers.
@@ -66,10 +66,10 @@ Layer time variability refers to the differences in time it takes to print each 
 | <img alt="param_archimedeanchords" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_archimedeanchords.svg?raw=true" height="45"> | [Archimedean Chords](#archimedean-chords) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-0.svg?raw=true) | [Classic](strength_settings_infill#classic-strategy) |
 | <img alt="param_octagramspiral" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_octagramspiral.svg?raw=true" height="45"> | [Octagram Spiral](#octagram-spiral) | X-Y: ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-0.svg?raw=true) | [Classic](strength_settings_infill#classic-strategy) |
 
-!!! note
-    This estimations are based in a Cube model to maintain consistency. This **WILL NOT** be the same for all models and only serves as a standard guideline.
-!!! tip
-    You can see how this analysis was made in [infill-analysis](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis) folder:</p>
+> [!NOTE]
+> This estimations are based in a Cube model to maintain consistency. This **WILL NOT** be the same for all models and only serves as a standard guideline.
+> [!TIP]
+> You can see how this analysis was made in [infill-analysis](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis) folder:</p>
 <p>- [Infill calculator Project](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis/infill_calculator.3mf?raw=true) to generate the gcode files and images. - [infill_desc_calculator.xlsx](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/print_settings/strength/infill-analysis/infill_desc_calculator.xlsx?raw=true) used to calculate the values above. - Time, and material usage where simulated with the same [Klipper Estimator](https://github.com/Annex-Engineering/klipper_estimator) values to maintain consistency.
 ## Monotonic
 

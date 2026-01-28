@@ -28,8 +28,8 @@ This option sets the preferred distance between probe points (grid size) for the
 
 This option determines the additional distance by which the adaptive bed mesh area should be expanded in the XY directions.
 
-!!! note
-    Klipper users: OrcaSlicer will adjust adaptive bed mesh area according to the margin. It is recommended to set the margin to 0 in Klipper config or pass 0 when calling BED_MESH_CALIBRATE command(please refer to the example below).
+> [!NOTE]
+> Klipper users: OrcaSlicer will adjust adaptive bed mesh area according to the margin. It is recommended to set the margin to 0 in Klipper config or pass 0 when calling BED_MESH_CALIBRATE command(please refer to the example below).
 ## Available g-code variables for Adaptive Bed Mesh Command
 
 `bed_mesh_probe_count`: Represents the probe count in the X and Y directions. This value is calculated based on the size of the adaptive bed mesh area and the distance between probe points.

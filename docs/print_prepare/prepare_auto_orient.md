@@ -11,5 +11,5 @@ Auto Orientation is a feature that automatically finds the optimal orientation f
 3. **Evaluates** each orientation based on overhang area, bottom contact, support interface, and contour complexity
 4. **Selects** the orientation with the lowest unprintability score.
 
-!!! important
-    Auto Orientation may not always find the best orientation for complex models. Always review the suggested orientation. Remember that strength characteristics of the printed part may vary with orientation due to layer adhesion.
+> [!IMPORTANT]
+> Auto Orientation may not always find the best orientation for complex models. Always review the suggested orientation. Remember that strength characteristics of the printed part may vary with orientation due to layer adhesion.

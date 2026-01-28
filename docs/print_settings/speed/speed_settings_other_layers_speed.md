@@ -2,8 +2,8 @@
 
 ## Speed limitations
 
-!!! important
-    Every speed setting is limited by several parameters like:</p>
+> [!IMPORTANT]
+> Every speed setting is limited by several parameters like:</p>
 <p>- [Maximum Volumetric Speed](volumetric-speed-calib) - Machine / Motion ability - [Acceleration](speed_settings_acceleration) - [Jerk settings](speed_settings_jerk_xy)
 - [Speed limitations](#speed-limitations)
 - [Outer wall](#outer-wall)
@@ -34,8 +34,8 @@ Any shape (not only circles) will be considered as a small perimeter.
 
 If expressed as percentage (for example: 80%) it will be calculated on the [outer wall speed](#outer-wall).
 
-!!! note
-    Zero will use [50%](https://github.com/OrcaSlicer/OrcaSlicer/blob/7d2a12aa3cbf2e7ca5d0523446bf1d1d4717f8d1/src/libslic3r/GCode.cpp#L4698) of [outer wall speed](#outer-wall).
+> [!NOTE]
+> Zero will use [50%](https://github.com/OrcaSlicer/OrcaSlicer/blob/7d2a12aa3cbf2e7ca5d0523446bf1d1d4717f8d1/src/libslic3r/GCode.cpp#L4698) of [outer wall speed](#outer-wall).
 ### Small perimeters threshold
 
 **Radius** in millimeters below which the speed of perimeters will be reduced to the [small perimeters speed](#small-perimeters).  
@@ -51,8 +51,8 @@ For example, if the threshold is set to 5 mm, then the perimeter length must be 
 - A Cube of 10mm x 10mm will have a perimeter length of 40 mm, which is greater than the threshold, so it will not be considered a small perimeter.
 - A Cube of 5mm x 5mm will have a perimeter length of 20 mm, which is less than the threshold, so it will be considered a small perimeter.
 
-!!! note
-    Zero will disable [small perimeters speed](#small-perimeters) and will use the [outer wall speed](#outer-wall).
+> [!NOTE]
+> Zero will disable [small perimeters speed](#small-perimeters) and will use the [outer wall speed](#outer-wall).
 ## Sparse infill
 
 Speed of [sparse infill](strength_settings_infill) which is printed faster than solid infill to reduce print time.  

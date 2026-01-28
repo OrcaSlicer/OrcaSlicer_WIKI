@@ -16,10 +16,12 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [General Settings](#general-settings)
 - [Developer Section](#developer-section)
 
-!!! warning
-    This wiki is community-maintained. Some pages may be **outdated** while others may be **newer** and present only in [nightly build](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or [latest release](https://github.com/OrcaSlicer/OrcaSlicer/releases).
-!!! note
-    Please consider contributing to the wiki following the [How to contribute to the wiki](How-to-wiki) guide.
+> [!WARNING]
+> This wiki is community-maintained. Some pages may be **outdated** while others may be **newer** and present only in [nightly build](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or [latest release](https://github.com/OrcaSlicer/OrcaSlicer/releases).
+
+> [!NOTE]
+> Please consider contributing to the wiki following the [How to contribute to the wiki](How-to-wiki) guide.
+
 ## Printer Settings
 
 ![printer-preset](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/GUI/printer-preset.png?raw=true)  

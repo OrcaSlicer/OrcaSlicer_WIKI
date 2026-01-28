@@ -22,6 +22,6 @@ When a Pull Request (PR) is created or updated in the [OrcaSlicer repository](ht
         - `OrcaSlicer_Linux_ubuntu_2404_[PR_NUMBER]` : Ubuntu 24.04 DEB package.
 7. Once downloaded, extract the ZIP file to access the build artifacts.
 
-!!! tip
-    Share this guide to others!</p>
+> [!TIP]
+> Share this guide to others!</p>
 <p>```css https://www.orcaslicer.com/wiki/How-to-download-PR-artifacts ```

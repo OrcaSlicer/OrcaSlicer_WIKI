@@ -71,8 +71,8 @@ This is most useful for open-frame printers without an enclosure.
 - If set to follow the highest object, the shield will be as tall as the tallest printed model on the bed.
 - Otherwise it will use the value specified in "Skirt height".
 
-!!! note
-    With the draft shield active, the skirt will be printed at [skirt distance](#distance) from the object. Therefore, if brims are active it may intersect with them. To avoid this, increase the skirt distance value.
+> [!NOTE]
+> With the draft shield active, the skirt will be printed at [skirt distance](#distance) from the object. Therefore, if brims are active it may intersect with them. To avoid this, increase the skirt distance value.
 ## Single loop after first layer
 
 When enabled, limits the draft shield to a single wall after the first layer (i.e. only one loop is printed on subsequent shield layers). This reduces filament and print time but makes the shield less robust and more prone to warping or cracking.

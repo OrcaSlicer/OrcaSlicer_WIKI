@@ -4,8 +4,8 @@ Retraction is the process of pulling the filament back into the nozzle to preven
 If the retraction length is too short, it may not effectively prevent oozing, while if it's too long, it can lead to clogs or under-extrusion.  
 Filaments like PETG and TPU are more prone to stringing, so they may require longer retraction lengths compared to PLA or ABS. You can override your printer's default retraction settings for each filament in [Material Setting Overrides](material_setting_overrides#retraction).
 
-!!! tip
-    Check out the [Retraction Test](retraction-calib) to help determine the optimal retraction settings for your filament.
+> [!TIP]
+> Check out the [Retraction Test](retraction-calib) to help determine the optimal retraction settings for your filament.
 - [Length](#length)
 - [Extra length on restart](#extra-length-on-restart)
 - [Retraction speed](#retraction-speed)

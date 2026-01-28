@@ -2,8 +2,8 @@
 
 WIP...
 
-!!! warning
-    !! incomplete, possibly inaccurate, being updated with new info !!
+> [!WARNING]
+> !! incomplete, possibly inaccurate, being updated with new info !!
 ## [`Plater`](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/slic3r/GUI/Plater.hpp)
 
 Refers to the entire application. The whole view, file loading, project saving and loading is all managed by this class. This class contains members for the model viewer, the sidebar, gcode viewer and everything else.

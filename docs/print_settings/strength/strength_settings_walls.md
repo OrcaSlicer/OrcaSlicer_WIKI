@@ -26,16 +26,16 @@ Increasing the wall loops will:
 This setting adds an extra wall to every other layer. This way the infill gets wedged vertically between the walls, resulting in stronger prints.  
 When this option is enabled, the ensure vertical shell thickness option needs to be disabled.  
 
-!!! warning
-    It's not recommended to use this option with:</p>
+> [!WARNING]
+> It's not recommended to use this option with:</p>
 <p>- [Lightning infill](strength_settings_patterns#lightning) as there is limited infill to anchor the extra perimeters to. - **[Ensure vertical shell thickness: ALL](strength_settings_advanced#ensure-vertical-shell-thickness)**
 ## Detect thin wall
 
 By default, walls are printed as closed loops. When a wall is too thin to contain two line widths, enabling "Detect thin walls" prints it as a single extrusion line.  
 Thin walls printed this way may have reduced surface quality and strength because they are not closed loops.
 
-!!! tip
-    Usually, it is recommended to use [Arachne wall generator](quality_settings_wall_generator#arachne) which will disable "Detect thin walls" because it uses a different approach to wall generation.
+> [!TIP]
+> Usually, it is recommended to use [Arachne wall generator](quality_settings_wall_generator#arachne) which will disable "Detect thin walls" because it uses a different approach to wall generation.
 - In small details it can generate details that wouldn't be possible with traditional wall generation methods.  
   ![walls-small-detect-thin-off](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/walls/walls-small-detect-thin-off.png?raw=true)
   ![walls-small-detect-thin-on](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/walls/walls-small-detect-thin-on.png?raw=true)

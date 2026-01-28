@@ -4,10 +4,10 @@ Ironing is a process used to improve the surface finish of 3D prints by smoothin
 
 ![ironing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ironing/ironing.png?raw=true)
 
-!!! tip
-    For Multi-material print, consider using [Material Setting Overrides](material_setting_overrides#ironing) to customize ironing settings for each material.
-!!! important
-    Ironing can cause filament to move very slowly through the hotend, which increases the risk of heat creep and potential clogging. Monitor your printer during ironing and ensure your hotend cooling is adequate to prevent jams.
+> [!TIP]
+> For Multi-material print, consider using [Material Setting Overrides](material_setting_overrides#ironing) to customize ironing settings for each material.
+> [!IMPORTANT]
+> Ironing can cause filament to move very slowly through the hotend, which increases the risk of heat creep and potential clogging. Monitor your printer during ironing and ensure your hotend cooling is adequate to prevent jams.
 ## Type
 
 This setting controls which layer being ironed.
@@ -23,8 +23,8 @@ This setting controls which layer being ironed.
 
 The pattern that will be used when ironing. Usually, the best pattern is the one with the most efficient coverage of the surface.  
 
-!!! tip
-    See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
+> [!TIP]
+> See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
  The ironing patterns are:
 
 - **[Concentric](strength_settings_patterns#concentric)**

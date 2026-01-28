@@ -624,6 +624,39 @@ img[height="200"] {
     color: #ff1744;
 }
 
+.md-typeset .admonition.important,
+.md-typeset details.important {
+    border-color: #d946ef;
+    background-color: color-mix(in srgb, #d946ef 3%, transparent);
+}
+
+.md-typeset .admonition.important .admonition-title,
+.md-typeset details.important summary {
+    color: #d946ef;
+}
+
+.md-typeset .admonition.caution,
+.md-typeset details.caution {
+    border-color: #ff9100;
+    background-color: color-mix(in srgb, #ff9100 3%, transparent);
+}
+
+.md-typeset .admonition.caution .admonition-title,
+.md-typeset details.caution summary {
+    color: #ff9100;
+}
+
+.md-typeset .admonition.info,
+.md-typeset details.info {
+    border-color: #448aff;
+    background-color: color-mix(in srgb, #448aff 3%, transparent);
+}
+
+.md-typeset .admonition.info .admonition-title,
+.md-typeset details.info summary {
+    color: #448aff;
+}
+
 /* ============================================================================
    TABLES - Enhanced styling with rounded corners and better spacing
    ============================================================================

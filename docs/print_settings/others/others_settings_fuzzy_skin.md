@@ -61,16 +61,16 @@ It gives a predictable result, but decreases the strength entire shells and open
 
 The fuzzy skin condition is obtained by changing the amount of extruded plastic as the print head moves linearly. There is no extra load on the kinematics, there is no decrease in the printing speed, the pores do not open, but the drawing turns out to be smoother by a factor of 2. It is suitable for creating "loose" walls to reduce internal stress into extruded plastic, or masking printing defects on the side walls - a matte effect.
 
-!!! caution
-    The "Fuzzy skin thicknesses" parameter cannot be more than about 70%-125% (selected individually for different conditions) of the nozzle diameter! This is a complex condition that also depends on the height of the layer, and determines how thin the lines can be extruded. [Arachne](quality_settings_wall_generator#arachne) wall generator mode should also be enabled.
+> [!CAUTION]
+> The "Fuzzy skin thicknesses" parameter cannot be more than about 70%-125% (selected individually for different conditions) of the nozzle diameter! This is a complex condition that also depends on the height of the layer, and determines how thin the lines can be extruded. [Arachne](quality_settings_wall_generator#arachne) wall generator mode should also be enabled.
 ### Combined
 
 ![Fuzzy-skin-Combined-mode](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-Combined-mode.png?raw=true)
 
 This is a combination of Displacement and Extrusion modes. The clarity of the drawing is the same in the classic mode, but the walls remain strong and tight. The load on the kinematics is 2 times lower. The printing speed is faster than in Displacement mode, but the elapsed time will still be longer.
 
-!!! warning
-    The limits on line thickness are the same as in the Extrusion mode.
+> [!WARNING]
+> The limits on line thickness are the same as in the Extrusion mode.
 ## Noise Type
 
 Select the noise algorithm used to generate the random offsets. Different noise types produce distinct visual textures.
@@ -131,8 +131,8 @@ Controls how amplitude decays across octaves. Lower persistence results in smoot
 
 Enable to apply fuzzy skin to the first layer.
 
-!!! caution
-    Can impact bed adhesion and surface contact.
+> [!CAUTION]
+> Can impact bed adhesion and surface contact.
 ## Credits
 
 - **Generator Mode author:** [@pi-squared-studio](https://github.com/pi-squared-studio).

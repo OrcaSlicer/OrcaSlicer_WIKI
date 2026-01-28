@@ -82,8 +82,8 @@ If you add new file resource, add it to the list of files containing macro `L()`
    msgen -o new.po old.po
    ```
 
-    > [!NOTE]
-    > In this Catalog it will be totally same strings for initial text and translated.
+> [!NOTE]
+> In this Catalog it will be totally same strings for initial text and translated.
 
 When you have Catalog to translation open POT or PO file in PoEdit and start translating.
 

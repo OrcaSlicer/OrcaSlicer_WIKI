@@ -6,8 +6,8 @@ There are two assembly tools in OrcaSlicer, one for generating assemblies on the
 
 Use the Assemble tool to create an bed assembly from multiple objects.
 
-!!! tip
-    Is recommended to merge the objects into one before using this function. This way the assembly will be considered as parts after they are merged, and can be adjusted freely on the z-axis. If the objects are not merged, the assembly will be considered as separate objects and each part must have a face that touches the heatbed.
+> [!TIP]
+> Is recommended to merge the objects into one before using this function. This way the assembly will be considered as parts after they are merged, and can be adjusted freely on the z-axis. If the objects are not merged, the assembly will be considered as separate objects and each part must have a face that touches the heatbed.
 ### Point and Print Assembly
 
 Use the Point and Print Assembly tool to create assembly instructions by selecting points on your 3D model.  

@@ -2,8 +2,8 @@
 
 During high-speed movements, vibrations can cause a phenomenon called "ringing," where periodic ripples appear on the print surface. Input Shaping provides an effective solution by counteracting these vibrations, improving print quality and reducing wear on components without needing to significantly lower print speeds.
 
-!!! important
-    RepRap can only set one frequency for both X and Y axes so you will need to select a frequency that works well for both axes.
+> [!IMPORTANT]
+> RepRap can only set one frequency for both X and Y axes so you will need to select a frequency that works well for both axes.
 - [Types](#types)
     - [Default](#default)
     - [Version Table](#version-table)
@@ -52,8 +52,8 @@ Pre-requisites:
     - Acceleration high enough to trigger ringing (e.g., 20000 mm/s²).
     - Speed high enough to trigger ringing (e.g., 200 mm/s).
 
-!!! important
-    It's recommended to use the fastest [acceleration](speed_settings_acceleration), [speed](speed_settings_other_layers_speed) and [Jerk/Junction Deviation](speed_settings_jerk_xy) your printer can handle without losing steps. This test **will set the values to high values** limited by your printer's motion ability and the filament's max volumetric speed (avoid materials below 10 mm³/s).
+> [!IMPORTANT]
+> It's recommended to use the fastest [acceleration](speed_settings_acceleration), [speed](speed_settings_other_layers_speed) and [Jerk/Junction Deviation](speed_settings_jerk_xy) your printer can handle without losing steps. This test **will set the values to high values** limited by your printer's motion ability and the filament's max volumetric speed (avoid materials below 10 mm³/s).
 1. Select the Test Model ´Ringing Tower´ (Recommended) or ´Fast Tower´ (Reduced version useful for printers with high ringing).
 2. Select the [Input Shaper Type](#types) you want to test. Each firmware has different types available and each type has different performance.
 3. Select a range of frequencies to test. The Default 15hz to 110hz range is usually a good start.

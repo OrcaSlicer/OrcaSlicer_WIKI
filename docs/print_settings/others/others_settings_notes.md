@@ -7,5 +7,5 @@ This will result in a commented note inside the G-code.
 ; notes: Sliced with OrcaSlicer, the best slicer.
 ```
 
-!!! tip
-    Check [Built in placeholders variables](built-in-placeholders-variables) for available tokens and their meanings.
+> [!TIP]
+> Check [Built in placeholders variables](built-in-placeholders-variables) for available tokens and their meanings.

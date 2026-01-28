@@ -4,8 +4,8 @@ Cornering is a critical aspect of 3D printing that affects print quality and acc
 
 ## Types of Cornering Settings
 
-!!! tip
-    Read more in [Jerk XY](speed_settings_jerk_xy) and check [Cornering Control Types](speed_settings_jerk_xy#cornering-control-types)
+> [!TIP]
+> Read more in [Jerk XY](speed_settings_jerk_xy) and check [Cornering Control Types](speed_settings_jerk_xy#cornering-control-types)
 ## Calibration
 
 This test will be set detect automatically your printer firmware type and will adapt to the specific calibration process.
@@ -17,8 +17,8 @@ This test will be set detect automatically your printer firmware type and will a
 - Marlin Legacy: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-).
 - RepRap: [Maximum instantaneous speed changes](https://docs.duet3d.com/User_manual/Reference/Gcodes#m566-set-allowable-instantaneous-speed-change)
 
-!!! note
-    This calibration example uses Junction Deviation as an example. The process is similar for Jerk calibration; just read the Jerk values instead of JD values. JD values are between `0.0` and `0.3` (in mm) while Jerk values are usually between `1` and `20` or higher (in mm/s).
+> [!NOTE]
+> This calibration example uses Junction Deviation as an example. The process is similar for Jerk calibration; just read the Jerk values instead of JD values. JD values are between `0.0` and `0.3` (in mm) while Jerk values are usually between `1` and `20` or higher (in mm/s).
 1. Pre-requisites:
     1. If using Marlin 2 firmware, Check if your printer has Junction Deviation enabled. Look for `Junction deviation` in the printer's advanced settings.
     2. In OrcaSlicer, set:
@@ -119,8 +119,8 @@ This test will be set detect automatically your printer firmware type and will a
             M566 X3000 Y3000
             ```
 
-!!! note
-    RepRapFirmware exposes `M566` to set allowable instantaneous speed changes; some boards may persist settings with `M500` or via their web/config files.
+> [!NOTE]
+> RepRapFirmware exposes `M566` to set allowable instantaneous speed changes; some boards may persist settings with `M500` or via their web/config files.
 ## Credits
 
 - **Junction Deviation Machine Limit** [@RF47](https://github.com/RF47)

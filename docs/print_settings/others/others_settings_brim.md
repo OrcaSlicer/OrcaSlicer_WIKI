@@ -68,8 +68,8 @@ This approach combines the **disadvantages** of both brim types, making it more 
 
 ![brim-outer-inner](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim-outer-inner.png?raw=true)
 
-!!! tip
-    > Consider using a [raft](support_settings_raft) on complex models/materials.
+> [!TIP]
+> > Consider using a [raft](support_settings_raft) on complex models/materials.
 ### Mouse Ears
 
 Mouse ears are small, local brim extensions (typically placed near corners and sharp features) that improve bed adhesion and reduce warping while using less material than a full brim.  
