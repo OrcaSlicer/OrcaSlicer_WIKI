@@ -55,9 +55,9 @@ extra_javascript:
   - assets/javascripts/icon-theme.js
   - assets/javascripts/scroll-to-top.js
 
-plugins:
-  - search
-  - gh-admonitions   # converts github annotions to admonition
+# plugins:
+  # - search
+  # - gh-admonitions   # converts github annotions to admonition
   #- optimize        # automatically optimizes images
   #- git-committers: # not works # adds committers to footer # pip install mkdocs-git-committers-plugin-2
   #    repository: OrcaSlicer/OrcaSlicer_WIKI
@@ -70,7 +70,6 @@ markdown_extensions:
       permalink: true
   - attr_list
   - md_in_html
-  - admonition
   - pymdownx.details  # For collapsible admonitions
   - pymdownx.superfences:
       custom_fences:

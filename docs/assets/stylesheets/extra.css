@@ -1,0 +1,1123 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
+
+/* ============================================================================
+   TABLE OF CONTENTS
+   ============================================================================
+   
+   This stylesheet customizes the MkDocs Material theme for the OrcaSlicer Wiki.
+   All styles use design tokens for consistency and maintainability.
+   
+   STRUCTURE:
+   1. Design Tokens           - CSS variables for spacing, colors, typography
+   2. Color System            - Light/dark mode theme colors
+   3. Global Accessibility    - Focus states, reduced motion, smooth scroll
+   4. Component Styles:
+      - Header                - Top navigation bar
+      - Sidebars              - Left navigation and right TOC
+      - Typography            - Headings, paragraphs, emphasis
+      - Images                - Inline images and icons
+      - Links                 - Hyperlink styling
+      - Lists                 - Bullets and numbered lists
+      - Admonitions           - Callout boxes (note, warning, tip, etc.)
+      - Tables                - Data tables with responsive behavior
+      - Code Blocks           - Syntax highlighting containers
+      - Footer                - Bottom page footer
+      - Scroll-to-Top Button  - Custom circular progress button
+   5. Page Transitions        - Smooth content loading with instant navigation
+   6. Print Styles            - Optimized layout for printing
+   
+   NOTES FOR MAINTAINERS:
+   - Always use design tokens (--space-*, --radius-*, etc.) instead of hardcoded values
+   - Fluid typography uses clamp() for responsive scaling based on viewport width
+   - Media queries use rem units (16px base) for accessibility
+   - All transitions respect prefers-reduced-motion for accessibility
+   - Material theme classes are prefixed with .md- (e.g., .md-header, .md-nav)
+   
+   ============================================================================ */
+
+/* ============================================================================
+   DESIGN TOKENS - Foundation variables for consistent theming
+   ============================================================================ */
+
+:root {
+    /* ========================================
+     Typography
+     ======================================== */
+    --md-text-font: "Noto Sans", sans-serif;
+    --md-code-font: "Roboto Mono", monospace;
+
+    /* ========================================
+     Font Sizes
+     ======================================== */
+    --font-size-xxs: 0.5rem;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+
+    /* ========================================
+     Spacing Scale (8pt grid)
+     Use these instead of arbitrary values
+     ======================================== */
+    --space-0: 0;
+    --space-0_5: 0.125rem;
+    /* 2px */
+    --space-1: 0.25rem;
+    /* 4px */
+    --space-2: 0.5rem;
+    /* 8px */
+    --space-3: 0.75rem;
+    /* 12px */
+    --space-4: 1rem;
+    /* 16px */
+    --space-5: 1.25rem;
+    /* 20px */
+    --space-6: 1.5rem;
+    /* 24px */
+    --space-8: 2rem;
+    /* 32px */
+    --space-10: 2.5rem;
+    /* 40px */
+    --space-12: 3rem;
+    /* 48px */
+    --space-16: 4rem;
+    /* 64px */
+
+    /* ========================================
+     Border Radius Scale
+     ======================================== */
+    --radius-none: 0;
+    --radius-sm: 0.125rem;
+    /* 2px */
+    --radius-md: 0.25rem;
+    /* 4px */
+    --radius-lg: 0.5rem;
+    /* 8px */
+    --radius-xl: 1rem;
+    /* 16px */
+    --radius-full: 9999px;
+
+    /* ========================================
+     Shadows
+     ======================================== */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    /* ========================================
+     Transitions
+     ======================================== */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-xslow: 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+
+/* ============================================================================
+   COLOR SYSTEM - Theme colors for light and dark modes
+   ============================================================================ */
+
+:root,
+[data-md-color-scheme=default] {
+    /* ========================================
+     Brand Colors (Light Mode)
+     ======================================== */
+    --md-primary-fg-color: #009688;
+    --md-primary-fg-color--light: #009688;
+    --md-primary-fg-color--dark: #00675B;
+    --md-accent-fg-color: #009688;
+
+    /* ========================================
+     Derived Colors (color-mix based)
+     ======================================== */
+    --color-primary-hover: color-mix(in srgb, var(--md-primary-fg-color) 80%, black);
+    --color-primary-subtle: color-mix(in srgb, var(--md-primary-fg-color) 8%, transparent);
+    --color-primary-muted: color-mix(in srgb, var(--md-primary-fg-color) 15%, transparent);
+
+    /* ========================================
+     Semantic Colors
+     ======================================== */
+    --md-typeset-a-color: var(--md-primary-fg-color) !important;
+    --md-default-fg-color--link: var(--md-primary-fg-color);
+    --md-accent-fg-color--transparent: color-mix(in srgb, var(--md-primary-fg-color) 10%, transparent);
+    --md-footer-bg-color: var(--md-primary-fg-color) !important;
+    --md-footer-fg-color: #FFFFFF;
+}
+
+[data-md-color-scheme=slate] {
+    /* ========================================
+     Brand Colors (Dark Mode)
+     ======================================== */
+    --md-default-bg-color: #2D2D31;
+    --md-default-fg-color: #EFEFF0;
+    --md-primary-fg-color: #14B8A6;
+    --md-accent-fg-color: #14B8A6;
+    --md-primary-fg-color--light: #14B8A6;
+    --md-primary-fg-color--dark: #00867b;
+
+    /* ========================================
+     Derived Colors (color-mix based)
+     ======================================== */
+    --color-primary-hover: color-mix(in srgb, var(--md-primary-fg-color) 60%, white);
+    --color-primary-subtle: color-mix(in srgb, var(--md-primary-fg-color) 12%, transparent);
+    --color-primary-muted: color-mix(in srgb, var(--md-primary-fg-color) 20%, transparent);
+
+    /* ========================================
+     Component Colors
+     ======================================== */
+    --md-typeset-a-color: var(--md-primary-fg-color) !important;
+    --md-default-fg-color--link: var(--md-primary-fg-color);
+    --md-accent-fg-color--transparent: color-mix(in srgb, var(--md-primary-fg-color) 15%, transparent);
+    --md-footer-bg-color--dark: #00000052;
+    --md-code-bg-color: #242428;
+}
+
+/* ============================================================================
+   GLOBAL ACCESSIBILITY & BEHAVIOR
+   ============================================================================ */
+
+/* Smooth scrolling with reduced motion support */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Global focus ring for keyboard navigation */
+:focus-visible {
+    outline: 2px solid var(--md-accent-fg-color);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ============================================================================
+   COMPONENT STYLES
+   ============================================================================ */
+
+/* ============================================================================
+   HEADER - Top navigation bar
+   ============================================================================
+   
+   Customizes the Material theme's header:
+   - Applies brand color with light/dark variants
+   - Reduces logo margins for more compact header
+   - Increases logo size for better visibility
+   - Adds hover/active states to header buttons (search, theme toggle, etc.)
+   
+   Classes used:
+   - .md-header: Main header container
+   - .md-header__button: Icon buttons in header
+   - .md-header__title: Site title
+   ============================================================================ */
+
+.md-header {
+    background-color: light-dark(var(--md-primary-fg-color--light), var(--md-primary-fg-color--dark));
+}
+
+/* Reduce vertical margin on logo to make header more compact */
+.md-header__button.md-logo {
+    margin: 0 var(--space-1);
+}
+
+/* Increase size of logo on header */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+    height: 1.6rem;
+}
+
+/* Reduce margin between logo and title */
+[dir=ltr] .md-header__title {
+    margin-left: var(--space-2);
+}
+
+/* Header button interactions */
+.md-header__button {
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    border-radius: var(--radius-md);
+}
+
+.md-header__button:hover {
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.md-header__button:active {
+    transform: scale(0.95);
+}
+
+/* ============================================================================
+   SIDEBARS - Left navigation and right table of contents
+   ============================================================================
+   
+   Customizes both the left navigation sidebar and right TOC sidebar:
+   
+   LEFT NAVIGATION (.md-nav--primary):
+   - Removes title on desktop for cleaner look
+   - Bolds active navigation items
+   - Adds hover states with color transitions
+   
+   RIGHT TOC (.md-nav--secondary):
+   - Highlights current section with background and accent bar
+   - Smooth transitions when scrolling between sections
+   - Responsive: Resets styling on mobile (< 76.25rem) where TOC is in drawer
+   
+   FOCUS MANAGEMENT:
+   - Uses :focus-visible for keyboard navigation only
+   - Resets focus styles after mouse clicks to prevent persistent highlighting
+   
+   Material automatically updates .md-nav__link--active based on scroll position
+   using Intersection Observer API (no configuration needed).
+   ============================================================================ */
+
+.md-nav__link[for],
+.md-nav__link[href] {
+    text-decoration: underline transparent;
+    transition: var(--transition-fast);
+
+    &:hover {
+        color: var(--color-primary-hover);
+        text-decoration: underline var(--color-primary-hover);
+        transition: var(--transition-base);
+    }
+
+    &:focus-visible {
+        color: var(--color-primary-hover);
+    }
+
+    &:focus:not(:focus-visible) {
+        /* resets clicked nav items to prevent focus styles from persisting */
+        color: unset;
+    }
+}
+
+.md-nav__title {
+    color: var(--md-typeset-color);
+    font-weight: 600;
+}
+
+/* Enhanced TOC active section indicator */
+.md-nav--secondary .md-nav__link {
+    transition: all var(--transition-base);
+    border-radius: var(--radius-md);
+    padding: 0 var(--space-3) 0 var(--space-5);
+    position: relative;
+    margin-left: calc(-1 * var(--space-1));
+
+    /* Override for mobile/tablet */
+    @media screen and (max-width: 76.24rem) {
+        padding: var(--space-2) var(--space-3);
+    }
+}
+
+.md-nav--secondary .md-nav__link--active {
+    color: var(--md-primary-fg-color);
+    background-color: var(--color-primary-subtle);
+}
+
+.md-nav--secondary .md-nav__link--active::before {
+    content: '';
+    position: absolute;
+    left: var(--space-1);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 65%;
+    background-color: var(--md-primary-fg-color);
+    border-radius: var(--radius-full);
+}
+
+/* Use bold font on selected navigation bar item */
+.md-nav__item .md-nav__link--active {
+    color: var(--md-primary-fg-color);
+    scale: 1.02;
+}
+
+/* Reset TOC styling for mobile/tablet (drawer mode)
+@media screen and (max-width: 76.24rem) {
+    .md-nav--secondary .md-nav__link {
+        padding: var(--space-2) var(--space-4);
+        margin-left: 0;
+    }
+
+    .md-nav--secondary .md-nav__link--active::before {
+        left: 0;
+    }
+} */
+
+@media screen and (min-width: 76.25rem) {
+
+    /* Hide title on left sidebar */
+    .md-nav--primary .md-nav__title[for=__drawer] {
+        display: none;
+    }
+
+    /* Remove leftover margin for first item*/
+    .md-nav--primary>.md-nav__list>.md-nav__item:first-of-type>a {
+        margin-top: 0 !important;
+    }
+}
+
+/* Fixes unnecassary scrollbars on sidebars */
+.md-nav {
+    margin-bottom: 0;
+}
+
+/* remove top margin for page to gain space */
+.md-main__inner {
+    margin-top: 0;
+}
+
+/* /////// TITLES */
+
+/* Use bolder titles */
+.md-typeset h1 {
+    font-weight: 550
+}
+
+.md-typeset h2 {
+    font-weight: 550
+}
+
+.md-typeset h3 {
+    font-weight: 550
+}
+
+.md-typeset h4 {
+    font-weight: 700
+}
+
+/* Match color of titles */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+    color: var(--md-typeset-color);
+}
+
+/* Reduce margins after headers / titles */
+.md-typeset h1 {
+    margin-bottom: 0 !important;
+    margin-block-end: var(--space-2);
+}
+
+.md-typeset h2 {
+    margin-bottom: 0 !important;
+    margin-top: var(--space-4) !important;
+    margin-block-end: var(--space-2);
+}
+
+.md-typeset h3 {
+    margin-bottom: 0 !important;
+    margin-top: var(--space-4) !important;
+    margin-block-end: var(--space-1);
+}
+
+.md-typeset h4 {
+    margin-bottom: 0 !important;
+    margin-block-end: var(--space-1);
+}
+
+h1+p,
+h2+p,
+h3+p,
+h4+p {
+    margin-block-start: var(--space-2);
+}
+
+h1+ul,
+h2+ul,
+h3+ul,
+h4+ul,
+h1+ol,
+h2+ol,
+h3+ol,
+h4+ol {
+    margin-top: var(--space-2) !important;
+}
+
+/* Add thin borders for separation */
+.md-typeset h2,
+.md-typeset h3 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.md-typeset h2::after,
+.md-typeset h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--md-typeset-table-color);
+    margin-left: var(--space-1);
+}
+
+/* /////// Images */
+
+/* Vertically align images to make it inline with text */
+.md-typeset img {
+    vertical-align: middle;
+}
+
+img[height="22"] {
+    /* Text icons */
+    height: 22px;
+}
+
+img[height="45"] {
+    /* Patterns table */
+    height: 45px;
+}
+
+img[height="200"] {
+    /* Calibrations guide preview */
+    height: 200px;
+}
+
+/* /////// LINKS */
+
+.md-typeset a {
+    font-weight: 500;
+}
+
+.md-typeset a,
+.md-typeset a::before {
+    transition: var(--transition-fast);
+    text-decoration: underline transparent;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--color-primary-hover);
+        transition: var(--transition-base);
+        text-decoration: underline var(--color-primary-hover);
+    }
+
+    &:focus:not(:focus-visible) {
+        color: unset;
+        text-decoration: underline transparent;
+    }
+}
+
+/* /////// LISTS / BULLETS */
+
+/* Reduce left margin for bullets */
+[dir=ltr] .md-typeset ol li,
+[dir=ltr] .md-typeset ul li {
+    margin-left: var(--space-2);
+}
+
+/* Reduce line height on lists */
+.md-typeset ol li,
+.md-typeset ul li {
+    margin-bottom: var(--space-1);
+}
+
+/* Use circle instead disc as list item marker. just less distracting */
+.md-typeset ul {
+    list-style-type: circle;
+}
+
+/* Use bolder font on list markers */
+.md-typeset ol li::marker,
+.md-typeset ul li::marker {
+    font-weight: 550;
+}
+
+/* /////// ANNOTIONS */
+
+/* Use regular font size on annotions */
+.md-typeset .admonition,
+.md-typeset details {
+    font-size: var(--font-size-xs);
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+    background-color: var(--md-admonition-bg-color);
+    border: none;
+    border-left: var(--space-1) solid #448aff;
+    border-radius: var(--radius-none);
+    margin: var(--space-5) 0;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+    background-color: transparent !important;
+    padding-bottom: 0 !important;
+    padding-top: var(--space-1) !important;
+}
+
+.md-typeset .admonition-title:before,
+.md-typeset summary:before {
+    top: var(--space-2) !important;
+}
+
+.md-typeset .admonition>:last-child,
+.md-typeset details>:last-child {
+    margin-bottom: 0;
+    margin-block-start: var(--space-1);
+    margin-block-end: var(--space-1);
+}
+
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+    border-color: #ff9100;
+    background-color: color-mix(in srgb, #ff9100 3%, transparent);
+}
+
+.md-typeset .admonition.warning .admonition-title,
+.md-typeset details.warning summary {
+    color: #ff9100;
+}
+
+.md-typeset .admonition.note,
+.md-typeset details.note {
+    border-color: #448aff;
+    background-color: color-mix(in srgb, #448aff 3%, transparent);
+}
+
+.md-typeset .admonition.note .admonition-title,
+.md-typeset details.note summary {
+    color: #448aff;
+}
+
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
+    border-color: #00bfa5;
+    background-color: color-mix(in srgb, #00bfa5 3%, transparent);
+}
+
+.md-typeset .admonition.tip .admonition-title,
+.md-typeset details.tip summary {
+    color: #00bfa5;
+}
+
+.md-typeset .admonition.danger,
+.md-typeset details.danger {
+    border-color: #ff1744;
+    background-color: color-mix(in srgb, #ff1744 3%, transparent);
+}
+
+.md-typeset .admonition.danger .admonition-title,
+.md-typeset details.danger summary {
+    color: #ff1744;
+}
+
+/* ============================================================================
+   TABLES - Enhanced styling with rounded corners and better spacing
+   ============================================================================
+   
+   Advanced responsive table system with multiple adaptation strategies:
+   
+   SELECTOR: table:not([class])
+   - Targets only markdown-generated tables (no class attribute)
+   - Avoids interfering with Material's own UI tables or plugin tables
+   
+   RESPONSIVE STRATEGY:
+   1. Desktop (> 76.25rem): Full table with comfortable spacing
+   2. Mobile (< 76.25rem): 
+      - Horizontal scroll enabled (with iOS smooth scrolling)
+      - Text wraps in cells (word-wrap: break-word)
+      - Fluid typography with clamp() scales font and padding
+      - Font: 13px (mobile) → 15px (tablet) based on viewport width
+   
+   VISUAL FEATURES:
+   - Rounded corners with overflow hidden
+   - Striped rows (nth-child(even)) for readability
+   - Hover effect with subtle scale and background change
+   - Header with teal background and 2px bottom border
+   - Pattern icons (alt^="param_") locked to 45px height
+   
+   WHY CLAMP() FOR RESPONSIVE TYPOGRAPHY:
+   - Simple viewport-based fluid scaling that backend devs understand
+   - Syntax: clamp(minimum, preferred, maximum)
+   - Automatically scales between min/max based on viewport width
+   - More maintainable than breakpoint-based approaches
+   ============================================================================ */
+
+/* Base table styling */
+.md-typeset table:not([class]) {
+    /* This selector targets tables without a class attribute */
+    width: auto;
+    table-layout: auto;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--font-size-sm);
+}
+
+/* Table header styling */
+.md-typeset table:not([class]) thead {
+    background-color: var(--color-primary-muted);
+}
+
+.md-typeset table:not([class]) th {
+    padding: var(--space-4) var(--space-5);
+    font-weight: 600;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 2px solid var(--md-primary-fg-color);
+}
+
+/* Table cell styling */
+.md-typeset table:not([class]) td {
+    padding: var(--space-3) var(--space-5);
+    vertical-align: middle;
+}
+
+/* Vertical align all table cells */
+.md-typeset table td,
+.md-typeset table th {
+    vertical-align: middle;
+}
+
+/* Row styling with alternating backgrounds */
+.md-typeset table:not([class]) tbody tr {
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    border-bottom: 1px solid color-mix(in srgb, var(--md-typeset-table-color) 30%, transparent);
+}
+
+.md-typeset table:not([class]) tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* Striped rows for better readability */
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, var(--md-default-fg-color) 2%, transparent);
+}
+
+/* Hover effect on table rows */
+.md-typeset table:not([class]) tbody tr:hover {
+    background-color: var(--color-primary-subtle);
+    transform: scale(1.005);
+    cursor: pointer;
+}
+
+/* First and last cell rounded corners */
+.md-typeset table:not([class]) thead tr:first-child th:first-child {
+    border-top-left-radius: var(--radius-lg);
+}
+
+.md-typeset table:not([class]) thead tr:first-child th:last-child {
+    border-top-right-radius: var(--radius-lg);
+}
+
+.md-typeset table:not([class]) tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+}
+
+.md-typeset table:not([class]) tbody tr:last-child td:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+}
+
+/* Keep pattern icons fixed at 45px inside tables */
+.md-typeset table img[alt^="param_"] {
+    max-width: none;
+    max-height: none;
+    width: auto;
+    height: 45px !important;
+}
+
+/* Responsive tables - mobile optimizations */
+@media screen and (max-width: 76.24rem) {
+
+    /* Table container scrolls horizontally */
+    .md-typeset table:not([class]) {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Smooth scrolling on iOS */
+        /* Fluid typography: scales from 13px (mobile) to 15px (tablet) */
+        font-size: clamp(0.8125rem, 0.75rem + 0.5vw, 0.9375rem);
+    }
+
+    /* Allow text to wrap in cells for better readability */
+    .md-typeset table:not([class]) td,
+    .md-typeset table:not([class]) th {
+        white-space: normal;
+        word-wrap: break-word;
+        min-width: 100px;
+        /* Prevent cells from becoming too narrow */
+    }
+
+    /* Responsive padding: scales from 0.5rem to 0.75rem */
+    .md-typeset table:not([class]) td {
+        padding: clamp(0.5rem, 0.4rem + 0.8vw, 0.75rem);
+    }
+
+    .md-typeset table:not([class]) th {
+        padding: clamp(0.75rem, 0.65rem + 0.8vw, 1rem);
+    }
+
+}
+
+/* Extra small screens - more aggressive optimizations */
+@media screen and (max-width: 30rem) {
+
+    .md-typeset table:not([class]) td,
+    .md-typeset table:not([class]) th {
+        min-width: 80px;
+    }
+
+    .md-typeset table:not([class]) {
+        font-size: var(--font-size-xs);
+    }
+}
+
+/* /////// CODE BLOCKS */
+
+/* Subtle hover effect on code blocks */
+.md-typeset pre,
+.md-typeset .highlight {
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    /* Using a shadow for subtle depth instead of movement, better for text meant to be coppied */
+}
+
+.md-typeset pre:hover,
+.md-typeset .highlight:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.md-typeset pre code {
+    border-radius: var(--radius-md);
+}
+
+/* ====================================================================== FOOTER */
+/* Fixes sidebar content rendering over footer when all items expanded */
+.md-footer {
+    z-index: 10;
+}
+
+/* ============================================================================
+   SCROLL-TO-TOP BUTTON - Custom circular button with progress indicator
+   ============================================================================
+   
+   Custom implementation to replace Material's navigation.top feature which
+   had issues. This provides better UX with visual scroll progress feedback.
+   
+   FEATURES:
+   - Circular SVG progress ring fills as you scroll down the page
+   - Shows after scrolling 300px down
+   - Smooth entrance/exit animations
+   - Desktop: Bottom-right corner (traditional placement)
+   - Mobile: Bottom-center (easier thumb access)
+   - Respects safe-area-inset for notched devices
+   
+   IMPLEMENTATION:
+   - JavaScript in scroll-to-top.js creates button and updates progress
+   - SVG uses viewBox for responsive scaling (works at any button size)
+   - Progress calculated: scrollTop / (documentHeight - windowHeight)
+   - Ring stroke-dashoffset animated to show progress
+   
+   ACCESSIBILITY:
+   - aria-label and title attributes
+   - Respects prefers-reduced-motion
+   - Keyboard accessible (focus-visible styles from global rules)
+   
+   WHY CUSTOM:
+   - Material's navigation.top was "broken and problematic" (per requirements)
+   - Progress indicator provides better user feedback than simple icon
+   - More modern and engaging UX
+   ============================================================================ */
+
+.scroll-to-top {
+    position: fixed;
+    bottom: var(--space-8);
+    right: var(--space-8);
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background-color: var(--md-primary-fg-color);
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: opacity var(--transition-base),
+        transform var(--transition-base),
+        visibility var(--transition-base),
+        background-color var(--transition-fast);
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.scroll-to-top:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 20px -5px rgb(0 0 0 / 0.25);
+}
+
+.scroll-to-top:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Progress ring SVG */
+.scroll-to-top .progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.scroll-to-top .progress-ring__background {
+    stroke: color-mix(in srgb, currentColor 20%, transparent);
+    stroke-width: 2;
+}
+
+.scroll-to-top .progress-ring__progress {
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dashoffset var(--transition-fast);
+}
+
+/* Arrow icon */
+.scroll-to-top .arrow-icon {
+    position: relative;
+    z-index: 1;
+    color: white;
+    width: 42%;
+    height: 42%;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 76.24rem) {
+    .scroll-to-top {
+        /* Center horizontally on mobile for thumb access */
+        left: 50%;
+        right: auto;
+        bottom: calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
+        width: 48px;
+        height: 48px;
+        /* Include centering transform in all states */
+        transform: translate(-50%, 20px) scale(0.8);
+    }
+
+    .scroll-to-top.visible {
+        transform: translate(-50%, 0) scale(1);
+    }
+
+    .scroll-to-top:hover {
+        transform: translate(-50%, -2px) scale(1.05);
+    }
+
+    .scroll-to-top:active {
+        transform: translate(-50%, 0) scale(0.95);
+    }
+}
+
+/* Very small mobile screens - adjust spacing */
+@media screen and (max-width: 30rem) {
+    .scroll-to-top {
+        bottom: calc(var(--space-12) + env(safe-area-inset-bottom, 0px));
+        width: 44px;
+        height: 44px;
+        transform: translate(-50%, 20px) scale(0.8);
+    }
+
+    .scroll-to-top.visible {
+        transform: translate(-50%, 0) scale(1);
+    }
+
+    .scroll-to-top:hover {
+        transform: translate(-50%, -2px) scale(1.05);
+    }
+
+    .scroll-to-top:active {
+        transform: translate(-50%, 0) scale(0.95);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .scroll-to-top {
+        transition: opacity var(--transition-fast),
+            visibility var(--transition-fast);
+    }
+
+    .scroll-to-top .progress-ring__progress {
+        transition: none;
+    }
+}
+
+/* /////// PAGE SPESIFIC CHANGES */
+/* :has selector might not work on old browsers */
+/* using ~body required to get elements properly */
+head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
+    background-color: transparent;
+    color: var(--md-typeset-color);
+    font-weight: 550;
+}
+
+/* ============================================================================
+   PRINT STYLES - Optimized layout for printing documentation
+   ============================================================================
+   
+   Ensures printed documentation is clean, readable, and saves ink/paper.
+   These styles only apply when printing (or print preview).
+   
+   GOALS:
+   - Remove all navigation elements (users can't click them anyway)
+   - Expand all collapsed content (admonitions, details)
+   - Remove shadows and backgrounds (saves ink, improves readability)
+   - Ensure proper page breaks (keep related content together)
+   - Show link URLs for reference
+   ============================================================================ */
+
+@media print {
+
+    /* Hide non-printable elements */
+    .md-header,
+    .md-sidebar,
+    .md-footer,
+    .scroll-to-top,
+    .md-top {
+        display: none !important;
+    }
+
+    /* Main content takes full width */
+    .md-content {
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .md-content__inner {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Remove backgrounds and shadows to save ink */
+    * {
+        background: white !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* Ensure text is black for readability */
+    body {
+        color: black !important;
+    }
+
+    /* Make links visible */
+    a {
+        color: black !important;
+        text-decoration: underline !important;
+    }
+
+    /* Show URLs after links for reference */
+    a[href^="http"]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        font-weight: normal;
+    }
+
+    /* Don't show URLs for anchor links */
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    /* Expand all collapsed admonitions */
+    .md-typeset details {
+        display: block !important;
+    }
+
+    .md-typeset details>summary {
+        display: block !important;
+    }
+
+    .md-typeset details[open]>summary::after {
+        display: none !important;
+    }
+
+    /* Remove admonition borders for cleaner print */
+    .md-typeset .admonition,
+    .md-typeset details {
+        border: 1px solid #ddd !important;
+        border-left: 3px solid #444 !important;
+    }
+
+    /* Table improvements for printing */
+    .md-typeset table {
+        border-collapse: collapse !important;
+        border: 1px solid #ddd !important;
+    }
+
+    .md-typeset table th,
+    .md-typeset table td {
+        border: 1px solid #ddd !important;
+        padding: 8px !important;
+    }
+
+    .md-typeset table th {
+        background: #f5f5f5 !important;
+        font-weight: bold !important;
+    }
+
+    /* Code blocks */
+    .md-typeset pre,
+    .md-typeset code {
+        border: 1px solid #ddd !important;
+        page-break-inside: avoid;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+    }
+
+    /* Page break control */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* Keep images with their captions */
+    img {
+        page-break-inside: avoid;
+        max-width: 100% !important;
+    }
+
+    /* Prevent orphans and widows */
+    p {
+        orphans: 3;
+        widows: 3;
+    }
+}

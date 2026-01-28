@@ -16,6 +16,42 @@ How to contribute to the wiki guide: **[How-to-wiki](https://github.com/OrcaSlic
 Please Note that this wiki is a work in progress.
 We appreciate your patience as we continue to develop and improve it!
 
+## Development
+
+This wiki is built with **[Zensical](https://zensical.org/)** - a modern static site generator by the Material for MkDocs team.
+
+### Quick Start
+
+```bash
+# Install dependencies
+pip install zensical mkdocs-github-admonitions-plugin
+
+# Start development server
+zensical serve
+
+# Build static site
+zensical build
+```
+
+That's it! No build scripts needed. The site will be available at http://localhost:8000
+
+### Project Structure
+
+```
+.
+├── docs/                  # All documentation source files
+│   ├── index.md          # Homepage
+│   ├── calibration/      # Calibration guides
+│   ├── print_settings/   # Print settings documentation
+│   └── ...
+├── zensical.toml         # Zensical configuration
+└── mkdocs.yml            # Legacy config (kept for generate_nav.py)
+```
+
+### Contributing
+
+See [How-to-wiki](docs/developer-reference/How-to-wiki.md) for contribution guidelines.
+
 ## Official links and community
 
 #### Official Website
