@@ -53,7 +53,7 @@
 
 /* Reduce vertical margin on logo to make header more compact */
 .md-header__button.md-logo {
-    margin: 0 .2rem;
+    margin: 0 0.25rem;
 }
 
 /* Increase size of logo on header */
@@ -67,11 +67,76 @@
     margin-left: 0.5rem;
 }
 
+/* Header button interactions */
+.md-header__button {
+    transition: background-color 150ms ease, transform 150ms ease;
+    border-radius: 0.25rem;
+}
+
+.md-header__button:hover {
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.md-header__button:active {
+    transform: scale(0.95);
+}
+
 /* /////// SIDEBARS */
 
-/* Use bold font on selected navigation bar item */
-.md-nav__item .md-nav__link--active {
+/* Navigation link hover states */
+.md-nav__link[for],
+.md-nav__link[href] {
+    text-decoration: underline transparent;
+    transition: color 150ms ease, text-decoration 150ms ease;
+}
+
+.md-nav__link[for]:hover,
+.md-nav__link[href]:hover {
+    color: var(--md-primary-fg-color--dark);
+    text-decoration: underline var(--md-primary-fg-color--dark);
+}
+
+.md-nav__title {
+    color: var(--md-typeset-color);
     font-weight: 600;
+}
+
+/* Enhanced TOC active section indicator */
+.md-nav--secondary .md-nav__link {
+    transition: all 250ms ease;
+    border-radius: 0.25rem;
+    padding: 0 0.75rem 0 1.25rem;
+    position: relative;
+    margin-left: -0.25rem;
+}
+
+@media screen and (max-width: 76.24rem) {
+    .md-nav--secondary .md-nav__link {
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+.md-nav--secondary .md-nav__link--active {
+    color: var(--md-primary-fg-color);
+    background-color: color-mix(in srgb, var(--md-primary-fg-color) 8%, transparent);
+}
+
+.md-nav--secondary .md-nav__link--active::before {
+    content: '';
+    position: absolute;
+    left: 0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 65%;
+    background-color: var(--md-primary-fg-color);
+    border-radius: 9999px;
+}
+
+/* Use bold font and slight scale on selected navigation bar item */
+.md-nav__item .md-nav__link--active {
+    color: var(--md-primary-fg-color);
+    scale: 1.02;
 }
 
 @media screen and (min-width: 76.25em) {
@@ -114,32 +179,32 @@
 /* Reduce margins after headers / titles */
 .md-typeset h1 {
 	margin-bottom: 0 !important;
-	margin-block-end: 0.4em;
+	margin-block-end: 0.5rem;
 }
 .md-typeset h2 {
 	margin-bottom: 0 !important;
-	margin-top: 1.0em !important;
-	margin-block-end: 0.4em;
+	margin-top: 1rem !important;
+	margin-block-end: 0.5rem;
 }
 .md-typeset h3 {
 	margin-bottom: 0 !important;
-	margin-top: 1.0em !important;
-	margin-block-end: 0.3em;
+	margin-top: 1rem !important;
+	margin-block-end: 0.25rem;
 }
 .md-typeset h4 {
 	margin-bottom: 0 !important;
-	margin-block-end: 0.2em;
+	margin-block-end: 0.25rem;
 }
 h1 + p,
 h2 + p,
 h3 + p,
 h4 + p{
-    margin-block-start: 0.4em;
+    margin-block-start: 0.5rem;
 }
 
 h1 + ul, h2 + ul, h3 + ul, h4 + ul,
 h1 + ol, h2 + ol, h3 + ol, h4 + ol{
-    margin-top: 0.4em !important;
+    margin-top: 0.5rem !important;
 }
 
 /* Add thin borders for separation */
@@ -153,9 +218,9 @@ h1 + ol, h2 + ol, h3 + ol, h4 + ol{
 .md-typeset  h3::after {
     content: '';
     flex: 1;
-    height: 0.1em;
+    height: 1px;
     background-color: var(--md-typeset-table-color);
-    margin-left: 0.2em;
+    margin-left: 0.25rem;
 }
 
 /* /////// Images */
@@ -191,14 +256,14 @@ img[height="200"] { /* Calibrations guide preview */
 /* Reduce left margin for bullets */
 [dir=ltr] .md-typeset ol li,
 [dir=ltr] .md-typeset ul li {
-    margin-left: 0.5em;
+    margin-left: 0.5rem;
 }
 
 
 /* Reduce line height on lists */
 .md-typeset ol li,
 .md-typeset ul li {
-    margin-bottom: .3em;
+    margin-bottom: 0.25rem;
 }
 
 /* Use circle instead disc as list item marker. just less distracting */
@@ -325,6 +390,25 @@ img[height="200"] { /* Calibrations guide preview */
 /* Fixes sidebar content rendering over footer when all items expanded */
 .md-footer{
     z-index: 10;
+}
+
+/* /////// CODE BLOCKS */
+
+/* Subtle hover effect on code blocks */
+.md-typeset pre,
+.md-typeset .highlight {
+    transition: box-shadow 250ms ease;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.md-typeset pre:hover,
+.md-typeset .highlight:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.md-typeset pre code {
+    border-radius: 0.25rem;
 }
 
 /* /////// PAGE SPESIFIC CHANGES */
