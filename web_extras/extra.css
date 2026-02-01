@@ -437,8 +437,8 @@ img[height="200"] { /* Calibrations guide preview */
 /* /////// PAGE SPESIFIC CHANGES */
 /* :has selector might not work on old browsers */
 /* using ~body required to get elements properly */
+/* Because this selector uses an href check for 'keyboard-shortcuts.html', it will ONLY affect that page */
 head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
-  background-color: transparent;
   color: var(--md-typeset-color);
-  font-weight: 550;
+  font-weight: 600;
 }
