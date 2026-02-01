@@ -20,7 +20,7 @@ theme:
       - search.suggest
       - search.highlight
       - navigation.path    # shows breadcumb
-      #- navigation.top    # adds back to top button - not working
+      #- navigation.top    # adds back to top button - not working || Custom implementation in scroll-to-top.js
       - navigation.footer  # adds next and previous buttons
       - navigation.indexes
   palette: # show dark mode toggle
@@ -44,6 +44,7 @@ extra_javascript:
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
   - assets/javascripts/katex.js
   - assets/javascripts/icon-theme.js
+  - assets/javascripts/scroll-to-top.js
 
 plugins:
   - search

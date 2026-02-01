@@ -335,3 +335,145 @@ head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
   color: var(--md-typeset-color);
   font-weight: 550;
 }
+
+/* ============================================================================
+   SCROLL-TO-TOP BUTTON - Custom circular button with progress indicator
+   ============================================================================
+   
+   Custom implementation to replace Material's navigation.top feature which
+   had issues. This provides better UX with visual scroll progress feedback.
+   
+   FEATURES:
+   - Circular SVG progress ring fills as you scroll down the page
+   - Shows after scrolling 300px down
+   - Smooth entrance/exit animations
+   - Desktop: Bottom-right corner (traditional placement)
+   - Mobile: Bottom-center (easier thumb access)
+   - Respects safe-area-inset for notched devices
+   ============================================================================ */
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 9999px;
+    background-color: var(--md-primary-fg-color);
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: opacity 250ms ease, transform 250ms ease, visibility 250ms ease, background-color 150ms ease;
+    z-index: 100;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.scroll-to-top:hover {
+    background-color: var(--md-primary-fg-color--dark);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 20px -5px rgb(0 0 0 / 0.25);
+}
+
+.scroll-to-top:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Progress ring SVG */
+.scroll-to-top .progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.scroll-to-top .progress-ring__background {
+    stroke: color-mix(in srgb, currentColor 20%, transparent);
+    stroke-width: 2;
+}
+
+.scroll-to-top .progress-ring__progress {
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 150ms ease;
+}
+
+/* Arrow icon */
+.scroll-to-top .arrow-icon {
+    position: relative;
+    z-index: 1;
+    color: white;
+    width: 42%;
+    height: 42%;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 76.24rem) {
+    .scroll-to-top {
+        /* Center horizontally on mobile for thumb access */
+        left: 50%;
+        right: auto;
+        bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+        width: 48px;
+        height: 48px;
+        transform: translate(-50%, 20px) scale(0.8);
+    }
+
+    .scroll-to-top.visible {
+        transform: translate(-50%, 0) scale(1);
+    }
+
+    .scroll-to-top:hover {
+        transform: translate(-50%, -2px) scale(1.05);
+    }
+
+    .scroll-to-top:active {
+        transform: translate(-50%, 0) scale(0.95);
+    }
+}
+
+/* Very small mobile screens */
+@media screen and (max-width: 30rem) {
+    .scroll-to-top {
+        bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+        width: 44px;
+        height: 44px;
+        transform: translate(-50%, 20px) scale(0.8);
+    }
+
+    .scroll-to-top.visible {
+        transform: translate(-50%, 0) scale(1);
+    }
+
+    .scroll-to-top:hover {
+        transform: translate(-50%, -2px) scale(1.05);
+    }
+
+    .scroll-to-top:active {
+        transform: translate(-50%, 0) scale(0.95);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .scroll-to-top {
+        transition: opacity 150ms ease, visibility 150ms ease;
+    }
+
+    .scroll-to-top .progress-ring__progress {
+        transition: none;
+    }
+}
