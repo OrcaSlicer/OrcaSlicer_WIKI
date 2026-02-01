@@ -296,21 +296,93 @@ img[height="200"] { /* Calibrations guide preview */
 
 /* /////// TABLES */
 
-/* Slighly reduce table cell height */
-.md-typeset table:not([class]) td {
-    padding: .75em 1.25em;
-    vertical-align: middle;
-}
+/* ============================================================================
+   TABLES - Enhanced styling with visual improvements
+   ============================================================================
+   
+   SELECTOR: table:not([class])
+   - Targets only markdown-generated tables (no class attribute)
+   - Avoids interfering with Material's own UI tables or plugin tables
+   
+   VISUAL FEATURES:
+   - Rounded corners with overflow hidden
+   - Striped rows for readability
+   - Hover effect with subtle background change
+   - Header with teal background tint and bottom border
+   ============================================================================ */
 
+/* Base table styling */
 .md-typeset table:not([class]) {
     width: auto;
     table-layout: auto;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.875rem;
 }
 
-/* Vertical align table cells so icons sit in the middle */
+/* Table header styling */
+.md-typeset table:not([class]) thead {
+    background-color: color-mix(in srgb, var(--md-primary-fg-color) 15%, transparent);
+}
+
+.md-typeset table:not([class]) th {
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 2px solid var(--md-primary-fg-color);
+}
+
+/* Table cell styling */
+.md-typeset table:not([class]) td {
+    padding: 0.5rem 0.75rem;
+    vertical-align: middle;
+}
+
+/* Vertical align all table cells */
 .md-typeset table td,
 .md-typeset table th {
     vertical-align: middle;
+}
+
+/* Row styling with alternating backgrounds */
+.md-typeset table:not([class]) tbody tr {
+    transition: background-color 150ms ease;
+    border-bottom: 1px solid color-mix(in srgb, var(--md-typeset-table-color) 30%, transparent);
+}
+
+.md-typeset table:not([class]) tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* Striped rows for better readability */
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, var(--md-default-fg-color) 2%, transparent);
+}
+
+/* Hover effect on table rows */
+.md-typeset table:not([class]) tbody tr:hover {
+    background-color: color-mix(in srgb, var(--md-primary-fg-color) 8%, transparent);
+}
+
+/* First and last cell rounded corners */
+.md-typeset table:not([class]) thead tr:first-child th:first-child {
+    border-top-left-radius: 0.5rem;
+}
+
+.md-typeset table:not([class]) thead tr:first-child th:last-child {
+    border-top-right-radius: 0.5rem;
+}
+
+.md-typeset table:not([class]) tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 0.5rem;
+}
+
+.md-typeset table:not([class]) tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 0.5rem;
 }
 
 /* Keep pattern icons fixed at 45px inside tables */
@@ -319,6 +391,41 @@ img[height="200"] { /* Calibrations guide preview */
     max-height: none;
     width: auto;
     height: 45px !important;
+}
+
+/* Responsive tables - mobile optimizations */
+@media screen and (max-width: 76.24rem) {
+
+    /* Table container scrolls horizontally */
+    .md-typeset table:not([class]) {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: clamp(0.8125rem, 0.75rem + 0.5vw, 0.9375rem);
+    }
+
+    /* Allow text to wrap in cells for better readability */
+    .md-typeset table:not([class]) td,
+    .md-typeset table:not([class]) th {
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
+    /* Responsive padding */
+    .md-typeset table:not([class]) td {
+        padding: clamp(0.5rem, 0.4rem + 0.8vw, 0.75rem);
+    }
+
+    .md-typeset table:not([class]) th {
+        padding: clamp(0.75rem, 0.65rem + 0.8vw, 1rem);
+    }
+}
+
+/* Extra small screens */
+@media screen and (max-width: 30rem) {
+    .md-typeset table:not([class]) {
+        font-size: 0.75rem;
+    }
 }
 
 /* /////// FOOTER */
