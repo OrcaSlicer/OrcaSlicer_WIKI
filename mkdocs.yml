@@ -16,6 +16,9 @@ theme:
   logo: assets/images/OrcaSlicer.png
   favicon: assets/images/OrcaSlicer.ico
   features:
+      - navigation.instant         # Enable instant loading (SPA behavior)
+      - navigation.instant.progress # Show progress bar on slow connections
+      - navigation.instant.prefetch # Preload linked pages on hover
       - content.code.copy  # Enables the copy-to-clipboard button
       - search.suggest
       - search.highlight
