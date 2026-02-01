@@ -49,6 +49,45 @@
   --md-code-bg-color:                  #242428;
 }
 
+/* ============================================================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================================================
+   
+   These styles improve accessibility for keyboard navigation and users with
+   motion sensitivity. Follows WCAG guidelines for focus visibility and
+   respects user preferences for reduced motion.
+   ============================================================================ */
+
+/* Smooth scrolling with reduced motion support */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Global focus ring for keyboard navigation */
+:focus-visible {
+    outline: 2px solid var(--md-accent-fg-color);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
 /* /////// HEADER */
 
 /* Reduce vertical margin on logo to make header more compact */
@@ -181,9 +220,25 @@ img[height="200"] { /* Calibrations guide preview */
 .md-typeset a{
     font-weight: 500;
 }
-/* Show underline on links while hovering */
-.md-typeset a:hover {
-    text-decoration: underline;
+
+/* Enhanced link hover state for accessibility (WCAG)
+   Multiple visual cues (color shift + underline) help users with
+   low vision or color perception differences identify interactive elements */
+.md-typeset a,
+.md-typeset a::before {
+    transition: color 150ms ease, text-decoration 150ms ease;
+    text-decoration: underline transparent;
+}
+
+.md-typeset a:hover,
+.md-typeset a:focus-visible {
+    color: var(--md-primary-fg-color--dark);
+    text-decoration: underline var(--md-primary-fg-color--dark);
+}
+
+.md-typeset a:focus:not(:focus-visible) {
+    color: unset;
+    text-decoration: underline transparent;
 }
 
 /* /////// LISTS / BULLETS */
