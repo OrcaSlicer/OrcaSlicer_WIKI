@@ -316,7 +316,7 @@ img[height="200"] { /* Calibrations guide preview */
     width: auto;
     table-layout: auto;
     border-radius: 0.5rem;
-    overflow: hidden;
+    display: table;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     border-collapse: separate;
     border-spacing: 0;
@@ -385,14 +385,6 @@ img[height="200"] { /* Calibrations guide preview */
     border-bottom-right-radius: 0.5rem;
 }
 
-/* Keep pattern icons fixed at 45px inside tables */
-.md-typeset table img[alt^="param_"] {
-    max-width: none;
-    max-height: none;
-    width: auto;
-    height: 45px !important;
-}
-
 /* Responsive tables - mobile optimizations */
 @media screen and (max-width: 76.24rem) {
 
@@ -437,8 +429,38 @@ img[height="200"] { /* Calibrations guide preview */
 /* /////// PAGE SPESIFIC CHANGES */
 /* :has selector might not work on old browsers */
 /* using ~body required to get elements properly */
-/* Because this selector uses an href check for 'keyboard-shortcuts.html', it will ONLY affect that page */
+
+/* Keyboard Shortcuts page - style code in table cells */
 head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
   color: var(--md-typeset-color);
   font-weight: 600;
+}
+
+/* Patterns page table */
+head:has(link[rel="canonical"][href$="strength_settings_patterns.html"])~body .md-typeset table {
+
+    max-width: none;
+    max-height: none;
+    height: 18px;
+    vertical-align: middle;
+    font-size: 0.7rem;
+    
+    tbody tr td {
+        padding: 0.35rem;
+    }
+
+    img[alt^="param_"] {
+        max-width: none;
+        max-height: none;
+        width: auto;
+        height: 45px;
+    }
+    
+    img[alt^="level-to-"] {
+        max-width: none;
+        max-height: none;
+        height: 12px;
+        vertical-align: middle;
+    }
+    
 }
