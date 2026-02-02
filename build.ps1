@@ -98,6 +98,10 @@ if (Test-Path "web_extras\icon-theme.js") {
     Copy-Item "web_extras\icon-theme.js" "docs/assets/javascripts/icon-theme.js" -Force
 }
 
+if (Test-Path "web_extras\scroll-to-top.js") {
+    Copy-Item "web_extras\scroll-to-top.js" "docs/assets/javascripts/scroll-to-top.js" -Force
+}
+
 if (Test-Path "web_extras\katex.js") {
     Copy-Item "web_extras\katex.js" "docs/assets/javascripts/katex.js" -Force
 }
@@ -269,6 +273,14 @@ if (Test-Path "web_extras\icon-theme.js") {
 }
 else {
     Write-Host "Warning: web_extras\icon-theme.js not found - skipping" -ForegroundColor Yellow
+}
+
+if (Test-Path "web_extras\scroll-to-top.js") {
+    Copy-Item "web_extras\scroll-to-top.js" "wiki\assets\javascripts\scroll-to-top.js" -Force
+    Write-Host "Copied scroll-to-top.js"
+}
+else {
+    Write-Host "Warning: web_extras\scroll-to-top.js not found - skipping" -ForegroundColor Yellow
 }
 
 if (Test-Path "web_extras\katex.js") {
