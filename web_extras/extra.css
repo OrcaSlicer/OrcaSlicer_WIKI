@@ -338,7 +338,7 @@ img[height="200"] { /* Calibrations guide preview */
 
 /* Table cell styling */
 .md-typeset table:not([class]) td {
-    padding: 0.5rem 0.75rem;
+    padding: 0.4;
     vertical-align: middle;
 }
 
