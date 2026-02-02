@@ -321,6 +321,14 @@ img[height="200"] { /* Calibrations guide preview */
     height: 45px !important;
 }
 
+/* /////// SCROLL TO TOP */
+.md-top {
+    font-size: 0; /* hides text */
+    padding: .8rem; /* makes bigger and circle */
+    background-color: var(--md-primary-fg-color); /* makes more noticable */
+    color: var(--md-primary-bg-color);
+}
+
 /* /////// FOOTER */
 /* Fixes sidebar content rendering over footer when all items expanded */
 .md-footer{

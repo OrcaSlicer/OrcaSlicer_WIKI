@@ -20,7 +20,7 @@ theme:
       - search.suggest
       - search.highlight
       - navigation.path    # shows breadcumb
-      #- navigation.top    # adds back to top button - not working
+      - navigation.top     # adds back to top button
       - navigation.footer  # adds next and previous buttons
       - navigation.indexes
   palette: # Automatic light/dark mode with toggle
