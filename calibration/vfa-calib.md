@@ -17,9 +17,9 @@ The VFA Speed Test in OrcaSlicer helps identify which print speeds trigger MRR a
     - **Step:**: Define the speed increment between each section of the tower (e.g., 10 mm/s).  
 2. Check that Max Volumetric Speed is not limiting your speeds for this material. If it is, use a higher Volumetric Speed Material or recreate the test with a lower max speed.
 3. Print the VFA test:
-   ![vfa_test_print](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/vfa/vfa_test_print.jpg?raw=true)
+   ![vfa_test_speed_check](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/vfa/vfa_test_speed_check.png?raw=true)
 4. Inspect the tower for MRR artifacts. Look for speeds where the surface becomes visibly smoother or rougher. This allows you to pinpoint problematic speed ranges.  
    In this example, you can see how the Speed is Capping at 162 mm/s.
-   ![vfa_test_speed_check](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/vfa/vfa_test_speed_check.png?raw=true)
+   ![vfa_test_print](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/vfa/vfa_test_print.jpg?raw=true)
 5. Configure the [Resonance Avoidance Speed Range](printer_motion_ability#resonance-avoidance-speed) in the printer profile to skip speeds that cause visible artifacts.
    ![vfa_resonance_avoidance](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/vfa/vfa_resonance_avoidance.png?raw=true)
