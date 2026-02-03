@@ -1,6 +1,11 @@
 # Cornering
 
-Cornering is a critical aspect of 3D printing that affects print quality and accuracy. It's how the printer handles changes in direction during movement, particularly at corners and curves. Proper cornering settings can reduce artifacts such as ringing, ghosting, and overshooting, resulting in cleaner and more precise prints.
+Cornering is a critical aspect of 3D printing that affects print quality and accuracy. It's how the printer handles changes in direction during movement, particularly at corners and curves.  
+Proper cornering settings can reduce artifacts such as ringing, ghosting, and overshooting, resulting in cleaner and more precise prints.
+
+> [!IMPORTANT]
+> This test will help you find the Maximum Cornering settings your printer can handle without losing print quality.  
+> If you are not experiencing issues with corners in your prints and are satisfied with the print speed, you may choose to skip this calibration.
 
 ## Types of Cornering Settings
 

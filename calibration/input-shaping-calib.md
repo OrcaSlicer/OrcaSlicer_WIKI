@@ -2,6 +2,13 @@
 
 During high-speed movements, vibrations can cause a phenomenon called "ringing," where periodic ripples appear on the print surface. Input Shaping provides an effective solution by counteracting these vibrations, improving print quality and reducing wear on components without needing to significantly lower print speeds.
 
+> [!NOTE]
+> Some Printers have built-in accelerometers that can be used to **automatically** measure the resonant frequencies of the printer.  
+> If your printer has one, consider using it as it can provide more accurate results in less time and usually is autosaved into the printer firmware.
+
+> [!TIP]
+> It's usually recommended to perform Input Shaping calibration once a year or after any mechanical or structural changes such as relocation, changing the support surface, new belts, motors, frame, etc.
+
 > [!IMPORTANT]
 > RepRap can only set one frequency for both X and Y axes so you will need to select a frequency that works well for both axes.
 
