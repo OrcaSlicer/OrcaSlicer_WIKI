@@ -55,9 +55,11 @@ The available export formats are:
 
 #### Export Sliced
 
+- **G-code:** Export the sliced model as a G-code file that can be directly sent to a 3D printer for printing.
 - **Gcode.3MF:** Export the sliced model as a Gcode.3MF file that includes the resulting G-code file along with printer, material, and process information. This is useful for sharing the sliced model with all the necessary information for printing.
-- **G-code:** Export the sliced model as a G-code file that can be directly sent to a 3D printer for printing. This is useful for users who want to use the generated G-code without the additional information included in the Gcode.3MF format.
 - **Toolpaths as OBJ:** Export the sliced model 3D preview as an OBJ file.
+
+![export_toolpaths_obj](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/import_export/export_toolpaths_obj.png?raw=true)
 
 ### Supported File Formats
 
