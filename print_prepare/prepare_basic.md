@@ -6,7 +6,10 @@
 
 ## Add Objects
 
-Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF) to import into the current project as [Object Sets](prepare_object_set).
+Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF) to import into the current project as [Object Sets](prepare_object_set).  
+
+> [!TIP]
+> See [Import and Export](import_export#import-models) for more information about supported file formats and import methods.
 
 ## Add Plate
 

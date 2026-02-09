@@ -24,3 +24,5 @@ Each Object will contain a single Part from the original Object Set.
 
 When selecting an Object with a single Part that contains multiple meshes, users can choose to split the Object into individual Parts.  
 Each Part will represent a single mesh from the original Object and will allow for independent manipulation and settings.
+
+![stl-transformation-split](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-split.png?raw=true)

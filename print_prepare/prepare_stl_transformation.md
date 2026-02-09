@@ -2,41 +2,10 @@
 
 OrcaSlicer primarily relies on STL meshes for slicing, but STL files may come with several limitations.
 
-Typically, STL files feature a low polygon count, which can adversely affect print quality.
-In contrast, using STEP files offers a higher-quality mesh that more accurately represents the original design. However, be aware that both high-polygon STL and STEP files can increase slicing time.
+Typically, STL files feature a low polygon count, which can adversely affect print quality.  
+In contrast, STEP files offer the [option of importing](import_export#importing-step-files) a higher-quality mesh that more accurately represents the original design. However, be aware that both high-polygon STL and STEP files can increase slicing time.
 
 ![stl-transformation-smooth-rough](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-smooth-rough.png?raw=true)
-
-## Importing STEP files
-
-This setting determines how STEP files are converted into STL files and is displayed during the STEP file import process.
-
-If you don't see this when opening a STEP file, check [Don't show again](#dont-show-again) below.
-
-![stl-transformation](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation.png?raw=true)
-
-### Parameters
-
-The transformation uses [Linear Deflection and Angular Deflection](https://dev.opencascade.org/doc/overview/html/occt_user_guides__mesh.html) parameters to control the mesh quality.
-A finer mesh will result in a more accurate representation of the original surface, but it will also increase the file size and processing time.
-
-![stl-transformation-params](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-params.svg?raw=true)
-
-- **Linear Deflection:** Specifies the maximum distance allowed between the original surface and its polygonal approximation. Lower values produce a mesh that more accurately follows the original curvature.
-- **Angular Deflection:** Defines the maximum allowable angle difference between the actual surface and its tessellated counterpart. Smaller angular deflection values yield a more precise mesh.
-
-#### Split compound and compsolid into multiple objects
-
-Enabling this option will split the imported 3D file into separate [objects](prepare_object_set). This is especially useful for adjusting individual object positions, tweaking print settings, or optimizing the model through simplification.
-
-![stl-transformation-split](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-split.png?raw=true)
-
-#### Don't show again
-
-This option will hide the STL transformation dialog when opening a STEP file.
-To restore the dialog, go to "Preferences" (Ctrl + P) > "Show the STEP mesh parameter setting dialog".
-
-![stl-transformation-enable](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-enable.png?raw=true)
 
 ## Simplify model
 
@@ -54,3 +23,8 @@ It is recommended to enable the "Show Wireframe" option when running a simplific
 
 - **Detail Level:** Control the level of detail in the simplified model by choosing from five preset options. This setting allows for a balance between mesh fidelity and performance.
 - **Decimate Ratio:** Adjust the ratio between the original model's polygon count and that of the simplified model. For instance, a decimate ratio of 0.5 will yield a model with approximately half the original number of polygons.
+
+## Fix Model
+
+The Fix Model option is designed to address common issues in 3D models, such as holes, non-manifold edges, and other mesh errors that can lead to slicing problems or print failures.  
+It's only available for Windows users as it relies on the Windows 3D Netfabb API for mesh repair.

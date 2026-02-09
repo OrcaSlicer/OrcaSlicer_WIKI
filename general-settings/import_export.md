@@ -1,0 +1,121 @@
+# Import and Export
+
+OrcaSlicer offers various export options to import and export 3D models, projects and configurations.
+
+- [Models](#models)
+    - [Import Methods](#import-methods)
+    - [Export Methods](#export-methods)
+    - [Supported File Formats](#supported-file-formats)
+        - [STL](#stl)
+        - [3MF](#3mf)
+        - [STEP](#step)
+            - [Importing STEP files](#importing-step-files)
+                - [Parameters](#parameters)
+                - [Split compound and compsolid into multiple objects](#split-compound-and-compsolid-into-multiple-objects)
+                - [Don't show again](#dont-show-again)
+        - [DRC](#drc)
+            - [Draco Compression](#draco-compression)
+                - [Draco Quantization Bits](#draco-quantization-bits)
+        - [OBJ](#obj)
+        - [AMF](#amf)
+        - [SVG](#svg)
+
+## Models
+
+### Import Methods
+
+You can import 3D models from [different file formats](#supported-file-formats) into OrcaSlicer using one of the following methods:
+
+- **File Menu:** Go to `File` > `Import` and select the desired 3D model file.
+- **[Prepare Toolbar Add Button](prepare_basic#add-objects):** Click on the `Add` button in the toolbar to open the file dialog and select your 3D model file.
+- **Drag and Drop:** Simply drag and drop the 3D model file into the OrcaSlicer window.
+
+### Export Methods
+
+
+
+### Supported File Formats
+
+OrcaSlicer supports the following 3D model file formats for import:
+
+#### STL
+
+[STL](https://en.wikipedia.org/wiki/STL_(file_format)) is a widely used file format for 3D printing that represents the surface geometry of a 3D object using triangular facets.
+
+> [!NOTE]
+> This is the basic file format used for the slicing process in OrcaSlicer. Any other supported file formats (e.g., STEP, 3MF, OBJ) are converted to STL during the import process.
+
+It's main advantage is its simplicity and wide compatibility with various 3D modeling software and slicers.   However, STL files can have limitations in terms of mesh quality and may not capture intricate details accurately.  
+If the original model was designed in a Mesh-based software, such as Blender or ZBrush, the STL file will likely be a good representation of the original design.  
+However, if the original model was created in a CAD software, such as SolidWorks or Fusion 360, the STL file may not capture all the details and features of the original design accurately and will depend on the CAD's export settings.
+
+#### 3MF
+
+3MF (3D Manufacturing Format) is a modern file format designed for 3D printing that provides a more efficient and comprehensive way to represent 3D models, including support for colors, materials, and multiple objects within a single file.
+
+Some 3MF files may contain Printer, Material, and Process information that can be used to automatically configure print settings in OrcaSlicer.  
+When importing a 3MF file, OrcaSlicer will attempt to extract this information and apply it to the imported model.  
+If the 3MF information is not compatible with OrcaSlicer, it will be ignored and the model will be imported with default settings.
+
+#### STEP
+
+[STEP](https://en.wikipedia.org/wiki/ISO_10303-21) is a comprehensive file format that represents 3D models using a more detailed and accurate representation of the original design. It is commonly used in engineering and manufacturing applications.
+
+##### Importing STEP files
+
+This setting determines how STEP files are converted into STL files and is displayed during the STEP file import process.
+
+![stl-transformation](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation.png?raw=true)
+
+###### Parameters
+
+The transformation uses [Linear Deflection and Angular Deflection](https://dev.opencascade.org/doc/overview/html/occt_user_guides__mesh.html) parameters to control the mesh quality.
+A finer mesh will result in a more accurate representation of the original surface, but it will also increase the file size and processing time.
+
+![stl-transformation-params](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-params.svg?raw=true)
+
+- **Linear Deflection:** Specifies the maximum distance allowed between the original surface and its polygonal approximation. Lower values produce a mesh that more accurately follows the original curvature.
+- **Angular Deflection:** Defines the maximum allowable angle difference between the actual surface and its tessellated counterpart. Smaller angular deflection values yield a more precise mesh.
+
+###### Split compound and compsolid into multiple objects
+
+Enabling this option will split the imported 3D file into separate [parts of the same object](prepare_object_set#split-to-parts). This is especially useful for adjusting individual part positions, tweaking print settings, or optimizing the model through simplification while maintaining the original design [assembly](prepare_assembly_tools).
+
+![stl-transformation-split](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-split.png?raw=true)
+
+###### Don't show again
+
+This option will hide the STL transformation dialog when opening a STEP file.
+To restore the dialog, go to "Preferences" (Ctrl + P) > "Show the STEP mesh parameter setting dialog".
+
+![stl-transformation-enable](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-enable.png?raw=true)
+
+#### DRC
+
+[Draco (DRC)](https://github.com/google/draco) is a compression library developed by Google that is designed to compress and decompress 3D geometric meshes.  
+It's main advantage is its ability to significantly reduce the file size of 3D models while maintaining a high level of visual fidelity.
+
+##### Draco Compression
+
+Draco uses several compression techniques to achieve high compression ratios, like file compression (used at maximum level in OrcaSlicer), duplicated vertex removal, and Quantization Bits.
+
+###### Draco Quantization Bits
+
+This technique reduces the precision of the vertex attributes (such as position, normal, and texture coordinates) to further decrease the file size.  
+By default, OrcaSlicer disables quantization by setting the quantization bits to 0, which means that the original precision of the vertex attributes is preserved. This will create a almost Lossless compression (~15% of the original size) but it can be adjusted to achieve a smaller file size at the cost of some loss in visual fidelity.
+
+Using a quantization bit value of 25 will result in a even smaller file size (around 5% of the original size) while still maintaining a good level of visual fidelity and dimensional accuracy for most models.
+Using a quantization bit value of 16 or lower may result in a significant loss of visual fidelity, especially for models with fine details but in some artistic models where precision is not important, it can be used to achieve a very small file size (around 1% of the original size).
+
+#### OBJ
+
+Similar to STL, OBJ is a widely used file format for 3D models that represents the geometry of a 3D object using vertices, edges, and faces. It also supports texture mapping and material properties.
+
+#### AMF
+
+AMF (Additive Manufacturing File Format) is an XML-based file format designed for 3D printing that provides a more flexible and comprehensive way to represent 3D models, including support for colors, materials, and multiple objects within a single file.
+
+#### SVG
+
+SVG (Scalable Vector Graphics) is a file format used for 2D vector graphics. It can be imported into OrcaSlicer to create 3D models by extruding the 2D shapes defined in the SVG file.
+
