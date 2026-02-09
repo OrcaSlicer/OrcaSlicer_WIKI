@@ -5,6 +5,9 @@ OrcaSlicer offers various export options to import and export 3D models, project
 - [Models](#models)
     - [Import Methods](#import-methods)
     - [Export Methods](#export-methods)
+        - [Export Project](#export-project)
+        - [Export Model](#export-model)
+        - [Export Sliced](#export-sliced)
     - [Supported File Formats](#supported-file-formats)
         - [STL](#stl)
         - [3MF](#3mf)
@@ -32,7 +35,29 @@ You can import 3D models from [different file formats](#supported-file-formats) 
 
 ### Export Methods
 
+There are two main export methods in OrcaSlicer:
 
+#### Export Project
+
+Use the `Export Project` (under `File` > `Save Project...`) option to save your entire project, including all objects, print settings, and configurations, into a single file that can be easily shared or backed up.
+
+This is very useful for saving your work in progress or sharing your project with others while preserving all the details and settings.
+
+#### Export Model
+
+Use the `Export Model` (under `File` > `Export` > `...`) option to export 3D models or assemblies in various file formats. This is useful for sharing specific models or assemblies without including the entire project.
+
+The available export formats are:
+
+- **[STL](#stl):** Export the current model as an STL file.
+- **[DRC](#drc):** Export the current model as a Draco-compressed file.
+- **[Generic 3MF](#3mf):** Export the current model as a generic 3MF file without printer, material, or process information.
+
+#### Export Sliced
+
+- **Gcode.3MF:** Export the sliced model as a Gcode.3MF file that includes the resulting G-code file along with printer, material, and process information. This is useful for sharing the sliced model with all the necessary information for printing.
+- **G-code:** Export the sliced model as a G-code file that can be directly sent to a 3D printer for printing. This is useful for users who want to use the generated G-code without the additional information included in the Gcode.3MF format.
+- **Toolpaths as OBJ:** Export the sliced model 3D preview as an OBJ file.
 
 ### Supported File Formats
 
@@ -51,11 +76,14 @@ However, if the original model was created in a CAD software, such as SolidWorks
 
 #### 3MF
 
-3MF (3D Manufacturing Format) is a modern file format designed for 3D printing that provides a more efficient and comprehensive way to represent 3D models, including support for colors, materials, and multiple objects within a single file.
+3MF is a modern file format designed for 3D printing that provides a more efficient and comprehensive way to represent 3D models, including support for colors, materials, and multiple objects within a single file.
 
 Some 3MF files may contain Printer, Material, and Process information that can be used to automatically configure print settings in OrcaSlicer.  
 When importing a 3MF file, OrcaSlicer will attempt to extract this information and apply it to the imported model.  
 If the 3MF information is not compatible with OrcaSlicer, it will be ignored and the model will be imported with default settings.
+
+> [!TIP]
+> You can open 3MF files as a ZIP archive to inspect the included information and files.
 
 #### STEP
 
@@ -118,4 +146,3 @@ AMF (Additive Manufacturing File Format) is an XML-based file format designed fo
 #### SVG
 
 SVG (Scalable Vector Graphics) is a file format used for 2D vector graphics. It can be imported into OrcaSlicer to create 3D models by extruding the 2D shapes defined in the SVG file.
-
