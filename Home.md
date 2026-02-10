@@ -152,7 +152,11 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 <img alt="tab_3d_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_3d_active.svg?raw=true" height="22"> First steps to prepare your model/s for printing.
 
-- [STL Transformation](prepare_stl_transformation)
+- Right-Click Menu
+    - [STL Transformation](prepare_stl_transformation)
+        - [Simplify model](prepare_stl_transformation#simplify-model)
+        - [Fix model](prepare_stl_transformation#fix-model)
+    - Work In Progress...
 - Toolbar
     - [Basic](prepare_basic)
         - [<img alt="toolbar_open_dark" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_open_dark.svg?raw=true" height="22"> Add Objects](prepare_basic#add-objects)
@@ -182,8 +186,6 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
     - [Assembly Tools](prepare_assembly_tools)
         - [<img alt="toolbar_assembly_dark" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_assembly_dark.svg?raw=true" height="22"> Assemble](prepare_assembly_tools#assemble)
         - [<img alt="toolbar_assemble_dark" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_assemble_dark.svg?raw=true" height="22"> Assembly View](prepare_assembly_tools#assembly-view)
-- Right-Click Menu
-    - Work In Progress...
 
 ## Calibrations
 
