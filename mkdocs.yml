@@ -109,6 +109,7 @@ nav:
   - VFA: "calibration/vfa-calib.md"
   - "Max Volumetric Speed (FlowRate) Calibration": "calibration/volumetric-speed-calib.md"
 - "General Settings":
+  - "Import and Export": "general-settings/import_export.md"
   - "Keyboard Shortcuts": "general-settings/keyboard-shortcuts.md"
 - "Material Settings":
   - Cooling:
