@@ -166,7 +166,7 @@ To restore the dialog, go to "Preferences" (Ctrl + P) > "Show the STEP mesh para
 ### DRC
 
 [Draco (DRC)](https://github.com/google/draco) is a compression library developed by Google that is designed to compress and decompress 3D geometric meshes.  
-It's main advantage is its ability to significantly reduce the file size of 3D models while maintaining a high level of visual fidelity.
+Its main advantage is its ability to significantly reduce the file size of 3D models while maintaining a high level of visual fidelity.
 
 #### Draco Compression
 
@@ -178,7 +178,7 @@ This technique reduces the precision of the vertex attributes (such as position,
 By default, OrcaSlicer disables quantization by setting the quantization bits to 0, which means that the original precision of the vertex attributes is preserved. This will create a almost Lossless compression (~15% of the original size) but it can be adjusted to achieve a smaller file size at the cost of some loss in visual fidelity.
 
 Using a quantization bit value of 25 will result in a even smaller file size (around 5% of the original size) while still maintaining a good level of visual fidelity and dimensional accuracy for most models.
-Using a quantization bit value of 16 or lower may result in a significant loss of visual fidelity, especially for models with fine details but in some artistic models where precision is not important, it can be used to achieve a very small file size (around 1% of the original size).
+Using a quantization bit value of 16 or lower may result in a significant loss of visual fidelity, especially for models with fine details. For some artistic models where precision is not important, lower values can be used to achieve a very small file size (around 1% of the original size).
 
 ### OBJ
 

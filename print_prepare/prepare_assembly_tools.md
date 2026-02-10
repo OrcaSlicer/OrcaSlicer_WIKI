@@ -28,7 +28,7 @@ After selecting both faces to be joined, you can select the alignment method:
 ## Assembly View
 
 When importing a STEP Assembly file, you can use the Assembly View to see the hierarchical structure of the assembly.  
-It's recommended to [split compound and compsolid into multiple objects](prepare_stl_transformation#split-compound-and-compsolid-into-multiple-objects) when importing and then [Split](prepare_object_set#split-to-objects) for better manipulation.  
+It's recommended to [split compound and compsolid into multiple objects](import_export#split-compound-and-compsolid-into-multiple-objects) when importing and then [Split](prepare_object_set#split-to-objects) for better manipulation.  
 This way you can Auto arrange all objects and still keep the assembly structure in the Assembly View.
 
 ![assembly_bed_view](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/assembly/assembly_bed_view.png?raw=true)
