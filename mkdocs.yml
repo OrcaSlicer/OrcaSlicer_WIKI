@@ -19,6 +19,7 @@ theme:
       - navigation.instant         # Enable instant loading (SPA behavior)
       - navigation.instant.progress # Show progress bar on slow connections
       - navigation.instant.prefetch # Preload linked pages on hover
+      - navigation.instant.preview # Show page preview on hover
       - content.code.copy  # Enables the copy-to-clipboard button
       - search.suggest
       - search.highlight
