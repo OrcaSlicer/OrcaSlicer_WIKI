@@ -111,8 +111,17 @@ else
   echo "Skipping SVG icon download (use --download-svg or -d to enable)"
 fi
 
+# Create a map of filename to path relative to docs for Wiki-style link resolution
+MD_MAP_FILE=$(mktemp)
+find docs -name "*.md" -type f | while read f; do
+    name=$(basename "$f" .md)
+    # Get path relative to docs/
+    rel="${f#docs/}"
+    echo "$name|$rel" >> "$MD_MAP_FILE"
+done
+
 find docs -name "*.md" -type f | while read md_file; do
-  # Calculate relative path to images based on file depth
+  # Calculate relative path to root based on file depth
   depth=$(echo "$md_file" | tr -cd '/' | wc -c)
   depth=$((depth - 1))  # Subtract 1 for "docs/"
 
@@ -121,14 +130,59 @@ find docs -name "*.md" -type f | while read md_file; do
     prefix="../$prefix"
   done
 
-  # Replace OrcaSlicer_WIKI GitHub URLs with relative paths
-  sed -i '' "s|https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/\([^?]*\)?raw=true|${prefix}images/\1|g" "$md_file" 2>/dev/null || \
-  sed -i "s|https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/\([^?]*\)?raw=true|${prefix}images/\1|g" "$md_file"
+  # Process file with Python for complex replacements (Image URLs and Wiki-style links)
+  python3 -c '
+import sys, re, os
 
-  # Replace OrcaSlicer main repo icon URLs with local paths
-  sed -i '' "s|https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/\([^?]*\)?raw=true|${prefix}images/orcaslicer-icons/\1|g" "$md_file" 2>/dev/null || \
-  sed -i "s|https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/\([^?]*\)?raw=true|${prefix}images/orcaslicer-icons/\1|g" "$md_file"
+md_file = sys.argv[1]
+md_map_file = sys.argv[2]
+prefix = sys.argv[3]
+
+md_map = {}
+with open(md_map_file, "r") as f:
+    for line in f:
+        if "|" in line:
+            parts = line.strip().split("|")
+            if len(parts) == 2:
+                md_map[parts[0]] = parts[1]
+
+with open(md_file, "r") as f:
+    content = f.read()
+
+# 1. Replace GitHub wiki image URLs
+content = re.sub(r"https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/([^?) ]*\?raw=true)",
+                 rf"{prefix}images/\1", content)
+
+# 2. Replace OrcaSlicer repo icon URLs
+content = re.sub(r"https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/([^?) ]*\?raw=true)",
+                 rf"{prefix}images/orcaslicer-icons/\1", content)
+
+# 3. Resolve Wiki-style links [text](page#hash) or [text](page)
+def resolve_link(match):
+    text = match.group(1)
+    target = match.group(2)
+
+    if "#" in target:
+        parts = target.split("#", 1)
+        page, hash_part = parts[0], "#" + parts[1]
+    else:
+        page, hash_part = target, ""
+
+    if not page or "/" in page or "." in page or page.startswith("http"):
+        return match.group(0)
+
+    if page in md_map:
+        return f"[{text}]({prefix}{md_map[page]}{hash_part})"
+
+    return match.group(0)
+
+content = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", resolve_link, content)
+
+with open(md_file, "w") as f:
+    f.write(content)
+' "$md_file" "$MD_MAP_FILE" "$prefix"
 done
+rm "$MD_MAP_FILE"
 
 # Ensure MkDocs can find custom assets during the build
 mkdir -p docs/assets/stylesheets docs/assets/javascripts

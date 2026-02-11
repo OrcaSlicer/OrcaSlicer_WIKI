@@ -138,6 +138,15 @@ else {
     Write-Host "Skipping SVG icon download (use --download-svg or -d to enable)"
 }
 
+# Create a map of filename to path relative to docs for Wiki-style link resolution
+$mdMap = @{}
+$docsFullDir = (Get-Item -Path docs -Force).FullName
+Get-ChildItem -Path docs -Filter *.md -Recurse | ForEach-Object {
+    $name = [System.IO.Path]::GetFileNameWithoutExtension($_.Name)
+    $relToDocs = $_.FullName.Substring($docsFullDir.Length).TrimStart('\', '/')
+    $mdMap[$name] = $relToDocs -replace '\\', '/'
+}
+
 Get-ChildItem -Path docs -Filter *.md -Recurse | ForEach-Object {
     $mdFile = $_.FullName
 
@@ -161,6 +170,38 @@ Get-ChildItem -Path docs -Filter *.md -Recurse | ForEach-Object {
     # Replace OrcaSlicer repo icon URLs
     $content = $content -replace 'https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/([^?)"]*)\?raw=true',
     "${prefix}images/orcaslicer-icons/`$1"
+
+    # Resolve Wiki-style links [text](page#hash) or [text](page)
+    # This regex looks for [text](page) where page doesn't have a / or . (meaning it's just a filename)
+    $content = [regex]::Replace($content, '\[([^\]]+)\]\(([^)]+)\)', {
+        param($match)
+        $text = $match.Groups[1].Value
+        $target = $match.Groups[2].Value
+
+        # Split target into page and hash
+        $page = $target
+        $hash = ""
+        if ($target -match '#') {
+            $parts = $target -split '#'
+            $page = $parts[0]
+            $hash = "#" + $parts[1]
+        }
+
+        # If page is empty, it's an anchor to the same page, ignore
+        if ($page -eq "") { return $match.Value }
+
+        # If page has / or . or is an external link, ignore
+        if ($page -match '[/\.]' -or $page -match '^https?://') { return $match.Value }
+
+        # Look up the page in our map
+        if ($mdMap.ContainsKey($page)) {
+            $targetRelPath = $mdMap[$page]
+            $relativeLink = $prefix + $targetRelPath + $hash
+            return "[$text]($relativeLink)"
+        }
+
+        return $match.Value
+    })
 
     Set-Content -Path $mdFile -Value $content -NoNewline
 }
