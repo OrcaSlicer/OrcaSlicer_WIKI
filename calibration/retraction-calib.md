@@ -10,6 +10,15 @@ In the dialog, you can select the start and end retraction length, as well as th
 
 ![retraction_test_print](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/retraction/retraction_test_print.jpg?raw=true)
 
+After the print is complete, visually inspect the retraction tower to identify the section with the least stringing and oozing.  
+Measure this section's height and search in the gcode preview the `Calib_Retraction_tower` comment to find the corresponding retraction length.
+
+![retraction_test_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/retraction/retraction_test_measure.png?raw=true)
+
+> [!WARNING]
+> Use the `Calib_Retraction_tower` instead of the `; retract` gcode command as it not necessarily reflects the actual retraction length due to the fact it not contains the full retraction length like the [Retract amount before wipe](printer_extruder_retraction#retract-amount-before-wipe) value.
+
 > [!NOTE]
-> When testing filaments such as PLA or ABS that have minimal oozing, the retraction settings can be highly effective. You may find that the retraction tower appears clean right from the start. In such situations, setting the retraction length to 0.2mm - 0.4mm using OrcaSlicer should suffice.
+> When testing filaments such as PLA or ABS that have minimal oozing, the retraction settings can be highly effective.  
+> You may find that the retraction tower appears clean right from the start. In such situations, setting the retraction length to 0.2mm - 0.4mm should suffice.  
 > On the other hand, if there is still a lot of stringing at the top of the tower, it is recommended to dry your filament and ensure that your nozzle is properly installed without any leaks.
