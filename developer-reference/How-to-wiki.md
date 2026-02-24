@@ -202,7 +202,7 @@ When new features or upgrades are merged into the main branch, please add a note
 > [!IMPORTANT]
 > NEW FEATURE: **Feature short description**  
 > Available in:  
-> [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or any release grater than **stable version number at merge time**.
+> [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or releases grater than **stable version number at merge time**.
 ```
 
 Example:
@@ -210,7 +210,7 @@ Example:
 > [!IMPORTANT]
 > NEW FEATURE: **Input Shaping Calibration Types**  
 > Available in:  
-> [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or any release grater than **2.3.1**.
+> [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or releases grater than **2.3.1**.
 
 This notes should be removed after a new stable release is made that includes the new feature.
 
