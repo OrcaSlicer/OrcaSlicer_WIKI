@@ -200,10 +200,17 @@ When new features or upgrades are merged into the main branch, please add a note
 
 ```markdown
 > [!IMPORTANT]
-> NEW FEATURE: [Feature Name] introduced in commit [commit link] on [yy/mm/dd].
-> Available in:
-> [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or any release after [stable version number at merge time].
+> NEW FEATURE: **Feature short description** introduced in commit [shorthash](https://github.com/OrcaSlicer/OrcaSlicer/commit/fullhash) on [yyyy/mm/dd].  
+> Available in:  
+> [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or any release grater than **stable version number at merge time**.
 ```
+
+Example:
+
+> [!IMPORTANT]
+> NEW FEATURE: **Input Shaping Calibration Types** introduced in commit [d786aec](https://github.com/OrcaSlicer/OrcaSlicer/commit/d786aec2552f96ce5e36d67c0dd3ba476980fd1e) on 2025/10/19.  
+> Available in:  
+> [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or any release grater than **2.3.1**.
 
 This notes should be removed after a new stable release is made that includes the new feature.
 
