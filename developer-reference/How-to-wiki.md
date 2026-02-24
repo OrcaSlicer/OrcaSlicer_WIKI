@@ -205,6 +205,8 @@ When new features or upgrades are merged into the main branch, please add a note
 > [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or any release after [stable version number at merge time].
 ```
 
+This notes should be removed after a new stable release is made that includes the new feature.
+
 ## Images
 
 Images are encouraged to enhance the clarity and quality of the wiki content. They help illustrate concepts, provide examples, and improve readability.
