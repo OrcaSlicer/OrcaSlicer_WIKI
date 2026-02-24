@@ -2,6 +2,9 @@
 
 When a Pull Request (PR) is created or updated in the [OrcaSlicer repository](https://github.com/OrcaSlicer/OrcaSlicer/pulls), GitHub Actions automatically builds the project and generates artifacts that can be downloaded for testing purposes.
 
+> [!IMPORTANT]
+> It's recommended to [Backup your Presets](import_export#export-preset-bundle) before testing PR artifacts.
+
 1. Log in to your GitHub account.
 2. Open the Pull Request you want to test.
 3. Navigate to the "Checks" tab located at the top of the PR page.  
