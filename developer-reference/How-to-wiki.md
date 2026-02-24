@@ -17,6 +17,7 @@ When adding new features, consider updating the wiki so users can access the lat
 - [Formatting and Style](#formatting-and-style)
     - [Markdown Formatting](#markdown-formatting)
     - [Alerts and Callouts](#alerts-and-callouts)
+        - [New Content](#new-content)
 - [Images](#images)
     - [Image Sources](#image-sources)
         - [OrcaSlicer Resources](#orcaslicer-resources)
@@ -190,6 +191,19 @@ Use GitHub's alert syntax to add inline notes and warnings:
 
 > [!NOTE]
 > Refer to the [GitHub Alerts documentation](https://docs.github.com/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) for more details.
+
+#### New Content
+
+The Wiki should be updated to reflect the latest stable release with the addition of new features present in current nightly builds.  
+
+When new features or upgrades are merged into the main branch, please add a note using the following format:
+
+```markdown
+> [!IMPORTANT]
+> NEW FEATURE: [Feature Name] introduced in commit [commit link] on [yy/mm/dd].
+> Available in:
+> [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or any release after [stable version number at merge time].
+```
 
 ## Images
 
