@@ -10,6 +10,7 @@ Useful for creating a textures or hide surface imperfections but will increase p
 - [Fuzzy Skin Mode](#fuzzy-skin-mode)
     - [Contour](#contour)
     - [Contour and Hole](#contour-and-hole)
+    - [Painted Only](#painted-only)
     - [All Walls](#all-walls)
 - [Fuzzy Skin Generator Mode](#fuzzy-skin-generator-mode)
     - [Displacement](#displacement)
@@ -43,6 +44,11 @@ Useful for creating a textured edge while keeping the inner surfaces smooth.
 ### Contour and Hole
 
 Apply fuzzy skin to both the outer contour and interior holes. Useful when you want the rough texture to appear on negative features as well.
+
+### Painted Only
+
+Apply fuzzy skin only to areas that have been manually painted with the [Fuzzy Skin Paint Tool](prepare_paint_on_fuzzy_skin).  
+This allows for precise control over where the texture is applied, ideal for adding grip to specific areas or creating custom patterns.
 
 ### All Walls
 
