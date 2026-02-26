@@ -11,7 +11,7 @@ Useful for creating a textures or hide surface imperfections but will increase p
     - [Contour](#contour)
     - [Contour and Hole](#contour-and-hole)
     - [All Walls](#all-walls)
-    - [Fuzzy Skin Generator Mode](#fuzzy-skin-generator-mode)
+- [Fuzzy Skin Generator Mode](#fuzzy-skin-generator-mode)
     - [Displacement](#displacement)
     - [Extrusion](#extrusion)
     - [Combined](#combined)
@@ -48,7 +48,7 @@ Apply fuzzy skin to both the outer contour and interior holes. Useful when you w
 
 Apply fuzzy skin to every wall (external and internal). This gives the strongest overall textured appearance but will increase slicing and print time considerably.
 
-### Fuzzy Skin Generator Mode
+## Fuzzy Skin Generator Mode
 
 Select the underlying method used to produce the fuzzy effect. Each mode has different trade-offs for strength, speed and mechanical load.
 
