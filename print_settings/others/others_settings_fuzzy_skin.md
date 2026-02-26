@@ -9,6 +9,7 @@ Useful for creating a textures or hide surface imperfections but will increase p
 
 - [Fuzzy Skin Mode](#fuzzy-skin-mode)
     - [Contour](#contour)
+    - [Hole](#hole)
     - [Contour and Hole](#contour-and-hole)
     - [Painted Only](#painted-only)
     - [All Walls](#all-walls)
@@ -40,6 +41,10 @@ Choose which parts of the model receive the fuzzy-skin effect.
 
 Apply fuzzy skin only to the outermost contour (external perimeter) of the model.  
 Useful for creating a textured edge while keeping the inner surfaces smooth.
+
+### Hole
+
+Apply fuzzy skin only to interior holes and cutouts. This can add grip or visual interest to negative features without affecting the outer surface.
 
 ### Contour and Hole
 
