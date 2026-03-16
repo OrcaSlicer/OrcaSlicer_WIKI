@@ -61,7 +61,7 @@ GitHub Wiki uses file names as page identifiers. To link to a page, use the file
 For example, if you add `calibration/flow-ratio-calib.md`, link it like this:
 
 ```markdown
-[Flow Rate Calibration](flow-ratio-calib)
+[Flow Ratio Calibration](flow-ratio-calib)
 ```
 
 For long pages, include a table of contents at the top to help readers find sections quickly.
