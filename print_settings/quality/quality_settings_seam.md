@@ -92,7 +92,7 @@ Controls the gap in mm or as a percentage of the nozzle size between the two end
 
 ### Scarf joint seam
 
-Adjusts the extrusion flow rate at seam points to create a smooth overlap between the start and end of each loop, minimizing visible defects.
+Adjusts the extrusion flow Ratio at seam points to create a smooth overlap between the start and end of each loop, minimizing visible defects.
 
 ![scarf-joint-seam](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/scarf-joint-seam.png?raw=true)
 

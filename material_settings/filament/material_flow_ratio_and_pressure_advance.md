@@ -17,7 +17,7 @@ The recommended value range is between 0.95 and 1.05. You may be able to tune th
 The final object flow ratio is this value multiplied by the filament flow ratio.
 
 > [!TIP]
-> Check the [Flow Rate Calibration guide](flow-ratio-calib).
+> Check the [flow Ratio Calibration guide](flow-ratio-calib).
 
 ## Pressure Advance
 
