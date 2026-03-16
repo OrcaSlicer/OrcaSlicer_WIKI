@@ -3,7 +3,7 @@
 [Max Volumetric Speed](material_volumetric_speed_limitation) value varies depending on your **material**, **machine**, **nozzle diameter**, and even your **extruder setup**, so it’s important to calibrate it for your specific printer and each filament you use.
 
 > [!NOTE]
-> Even for the same material type (e.g., PLA), the **brand** and **color** can significantly affect the maximum flow Ratio.
+> Even for the same material type (e.g., PLA), the **brand** and **color** can significantly affect the maximum flow rate.
 
 > [!TIP]
 > If you're planning to increase speed or flow, it’s a good idea to **increase your nozzle temperature**, preferably toward the higher end of the recommended range for your filament. Use a [temperature tower calibration](temp-calib#nozzle-temp-tower) to find that range.
@@ -35,7 +35,7 @@ Use calipers or a ruler to measure the **height** of the model just before the d
 - Use OrcaSlicer in the "Preview" tab, make sure the color scheme "flow" is selected. Scroll down to the layer height that you measured, and click on the toolhead slider. This will indicate the max flow level for your filament.  
 ![mvf_gui_flow](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/MVF/mvf_gui_flow.png?raw=true)
 
-After you have determined the maximum volumetric speed, you can set it in the filament settings. This will ensure that the printer does not exceed the maximum flow Ratio for the filament.  
+After you have determined the maximum volumetric speed, you can set it in the filament settings. This will ensure that the printer does not exceed the maximum flow rate for the filament.  
 ![mvf_material_settings](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/MVF/mvf_material_settings.png?raw=true)
 
 > [!NOTE]

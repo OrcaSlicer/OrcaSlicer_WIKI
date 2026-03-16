@@ -105,7 +105,7 @@ This setting is overridden by disable_fan_first_layers.
 
 ### Ironing fan speed
 
-This part cooling fan speed is applied when ironing. Setting this parameter to a lower than regular speed reduces possible nozzle clogging due to the low volumetric flow Ratio, making the interface smoother.  
+This part cooling fan speed is applied when ironing. Setting this parameter to a lower than regular speed reduces possible nozzle clogging due to the low volumetric flow rate, making the interface smoother.  
 Set to -1 to disable it.
 
 ### Auxiliary part cooling fan

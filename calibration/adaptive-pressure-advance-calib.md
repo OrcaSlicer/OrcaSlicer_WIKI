@@ -1,6 +1,6 @@
 # Adaptive Pressure Advance
 
-This feature aims to dynamically adjust the [material’s pressure advance](material_flow_ratio_and_pressure_advance#enable-adaptive-pressure-advance-beta) to better match the conditions the toolhead is facing during a print. Specifically, to more closely align to the ideal values as flow Ratio, acceleration, and bridges are encountered.  
+This feature aims to dynamically adjust the [material’s pressure advance](material_flow_ratio_and_pressure_advance#enable-adaptive-pressure-advance-beta) to better match the conditions the toolhead is facing during a print. Specifically, to more closely align to the ideal values as flow rate, acceleration, and bridges are encountered.  
 This wiki page aims to explain how this feature works, the prerequisites required to get the most out of it as well as how to calibrate it and set it up.
 
 ## Settings Overview
@@ -30,8 +30,8 @@ This feature has been tested with Klipper-based printers. While it may work with
 
 Following experimentation, it has been noticed that the optimal pressure advance value is less:
 
-1. The faster you print (hence the higher the volumetric flow Ratio requested from the toolhead).
-2. The larger the layer height (hence the higher the volumetric flow Ratio requested from the toolhead).
+1. The faster you print (hence the higher the volumetric flow rate requested from the toolhead).
+2. The larger the layer height (hence the higher the volumetric flow rate requested from the toolhead).
 3. The higher the print acceleration is.
 
 What this means is that we never get ideal PA values for each print feature, especially when they vary drastically in speed and acceleration. We can tune PA for a faster print speed (flow) but compromise on corner sharpness for slower speeds or tune PA for corner sharpness and deal with slight corner-perimeter separation in faster speeds. The same goes for accelerations as well as different layer heights.
@@ -40,11 +40,11 @@ This compromise usually means that we settle for tuning an "in-between" PA value
 
 **However, what this also means is that if you are printing with a single layer height, single speed, and acceleration, there is no need to enable this feature.**
 
-Adaptive pressure advance aims to address this limitation by implementing a completely different method of setting pressure advance. **Following a set of PA calibration tests done at different flow Ratios (speeds and layer heights) and accelerations, a pressure advance model is calculated by the slicer.** Then that model is used to emit the best fit PA for any arbitrary feature flow Ratio (speed) and acceleration used in the print process.
+Adaptive pressure advance aims to address this limitation by implementing a completely different method of setting pressure advance. **Following a set of PA calibration tests done at different flow rates (speeds and layer heights) and accelerations, a pressure advance model is calculated by the slicer.** Then that model is used to emit the best fit PA for any arbitrary feature flow rate (speed) and acceleration used in the print process.
 
 In addition, it means that you only need to tune this feature once and print across different layer heights with good PA performance.
 
-Finally, if during calibration you notice that there is little to no variance between the PA tests, this feature is redundant for you. **From experiments, high flow nozzles fitted on high-speed core XY printers appear to benefit the most from this feature as they print with a larger range of flow Ratios and at a larger range of accelerations.**
+Finally, if during calibration you notice that there is little to no variance between the PA tests, this feature is redundant for you. **From experiments, high flow nozzles fitted on high-speed core XY printers appear to benefit the most from this feature as they print with a larger range of flow rates and at a larger range of accelerations.**
 
 ### Expected results
 
@@ -67,9 +67,9 @@ Compared to with this feature disabled, where the internal solid infill and exte
 Firstly, it is important to understand your printer speed and acceleration limits in order to set meaningful boundaries for the calibrations:
 
 1. **Upper acceleration range:** Do not attempt to calibrate adaptive PA for an acceleration that is larger than what the Klipper input shaper calibration tool recommends for your selected shaper. For example, if Klipper recommends an EI shaper with 4k maximum acceleration for your slowest axis (usually the Y axis), don’t calibrate adaptive PA beyond that value. This is because after 4k the input shaper smoothing is magnified and the perimeter separations that appear like PA issues are caused by the input shaper smoothing the shape of the corner. Basically, you’d be attempting to compensate for an input shaper artefact with PA.
-2. **Upper print speed range:** The Ellis PA pattern test has been proven to be the most efficient and effective test to run to calibrate adaptive PA. It is fast and allows for a reasonably accurate and easy-to-read PA value. However, the size of the line segments is quite small, which means that for the faster print speeds and slower accelerations, the toolhead will not be able to reach the full flow Ratio that we are calibrating against. It is therefore generally not recommended to attempt calibration with a print speed of higher than ~200-250mm/sec and accelerations slower than 1k in the PA pattern test. If your lowest acceleration is higher than 1k, then proportionally higher maximum print speeds can be used.
+2. **Upper print speed range:** The Ellis PA pattern test has been proven to be the most efficient and effective test to run to calibrate adaptive PA. It is fast and allows for a reasonably accurate and easy-to-read PA value. However, the size of the line segments is quite small, which means that for the faster print speeds and slower accelerations, the toolhead will not be able to reach the full flow rate that we are calibrating against. It is therefore generally not recommended to attempt calibration with a print speed of higher than ~200-250mm/sec and accelerations slower than 1k in the PA pattern test. If your lowest acceleration is higher than 1k, then proportionally higher maximum print speeds can be used.
 
-**Remember:** With the calibration process, we aim to create a PA – flow Ratio – Acceleration profile for the toolhead. As we cannot directly control flow Ratio, we use print speed as a proxy (higher speed -> higher flow).
+**Remember:** With the calibration process, we aim to create a PA – Flow Rate – Acceleration profile for the toolhead. As we cannot directly control flow rate, we use print speed as a proxy (higher speed -> higher flow).
 
 With the above in mind, let’s create a worked example to identify the optimal number of PA tests to calibrate the adaptive PA model.
 
@@ -113,7 +113,7 @@ We, therefore, need to run 12 PA tests as below:
 | 150   | 4000         |
 | 200   | 4000         |
 
-### Identifying the flow Ratios from the print speed
+### Identifying the flow rates from the print speed
 
 #### OrcaSlicer 2.2.0 and later
 
@@ -121,11 +121,11 @@ Test parameters needed to build adaptive PA table are printed on the test sample
 
 ![apa-test](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/apa-test.png?raw=true)
 
-Test sample above was done with acceleration 12000 mm/s² and flow Ratio 27.13 mm³/s
+Test sample above was done with acceleration 12000 mm/s² and flow rate 27.13 mm³/s
 
 #### OrcaSlicer 2.1.0 and older
 
-As mentioned earlier, **the print speed is used as a proxy to vary the extrusion flow Ratio**. Once your PA test is set up, change the gcode preview to “flow” and move the horizontal slider over one of the herringbone patterns and take note of the flow Ratio for different speeds.
+As mentioned earlier, **the print speed is used as a proxy to vary the extrusion flow rate**. Once your PA test is set up, change the gcode preview to “flow” and move the horizontal slider over one of the herringbone patterns and take note of the flow rate for different speeds.
 
 ![apa-test210](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/apa-test210.png?raw=true)
 
@@ -135,7 +135,7 @@ As mentioned earlier, **the print speed is used as a proxy to vary the extrusion
 
 It is recommended that the PA step is set to a small value, to allow you to make meaningful distinctions between the different tests – **therefore a PA step value of 0.001 is recommended**.
 
-**Set the end PA to a value high enough to start showing perimeter separation for the lowest flow (print speed) and acceleration test.** For example, for a Voron 350 using Revo HF, the maximum value was set to 0.05 as that was sufficient to show perimeter separation even at the slowest flow Ratios and accelerations.
+**Set the end PA to a value high enough to start showing perimeter separation for the lowest flow (print speed) and acceleration test.** For example, for a Voron 350 using Revo HF, the maximum value was set to 0.05 as that was sufficient to show perimeter separation even at the slowest flow rates and accelerations.
 
 **If the test is too big to fit on the build plate, increase your starting PA value or the PA step value accordingly until the test can fit.** If the lowest value becomes too high and there is no ideal PA present in the test, focus on increasing the PA step value to reduce the number of herringbones printed (hence the size of the print).
 
@@ -222,9 +222,9 @@ Similarly for acceleration – in the above example you’ll input only 4 rows i
 
 #### Identifying the right PA
 
-Higher acceleration and higher flow Ratio PA tests are easier to identify the optimal PA as the range of “good” values is much narrower. It’s evident where the PA is too large, as gaps start to appear in the corner and where PA is too low, as the corner starts bulging.
+Higher acceleration and higher flow rate PA tests are easier to identify the optimal PA as the range of “good” values is much narrower. It’s evident where the PA is too large, as gaps start to appear in the corner and where PA is too low, as the corner starts bulging.
 
-However, the lower the flow Ratio and accelerations are, the range of good values is much wider. Having examined the PA tests even under a microscope, what is evident, is that if you can’t distinguish a value as being evidently better than another (i.e. sharper corner with no gaps) with the naked eye, then both values are correct. In which case, if you can’t find any meaningful difference, simply use the optimal values from the higher flow Ratios.
+However, the lower the flow rate and accelerations are, the range of good values is much wider. Having examined the PA tests even under a microscope, what is evident, is that if you can’t distinguish a value as being evidently better than another (i.e. sharper corner with no gaps) with the naked eye, then both values are correct. In which case, if you can’t find any meaningful difference, simply use the optimal values from the higher flow rates.
 
 - **Too high PA**
 ![apa-identify-too-high](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/apa-identify-too-high.jpg?raw=true)

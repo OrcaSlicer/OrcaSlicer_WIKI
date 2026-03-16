@@ -5,7 +5,7 @@ It aims to assist the printer firmware internal motion planners, pressure advanc
 
 This happens by reducing the stresses put on the extrusion system as well as reducing the absolute deviations from the ideal extrusion flow caused by pressure advance smooth time.
 
-This feature is especially helpful when printing at high accelerations and large flow Ratios as the deviations are larger in these cases.
+This feature is especially helpful when printing at high accelerations and large flow rates as the deviations are larger in these cases.
 
 ![ers-intro](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ERS/ers-intro.png?raw=true)
 
@@ -20,11 +20,11 @@ This feature is especially helpful when printing at high accelerations and large
 
 ## Theory
 
-Enabling this feature creates a small **speed "ramp"** by slowing down and ramping up print speeds prior to and after the features causing a sudden change in extrusion flow Ratio needs, such as overhangs and overhang perimeters.
+Enabling this feature creates a small **speed "ramp"** by slowing down and ramping up print speeds prior to and after the features causing a sudden change in extrusion flow rate needs, such as overhangs and overhang perimeters.
 
-This works by breaking down the printed line segments into smaller "chunks", proportional to the ERS segment length, and reduces the print speed of these segments so that the **requested extrusion volumetric flow Ratio change is less than or equal to the ERS threshold**.
+This works by breaking down the printed line segments into smaller "chunks", proportional to the ERS segment length, and reduces the print speed of these segments so that the **requested extrusion volumetric flow rate change is less than or equal to the ERS threshold**.
 
-In summary, **it takes the "edge" off rapid extrusion changes caused by acceleration/deceleration as these are now spread over a longer distance and time.** Therefore, it can reduce wall artifacts that show when the print speeds change suddenly. These artifacts are occurring because the extruder and firmware cannot perfectly adhere to the flow Ratios requested by the slicer, especially when the extrusion rate is changing rapidly.
+In summary, **it takes the "edge" off rapid extrusion changes caused by acceleration/deceleration as these are now spread over a longer distance and time.** Therefore, it can reduce wall artifacts that show when the print speeds change suddenly. These artifacts are occurring because the extruder and firmware cannot perfectly adhere to the flow rates requested by the slicer, especially when the extrusion rate is changing rapidly.
 
 **The example below shows the artifact that is mitigated by ERS.**
 
@@ -72,7 +72,7 @@ A printer printing at 200mm/sec with a 0.42 line width and 0.16 layer height wou
 
 ![ers-printspeed](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ERS/ers-printspeed.png?raw=true)
 
-When the printer is extruding at 40mm/sec with the same line width and layer height as above, the flow Ratio is 2.43mm³/sec.
+When the printer is extruding at 40mm/sec with the same line width and layer height as above, the flow rate is 2.43mm³/sec.
 
 So what we are asking the extruder to do in this example is **slow down from 12.16mm³/sec flow to 2.43mm³/sec flow in 0.08 seconds** or an extrusion change rate of 121mm³/sec².
 
@@ -90,9 +90,9 @@ Then we need to consider pressure advance and smooth time as factors that influe
 
 **Pressure Advance** adjusts the extruder's speed to account for the pressure changes inside the hot end's melt zone. When the print head moves and extrudes filament, there's a delay between the movement of the extruder gear and the plastic being extruded due to the compressibility of the molten plastic in the hot end. This delay can cause too much plastic to be extruded when the print head starts moving or not enough plastic when the print head stops, leading to issues like blobbing or under-extrusion.
 
-**Pressure Advance Smooth time** helps to mitigate potential negative effects on print quality due to the rapid changes in extruder flow Ratio, which are controlled by the Pressure Advance algorithm. This parameter essentially adds a smoothing effect to the adjustments made by Pressure Advance, aiming to prevent sharp or sudden changes in the extrusion rate.
+**Pressure Advance Smooth time** helps to mitigate potential negative effects on print quality due to the rapid changes in extruder flow rate, which are controlled by the Pressure Advance algorithm. This parameter essentially adds a smoothing effect to the adjustments made by Pressure Advance, aiming to prevent sharp or sudden changes in the extrusion rate.
 
-When Pressure Advance adjusts the extruder speed to compensate for the pressure build-up or reduction in the hot end, it can lead to abrupt changes in the flow Ratio. These abrupt changes can potentially cause issues like:
+When Pressure Advance adjusts the extruder speed to compensate for the pressure build-up or reduction in the hot end, it can lead to abrupt changes in the flow rate. These abrupt changes can potentially cause issues like:
 
 1. Extruder motor skipping,
 2. Increased wear on the extruder gear and filament,
@@ -104,9 +104,9 @@ The trade-off is extrusion accuracy. There is a deviation between the requested 
 
 **1. Increasing Smooth Time:** Leads to more gradual changes in extrusion pressure. While this can reduce artifacts and stress on the extruder system, setting it too high may diminish the effectiveness of Pressure Advance, as the compensation becomes too delayed to counteract the pressure dynamics accurately.
 
-**2. Decreasing Smooth Time:** Makes the Pressure Advance adjustments more immediate, which can improve the responsiveness of pressure compensation but may also reintroduce abrupt changes in flow Ratio, potentially leading to the issues mentioned above.
+**2. Decreasing Smooth Time:** Makes the Pressure Advance adjustments more immediate, which can improve the responsiveness of pressure compensation but may also reintroduce abrupt changes in flow rate, potentially leading to the issues mentioned above.
 
-In essence, **pressure advance smooth time creates an intentional deviation from the ideal extruder rotation** and, therefore, extrusion amount, to allow the printer's extruder to perform within its mechanical limits. Typically, this value is set to 0.04sec, which means that when Pressure Advance adjusts the extruder's flow Ratio to compensate for changes in pressure within the hot end, these adjustments are spread out over a period of 0.04 seconds.
+In essence, **pressure advance smooth time creates an intentional deviation from the ideal extruder rotation** and, therefore, extrusion amount, to allow the printer's extruder to perform within its mechanical limits. Typically, this value is set to 0.04sec, which means that when Pressure Advance adjusts the extruder's flow rate to compensate for changes in pressure within the hot end, these adjustments are spread out over a period of 0.04 seconds.
 
 There is a great example of pressure advance smooth time induced deviations in [this Klipper forum post](https://klipper.discourse.group/t/pressure-advance-smooth-time-skews-pressure-advance/13451) that is worth a read to get more insight in this trade-off.
 

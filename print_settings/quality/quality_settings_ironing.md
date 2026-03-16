@@ -1,6 +1,6 @@
 # Ironing
 
-Ironing is a process used to improve the surface finish of 3D prints by smoothing out the top layers. This is achieved by printing a second time at the same height, but with a very [low flow Ratio](#flow) and a specific [pattern](#pattern). The result is a smoother surface that can enhance the aesthetic quality of the print increasing print time.
+Ironing is a process used to improve the surface finish of 3D prints by smoothing out the top layers. This is achieved by printing a second time at the same height, but with a very [low flow rate](#flow) and a specific [pattern](#pattern). The result is a smoother surface that can enhance the aesthetic quality of the print increasing print time.
 
 ![ironing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ironing/ironing.png?raw=true)
 
@@ -36,7 +36,7 @@ The pattern that will be used when ironing. Usually, the best pattern is the one
 ## Flow
 
 The amount of material to extrude during ironing.  
-This % is a percentage of the normal flow Ratio. A lower value will result in a smoother finish but may not cover the surface completely. A higher value may cover the surface better but can lead to over extrusion or rougher finish.
+This % is a percentage of the normal flow rate. A lower value will result in a smoother finish but may not cover the surface completely. A higher value may cover the surface better but can lead to over extrusion or rougher finish.
 
 A lower layer height may require higher flow due to less volumetric extrusion per distance.
 
