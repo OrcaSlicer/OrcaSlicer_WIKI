@@ -77,13 +77,50 @@ $tabContent = Get-TabCppContent -Source $TabCppPath
 
 $patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
 $patternOption = 'append_option_line\(\s*[^,]+\s*,\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
+$patternAppendLineBlock = '(?s)(?<obj>\w+)\.label_path\s*=\s*"(?<ref>[^"]+)"\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
 
 $singleMatches = [regex]::Matches($tabContent, $patternSingle)
 $optionMatches = [regex]::Matches($tabContent, $patternOption)
-$matches = @($singleMatches + $optionMatches | Sort-Object -Property Index)
+$appendLineMatches = [regex]::Matches($tabContent, $patternAppendLineBlock)
+
+$rawEntries = New-Object System.Collections.Generic.List[object]
+
+foreach ($m in $singleMatches) {
+    $rawEntries.Add([PSCustomObject]@{
+        Variable = $m.Groups['variable'].Value.Trim()
+        Ref      = $m.Groups['ref'].Value.Trim()
+        Index    = [int]$m.Index
+    })
+}
+
+foreach ($m in $optionMatches) {
+    $rawEntries.Add([PSCustomObject]@{
+        Variable = $m.Groups['variable'].Value.Trim()
+        Ref      = $m.Groups['ref'].Value.Trim()
+        Index    = [int]$m.Index
+    })
+}
+
+foreach ($m in $appendLineMatches) {
+    $obj = $m.Groups['obj'].Value
+    $ref = $m.Groups['ref'].Value.Trim()
+    $body = $m.Groups['body'].Value
+    $optPattern = [regex]::Escape($obj) + '\.append_option\(\s*optgroup->get_option\("(?<variable>[^"]+)"\)\s*\)\s*;'
+    $optMatches = [regex]::Matches($body, $optPattern)
+
+    foreach ($om in $optMatches) {
+        $rawEntries.Add([PSCustomObject]@{
+            Variable = $om.Groups['variable'].Value.Trim()
+            Ref      = $ref
+            Index    = [int]($m.Index + $om.Index)
+        })
+    }
+}
+
+$matches = @($rawEntries | Sort-Object -Property Index)
 
 if ($matches.Count -eq 0) {
-    Write-Host "No supported append_*_option_line(\"var\", \"file#anchor\") entries found." -ForegroundColor Yellow
+    Write-Host "No supported option-to-doc mappings were found." -ForegroundColor Yellow
     exit 0
 }
 
@@ -101,8 +138,8 @@ foreach ($file in $mdFiles) {
 
 $entries = New-Object System.Collections.Generic.List[object]
 foreach ($m in $matches) {
-    $variable = $m.Groups['variable'].Value.Trim()
-    $ref = $m.Groups['ref'].Value.Trim()
+    $variable = $m.Variable
+    $ref = $m.Ref
 
     if ($ref -notmatch '#') {
         continue
