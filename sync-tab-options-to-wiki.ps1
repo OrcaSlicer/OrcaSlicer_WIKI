@@ -274,7 +274,7 @@ foreach ($group in $groupedByFile) {
         }
 
         $formattedVars = $vars | ForEach-Object { "``$_``" }
-        $insertLine = "Variable name: " + ($formattedVars -join ", ") + "."
+        $insertLine = "Variables: " + ($formattedVars -join ", ") + "."
 
         $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $anchor
         if ($idx -lt 0) {
@@ -297,7 +297,7 @@ foreach ($group in $groupedByFile) {
         $hasCanonicalLine = $false
 
         for ($k = $idx + 1; $k -le $sectionEnd; $k++) {
-            if ($buffer[$k] -match '^\s*Variable name:\s*') {
+            if ($buffer[$k] -match '^\s*Variables:\s*') {
                 $metadataLineIndexes.Add($k)
                 if ($buffer[$k] -eq $insertLine) {
                     $hasCanonicalLine = $true
