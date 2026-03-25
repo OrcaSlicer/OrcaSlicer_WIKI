@@ -16,19 +16,19 @@ This section covers the settings that affect the precision of your prints. These
 
 ## Slice gap closing radius
 
-Variables: `slice_closing_radius`.
+Variables: `slice_closing_radius`.  
 Cracks smaller than 2x gap closing radius are being filled during the triangle mesh slicing.  
 The gap closing operation may reduce the final print resolution, therefore it is advisable to keep the value reasonably low.
 
 ## Resolution
 
-Variables: `resolution`.
+Variables: `resolution`.  
 The G-code path is generated after simplifying the contour of models to avoid too many points and G-code lines.  
 Smaller value means higher resolution and more time to slice. If you are using big models in low processing power machines, you may want to increase this value to speed up the slicing process.
 
 ## Arc fitting
 
-Variables: `enable_arc_fitting`.
+Variables: `enable_arc_fitting`.  
 Enable this feature to replace many short straight moves (G1 segments) with fewer circular arc commands using [G2 and G3](https://marlinfw.org/docs/gcode/G002-G003.html).  
 Arc fitting mainly changes how the toolpath is *encoded* in G-code. It can be beneficial in some workflows, but it is not a feature to improve quality .
 
@@ -66,7 +66,7 @@ Additionally, modern STLs often have a higher resolution than the segments gener
 
 ## X-Y Compensation
 
-Variables: `xy_hole_compensation`, `xy_contour_compensation`.
+Variables: `xy_hole_compensation`, `xy_contour_compensation`.  
 Used to compensate external dimensions of the model.
 With this option you can compensate material expansion or shrinkage, which can occur due to various factors such as the type of filament used, temperature fluctuations, or printer calibration issues.
 
@@ -87,7 +87,7 @@ This function is used to adjust sizes slightly when the objects have assembling 
 
 ## Elephant foot compensation
 
-Variables: `elefant_foot_compensation`, `elefant_foot_compensation_layers`.
+Variables: `elefant_foot_compensation`, `elefant_foot_compensation_layers`.  
 This feature compensates for the "elephant foot" effect, which occurs when the first few layers of a print are wider than the rest due:
 
 - Weight of the material above them.
@@ -138,7 +138,7 @@ Assuming the compensation value is 0.25 mm:
 
 ## Precise wall
 
-Variables: `precise_outer_wall`.
+Variables: `precise_outer_wall`.  
 The 'Precise Wall' is a distinctive feature introduced by OrcaSlicer, aimed at improving the dimensional accuracy of prints and minimizing layer inconsistencies by slightly increasing the spacing between the outer wall and the inner wall when printing in [Inner Outer wall order](quality_settings_wall_and_surfaces#innerouter).
 
 ### Technical explanation
@@ -164,7 +164,7 @@ OrcaSlicer adheres to Slic3r's approach to handling flow. To address the downsid
 
 ## Precise Z Height
 
-Variables: `precise_z_height`.
+Variables: `precise_z_height`.  
 This feature ensures the accurate Z height of the model after slicing, even if the model height is not a multiple of the [layer height](quality_settings_layer_height).
 
 For example, slicing a 20mm x 20mm x 20.1mm cube with a layer height of 0.2mm would typically result in a final height of 20.2mm due to the layer height increments.
@@ -181,7 +181,7 @@ By enabling this parameter, the layer height of the last five layers is adjusted
 
 ## Polyholes
 
-Variables: `hole_to_polyhole`, `hole_to_polyhole_threshold`, `hole_to_polyhole_twisted`.
+Variables: `hole_to_polyhole`, `hole_to_polyhole_threshold`, `hole_to_polyhole_twisted`.  
 A polyhole is a technique used in FFF 3D printing to improve the accuracy of circular holes. Instead of modeling a perfect circle, the hole is represented as a polygon with a reduced number of flat sides. This simplification forces the slicer to treat each segment as a straight line, which prints more reliably. By carefully choosing the number of sides and ensuring the polygon sits on the outer boundary of the hole, you can produce openings that more closely match the intended diameter.
 
 ![PolyHoles](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/PolyHoles.png?raw=true)

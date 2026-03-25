@@ -21,81 +21,81 @@ This section contains basic information about the filament material.
 
 ## Type
 
-Variables: `filament_type`.
+Variables: `filament_type`.  
 Material base type (e.g., PLA, ABS, PETG, etc.).  
 This setting affects coefficients used in various calculations, such as brim width or temperature warnings.
 
 ## Vendor
 
-Variables: `filament_vendor`.
+Variables: `filament_vendor`.  
 Vendor of filament. For show only.
 
 ## Soluble material
 
-Variables: `filament_soluble`.
+Variables: `filament_soluble`.  
 Soluble material is commonly used to print supports and support interfaces.
 
 ## Support material
 
-Variables: `filament_is_support`.
+Variables: `filament_is_support`.  
 Support material is commonly used to print supports and support interfaces.
 
 ## Filament ramming length
 
-Variables: `filament_change_length`.
+Variables: `filament_change_length`.  
 When changing the extruder, it is recommended to extrude a certain length of filament from the original extruder. This helps minimize nozzle oozing.
 
 ## Required nozzle HRC
 
-Variables: `required_nozzle_HRC`.
+Variables: `required_nozzle_HRC`.  
 Minimum HRC of nozzle required to print the filament. A value of 0 means no checking of the nozzle's HRC.
 
 ## Default color
 
-Variables: `default_filament_colour`.
+Variables: `default_filament_colour`.  
 Default filament color.  
 Right click to reset value to system default.
 
 ## Diameter
 
-Variables: `filament_diameter`.
+Variables: `filament_diameter`.  
 Filament diameter is used to calculate extrusion variables in G-code, so it is important that this is accurate and precise.
 
 ## Adhesiveness Category
 
-Variables: `filament_adhesiveness_category`.
+Variables: `filament_adhesiveness_category`.  
 Filament category.
 
 ## Density
 
-Variables: `filament_density`.
+Variables: `filament_density`.  
 Filament density, for statistical purposes only.
 
 ## Shrinkage (XY)
 
-Variables: `filament_shrink`.
+Variables: `filament_shrink`.  
 Enter the shrinkage percentage that the filament will get after cooling (94% if you measure 94mm instead of 100mm).  
 The part will be scaled in XY to compensate. Only the filament used for the perimeter is taken into account.  
 Be sure to allow enough space between objects, as this compensation is done after the checks.
 
 ## Shrinkage (Z)
 
-Variables: `filament_shrinkage_compensation_z`.
+Variables: `filament_shrinkage_compensation_z`.  
 Enter the shrinkage percentage that the filament will get after cooling (94% if you measure 94mm instead of 100mm). The part will be scaled in Z to compensate.
 
 ## Price
 
-Variables: `filament_cost`.
+Variables: `filament_cost`.  
 Filament price, for statistical purposes only.
 
 ## Softening temperature
 
-Variables: `temperature_vitrification`.
+Variables: `temperature_vitrification`.  
 The material softens at this temperature, so when the bed temperature is equal to or greater than this, it's highly recommended to open the front door and/or remove the upper glass to avoid clogs.
 
 ## Idle temperature
 
-Variables: `idle_temperature`.
+Variables: `idle_temperature`.  
 Nozzle temperature when the tool is currently not used in multi-tool setups. This is only used when 'Ooze prevention' is active in Print Settings. Set to 0 to disable.
 
 ## Recommended nozzle temperature

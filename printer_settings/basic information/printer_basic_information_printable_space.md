@@ -47,12 +47,12 @@ Unprintable area in XY plane. For example, X1 Series printers use the front left
 
 ## Printable height
 
-Variables: `printable_height`.
+Variables: `printable_height`.  
 This is the maximum printable height which is limited by the height of the build area.
 
 ## Support multi bed types
 
-Variables: `support_multi_bed_types`.
+Variables: `support_multi_bed_types`.  
 Once enabled, you can select the bed type in the drop-down menu, corresponding bed temperature will be set automatically.
 
 ![bed_type_selector](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bed/bed_type_selector.png?raw=true)
@@ -83,15 +83,15 @@ Available bed types are:
 
 ## Best object position
 
-Variables: `best_object_pos`.
+Variables: `best_object_pos`.  
 Best auto arranging position in range [0,1] w.r.t. bed shape.
 
 ## Z offset
 
-Variables: `z_offset`.
+Variables: `z_offset`.  
 This value will be added (or subtracted) from all the Z coordinates in the output G-code. It is used to compensate for bad Z endstop position: for example, if your endstop zero actually leaves the nozzle 0.3mm far from the print bed, set this to -0.3 (or fix your endstop).
 
 ## Preferred orientation
 
-Variables: `preferred_orientation`.
+Variables: `preferred_orientation`.  
 Automatically orient STL files on the Z axis upon initial import.

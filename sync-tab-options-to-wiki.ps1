@@ -274,7 +274,7 @@ foreach ($group in $groupedByFile) {
         }
 
         $formattedVars = $vars | ForEach-Object { "``$_``" }
-        $insertLine = "Variables: " + ($formattedVars -join ", ") + "."
+        $insertLine = "Variables: " + ($formattedVars -join ", ") + ".  "  # ending with two spaces so Markdown line break is forced
 
         $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $anchor
         if ($idx -lt 0) {
