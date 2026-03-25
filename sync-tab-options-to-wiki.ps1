@@ -69,6 +69,25 @@ function Get-TabCppContent {
     return Get-Content -LiteralPath $Source -Raw
 }
 
+function Get-StringVectors {
+    param([string]$Content)
+
+    $result = @{}
+    $vectorPattern = '(?s)const\s+std::vector\s*<\s*std::string\s*>\s*(?<name>\w+)\s*\{(?<vals>.*?)\}\s*;'
+    $vectorMatches = [regex]::Matches($Content, $vectorPattern)
+
+    foreach ($vm in $vectorMatches) {
+        $name = $vm.Groups['name'].Value
+        $valsRaw = $vm.Groups['vals'].Value
+        $vals = [regex]::Matches($valsRaw, '"(?<v>[^"]+)"') | ForEach-Object { $_.Groups['v'].Value }
+        if ($vals.Count -gt 0) {
+            $result[$name] = @($vals)
+        }
+    }
+
+    return $result
+}
+
 if (-not (Test-Path -LiteralPath $WikiRoot)) {
     throw "Wiki root not found: $WikiRoot"
 }
@@ -78,10 +97,13 @@ $tabContent = Get-TabCppContent -Source $TabCppPath
 $patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
 $patternOption = 'append_option_line\(\s*[^,]+\s*,\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
 $patternAppendLineBlock = '(?s)(?<obj>\w+)\.label_path\s*=\s*"(?<ref>[^"]+)"\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
+$patternForBlock = '(?s)for\s*\(\s*const\s+std::string\s*&\s*(?<iter>\w+)\s*:\s*(?<collection>\w+)\s*\)\s*\{(?<body>.*?)\}'
 
 $singleMatches = [regex]::Matches($tabContent, $patternSingle)
 $optionMatches = [regex]::Matches($tabContent, $patternOption)
 $appendLineMatches = [regex]::Matches($tabContent, $patternAppendLineBlock)
+$forMatches = [regex]::Matches($tabContent, $patternForBlock)
+$stringVectors = Get-StringVectors -Content $tabContent
 
 $rawEntries = New-Object System.Collections.Generic.List[object]
 
@@ -114,6 +136,48 @@ foreach ($m in $appendLineMatches) {
             Ref      = $ref
             Index    = [int]($m.Index + $om.Index)
         })
+    }
+}
+
+foreach ($fm in $forMatches) {
+    $iter = $fm.Groups['iter'].Value
+    $collection = $fm.Groups['collection'].Value
+    $body = $fm.Groups['body'].Value
+
+    if (-not $stringVectors.ContainsKey($collection)) {
+        continue
+    }
+
+    $values = $stringVectors[$collection]
+    $prefixPattern = 'append_option_line\(\s*[^,]+\s*,\s*"(?<prefix>[^"]*)"\s*\+\s*' + [regex]::Escape($iter) + '\s*,\s*"(?<ref>[^"]+)"\s*\)'
+    $suffixPattern = 'append_option_line\(\s*[^,]+\s*,\s*' + [regex]::Escape($iter) + '\s*\+\s*"(?<suffix>[^"]*)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
+
+    $prefixMatches = [regex]::Matches($body, $prefixPattern)
+    foreach ($pm in $prefixMatches) {
+        $prefix = $pm.Groups['prefix'].Value
+        $ref = $pm.Groups['ref'].Value.Trim()
+
+        foreach ($v in $values) {
+            $rawEntries.Add([PSCustomObject]@{
+                Variable = "$prefix$v"
+                Ref      = $ref
+                Index    = [int]($fm.Index + $pm.Index)
+            })
+        }
+    }
+
+    $suffixMatches = [regex]::Matches($body, $suffixPattern)
+    foreach ($sm in $suffixMatches) {
+        $suffix = $sm.Groups['suffix'].Value
+        $ref = $sm.Groups['ref'].Value.Trim()
+
+        foreach ($v in $values) {
+            $rawEntries.Add([PSCustomObject]@{
+                Variable = "$v$suffix"
+                Ref      = $ref
+                Index    = [int]($fm.Index + $sm.Index)
+            })
+        }
     }
 }
 
