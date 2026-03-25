@@ -274,7 +274,7 @@ foreach ($group in $groupedByFile) {
         }
 
         $formattedVars = $vars | ForEach-Object { "``$_``" }
-        $label = if ($vars.Count -eq 1) { "Variable:" } else { "Variables:" }
+        $label = if ($vars.Count -eq 1) { "[Variable](Built-in-placeholders-variables):" } else { "[Variables](Built-in-placeholders-variables):" }
         $insertLine = "$label " + ($formattedVars -join ", ") + ".  "  # ending with two spaces so Markdown line break is forced
 
         $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $anchor

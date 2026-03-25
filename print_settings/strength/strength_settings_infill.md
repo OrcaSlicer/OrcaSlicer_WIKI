@@ -25,7 +25,7 @@ Infill is the internal structure of a 3D print, providing strength and support. 
 
 ## Sparse infill density
 
-Variable: `sparse_infill_density`.  
+[Variable](Built-in-placeholders-variables): `sparse_infill_density`.  
 Infill density determines the amount of material used to fill the interior of a 3D print. It is usually expressed as a percentage, with 100% being completely solid.
 
 - Higher density increases
@@ -40,7 +40,7 @@ Infill density determines the amount of material used to fill the interior of a 
 
 ## Fill Multiline
 
-Variable: `fill_multiline`.  
+[Variable](Built-in-placeholders-variables): `fill_multiline`.  
 This setting allows the selected [infill pattern](#sparse-infill-pattern) to be generated using up to 10 parallel extrusion lines per path, while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
 
 To check which patterns support multiline infill, see the Patterns Quick Reference table in the [Infill Patterns Wiki List](strength_settings_patterns#patterns-quick-reference).
@@ -100,7 +100,7 @@ These settings control the orientation of the sparse infill lines to optimize st
 
 ### Direction
 
-Variables: `infill_direction`, `solid_infill_direction`.  
+[Variables](Built-in-placeholders-variables): `infill_direction`, `solid_infill_direction`.  
 Controls the direction of the infill lines to optimize or strengthen the print.
 
 ![fill-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-direction.png?raw=true)
@@ -141,7 +141,7 @@ Other examples:
 
 ### Symmetric infill Y axis
 
-Variable: `symmetric_infill_y_axis`.  
+[Variable](Built-in-placeholders-variables): `symmetric_infill_y_axis`.  
 When enabled, the infill pattern will be mirrored along the Y-axis of the print bed. This can help achieve more uniform strength distribution in certain geometries.
 
 > [!IMPORTANT]
@@ -154,7 +154,7 @@ For example, you might want to mirror the infill pattern for specific components
 
 ## Infill Wall Overlap
 
-Variable: `infill_wall_overlap`.  
+[Variable](Built-in-placeholders-variables): `infill_wall_overlap`.  
 Infill area is enlarged slightly to overlap with wall for better bonding. The percentage value is relative to line width of sparse infill. Set this value to ~10-15% to minimize potential over extrusion and accumulation of material resulting in rough surfaces.
 
 - **Infill Wall Overlap Off**
@@ -167,7 +167,7 @@ Infill area is enlarged slightly to overlap with wall for better bonding. The pe
 
 ## Apply gap fill
 
-Variable: `gap_fill_target`.  
+[Variable](Built-in-placeholders-variables): `gap_fill_target`.  
 Enables gap fill for the selected solid surfaces.  
 The minimum gap length that will be filled can be controlled from the filter out tiny gaps option.
 
@@ -184,13 +184,13 @@ However this is not advised, as gap fill between perimeters is contributing to t
 
 ## Filter out tiny gaps
 
-Variable: `filter_out_gap_fill`.  
+[Variable](Built-in-placeholders-variables): `filter_out_gap_fill`.  
 Don't print gap fill with a length is smaller than the threshold specified (in mm).  
 This setting applies to top, bottom and solid infill and, if using the [classic perimeter generator](quality_settings_wall_generator#classic), to wall gap fill.
 
 ## Anchor
 
-Variables: `infill_anchor_max`, `infill_anchor`.  
+[Variables](Built-in-placeholders-variables): `infill_anchor_max`, `infill_anchor`.  
 Connect an infill line to an internal perimeter with a short segment of an additional perimeter. If expressed as percentage (example: 15%) it is calculated over infill extrusion width.
 OrcaSlicer tries to connect two close infill lines to a short perimeter segment. If no such perimeter segment shorter than this parameter is found, the infill line is connected to a perimeter segment at just one side and the length of the perimeter segment taken is limited to infill_anchor, but no longer than this parameter. If set to 0, the old algorithm for infill connection will be used, it should create the same result as with 1000 & 0.
 
@@ -204,12 +204,12 @@ OrcaSlicer tries to connect two close infill lines to a short perimeter segment.
 
 ## Internal Solid Infill
 
-Variable: `internal_solid_infill_pattern`.  
+[Variable](Built-in-placeholders-variables): `internal_solid_infill_pattern`.  
 Line pattern of internal solid infill. If the [detect narrow internal solid infill](strength_settings_advanced#detect-narrow-internal-solid-infill) be enabled, the [concentric pattern](strength_settings_patterns#concentric) will be used for the small area.
 
 ## Extra Solid Infill
 
-Variable: `extra_solid_infills`.  
+[Variable](Built-in-placeholders-variables): `extra_solid_infills`.  
 Insert extra solid infills at specific layers to add strength at critical points in your print. This feature allows you to strategically reinforce your part without changing the overall sparse infill density.
 
 ![extra-solid-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/extra-solid-infill.gif?raw=true)
@@ -260,7 +260,7 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 
 ## Sparse Infill Pattern
 
-Variable: `sparse_infill_pattern`.  
+[Variable](Built-in-placeholders-variables): `sparse_infill_pattern`.  
 > [!TIP]
 > See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
 

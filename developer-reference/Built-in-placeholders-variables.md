@@ -32,7 +32,7 @@ Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-cod
 - Unless noted otherwise distances are in millimetres, temperatures in °C, volumes in mm³, weights in grams, feedrates in mm/min, and booleans return `0`/`1`.
 - Points and bounding boxes are stored as `[x, y]` pairs expressed in mm.
 - `layer_num` is one-based (first layer is `1`). All other indices use zero-based numbering.
-- Every print/filament/printer setting is also available under its config key. Hover the label in the UI to see the key. The tables below focus on additional runtime placeholders.
+- Every print/filament/printer setting is also available under its config key. Hover the label in the UI to see the key or check the Variable in the Wiki description. The tables below focus on additional runtime placeholders.
 
 ### Functions
 

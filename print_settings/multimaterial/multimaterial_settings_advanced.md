@@ -12,45 +12,45 @@
 
 ## Interlocking Beam
 
-Variable: `interlocking_beam`.  
+[Variable](Built-in-placeholders-variables): `interlocking_beam`.  
 Generate interlocking beam structure at the locations where different filaments touch. This improves the adhesion between filaments, especially models printed in different materials.
 
 ## Interface Shells
 
-Variable: `interface_shells`.  
+[Variable](Built-in-placeholders-variables): `interface_shells`.  
 Force the generation of solid shells between adjacent materials/volumes. Useful for multi-extruder prints with translucent materials or manual soluble support material.
 
 ## Maximum Width of Segmented Region
 
-Variable: `mmu_segmented_region_max_width`.  
+[Variable](Built-in-placeholders-variables): `mmu_segmented_region_max_width`.  
 Maximum width of a segmented region. Zero disables this feature.
 
 ## Interlocking depth of Segmented Region
 
-Variable: `mmu_segmented_region_interlocking_depth`.  
+[Variable](Built-in-placeholders-variables): `mmu_segmented_region_interlocking_depth`.  
 Interlocking depth of a segmented region. It will be ignored if \"mmu_segmented_region_max_width\" is zero or if \"mmu_segmented_region_interlocking_depth\" is bigger than \"mmu_segmented_region_max_width\". Zero disables this feature.
 
 ## Interlocking Beam Width
 
-Variable: `interlocking_beam_width`.  
+[Variable](Built-in-placeholders-variables): `interlocking_beam_width`.  
 The width of the interlocking structure beams.
 
 ## Interlocking Direction
 
-Variable: `interlocking_orientation`.  
+[Variable](Built-in-placeholders-variables): `interlocking_orientation`.  
 Orientation of interlock beams.
 
 ## Interlocking Beam Layers
 
-Variable: `interlocking_beam_layer_count`.  
+[Variable](Built-in-placeholders-variables): `interlocking_beam_layer_count`.  
 The height of the beams of the interlocking structure, measured in number of layers. Less layers is stronger, but more prone to defects.
 
 ## Interlocking Depth
 
-Variable: `interlocking_depth`.  
+[Variable](Built-in-placeholders-variables): `interlocking_depth`.  
 The distance from the boundary between filaments to generate interlocking structure, measured in cells. Too few cells will result in poor adhesion.
 
 ## Interlocking Boundary Avoidance
 
-Variable: `interlocking_boundary_avoidance`.  
+[Variable](Built-in-placeholders-variables): `interlocking_boundary_avoidance`.  
 The distance from the outside of a model where interlocking structures will not be generated, measured in cells.
