@@ -168,7 +168,7 @@ foreach ($group in $groupedByFile) {
         $hasCanonicalLine = $false
 
         for ($k = $idx + 1; $k -le $sectionEnd; $k++) {
-            if ($buffer[$k] -match '^\s*(Config option:|Variable name:)\s*') {
+            if ($buffer[$k] -match '^\s*Variable name:\s*') {
                 $metadataLineIndexes.Add($k)
                 if ($buffer[$k] -eq $insertLine) {
                     $hasCanonicalLine = $true
