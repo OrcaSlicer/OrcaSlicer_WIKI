@@ -24,6 +24,7 @@ Support structures are used in 3D printing to provide stability to overhangs and
 
 ## Type
 
+Variables: `support_type`.
 Support structures can be generated in various styles, each suited for different printing needs:
 
 ### Normal
@@ -36,6 +37,7 @@ Tree-like support structures are designed to minimize material usage while still
 
 #### Support critical regions only
 
+Variables: `support_critical_regions_only`.
 Only create support for critical regions including sharp tail, cantilever, etc.
 
 ### Auto
@@ -48,6 +50,7 @@ Limit support generation to specific areas defined by manual placement in the pr
 
 ## Style
 
+Variables: `support_style`.
 Style and shape of the support.  
 
 ### Grid
@@ -76,25 +79,31 @@ Create similar structure to normal support under large flat overhangs.
 
 ## Threshold angle
 
+Variables: `support_threshold_angle`.
 Support will be generated for overhangs whose slope angle is below the threshold.
 
 ## Threshold overlap
 
+Variables: `support_threshold_overlap`.
 If threshold angle is zero, support will be generated for overhangs whose overlap is below the threshold.
 The smaller this value is, the steeper the overhang that can be printed without support.
 
 ## Initial layer density
 
+Variables: `raft_first_layer_density`.
 Density of the first raft or support layer.
 
 ## Initial layer expansion
 
+Variables: `raft_first_layer_expansion`.
 Expand the first raft or support layer to improve bed plate adhesion.
 
 ## On build plate only
 
+Variables: `support_on_build_plate_only`.
 Don't create support on model surface, only on build plate.
 
 ## Ignore small overhangs
 
+Variables: `support_remove_small_overhang`.
 With this setting small overhangs that possibly need no supports will be ignored from support generation.

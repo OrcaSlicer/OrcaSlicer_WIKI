@@ -29,6 +29,7 @@ Useful for creating a textures or hide surface imperfections but will increase p
 
 ## Fuzzy Skin Mode
 
+Variables: `fuzzy_skin_mode`.
 Choose which parts of the model receive the fuzzy-skin effect.
 
 ### Contour
@@ -76,6 +77,7 @@ This is a combination of Displacement and Extrusion modes. The clarity of the dr
 
 ## Noise Type
 
+Variables: `fuzzy_skin_noise_type`.
 Select the noise algorithm used to generate the random offsets. Different noise types produce distinct visual textures.
 
 ### Classic
@@ -110,28 +112,34 @@ Creates sharp, jagged features and high-contrast detail. Useful for stone- or ma
 
 ## Point distance
 
+Variables: `fuzzy_skin_point_distance`.
 Average distance between random sample points along each line segment.  
 Smaller values add more detail and increase computation; larger values produce coarser, faster results.
 
 ## Skin thickness
 
+Variables: `fuzzy_skin_thickness`.
 Maximum lateral width (in mm) over which points can be displaced. This defines how far the wall can be jittered.  
 Keep this below or near your outer wall line width and within nozzle/flow limits for reliable prints.
 
 ## Skin feature size
 
+Variables: `fuzzy_skin_scale`.
 Base size of coherent noise features, in mm. Larger values yield bigger, more prominent structures; smaller values give fine-grained texture.
 
 ## Skin Noise Octaves
 
+Variables: `fuzzy_skin_octaves`.
 The number of octaves of coherent noise to use. Higher values increase the detail of the noise, but also increase computation time.
 
 ## Skin Noise Persistence
 
+Variables: `fuzzy_skin_persistence`.
 Controls how amplitude decays across octaves. Lower persistence results in smoother noise; higher persistence keeps finer-scale detail stronger.
 
 ## Apply fuzzy skin to first layer
 
+Variables: `fuzzy_skin_first_layer`.
 Enable to apply fuzzy skin to the first layer.
 
 > [!CAUTION]

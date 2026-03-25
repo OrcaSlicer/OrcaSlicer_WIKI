@@ -16,6 +16,7 @@
 
 ## Walls printing order
 
+Variables: `wall_sequence`.
 Print sequence of the internal (inner) and external (outer) walls.  
 
 ### Inner/Outer
@@ -38,6 +39,7 @@ Use Outer/Inner for the same external wall quality and dimensional accuracy bene
 
 ### Print infill first
 
+Variables: `is_infill_first`.
 When this option is enabled, the [infill](strength_settings_infill) and [top/bottom shells](strength_settings_top_bottom_shells) are printed first, followed by the walls. This can be useful for some overhangs where the infill can support the walls.
 
 ![infill-first](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/infill-first.gif?raw=true)
@@ -50,6 +52,7 @@ When using this option is recommended to use the [Precise Wall](quality_settings
 
 ## Wall loop direction
 
+Variables: `wall_direction`.
 The direction which the wall loops are extruded when looking down from the top.  
 By default all walls are extruded in counter-clockwise, unless [Reverse on even](quality_settings_overhangs#reverse-on-even) is enabled.  
 Set this to any option other than Auto will force the wall direction regardless of the [Reverse on even](quality_settings_overhangs#reverse-on-even).
@@ -59,6 +62,7 @@ Set this to any option other than Auto will force the wall direction regardless 
 
 ## Surface flow ratio
 
+Variables: `print_flow_ratio`, `top_solid_infill_flow_ratio`, `bottom_solid_infill_flow_ratio`, `set_other_flow_ratios`, `first_layer_flow_ratio`, `outer_wall_flow_ratio`, `inner_wall_flow_ratio`, `overhang_flow_ratio`, `sparse_infill_flow_ratio`, `internal_solid_infill_flow_ratio`, `gap_fill_flow_ratio`, `support_flow_ratio`, `support_interface_flow_ratio`.
 This factor affects the amount of material for [top or bottom solid infill](strength_settings_top_bottom_shells). You can decrease it slightly to have smooth surface finish.  
 The actual top or bottom surface flow used is calculated by multiplying this value by the filament flow ratio, and if set, the object's flow ratio.
 
@@ -69,6 +73,7 @@ Other flow ratios, such as ratios for the first layer (does not affect brims and
 
 ## Only one wall
 
+Variables: `only_one_wall_top`, `only_one_wall_first_layer`.
 Use only one wall on flat surfaces, to give more space to the [top infill pattern](strength_settings_top_bottom_shells#surface-pattern).
 Specially useful in small features, like letters, where the top surface is very small and [concentric pattern](strength_settings_patterns#concentric) from walls would not cover it properly.
 
@@ -76,6 +81,7 @@ Specially useful in small features, like letters, where the top surface is very 
 
 ### Threshold
 
+Variables: `min_width_top_surface`.
 If a top surface has to be printed and it's partially covered by another layer, it won't be considered at a top layer where its width is below this value. This can be useful to not let the 'one perimeter on top' trigger on surface that should be covered only by perimeters.  
 This value can be a mm or a % of the perimeter extrusion width.
 
@@ -86,6 +92,7 @@ This value can be a mm or a % of the perimeter extrusion width.
 
 ## Avoid crossing walls
 
+Variables: `reduce_crossing_wall`.
 This option instructs the slicer to avoid crossing perimeters (walls) during travel moves.  
 Instead of traveling directly through a wall, the print head will detour around it, which can significantly reduce surface defects and stringing.
 
@@ -99,6 +106,7 @@ Highly recommended for detailed or aesthetic prints.
 
 ### Max detour length
 
+Variables: `max_travel_detour_distance`.
 Defines the maximum distance the printer is allowed to detour to avoid crossing a wall.
 Can be set as:
 
@@ -110,6 +118,7 @@ Use this setting to balance between print time and wall quality—longer detours
 
 ## Small area flow compensation
 
+Variables: `small_area_infill_flow_compensation`.
 Enables adaptive flow control for small infill areas.
 This feature helps address extrusion problems that often occur in small regions of solid infill, such as the tops of narrow letters or fine features.  
 In these cases, standard extrusion flow may be too much for the available space, leading to over-extrusion or poor surface quality.
