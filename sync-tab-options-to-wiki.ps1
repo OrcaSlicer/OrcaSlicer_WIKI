@@ -204,7 +204,8 @@ foreach ($group in $groupedByFile) {
             }
         }
 
-        $alreadyCanonical = $metadataLineIndexes.Count -eq 1 -and $hasCanonicalLine -and $metadataLineIndexes[0] -eq ($idx + 1)
+        $hasBlankBetween = ($idx + 1) -lt $buffer.Count -and [string]::IsNullOrWhiteSpace($buffer[$idx + 1])
+        $alreadyCanonical = $metadataLineIndexes.Count -eq 1 -and $hasCanonicalLine -and $metadataLineIndexes[0] -eq ($idx + 2) -and $hasBlankBetween
         if ($alreadyCanonical) {
             $alreadyPresent++
             continue
@@ -218,12 +219,17 @@ foreach ($group in $groupedByFile) {
             $fileChanged = $true
         }
 
-        if (($idx + 1) -lt $buffer.Count -and $buffer[$idx + 1] -eq $insertLine) {
+        if ((($idx + 2) -lt $buffer.Count) -and [string]::IsNullOrWhiteSpace($buffer[$idx + 1]) -and $buffer[$idx + 2] -eq $insertLine) {
             $alreadyPresent++
             continue
         }
 
-        $buffer.Insert($idx + 1, $insertLine)
+        if (-not (($idx + 1) -lt $buffer.Count -and [string]::IsNullOrWhiteSpace($buffer[$idx + 1]))) {
+            $buffer.Insert($idx + 1, "")
+            $fileChanged = $true
+        }
+
+        $buffer.Insert($idx + 2, $insertLine)
         $changes++
         $fileChanged = $true
     }
