@@ -16,10 +16,6 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [General Settings](#general-settings)
 - [Developer Section](#developer-section)
 
-> [!WARNING]
-> This wiki is community-maintained.  
-> Some pages may be **outdated** while others may be **newer** and present only in [nightly build](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or [latest release](https://github.com/OrcaSlicer/OrcaSlicer/releases).
-
 > [!NOTE]
 > Please consider contributing to the wiki following the [How to contribute to the wiki](How-to-wiki) guide.
 
@@ -195,7 +191,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [<img alt="param_volumetric_speed" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true" height="22"> Volumetric Speed](volumetric-speed-calib)
 - [<img alt="param_flow_ratio_and_pressure_advance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true" height="22"> Pressure Advance](pressure-advance-calib)
     - [Adaptive Pressure Advance Guide](adaptive-pressure-advance-calib)
-- [<img alt="param_line_width" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line_width.svg?raw=true" height="22"> Flow Rate](flow-rate-calib)
+- [<img alt="param_line_width" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line_width.svg?raw=true" height="22"> Flow Ratio](flow-ratio-calib)
 - [<img alt="param_retraction" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true" height="22"> Retraction](retraction-calib)
 - [<img alt="param_precision" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_precision.svg?raw=true" height="22"> Tolerance](tolerance-calib)
 - Advanced:

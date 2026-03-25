@@ -105,7 +105,7 @@ nav:
   - "Adaptive Pressure Advance": "calibration/adaptive-pressure-advance-calib.md"
   - "Calibration Guide": calibration/Calibration.md
   - Cornering: "calibration/cornering-calib.md"
-  - "Flow Rate Calibration": "calibration/flow-rate-calib.md"
+  - "Flow Ratio Calibration": "calibration/flow-ratio-calib.md"
   - "Input Shaping": "calibration/input-shaping-calib.md"
   - "Pressure Advance": "calibration/pressure-advance-calib.md"
   - "Retraction test": "calibration/retraction-calib.md"
