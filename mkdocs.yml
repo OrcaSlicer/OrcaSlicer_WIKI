@@ -28,6 +28,7 @@ theme:
       - navigation.top     # adds back to top button
       - navigation.footer  # adds next and previous buttons
       - navigation.indexes
+      - content.code.copy # force copy button to code blocks
   palette: # Automatic light/dark mode with toggle
     - media: "(prefers-color-scheme)" # Auto-detect system preference
       toggle:
