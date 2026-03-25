@@ -205,7 +205,9 @@ foreach ($group in $groupedByFile) {
         }
 
         $hasBlankBetween = ($idx + 1) -lt $buffer.Count -and [string]::IsNullOrWhiteSpace($buffer[$idx + 1])
-        $alreadyCanonical = $metadataLineIndexes.Count -eq 1 -and $hasCanonicalLine -and $metadataLineIndexes[0] -eq ($idx + 2) -and $hasBlankBetween
+        $varLineIndex = $idx + 2
+        $hasHeadingRightAfterVariable = ($varLineIndex + 1) -lt $buffer.Count -and $buffer[$varLineIndex + 1] -match '^#{1,6}\s+'
+        $alreadyCanonical = $metadataLineIndexes.Count -eq 1 -and $hasCanonicalLine -and $metadataLineIndexes[0] -eq $varLineIndex -and $hasBlankBetween -and (-not $hasHeadingRightAfterVariable)
         if ($alreadyCanonical) {
             $alreadyPresent++
             continue
@@ -219,7 +221,7 @@ foreach ($group in $groupedByFile) {
             $fileChanged = $true
         }
 
-        if ((($idx + 2) -lt $buffer.Count) -and [string]::IsNullOrWhiteSpace($buffer[$idx + 1]) -and $buffer[$idx + 2] -eq $insertLine) {
+        if ((($idx + 2) -lt $buffer.Count) -and [string]::IsNullOrWhiteSpace($buffer[$idx + 1]) -and $buffer[$idx + 2] -eq $insertLine -and (-not (($idx + 3) -lt $buffer.Count -and $buffer[$idx + 3] -match '^#{1,6}\s+'))) {
             $alreadyPresent++
             continue
         }
@@ -230,6 +232,10 @@ foreach ($group in $groupedByFile) {
         }
 
         $buffer.Insert($idx + 2, $insertLine)
+        if (($idx + 3) -lt $buffer.Count -and $buffer[$idx + 3] -match '^#{1,6}\s+') {
+            $buffer.Insert($idx + 3, "")
+            $fileChanged = $true
+        }
         $changes++
         $fileChanged = $true
     }
