@@ -94,8 +94,8 @@ if (-not (Test-Path -LiteralPath $WikiRoot)) {
 
 $tabContent = Get-TabCppContent -Source $TabCppPath
 
-$patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
-$patternOption = 'append_option_line\(\s*[^,]+\s*,\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
+$patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
+$patternOption = 'append_option_line\(\s*[^,]+\s*,\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
 $patternAppendLineBlock = '(?s)(?<obj>\w+)\.label_path\s*=\s*"(?<ref>[^"]+)"\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
 $patternForBlock = '(?s)for\s*\(\s*const\s+std::string\s*&\s*(?<iter>\w+)\s*:\s*(?<collection>\w+)\s*\)\s*\{(?<body>.*?)\}'
 
@@ -108,16 +108,28 @@ $stringVectors = Get-StringVectors -Content $tabContent
 $rawEntries = New-Object System.Collections.Generic.List[object]
 
 foreach ($m in $singleMatches) {
+    $variable = $m.Groups['variable'].Value.Trim()
+    $indexer = $m.Groups['indexer'].Value.Trim()
+    if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
+        $variable = "${variable}[$indexer]"
+    }
+
     $rawEntries.Add([PSCustomObject]@{
-        Variable = $m.Groups['variable'].Value.Trim()
+        Variable = $variable
         Ref      = $m.Groups['ref'].Value.Trim()
         Index    = [int]$m.Index
     })
 }
 
 foreach ($m in $optionMatches) {
+    $variable = $m.Groups['variable'].Value.Trim()
+    $indexer = $m.Groups['indexer'].Value.Trim()
+    if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
+        $variable = "${variable}[$indexer]"
+    }
+
     $rawEntries.Add([PSCustomObject]@{
-        Variable = $m.Groups['variable'].Value.Trim()
+        Variable = $variable
         Ref      = $m.Groups['ref'].Value.Trim()
         Index    = [int]$m.Index
     })
@@ -298,7 +310,7 @@ foreach ($group in $groupedByFile) {
         $hasCanonicalLine = $false
 
         for ($k = $idx + 1; $k -le $sectionEnd; $k++) {
-            if ($buffer[$k] -match '^\s*Variables?:\s*') {
+            if ($buffer[$k] -match '^\s*(?:\[(?:Variable|Variables)\]\([^\)]+\)|Variables?)\s*:\s*') {
                 $metadataLineIndexes.Add($k)
                 if ($buffer[$k] -eq $insertLine) {
                     $hasCanonicalLine = $true
