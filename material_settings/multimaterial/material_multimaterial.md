@@ -35,6 +35,7 @@ After a tool change, the exact position of the newly loaded filament inside the 
 
 ## Multi Filament
 
+[Variables](Built-in-placeholders-variables): `long_retractions_when_ec`, `retraction_distances_when_ec`.  
 Enable long retraction when the extruder changes and set its retraction distance value for extruder changes.
 
 ## Tool change parameters with single extruder

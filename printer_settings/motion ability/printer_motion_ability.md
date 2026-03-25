@@ -54,5 +54,5 @@ Maximum junction deviation (M205 J, only apply if JD > 0 for Marlin Firmware. If
 
 ### Maximum Jerk
 
-[Variables](Built-in-placeholders-variables): `machine_max_jerk_x`, `machine_max_jerk_y`, `machine_max_jerk_e`, `machine_max_jerk_z`.  
+[Variables](Built-in-placeholders-variables): `machine_max_jerk_z`, `machine_max_jerk_x`, `machine_max_jerk_y`, `machine_max_jerk_e`.  
 Maximum jerk for each axis (M205 X, Y, Z, E, only apply if JD = 0 for Marlin 2 Firmware)

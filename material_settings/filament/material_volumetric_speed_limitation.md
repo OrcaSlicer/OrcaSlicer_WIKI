@@ -7,6 +7,7 @@ Each material profile includes a **maximum volumetric speed** setting, which lim
 
 ## Adaptive volumetric speed
 
+[Variable](Built-in-placeholders-variables): `filament_adaptive_volumetric_speed`.  
 > [!WARNING]
 > Experimental and incomplete feature imported from BBS.  
 > Functional for some profiles that already have the variable saved.
@@ -15,4 +16,5 @@ When enabled, the extrusion flow is limited by the smaller of the fitted value (
 
 ## Max volumetric speed
 
+[Variable](Built-in-placeholders-variables): `filament_max_volumetric_speed`.  
 This setting is the volume of filament that can be melted and extruded per second. Printing speed is limited by max volumetric speed, in case of too high and unreasonable speed setting. This value cannot be zero.
