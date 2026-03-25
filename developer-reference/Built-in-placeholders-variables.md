@@ -3,6 +3,7 @@
 Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-code snippets and template expressions.
 
 - [Conventions](#conventions)
+    - [Functions](#functions)
 - [Global Slicing State](#global-slicing-state)
     - [Read Only](#read-only)
     - [Read Write](#read-write)
@@ -32,6 +33,14 @@ Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-cod
 - Points and bounding boxes are stored as `[x, y]` pairs expressed in mm.
 - `layer_num` is one-based (first layer is `1`). All other indices use zero-based numbering.
 - Every print/filament/printer setting is also available under its config key. Hover the label in the UI to see the key. The tables below focus on additional runtime placeholders.
+
+### Functions
+
+Basic math operators (`+`, `-`, `*`, `/`) and parentheses are supported for numeric placeholders, allowing you to do simple calculations. For example, `{used_filament/1000}m` converts filament usage to meters.
+
+C++ functions can be used as long as they are not from a library to be included, such as `cmath`.
+
+- Rounding: can be done using `int()`, for example `{int(total_weight*10) / 10.0}g`. `round()`: **cannot** be used because it is a function from the cmath library.
 
 ## Global Slicing State
 
@@ -185,12 +194,6 @@ Only placeholders that are already present in the global parser at that time can
 - Configuration keys from the active print/filament/printer presets, including `print_preset`, `filament_preset[]`, `printer_preset`, and every regular setting (line widths, temperatures, etc.).
 - Object metadata injected up front: `input_filename`, `input_filename_base`, `num_objects`, `num_instances`, `scale[]`, `plate_name`, `model_name`, plus the timestamp and user placeholders.
 - Print statistics computed right after slicing such as `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `extruded_volume`, `total_cost`, `total_toolchanges`, `total_weight`, and wipe-tower totals.
-- The `round()` function cannot be used, but rounding can be done using `int()`, for example `{int(total_weight*10) / 10.0}g`
-
-Example filename template for a single filament printer:  
-`{timestamp}_{input_filename_base}_retspd{retraction_speed}_retlen{retraction_length}_{z_hop}zhop_{initial_layer_acceleration}L1acc_LH{layer_height}mm_{total_weight}g_{filament_type[initial_tool]}_{printer_model}_{print_time}.gcode`  
-Example filename template for a multi-filament printer:  
-`{timestamp}_retspd{filament_retraction_speed[initial_tool]}_retlen{filament_retraction_length[initial_tool]}_{filament_z_hop[initial_tool]}zhop_{initial_layer_acceleration}L1acc_LH{layer_height}mm_{input_filename_base}_{total_weight}g_{filament_type[initial_tool]}_{printer_model}_{print_time}.gcode`
 
 Placeholders that are populated later, during per-layer or per-tool G-code generation, are **not** available inside `filename_format`. This includes everything under *Global Slicing State*, *Slicing State*, *Layer-aware*, *Toolchange*, *Filament start/end*, *Timelapse*, *Extrusion role*, and *Pause/color change helpers*. Using them in templates causes filename evaluation to fail because they are unset when the template is processed.
 
