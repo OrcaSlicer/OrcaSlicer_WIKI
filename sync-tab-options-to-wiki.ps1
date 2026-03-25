@@ -105,6 +105,7 @@ $changes = 0
 $missingFiles = 0
 $missingHeadings = 0
 $alreadyPresent = 0
+$normalizedSections = 0
 
 $groupedByFile = $entries | Group-Object -Property FileKey
 
@@ -129,12 +130,27 @@ foreach ($group in $groupedByFile) {
     $buffer.AddRange([string[]]$lines)
     $fileChanged = $false
 
-    foreach ($entry in $group.Group) {
-        $insertLine = "Config option: ``$($entry.Variable)``"
+    $groupedByAnchor = $group.Group | Group-Object -Property Anchor
 
-        $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $entry.Anchor
+    foreach ($anchorGroup in $groupedByAnchor) {
+        $anchor = $anchorGroup.Name
+
+        $vars = New-Object System.Collections.Generic.List[string]
+        $seenVars = @{}
+        foreach ($entry in $anchorGroup.Group) {
+            if (-not $seenVars.ContainsKey($entry.Variable)) {
+                $seenVars[$entry.Variable] = $true
+                $vars.Add($entry.Variable)
+            }
+        }
+
+        $formattedVars = $vars | ForEach-Object { "``$_``" }
+        $insertLine = "Variable name: " + ($formattedVars -join ", ") + "."
+
+        $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $anchor
         if ($idx -lt 0) {
-            Write-Host "[WARN] Heading anchor '$($entry.Anchor)' not found in $targetPath (from '$($entry.Ref)')" -ForegroundColor Yellow
+            $sourceRef = $anchorGroup.Group[0].Ref
+            Write-Host "[WARN] Heading anchor '$anchor' not found in $targetPath (from '$sourceRef')" -ForegroundColor Yellow
             $missingHeadings++
             continue
         }
@@ -148,25 +164,38 @@ foreach ($group in $groupedByFile) {
         }
 
         $sectionEnd = if ($nextHeading -ge 0) { $nextHeading - 1 } else { $buffer.Count - 1 }
-        $exists = $false
+        $metadataLineIndexes = New-Object System.Collections.Generic.List[int]
+        $hasCanonicalLine = $false
+
         for ($k = $idx + 1; $k -le $sectionEnd; $k++) {
-            if ($buffer[$k] -eq $insertLine) {
-                $exists = $true
-                break
+            if ($buffer[$k] -match '^\s*(Config option:|Variable name:)\s*') {
+                $metadataLineIndexes.Add($k)
+                if ($buffer[$k] -eq $insertLine) {
+                    $hasCanonicalLine = $true
+                }
             }
         }
 
-        if ($exists) {
+        $alreadyCanonical = $metadataLineIndexes.Count -eq 1 -and $hasCanonicalLine -and $metadataLineIndexes[0] -eq ($idx + 1)
+        if ($alreadyCanonical) {
             $alreadyPresent++
             continue
         }
 
-        $insertAt = $idx + 1
-        while ($insertAt -lt $buffer.Count -and $buffer[$insertAt] -like 'Config option:*') {
-            $insertAt++
+        if ($metadataLineIndexes.Count -gt 0) {
+            for ($r = $metadataLineIndexes.Count - 1; $r -ge 0; $r--) {
+                $buffer.RemoveAt($metadataLineIndexes[$r])
+            }
+            $normalizedSections++
+            $fileChanged = $true
         }
 
-        $buffer.Insert($insertAt, $insertLine)
+        if (($idx + 1) -lt $buffer.Count -and $buffer[$idx + 1] -eq $insertLine) {
+            $alreadyPresent++
+            continue
+        }
+
+        $buffer.Insert($idx + 1, $insertLine)
         $changes++
         $fileChanged = $true
     }
@@ -179,6 +208,7 @@ foreach ($group in $groupedByFile) {
 Write-Host "Processed: $($entries.Count) entries"
 Write-Host "Inserted:  $changes"
 Write-Host "Skipped (already present): $alreadyPresent"
+Write-Host "Normalized sections: $normalizedSections"
 Write-Host "Missing markdown file matches: $missingFiles"
 Write-Host "Missing heading anchors: $missingHeadings"
 
