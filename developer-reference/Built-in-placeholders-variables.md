@@ -178,15 +178,10 @@ Names of the print, filament, and printer presets that provided the configuratio
 | `filament_preset[]` | string per extruder | Preset name for each filament slot. Use `[idx]` to target a specific extruder. |
 | `filament_type[]` | string per extruder | Material type label reported by each filament preset (PLA, PETG, ABS, etc.). |
 | `printer_preset` | string | Logical printer preset used for slicing. |
-|`filament_z_hop[]` | float per extruder (mm) | Configured Z-hop distance for each filament, typically from filament presets. Defaults to active extruder if `[idx]` omitted. |
-|`filament_z_hop_types[]` | enum per extruder   | Configured Z-hop behavior type for each filament (e.g.,`None`,`Normal`,`Spiral`,`Auto`), typically from filament presets. Defaults to active extruder if `[idx]` omitted. |
-|`z_hop[]` | float per extruder (mm) | Configured Z-hop distance for each extruder, part of printer presets. Defaults to active extruder if `[idx]` omitted. |
-|`z_hop_types[]` | enum per extruder   | Configured Z-hop behavior type for each extruder (e.g.,`None`,`Normal`,`Spiral`,`Auto`), part of printer presets. Defaults to active extruder if`[idx]` omitted. |
-
 
 > [!TIP]
-> Others items shares its config key with the placeholder name.  
-> Hover the label to discover the key.  
+> Items share their config key with the placeholder name.  
+> Hover over the label to discover the key.  
 > ![variable_name](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
 
 ## Filename Templates
