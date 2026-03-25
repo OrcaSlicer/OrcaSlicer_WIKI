@@ -1,5 +1,5 @@
 param(
-    [string]$TabCppPath = "n:\Repos\OrcaSlicer\src\slic3r\GUI\Tab.cpp",
+    [string]$TabCppPath = "https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/slic3r/GUI/Tab.cpp",
     [string]$WikiRoot = $PSScriptRoot,
     [switch]$DryRun
 )
@@ -41,15 +41,39 @@ function Find-HeadingLineIndex {
     return -1
 }
 
-if (-not (Test-Path -LiteralPath $TabCppPath)) {
-    throw "Tab.cpp not found: $TabCppPath"
+function Get-TabCppContent {
+    param([string]$Source)
+
+    if ($Source -match '^https?://') {
+        $url = $Source
+        # Convert GitHub blob URL to a raw URL so the script receives C++ source text.
+        if ($url -match '^https://github\.com/([^/]+)/([^/]+)/blob/(.+)$') {
+            $owner = $Matches[1]
+            $repo = $Matches[2]
+            $path = $Matches[3]
+            $url = "https://raw.githubusercontent.com/$owner/$repo/$path"
+        }
+
+        try {
+            return (Invoke-WebRequest -Uri $url -UseBasicParsing).Content
+        }
+        catch {
+            throw "Failed to download Tab.cpp from URL: $Source"
+        }
+    }
+
+    if (-not (Test-Path -LiteralPath $Source)) {
+        throw "Tab.cpp not found: $Source"
+    }
+
+    return Get-Content -LiteralPath $Source -Raw
 }
 
 if (-not (Test-Path -LiteralPath $WikiRoot)) {
     throw "Wiki root not found: $WikiRoot"
 }
 
-$tabContent = Get-Content -LiteralPath $TabCppPath -Raw
+$tabContent = Get-TabCppContent -Source $TabCppPath
 
 $pattern = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
 $matches = [regex]::Matches($tabContent, $pattern)
