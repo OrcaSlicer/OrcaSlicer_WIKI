@@ -13,13 +13,13 @@ Settings related to the motion capabilities of the printer.
 
 ## Emit limits to G-code
 
-Variables: `emit_machine_limits_to_gcode`.  
+Variable: `emit_machine_limits_to_gcode`.  
 If enabled, the machine limits will be emitted to G-code file.
 This option will be ignored if the G-code flavor is set to Klipper.
 
 ## Resonance Avoidance
 
-Variables: `resonance_avoidance`.  
+Variable: `resonance_avoidance`.  
 
 ### Resonance Avoidance Speed
 
@@ -49,7 +49,7 @@ Safeguard maximum jerks for all axes.
 
 ### Maximum Junction Deviation
 
-Variables: `machine_max_junction_deviation`.  
+Variable: `machine_max_junction_deviation`.  
 Maximum junction deviation (M205 J, only apply if JD > 0 for Marlin Firmware. If your Marlin 2 printer uses Classic Jerk set this value to 0.)
 
 ### Maximum Jerk

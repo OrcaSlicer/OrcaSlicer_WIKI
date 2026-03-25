@@ -17,12 +17,12 @@ Advanced settings related to the printer configuration.
 
 ## Printer structure
 
-Variables: `printer_structure`.  
+Variable: `printer_structure`.  
 The physical arrangement and components of a printing device.
 
 ## G-code flavor
 
-Variables: `gcode_flavor`.  
+Variable: `gcode_flavor`.  
 What kind of G-code the printer is compatible with.
 
 ## Pellet Modded Printer
@@ -50,17 +50,17 @@ Higher packing density -> more material extruded by single turn -> higher pellet
 
 ## Use 3rd-party print host
 
-Variables: `bbl_use_printhost`.  
+Variable: `bbl_use_printhost`.  
 Allow controlling BambuLab's printer through 3rd party print hosts.
 
 ## Scan first layer
 
-Variables: `scan_first_layer`.  
+Variable: `scan_first_layer`.  
 Enable this to enable the camera on printer to check the quality of first layer.
 
 ## Power Loss Recovery
 
-Variables: `enable_power_loss_recovery`.  
+Variable: `enable_power_loss_recovery`.  
 Enable or Disable power loss recovery by inserting commands in generated G-code.  
 Set `Printer configuration` to use the current printer's power loss recovery configuration.
 
@@ -80,7 +80,7 @@ Power loss recovery saves the current execution point to non-volatile memory (SD
 
 ## Disable set remaining print time
 
-Variables: `disable_m73`.  
+Variable: `disable_m73`.  
 Disable generating of the M73: Set remaining print time in the final G-code.
 
 ## G-code thumbnails
@@ -89,20 +89,20 @@ Picture sizes to be stored into a .gcode and .sl1 / .sl1s files, in the followin
 
 ## Use relative E distances
 
-Variables: `use_relative_e_distances`.  
+Variable: `use_relative_e_distances`.  
 Relative extrusion is recommended when using "label_objects" option. Some extruders work better with this option unchecked (absolute extrusion mode). Wipe tower is only compatible with relative mode. It is recommended on most printers. Default is checked.
 
 ## Use firmware retraction
 
-Variables: `use_firmware_retraction`.  
+Variable: `use_firmware_retraction`.  
 This experimental setting uses G10 and G11 commands to have the firmware handle the retraction. This is only supported in recent Marlin.
 
 ## Bed temperature type
 
-Variables: `bed_temperature_formula`.  
+Variable: `bed_temperature_formula`.  
 This option determines how the bed temperature is set during slicing: based on the temperature of the first filament or the highest temperature of the printed filaments.
 
 ## Time cost
 
-Variables: `time_cost`.  
+Variable: `time_cost`.  
 The printer cost per hour.

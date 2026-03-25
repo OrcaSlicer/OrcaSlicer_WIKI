@@ -32,7 +32,7 @@ Pressure advance [Klipper](https://www.klipper3d.org/Pressure_Advance.html) and 
 
 ### Enable adaptive Pressure Advance (beta)
 
-Variables: `adaptive_pressure_advance`.  
+Variable: `adaptive_pressure_advance`.  
 With increasing print speeds (and hence increasing volumetric flow through the nozzle) and increasing accelerations, it has been observed that the effective PA value typically decreases. This means that a single PA value is not always 100% optimal for all features and a compromise value is usually used that does not cause too much bulging on features with lower flow speed and accelerations while also not causing gaps on faster features.
 
 This feature aims to address this limitation by modeling the response of your printer's extrusion system depending on the volumetric flow speed and acceleration it is printing at. Internally, it generates a fitted model that can extrapolate the needed pressure advance for any given volumetric flow speed and acceleration, which is then emitted to the printer depending on the current print conditions.
@@ -44,12 +44,12 @@ When enabled, the pressure advance value above is overridden. However, a reasona
 
 #### Enable adaptive pressure advance for overhangs (beta)
 
-Variables: `adaptive_pressure_advance_overhangs`.  
+Variable: `adaptive_pressure_advance_overhangs`.  
 Enable adaptive PA for overhangs as well as when flow changes within the same feature. This is an experimental option, as if the PA profile is not set accurately, it will cause uniformity issues on the external surfaces before and after overhangs.
 
 #### Pressure advance for bridges
 
-Variables: `adaptive_pressure_advance_bridges`.  
+Variable: `adaptive_pressure_advance_bridges`.  
 Pressure advance value for bridges. Set to 0 to disable.  
 A lower PA value when printing bridges helps reduce the appearance of slight under extrusion immediately after bridges.  
 This is caused by the pressure drop in the nozzle when printing in the air and a lower PA helps counteract this.

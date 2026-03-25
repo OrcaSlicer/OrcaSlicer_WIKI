@@ -7,13 +7,13 @@
 
 ## Slow down for overhang
 
-Variables: `enable_overhang_speed`.  
+Variable: `enable_overhang_speed`.  
 Enable this option to slow printing down for different overhang degree.
 This can help improve print quality and reduce issues like stringing or sagging.
 
 ### Slow down for curled perimeters
 
-Variables: `slowdown_for_curled_perimeters`.  
+Variable: `slowdown_for_curled_perimeters`.  
 Enable this option to slow down printing in areas where perimeters may have curled upwards. For example, additional slowdown will be applied when printing overhangs on sharp corners like the front of the Benchy hull, reducing curling which compounds over multiple layers.  
 
 ![slow-down-for-curled-perimeters](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/speed/slow-down-for-curled-perimeters.png?raw=true)

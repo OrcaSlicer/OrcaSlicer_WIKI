@@ -452,7 +452,7 @@ This infill tries to generate a printable honeycomb structure by printing square
 
 ## Lateral Honeycomb
 
-Variables: `infill_overhang_angle`.  
+Variable: `infill_overhang_angle`.  
 Vertical Honeycomb pattern. Acceptable torsional stiffness. Developed for low densities structures like wings. Improve over [Lateral Lattice](#lateral-lattice) offers same performance with lower densities.This infill includes a Overhang angle parameter to improve the point of contact between layers and reduce the risk of delamination.
 
 - **Strength**
@@ -494,7 +494,7 @@ Low-strength pattern with good flexibility. You can adjust **Angle 1** and **Ang
 
 ## Cross Hatch
 
-Variables: `infill_shift_step`.  
+Variable: `infill_shift_step`.  
 Similar to [Gyroid](#gyroid) but with linear patterns, creating weak points at internal corners.
 Easier to slice but consider using [TPMS-D](#tpms-d) or [Gyroid](#gyroid) for better strength and flexibility.
 

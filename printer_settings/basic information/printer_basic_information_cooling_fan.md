@@ -16,7 +16,7 @@ Will only take into account the delay for the cooling of overhangs.
 
 ## Fan kick-start time
 
-Variables: `fan_kickstart`.  
+Variable: `fan_kickstart`.  
 Emit a max fan speed command for this amount of seconds before reducing to target speed to kick-start the cooling fan.
 This is useful for fans where a low PWM/power may be insufficient to get the fan started spinning from a stop, or to get the fan up to speed faster.
 Set to 0 to deactivate.

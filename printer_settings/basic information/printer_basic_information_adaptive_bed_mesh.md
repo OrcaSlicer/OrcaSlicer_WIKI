@@ -23,12 +23,12 @@ The default setting is (-99999, -99999), which means there are no limits, thus a
 
 ## Probe point distance
 
-Variables: `bed_mesh_probe_distance`.  
+Variable: `bed_mesh_probe_distance`.  
 This option sets the preferred distance between probe points (grid size) for the X and Y directions, with the default being 50mm for both X and Y.
 
 ## Mesh margin
 
-Variables: `adaptive_bed_mesh_margin`.  
+Variable: `adaptive_bed_mesh_margin`.  
 This option determines the additional distance by which the adaptive bed mesh area should be expanded in the XY directions.
 
 > [!NOTE]

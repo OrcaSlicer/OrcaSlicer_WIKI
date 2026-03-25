@@ -16,19 +16,19 @@ This section covers the settings that affect the precision of your prints. These
 
 ## Slice gap closing radius
 
-Variables: `slice_closing_radius`.  
+Variable: `slice_closing_radius`.  
 Cracks smaller than 2x gap closing radius are being filled during the triangle mesh slicing.  
 The gap closing operation may reduce the final print resolution, therefore it is advisable to keep the value reasonably low.
 
 ## Resolution
 
-Variables: `resolution`.  
+Variable: `resolution`.  
 The G-code path is generated after simplifying the contour of models to avoid too many points and G-code lines.  
 Smaller value means higher resolution and more time to slice. If you are using big models in low processing power machines, you may want to increase this value to speed up the slicing process.
 
 ## Arc fitting
 
-Variables: `enable_arc_fitting`.  
+Variable: `enable_arc_fitting`.  
 Enable this feature to replace many short straight moves (G1 segments) with fewer circular arc commands using [G2 and G3](https://marlinfw.org/docs/gcode/G002-G003.html).  
 Arc fitting mainly changes how the toolpath is *encoded* in G-code. It can be beneficial in some workflows, but it is not a feature to improve quality .
 
@@ -138,7 +138,7 @@ Assuming the compensation value is 0.25 mm:
 
 ## Precise wall
 
-Variables: `precise_outer_wall`.  
+Variable: `precise_outer_wall`.  
 The 'Precise Wall' is a distinctive feature introduced by OrcaSlicer, aimed at improving the dimensional accuracy of prints and minimizing layer inconsistencies by slightly increasing the spacing between the outer wall and the inner wall when printing in [Inner Outer wall order](quality_settings_wall_and_surfaces#innerouter).
 
 ### Technical explanation
@@ -164,7 +164,7 @@ OrcaSlicer adheres to Slic3r's approach to handling flow. To address the downsid
 
 ## Precise Z Height
 
-Variables: `precise_z_height`.  
+Variable: `precise_z_height`.  
 This feature ensures the accurate Z height of the model after slicing, even if the model height is not a multiple of the [layer height](quality_settings_layer_height).
 
 For example, slicing a 20mm x 20mm x 20.1mm cube with a layer height of 0.2mm would typically result in a final height of 20.2mm due to the layer height increments.

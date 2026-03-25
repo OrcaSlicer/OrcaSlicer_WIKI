@@ -32,7 +32,7 @@ It's recommended to enable this option for internal bridges, as it helps improve
 
 ## Extra bridge layers
 
-Variables: `enable_extra_bridge_layer`.  
+Variable: `enable_extra_bridge_layer`.  
 This option enables the generation of an extra bridge layer over bridges.
 
 Extra bridge layers help improve bridge appearance and reliability, as the solid infill is better supported. This is especially useful in fast printers, where the bridge and solid infill speeds vary greatly. The extra bridge layer results in reduced pillowing on top surfaces, as well as reduced separation of the external bridge layer from its surrounding perimeters.
@@ -48,7 +48,7 @@ It is generally recommended to set this to at least **External bridge only**, un
 
 ## Filter out small internal bridges
 
-Variables: `dont_filter_internal_bridges`.  
+Variable: `dont_filter_internal_bridges`.  
 This option can help reduce pillowing on top surfaces in heavily slanted or curved models.
 
 By default, small internal bridges are filtered out and the internal solid infill is printed directly over the sparse infill. This works well in most cases, speeding up printing without too much compromise on top surface quality.
@@ -63,7 +63,7 @@ Enabling limited filtering or no filtering will print internal bridge layer over
 
 ## Bridge Counterbore hole
 
-Variables: `counterbore_hole_bridging`.  
+Variable: `counterbore_hole_bridging`.  
 When printing counterbore holes, the unsupported area can lead to sagging or poor surface quality. Also the perimeters of the counterbore hole may not be printed correctly, leading to gaps or weak points in the structure.
 
 This option creates bridges for counterbore holes, allowing them to be printed without support.  
