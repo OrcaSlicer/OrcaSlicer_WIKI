@@ -75,11 +75,15 @@ if (-not (Test-Path -LiteralPath $WikiRoot)) {
 
 $tabContent = Get-TabCppContent -Source $TabCppPath
 
-$pattern = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
-$matches = [regex]::Matches($tabContent, $pattern)
+$patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
+$patternOption = 'append_option_line\(\s*[^,]+\s*,\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\)'
+
+$singleMatches = [regex]::Matches($tabContent, $patternSingle)
+$optionMatches = [regex]::Matches($tabContent, $patternOption)
+$matches = @($singleMatches + $optionMatches | Sort-Object -Property Index)
 
 if ($matches.Count -eq 0) {
-    Write-Host "No append_single_option_line(\"var\", \"file#anchor\") entries found." -ForegroundColor Yellow
+    Write-Host "No supported append_*_option_line(\"var\", \"file#anchor\") entries found." -ForegroundColor Yellow
     exit 0
 }
 
