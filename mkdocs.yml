@@ -92,7 +92,7 @@ markdown_extensions:
 extra:
   generator: false # hides "Made with Material for MkDocs" from footer
   social:          # adds links tofooter
-    - icon: fontawesome/brands/link
+    - icon: fontawesome/solid/link
       link: https://www.orcaslicer.com
     - icon: fontawesome/brands/github
       link: https://github.com/OrcaSlicer/OrcaSlicer
