@@ -45,7 +45,7 @@ theme:
         icon: material/weather-night
         name: Switch to system preference
   font: false # default font only pulls font with 300, 400, 400i and 700 weight
-              # pulled fonts with CSS method. Fonts are pulled from Google and its same for Defaut behaviour
+              # pulled fonts with CSS method. Fonts are pulled from Google and its same for Default behavior
 
 extra_css:
   - assets/stylesheets/extra.css
