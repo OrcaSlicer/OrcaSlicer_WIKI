@@ -24,7 +24,7 @@ theme:
       - content.code.copy  # Enables the copy-to-clipboard button
       - search.suggest
       - search.highlight
-      - navigation.path    # shows breadcumb
+      - navigation.path    # shows breadcrumb trail
       - navigation.top     # adds back to top button
       - navigation.footer  # adds next and previous buttons
       - navigation.indexes
@@ -59,7 +59,7 @@ extra_javascript:
 
 plugins:
   - search
-  - gh-admonitions   # converts github annotions to admonition
+  - gh-admonitions   # converts GitHub annotations to admonitions
   #- optimize        # automatically optimizes images
   #- git-committers: # not works # adds committers to footer # pip install mkdocs-git-committers-plugin-2
   #    repository: OrcaSlicer/OrcaSlicer_WIKI
@@ -91,7 +91,7 @@ markdown_extensions:
 
 extra:
   generator: false # hides "Made with Material for MkDocs" from footer
-  social:          # adds links tofooter
+  social:          # adds links to footer
     - icon: fontawesome/solid/link
       link: https://www.orcaslicer.com
     - icon: fontawesome/brands/github
