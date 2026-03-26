@@ -57,14 +57,8 @@ How to building with Visual Studio on Windows 64-bit.
   winget install --id=Git.Git -e
   ```
 
-- [git-lfs](https://git-lfs.com/)
-
-  ```pwsh
-  winget install --id=GitHub.GitLFS -e
-  ```
-
 > [!TIP]
-> GitHub Desktop (optional): A GUI for Git and Git LFS, which already includes both tools.
+> GitHub Desktop (optional): A GUI for Git that can simplify repository management and branch control.
 >
 > ```pwsh
 > winget install --id=GitHub.GitHubDesktop -e
@@ -94,12 +88,6 @@ How to building with Visual Studio on Windows 64-bit.
 
             ```pwsh
             git clone https://github.com/OrcaSlicer/OrcaSlicer
-            ```
-
-        2. Run lfs to download tools on Windows:
-
-            ```pwsh
-            git lfs pull
             ```
 
 2. Open the appropriate command prompt:
