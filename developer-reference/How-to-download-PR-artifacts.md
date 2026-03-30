@@ -28,6 +28,14 @@ When a Pull Request (PR) is created or updated in the [OrcaSlicer repository](ht
 > [!TIP]
 > Share this guide to others!
 >
+> Short Link:
+>
 > ```css
 > https://www.orcaslicer.com/wiki/How-to-download-PR-artifacts
+> ```
+>
+> Markdown Link:
+>
+> ```md
+> [How to Download Pull Requests Artifacts for Testing](https://www.orcaslicer.com/wiki/How-to-download-PR-artifacts)
 > ```
