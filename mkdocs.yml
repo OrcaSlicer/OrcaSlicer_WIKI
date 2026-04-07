@@ -1,6 +1,9 @@
 site_name: OrcaSlicer Wiki
 site_description: Official Wiki for OrcaSlicer - A powerful open source slicer for FFF (FDM) 3D Printers
 site_url: https://www.orcaslicer.com/wiki
+repo_url: https://github.com/OrcaSlicer/OrcaSlicer_WIKI
+repo_name: OrcaSlicer/OrcaSlicer_WIKI
+edit_uri: edit/main/
 
 # MkDocs requires docs_dir to be a subdirectory
 # The build script will handle the file structure
@@ -21,6 +24,7 @@ theme:
       - navigation.instant.progress # Show progress bar on slow connections
       - navigation.instant.prefetch # Preload linked pages on hover
       - navigation.instant.preview # Show page preview on hover
+      - content.action.edit        # Adds "Edit this page" action
       - content.code.copy  # Enables the copy-to-clipboard button
       - search.suggest
       - search.highlight
