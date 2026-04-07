@@ -59,7 +59,7 @@ Check [PR 12669](https://github.com/OrcaSlicer/OrcaSlicer/pull/12669) for more d
 
 > [!IMPORTANT]
 > NEW FEATURE: **Inverse Hole Direction**  
-> Available in: Releases grater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
 
 The usage of [Reverse on even](quality_settings_overhangs#reverse-on-even) will reverse wall direction based on this setting.
 

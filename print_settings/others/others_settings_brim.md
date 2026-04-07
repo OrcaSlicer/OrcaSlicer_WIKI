@@ -130,7 +130,7 @@ Combine adjacent brims into a single continuous brim when they touch.
 
 > [!IMPORTANT]
 > NEW FEATURE: **Combine brims**  
-> Available in: Releases grater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
 
 ### Combined
 
