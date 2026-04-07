@@ -122,6 +122,7 @@ If your current setup already works well, enabling it may be unnecessary and can
 
 ## Combine brims
 
+[Variable](Built-in-placeholders-variables): `combine_brims`.  
 Combine adjacent brims into a single continuous brim when they touch.
 
 - Disable: Each object's brim is generated and printed separately; each brim is completed before its object is printed.
