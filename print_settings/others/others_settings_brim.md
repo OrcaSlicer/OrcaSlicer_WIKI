@@ -16,6 +16,7 @@ Brim is a flat layer printed around a model's base to improve adhesion to the pr
 - [Width](#width)
 - [Brim-Object Gap](#brim-object-gap)
     - [Brim use EFC outline](#brim-use-efc-outline)
+- [Combine brims](#combine-brims)
 
 ## Type
 
@@ -116,3 +117,13 @@ This option is intended for cases where [Elephant Foot Compensation](quality_set
 If your current setup already works well, enabling it may be unnecessary and can cause the brim to fuse with upper layers.
 
 ![brim-use-efc-outline](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim-use-efc-outline.svg?raw=true)
+
+## Combine brims
+
+Combine adjacent brims into a single continuous brim when they touch.
+
+- Disable: Each object's brim is generated and printed separately; each brim is completed before its object is printed.
+- Enable: Brims that touch are merged and printed together as longer continuous loops, which can improve adhesion for small or closely spaced objects.
+
+![combined-brims](../../images/brim/combined-brims.gif?raw=true)
+![uncombined-brims](../../images/brim/uncombined-brims.gif?raw=true)
