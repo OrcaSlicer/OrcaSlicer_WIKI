@@ -50,7 +50,7 @@ Momentary toolhead state when a custom G-code block runs.
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `zhop` | float (mm) | Z-hop height present when the custom block starts. |
+| `z_hop` | float (mm) | Z-hop height present when the custom block starts. |
 
 ### Read Write
 
@@ -180,8 +180,8 @@ Names of the print, filament, and printer presets that provided the configuratio
 | `printer_preset` | string | Logical printer preset used for slicing. |
 
 > [!TIP]
-> Others items shares its config key with the placeholder name.  
-> Hover the label to discover the key.  
+> Items share their config key with the placeholder name.  
+> Hover over the label to discover the key.  
 > ![variable_name](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
 
 ## Filename Templates
@@ -194,6 +194,21 @@ Only placeholders that are already present in the global parser at that time can
 - Configuration keys from the active print/filament/printer presets, including `print_preset`, `filament_preset[]`, `printer_preset`, and every regular setting (line widths, temperatures, etc.).
 - Object metadata injected up front: `input_filename`, `input_filename_base`, `num_objects`, `num_instances`, `scale[]`, `plate_name`, `model_name`, plus the timestamp and user placeholders.
 - Print statistics computed right after slicing such as `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `extruded_volume`, `total_cost`, `total_toolchanges`, `total_weight`, and wipe-tower totals.
+
+### Filename Examples
+
+- Filename template for a single filament printer:
+
+    ```css
+    {timestamp}_{input_filename_base}_retspd{retraction_speed}_retlen{retraction_length}_{z_hop}zhop_{initial_layer_acceleration}L1acc_LH{layer_height}mm_{total_weight}g_{filament_type[initial_tool]}_ {printer_model}_{print_time}.gcode
+    ```
+
+- Filename template for a multi-filament printer:
+
+    ```css
+    {timestamp}_retspd{filament_retraction_speed[initial_tool]}_retlen{filament_retraction_length[initial_tool]}_{filament_z_hop[initial_tool]}zhop_{initial_layer_acceleration}L1acc_LH{layer_height}mm_{input_filename_base}_{total_weight}g_{filament_type[initial_tool]}_{printer_model}_{print_time}.gcode
+    ```
+
 
 Placeholders that are populated later, during per-layer or per-tool G-code generation, are **not** available inside `filename_format`. This includes everything under *Global Slicing State*, *Slicing State*, *Layer-aware*, *Toolchange*, *Filament start/end*, *Timelapse*, *Extrusion role*, and *Pause/color change helpers*. Using them in templates causes filename evaluation to fail because they are unset when the template is processed.
 
