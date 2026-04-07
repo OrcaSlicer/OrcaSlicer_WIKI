@@ -15,7 +15,7 @@
   --md-primary-fg-color--dark:         #00675B;
 
   /* Accent color */
-  --md-accent-fg-color:                #009688;
+  --md-accent-fg-color:                #00d4aa;
 
   --md-typeset-a-color:                var(--md-primary-fg-color--light) !important;
 
@@ -42,7 +42,7 @@
 }
 
 [data-md-color-scheme=slate]{
-  --md-default-bg-color:               #2D2D31;
+  --md-default-bg-color:               #0a0f1a;
   --md-default-fg-color:               #EFEFF0;
   --md-primary-fg-color:               #00675B;
   --md-footer-bg-color--dark:          #00000052;
