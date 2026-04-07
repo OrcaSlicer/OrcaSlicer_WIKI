@@ -127,6 +127,10 @@ Combine adjacent brims into a single continuous brim when they touch.
 - Disable: Each object's brim is generated and printed separately; each brim is completed before its object is printed.
 - Enable: Brims that touch are merged and printed together as longer continuous loops, which can improve adhesion for small or closely spaced objects.
 
+> [!IMPORTANT]
+> NEW FEATURE: **Combine brims**  
+> Available in: Releases grater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+
 ### Combined
 
 ![combined-brims](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/combined-brims.gif?raw=true)
