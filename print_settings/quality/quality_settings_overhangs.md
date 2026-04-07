@@ -60,9 +60,6 @@ A disadvantage of this setting is that the outer wall may show a texture due to 
 
 ![reverse-odd-texture](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/reverse-odd-texture.png?raw=true)
 
-> [!NOTE]
-> Only be available if [Wall loop direction](quality_settings_wall_and_surfaces#wall-loop-direction) is set on **Auto** and [spiral vase mode](others_settings_special_mode#spiral-vase) is **disabled**.
-
 ### Reverse internal only
 
 [Variable](Built-in-placeholders-variables): `overhang_reverse_internal_only`.  

@@ -53,9 +53,11 @@ When using this option is recommended to use the [Precise Wall](quality_settings
 ## Wall loop direction
 
 [Variable](Built-in-placeholders-variables): `wall_direction`.  
-The direction which the wall loops are extruded when looking down from the top.  
-By default all walls are extruded in counter-clockwise, unless [Reverse on even](quality_settings_overhangs#reverse-on-even) is enabled.  
-Set this to any option other than Auto will force the wall direction regardless of the [Reverse on even](quality_settings_overhangs#reverse-on-even).
+The direction which the **contour** wall loops are extruded when looking down from the top.  
+Holes are printed in the opposite direction to the contour to maintain alignment with layers whose contour polygons are incomplete and change direction, also partially forming the contour of a hole.
+Check [PR 12669](https://github.com/OrcaSlicer/OrcaSlicer/pull/12669) for more details about reversing hole direction.
+
+The usage of [Reverse on even](quality_settings_overhangs#reverse-on-even) will reverse wall direction based on this setting.
 
 > [!NOTE]
 > This option will be disabled if spiral vase mode is enabled.
