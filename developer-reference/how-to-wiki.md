@@ -102,7 +102,7 @@ When creating new pages, follow these file-naming conventions:
 
 - Use unique file names to avoid conflicts.
 - Use descriptive names that reflect the page's content.
-- Use kebab-case for filenames (e.g.: `how-to-wiki.md`).
+- Use snake_case for filenames (e.g.: `how_to_wiki.md`).
 - If a page belongs to a section, include a suffix that clarifies it (for example, calibration pages should end with `-calib.md`, e.g. `flow-ratio-calib.md`).
 - Place files in the appropriate subdirectory when applicable (e.g.: `calibration/` for calibration-related content).
 

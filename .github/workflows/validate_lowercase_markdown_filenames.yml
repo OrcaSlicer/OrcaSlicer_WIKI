@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Validate lowercase kebab-case .md filenames
+      - name: Validate lowercase snake_case .md filenames
         id: validate_lowercase_markdown_filenames
         uses: actions/github-script@v8
         with:
@@ -27,13 +27,13 @@ jobs:
 
             const workspaceRoot = process.cwd();
             const failures = [];
-            const kebabCasePattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+            const snakeCasePattern = /^[a-z0-9]+(?:_[a-z0-9]+)*$/;
 
             collectFailures('');
 
             if (!failures.length) {
               core.exportVariable('ERROR_BLOCK', '');
-              core.info('All .md filenames are lowercase and kebab-case.');
+              core.info('All .md filenames are lowercase and snake_case.');
               return;
             }
 
@@ -80,8 +80,8 @@ jobs:
                 }
 
                 const baseName = path.basename(entry.name, '.md');
-                if (!kebabCasePattern.test(baseName)) {
-                  failures.push(`${normalizedPath}: markdown filename must be kebab-case (lowercase letters, numbers, and hyphens).`);
+                if (!snakeCasePattern.test(baseName)) {
+                  failures.push(`${normalizedPath}: markdown filename must be snake_case (lowercase letters, numbers, and underscores).`);
                 }
               }
             }
