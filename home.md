@@ -208,7 +208,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 <img alt="im_code" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/im_code.svg?raw=true" height="22"> This is a documentation from someone exploring the code and is by no means complete or even completely accurate. Please edit the parts you might find inaccurate. This is probably going to be helpful nonetheless.
 
-- [How to build OrcaSlicer](How-to-build)
+- [How to build OrcaSlicer](how-to-build)
 - [How to run tests](how-to-test)
 - [Localization and translation guide](localization_guide)
 - [How to create profiles](how-to-create-profiles)
