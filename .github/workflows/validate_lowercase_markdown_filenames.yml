@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Validate lowercase .md filenames
+      - name: Validate lowercase kebab-case .md filenames
         id: validate_lowercase_markdown_filenames
         uses: actions/github-script@v8
         with:
@@ -27,17 +27,18 @@ jobs:
 
             const workspaceRoot = process.cwd();
             const failures = [];
+            const kebabCasePattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
             collectFailures('');
 
             if (!failures.length) {
               core.exportVariable('ERROR_BLOCK', '');
-              core.info('All .md filenames are lowercase.');
+              core.info('All .md filenames are lowercase and kebab-case.');
               return;
             }
 
             failures.sort((a, b) => a.localeCompare(b));
-            const block = failures.map((item) => `${item}: markdown filename must be lowercase.`).join('\n');
+            const block = failures.join('\n');
             core.exportVariable('ERROR_BLOCK', block);
 
             function collectFailures(relativeDir) {
@@ -72,8 +73,15 @@ jobs:
                   continue;
                 }
 
+                const normalizedPath = relativePath.replace(/\\/g, '/');
                 if (entry.name !== entry.name.toLowerCase()) {
-                  failures.push(relativePath.replace(/\\/g, '/'));
+                  failures.push(`${normalizedPath}: markdown filename must be lowercase.`);
+                  continue;
+                }
+
+                const baseName = path.basename(entry.name, '.md');
+                if (!kebabCasePattern.test(baseName)) {
+                  failures.push(`${normalizedPath}: markdown filename must be kebab-case (lowercase letters, numbers, and hyphens).`);
                 }
               }
             }
@@ -81,6 +89,6 @@ jobs:
       - name: Show invalid markdown filenames
         if: env.ERROR_BLOCK != ''
         run: |
-          echo 'Markdown files with non-lowercase names:'
+          echo 'Markdown files with invalid names:'
           printf '```\n%s\n```\n' "${{ env.ERROR_BLOCK }}"
           exit 1
