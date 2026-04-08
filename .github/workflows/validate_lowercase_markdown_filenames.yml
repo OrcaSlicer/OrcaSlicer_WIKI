@@ -1,0 +1,82 @@
+name: Validate Lowercase Markdown Filenames
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate-lowercase-markdown-filenames:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      ERROR_BLOCK: ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Validate lowercase .md filenames
+        id: validate_lowercase_markdown_filenames
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const workspaceRoot = process.cwd();
+            const failures = [];
+
+            collectFailures('');
+
+            if (!failures.length) {
+              core.exportVariable('ERROR_BLOCK', '');
+              core.info('All .md filenames are lowercase.');
+              return;
+            }
+
+            failures.sort((a, b) => a.localeCompare(b));
+            const block = failures.map((item) => `${item}: markdown filename must be lowercase.`).join('\n');
+            core.exportVariable('ERROR_BLOCK', block);
+
+            function collectFailures(relativeDir) {
+              const absoluteDir = relativeDir ? path.join(workspaceRoot, relativeDir) : workspaceRoot;
+              let entries;
+              try {
+                entries = fs.readdirSync(absoluteDir, { withFileTypes: true });
+              } catch (_) {
+                return;
+              }
+
+              for (const entry of entries) {
+                if (entry.name === '.git') {
+                  continue;
+                }
+
+                const relativePath = relativeDir ? `${relativeDir}/${entry.name}` : entry.name;
+                if (entry.isDirectory()) {
+                  collectFailures(relativePath);
+                  continue;
+                }
+
+                if (!entry.isFile()) {
+                  continue;
+                }
+
+                if (path.extname(entry.name).toLowerCase() !== '.md') {
+                  continue;
+                }
+
+                if (entry.name !== entry.name.toLowerCase()) {
+                  failures.push(relativePath.replace(/\\/g, '/'));
+                }
+              }
+            }
+
+      - name: Show invalid markdown filenames
+        if: env.ERROR_BLOCK != ''
+        run: |
+          echo 'Markdown files with non-lowercase names:'
+          printf '```\n%s\n```\n' "${{ env.ERROR_BLOCK }}"
+          exit 1
