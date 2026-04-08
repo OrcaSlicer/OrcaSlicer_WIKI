@@ -149,7 +149,7 @@ PA pattern calibration configuration window have been changed to simplify test s
 
 Test patterns generated for each acceleration-speed pair and all parameters are set accordingly. No additional actions needed from user side. Just slice and print all plates generated.
 
-Refer to [Calibration Guide](Calibration) for more details on batch mode calibration.
+Refer to [Calibration Guide](calibration) for more details on batch mode calibration.
 
 #### OrcaSlicer 2.2.0 and older
 
