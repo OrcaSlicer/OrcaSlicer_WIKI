@@ -233,7 +233,7 @@ nav:
   - "Guide: Develop Profiles for OrcaSlicer": "developer-reference/How-to-create-profiles.md"
   - "How to Download Pull Requests Artifacts for Testing": "developer-reference/How-to-download-PR-artifacts.md"
   - "How to Test": "developer-reference/How-to-test.md"
-  - "How to Contribute to the Wiki": "developer-reference/How-to-wiki.md"
+  - "How to Contribute to the Wiki": "developer-reference/how-to-wiki.md"
   - "Application Structure Overview": "developer-reference/plater-sidebar-tab-combobox.md"
   - "Preset and Bundle": "developer-reference/Preset-and-bundle.md"
   - "Slicing Hierarchy": "developer-reference/slicing-hierarchy.md"
