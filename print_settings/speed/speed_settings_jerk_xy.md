@@ -40,7 +40,7 @@ This setting overrides firmware jerk values when different motion types need spe
 
 ## Default
 
-[Variable](Built-in-placeholders-variables): `default_jerk`.  
+[Variable](built-in-placeholders-variables): `default_jerk`.  
 Default Jerk value.
 
 > [!NOTE]
@@ -48,37 +48,37 @@ Default Jerk value.
 
 ### Outer wall
 
-[Variable](Built-in-placeholders-variables): `outer_wall_jerk`.  
+[Variable](built-in-placeholders-variables): `outer_wall_jerk`.  
 Jerk for outer wall printing. This is usually set to a lower value than normal printing to ensure better quality.
 
 ### Inner wall
 
-[Variable](Built-in-placeholders-variables): `inner_wall_jerk`.  
+[Variable](built-in-placeholders-variables): `inner_wall_jerk`.  
 Jerk for inner wall printing. This is usually set to a higher but still reasonable value than outer wall printing to improve speed.
 
 ### Infill
 
-[Variable](Built-in-placeholders-variables): `infill_jerk`.  
+[Variable](built-in-placeholders-variables): `infill_jerk`.  
 Jerk for infill printing. This is usually set to a value higher than inner wall printing to improve speed.
 
 ### Top surface
 
-[Variable](Built-in-placeholders-variables): `top_surface_jerk`.  
+[Variable](built-in-placeholders-variables): `top_surface_jerk`.  
 Jerk for top surface printing. This is usually set to a lower value than infill to ensure better quality.
 
 ### Initial layer
 
-[Variable](Built-in-placeholders-variables): `initial_layer_jerk`.  
+[Variable](built-in-placeholders-variables): `initial_layer_jerk`.  
 Jerk for initial layer printing. This is usually set to a lower value than top surface to improve adhesion.
 
 ### Travel
 
-[Variable](Built-in-placeholders-variables): `travel_jerk`.  
+[Variable](built-in-placeholders-variables): `travel_jerk`.  
 Jerk for travel printing. This is usually set to a higher value than infill to reduce travel time.
 
 ## Junction Deviation
 
-[Variable](Built-in-placeholders-variables): `default_junction_deviation`.  
+[Variable](built-in-placeholders-variables): `default_junction_deviation`.  
 Alternative to Jerk, Junction Deviation is the default method for controlling cornering speed in Marlin 2 printers.  
 Higher values result in more aggressive cornering speeds, while lower values produce smoother, more controlled cornering.
 

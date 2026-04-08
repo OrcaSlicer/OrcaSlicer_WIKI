@@ -19,7 +19,7 @@ These settings control advanced slicing and printing behaviours, such as how lay
 
 ## Slicing Mode
 
-[Variable](Built-in-placeholders-variables): `slicing_mode`.  
+[Variable](built-in-placeholders-variables): `slicing_mode`.  
 The slicing mode determines how the model is sliced into layers and how the G-code is generated. Different modes can be used to achieve various printing effects or to optimize the print process.
 
 ### Regular
@@ -40,7 +40,7 @@ Use "Even-odd" for specific models like [3DLabPrint](https://3dlabprint.com) air
 
 ## Print Sequence
 
-[Variable](Built-in-placeholders-variables): `print_sequence`.  
+[Variable](built-in-placeholders-variables): `print_sequence`.  
 This setting controls how multiple objects are printed in a single print job.
 
 ### By Layer
@@ -49,7 +49,7 @@ This option prints all objects layer by layer, one layer at a time. This is effi
 
 #### Intra-layer order
 
-[Variable](Built-in-placeholders-variables): `print_order`.  
+[Variable](built-in-placeholders-variables): `print_order`.  
 Determines the print order within a single layer.
 
 - **Default**: Prints objects based on their position on the bed and travel distance to optimise movement.
@@ -63,13 +63,13 @@ This setting requires more models separation and may not be suitable for all pri
 
 ## Spiral vase
 
-[Variable](Built-in-placeholders-variables): `spiral_mode`.  
+[Variable](built-in-placeholders-variables): `spiral_mode`.  
 Spiral vase mode transforms a solid model into a single-walled print with solid bottom layers, eliminating seams by continuously spiralling the outer contour.  
 This creates a smooth, vase-like appearance.
 
 ### Smooth Spiral
 
-[Variable](Built-in-placeholders-variables): `spiral_mode_smooth`.  
+[Variable](built-in-placeholders-variables): `spiral_mode_smooth`.  
 When enabled, Smooth Spiral smooths out X and Y moves as well, resulting in no visible seams even on non-vertical walls.  
 This produces the smoothest possible spiral print.
 
@@ -78,24 +78,24 @@ This produces the smoothest possible spiral print.
 
 #### Max XY Smoothing
 
-[Variable](Built-in-placeholders-variables): `spiral_mode_max_xy_smoothing`.  
+[Variable](built-in-placeholders-variables): `spiral_mode_max_xy_smoothing`.  
 Maximum distance to move points in XY to achieve a smooth spiral. If expressed as a percentage, it is calculated relative to the nozzle diameter.  
 Higher values allow more smoothing but may distort the model slightly.
 
 ### Spiral starting flow ratio
 
-[Variable](Built-in-placeholders-variables): `spiral_starting_flow_ratio`.  
+[Variable](built-in-placeholders-variables): `spiral_starting_flow_ratio`.  
 Sets the starting flow ratio when transitioning from the last bottom layer to the spiral.  
 Normally, the flow scales from 0% to 100% during the first loop, which can sometimes cause under-extrusion at the start.  
 Adjust this to fine-tune the transition and prevent issues.
 
 ### Spiral finishing flow ratio
 
-[Variable](Built-in-placeholders-variables): `spiral_finishing_flow_ratio`.  
+[Variable](built-in-placeholders-variables): `spiral_finishing_flow_ratio`.  
 Sets the finishing flow ratio when ending the spiral. Normally, the flow scales from 100% to 0% during the last loop, which can lead to under-extrusion at the end.  
 Use this to control the ending and ensure consistent extrusion.
 
 ## Timelapse
 
-[Variable](Built-in-placeholders-variables): `timelapse_type`.  
+[Variable](built-in-placeholders-variables): `timelapse_type`.  
 WIP...

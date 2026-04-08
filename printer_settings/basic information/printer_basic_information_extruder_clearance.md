@@ -4,15 +4,15 @@ Extruder clearance settings define the minimum distances required around the ext
 
 ## Radius
 
-[Variable](Built-in-placeholders-variables): `extruder_clearance_radius`.  
+[Variable](built-in-placeholders-variables): `extruder_clearance_radius`.  
 Clearance radius around extruder: used for collision avoidance in by-object printing.
 
 ## Height to rod
 
-[Variable](Built-in-placeholders-variables): `extruder_clearance_height_to_rod`.  
+[Variable](built-in-placeholders-variables): `extruder_clearance_height_to_rod`.  
 Distance from the nozzle tip to the lower rod. Used for collision avoidance in by-object printing.
 
 ## Height to lid
 
-[Variable](Built-in-placeholders-variables): `extruder_clearance_height_to_lid`.  
+[Variable](built-in-placeholders-variables): `extruder_clearance_height_to_lid`.  
 Distance from the nozzle tip to the lid. Used for collision avoidance in by-object printing.

@@ -12,7 +12,7 @@ Flow ratio and pressure advance settings for the selected material.
 
 ## Flow Ratio
 
-[Variable](Built-in-placeholders-variables): `filament_flow_ratio`.  
+[Variable](built-in-placeholders-variables): `filament_flow_ratio`.  
 The material may have volumetric change after switching between molten and crystalline states. This setting changes all extrusion flow of this filament in G-code proportionally.  
 The recommended value range is between 0.95 and 1.05. You may be able to tune this value to get a nice flat surface if there is slight overflow or underflow.  
 The final object flow ratio is this value multiplied by the filament flow ratio.
@@ -22,7 +22,7 @@ The final object flow ratio is this value multiplied by the filament flow ratio.
 
 ## Pressure Advance
 
-[Variables](Built-in-placeholders-variables): `enable_pressure_advance`, `pressure_advance`.  
+[Variables](built-in-placeholders-variables): `enable_pressure_advance`, `pressure_advance`.  
 Pressure advance [Klipper](https://www.klipper3d.org/Pressure_Advance.html) and [RepRap](https://docs.duet3d.com/User_manual/Tuning/Pressure_advance) AKA [Linear advance (Marlin)](https://marlinfw.org/docs/features/lin_advance.html) is a feature that compensates for the lag in filament pressure within the nozzle during acceleration and deceleration. It helps improve print quality by reducing issues like blobs, oozing, and inconsistent extrusion, especially at corners or during fast movements.
 
 > [!NOTE]
@@ -33,7 +33,7 @@ Pressure advance [Klipper](https://www.klipper3d.org/Pressure_Advance.html) and 
 
 ### Enable adaptive Pressure Advance (beta)
 
-[Variable](Built-in-placeholders-variables): `adaptive_pressure_advance`.  
+[Variable](built-in-placeholders-variables): `adaptive_pressure_advance`.  
 With increasing print speeds (and hence increasing volumetric flow through the nozzle) and increasing accelerations, it has been observed that the effective PA value typically decreases. This means that a single PA value is not always 100% optimal for all features and a compromise value is usually used that does not cause too much bulging on features with lower flow speed and accelerations while also not causing gaps on faster features.
 
 This feature aims to address this limitation by modeling the response of your printer's extrusion system depending on the volumetric flow speed and acceleration it is printing at. Internally, it generates a fitted model that can extrapolate the needed pressure advance for any given volumetric flow speed and acceleration, which is then emitted to the printer depending on the current print conditions.
@@ -45,12 +45,12 @@ When enabled, the pressure advance value above is overridden. However, a reasona
 
 #### Enable adaptive pressure advance for overhangs (beta)
 
-[Variable](Built-in-placeholders-variables): `adaptive_pressure_advance_overhangs`.  
+[Variable](built-in-placeholders-variables): `adaptive_pressure_advance_overhangs`.  
 Enable adaptive PA for overhangs as well as when flow changes within the same feature. This is an experimental option, as if the PA profile is not set accurately, it will cause uniformity issues on the external surfaces before and after overhangs.
 
 #### Pressure advance for bridges
 
-[Variable](Built-in-placeholders-variables): `adaptive_pressure_advance_bridges`.  
+[Variable](built-in-placeholders-variables): `adaptive_pressure_advance_bridges`.  
 Pressure advance value for bridges. Set to 0 to disable.  
 A lower PA value when printing bridges helps reduce the appearance of slight under extrusion immediately after bridges.  
 This is caused by the pressure drop in the nozzle when printing in the air and a lower PA helps counteract this.

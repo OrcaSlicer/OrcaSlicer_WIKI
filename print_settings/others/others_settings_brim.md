@@ -22,7 +22,7 @@ Brim is a flat layer printed around a model's base to improve adhesion to the pr
 
 ## Type
 
-[Variable](Built-in-placeholders-variables): `brim_type`.  
+[Variable](built-in-placeholders-variables): `brim_type`.  
 Controls how the brim is generated on a model's outer and/or inner sides.
 
 ### Auto
@@ -84,7 +84,7 @@ The geometry analysis routine selects candidate locations based on the configure
 
 #### Ear max angle
 
-[Variable](Built-in-placeholders-variables): `brim_ears_max_angle`.  
+[Variable](built-in-placeholders-variables): `brim_ears_max_angle`.  
 Angle threshold (degrees) used to decide where mouse ears may be placed:
 
 - 0° — disabled; no mouse ears are generated.
@@ -93,26 +93,26 @@ Angle threshold (degrees) used to decide where mouse ears may be placed:
 
 #### Ear detection radius
 
-[Variable](Built-in-placeholders-variables): `brim_ears_detection_length`.  
+[Variable](built-in-placeholders-variables): `brim_ears_detection_length`.  
 The geometry will be decimated before detecting sharp angles.  
 This parameter indicates the minimum length of the deviation for the decimation.  
 0 to deactivate.
 
 ## Width
 
-[Variable](Built-in-placeholders-variables): `brim_width`.  
+[Variable](built-in-placeholders-variables): `brim_width`.  
 Distance between the model and the outermost brim line.  
 Increasing this value widens the brim, which can improve adhesion but increases material usage.
 
 ## Brim-Object Gap
 
-[Variable](Built-in-placeholders-variables): `brim_object_gap`.  
+[Variable](built-in-placeholders-variables): `brim_object_gap`.  
 Gap between the innermost brim line and the object.  
 Increasing the gap makes the brim easier to remove but reduces its adhesion benefit; very large gaps may eliminate contact and negate the brim's purpose.
 
 ### Brim use EFC outline
 
-[Variable](Built-in-placeholders-variables): `brim_use_efc_outline`.  
+[Variable](built-in-placeholders-variables): `brim_use_efc_outline`.  
 When enabled, the brim is aligned with the first-layer perimeter geometry after [Elephant Foot Compensation](quality_settings_precision#elephant-foot-compensation) is applied.  
 This option is intended for cases where [Elephant Foot Compensation](quality_settings_precision#elephant-foot-compensation) significantly alters the first-layer footprint.
 
@@ -122,7 +122,7 @@ If your current setup already works well, enabling it may be unnecessary and can
 
 ## Combine brims
 
-[Variable](Built-in-placeholders-variables): `combine_brims`.  
+[Variable](built-in-placeholders-variables): `combine_brims`.  
 Combine adjacent brims into a single continuous brim when they touch.
 
 - Disable: Each object's brim is generated and printed separately; each brim is completed before its object is printed.

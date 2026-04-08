@@ -4,10 +4,10 @@ The prime tower is a structure that is printed before the actual print to ensure
 
 ## Purge in prime tower
 
-[Variable](Built-in-placeholders-variables): `purge_in_prime_tower`.  
+[Variable](built-in-placeholders-variables): `purge_in_prime_tower`.  
 Purge remaining filament into prime tower.
 
 ## Enable filament ramming
 
-[Variable](Built-in-placeholders-variables): `enable_filament_ramming`.  
+[Variable](built-in-placeholders-variables): `enable_filament_ramming`.  
 Enable filament ramming
