@@ -229,7 +229,7 @@ nav:
 - "Developer Reference":
   - "Localization and translation guide": "developer-reference/localization_guide.md"
   - "Placeholders Variables": "developer-reference/built-in-placeholders-variables.md"
-  - "How to Build": "developer-reference/How-to-build.md"
+  - "How to Build": "developer-reference/how-to-build.md"
   - "Guide: Develop Profiles for OrcaSlicer": "developer-reference/how-to-create-profiles.md"
   - "How to Download Pull Requests Artifacts for Testing": "developer-reference/how-to-download-PR-artifacts.md"
   - "How to Test": "developer-reference/how-to-test.md"
