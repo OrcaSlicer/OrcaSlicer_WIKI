@@ -109,22 +109,22 @@ copyright: Copyright &copy; 2022-2026 Li Jiang. All rights reserved.
 
 # Navigation structure based on home.md
 nav:
-- Home: index.md
+- home: index.md
 - Calibration:
-  - "Adaptive Pressure Advance": "calibration/adaptive_pressure_advance_calib.md"
-  - "Calibration Guide": calibration/Calibration.md
-  - Cornering: "calibration/cornering_calib.md"
-  - "Flow Ratio Calibration": "calibration/flow_ratio_calib.md"
-  - "Input Shaping": "calibration/input_shaping_calib.md"
-  - "Pressure Advance": "calibration/pressure_advance_calib.md"
-  - "Retraction test": "calibration/retraction_calib.md"
-  - "Temp Calibration": "calibration/temp_calib.md"
-  - "Filament Tolerance Calibration": "calibration/tolerance_calib.md"
-  - VFA: "calibration/vfa_calib.md"
-  - "Max Volumetric Speed (FlowRate) Calibration": "calibration/volumetric_speed_calib.md"
+  - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
+  - "Calibration Guide": calibration/calibration.md
+  - Cornering: calibration/cornering_calib.md
+  - "Flow Ratio Calibration": calibration/flow_ratio_calib.md
+  - "Input Shaping": calibration/input_shaping_calib.md
+  - "Pressure Advance": calibration/pressure_advance_calib.md
+  - "Retraction test": calibration/retraction_calib.md
+  - "Temp Calibration": calibration/temp_calib.md
+  - "Filament Tolerance Calibration": calibration/tolerance_calib.md
+  - VFA: calibration/vfa_calib.md
+  - "Max Volumetric Speed (FlowRate) Calibration": calibration/volumetric_speed_calib.md
 - "General Settings":
-  - "Import and Export": "general_settings/import_export.md"
-  - "Keyboard Shortcuts": "general_settings/keyboard_shortcuts.md"
+  - "Import and Export": general_settings/import_export.md
+  - "Keyboard Shortcuts": general_settings/keyboard_shortcuts.md
 - "Material Settings":
   - Cooling:
     - "Material Cooling": material_settings/cooling/material_cooling.md
@@ -227,13 +227,13 @@ nav:
     - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
     - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
 - "Developer Reference":
-  - "Localization and translation guide": "developer_reference/localization_guide.md"
-  - "Placeholders Variables": "developer_reference/built_in_placeholders_variables.md"
-  - "How to Build": "developer_reference/how_to_build.md"
-  - "Guide: Develop Profiles for OrcaSlicer": "developer_reference/how_to_create_profiles.md"
-  - "How to Download Pull Requests Artifacts for Testing": "developer_reference/how_to_download_pr_artifacts.md"
-  - "How to Test": "developer_reference/how_to_test.md"
-  - "How to Contribute to the Wiki": "developer_reference/how_to_wiki.md"
-  - "Application Structure Overview": "developer_reference/plater_sidebar_tab_combobox.md"
-  - "Preset and Bundle": "developer_reference/preset_and_bundle.md"
-  - "Slicing Hierarchy": "developer_reference/slicing_hierarchy.md"
+  - "Localization and translation guide": developer_reference/localization_guide.md
+  - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
+  - "How to Build": developer_reference/how_to_build.md
+  - "Guide: Develop Profiles for OrcaSlicer": developer_reference/how_to_create_profiles.md
+  - "How to Download Pull Requests Artifacts for Testing": developer_reference/how_to_download_pr_artifacts.md
+  - "How to Test": developer_reference/how_to_test.md
+  - "How to Contribute to the Wiki": developer_reference/how_to_wiki.md
+  - "Application Structure Overview": developer_reference/plater_sidebar_tab_combobox.md
+  - "Preset and Bundle": developer_reference/preset_and_bundle.md
+  - Hierarchy: developer_reference/slicing_hierarchy.md
