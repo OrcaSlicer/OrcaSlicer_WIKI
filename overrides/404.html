@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+
+{% set home_url = nav.homepage.url|url if nav.homepage else "index.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <meta http-equiv="refresh" content="0; url={{ home_url }}">
+  <script>
+    window.location.replace("{{ home_url }}")
+  </script>
+{% endblock %}
+
+{% block content %}
+  <h1>Redirecting...</h1>
+  <p>Page not found. Redirecting to the <a href="{{ home_url }}">home page</a>.</p>
+{% endblock %}
