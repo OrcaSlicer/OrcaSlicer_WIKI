@@ -79,11 +79,11 @@ foreach ($dir in $dirsToCopy) {
 }
 
 Get-ChildItem -Path . -Filter *.md -ErrorAction SilentlyContinue | Where-Object {
-    $_.Name -ne 'README.md' -and $_.Name -ne 'Home.md'
+    $_.Name -ne 'README.md' -and $_.Name -ne 'home.md'
 } | Copy-Item -Destination docs\ -Force
 
-if (Test-Path Home.md) {
-    Copy-Item Home.md docs\index.md
+if (Test-Path home.md) {
+    Copy-Item home.md docs\index.md
 }
 
 # Make sure MkDocs can see custom CSS/JS during the build

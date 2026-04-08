@@ -107,7 +107,7 @@ extra:
 
 copyright: Copyright &copy; 2022-2026 Li Jiang. All rights reserved.
 
-# Navigation structure based on Home.md
+# Navigation structure based on home.md
 nav:
 - Home: index.md
 - Calibration:

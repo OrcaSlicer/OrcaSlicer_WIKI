@@ -153,9 +153,9 @@ def generate_nav(base_path: Path) -> list:
     """Generate the complete navigation structure by scanning all folders."""
     nav = []
 
-    # Check for Home.md -> becomes index.md
-    if (base_path / 'Home.md').exists():
-        nav.append(("Home", "index.md"))
+    # Check for home.md -> becomes index.md
+    if (base_path / 'home.md').exists():
+        nav.append(("home", "index.md"))
 
     # Scan all top-level folders that contain markdown files
     top_level_folders = sorted(
@@ -312,7 +312,7 @@ def main():
     print("📋 Navigation Structure:\n")
     print_nav_tree(nav)
     print(f"\n📊 Total pages: {count_items(nav)}")
-    print(f"📁 Total sections: {len(nav) - 1}")  # -1 for Home
+    print(f"📁 Total sections: {len(nav) - 1}")  # -1 for home
 
     if args.update:
         print()
