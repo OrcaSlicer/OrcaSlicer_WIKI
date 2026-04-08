@@ -109,7 +109,7 @@ copyright: Copyright &copy; 2022-2026 Li Jiang. All rights reserved.
 
 # Navigation structure based on home.md
 nav:
-- home: index.md
+- Home: index.md
 - Calibration:
   - "Calibration Guide": calibration/calibration_guide.md
   - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md

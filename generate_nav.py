@@ -155,7 +155,7 @@ def generate_nav(base_path: Path) -> list:
 
     # Check for home.md -> becomes index.md
     if (base_path / 'home.md').exists():
-        nav.append(("home", "index.md"))
+        nav.append(("Home", "index.md"))
 
     # Scan all top-level folders that contain markdown files
     top_level_folders = sorted(
