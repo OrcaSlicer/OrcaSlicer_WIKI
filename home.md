@@ -185,7 +185,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 ## Calibrations
 
-<img alt="tab_calibration_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_calibration_active.svg?raw=true" height="22"> The [Calibration Guide](calibration) outlines Orca’s key calibration tests and their suggested order of execution.
+<img alt="tab_calibration_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_calibration_active.svg?raw=true" height="22"> The [Calibration Guide](calibration_guide) outlines Orca’s key calibration tests and their suggested order of execution.
 
 - [<img alt="param_extruder_temp" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true" height="22"> Temperature](temp_calib)
 - [<img alt="param_volumetric_speed" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true" height="22"> Volumetric Speed](volumetric_speed_calib)

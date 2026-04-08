@@ -24,7 +24,7 @@ This setting overrides firmware jerk values when different motion types need spe
 
 > [!TIP]
 > Jerk can work in conjunction with [Pressure Advance](pressure_advance_calib), [Adaptive Pressure Advance](adaptive_pressure_advance_calib), and [Input Shaping](input_shaping_calib) to optimize print quality and speed.  
-> It's recommended to follow the [calibration guide](calibration) order for best results.
+> It's recommended to follow the [calibration guide](calibration_guide) order for best results.
 
 - [Cornering Control Types](#cornering-control-types)
 - [Key Effects](#key-effects)
