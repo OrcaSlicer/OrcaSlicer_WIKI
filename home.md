@@ -209,12 +209,12 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 <img alt="im_code" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/im_code.svg?raw=true" height="22"> This is a documentation from someone exploring the code and is by no means complete or even completely accurate. Please edit the parts you might find inaccurate. This is probably going to be helpful nonetheless.
 
 - [How to build OrcaSlicer](How-to-build)
-- [How to run tests](How-to-test)
-- [Localization and translation guide](Localization_guide)
-- [How to create profiles](How-to-create-profiles)
+- [How to run tests](how-to-test)
+- [Localization and translation guide](localization_guide)
+- [How to create profiles](how-to-create-profiles)
 - [How to contribute to the wiki](how-to-wiki)
-- [Preset, PresetBundle and PresetCollection](Preset-and-bundle)
+- [Preset, PresetBundle and PresetCollection](preset-and-bundle)
 - [Plater, Sidebar, Tab, ComboBox](plater-sidebar-tab-combobox)
 - [Built-in placeholders & variables](built-in-placeholders-variables)
 - [Slicing Call Hierarchy](slicing-hierarchy)
-- [How to Download Pull Requests Artifacts for Testing](How-to-download-PR-artifacts)
+- [How to Download Pull Requests Artifacts for Testing](how-to-download-PR-artifacts)

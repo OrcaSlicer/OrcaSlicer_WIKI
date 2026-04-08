@@ -31,11 +31,11 @@ When a Pull Request (PR) is created or updated in the [OrcaSlicer repository](ht
 > Short Link:
 >
 > ```css
-> https://www.orcaslicer.com/wiki/How-to-download-PR-artifacts
+> https://www.orcaslicer.com/wiki/how-to-download-PR-artifacts
 > ```
 >
 > Markdown Link:
 >
 > ```md
-> [How to Download Pull Requests Artifacts for Testing](https://www.orcaslicer.com/wiki/How-to-download-PR-artifacts)
+> [How to Download Pull Requests Artifacts for Testing](https://www.orcaslicer.com/wiki/how-to-download-PR-artifacts)
 > ```
