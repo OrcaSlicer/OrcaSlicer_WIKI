@@ -111,8 +111,8 @@ copyright: Copyright &copy; 2022-2026 Li Jiang. All rights reserved.
 nav:
 - home: index.md
 - Calibration:
+  - "Calibration Guide": calibration/calibration_guide.md
   - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
-  - "Calibration Guide": calibration/calibration.md
   - Cornering: calibration/cornering_calib.md
   - "Flow Ratio Calibration": calibration/flow_ratio_calib.md
   - "Input Shaping": calibration/input_shaping_calib.md
