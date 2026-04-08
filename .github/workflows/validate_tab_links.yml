@@ -76,13 +76,19 @@ jobs:
                 continue;
               }
 
-              const matches = findMarkdownDocuments(docName);
+              const decodedDocName = decodeLinkComponent(docName);
+              if (!isSnakeCase(decodedDocName)) {
+                failures.push(formatFailure(reference, 'docNotSnakeCase', docName));
+                continue;
+              }
+
+              const matches = findMarkdownDocuments(decodedDocName);
               if (!matches.length) {
-                failures.push(formatFailure(reference, 'missingDocument', `${docName}.md`));
+                failures.push(formatFailure(reference, 'missingDocument', `${decodedDocName}.md`));
                 continue;
               }
               if (matches.length > 1) {
-                failures.push(formatFailure(reference, 'ambiguousDocument', `${docName} -> ${matches.slice(0, 5).join(', ')}`));
+                failures.push(formatFailure(reference, 'ambiguousDocument', `${decodedDocName} -> ${matches.slice(0, 5).join(', ')}`));
                 continue;
               }
 
@@ -102,6 +108,12 @@ jobs:
                 continue;
               }
 
+              const decodedAnchor = decodeLinkComponent(anchorRaw);
+              if (!isKebabCase(decodedAnchor)) {
+                failures.push(formatFailure(reference, 'anchorNotKebabCase', `${decodedDocName}#${anchorRaw}`));
+                continue;
+              }
+
               const anchors = getAnchors(relativePath);
               const anchorSlug = normalizeAnchor(anchorRaw);
               if (!anchorSlug) {
@@ -109,7 +121,7 @@ jobs:
                 continue;
               }
               if (!anchors.has(anchorSlug)) {
-                failures.push(formatFailure(reference, 'missingCrossDocAnchor', `${docName}#${anchorRaw}`));
+                failures.push(formatFailure(reference, 'missingCrossDocAnchor', `${decodedDocName}#${anchorRaw}`));
               }
             }
 
@@ -281,6 +293,24 @@ jobs:
               return markdownNameIndex.get(baseName) || [];
             }
 
+            function isSnakeCase(value) {
+              return /^[a-z0-9]+(?:_[a-z0-9]+)*$/.test(value);
+            }
+
+            function isKebabCase(value) {
+              return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
+            }
+
+            function decodeLinkComponent(value) {
+              let decoded = value.trim();
+              try {
+                decoded = decodeURIComponent(decoded);
+              } catch (_) {
+                // ignore decode failures
+              }
+              return decoded;
+            }
+
             function getAnchors(relativePath) {
               if (headingCache.has(relativePath)) {
                 return headingCache.get(relativePath);
@@ -348,13 +378,8 @@ jobs:
               if (!raw) {
                 return '';
               }
-              let decoded = raw.trim();
-              try {
-                decoded = decodeURIComponent(decoded);
-              } catch (_) {
-                // ignore decode failures
-              }
-              return slugify(decoded, { preserveCase: true });
+              const decoded = decodeLinkComponent(raw);
+              return slugify(decoded);
             }
 
             function buildLineOffsets(text) {
@@ -401,11 +426,17 @@ jobs:
                 case 'extensionNotAllowed':
                   failure.message = `${lineInfo}: link "${details}" must omit the .md suffix.`;
                   break;
+                case 'docNotSnakeCase':
+                  failure.message = `${lineInfo}: document name "${details}" must be snake_case.`;
+                  break;
                 case 'missingDocument':
                   failure.message = `${lineInfo}: document ${details} does not exist in the wiki.`;
                   break;
                 case 'ambiguousDocument':
                   failure.message = `${lineInfo}: document reference is ambiguous (${details}).`;
+                  break;
+                case 'anchorNotKebabCase':
+                  failure.message = `${lineInfo}: heading reference ${details} must be kebab-case.`;
                   break;
                 case 'missingCrossDocAnchor':
                   failure.message = `${lineInfo}: heading ${details} was not found.`;
