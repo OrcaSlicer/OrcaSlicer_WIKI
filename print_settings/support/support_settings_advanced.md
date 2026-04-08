@@ -16,65 +16,65 @@
 
 ## Z distance
 
-[Variables](built-in-placeholders-variables): `support_top_z_distance`, `support_bottom_z_distance`.  
+[Variables](built_in_placeholders_variables): `support_top_z_distance`, `support_bottom_z_distance`.  
 The Z gap between support interface and object.
 
 ## Support wall loops
 
-[Variable](built-in-placeholders-variables): `tree_support_wall_count`.  
+[Variable](built_in_placeholders_variables): `tree_support_wall_count`.  
 This setting specifies the count of support walls in the range of [0,2]. 0 means auto.
 
 ## Base Pattern
 
-[Variable](built-in-placeholders-variables): `support_base_pattern`.  
+[Variable](built_in_placeholders_variables): `support_base_pattern`.  
 Line pattern for the base of the support.
 
 ### Base pattern spacing
 
-[Variable](built-in-placeholders-variables): `support_base_pattern_spacing`.  
+[Variable](built_in_placeholders_variables): `support_base_pattern_spacing`.  
 Spacing between support lines.
 
 ## Pattern angle
 
-[Variable](built-in-placeholders-variables): `support_angle`.  
+[Variable](built_in_placeholders_variables): `support_angle`.  
 Use this setting to rotate the support pattern on the horizontal plane.
 
 ## Interface layers
 
-[Variables](built-in-placeholders-variables): `support_interface_top_layers`, `support_interface_bottom_layers`.  
+[Variables](built_in_placeholders_variables): `support_interface_top_layers`, `support_interface_bottom_layers`.  
 The number of interface layers.
 
 ## Interface pattern
 
-[Variable](built-in-placeholders-variables): `support_interface_pattern`.  
+[Variable](built_in_placeholders_variables): `support_interface_pattern`.  
 The pattern used for the support interface.
 
 ## Interface spacing
 
-[Variables](built-in-placeholders-variables): `support_interface_spacing`, `support_bottom_interface_spacing`.  
+[Variables](built_in_placeholders_variables): `support_interface_spacing`, `support_bottom_interface_spacing`.  
 Spacing of interface lines. Zero means solid interface.
 
 ## Normal support expansion
 
-[Variable](built-in-placeholders-variables): `support_expansion`.  
+[Variable](built_in_placeholders_variables): `support_expansion`.  
 Expand (+) or shrink (-) the horizontal span of normal support.
 
 ## Support/object XY distance
 
-[Variable](built-in-placeholders-variables): `support_object_xy_distance`.  
+[Variable](built_in_placeholders_variables): `support_object_xy_distance`.  
 XY separation between an object and its support.
 
 ## Support/object first layer gap
 
-[Variable](built-in-placeholders-variables): `support_object_first_layer_gap`.  
+[Variable](built_in_placeholders_variables): `support_object_first_layer_gap`.  
 XY separation between an object and its support at the first layer.
 
 ## Don't support bridges
 
-[Variable](built-in-placeholders-variables): `bridge_no_support`.  
+[Variable](built_in_placeholders_variables): `bridge_no_support`.  
 Don't support the whole bridge area which make support very large. Bridges can usually be printed directly without support if not very long.
 
 ## Independent support layer height
 
-[Variable](built-in-placeholders-variables): `independent_support_layer_height`.  
+[Variable](built_in_placeholders_variables): `independent_support_layer_height`.  
 Support layer uses layer height independent with object layer. This is to support customizing z-gap and save print time. This option will be invalid when the prime tower is enabled.

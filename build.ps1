@@ -69,7 +69,7 @@ New-Item -ItemType Directory -Force -Path docs | Out-Null
 
 Write-Host "Preparing documentation structure..."
 
-$dirsToCopy = @('images', 'calibration', 'developer-reference', 'general-settings',
+$dirsToCopy = @('images', 'calibration', 'developer_reference', 'general_settings',
     'material_settings', 'print_prepare', 'print_settings', 'printer_settings')
 
 foreach ($dir in $dirsToCopy) {

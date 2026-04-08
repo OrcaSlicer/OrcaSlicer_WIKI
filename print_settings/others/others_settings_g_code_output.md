@@ -11,25 +11,25 @@ These settings control how G-code is generated and formatted. They impact readab
 
 ## Reduce Infill Retraction
 
-[Variable](built-in-placeholders-variables): `reduce_infill_retraction`.  
+[Variable](built_in_placeholders_variables): `reduce_infill_retraction`.  
 When enabled, the slicer will skip retractions for travel moves that occur entirely inside infill regions. This reduces the number of retractions and can speed up printing for complex models, but it may increase oozing or stringing inside infill. Slicing time may also increase slightly.
 
 **Recommended** when internal cosmetic quality is not critical and you want fewer retractions.
 
 ## Add line number
 
-[Variable](built-in-placeholders-variables): `gcode_add_line_number`.  
+[Variable](built_in_placeholders_variables): `gcode_add_line_number`.  
 Prefix each G-code line with a sequential line number (N1, N2, ...). Useful for debugging or tools that expect numbered G-code.
 
 ## Verbose G-code
 
-[Variable](built-in-placeholders-variables): `gcode_comments`.  
+[Variable](built_in_placeholders_variables): `gcode_comments`.  
 Include descriptive comments for G-code lines and blocks to make the file human-readable and easier to debug.  
 Verbose mode produces much larger files and may slow down SD-card printing on some printers.
 
 ## Label Objects
 
-[Variable](built-in-placeholders-variables): `gcode_label_objects`.  
+[Variable](built_in_placeholders_variables): `gcode_label_objects`.  
 Insert comments that label moves with the object they belong to (object index or name). This is useful for integrations such as OctoPrint's Cancel Object plugin and for human inspection of the G-code.
 
 > [!IMPORTANT]
@@ -38,7 +38,7 @@ Insert comments that label moves with the object they belong to (object index or
 
 ## Exclude Objects
 
-[Variable](built-in-placeholders-variables): `exclude_object`.  
+[Variable](built_in_placeholders_variables): `exclude_object`.  
 Add an `EXCLUDE OBJECT` marker or command in the exported G-code for objects flagged as excluded. This helps post-processors or custom scripts recognise excluded parts.
 
 ## Filename Format
@@ -54,4 +54,4 @@ For example:
 Can be used to generate filenames like `OrcaCube_PLA_1h15m.gcode`.
 
 > [!TIP]
-> Check [Naming Built in placeholders variables](built-in-placeholders-variables#filename-templates) for available tokens and their meanings.
+> Check [Naming Built in placeholders variables](built_in_placeholders_variables#filename-templates) for available tokens and their meanings.

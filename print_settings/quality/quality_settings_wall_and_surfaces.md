@@ -16,7 +16,7 @@
 
 ## Walls printing order
 
-[Variable](built-in-placeholders-variables): `wall_sequence`.  
+[Variable](built_in_placeholders_variables): `wall_sequence`.  
 Print sequence of the internal (inner) and external (outer) walls.  
 
 ### Inner/Outer
@@ -39,7 +39,7 @@ Use Outer/Inner for the same external wall quality and dimensional accuracy bene
 
 ### Print infill first
 
-[Variable](built-in-placeholders-variables): `is_infill_first`.  
+[Variable](built_in_placeholders_variables): `is_infill_first`.  
 When this option is enabled, the [infill](strength_settings_infill) and [top/bottom shells](strength_settings_top_bottom_shells) are printed first, followed by the walls. This can be useful for some overhangs where the infill can support the walls.
 
 ![infill-first](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/infill-first.gif?raw=true)
@@ -52,7 +52,7 @@ When using this option is recommended to use the [Precise Wall](quality_settings
 
 ## Wall loop direction
 
-[Variable](built-in-placeholders-variables): `wall_direction`.  
+[Variable](built_in_placeholders_variables): `wall_direction`.  
 The direction which the **contour** wall loops are extruded when looking down from the top.  
 Holes are printed in the opposite direction to the contour to maintain alignment with layers whose contour polygons are incomplete and change direction, also partially forming the contour of a hole.
 Check [PR 12669](https://github.com/OrcaSlicer/OrcaSlicer/pull/12669) for more details about reversing hole direction.
@@ -68,18 +68,18 @@ The usage of [Reverse on even](quality_settings_overhangs#reverse-on-even) will 
 
 ## Surface flow ratio
 
-[Variables](built-in-placeholders-variables): `print_flow_ratio`, `top_solid_infill_flow_ratio`, `bottom_solid_infill_flow_ratio`, `set_other_flow_ratios`, `first_layer_flow_ratio`, `outer_wall_flow_ratio`, `inner_wall_flow_ratio`, `overhang_flow_ratio`, `sparse_infill_flow_ratio`, `internal_solid_infill_flow_ratio`, `gap_fill_flow_ratio`, `support_flow_ratio`, `support_interface_flow_ratio`.  
+[Variables](built_in_placeholders_variables): `print_flow_ratio`, `top_solid_infill_flow_ratio`, `bottom_solid_infill_flow_ratio`, `set_other_flow_ratios`, `first_layer_flow_ratio`, `outer_wall_flow_ratio`, `inner_wall_flow_ratio`, `overhang_flow_ratio`, `sparse_infill_flow_ratio`, `internal_solid_infill_flow_ratio`, `gap_fill_flow_ratio`, `support_flow_ratio`, `support_interface_flow_ratio`.  
 This factor affects the amount of material for [top or bottom solid infill](strength_settings_top_bottom_shells). You can decrease it slightly to have smooth surface finish.  
 The actual top or bottom surface flow used is calculated by multiplying this value by the filament flow ratio, and if set, the object's flow ratio.
 
 Other flow ratios, such as ratios for the first layer (does not affect brims and skirts), outer and inner walls, overhang perimeters, sparse infill, internal solid infill, gap fill, support, and support interfaces, can also be adjusted after enabling the "Set other flow ratios" option.
 
 > [!TIP]
-> Before using a value other than 1, it is recommended to [calibrate the flow ratio](flow-ratio-calib) to ensure that the flow ratio is set correctly for your printer and filament.
+> Before using a value other than 1, it is recommended to [calibrate the flow ratio](flow_ratio_calib) to ensure that the flow ratio is set correctly for your printer and filament.
 
 ## Only one wall
 
-[Variables](built-in-placeholders-variables): `only_one_wall_top`, `only_one_wall_first_layer`.  
+[Variables](built_in_placeholders_variables): `only_one_wall_top`, `only_one_wall_first_layer`.  
 Use only one wall on flat surfaces, to give more space to the [top infill pattern](strength_settings_top_bottom_shells#surface-pattern).
 Specially useful in small features, like letters, where the top surface is very small and [concentric pattern](strength_settings_patterns#concentric) from walls would not cover it properly.
 
@@ -87,7 +87,7 @@ Specially useful in small features, like letters, where the top surface is very 
 
 ### Threshold
 
-[Variable](built-in-placeholders-variables): `min_width_top_surface`.  
+[Variable](built_in_placeholders_variables): `min_width_top_surface`.  
 If a top surface has to be printed and it's partially covered by another layer, it won't be considered at a top layer where its width is below this value. This can be useful to not let the 'one perimeter on top' trigger on surface that should be covered only by perimeters.  
 This value can be a mm or a % of the perimeter extrusion width.
 
@@ -98,7 +98,7 @@ This value can be a mm or a % of the perimeter extrusion width.
 
 ## Avoid crossing walls
 
-[Variable](built-in-placeholders-variables): `reduce_crossing_wall`.  
+[Variable](built_in_placeholders_variables): `reduce_crossing_wall`.  
 This option instructs the slicer to avoid crossing perimeters (walls) during travel moves.  
 Instead of traveling directly through a wall, the print head will detour around it, which can significantly reduce surface defects and stringing.
 
@@ -112,7 +112,7 @@ Highly recommended for detailed or aesthetic prints.
 
 ### Max detour length
 
-[Variable](built-in-placeholders-variables): `max_travel_detour_distance`.  
+[Variable](built_in_placeholders_variables): `max_travel_detour_distance`.  
 Defines the maximum distance the printer is allowed to detour to avoid crossing a wall.
 Can be set as:
 
@@ -124,7 +124,7 @@ Use this setting to balance between print time and wall quality—longer detours
 
 ## Small area flow compensation
 
-[Variable](built-in-placeholders-variables): `small_area_infill_flow_compensation`.  
+[Variable](built_in_placeholders_variables): `small_area_infill_flow_compensation`.  
 Enables adaptive flow control for small infill areas.
 This feature helps address extrusion problems that often occur in small regions of solid infill, such as the tops of narrow letters or fine features.  
 In these cases, standard extrusion flow may be too much for the available space, leading to over-extrusion or poor surface quality.

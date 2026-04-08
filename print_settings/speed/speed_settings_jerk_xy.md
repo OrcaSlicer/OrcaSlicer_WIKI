@@ -12,7 +12,7 @@
 - **[Junction Deviation](#junction-deviation)**: Modern method, calculates cornering speed based on acceleration and speed.
 
 > [!TIP]
-> Calibrate your Cornering Values using the [Cornering Calibration guide](cornering-calib).
+> Calibrate your Cornering Values using the [Cornering Calibration guide](cornering_calib).
 
 ## Key Effects
 
@@ -23,7 +23,7 @@
 This setting overrides firmware jerk values when different motion types need specific settings. Orca limits jerk to not exceed the Printer's Motion Ability settings.
 
 > [!TIP]
-> Jerk can work in conjunction with [Pressure Advance](pressure-advance-calib), [Adaptive Pressure Advance](adaptive-pressure-advance-calib), and [Input Shaping](input-shaping-calib) to optimize print quality and speed.  
+> Jerk can work in conjunction with [Pressure Advance](pressure_advance_calib), [Adaptive Pressure Advance](adaptive_pressure_advance_calib), and [Input Shaping](input_shaping_calib) to optimize print quality and speed.  
 > It's recommended to follow the [calibration guide](calibration) order for best results.
 
 - [Cornering Control Types](#cornering-control-types)
@@ -40,7 +40,7 @@ This setting overrides firmware jerk values when different motion types need spe
 
 ## Default
 
-[Variable](built-in-placeholders-variables): `default_jerk`.  
+[Variable](built_in_placeholders_variables): `default_jerk`.  
 Default Jerk value.
 
 > [!NOTE]
@@ -48,37 +48,37 @@ Default Jerk value.
 
 ### Outer wall
 
-[Variable](built-in-placeholders-variables): `outer_wall_jerk`.  
+[Variable](built_in_placeholders_variables): `outer_wall_jerk`.  
 Jerk for outer wall printing. This is usually set to a lower value than normal printing to ensure better quality.
 
 ### Inner wall
 
-[Variable](built-in-placeholders-variables): `inner_wall_jerk`.  
+[Variable](built_in_placeholders_variables): `inner_wall_jerk`.  
 Jerk for inner wall printing. This is usually set to a higher but still reasonable value than outer wall printing to improve speed.
 
 ### Infill
 
-[Variable](built-in-placeholders-variables): `infill_jerk`.  
+[Variable](built_in_placeholders_variables): `infill_jerk`.  
 Jerk for infill printing. This is usually set to a value higher than inner wall printing to improve speed.
 
 ### Top surface
 
-[Variable](built-in-placeholders-variables): `top_surface_jerk`.  
+[Variable](built_in_placeholders_variables): `top_surface_jerk`.  
 Jerk for top surface printing. This is usually set to a lower value than infill to ensure better quality.
 
 ### Initial layer
 
-[Variable](built-in-placeholders-variables): `initial_layer_jerk`.  
+[Variable](built_in_placeholders_variables): `initial_layer_jerk`.  
 Jerk for initial layer printing. This is usually set to a lower value than top surface to improve adhesion.
 
 ### Travel
 
-[Variable](built-in-placeholders-variables): `travel_jerk`.  
+[Variable](built_in_placeholders_variables): `travel_jerk`.  
 Jerk for travel printing. This is usually set to a higher value than infill to reduce travel time.
 
 ## Junction Deviation
 
-[Variable](built-in-placeholders-variables): `default_junction_deviation`.  
+[Variable](built_in_placeholders_variables): `default_junction_deviation`.  
 Alternative to Jerk, Junction Deviation is the default method for controlling cornering speed in Marlin 2 printers.  
 Higher values result in more aggressive cornering speeds, while lower values produce smoother, more controlled cornering.
 
@@ -99,5 +99,5 @@ $$
 - [JD Explained and Visualized, by Paul Wanamaker](https://reprap.org/forum/read.php?1,739819)
 - [Computing JD for Marlin Firmware](https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html)
 - [Improving GRBL: Cornering Algorithm](https://onehossshay.wordpress.com/2011/09/24/improving_grbl_cornering_algorithm/)
-- [Pressure Advance Calibration](pressure-advance-calib)
-- [Adaptive Pressure Advance](adaptive-pressure-advance-calib)
+- [Pressure Advance Calibration](pressure_advance_calib)
+- [Adaptive Pressure Advance](adaptive_pressure_advance_calib)

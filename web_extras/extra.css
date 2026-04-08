@@ -338,7 +338,7 @@ img[height="200"] { /* Calibrations guide preview */
 /* /////// PAGE SPESIFIC CHANGES */
 /* :has selector might not work on old browsers */
 /* using ~body required to get elements properly */
-head:has(link[rel="canonical"][href$="keyboard-shortcuts.html"])~body td>code {
+head:has(link[rel="canonical"][href$="keyboard_shortcuts.html"])~body td>code {
   background-color: transparent;
   color: var(--md-typeset-color);
   font-weight: 550;

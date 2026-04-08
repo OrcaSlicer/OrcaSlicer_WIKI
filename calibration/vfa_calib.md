@@ -4,8 +4,8 @@ Vertical Fine Artifacts (VFA) are small surface imperfections that appear on ver
 
 - **Mechanical adjustments**, such as tuning or replacing motors, belts, or pulleys.
 - **MMR (Motor Resonance Rippling)** is a common subtype of VFA caused by stepper motors vibrating at resonant frequencies, leading to periodic ripples on the surface.
-- **[Jerk/Junction Deviation](cornering-calib)** settings can also contribute to VFA, as they control how the printer handles rapid changes in direction.
-- **[Input Shaping](input-shaping-calib)** can help mitigate VFA by reducing vibrations during printing.
+- **[Jerk/Junction Deviation](cornering_calib)** settings can also contribute to VFA, as they control how the printer handles rapid changes in direction.
+- **[Input Shaping](input_shaping_calib)** can help mitigate VFA by reducing vibrations during printing.
 
 ## VFA Test
 

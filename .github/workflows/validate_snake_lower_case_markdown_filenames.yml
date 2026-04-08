@@ -1,4 +1,4 @@
-name: Validate Lowercase Markdown Filenames
+name: Validate snake_lower_case Markdown Filenames
 
 on:
   pull_request:

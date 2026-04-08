@@ -59,10 +59,10 @@ Each section can have multiple pages covering specific topics. For example, the 
 
 GitHub Wiki uses file names as page identifiers. To link to a page, use the file name without the `.md` extension. If a file lives in a subdirectory, **do not include the subdirectory** in the link; link directly to the file name from the Home page.
 
-For example, if you add `calibration/flow-ratio-calib.md`, link it like this:
+For example, if you add `calibration/flow_ratio_calib.md`, link it like this:
 
 ```markdown
-[Flow Ratio Calibration](flow-ratio-calib)
+[Flow Ratio Calibration](flow_ratio_calib)
 ```
 
 For long pages, include a table of contents at the top to help readers find sections quickly.
@@ -103,7 +103,7 @@ When creating new pages, follow these file-naming conventions:
 - Use unique file names to avoid conflicts.
 - Use descriptive names that reflect the page's content.
 - Use snake_case for filenames (e.g.: `how_to_wiki.md`).
-- If a page belongs to a section, include a suffix that clarifies it (for example, calibration pages should end with `-calib.md`, e.g. `flow-ratio-calib.md`).
+- If a page belongs to a section, include a suffix that clarifies it (for example, calibration pages should end with `-calib.md`, e.g. `flow_ratio_calib.md`).
 - Place files in the appropriate subdirectory when applicable (e.g.: `calibration/` for calibration-related content).
 
 ## Orca to Wiki Redirection

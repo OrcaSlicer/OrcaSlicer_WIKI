@@ -8,4 +8,4 @@ This will result in a commented note inside the G-code.
 ```
 
 > [!TIP]
-> Check [Built in placeholders variables](built-in-placeholders-variables) for available tokens and their meanings.
+> Check [Built in placeholders variables](built_in_placeholders_variables) for available tokens and their meanings.

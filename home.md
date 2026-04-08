@@ -13,11 +13,11 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
     - [Others Settings](#others-settings)
 - [Prepare](#prepare)
 - [Calibrations](#calibrations)
-- [General Settings](#general-settings)
+- [General Settings](#general_settings)
 - [Developer Section](#developer-section)
 
 > [!NOTE]
-> Please consider contributing to the wiki following the [How to contribute to the wiki](how-to-wiki) guide.
+> Please consider contributing to the wiki following the [How to contribute to the wiki](how_to_wiki) guide.
 
 ## Printer Settings
 
@@ -187,34 +187,34 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 <img alt="tab_calibration_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_calibration_active.svg?raw=true" height="22"> The [Calibration Guide](calibration) outlines Orca’s key calibration tests and their suggested order of execution.
 
-- [<img alt="param_extruder_temp" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true" height="22"> Temperature](temp-calib)
-- [<img alt="param_volumetric_speed" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true" height="22"> Volumetric Speed](volumetric-speed-calib)
-- [<img alt="param_flow_ratio_and_pressure_advance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true" height="22"> Pressure Advance](pressure-advance-calib)
-    - [Adaptive Pressure Advance Guide](adaptive-pressure-advance-calib)
-- [<img alt="param_line_width" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line_width.svg?raw=true" height="22"> Flow Ratio](flow-ratio-calib)
-- [<img alt="param_retraction" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true" height="22"> Retraction](retraction-calib)
-- [<img alt="param_precision" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_precision.svg?raw=true" height="22"> Tolerance](tolerance-calib)
+- [<img alt="param_extruder_temp" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true" height="22"> Temperature](temp_calib)
+- [<img alt="param_volumetric_speed" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true" height="22"> Volumetric Speed](volumetric_speed_calib)
+- [<img alt="param_flow_ratio_and_pressure_advance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true" height="22"> Pressure Advance](pressure_advance_calib)
+    - [Adaptive Pressure Advance Guide](adaptive_pressure_advance_calib)
+- [<img alt="param_line_width" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line_width.svg?raw=true" height="22"> Flow Ratio](flow_ratio_calib)
+- [<img alt="param_retraction" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true" height="22"> Retraction](retraction_calib)
+- [<img alt="param_precision" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_precision.svg?raw=true" height="22"> Tolerance](tolerance_calib)
 - Advanced:
-    - [<img alt="param_jerk" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_jerk.svg?raw=true" height="22"> Cornering (Jerk & Junction Deviation)](cornering-calib)
-    - [<img alt="param_resonance_avoidance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_resonance_avoidance.svg?raw=true" height="22"> Input Shaping](input-shaping-calib)
-        - [VFA](vfa-calib)
+    - [<img alt="param_jerk" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_jerk.svg?raw=true" height="22"> Cornering (Jerk & Junction Deviation)](cornering_calib)
+    - [<img alt="param_resonance_avoidance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_resonance_avoidance.svg?raw=true" height="22"> Input Shaping](input_shaping_calib)
+        - [VFA](vfa_calib)
 
 ## General Settings
 
 - [Import and Export](import_export)
-- [Keyboard Shortcuts](keyboard-shortcuts)
+- [Keyboard Shortcuts](keyboard_shortcuts)
 
 ## Developer Section
 
 <img alt="im_code" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/im_code.svg?raw=true" height="22"> This is a documentation from someone exploring the code and is by no means complete or even completely accurate. Please edit the parts you might find inaccurate. This is probably going to be helpful nonetheless.
 
-- [How to build OrcaSlicer](how-to-build)
-- [How to run tests](how-to-test)
+- [How to build OrcaSlicer](how_to_build)
+- [How to run tests](how_to_test)
 - [Localization and translation guide](localization_guide)
-- [How to create profiles](how-to-create-profiles)
-- [How to contribute to the wiki](how-to-wiki)
-- [Preset, PresetBundle and PresetCollection](preset-and-bundle)
-- [Plater, Sidebar, Tab, ComboBox](plater-sidebar-tab-combobox)
-- [Built-in placeholders & variables](built-in-placeholders-variables)
-- [Slicing Call Hierarchy](slicing-hierarchy)
-- [How to Download Pull Requests Artifacts for Testing](how-to-download-PR-artifacts)
+- [How to create profiles](how_to_create_profiles)
+- [How to contribute to the wiki](how_to_wiki)
+- [Preset, PresetBundle and PresetCollection](preset_and_bundle)
+- [Plater, Sidebar, Tab, ComboBox](plater_sidebar_tab_combobox)
+- [Built-in placeholders & variables](built_in_placeholders_variables)
+- [Slicing Call Hierarchy](slicing_hierarchy)
+- [How to Download Pull Requests Artifacts for Testing](how_to_download_pr_artifacts)

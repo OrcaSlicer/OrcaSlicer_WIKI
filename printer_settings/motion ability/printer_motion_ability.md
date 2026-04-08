@@ -13,21 +13,21 @@ Settings related to the motion capabilities of the printer.
 
 ## Emit limits to G-code
 
-[Variable](built-in-placeholders-variables): `emit_machine_limits_to_gcode`.  
+[Variable](built_in_placeholders_variables): `emit_machine_limits_to_gcode`.  
 If enabled, the machine limits will be emitted to G-code file.
 This option will be ignored if the G-code flavor is set to Klipper.
 
 ## Resonance Avoidance
 
-[Variable](built-in-placeholders-variables): `resonance_avoidance`.  
+[Variable](built_in_placeholders_variables): `resonance_avoidance`.  
 
 ### Resonance Avoidance Speed
 
-[Variables](built-in-placeholders-variables): `min_resonance_avoidance_speed`, `max_resonance_avoidance_speed`.  
+[Variables](built_in_placeholders_variables): `min_resonance_avoidance_speed`, `max_resonance_avoidance_speed`.  
 By reducing the speed of the outer wall to avoid the resonance zone of the printer, ringing on the surface of the model are avoided.
 
 > [!TIP]
-> Check the [VFA Calibration](vfa-calib).
+> Check the [VFA Calibration](vfa_calib).
 
 ## Speed limitation
 
@@ -36,7 +36,7 @@ This will cap the speed set by the process if it exceeds these values.
 
 ## Acceleration limitation
 
-[Variables](built-in-placeholders-variables): `machine_max_acceleration_x`, `machine_max_acceleration_y`, `machine_max_acceleration_z`, `machine_max_acceleration_e`, `machine_max_acceleration_extruding`, `machine_max_acceleration_retracting`, `machine_max_acceleration_travel`.  
+[Variables](built_in_placeholders_variables): `machine_max_acceleration_x`, `machine_max_acceleration_y`, `machine_max_acceleration_z`, `machine_max_acceleration_e`, `machine_max_acceleration_extruding`, `machine_max_acceleration_retracting`, `machine_max_acceleration_travel`.  
 Safeguard maximum accelerations for all axes.
 This will cap the acceleration set by the process if it exceeds these values.
 
@@ -45,14 +45,14 @@ This will cap the acceleration set by the process if it exceeds these values.
 Safeguard maximum jerks for all axes.
 
 > [!TIP]
-> Check the [Cornering Calibration](cornering-calib).
+> Check the [Cornering Calibration](cornering_calib).
 
 ### Maximum Junction Deviation
 
-[Variable](built-in-placeholders-variables): `machine_max_junction_deviation`.  
+[Variable](built_in_placeholders_variables): `machine_max_junction_deviation`.  
 Maximum junction deviation (M205 J, only apply if JD > 0 for Marlin Firmware. If your Marlin 2 printer uses Classic Jerk set this value to 0.)
 
 ### Maximum Jerk
 
-[Variables](built-in-placeholders-variables): `machine_max_jerk_z`, `machine_max_jerk_x`, `machine_max_jerk_y`, `machine_max_jerk_e`.  
+[Variables](built_in_placeholders_variables): `machine_max_jerk_z`, `machine_max_jerk_x`, `machine_max_jerk_y`, `machine_max_jerk_e`.  
 Maximum jerk for each axis (M205 X, Y, Z, E, only apply if JD = 0 for Marlin 2 Firmware)

@@ -25,7 +25,7 @@ The results from these methods should be saved to the material profile.
 ![pressure_advance_enable](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pressure_advance_enable.png?raw=true)
 
 > [!TIP]
-> Consider using the [Adaptive Pressure Advance](adaptive-pressure-advance-calib) method for more accurate results.  
+> Consider using the [Adaptive Pressure Advance](adaptive_pressure_advance_calib) method for more accurate results.  
 > Especially for high-speed printers.
 
 ### Tower method

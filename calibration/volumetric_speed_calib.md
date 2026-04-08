@@ -6,7 +6,7 @@
 > Even for the same material type (e.g., PLA), the **brand** and **color** can significantly affect the maximum flow rate.
 
 > [!TIP]
-> If you're planning to increase speed or flow, it’s a good idea to **increase your nozzle temperature**, preferably toward the higher end of the recommended range for your filament. Use a [temperature tower calibration](temp-calib#nozzle-temp-tower) to find that range.
+> If you're planning to increase speed or flow, it’s a good idea to **increase your nozzle temperature**, preferably toward the higher end of the recommended range for your filament. Use a [temperature tower calibration](temp_calib#nozzle-temp-tower) to find that range.
 
 ## Calibration Overview
 

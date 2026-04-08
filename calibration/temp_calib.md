@@ -20,4 +20,4 @@ Once the print is complete, we can examine each block of the tower and determine
 
 > [!NOTE]
 > If a range of temperatures looks good, you may want to use the middle of that range as the optimal temperature.  
-> But if you are planning to print at higher [speeds](speed_settings_other_layers_speed)/[flow rates](volumetric-speed-calib), you may want to use the higher end of that range as the optimal temperature.
+> But if you are planning to print at higher [speeds](speed_settings_other_layers_speed)/[flow rates](volumetric_speed_calib), you may want to use the higher end of that range as the optimal temperature.

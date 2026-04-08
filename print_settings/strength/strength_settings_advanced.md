@@ -10,7 +10,7 @@
 
 ## Align infill direction to model
 
-[Variable](built-in-placeholders-variables): `align_infill_direction_to_model`.  
+[Variable](built_in_placeholders_variables): `align_infill_direction_to_model`.  
 Aligns infill and surface fill directions to follow the model's orientation on the build plate.  
 When enabled, fill directions rotate with the model to maintain optimal characteristics.
 
@@ -18,27 +18,27 @@ When enabled, fill directions rotate with the model to maintain optimal characte
 
 ## Bridge infill direction
 
-[Variables](built-in-placeholders-variables): `bridge_angle`, `internal_bridge_angle`.  
+[Variables](built_in_placeholders_variables): `bridge_angle`, `internal_bridge_angle`.  
 Bridging angle override.  
 If left at zero, the bridging angle will be calculated automatically. Otherwise, the provided angle will be used for bridges.  
 Use 180° to represent a zero angle.
 
 ## Minimum sparse infill threshold
 
-[Variable](built-in-placeholders-variables): `minimum_sparse_infill_area`.  
+[Variable](built_in_placeholders_variables): `minimum_sparse_infill_area`.  
 Sparse infill areas smaller than the threshold value are replaced by [internal solid infill](strength_settings_infill#internal-solid-infill).
 This setting helps to ensure that small areas of sparse infill do not compromise the strength of the print. It is particularly useful for models with intricate designs or small features where sparse infill may not provide sufficient support.
 
 ## Infill Combination
 
-[Variable](built-in-placeholders-variables): `infill_combination`.  
+[Variable](built_in_placeholders_variables): `infill_combination`.  
 Automatically combine [sparse infill](strength_settings_infill) of several layers so they print together and reduce print time and while increasing strength. While walls are still printed with the original [layer height](quality_settings_layer_height).
 
 ![fill-combination](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-combination.png?raw=true)
 
 ### Max layer height
 
-[Variable](built-in-placeholders-variables): `infill_combination_max_layer_height`.  
+[Variable](built_in_placeholders_variables): `infill_combination_max_layer_height`.  
 Maximum layer height for the combined sparse infill.  
 Set it to 0 or 100% to use the nozzle diameter (for maximum reduction in print time), or to a value of ~80% to maximize sparse infill strength.
 
@@ -48,12 +48,12 @@ Use either absolute mm values (e.g., 0.32mm for a 0.4mm nozzle) or percentages (
 
 ## Detect narrow internal solid infill
 
-[Variable](built-in-placeholders-variables): `detect_narrow_internal_solid_infill`.  
+[Variable](built_in_placeholders_variables): `detect_narrow_internal_solid_infill`.  
 This option auto-detects narrow internal solid infill areas. If enabled, the [concentric pattern](strength_settings_patterns#concentric) will be used in those areas to speed up printing. Otherwise, the [rectilinear pattern](strength_settings_patterns#rectilinear) will be used by default.
 
 ## Ensure vertical shell thickness
 
-[Variable](built-in-placeholders-variables): `ensure_vertical_shell_thickness`.  
+[Variable](built_in_placeholders_variables): `ensure_vertical_shell_thickness`.  
 Add solid infill near sloping surfaces to guarantee the vertical shell thickness (top and bottom solid layers).
 
 - **None**: No solid infill will be added anywhere. **Caution:** Use this option carefully if your model has sloped surfaces.

@@ -26,7 +26,7 @@ EXCLUDED_FOLDERS = {
 DISPLAY_NAME_OVERRIDES = {
     # Examples:
     # "print_settings": "Process Settings",
-    # "developer-reference": "Developer Section",
+    # "developer_reference": "Developer Section",
 }
 
 
@@ -106,7 +106,7 @@ def get_sort_key(path: Path) -> tuple:
     if any(x in name for x in ['other', 'misc', 'dependencies']):
         return (9, name)
     # Developer reference goes to the bottom
-    if name == 'developer-reference':
+    if name == 'developer_reference':
         return (10, name)
 
     return (5, name)  # Default: middle priority, alphabetical

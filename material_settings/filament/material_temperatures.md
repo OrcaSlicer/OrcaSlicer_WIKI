@@ -3,7 +3,7 @@
 Set the temperatures for the selected material.
 
 > [!TIP]
-> Check [Temperature calibration](temp-calib) to find the optimal nozzle temperature for your filament.
+> Check [Temperature calibration](temp_calib) to find the optimal nozzle temperature for your filament.
 
 - [Standard Temperature Ranges](#standard-temperature-ranges)
 - [Nozzle](#nozzle)
@@ -14,7 +14,7 @@ Set the temperatures for the selected material.
 
 The following table lists the standard temperature ranges for common 3D printing materials.  
 Actual optimal temperatures may vary based on specific filament brands and printer models.  
-Always refer to the filament manufacturer's recommendations and [calibrations](temp-calib) for best results.
+Always refer to the filament manufacturer's recommendations and [calibrations](temp_calib) for best results.
 
 |   Material   | [Nozzle Temp (°C)](#nozzle)  | [Bed Temp (°C)](#bed)  | [Chamber Temp (°C)](#print-chamber-temperature)  |
 |:------------:|:----------------------------:|:----------------------:|:------------------------------------------------:|
@@ -38,7 +38,7 @@ You can set a higher temperature for the first layer to improve bed adhesion but
 
 ## Bed
 
-[Variables](built-in-placeholders-variables): `supertack_plate_temp_initial_layer`, `supertack_plate_temp`, `cool_plate_temp_initial_layer`, `cool_plate_temp`, `textured_cool_plate_temp_initial_layer`, `textured_cool_plate_temp`, `eng_plate_temp_initial_layer`, `eng_plate_temp`, `hot_plate_temp_initial_layer`, `hot_plate_temp`, `textured_plate_temp_initial_layer`, `textured_plate_temp`.  
+[Variables](built_in_placeholders_variables): `supertack_plate_temp_initial_layer`, `supertack_plate_temp`, `cool_plate_temp_initial_layer`, `cool_plate_temp`, `textured_cool_plate_temp_initial_layer`, `textured_cool_plate_temp`, `eng_plate_temp_initial_layer`, `eng_plate_temp`, `hot_plate_temp_initial_layer`, `hot_plate_temp`, `textured_plate_temp_initial_layer`, `textured_plate_temp`.  
 Set the bed temperature for the selected material for First Layer and Other Layers for each Bed type if [Support multi bed types](printer_basic_information_printable_space#support-multi-bed-types) is enabled in printer settings.  
 Using a higher temperature for the first layer can help improve adhesion to the build surface but be cautious of potential deformations like [elephant foot](quality_settings_precision#elephant-foot-compensation).
 
@@ -59,7 +59,7 @@ In general, following the manufacturer’s recommendations, maintaining a clean 
 
 ## Print Chamber Temperature
 
-[Variables](built-in-placeholders-variables): `chamber_temperature`, `activate_chamber_temp_control`.  
+[Variables](built_in_placeholders_variables): `chamber_temperature`, `activate_chamber_temp_control`.  
 Chamber temperature can affect the print quality, especially for high-temperature filaments.  
 A heated chamber can help to maintain a consistent temperature throughout the print, reducing the risk of warping and improving layer adhesion. However, it is important to monitor the chamber temperature to ensure that it does not exceed the filament's deformation temperature.
 
