@@ -104,6 +104,11 @@ jobs:
                   failures.push(formatFailure(reference, 'sameDocEmptyAnchor', reference.target));
                   continue;
                 }
+                const decodedAnchor = decodeLinkComponent(classification.anchorRaw);
+                if (!isKebabCase(decodedAnchor)) {
+                  failures.push(formatFailure(reference, 'anchorNotKebabCase', `#${classification.anchorRaw}`));
+                  continue;
+                }
                 const anchors = getAnchors(reference.filePath);
                 if (!anchors.has(classification.anchorSlug)) {
                   failures.push(formatFailure(reference, 'missingSameDocAnchor', `#${classification.anchorRaw}`));
@@ -129,6 +134,12 @@ jobs:
 
                 if (!classification.anchorSlug) {
                   failures.push(formatFailure(reference, 'crossDocEmptyAnchor', reference.target));
+                  continue;
+                }
+
+                const decodedAnchor = decodeLinkComponent(classification.anchorRaw);
+                if (!isKebabCase(decodedAnchor)) {
+                  failures.push(formatFailure(reference, 'anchorNotKebabCase', `${docResult.linkPath}#${classification.anchorRaw}`));
                   continue;
                 }
 
@@ -238,6 +249,12 @@ jobs:
                 return result;
               }
 
+              if (!isSnakeCase(sanitized)) {
+                result.error = 'docNotSnakeCase';
+                result.detail = rawPath;
+                return result;
+              }
+
               ensureMarkdownIndex();
               const matches = findMarkdownDocuments(sanitized);
               if (!matches.length) {
@@ -309,6 +326,24 @@ jobs:
 
             function findMarkdownDocuments(baseName) {
               return markdownNameIndex.get(baseName) || [];
+            }
+
+            function isSnakeCase(value) {
+              return /^[a-z0-9]+(?:_[a-z0-9]+)*$/.test(value);
+            }
+
+            function isKebabCase(value) {
+              return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
+            }
+
+            function decodeLinkComponent(value) {
+              let decoded = value.trim();
+              try {
+                decoded = decodeURIComponent(decoded);
+              } catch (_) {
+                // Ignore decode failure.
+              }
+              return decoded;
             }
 
             function getAnchors(relativePath) {
@@ -417,6 +452,8 @@ jobs:
                   return `${reference.filePath} line ${reference.line}: document links must not include directories; use just the filename (got "${details}").`;
                 case 'extensionNotAllowed':
                   return `${reference.filePath} line ${reference.line}: link target "${details}" must omit the .md suffix.`;
+                case 'docNotSnakeCase':
+                  return `${reference.filePath} line ${reference.line}: document name "${details}" must be snake_case.`;
                 case 'missingDocName':
                   return `${reference.filePath} line ${reference.line}: document link "${details}" must include a file name (without .md).`;
                 case 'missingDocument':
@@ -425,6 +462,8 @@ jobs:
                   return `${reference.filePath} line ${reference.line}: document link matches multiple files (${details}).`;
                 case 'crossDocEmptyAnchor':
                   return `${reference.filePath} line ${reference.line}: link to ${details} must include a heading name after '#'.`;
+                case 'anchorNotKebabCase':
+                  return `${reference.filePath} line ${reference.line}: heading reference ${details} must be kebab-case.`;
                 case 'missingCrossDocAnchor':
                   return `${reference.filePath} line ${reference.line}: heading ${details} was not found.`;
                 case 'invalidHashCount':
