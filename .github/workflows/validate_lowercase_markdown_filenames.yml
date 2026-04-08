@@ -68,6 +68,10 @@ jobs:
                   continue;
                 }
 
+                if (relativePath === 'README.md') {
+                  continue;
+                }
+
                 if (entry.name !== entry.name.toLowerCase()) {
                   failures.push(relativePath.replace(/\\/g, '/'));
                 }
