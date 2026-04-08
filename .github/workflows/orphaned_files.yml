@@ -78,9 +78,8 @@ jobs:
             const nameIndex = new Map();
             for (const p of markdownFiles) {
               const baseName = path.basename(p, path.extname(p));
-              const lower = baseName.toLowerCase();
-              if (!nameIndex.has(lower)) nameIndex.set(lower, []);
-              nameIndex.get(lower).push(p);
+              if (!nameIndex.has(baseName)) nameIndex.set(baseName, []);
+              nameIndex.get(baseName).push(p);
             }
 
             // A regex to capture markdown links: [text](url) but ignore images and code blocks
@@ -137,8 +136,8 @@ jobs:
               let sanitized = rawPath.replace(/\\/g, '/');
               if (sanitized.startsWith('/')) sanitized = sanitized.slice(1);
               // Since references never contain paths, only names, always resolve by basename
-              const lower = path.basename(sanitized, path.extname(sanitized)).toLowerCase();
-              const matches = nameIndex.get(lower) || [];
+              const baseName = path.basename(sanitized, path.extname(sanitized));
+              const matches = nameIndex.get(baseName) || [];
               if (matches.length === 1) return matches[0];
               if (matches.length > 1) {
                 // prefer candidate in the same folder as source file

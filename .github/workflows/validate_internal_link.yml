@@ -296,7 +296,7 @@ jobs:
                 if (entry.isDirectory()) {
                   indexMarkdownFiles(relativePath);
                 } else if (entry.isFile() && entry.name.toLowerCase().endsWith('.md')) {
-                  const key = entry.name.slice(0, -3).toLowerCase();
+                  const key = entry.name.slice(0, -3);
                   const normalized = relativePath.replace(/\\/g, '/');
                   if (markdownNameIndex.has(key)) {
                     markdownNameIndex.get(key).push(normalized);
@@ -308,8 +308,7 @@ jobs:
             }
 
             function findMarkdownDocuments(baseName) {
-              const key = baseName.toLowerCase();
-              return markdownNameIndex.get(key) || [];
+              return markdownNameIndex.get(baseName) || [];
             }
 
             function getAnchors(relativePath) {
@@ -365,14 +364,15 @@ jobs:
               return anchors;
             }
 
-            function slugify(value) {
+            function slugify(value, options = {}) {
+              const preserveCase = options.preserveCase === true;
               const normalized = value
                 .normalize('NFKD')
                 .replace(/[\u0300-\u036f]/g, '')
-                .trim()
-                .toLowerCase();
-              const cleaned = normalized
-                .replace(/[^a-z0-9\s-]/g, '')
+                .trim();
+              const cased = preserveCase ? normalized : normalized.toLowerCase();
+              const cleaned = cased
+                .replace(preserveCase ? /[^A-Za-z0-9\s-]/g : /[^a-z0-9\s-]/g, '')
                 .replace(/\s+/g, '-')
                 .replace(/-+/g, '-');
               return cleaned;
@@ -388,7 +388,7 @@ jobs:
               } catch (_) {
                 // Ignore decode failure.
               }
-              return slugify(decoded);
+              return slugify(decoded, { preserveCase: true });
             }
 
             function lineFromIndex(text, index) {
