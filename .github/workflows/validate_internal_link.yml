@@ -333,7 +333,7 @@ jobs:
             }
 
             function isKebabCase(value) {
-              return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
+              return /^[a-z0-9]+(?:-+[a-z0-9]+)*$/.test(value);
             }
 
             function decodeLinkComponent(value) {
