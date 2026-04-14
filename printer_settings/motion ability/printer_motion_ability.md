@@ -8,8 +8,8 @@ Settings related to the motion capabilities of the printer.
 - [Speed limitation](#speed-limitation)
 - [Acceleration limitation](#acceleration-limitation)
 - [Jerk limitation](#jerk-limitation)
-    - [Maximum Junction Deviation](#maximum-junction-deviation)
     - [Maximum Jerk](#maximum-jerk)
+    - [Maximum Junction Deviation](#maximum-junction-deviation)
 
 ## Emit limits to G-code
 
@@ -47,12 +47,12 @@ Safeguard maximum jerks for all axes.
 > [!TIP]
 > Check the [Cornering Calibration](cornering_calib).
 
-### Maximum Junction Deviation
-
-[Variable](built_in_placeholders_variables): `machine_max_junction_deviation`.  
-Maximum junction deviation (M205 J, only apply if JD > 0 for Marlin Firmware. If your Marlin 2 printer uses Classic Jerk set this value to 0.)
-
 ### Maximum Jerk
 
 [Variables](built_in_placeholders_variables): `machine_max_jerk_z`, `machine_max_jerk_x`, `machine_max_jerk_y`, `machine_max_jerk_e`.  
-Maximum jerk for each axis (M205 X, Y, Z, E, only apply if JD = 0 for Marlin 2 Firmware)
+Maximum [jerk](speed_settings_jerk_xy) for each axis (M205 X, Y, Z, E, only apply if JD = 0 for Marlin 2 Firmware)
+
+### Maximum Junction Deviation
+
+[Variable](built_in_placeholders_variables): `machine_max_junction_deviation`.  
+Maximum [junction deviation](speed_settings_jerk_xy#junction-deviation) (M205 J, only apply if JD > 0 for Marlin Firmware. If your Marlin 2 printer uses Classic Jerk set this value to 0.)

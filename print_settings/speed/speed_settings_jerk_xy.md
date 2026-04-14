@@ -2,32 +2,9 @@
 
 **Jerk** is the rate of change of acceleration and how quickly your printer can change between different accelerations. It controls direction changes and velocity transitions during movement.
 
-## Cornering Control Types
-
-- **Jerk**: Traditional method, sets a maximum speed for direction changes.
-    - Klipper: [Square corner velocity](https://www.klipper3d.org/Config_Reference.html#printer)
-    - RepRapFirmware: [Maximum instantaneous speed changes](https://docs.duet3d.com/User_manual/Reference/Gcodes#m566-set-allowable-instantaneous-speed-change)
-    - Marlin 2: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-) (deprecated in favor of [Junction Deviation](https://marlinfw.org/docs/configuration/configuration.html#junction-deviation-)) but can still be used.
-    - Marlin Legacy: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-).
-- **[Junction Deviation](#junction-deviation)**: Modern method, calculates cornering speed based on acceleration and speed.
-
-> [!TIP]
-> Calibrate your Cornering Values using the [Cornering Calibration guide](cornering_calib).
-
-## Key Effects
-
-- **Corner Control**: Lower values = smoother corners, better quality. Higher values = faster cornering, potential artifacts
-- **Print Speed**: Higher jerk reduces deceleration at direction changes, increasing overall speed
-- **Surface Quality**: Lower jerk minimizes vibrations and ringing, especially important for outer walls
-
-This setting overrides firmware jerk values when different motion types need specific settings. Orca limits jerk to not exceed the Printer's Motion Ability settings.
-
-> [!TIP]
-> Jerk can work in conjunction with [Pressure Advance](pressure_advance_calib), [Adaptive Pressure Advance](adaptive_pressure_advance_calib), and [Input Shaping](input_shaping_calib) to optimize print quality and speed.  
-> It's recommended to follow the [calibration guide](calibration_guide) order for best results.
-
-- [Cornering Control Types](#cornering-control-types)
 - [Key Effects](#key-effects)
+- [Cornering Control Types](#cornering-control-types)
+    - [Junction Deviation](#junction-deviation)
 - [Default](#default)
     - [Outer wall](#outer-wall)
     - [Inner wall](#inner-wall)
@@ -35,8 +12,51 @@ This setting overrides firmware jerk values when different motion types need spe
     - [Top surface](#top-surface)
     - [Initial layer](#initial-layer)
     - [Travel](#travel)
-- [Junction Deviation](#junction-deviation)
 - [Useful links](#useful-links)
+
+## Key Effects
+
+- **Corner Control**:
+    - Lower values = smoother corners, better quality.
+    - Higher values = faster cornering, potential artifacts.
+- **Print Speed**: Higher jerk reduces deceleration at direction changes, increasing overall speed.
+- **Surface Quality**: Lower jerk minimizes vibrations and ringing, especially important for outer walls.
+
+This setting overrides firmware jerk values when different motion types need specific settings. Orca limits jerk to not exceed the Printer's Motion Ability settings.
+
+> [!TIP]
+> Jerk can work in conjunction with [Pressure Advance](pressure_advance_calib), [Adaptive Pressure Advance](adaptive_pressure_advance_calib), and [Input Shaping](input_shaping_calib) to optimize print quality and speed.  
+> It's recommended to follow the [calibration guide](calibration_guide) order for best results.
+
+## Cornering Control Types
+
+- **Jerk**: Traditional method, sets a maximum speed for direction changes.
+    - Klipper: [Square corner velocity](https://www.klipper3d.org/Config_Reference.html#printer)
+    - RepRapFirmware: [Maximum instantaneous speed changes](https://docs.duet3d.com/User_manual/Reference/Gcodes#m566-set-allowable-instantaneous-speed-change)
+    - Marlin 2: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-) (deprecated in favor of [Junction Deviation](https://marlinfw.org/docs/configuration/configuration.html#junction-deviation-)) but can still be used.
+    - Marlin Legacy: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-).
+- **[Junction Deviation](#junction-deviation)**: Modern method, calculates cornering speed based on acceleration.
+
+> [!TIP]
+> Calibrate your Cornering Values using the [Cornering Calibration guide](cornering_calib).
+
+### Junction Deviation
+
+[Variable](built_in_placeholders_variables): `default_junction_deviation`.  
+Alternative to Jerk, Junction Deviation is the default method for controlling cornering speed in Marlin 2 printers.  
+Instead of setting a cornering speed for each line type, it calculates the cornering speed based on the [each line's acceleration](speed_settings_acceleration) and speed using the formula:
+
+$$
+JD = 0,4 \cdot \frac{\text{Jerk}^2}{\text{Accel.}}
+$$
+
+Higher values result in faster and more aggressive cornering speeds, while lower values produce smoother, more controlled cornering.
+
+> [!NOTE]
+> Classic Jerk can still be used in Marlin 2, but it is deprecated in favor of Junction Deviation.  
+> If your printer uses Classic Jerk, you need to set your Junction Deviation to `0` to enable the use of Classic Jerk.
+
+This value is limited by [Printer settings > Motion ability > Maximum Junction Deviation](printer_motion_ability#maximum-junction-deviation).
 
 ## Default
 
@@ -75,22 +95,6 @@ Jerk for initial layer printing. This is usually set to a lower value than top s
 
 [Variable](built_in_placeholders_variables): `travel_jerk`.  
 Jerk for travel printing. This is usually set to a higher value than infill to reduce travel time.
-
-## Junction Deviation
-
-[Variable](built_in_placeholders_variables): `default_junction_deviation`.  
-Alternative to Jerk, Junction Deviation is the default method for controlling cornering speed in Marlin 2 printers.  
-Higher values result in more aggressive cornering speeds, while lower values produce smoother, more controlled cornering.
-
-> [!NOTE]
-> Classic Jerk can still be used in Marlin 2, but it is deprecated in favor of Junction Deviation.  
-> If your printer uses Classic Jerk, you need to set your Junction Deviation to `0` to enable the use of Classic Jerk.
-
-This value will **only be overwritten** if it is lower than the Junction Deviation value set in Printer settings > Motion ability. If it is higher, the value configured in Motion ability will be used.
-
-$$
-JD = 0,4 \cdot \frac{\text{Jerk}^2}{\text{Accel.}}
-$$
 
 ## Useful links
 
