@@ -125,6 +125,7 @@ nav:
 - "General Settings":
   - "Import and Export": general_settings/import_export.md
   - "Keyboard Shortcuts": general_settings/keyboard_shortcuts.md
+  - "Transfer or Discard Changes popup dialog": general_settings/transfer_discard_changes.md
 - "Material Settings":
   - Cooling:
     - "Material Cooling": material_settings/cooling/material_cooling.md
