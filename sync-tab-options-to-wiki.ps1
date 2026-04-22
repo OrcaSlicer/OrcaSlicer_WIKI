@@ -97,11 +97,13 @@ $tabContent = Get-TabCppContent -Source $TabCppPath
 $patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
 $patternOption = 'append_option_line\(\s*[^,]+\s*,\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
 $patternAppendLineBlock = '(?s)(?<obj>\w+)\.label_path\s*=\s*"(?<ref>[^"]+)"\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
+$patternAppendLineAssignedBlock = '(?s)(?<obj>\w+)\s*=\s*\{.*?\}\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
 $patternForBlock = '(?s)for\s*\(\s*const\s+std::string\s*&\s*(?<iter>\w+)\s*:\s*(?<collection>\w+)\s*\)\s*\{(?<body>.*?)\}'
 
 $singleMatches = [regex]::Matches($tabContent, $patternSingle)
 $optionMatches = [regex]::Matches($tabContent, $patternOption)
 $appendLineMatches = [regex]::Matches($tabContent, $patternAppendLineBlock)
+$appendLineAssignedMatches = [regex]::Matches($tabContent, $patternAppendLineAssignedBlock)
 $forMatches = [regex]::Matches($tabContent, $patternForBlock)
 $stringVectors = Get-StringVectors -Content $tabContent
 
@@ -139,12 +141,47 @@ foreach ($m in $appendLineMatches) {
     $obj = $m.Groups['obj'].Value
     $ref = $m.Groups['ref'].Value.Trim()
     $body = $m.Groups['body'].Value
-    $optPattern = [regex]::Escape($obj) + '\.append_option\(\s*optgroup->get_option\("(?<variable>[^"]+)"\)\s*\)\s*;'
+    $optPattern = '(?s)' + [regex]::Escape($obj) + '\.append_option\(\s*.*?get_option\("(?<variable>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\)\s*\)\s*;'
     $optMatches = [regex]::Matches($body, $optPattern)
 
     foreach ($om in $optMatches) {
+        $variable = $om.Groups['variable'].Value.Trim()
+        $indexer = $om.Groups['indexer'].Value.Trim()
+        if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
+            $variable = "${variable}[$indexer]"
+        }
+
         $rawEntries.Add([PSCustomObject]@{
-            Variable = $om.Groups['variable'].Value.Trim()
+            Variable = $variable
+            Ref      = $ref
+            Index    = [int]($m.Index + $om.Index)
+        })
+    }
+}
+
+foreach ($m in $appendLineAssignedMatches) {
+    $obj = $m.Groups['obj'].Value
+    $body = $m.Groups['body'].Value
+
+    $labelPattern = [regex]::Escape($obj) + '\.label_path\s*=\s*"(?<ref>[^"]+)"\s*;'
+    $labelMatch = [regex]::Match($body, $labelPattern)
+    if (-not $labelMatch.Success) {
+        continue
+    }
+
+    $ref = $labelMatch.Groups['ref'].Value.Trim()
+    $optPattern = '(?s)' + [regex]::Escape($obj) + '\.append_option\(\s*.*?get_option\("(?<variable>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\)\s*\)\s*;'
+    $optMatches = [regex]::Matches($body, $optPattern)
+
+    foreach ($om in $optMatches) {
+        $variable = $om.Groups['variable'].Value.Trim()
+        $indexer = $om.Groups['indexer'].Value.Trim()
+        if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
+            $variable = "${variable}[$indexer]"
+        }
+
+        $rawEntries.Add([PSCustomObject]@{
+            Variable = $variable
             Ref      = $ref
             Index    = [int]($m.Index + $om.Index)
         })
@@ -193,9 +230,10 @@ foreach ($fm in $forMatches) {
     }
 }
 
-$matches = @($rawEntries | Sort-Object -Property Index)
 
-if ($matches.Count -eq 0) {
+$parsedMatches = @($rawEntries | Sort-Object -Property Index)
+
+if ($parsedMatches.Count -eq 0) {
     Write-Host "No supported option-to-doc mappings were found." -ForegroundColor Yellow
     exit 0
 }
@@ -213,7 +251,7 @@ foreach ($file in $mdFiles) {
 }
 
 $entries = New-Object System.Collections.Generic.List[object]
-foreach ($m in $matches) {
+foreach ($m in $parsedMatches) {
     $variable = $m.Variable
     $ref = $m.Ref
 
