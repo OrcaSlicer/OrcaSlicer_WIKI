@@ -79,7 +79,7 @@ Other flow ratios, such as ratios for the first layer (does not affect brims and
 
 ## Only one wall
 
-[Variables](built_in_placeholders_variables): `only_one_wall_top`, `only_one_wall_first_layer`.  
+[Variables](built_in_placeholders_variables): `only_one_wall_first_layer`, `only_one_wall_top`.  
 Use only one wall on flat surfaces, to give more space to the [top infill pattern](strength_settings_top_bottom_shells#surface-pattern).
 Specially useful in small features, like letters, where the top surface is very small and [concentric pattern](strength_settings_patterns#concentric) from walls would not cover it properly.
 

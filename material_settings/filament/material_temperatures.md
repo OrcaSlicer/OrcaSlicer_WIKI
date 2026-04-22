@@ -32,6 +32,7 @@ Always refer to the filament manufacturer's recommendations and [calibrations](t
 
 ## Nozzle
 
+[Variables](built_in_placeholders_variables): `nozzle_temperature_initial_layer`, `nozzle_temperature`.  
 One of the most critical settings for successful 3D printing is the nozzle temperature.  
 The correct nozzle temperature ensures proper melting and extrusion of the filament, leading to good layer adhesion and overall print quality.  
 You can set a higher temperature for the first layer to improve bed adhesion but be cautious with deformations as [elephant foot](quality_settings_precision#elephant-foot-compensation).

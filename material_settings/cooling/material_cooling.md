@@ -139,8 +139,10 @@ G-code command: `M106 P3 S(0-255)`
 
 #### During print
 
+[Variables](built_in_placeholders_variables): `activate_air_filtration_during_print`, `during_print_exhaust_fan_speed`.  
 Speed of exhaust fan during printing. This speed will override the speed in filament custom G-code.
 
 #### Complete print
 
+[Variables](built_in_placeholders_variables): `activate_air_filtration_on_completion`, `complete_print_exhaust_fan_speed`.  
 Speed of exhaust fan after printing completes.
