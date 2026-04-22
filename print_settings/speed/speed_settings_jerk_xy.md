@@ -11,6 +11,7 @@
     - [Infill](#infill)
     - [Top surface](#top-surface)
     - [Initial layer](#initial-layer)
+    - [Initial layer travel](#initial-layer-travel)
     - [Travel](#travel)
 - [Useful links](#useful-links)
 
@@ -90,6 +91,12 @@ Jerk for top surface printing. This is usually set to a lower value than infill 
 
 [Variable](built_in_placeholders_variables): `initial_layer_jerk`.  
 Jerk for initial layer printing. This is usually set to a lower value than top surface to improve adhesion.
+
+### Initial layer travel
+
+[Variable](built_in_placeholders_variables): `initial_layer_travel_jerk`.  
+Jerk for initial layer travel.
+Using a lower value can improve build plate adhesion. If the value is expressed as a percentage (e.g. 50%), it will be calculated based on the [Travel Jerk](#travel).
 
 ### Travel
 

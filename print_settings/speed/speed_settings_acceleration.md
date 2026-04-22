@@ -11,6 +11,7 @@ Orca will limit the acceleration to not exceed the acceleration set in the Print
 - [Sparse infill](#sparse-infill)
 - [Internal solid infill](#internal-solid-infill)
 - [Initial layer](#initial-layer)
+- [Initial layer travel](#initial-layer-travel)
 - [Top surface](#top-surface)
 - [Travel](#travel)
 
@@ -51,6 +52,12 @@ Acceleration of [internal solid infill](speed_settings_other_layers_speed#intern
 
 [Variable](built_in_placeholders_variables): `initial_layer_acceleration`.  
 Acceleration of [initial layer](speed_settings_initial_layer_speed). Using a lower value can improve build plate adhesion.
+
+## Initial layer travel
+
+[Variable](built_in_placeholders_variables): `initial_layer_travel_acceleration`.  
+Acceleration of [initial layer travel](speed_settings_initial_layer_speed#initial-layer-travel-speed).
+Using a lower value can improve build plate adhesion. If the value is expressed as a percentage (e.g. 50%), it will be calculated based on the [Travel Acceleration](#travel).
 
 ## Top surface
 
