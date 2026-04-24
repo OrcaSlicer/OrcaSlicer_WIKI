@@ -6,17 +6,18 @@ A properly calibrated flow ratio ensures consistent layer adhesion and accurate 
 - Too **low** flow ratio causes under-extrusion, which leads to gaps, weak layers, and poor structural integrity.
 - Too **high** flow ratio causes over-extrusion, resulting in excess material, rough surfaces, and dimensional inaccuracies.
 
-- [Calibration Types](#calibration-types)
-    - [OrcaSlicer \> 2.3.0 Archimedean chords + YOLO (Recommended)](#orcaslicer--230-archimedean-chords--yolo-recommended)
-    - [OrcaSlicer \<= 2.3.0 Monotonic Line + 2-Pass Calibration](#orcaslicer--230-monotonic-line--2-pass-calibration)
-- [Credits](#credits)
-
 > [!WARNING]
 > **BambuLab Printers:** Make sure you do **not** select the 'Flow calibration' option.
 > ![flowrate-Bambulab-uncheck](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowrate-Bambulab-uncheck.png?raw=true)
 
-> [!NOTE]
-> After v2.3.0, the [Top Pattern](strength_settings_top_bottom_shells#surface-pattern) changed to [Archimedean chords](strength_settings_patterns#archimedean-chords) from [Monotonic Line](strength_settings_patterns#monotonic-line).
+> [!IMPORTANT]
+> NEW FEATURE: **Selectable pattern (Monotonic line)**  
+> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+
+- [Calibration Types](#calibration-types)
+    - [Archimedean chords + YOLO (Recommended)](#archimedean-chords--yolo-recommended)
+    - [Monotonic Line + 2-Pass Calibration](#monotonic-line--2-pass-calibration)
+- [Credits](#credits)
 
 ## Calibration Types
 
@@ -25,7 +26,7 @@ A properly calibrated flow ratio ensures consistent layer adhesion and accurate 
     - **Perfectionist:** calibration range `[-0.04, +0.035]`, flow ratio step `0.005`.
 - **2-Pass Calibration:** the legacy method, using two passes to determine the optimal flow ratio with the formula `OldFlowRatio * (100 + modifier) / 100`.
 
-### OrcaSlicer > 2.3.0 Archimedean chords + YOLO (Recommended)
+### Archimedean chords + YOLO (Recommended)
 
 This method uses the [Archimedean Chords](strength_settings_patterns#archimedean-chords) pattern for flow ratio calibration with the YOLO (Recommended) approach.
 
@@ -49,7 +50,7 @@ This method uses the [Archimedean Chords](strength_settings_patterns#archimedean
 > [!NOTE]
 > The new Archimedean chords pattern uses a specific print order that prints the inner spiral last so you can check for material accumulation on the contact line at the end.
 
-### OrcaSlicer <= 2.3.0 Monotonic Line + 2-Pass Calibration
+### Monotonic Line + 2-Pass Calibration
 
 This example uses the Monotonic Line pattern with the 2-Pass Calibration approach.
 
