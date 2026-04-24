@@ -70,7 +70,7 @@ The usage of [Reverse on even](quality_settings_overhangs#reverse-on-even) will 
 
 [Variables](built_in_placeholders_variables): `print_flow_ratio`, `top_solid_infill_flow_ratio`, `bottom_solid_infill_flow_ratio`, `set_other_flow_ratios`, `first_layer_flow_ratio`, `outer_wall_flow_ratio`, `inner_wall_flow_ratio`, `overhang_flow_ratio`, `sparse_infill_flow_ratio`, `internal_solid_infill_flow_ratio`, `gap_fill_flow_ratio`, `support_flow_ratio`, `support_interface_flow_ratio`.  
 This factor affects the amount of material for [top or bottom solid infill](strength_settings_top_bottom_shells). You can decrease it slightly to have smooth surface finish.  
-The actual top or bottom surface flow used is calculated by multiplying this value by the filament flow ratio, and if set, the object's flow ratio.
+The actual top or bottom surface flow used is calculated by multiplying this value by the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.
 
 Other flow ratios, such as ratios for the first layer (does not affect brims and skirts), outer and inner walls, overhang perimeters, sparse infill, internal solid infill, gap fill, support, and support interfaces, can also be adjusted after enabling the "Set other flow ratios" option.
 

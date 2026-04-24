@@ -13,13 +13,13 @@
 
 [Variables](built_in_placeholders_variables): `bridge_flow`, `internal_bridge_flow`.  
 Decrease this value slightly (for example 0.9) to reduce the amount of material for bridge, to improve sag.  
-The actual bridge flow used is calculated by multiplying this value with the filament flow ratio, and if set, the object's flow ratio.
+The actual bridge flow used is calculated by multiplying this value with the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.
 
 ## Bridge density
 
 [Variables](built_in_placeholders_variables): `bridge_density`, `internal_bridge_density`.  
 This value governs the thickness of the bridge layer. This is the first layer over sparse infill. Decrease this value slightly (for example 0.9) to improve surface quality over sparse infill.  
-The actual internal bridge flow used is calculated by multiplying this value with the [bridge flow ratio](#flow-ratio), the filament flow ratio, and if set, the object's flow ratio.
+The actual internal bridge flow used is calculated by multiplying this value with the [bridge flow ratio](#flow-ratio), the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.
 
 ## Thick bridges
 
