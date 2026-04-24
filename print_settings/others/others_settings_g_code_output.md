@@ -8,6 +8,7 @@ These settings control how G-code is generated and formatted. They impact readab
 - [Label Objects](#label-objects)
 - [Exclude Objects](#exclude-objects)
 - [Filename Format](#filename-format)
+- [Change extrusion role G-code](#change-extrusion-role-g-code)
 
 ## Reduce Infill Retraction
 
@@ -55,3 +56,15 @@ Can be used to generate filenames like `OrcaCube_PLA_1h15m.gcode`.
 
 > [!TIP]
 > Check [Naming Built in placeholders variables](built_in_placeholders_variables#filename-templates) for available tokens and their meanings.
+
+## Change extrusion role G-code
+
+This G-code is inserted when the [extrusion role](built_in_placeholders_variables#extrusion-roles) is changed.  
+This is the process section of the feature "Change Extrusion Role G-code" that is also available in the [Material settings](material_advanced#change-extrusion-role-g-code) and [Printer settings](printer_machine_gcode#change-extrusion-role-g-code).
+
+> [!TIP]
+> Read the [Printer settings](printer_machine_gcode#change-extrusion-role-g-code) for more details and examples.
+
+> [!IMPORTANT]
+> NEW FEATURE: **Process Change Extrusion Role G-code**  
+> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).

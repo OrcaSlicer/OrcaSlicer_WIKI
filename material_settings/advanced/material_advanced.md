@@ -9,3 +9,15 @@ These settings allow you to define custom G-code commands that will be executed 
 ## Filament end G-code
 
 These settings allow you to define custom G-code commands that will be executed at the start and end of a print using a specific material. This can be useful for priming the nozzle, purging old filament, or performing any other necessary actions before or after printing.
+
+## Change extrusion role G-code
+
+This G-code is inserted when the [extrusion role](built_in_placeholders_variables#extrusion-roles) is changed.  
+This is the material section of the feature "Change Extrusion Role G-code" that is also available in the [Process settings](others_settings_g_code_output#change-extrusion-role-g-code) and [Printer settings](printer_machine_gcode#change-extrusion-role-g-code).
+
+> [!TIP]
+> Read the [Printer settings](printer_machine_gcode#change-extrusion-role-g-code) for more details and examples.
+
+> [!IMPORTANT]
+> NEW FEATURE: **Material Change Extrusion Role G-code**  
+> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).

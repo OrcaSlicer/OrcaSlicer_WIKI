@@ -95,7 +95,8 @@ This G-code is inserted when filament is changed, including T commands to trigge
 
 ## Change extrusion role G-code
 
-This G-code is inserted when the extrusion role is changed.
+This G-code is inserted when the [extrusion role](built_in_placeholders_variables#extrusion-roles) is changed.
+This is the Machine section of the feature "Change Extrusion Role G-code" that is also available in the [Material settings](material_advanced#change-extrusion-role-g-code) and [Process settings](others_settings_g_code_output#change-extrusion-role-g-code).
 
 Example G-codes:
 

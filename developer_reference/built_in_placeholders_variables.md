@@ -22,6 +22,7 @@ Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-cod
     - [Toolchange and wipe tower placeholders](#toolchange-and-wipe-tower-placeholders)
     - [Filament start/end placeholders](#filament-startend-placeholders)
     - [Timelapse and wrapping detection](#timelapse-and-wrapping-detection)
+    - [Extrusion roles](#extrusion-roles)
     - [Extrusion role changes](#extrusion-role-changes)
     - [Pause / color change helpers](#pause--color-change-helpers)
 
@@ -261,12 +262,37 @@ All `layer_*` placeholders from the previous section are also available inside `
 | `timelapse_pos_x` / `timelapse_pos_y` | int (mm) | XY coordinates selected for taking the snapshot. Available only inside `timelapse_gcode`. |
 | `has_timelapse_safe_pos` | bool | Indicates whether a safe snapshot position was found. Available in `timelapse_gcode`. |
 
+### Extrusion roles
+
+| Placeholder | Type | Description |
+| --- | --- | --- |
+| `None` | string | Undefined. |
+| `Perimeter` | string | Inner wall. |
+| `ExternalPerimeter` | string | Outer wall. |
+| `OverhangPerimeter` | string | Overhang wall. |
+| `InternalInfill` | string | Sparse infill. |
+| `SolidInfill` | string | Internal solid infill. |
+| `TopSolidInfill` | string | Top surface. |
+| `BottomSurface` | string | Bottom surface. |
+| `Ironing` | string | Ironing. |
+| `BridgeInfill` | string | Bridge. |
+| `InternalBridgeInfill` | string | Internal Bridge. |
+| `GapFill` | string | Gap infill. |
+| `Skirt` | string | Skirt. |
+| `Brim` | string | Brim. |
+| `SupportMaterial` | string | Support. |
+| `SupportMaterialInterface` | string | Support interface. |
+| `SupportTransition` | string | Support transition. |
+| `WipeTower` | string | Prime tower. |
+| `Custom` | string | Custom. |
+| `Mixed` | string | Multiple. |
+
 ### Extrusion role changes
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `extrusion_role` | string | Name of the extrusion role that the slicer is about to use (Perimeter, ExternalPerimeter, Support, etc.). Available in `change_extrusion_role_gcode`. |
-| `last_extrusion_role` | string | Previous extrusion role before the transition. Available in `change_extrusion_role_gcode`. |
+| `extrusion_role` | string | Name of the [extrusion role](#extrusion-roles) that the slicer is about to use (Perimeter, ExternalPerimeter, Support, etc.). Available in `change_extrusion_role_gcode`. |
+| `last_extrusion_role` | string | Previous [extrusion role](#extrusion-roles) before the transition. Available in `change_extrusion_role_gcode`. |
 
 ### Pause / color change helpers
 
