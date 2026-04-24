@@ -121,6 +121,10 @@ The actual brim [flow](quality_settings_wall_and_surfaces#surface-flow-ratio) us
 > [!NOTE]
 > The resulting value will not be affected by the [first-layer flow ratio](quality_settings_wall_and_surfaces#surface-flow-ratio).
 
+> [!IMPORTANT]
+> NEW FEATURE: **Brim Flow Ratio**  
+> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+
 ### Brim use EFC outline
 
 [Variable](built_in_placeholders_variables): `brim_use_efc_outline`.  
