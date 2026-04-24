@@ -113,6 +113,7 @@ Increasing the gap makes the brim easier to remove but reduces its adhesion bene
 
 ### Brim Flow Ratio
 
+[Variable](built_in_placeholders_variables): `brim_flow_ratio`.  
 This factor affects the amount of material for [brims](#brim).
 Setting this value slightly above 1.0 can help the brim hold the print on the plate, but it can also make brims harder to remove.
 The actual brim [flow](quality_settings_wall_and_surfaces#surface-flow-ratio) used is calculated by multiplying this value by the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.

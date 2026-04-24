@@ -60,7 +60,7 @@ In general, following the manufacturer’s recommendations, maintaining a clean 
 
 ## Print Chamber Temperature
 
-[Variables](built_in_placeholders_variables): `chamber_temperature`, `activate_chamber_temp_control`.  
+[Variables](built_in_placeholders_variables): `activate_chamber_temp_control`, `chamber_temperature`.  
 Chamber temperature can affect the print quality, especially for high-temperature filaments.  
 A heated chamber can help to maintain a consistent temperature throughout the print, reducing the risk of warping and improving layer adhesion. However, it is important to monitor the chamber temperature to ensure that it does not exceed the filament's deformation temperature.
 
