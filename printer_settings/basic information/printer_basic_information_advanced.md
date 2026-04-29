@@ -41,7 +41,7 @@ Shape, material and density of an individual pellet will determine the packing d
 We are translating the pellet_flow_coefficient into filament_diameter so that everything works just like it does already with very minor adjustments.
 
 $$
-\text{filament\_diameter} = \sqrt{\frac{4 \times \text{pellet\_flow\_coefficient}}{\pi}}
+\text{filament\_diameter} = \sqrt{\frac{4}{\text{pellet\_flow\_coefficient} \cdot \pi}}
 $$
 
 sqrt just makes the relationship between flow_coefficient and volume linear.
