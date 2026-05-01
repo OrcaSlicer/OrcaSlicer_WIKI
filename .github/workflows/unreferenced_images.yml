@@ -27,7 +27,7 @@ jobs:
 
       - name: Find unreferenced images in /images
         id: find_images
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

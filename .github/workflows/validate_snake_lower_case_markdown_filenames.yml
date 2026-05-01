@@ -19,7 +19,7 @@ jobs:
 
       - name: Validate lowercase snake_case .md filenames
         id: validate_lowercase_markdown_filenames
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
