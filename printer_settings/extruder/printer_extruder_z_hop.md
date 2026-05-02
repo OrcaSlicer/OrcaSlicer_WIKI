@@ -4,11 +4,13 @@ Z-Hop is a feature that lifts the nozzle slightly during travel moves to avoid c
 
 ## On surfaces
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `retract_lift_enforce[extruder_idx]`.  
 Enforce Z-Hop behavior. This setting is impacted by the above settings (Only lift Z above/below).
 
 ## Z-hop type
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `z_hop_types[extruder_idx]`.  
 - Auto: Selects automatically between Spiral based on whether the travel move crosses over overhang areas
 - Normal Lift: The nozzle is lifted vertically during retraction and lowered back down before resuming printing.
@@ -17,20 +19,24 @@ Enforce Z-Hop behavior. This setting is impacted by the above settings (Only lif
 
 ## Z-hop height
 
+[Mode](config_option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `z_hop[extruder_idx]`.  
 Whenever there is a retraction, the nozzle is lifted a little to create clearance between the nozzle and the print. This prevents the nozzle from hitting the print when traveling more. Using spiral lines to lift z can prevent stringing.
 
 ## Traveling angle
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `travel_slope[extruder_idx]`.  
 Traveling angle for Slope and Spiral Z-hop type. Setting it to 90° results in Normal Lift.
 
 ## Only lift Z above
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `retract_lift_above[extruder_idx]`.  
 If you set this to a positive value, Z lift will only take place above the specified absolute Z.
 
 ## Only lift Z below
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `retract_lift_below[extruder_idx]`.  
 If you set this to a positive value, Z lift will only take place below the specified absolute Z.

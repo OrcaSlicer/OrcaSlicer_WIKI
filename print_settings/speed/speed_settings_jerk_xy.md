@@ -43,6 +43,7 @@ This setting overrides firmware jerk values when different motion types need spe
 
 ### Junction Deviation
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `default_junction_deviation`.  
 Alternative to Jerk, Junction Deviation is the default method for controlling cornering speed in Marlin 2 printers.  
 Instead of setting a cornering speed for each line type, it calculates the cornering speed based on the [each line's acceleration](speed_settings_acceleration) and speed using the formula:
@@ -61,6 +62,7 @@ This value is limited by [Printer settings > Motion ability > Maximum Junction D
 
 ## Default
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `default_jerk`.  
 Default Jerk value.
 
@@ -69,37 +71,44 @@ Default Jerk value.
 
 ### Outer wall
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `outer_wall_jerk`.  
 Jerk for outer wall printing. This is usually set to a lower value than normal printing to ensure better quality.
 
 ### Inner wall
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `inner_wall_jerk`.  
 Jerk for inner wall printing. This is usually set to a higher but still reasonable value than outer wall printing to improve speed.
 
 ### Infill
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `infill_jerk`.  
 Jerk for infill printing. This is usually set to a value higher than inner wall printing to improve speed.
 
 ### Top surface
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_jerk`.  
 Jerk for top surface printing. This is usually set to a lower value than infill to ensure better quality.
 
 ### Initial layer
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `initial_layer_jerk`.  
 Jerk for initial layer printing. This is usually set to a lower value than top surface to improve adhesion.
 
 ### Initial layer travel
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `initial_layer_travel_jerk`.  
 Jerk for initial layer travel.
 Using a lower value can improve build plate adhesion. If the value is expressed as a percentage (e.g. 50%), it will be calculated based on the [Travel Jerk](#travel).
 
 ### Travel
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `travel_jerk`.  
 Jerk for travel printing. This is usually set to a higher value than infill to reduce travel time.
 

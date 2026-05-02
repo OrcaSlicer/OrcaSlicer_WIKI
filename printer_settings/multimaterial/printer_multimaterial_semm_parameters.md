@@ -4,25 +4,30 @@ This section describes the parameters specific to single extruder multi-material
 
 ## Cooling tube position
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `cooling_tube_retraction`.  
 Distance of the center-point of the cooling tube from the extruder tip.
 
 ## Cooling tube length
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `cooling_tube_length`.  
 Length of the cooling tube to limit space for cooling moves inside it.
 
 ## Filament parking position
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `parking_pos_retraction`.  
 Distance of the extruder tip from the position where the filament is parked when unloaded. This should match the value in printer firmware.
 
 ## Extra loading distance
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `extra_loading_move`.  
  When set to zero, the distance the filament is moved from parking position during load is exactly the same as it was moved back during unload. When positive, it is loaded further, if negative, the loading move is shorter than unloading.
 
 ## High extruder current on filament swap
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `high_current_on_filament_swap`.  
  It may be beneficial to increase the extruder motor current during the filament exchange sequence to allow for rapid ramming feed rates and to overcome resistance when loading a filament with an ugly shaped tip.

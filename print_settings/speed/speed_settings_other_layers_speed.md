@@ -25,17 +25,20 @@
 
 ## Outer wall
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `outer_wall_speed`.  
 Speed of outer wall which is outermost and visible. It's used to be slower than [inner wall speed](#inner-wall) to get better quality and good layer adhesion.
 This setting is also limited by [Machine / Motion ability / Resonance avoidance speed settings](vfa_calib).
 
 ## Inner wall
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `inner_wall_speed`.  
 Speed of inner wall which is printed faster than outer wall to reduce print time but is still recommended to be slower than the [maximum volumetric speed](volumetric_speed_calib) to ensure good layer adhesion and reduce material internal stresses.
 
 ## Small perimeters
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `small_perimeter_speed`.  
 Speed of outer wall with theoretical radius <= [small perimeters threshold](#small-perimeters-threshold).
 Any shape (not only circles) will be considered as a small perimeter.
@@ -47,6 +50,7 @@ If expressed as percentage (for example: 80%) it will be calculated on the [oute
 
 ### Small perimeters threshold
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `small_perimeter_threshold`.  
 **Radius** in millimeters below which the speed of perimeters will be reduced to the [small perimeters speed](#small-perimeters).  
 To know the length of the perimeter, you can use the formula:
@@ -66,12 +70,14 @@ For example, if the threshold is set to 5 mm, then the perimeter length must be 
 
 ## Sparse infill
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `sparse_infill_speed`.  
 Speed of [sparse infill](strength_settings_infill) which is printed faster than solid infill to reduce print time.  
 In case you are using your [Infill Pattern](strength_settings_infill) as aesthetic feature, you may want to set it closer to the [outer wall speed](#outer-wall) to get better quality.
 
 ## Internal solid infill
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `internal_solid_infill_speed`.  
 Speed of internal solid infill, which fills the interior of the model with solid layers.  
 This is typically set faster than the [top surface speed](#top-surface) to optimize print time, while still ensuring adequate strength and layer adhesion. Adjusting this speed can help balance print quality and efficiency, especially for models requiring strong internal structures.  
@@ -79,25 +85,30 @@ Solid infill is also considered when [infill % is set to 100%](strength_settings
 
 ## Top surface
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_speed`.  
 Speed of the [topmost solid layers](strength_settings_top_bottom_shells) of the print. This is usually set similar to the [outer wall speed](#outer-wall) to achieve a smoother and higher-quality finish on visible surfaces. Lower speeds help minimize surface defects and improve the appearance of the final printed object.
 
 ## Gap infill
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gap_infill_speed`.  
 Speed of [gap infill](strength_settings_infill#apply-gap-fill), which is used to fill small gaps or holes in the print.
 
 ## Ironing speed
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_speed`.  
 [Ironing](quality_settings_ironing) and [Support Ironing](support_settings_ironing) speed, typically slower than the top surface speed to ensure a smooth finish.
 
 ## Support
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_speed`.  
 Speed at which [support](support_settings_support) material is printed. Slower speeds help ensure that supports are stable and effective during the print process.
 
 ## Support interface
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_interface_speed`.  
 Speed for the support interface layers, which are the layers directly contacting the model. This is usually set even slower than the main [support speed](#support) to maximize surface quality where the support meets the model and to make support removal easier.

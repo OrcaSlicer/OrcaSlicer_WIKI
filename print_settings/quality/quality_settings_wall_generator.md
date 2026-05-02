@@ -22,7 +22,8 @@ This method does not vary extrusion width and is ideal for fast, predictable sli
 
 ## Arachne
 
-[Variables](built_in_placeholders_variables): `wall_transition_angle`, `wall_transition_filter_deviation`, `wall_transition_length`, `wall_distribution_count`, `initial_layer_min_bead_width`, `min_bead_width`, `min_feature_size`, `min_length_factor`.  
+[Modes](config_option_mode): `Advanced`, `Expert`.  
+[Variables](built_in_placeholders_variables): `wall_transition_angle`, `wall_transition_filter_deviation`, `wall_transition_length`, `wall_distribution_count`, `initial_layer_min_bead_width`, `min_bead_width`, `min_feature_size`, `min_length_factor`, `wall_maximum_resolution`, `wall_maximum_deviation`.  
 The Arachne wall generator dynamically adjusts extrusion width to follow the shape of the model more closely. This allows better handling of thin features and smooth transitions between wall counts.
 
 ![wallgenerator-arachne](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/WallGenerator/wallgenerator-arachne.png?raw=true)

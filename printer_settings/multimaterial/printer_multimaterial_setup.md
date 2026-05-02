@@ -4,6 +4,7 @@ Basic setup for multimaterial printing.
 
 ## Single Extruder Multi Material
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `single_extruder_multi_material`.  
 Use single nozzle to print multi filament.
 
@@ -13,6 +14,7 @@ Number of extruders of the printer.
 
 ## Manual Filament Change
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `manual_filament_change`.  
 Manual filament change is a feature that allows the user to change the filament during the print. This can be useful for multi-material prints or when changing colors. The user can specify the position and timing of the filament change, as well as the speed and distance of the ramming process.  
 Enable this option to omit the custom Change filament G-code only at the beginning of the print. The tool change command (e.g., T0) will be skipped throughout the entire print. This is useful for manual multi-material printing, where we use M600/PAUSE to trigger the manual filament change action.

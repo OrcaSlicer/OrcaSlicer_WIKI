@@ -11,18 +11,21 @@
 
 ## Flow ratio
 
+[Mode](config_option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `bridge_flow`, `internal_bridge_flow`.  
 Decrease this value slightly (for example 0.9) to reduce the amount of material for bridge, to improve sag.  
 The actual bridge flow used is calculated by multiplying this value with the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.
 
 ## Bridge density
 
+[Mode](config_option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `bridge_density`, `internal_bridge_density`.  
 This value governs the thickness of the bridge layer. This is the first layer over sparse infill. Decrease this value slightly (for example 0.9) to improve surface quality over sparse infill.  
 The actual internal bridge flow used is calculated by multiplying this value with the [bridge flow ratio](#flow-ratio), the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.
 
 ## Thick bridges
 
+[Mode](config_option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `thick_bridges`, `thick_internal_bridges`.  
 ![thick-bridges](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/thick-bridges.png?raw=true)
 
@@ -32,6 +35,7 @@ It's recommended to enable this option for internal bridges, as it helps improve
 
 ## Extra bridge layers
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `enable_extra_bridge_layer`.  
 This option enables the generation of an extra bridge layer over bridges.
 
@@ -48,6 +52,7 @@ It is generally recommended to set this to at least **External bridge only**, un
 
 ## Filter out small internal bridges
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `dont_filter_internal_bridges`.  
 This option can help reduce pillowing on top surfaces in heavily slanted or curved models.
 
@@ -63,6 +68,7 @@ Enabling limited filtering or no filtering will print internal bridge layer over
 
 ## Bridge Counterbore hole
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `counterbore_hole_bridging`.  
 When printing counterbore holes, the unsupported area can lead to sagging or poor surface quality. Also the perimeters of the counterbore hole may not be printed correctly, leading to gaps or weak points in the structure.
 

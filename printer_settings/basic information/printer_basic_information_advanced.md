@@ -17,16 +17,19 @@ Advanced settings related to the printer configuration.
 
 ## Printer structure
 
+[Mode](config_option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `printer_structure`.  
 The physical arrangement and components of a printing device.
 
 ## G-code flavor
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gcode_flavor`.  
 What kind of G-code the printer is compatible with.
 
 ## Pellet Modded Printer
 
+[Mode](config_option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `pellet_flow_coefficient`, `pellet_modded_printer`.  
 Enable this option if your printer uses pellets instead of filaments.
 Large format printers with print volumes in the order of 1m^3 generally use pellets for printing.
@@ -50,16 +53,19 @@ Higher packing density -> more material extruded by single turn -> higher pellet
 
 ## Use 3rd-party print host
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `bbl_use_printhost`.  
 Allow controlling BambuLab's printer through 3rd party print hosts.
 
 ## Scan first layer
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `scan_first_layer`.  
 Enable this to enable the camera on printer to check the quality of first layer.
 
 ## Power Loss Recovery
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `enable_power_loss_recovery`.  
 Enable or Disable power loss recovery by inserting commands in generated G-code.  
 Set `Printer configuration` to use the current printer's power loss recovery configuration.
@@ -80,6 +86,7 @@ Power loss recovery saves the current execution point to non-volatile memory (SD
 
 ## Disable set remaining print time
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `disable_m73`.  
 Disable generating of the M73: Set remaining print time in the final G-code.
 
@@ -89,20 +96,24 @@ Picture sizes to be stored into a .gcode and .sl1 / .sl1s files, in the followin
 
 ## Use relative E distances
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `use_relative_e_distances`.  
 Relative extrusion is recommended when using "label_objects" option. Some extruders work better with this option unchecked (absolute extrusion mode). Wipe tower is only compatible with relative mode. It is recommended on most printers. Default is checked.
 
 ## Use firmware retraction
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `use_firmware_retraction`.  
 This experimental setting uses G10 and G11 commands to have the firmware handle the retraction. This is only supported in recent Marlin.
 
 ## Bed temperature type
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `bed_temperature_formula`.  
 This option determines how the bed temperature is set during slicing: based on the temperature of the first filament or the highest temperature of the printed filaments.
 
 ## Time cost
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `time_cost`.  
 The printer cost per hour.

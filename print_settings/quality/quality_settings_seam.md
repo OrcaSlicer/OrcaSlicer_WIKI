@@ -33,6 +33,7 @@ Unless printed in spiral vase mode, every layer needs to begin somewhere and end
 
 ## Seam Position
 
+[Mode](config_option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `seam_position`.  
 Controlling the position of seams can help improve the appearance and strength of the final print.
 
@@ -76,6 +77,7 @@ This option places the seam randomly across the object, which can help to distri
 
 ### Staggered inner seams
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `staggered_inner_seams`.  
 As the seam location forms a weak point in the print, staggering the seam on the internal perimeters can help reduce stress points. This setting moves the start of the internal wall's seam around across layers as well as away from the external perimeter seam. This way, the internal and external seams don't all align at the same point and between them across layers, distributing those weak points further away from the seam location, hence making the part stronger. It can also help improve the water tightness of your model.
 
@@ -83,6 +85,7 @@ As the seam location forms a weak point in the print, staggering the seam on the
 
 ### Seam gap
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `seam_gap`.  
 Controls the gap in mm or as a percentage of the nozzle size between the two ends of a loop starting and ending with a seam.
 
@@ -95,6 +98,7 @@ Controls the gap in mm or as a percentage of the nozzle size between the two end
 
 ### Scarf joint seam
 
+[Modes](config_option_mode): `Advanced`, `Developer`.  
 [Variables](built_in_placeholders_variables): `seam_slope_type`, `seam_slope_conditional`, `scarf_angle_threshold`, `scarf_overhang_threshold`, `scarf_joint_speed`, `seam_slope_start_height`, `seam_slope_entire_loop`, `seam_slope_min_length`, `seam_slope_steps`, `scarf_joint_flow_ratio`, `seam_slope_inner_walls`.  
 Adjusts the extrusion flow rate at seam points to create a smooth overlap between the start and end of each loop, minimizing visible defects.
 
@@ -161,17 +165,20 @@ When enabled, scarf joints are also applied to inner perimeters (e.g., holes). T
 
 ### Role based wipe speed
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `role_based_wipe_speed`.  
 Controls the speed of a wipe motion, i.e., how fast the nozzle will move over a printed area to "clean" it before traveling to another area of the model.  
 It is recommended to turn this option on, to ensure the nozzle performs the wipe motion with the same speed that the feature was printed with.
 
 ### Wipe speed
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wipe_speed`.  
 If role-based wipe speed is disabled, set this field to the absolute wipe speed or as a percentage over the travel speed.
 
 ### Wipe on loop (inward movement)
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wipe_on_loops`.  
 When finishing printing a "loop" (i.e., an extrusion that starts and ends at the same point), move the nozzle slightly inwards towards the part. That move aims to reduce seam unevenness by tucking in the end of the seam to the part. It also slightly cleans the nozzle before traveling to the next area of the model, reducing stringing.  
 This setting will use your printer/material Wipe Distance and retract amount before wipe values.
@@ -182,6 +189,7 @@ This setting will use your printer/material Wipe Distance and retract amount bef
 
 ### Wipe Before External
 
+[Mode](config_option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wipe_before_external_loop`.  
 To minimize the visibility of potential over-extrusion at the start of an external perimeter, the de-retraction move is performed slightly on the inside of the model and, hence, the start of the external perimeter. That way, any potential over-extrusion is hidden from the outside surface.
 
