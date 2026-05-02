@@ -31,6 +31,10 @@ Once the print is complete, examine each block of the tower and determine the op
 > The temperature tower will adjust its size according to your nozzle diameter.
 > This ensures that all of its features are properly scaled and visible, regardless of the nozzle size you use.
 
+> [!IMPORTANT]
+> NEW FEATURE: **Auto size adjustment for temperature tower based on nozzle diameter**
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
+
 ### Interpreting results
 
 - **Stringing:** lower temperatures typically reduce stringing.

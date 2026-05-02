@@ -67,4 +67,4 @@ This is the process section of the feature "Change Extrusion Role G-code" that i
 
 > [!IMPORTANT]
 > NEW FEATURE: **Process Change Extrusion Role G-code**  
-> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.

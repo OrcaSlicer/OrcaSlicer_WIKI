@@ -20,4 +20,4 @@ This is the material section of the feature "Change Extrusion Role G-code" that 
 
 > [!IMPORTANT]
 > NEW FEATURE: **Material Change Extrusion Role G-code**  
-> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.

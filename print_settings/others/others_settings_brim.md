@@ -123,7 +123,7 @@ The actual brim [flow](quality_settings_wall_and_surfaces#surface-flow-ratio) us
 
 > [!IMPORTANT]
 > NEW FEATURE: **Brim Flow Ratio**  
-> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
 
 ### Brim use EFC outline
 
@@ -145,7 +145,7 @@ Combine adjacent brims into a single continuous brim when they touch.
 
 > [!IMPORTANT]
 > NEW FEATURE: **Combine brims**  
-> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
 
 ### Combined
 

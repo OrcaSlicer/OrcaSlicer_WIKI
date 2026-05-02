@@ -12,7 +12,7 @@ A properly calibrated flow ratio ensures consistent layer adhesion and accurate 
 
 > [!IMPORTANT]
 > NEW FEATURE: **Selectable pattern (Monotonic line)**  
-> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
 
 - [Calibration Types](#calibration-types)
     - [Archimedean chords + YOLO (Recommended)](#archimedean-chords--yolo-recommended)

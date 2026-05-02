@@ -201,14 +201,14 @@ When new features or upgrades are merged into the main branch, please add a note
 ```markdown
 > [!IMPORTANT]
 > NEW FEATURE: **Feature short description**  
-> Available in: Releases greater than **stable version number at merge time** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **stable version number at merge time**.
 ```
 
 Example:
 
 > [!IMPORTANT]
 > NEW FEATURE: **Inverse Hole Direction**  
-> Available in: Releases greater than **2.3.2** or [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
 
 This notes should be removed after a new stable release is made that includes the new feature.
 
