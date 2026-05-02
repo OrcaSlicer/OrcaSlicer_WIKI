@@ -1,5 +1,6 @@
 param(
     [string]$TabCppPath = "https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/slic3r/GUI/Tab.cpp",
+    [string]$PrintConfigCppPath = "https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/libslic3r/PrintConfig.cpp",
     [string]$WikiRoot = $PSScriptRoot,
     [switch]$DryRun
 )
@@ -41,8 +42,11 @@ function Find-HeadingLineIndex {
     return -1
 }
 
-function Get-TabCppContent {
-    param([string]$Source)
+function Get-CppSourceContent {
+    param(
+        [string]$Source,
+        [string]$Description
+    )
 
     if ($Source -match '^https?://') {
         $url = $Source
@@ -58,12 +62,12 @@ function Get-TabCppContent {
             return (Invoke-WebRequest -Uri $url -UseBasicParsing).Content
         }
         catch {
-            throw "Failed to download Tab.cpp from URL: $Source"
+            throw "Failed to download $Description from URL: $Source"
         }
     }
 
     if (-not (Test-Path -LiteralPath $Source)) {
-        throw "Tab.cpp not found: $Source"
+        throw "$Description not found: $Source"
     }
 
     return Get-Content -LiteralPath $Source -Raw
@@ -88,8 +92,49 @@ function Get-StringVectors {
     return $result
 }
 
+function Get-OptionModesByVariable {
+    param([string]$Content)
+
+    $result = @{}
+    $lines = $Content -split "`r?`n"
+    $currentVariable = $null
+    $addPattern = '(?:\b\w+\s*=\s*)*def\s*=\s*this->add(?:_nullable)?\(\s*"(?<variable>[^"]+)"\s*,'
+    $modePattern = 'def->mode\s*=\s*(?<mode>comSimple|comAdvanced|comExpert|comDevelop)\s*;'
+
+    foreach ($line in $lines) {
+        if ($line -match $addPattern) {
+            $capturedVariable = [string]$Matches['variable']
+            if ([string]::IsNullOrWhiteSpace($capturedVariable)) {
+                $currentVariable = $null
+            }
+            else {
+                $currentVariable = $capturedVariable.Trim()
+            }
+            continue
+        }
+
+        if (-not [string]::IsNullOrWhiteSpace($currentVariable) -and $line -match $modePattern) {
+            $result[$currentVariable] = [string]$Matches['mode']
+        }
+    }
+
+    return $result
+}
+
+function Convert-ConfigOptionModeToLabel {
+    param([string]$Mode)
+
+    switch ($Mode) {
+        'comSimple' { return 'Simple' }
+        'comAdvanced' { return 'Advanced' }
+        'comExpert' { return 'Expert' }
+        'comDevelop' { return 'Develop' }
+        default { return $null }
+    }
+}
+
 $syncProgressActivity = "sync-tab-options-to-wiki.ps1"
-$syncStageTotal = 7
+$syncStageTotal = 8
 
 function Set-SyncStage {
     param(
@@ -137,7 +182,7 @@ if (-not (Test-Path -LiteralPath $WikiRoot)) {
 }
 
 Set-SyncStage -Step 1 -Status "Loading Tab.cpp content"
-$tabContent = Get-TabCppContent -Source $TabCppPath
+$tabContent = Get-CppSourceContent -Source $TabCppPath -Description "Tab.cpp"
 
 Set-SyncStage -Step 2 -Status "Parsing option mappings from Tab.cpp"
 $patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
@@ -285,7 +330,19 @@ if ($parsedMatches.Count -eq 0) {
     exit 0
 }
 
-Set-SyncStage -Step 3 -Status "Scanning markdown files"
+Set-SyncStage -Step 3 -Status "Loading and parsing option modes from PrintConfig.cpp"
+$optionModesByVariable = @{}
+if (-not [string]::IsNullOrWhiteSpace($PrintConfigCppPath)) {
+    try {
+        $printConfigContent = Get-CppSourceContent -Source $PrintConfigCppPath -Description "PrintConfig.cpp"
+        $optionModesByVariable = Get-OptionModesByVariable -Content $printConfigContent
+    }
+    catch {
+        Write-Host "[WARN] $($_.Exception.Message). Continuing without option mode annotations." -ForegroundColor Yellow
+    }
+}
+
+Set-SyncStage -Step 4 -Status "Scanning markdown files"
 $mdFiles = Get-ChildItem -LiteralPath $WikiRoot -Recurse -File -Filter '*.md' |
     Where-Object { $_.FullName -notmatch '[\\/]wiki[\\/]' }
 
@@ -298,10 +355,16 @@ foreach ($file in $mdFiles) {
     $mdByName[$key].Add($file.FullName)
 }
 
-Set-SyncStage -Step 4 -Status "Building file and anchor entries"
+Set-SyncStage -Step 5 -Status "Building file and anchor entries"
 $entries = New-Object System.Collections.Generic.List[object]
 foreach ($m in $parsedMatches) {
     $variable = $m.Variable
+    $baseVariable = [regex]::Match($variable, '^[^\[]+').Value
+    $mode = $null
+    if (-not [string]::IsNullOrWhiteSpace($baseVariable) -and $optionModesByVariable.ContainsKey($baseVariable)) {
+        $mode = $optionModesByVariable[$baseVariable]
+    }
+
     $ref = $m.Ref
 
     if ($ref -notmatch '#') {
@@ -321,6 +384,7 @@ foreach ($m in $parsedMatches) {
         FileKey  = $fileKey
         Anchor   = $anchor
         Ref      = $ref
+        Mode     = $mode
     })
 }
 
@@ -335,12 +399,13 @@ $missingFiles = 0
 $missingHeadings = 0
 $alreadyPresent = 0
 $normalizedSections = 0
+$entriesWithMode = @($entries | Where-Object { -not [string]::IsNullOrWhiteSpace($_.Mode) }).Count
 
 $groupedByFile = $entries | Group-Object -Property FileKey
 $totalFileGroups = $groupedByFile.Count
 $fileNumber = 0
 
-Set-SyncStage -Step 5 -Status "Applying mappings to markdown files ($totalFileGroups files)"
+Set-SyncStage -Step 6 -Status "Applying mappings to markdown files ($totalFileGroups files)"
 
 foreach ($group in $groupedByFile) {
     $fileNumber++
@@ -376,16 +441,53 @@ foreach ($group in $groupedByFile) {
 
         $vars = New-Object System.Collections.Generic.List[string]
         $seenVars = @{}
+        $varModes = @{}
         foreach ($entry in $anchorGroup.Group) {
             if (-not $seenVars.ContainsKey($entry.Variable)) {
                 $seenVars[$entry.Variable] = $true
                 $vars.Add($entry.Variable)
             }
+
+            $modeLabel = Convert-ConfigOptionModeToLabel -Mode $entry.Mode
+            if (-not [string]::IsNullOrWhiteSpace($modeLabel) -and -not $varModes.ContainsKey($entry.Variable)) {
+                $varModes[$entry.Variable] = $modeLabel
+            }
         }
 
         $formattedVars = $vars | ForEach-Object { "``$_``" }
         $label = if ($vars.Count -eq 1) { "[Variable](built_in_placeholders_variables):" } else { "[Variables](built_in_placeholders_variables):" }
-        $insertLine = "$label " + ($formattedVars -join ", ") + ".  "  # ending with two spaces so Markdown line break is forced
+
+        $modePairs = New-Object System.Collections.Generic.List[string]
+        $distinctModes = New-Object System.Collections.Generic.List[string]
+        $seenModes = @{}
+        foreach ($varName in $vars) {
+            if (-not $varModes.ContainsKey($varName)) {
+                continue
+            }
+
+            $modeName = $varModes[$varName]
+            $modePairs.Add("``$varName`` = ``$modeName``")
+            if (-not $seenModes.ContainsKey($modeName)) {
+                $seenModes[$modeName] = $true
+                $distinctModes.Add($modeName)
+            }
+        }
+
+        $modeSuffix = ""
+        if ($modePairs.Count -gt 0) {
+            if ($distinctModes.Count -eq 1 -and $modePairs.Count -eq $vars.Count) {
+                $modeSuffix = " Mode: ``$($distinctModes[0])``."
+            }
+            else {
+                $modeSuffix = " Modes: " + ($modePairs -join ", ") + "."
+            }
+        }
+
+        $insertLine = "$label " + ($formattedVars -join ", ") + "."
+        if (-not [string]::IsNullOrWhiteSpace($modeSuffix)) {
+            $insertLine += $modeSuffix
+        }
+        $insertLine += "  "  # ending with two spaces so Markdown line break is forced
 
         $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $anchor
         if ($idx -lt 0) {
@@ -457,8 +559,9 @@ foreach ($group in $groupedByFile) {
     }
 }
 
-Set-SyncStage -Step 6 -Status "Finalizing summary"
+Set-SyncStage -Step 7 -Status "Finalizing summary"
 Write-Host "Processed: $($entries.Count) entries"
+Write-Host "Entries with option mode: $entriesWithMode"
 Write-Host "Inserted:  $changes"
 Write-Host "Skipped (already present): $alreadyPresent"
 Write-Host "Normalized sections: $normalizedSections"
@@ -469,5 +572,5 @@ if ($DryRun) {
     Write-Host "Dry run only. No files were modified." -ForegroundColor Cyan
 }
 
-Set-SyncStage -Step 7 -Status "Completed"
+Set-SyncStage -Step 8 -Status "Completed"
 Complete-SyncProgress
