@@ -128,7 +128,7 @@ function Convert-ConfigOptionModeToLabel {
         'comSimple' { return 'Simple' }
         'comAdvanced' { return 'Advanced' }
         'comExpert' { return 'Expert' }
-        'comDevelop' { return 'Develop' }
+        'comDevelop' { return 'Developer' }
         default { return $null }
     }
 }
@@ -455,9 +455,9 @@ foreach ($group in $groupedByFile) {
         }
 
         $formattedVars = $vars | ForEach-Object { "``$_``" }
-        $label = if ($vars.Count -eq 1) { "[Variable](built_in_placeholders_variables):" } else { "[Variables](built_in_placeholders_variables):" }
+        $variableLabel = if ($vars.Count -eq 1) { "[Variable](built_in_placeholders_variables):" } else { "[Variables](built_in_placeholders_variables):" }
+        $insertVariableLine = "$variableLabel " + ($formattedVars -join ", ") + ".  "  # ending with two spaces so Markdown line break is forced
 
-        $modePairs = New-Object System.Collections.Generic.List[string]
         $distinctModes = New-Object System.Collections.Generic.List[string]
         $seenModes = @{}
         foreach ($varName in $vars) {
@@ -466,28 +466,24 @@ foreach ($group in $groupedByFile) {
             }
 
             $modeName = $varModes[$varName]
-            $modePairs.Add("``$varName`` = ``$modeName``")
             if (-not $seenModes.ContainsKey($modeName)) {
                 $seenModes[$modeName] = $true
                 $distinctModes.Add($modeName)
             }
         }
 
-        $modeSuffix = ""
-        if ($modePairs.Count -gt 0) {
-            if ($distinctModes.Count -eq 1 -and $modePairs.Count -eq $vars.Count) {
-                $modeSuffix = " Mode: ``$($distinctModes[0])``."
-            }
-            else {
-                $modeSuffix = " Modes: " + ($modePairs -join ", ") + "."
-            }
+        $insertModeLine = $null
+        if ($distinctModes.Count -gt 0) {
+            $formattedModes = $distinctModes | ForEach-Object { "``$_``" }
+            $modeLabel = if ($distinctModes.Count -eq 1) { "[Mode](config_option_mode):" } else { "[Modes](config_option_mode):" }
+            $insertModeLine = "$modeLabel " + ($formattedModes -join ", ") + ".  "  # ending with two spaces so Markdown line break is forced
         }
 
-        $insertLine = "$label " + ($formattedVars -join ", ") + "."
-        if (-not [string]::IsNullOrWhiteSpace($modeSuffix)) {
-            $insertLine += $modeSuffix
+        $canonicalLines = New-Object System.Collections.Generic.List[string]
+        if (-not [string]::IsNullOrWhiteSpace($insertModeLine)) {
+            $canonicalLines.Add($insertModeLine)
         }
-        $insertLine += "  "  # ending with two spaces so Markdown line break is forced
+        $canonicalLines.Add($insertVariableLine)
 
         $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $anchor
         if ($idx -lt 0) {
@@ -507,21 +503,29 @@ foreach ($group in $groupedByFile) {
 
         $sectionEnd = if ($nextHeading -ge 0) { $nextHeading - 1 } else { $buffer.Count - 1 }
         $metadataLineIndexes = New-Object System.Collections.Generic.List[int]
-        $hasCanonicalLine = $false
 
         for ($k = $idx + 1; $k -le $sectionEnd; $k++) {
-            if ($buffer[$k] -match '^\s*(?:\[(?:Variable|Variables)\]\([^\)]+\)|Variables?)\s*:\s*') {
+            if ($buffer[$k] -match '^\s*(?:\[(?:Variable|Variables|Mode|Modes)\]\([^\)]+\)|Variables?|Modes?)\s*:\s*') {
                 $metadataLineIndexes.Add($k)
-                if ($buffer[$k] -eq $insertLine) {
-                    $hasCanonicalLine = $true
-                }
             }
         }
 
         $hasBlankBetween = ($idx + 1) -lt $buffer.Count -and [string]::IsNullOrWhiteSpace($buffer[$idx + 1])
-        $varLineIndex = $idx + 2
-        $hasHeadingRightAfterVariable = ($varLineIndex + 1) -lt $buffer.Count -and $buffer[$varLineIndex + 1] -match '^#{1,6}\s+'
-        $alreadyCanonical = $metadataLineIndexes.Count -eq 1 -and $hasCanonicalLine -and $metadataLineIndexes[0] -eq $varLineIndex -and $hasBlankBetween -and (-not $hasHeadingRightAfterVariable)
+        $metadataStart = $idx + 2
+        $lastMetadataIndex = $metadataStart + $canonicalLines.Count - 1
+        $hasHeadingRightAfterMetadata = ($lastMetadataIndex + 1) -lt $buffer.Count -and $buffer[$lastMetadataIndex + 1] -match '^#{1,6}\s+'
+        $isCanonicalLayout = $hasBlankBetween -and $metadataLineIndexes.Count -eq $canonicalLines.Count
+        if ($isCanonicalLayout) {
+            for ($ci = 0; $ci -lt $canonicalLines.Count; $ci++) {
+                $expectedIndex = $metadataStart + $ci
+                if ($expectedIndex -ge $buffer.Count -or $metadataLineIndexes[$ci] -ne $expectedIndex -or $buffer[$expectedIndex] -ne $canonicalLines[$ci]) {
+                    $isCanonicalLayout = $false
+                    break
+                }
+            }
+        }
+
+        $alreadyCanonical = $isCanonicalLayout -and (-not $hasHeadingRightAfterMetadata)
         if ($alreadyCanonical) {
             $alreadyPresent++
             continue
@@ -535,21 +539,22 @@ foreach ($group in $groupedByFile) {
             $fileChanged = $true
         }
 
-        if ((($idx + 2) -lt $buffer.Count) -and [string]::IsNullOrWhiteSpace($buffer[$idx + 1]) -and $buffer[$idx + 2] -eq $insertLine -and (-not (($idx + 3) -lt $buffer.Count -and $buffer[$idx + 3] -match '^#{1,6}\s+'))) {
-            $alreadyPresent++
-            continue
-        }
-
         if (-not (($idx + 1) -lt $buffer.Count -and [string]::IsNullOrWhiteSpace($buffer[$idx + 1]))) {
             $buffer.Insert($idx + 1, "")
             $fileChanged = $true
         }
 
-        $buffer.Insert($idx + 2, $insertLine)
-        if (($idx + 3) -lt $buffer.Count -and $buffer[$idx + 3] -match '^#{1,6}\s+') {
-            $buffer.Insert($idx + 3, "")
+        $insertIndex = $idx + 2
+        foreach ($metadataLine in $canonicalLines) {
+            $buffer.Insert($insertIndex, $metadataLine)
+            $insertIndex++
+        }
+
+        if ($insertIndex -lt $buffer.Count -and $buffer[$insertIndex] -match '^#{1,6}\s+') {
+            $buffer.Insert($insertIndex, "")
             $fileChanged = $true
         }
+
         $changes++
         $fileChanged = $true
     }
