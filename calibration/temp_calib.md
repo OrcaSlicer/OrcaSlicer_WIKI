@@ -1,30 +1,40 @@
 # Temp Calibration
 
-In FDM 3D printing, the temperature is a critical factor that affects the quality of the print.
-There is no other calibration that can have such a big impact on the print quality as temperature calibration.
+In FDM 3D printing, temperature is a critical factor that affects print quality.
+There is no other calibration that can have such a big impact on print quality as temperature calibration.
 
-- [Nozzle Temp tower](#nozzle-temp-tower)
+- [Nozzle Temperature Tower](#nozzle-temperature-tower)
+    - [Interpreting results](#interpreting-results)
 
-## Nozzle Temp tower
+## Nozzle Temperature Tower
 
 Nozzle temperature is one of the most important settings to calibrate for a successful print.  
-The temperature of the nozzle affects the viscosity of the filament, which in turn affects how well it flows through the nozzle and adheres to the print bed.  
-If the temperature is too low, the filament may not flow properly, leading to under-extrusion, poor layer adhesion and stringing.  
-If the temperature is too high, the filament may degrade, over-extrude and produce stringing.
+The nozzle temperature affects the viscosity of the filament, which in turn affects how well it flows through the nozzle and adheres to the print bed.  
+
+- Low temperature can lead to under-extrusion, poor layer adhesion, and stringing.
+- High temperature can cause filament degradation, clogging, and stringing.
 
 ![temp-tower_test](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Temp-calib/temp-tower_test.png?raw=true)
 
 ![temp-tower_test_menu](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Temp-calib/temp-tower_test_menu.png?raw=true)
 
-Temp tower is a straightforward test. The temp tower is a vertical tower with multiple blocks, each printed at a different temperature.  
-Once the print is complete, we can examine each block of the tower and determine the optimal temperature for the filament. The optimal temperature is the one that produces the highest quality print with the least amount of issues, such as stringing, layer adhesion, warping (overhang), and bridging.
+A temperature tower is a straightforward test: a vertical tower with multiple blocks printed at different temperatures.
+Once the print is complete, examine each block of the tower and determine the optimal temperature for the filament. The optimal temperature is the one that produces the highest-quality print with the fewest issues, such as stringing, layer adhesion problems, warping (overhang), and poor bridging.
 
 ![temp-tower](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Temp-calib/temp-tower.jpg?raw=true)
 
 > [!TIP]
-> If a range of temperatures looks good, you may want to use the middle of that range as the optimal temperature.  
-> But if you are planning to print at higher [speeds](speed_settings_other_layers_speed)/[flow rates](volumetric_speed_calib), you may want to use the higher end of that range as the optimal temperature.
+> If a range of temperatures looks good, use the middle of that range as the optimal temperature.
+> If you plan to print at higher [speeds](speed_settings_other_layers_speed) or [flow rates](volumetric_speed_calib), consider using the higher end of that range.
 
 > [!NOTE]
-> The Temp tower will adjust it's size according to your nozzle diameter.  
-> This ensures that all of its features are properly scaled and visible, regardless of the nozzle size you are using.
+> The temperature tower will adjust its size according to your nozzle diameter.
+> This ensures that all of its features are properly scaled and visible, regardless of the nozzle size you use.
+
+### Interpreting results
+
+- **Stringing:** lower temperatures typically reduce stringing.
+- **Layer adhesion / strength:** higher temperatures generally improve adhesion.
+- **Overhangs / bridging:** higher temperatures can help flow, but too high causes sagging.
+- **Surface finish:** balance temperature and flow for the best finish.
+- Choose a temperature that balances these factors for your intended print speed and strength.
