@@ -7,9 +7,12 @@ There is no other calibration that can have such a big impact on the print quali
 
 ## Nozzle Temp tower
 
-Nozzle temperature is one of the most important settings to calibrate for a successful print. The temperature of the nozzle affects the viscosity of the filament, which in turn affects how well it flows through the nozzle and adheres to the print bed. If the temperature is too low, the filament may not flow properly, leading to under-extrusion, poor layer adhesion and stringing. If the temperature is too high, the filament may degrade, over-extrude and produce stringing.
+Nozzle temperature is one of the most important settings to calibrate for a successful print.  
+The temperature of the nozzle affects the viscosity of the filament, which in turn affects how well it flows through the nozzle and adheres to the print bed.  
+If the temperature is too low, the filament may not flow properly, leading to under-extrusion, poor layer adhesion and stringing.  
+If the temperature is too high, the filament may degrade, over-extrude and produce stringing.
 
-![temp-tower_test](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Temp-calib/temp-tower_test.gif?raw=true)
+![temp-tower_test](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Temp-calib/temp-tower_test.png?raw=true)
 
 ![temp-tower_test_menu](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Temp-calib/temp-tower_test_menu.png?raw=true)
 
@@ -18,6 +21,10 @@ Once the print is complete, we can examine each block of the tower and determine
 
 ![temp-tower](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Temp-calib/temp-tower.jpg?raw=true)
 
-> [!NOTE]
+> [!TIP]
 > If a range of temperatures looks good, you may want to use the middle of that range as the optimal temperature.  
 > But if you are planning to print at higher [speeds](speed_settings_other_layers_speed)/[flow rates](volumetric_speed_calib), you may want to use the higher end of that range as the optimal temperature.
+
+> [!NOTE]
+> The Temp tower will adjust it's size according to your nozzle diameter.  
+> This ensures that all of its features are properly scaled and visible, regardless of the nozzle size you are using.
