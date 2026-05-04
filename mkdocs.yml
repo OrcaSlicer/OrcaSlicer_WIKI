@@ -125,6 +125,7 @@ nav:
 - "General Settings":
   - "Import and Export": general_settings/import_export.md
   - "Keyboard Shortcuts": general_settings/keyboard_shortcuts.md
+  - "Option Modes": general_settings/option_mode.md
   - "Transfer or Discard Changes popup dialog": general_settings/transfer_discard_changes.md
 - "Material Settings":
   - Cooling:
@@ -176,6 +177,7 @@ nav:
     - Seam: print_settings/quality/quality_settings_seam.md
     - "Wall and surfaces": print_settings/quality/quality_settings_wall_and_surfaces.md
     - "Wall Generator": print_settings/quality/quality_settings_wall_generator.md
+    - "Z Contouring": print_settings/quality/quality_settings_z_contouring.md
   - Speed:
     - Acceleration: print_settings/speed/speed_settings_acceleration.md
     - "Initial layer speed": print_settings/speed/speed_settings_initial_layer_speed.md
