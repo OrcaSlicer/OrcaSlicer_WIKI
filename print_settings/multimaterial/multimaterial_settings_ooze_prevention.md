@@ -1,5 +1,7 @@
 # Ooze prevention
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `ooze_prevention`.  
 This option will drop the temperature of the inactive extruders to prevent oozing.
 
 ## Temperature variation

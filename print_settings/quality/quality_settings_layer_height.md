@@ -1,5 +1,6 @@
 # Layer Height
 
+[Variables](built_in_placeholders_variables): `layer_height`, `initial_layer_print_height`.  
 Layer height defines the vertical thickness of each printed layer, playing a crucial role in both print quality and printing speed.
 
 > [!NOTE]

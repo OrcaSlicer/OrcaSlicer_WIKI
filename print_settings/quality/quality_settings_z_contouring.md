@@ -1,5 +1,7 @@
 # Z Contouring
 
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `zaa_enabled`.  
 Z contouring, also called Z-layer anti-aliasing or ZAA, reduces visible stair-stepping on curved and sloped top surfaces by adjusting the Z height of individual extrusion points so the toolpath follows the original model surface more closely.
 
 ![z-contouring](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/z-contouring/z-contouring.jpg?raw=true)

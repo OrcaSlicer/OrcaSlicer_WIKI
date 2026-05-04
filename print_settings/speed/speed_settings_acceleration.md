@@ -1,5 +1,7 @@
 # Acceleration
 
+[Mode](option_mode): `Advanced`.  
+[Variables](built_in_placeholders_variables): `accel_to_decel_enable`, `accel_to_decel_factor`.  
 Acceleration in 3D printing is usually set on the printer's firmware settings.  
 This setting will try to override the acceleration when [normal printing acceleration](#normal-printing) value is different than 0.  
 Orca will limit the acceleration to not exceed the acceleration set in the Printer's Motion Ability settings.

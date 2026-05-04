@@ -1,5 +1,7 @@
 # Line Width
 
+[Mode](option_mode): `Advanced`.  
+[Variables](built_in_placeholders_variables): `line_width`, `initial_layer_line_width`, `outer_wall_line_width`, `inner_wall_line_width`, `top_surface_line_width`, `sparse_infill_line_width`, `internal_solid_infill_line_width`, `support_line_width`.  
 These settings define how wide each extruded line of filament will be.  
 Line width can be configured in two ways:
 

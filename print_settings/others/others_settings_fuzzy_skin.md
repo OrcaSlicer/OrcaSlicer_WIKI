@@ -1,5 +1,7 @@
 # Fuzzy Skin
 
+[Mode](option_mode): `Simple`.  
+[Variable](built_in_placeholders_variables): `fuzzy_skin`.  
 Fuzzy skin randomly perturbs the wall path to produce a deliberately rough, matte appearance on the model surface.  
 These settings control where the effect is applied, how the noise is generated, and how aggressive the displacement or extrusion modulation is.
 

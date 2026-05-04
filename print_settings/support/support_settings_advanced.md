@@ -1,5 +1,8 @@
 # Support Advanced
 
+[Mode](option_mode): `Advanced`.  
+[Variables](built_in_placeholders_variables): `support_interface_loop_pattern`, `max_bridge_length`.  
+
 - [Z distance](#z-distance)
 - [Support wall loops](#support-wall-loops)
 - [Base Pattern](#base-pattern)

@@ -1,5 +1,7 @@
 # Wall Generator
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `wall_generator`.  
 The Wall Generator defines how the outer and inner walls (perimeters) of the model are printed.
 
 - [Classic](#classic)

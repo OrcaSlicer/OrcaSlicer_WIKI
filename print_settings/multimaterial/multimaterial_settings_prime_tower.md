@@ -1,5 +1,8 @@
 # Prime Tower
 
+[Modes](option_mode):  
+`Simple` [Variables](built_in_placeholders_variables): `enable_prime_tower`, `prime_volume`.  
+`Advanced` [Variables](built_in_placeholders_variables): `prime_tower_skip_points`, `enable_tower_interface_features`, `enable_tower_interface_cooldown_during_tower`, `prime_tower_enable_framework`, `prime_tower_infill_gap`, `single_extruder_multi_material_priming`.  
 The wiping tower can be used to clean up the residue on the nozzle and "
 "stabilize the chamber pressure inside the nozzle, in order to avoid "
 "appearance defects when printing objects.

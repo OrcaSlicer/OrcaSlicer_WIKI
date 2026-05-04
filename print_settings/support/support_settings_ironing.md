@@ -1,5 +1,7 @@
 # Support Ironing
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `support_ironing`.  
 Ironing is using small flow to print on same height of surface again to make flat surface more smooth. This setting controls which layer being ironed.
 
 ## Pattern

@@ -42,6 +42,38 @@ function Find-HeadingLineIndex {
     return -1
 }
 
+function Find-FirstHeadingLineIndex {
+    param([string[]]$Lines)
+
+    for ($i = 0; $i -lt $Lines.Count; $i++) {
+        if ($Lines[$i] -match '^(#{1,6})\s+(.+?)\s*$') {
+            return $i
+        }
+    }
+
+    return -1
+}
+
+function ConvertTo-DocFileKey {
+    param([string]$RefFile)
+
+    if ([string]::IsNullOrWhiteSpace($RefFile)) {
+        return ""
+    }
+
+    $normalizedRef = $RefFile.Trim() -replace '\\', '/'
+    $leaf = ($normalizedRef -split '/')[(-1)]
+    if ([string]::IsNullOrWhiteSpace($leaf)) {
+        return ""
+    }
+
+    if ([System.IO.Path]::GetExtension($leaf).ToLowerInvariant() -eq '.md') {
+        return [System.IO.Path]::GetFileNameWithoutExtension($leaf)
+    }
+
+    return $leaf
+}
+
 function Get-CppSourceContent {
     param(
         [string]$Source,
@@ -420,6 +452,7 @@ foreach ($file in $mdFiles) {
 
 Set-SyncStage -Step 5 -Status "Building file and anchor entries"
 $entries = New-Object System.Collections.Generic.List[object]
+$firstHeadingAnchorToken = '__first_heading__'
 foreach ($m in $parsedMatches) {
     $variable = $m.Variable
     $baseVariable = [regex]::Match($variable, '^[^\[]+').Value
@@ -430,13 +463,25 @@ foreach ($m in $parsedMatches) {
 
     $ref = $m.Ref
 
-    if ($ref -notmatch '#') {
-        continue
+    $rawFileKey = $null
+    $anchor = $null
+    if ($ref -match '#') {
+        $parts = $ref -split '#', 2
+        $rawFileKey = $parts[0].Trim()
+        $anchorPart = $parts[1].Trim().ToLowerInvariant()
+        if ([string]::IsNullOrWhiteSpace($anchorPart)) {
+            $anchor = $firstHeadingAnchorToken
+        }
+        else {
+            $anchor = $anchorPart
+        }
+    }
+    else {
+        $rawFileKey = $ref.Trim()
+        $anchor = $firstHeadingAnchorToken
     }
 
-    $parts = $ref -split '#', 2
-    $fileKey = $parts[0].Trim()
-    $anchor = $parts[1].Trim().ToLowerInvariant()
+    $fileKey = ConvertTo-DocFileKey -RefFile $rawFileKey
 
     if ([string]::IsNullOrWhiteSpace($fileKey) -or [string]::IsNullOrWhiteSpace($anchor)) {
         continue
@@ -452,7 +497,7 @@ foreach ($m in $parsedMatches) {
 }
 
 if ($entries.Count -eq 0) {
-    Write-Host "No entries with file#anchor format were found." -ForegroundColor Yellow
+    Write-Host "No entries with markdown file references were found." -ForegroundColor Yellow
     Complete-SyncProgress
     exit 0
 }
@@ -511,6 +556,13 @@ foreach ($group in $groupedByFile) {
     $lines = Get-Content -LiteralPath $targetPath
     $buffer = New-Object System.Collections.Generic.List[string]
     $buffer.AddRange([string[]]$lines)
+    $firstHeadingIndex = Find-FirstHeadingLineIndex -Lines $buffer.ToArray()
+    $firstHeadingAnchor = $null
+    if ($firstHeadingIndex -ge 0 -and $buffer[$firstHeadingIndex] -match '^(#{1,6})\s+(.+?)\s*$') {
+        $headingText = $Matches[2].Trim()
+        $headingText = $headingText -replace '\s+#+$', ''
+        $firstHeadingAnchor = ConvertTo-AnchorSlug -Heading $headingText
+    }
     $fileChanged = $false
 
     $groupedByAnchor = $group.Group | Group-Object -Property Anchor
@@ -521,7 +573,7 @@ foreach ($group in $groupedByFile) {
         $anchorNumber++
         Set-SyncDetail -Status "File $fileNumber/$($totalFileGroups): $fileKey | Anchor $anchorNumber/$($anchorCount): $($anchorGroup.Name)" -Current $fileNumber -Total $totalFileGroups
         $anchor = $anchorGroup.Name
-        $expectedAnchorsByPath[$targetPath][$anchor] = $true
+        $resolvedAnchor = $anchor
 
         $vars = New-Object System.Collections.Generic.List[string]
         $seenVars = @{}
@@ -593,12 +645,31 @@ foreach ($group in $groupedByFile) {
             $canonicalLines.Add($insertVariableLine)
         }
 
-        $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $anchor
+        $idx = -1
+        if ($anchor -eq $firstHeadingAnchorToken) {
+            if ($firstHeadingIndex -lt 0 -or [string]::IsNullOrWhiteSpace($firstHeadingAnchor)) {
+                $sourceRef = $anchorGroup.Group[0].Ref
+                Write-Host "[WARN] First heading not found in $targetPath (from '$sourceRef')" -ForegroundColor Yellow
+                $missingHeadings++
+                continue
+            }
+
+            $idx = $firstHeadingIndex
+            $resolvedAnchor = $firstHeadingAnchor
+        }
+        else {
+            $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $anchor
+        }
+
         if ($idx -lt 0) {
             $sourceRef = $anchorGroup.Group[0].Ref
             Write-Host "[WARN] Heading anchor '$anchor' not found in $targetPath (from '$sourceRef')" -ForegroundColor Yellow
             $missingHeadings++
             continue
+        }
+
+        if (-not [string]::IsNullOrWhiteSpace($resolvedAnchor)) {
+            $expectedAnchorsByPath[$targetPath][$resolvedAnchor] = $true
         }
 
         $nextHeading = -1

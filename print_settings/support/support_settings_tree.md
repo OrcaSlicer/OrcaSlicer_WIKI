@@ -1,5 +1,6 @@
 # Tree Support
 
+[Variables](built_in_placeholders_variables): `tree_support_auto_brim`, `tree_support_brim_width`.  
 This section contains specific settings for tree support structures.
 
 ## Tip Diameter

@@ -1,5 +1,6 @@
 # Walls
 
+[Variable](built_in_placeholders_variables): `wall_loops`.  
 In 3D printing, "walls" refer to the outer layers of a printed object that provide its shape and structural integrity.  
 Adjusting wall settings can significantly affect layer adhesion, strength, appearance and print time of your model.
 

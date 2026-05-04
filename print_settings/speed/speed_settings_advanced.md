@@ -1,5 +1,7 @@
 # Speed Advanced - Extrusion Rate Smoothing
 
+[Mode](option_mode): `Advanced`.  
+[Variables](built_in_placeholders_variables): `max_volumetric_extrusion_rate_slope`, `max_volumetric_extrusion_rate_slope_segment_length`, `extrusion_rate_smoothing_external_perimeter_only`.  
 Extrusion Rate Smoothing (ERS) (pressure equalizer in PrusaSlicer) aims to **limit the rate of extrusion volume change to be below a user-set threshold (the ERS value)**.  
 It aims to assist the printer firmware internal motion planners, pressure advance in achieving the desired nozzle flow and reducing deviations against the ideal flow.
 

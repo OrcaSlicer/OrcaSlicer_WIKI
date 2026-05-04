@@ -1,5 +1,7 @@
 # Travel
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `travel_speed`.  
 ![travel-lines](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/speed/travel-lines.png?raw=true)
 
 Travel speed is the speed at which the print head moves when not extruding filament.  

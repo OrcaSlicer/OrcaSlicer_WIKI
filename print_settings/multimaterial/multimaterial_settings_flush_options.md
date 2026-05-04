@@ -1,5 +1,7 @@
 # Flush Options
 
+[Variable](built_in_placeholders_variables): `flush_into_objects`.  
+
 ## Flush into objects' infill
 
 [Variable](built_in_placeholders_variables): `flush_into_infill`.  
