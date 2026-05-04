@@ -146,7 +146,6 @@ Assuming the compensation value is 0.25 mm:
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `elefant_foot_layers_density`.  
-
 Controls the [internal solid infill](strength_settings_infill#internal-solid-infill) density used on Elephant Foot Compensation layers above the bottom layer.  
 This helps reduce excess material buildup and ripple/nozzle-scrape artifacts on early solid layers when first-layer squish is high.
 
@@ -178,6 +177,10 @@ Example with `base_density = 80%` and `N = 4`:
 > This only affects internal solid infill inside the compensation zone.  
 > It does not change sparse infill, top surfaces, or the bottommost layer.  
 > Start with `80-90%` and `1-2` compensation layers, then tune based on visible ripples or nozzle scraping on lower solid layers.
+
+> [!IMPORTANT]
+> NEW FEATURE: **Elephant Foot Compensation Density**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
 
 ## Precise wall
 
