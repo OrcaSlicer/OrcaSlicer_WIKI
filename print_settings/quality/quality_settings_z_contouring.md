@@ -21,6 +21,8 @@ This can noticeably smooth domes, chamfers, shallow slopes, and similar top-faci
 
 ## Minimize wall height angle
 
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `zaa_minimize_perimeter_height`.  
 Reduce the height of top-surface perimeters so they better match the model edge on shallow slopes.  
 This setting affects both internal and external perimeters.  
 Set `0` to disable it.
@@ -29,6 +31,8 @@ Although 35 degrees is a reasonable starting point, the current implementation d
 
 ## Minimum z height
 
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `zaa_min_z`.  
 Minimum local layer height allowed for contoured toolpaths. This setting also controls the slicing plane used for contoured layers.
 
 - Lower values allow stronger contouring but leave less minimum layer thickness.
@@ -36,5 +40,7 @@ Minimum local layer height allowed for contoured toolpaths. This setting also co
 
 ## Don't alternate fill direction
 
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `zaa_dont_alternate_fill_direction`.  
 Keep fill direction consistent from layer to layer on contoured layers instead of alternating it.  
 This can help produce a more consistent surface pattern on curved top surfaces. It only has an effect when Z contouring is enabled for that region.
