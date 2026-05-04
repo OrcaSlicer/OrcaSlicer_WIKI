@@ -133,6 +133,69 @@ function Convert-ConfigOptionModeToLabel {
     }
 }
 
+function Remove-StaleSectionMetadata {
+    param(
+        [System.Collections.Generic.List[string]]$Buffer,
+        [hashtable]$ExpectedAnchors,
+        [string]$MetadataLinePattern
+    )
+
+    $sectionsPruned = 0
+    $headings = New-Object System.Collections.Generic.List[object]
+
+    for ($i = 0; $i -lt $Buffer.Count; $i++) {
+        $line = $Buffer[$i]
+        if ($line -match '^(#{1,6})\s+(.+?)\s*$') {
+            $headingText = $Matches[2].Trim()
+            $headingText = $headingText -replace '\s+#+$', ''
+            $slug = ConvertTo-AnchorSlug -Heading $headingText
+            if (-not [string]::IsNullOrWhiteSpace($slug)) {
+                $headings.Add([PSCustomObject]@{
+                    Index  = $i
+                    Anchor = $slug
+                })
+            }
+        }
+    }
+
+    if ($headings.Count -eq 0) {
+        return 0
+    }
+
+    for ($h = $headings.Count - 1; $h -ge 0; $h--) {
+        $sectionStart = $headings[$h].Index
+        $sectionAnchor = $headings[$h].Anchor
+
+        if ($ExpectedAnchors.ContainsKey($sectionAnchor)) {
+            continue
+        }
+
+        $sectionEnd = if ($h -lt ($headings.Count - 1)) { $headings[$h + 1].Index - 1 } else { $Buffer.Count - 1 }
+        if ($sectionEnd -le $sectionStart) {
+            continue
+        }
+
+        $metadataIndexes = New-Object System.Collections.Generic.List[int]
+        for ($k = $sectionStart + 1; $k -le $sectionEnd; $k++) {
+            if ($Buffer[$k] -match $MetadataLinePattern) {
+                $metadataIndexes.Add($k)
+            }
+        }
+
+        if ($metadataIndexes.Count -eq 0) {
+            continue
+        }
+
+        for ($r = $metadataIndexes.Count - 1; $r -ge 0; $r--) {
+            $Buffer.RemoveAt($metadataIndexes[$r])
+        }
+
+        $sectionsPruned++
+    }
+
+    return $sectionsPruned
+}
+
 $syncProgressActivity = "sync-tab-options-to-wiki.ps1"
 $syncStageTotal = 8
 
@@ -400,6 +463,21 @@ $missingHeadings = 0
 $alreadyPresent = 0
 $normalizedSections = 0
 $entriesWithMode = @($entries | Where-Object { -not [string]::IsNullOrWhiteSpace($_.Mode) }).Count
+$metadataLinePattern = '^\s*(?:\[(?:Variable|Variables|Mode|Modes)\]\([^\)]+\)|`[^`]+`\s+\[(?:Variable|Variables)\]\([^\)]+\)|Variables?|Modes?)\s*:\s*'
+
+$managedTargetPaths = @{}
+foreach ($fileKey in $mdByName.Keys) {
+    $candidates = $mdByName[$fileKey]
+    $managedPath = $candidates[0]
+    if ($candidates.Count -gt 1) {
+        $managedPath = ($candidates | Sort-Object Length | Select-Object -First 1)
+    }
+
+    $managedTargetPaths[$managedPath] = $true
+}
+
+$expectedAnchorsByPath = @{}
+$processedTargetPaths = @{}
 
 $groupedByFile = $entries | Group-Object -Property FileKey
 $totalFileGroups = $groupedByFile.Count
@@ -425,6 +503,11 @@ foreach ($group in $groupedByFile) {
         Write-Host "[WARN] Multiple files matched '$fileKey'. Using: $targetPath" -ForegroundColor Yellow
     }
 
+    $processedTargetPaths[$targetPath] = $true
+    if (-not $expectedAnchorsByPath.ContainsKey($targetPath)) {
+        $expectedAnchorsByPath[$targetPath] = @{}
+    }
+
     $lines = Get-Content -LiteralPath $targetPath
     $buffer = New-Object System.Collections.Generic.List[string]
     $buffer.AddRange([string[]]$lines)
@@ -438,6 +521,7 @@ foreach ($group in $groupedByFile) {
         $anchorNumber++
         Set-SyncDetail -Status "File $fileNumber/$($totalFileGroups): $fileKey | Anchor $anchorNumber/$($anchorCount): $($anchorGroup.Name)" -Current $fileNumber -Total $totalFileGroups
         $anchor = $anchorGroup.Name
+        $expectedAnchorsByPath[$targetPath][$anchor] = $true
 
         $vars = New-Object System.Collections.Generic.List[string]
         $seenVars = @{}
@@ -529,7 +613,7 @@ foreach ($group in $groupedByFile) {
         $metadataLineIndexes = New-Object System.Collections.Generic.List[int]
 
         for ($k = $idx + 1; $k -le $sectionEnd; $k++) {
-            if ($buffer[$k] -match '^\s*(?:\[(?:Variable|Variables|Mode|Modes)\]\([^\)]+\)|`[^`]+`\s+\[(?:Variable|Variables)\]\([^\)]+\)|Variables?|Modes?)\s*:\s*') {
+            if ($buffer[$k] -match $metadataLinePattern) {
                 $metadataLineIndexes.Add($k)
             }
         }
@@ -583,8 +667,39 @@ foreach ($group in $groupedByFile) {
         $fileChanged = $true
     }
 
+    $staleSectionsPruned = Remove-StaleSectionMetadata -Buffer $buffer -ExpectedAnchors $expectedAnchorsByPath[$targetPath] -MetadataLinePattern $metadataLinePattern
+    if ($staleSectionsPruned -gt 0) {
+        $normalizedSections += $staleSectionsPruned
+        $fileChanged = $true
+    }
+
     if ($fileChanged -and -not $DryRun) {
         Set-Content -LiteralPath $targetPath -Value $buffer -Encoding UTF8
+    }
+}
+
+foreach ($managedTargetPath in $managedTargetPaths.Keys) {
+    if ($processedTargetPaths.ContainsKey($managedTargetPath)) {
+        continue
+    }
+
+    $lines = Get-Content -LiteralPath $managedTargetPath
+    $buffer = New-Object System.Collections.Generic.List[string]
+    $buffer.AddRange([string[]]$lines)
+
+    $expectedAnchors = @{}
+    if ($expectedAnchorsByPath.ContainsKey($managedTargetPath)) {
+        $expectedAnchors = $expectedAnchorsByPath[$managedTargetPath]
+    }
+
+    $staleSectionsPruned = Remove-StaleSectionMetadata -Buffer $buffer -ExpectedAnchors $expectedAnchors -MetadataLinePattern $metadataLinePattern
+    if ($staleSectionsPruned -le 0) {
+        continue
+    }
+
+    $normalizedSections += $staleSectionsPruned
+    if (-not $DryRun) {
+        Set-Content -LiteralPath $managedTargetPath -Value $buffer -Encoding UTF8
     }
 }
 
