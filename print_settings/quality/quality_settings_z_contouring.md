@@ -7,6 +7,8 @@ Z contouring, also called Z-layer anti-aliasing or ZAA, reduces visible stair-st
 Instead of keeping every move at a single flat Z for the whole layer, OrcaSlicer processes eligible top-surface toolpaths and emits varying Z values inside the affected layer.  
 This can noticeably smooth domes, chamfers, shallow slopes, and similar top-facing geometry without changing the nominal layer height of the rest of the print.
 
+![z-contouring](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/z-contouring/z-contouring.gif?raw=true)
+
 > [!NOTE]
 > Current implementation targets top-facing curved or sloped surfaces.  
 > **Downward-facing or upside-down curves are not handled.**
