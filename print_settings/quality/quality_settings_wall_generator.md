@@ -94,12 +94,15 @@ Increasing this value removes short unconnected walls, **improving efficiency**.
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `wall_maximum_resolution`.  
-This value determines the smallest wall line segment length in mm.
-The smaller you set this value, the more accurate and precise the walls will be.
+Controls the smallest wall segment length (in mm) that Arachne keeps during wall path simplification.
+Lower values preserve more small segments and curved detail, which can improve surface quality, but increase G-code size and motion complexity.
+Higher values simplify paths more aggressively, producing cleaner and smaller G-code at the cost of geometric fidelity.
 
 ### Maximum wall deviation
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `wall_maximum_deviation`.  
-The maximum deviation allowed when reducing the resolution for the 'Maximum wall resolution' setting. If you increase this, the print will be less accurate, but the G-Code will be smaller.  
-'Maximum wall deviation' limits 'Maximum wall resolution', so if the two conflict, 'Maximum wall deviation' takes precedence.
+Defines the maximum allowed geometric error (in mm) when simplifying wall paths.
+Increasing this value allows stronger simplification (smaller G-code and fewer tiny moves), but can reduce wall accuracy.
+Decreasing this value keeps walls closer to the original geometry, but retains more segments.
+If this setting conflicts with [Maximum wall resolution](#maximum-wall-resolution), this deviation limit takes precedence.
