@@ -12,7 +12,7 @@ Ironing is a process used to improve the surface finish of 3D prints by smoothin
 
 ## Type
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_type`.  
 This setting controls which layer being ironed.
 
@@ -25,7 +25,7 @@ This setting controls which layer being ironed.
 
 ## Pattern
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_pattern`.  
 The pattern that will be used when ironing. Usually, the best pattern is the one with the most efficient coverage of the surface.  
 
@@ -39,7 +39,7 @@ The pattern that will be used when ironing. Usually, the best pattern is the one
 
 ## Flow
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_flow`.  
 The amount of material to extrude during ironing.  
 This % is a percentage of the normal flow rate. A lower value will result in a smoother finish but may not cover the surface completely. A higher value may cover the surface better but can lead to over extrusion or rougher finish.
@@ -48,14 +48,14 @@ A lower layer height may require higher flow due to less volumetric extrusion pe
 
 ## Line spacing
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_spacing`.  
 The distance between the lines of ironing.  
 It's recommended to set this value to be equal to or less than the nozzle diameter for optimal coverage and surface finish.
 
 ## Inset
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_inset`.  
 The distance to keep from the edges, which can help prevent over-extrusion at the edges of the surface being ironed.
 
@@ -65,7 +65,7 @@ If this value is set to 0, the ironing toolpath will start directly at the perim
 
 ## Angle Offset
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_angle`.  
 The angle of ironing lines offset relative to the top surface solid infill direction.
 
@@ -73,7 +73,7 @@ Commonly used ironing angle offsets are 0°, 45°, and 90° each producing a [di
 
 ## Fixed Angle
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_angle_fixed`.  
 Use a fixed absolute angle for ironing that is not offset from the top surface infill direction. This results in an ironing finish that does not have alternating line directions and may result in a more uniform surface finish and reduced tiger striping effect when reflecting light.
 

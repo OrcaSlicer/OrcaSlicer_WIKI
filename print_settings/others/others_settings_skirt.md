@@ -16,7 +16,7 @@ A skirt is one or more additional perimeters printed around the model outline on
 
 ## Loops
 
-[Mode](config_option_mode): `Simple`.  
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `skirt_loops`.  
 Number of skirt loops to print.  
 Usually 2 loops are recommended but increasing loops improve priming and give a larger buffer between the nozzle and the part, at the cost of extra filament and time.  
@@ -26,7 +26,7 @@ Set to 0 to disable the skirt.
 
 ## Type
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `skirt_type`.  
 
 ### Combined
@@ -45,7 +45,7 @@ Each object gets its own skirt printed separately.
 
 ## Minimum extrusion Length
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `min_skirt_length`.  
 Minimum filament extrusion length in mm when printing the skirt. Zero means this feature is disabled.  
 Using a non-zero value is useful if the printer is set up to print without a prime line.  
@@ -53,34 +53,34 @@ Final number of loops is not taken into account while arranging or validating ob
 
 ## Distance
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `skirt_distance`.  
 Distance from skirt to brim or object.  
 Increasing this distance can help avoid collisions with brims or supports, but will increase the footprint of the skirt and filament usage.
 
 ## Start point
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `skirt_start_angle`.  
 Start angle for the skirt relative to the object centre. 0° is the right-most position (along the +X axis), angles increase counter-clockwise.  
 Use this to control where the skirt begins to better align with part features or prime locations.
 
 ## Speed
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `skirt_speed`.  
 Printing speed for the skirt in mm/s. Set to 0 to use the default first-layer extrusion speed.  
 Slower speeds give a more reliable prime; very fast skirt speeds may not adhere properly and come off, causing problems with the part.
 
 ## Height
 
-[Mode](config_option_mode): `Simple`.  
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `skirt_height`.  
 Number of layers the skirt should be printed for. Usually 1 layer for priming. Increase the height if you want a taller draft shield effect.
 
 ## Shield
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield`.  
 When enabled the skirt can be printed as a draft shield: a taller wall surrounding the part to help protect prints (especially ABS/ASA) from drafts and sudden temperature changes.  
 This is most useful for open-frame printers without an enclosure.
@@ -93,6 +93,6 @@ This is most useful for open-frame printers without an enclosure.
 
 ## Single loop after first layer
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `single_loop_draft_shield`.  
 When enabled, limits the draft shield to a single wall after the first layer (i.e. only one loop is printed on subsequent shield layers). This reduces filament and print time but makes the shield less robust and more prone to warping or cracking.

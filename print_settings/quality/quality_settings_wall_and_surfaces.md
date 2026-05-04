@@ -16,7 +16,7 @@
 
 ## Walls printing order
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wall_sequence`.  
 Print sequence of the internal (inner) and external (outer) walls.  
 
@@ -40,7 +40,7 @@ Use Outer/Inner for the same external wall quality and dimensional accuracy bene
 
 ### Print infill first
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `is_infill_first`.  
 When this option is enabled, the [infill](strength_settings_infill) and [top/bottom shells](strength_settings_top_bottom_shells) are printed first, followed by the walls. This can be useful for some overhangs where the infill can support the walls.
 
@@ -54,7 +54,7 @@ When using this option is recommended to use the [Precise Wall](quality_settings
 
 ## Wall loop direction
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wall_direction`.  
 The direction which the **contour** wall loops are extruded when looking down from the top.  
 Holes are printed in the opposite direction to the contour to maintain alignment with layers whose contour polygons are incomplete and change direction, also partially forming the contour of a hole.
@@ -71,7 +71,7 @@ The usage of [Reverse on even](quality_settings_overhangs#reverse-on-even) will 
 
 ## Surface flow ratio
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `print_flow_ratio`, `top_solid_infill_flow_ratio`, `bottom_solid_infill_flow_ratio`, `set_other_flow_ratios`, `first_layer_flow_ratio`, `outer_wall_flow_ratio`, `inner_wall_flow_ratio`, `overhang_flow_ratio`, `sparse_infill_flow_ratio`, `internal_solid_infill_flow_ratio`, `gap_fill_flow_ratio`, `support_flow_ratio`, `support_interface_flow_ratio`.  
 This factor affects the amount of material for [top or bottom solid infill](strength_settings_top_bottom_shells). You can decrease it slightly to have smooth surface finish.  
 The actual top or bottom surface flow used is calculated by multiplying this value by the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.
@@ -91,7 +91,7 @@ Specially useful in small features, like letters, where the top surface is very 
 
 ### Threshold
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `min_width_top_surface`.  
 If a top surface has to be printed and it's partially covered by another layer, it won't be considered at a top layer where its width is below this value. This can be useful to not let the 'one perimeter on top' trigger on surface that should be covered only by perimeters.  
 This value can be a mm or a % of the perimeter extrusion width.
@@ -103,7 +103,7 @@ This value can be a mm or a % of the perimeter extrusion width.
 
 ## Avoid crossing walls
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `reduce_crossing_wall`.  
 This option instructs the slicer to avoid crossing perimeters (walls) during travel moves.  
 Instead of traveling directly through a wall, the print head will detour around it, which can significantly reduce surface defects and stringing.
@@ -118,7 +118,7 @@ Highly recommended for detailed or aesthetic prints.
 
 ### Max detour length
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `max_travel_detour_distance`.  
 Defines the maximum distance the printer is allowed to detour to avoid crossing a wall.
 Can be set as:
@@ -131,7 +131,7 @@ Use this setting to balance between print time and wall quality—longer detours
 
 ## Small area flow compensation
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `small_area_infill_flow_compensation`.  
 Enables adaptive flow control for small infill areas.
 This feature helps address extrusion problems that often occur in small regions of solid infill, such as the tops of narrow letters or fine features.  

@@ -483,7 +483,7 @@ foreach ($group in $groupedByFile) {
         $canonicalLines = New-Object System.Collections.Generic.List[string]
 
         if ($distinctModes.Count -gt 1) {
-            $canonicalLines.Add("[Modes](config_option_mode):  ")
+            $canonicalLines.Add("[Modes](option_mode):  ")
             foreach ($modeName in $distinctModes) {
                 $modeVars = [System.Collections.Generic.List[string]]$modeToVars[$modeName]
                 $groupVariableLabel = if ($modeVars.Count -eq 1) { "[Variable](built_in_placeholders_variables):" } else { "[Variables](built_in_placeholders_variables):" }
@@ -499,7 +499,7 @@ foreach ($group in $groupedByFile) {
             $insertModeLine = $null
             if ($distinctModes.Count -gt 0) {
                 $formattedModes = $distinctModes | ForEach-Object { "``$_``" }
-                $modeLabel = if ($distinctModes.Count -eq 1) { "[Mode](config_option_mode):" } else { "[Modes](config_option_mode):" }
+                $modeLabel = if ($distinctModes.Count -eq 1) { "[Mode](option_mode):" } else { "[Modes](option_mode):" }
                 $insertModeLine = "$modeLabel " + ($formattedModes -join ", ") + ".  "  # ending with two spaces so Markdown line break is forced
             }
 

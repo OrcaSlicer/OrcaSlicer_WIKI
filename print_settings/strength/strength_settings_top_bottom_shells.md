@@ -27,7 +27,7 @@ This can be used for aesthetic purposes, improving grip or creating interfaces.
 
 ## Infill/Wall Overlap
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_bottom_infill_wall_overlap`.  
 The top solid infill area is slightly enlarged to overlap with walls for better bonding and to minimize pinholes where the infill meets the walls.  
 A value of 25-30% is a good starting point. The percentage value is relative to the line width of the sparse infill.

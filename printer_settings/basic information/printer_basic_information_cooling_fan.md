@@ -4,7 +4,7 @@ Machine cooling fan settings.
 
 ## Fan speed-up time
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `fan_speedup_time`, `fan_speedup_overhangs`.  
 Start the fan this number of seconds earlier than its target start time (you can use fractional seconds). It assumes infinite acceleration for this time estimation, and will only take into account G1 and G0 moves (arc fitting is unsupported).
 It won't move fan commands from custom G-code (they act as a sort of 'barrier').
@@ -17,7 +17,7 @@ Will only take into account the delay for the cooling of overhangs.
 
 ## Fan kick-start time
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `fan_kickstart`.  
 Emit a max fan speed command for this amount of seconds before reducing to target speed to kick-start the cooling fan.
 This is useful for fans where a low PWM/power may be insufficient to get the fan started spinning from a stop, or to get the fan up to speed faster.

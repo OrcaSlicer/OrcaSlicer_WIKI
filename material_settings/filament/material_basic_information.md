@@ -21,44 +21,44 @@ This section contains basic information about the filament material.
 
 ## Type
 
-[Mode](config_option_mode): `Simple`.  
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `filament_type`.  
 Material base type (e.g., PLA, ABS, PETG, etc.).  
 This setting affects coefficients used in various calculations, such as brim width or temperature warnings.
 
 ## Vendor
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filament_vendor`.  
 Vendor of filament. For show only.
 
 ## Soluble material
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filament_soluble`.  
 Soluble material is commonly used to print supports and support interfaces.
 
 ## Support material
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filament_is_support`.  
 Support material is commonly used to print supports and support interfaces.
 
 ## Filament ramming length
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filament_change_length`.  
 When changing the extruder, it is recommended to extrude a certain length of filament from the original extruder. This helps minimize nozzle oozing.
 
 ## Required nozzle HRC
 
-[Mode](config_option_mode): `Developer`.  
+[Mode](option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `required_nozzle_HRC`.  
 Minimum HRC of nozzle required to print the filament. A value of 0 means no checking of the nozzle's HRC.
 
 ## Default color
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `default_filament_colour`.  
 Default filament color.  
 Right click to reset value to system default.
@@ -70,19 +70,19 @@ Filament diameter is used to calculate extrusion variables in G-code, so it is i
 
 ## Adhesiveness Category
 
-[Mode](config_option_mode): `Developer`.  
+[Mode](option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `filament_adhesiveness_category`.  
 Filament category.
 
 ## Density
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filament_density`.  
 Filament density, for statistical purposes only.
 
 ## Shrinkage (XY)
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filament_shrink`.  
 Enter the shrinkage percentage that the filament will get after cooling (94% if you measure 94mm instead of 100mm).  
 The part will be scaled in XY to compensate. Only the filament used for the perimeter is taken into account.  
@@ -90,19 +90,19 @@ Be sure to allow enough space between objects, as this compensation is done afte
 
 ## Shrinkage (Z)
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filament_shrinkage_compensation_z`.  
 Enter the shrinkage percentage that the filament will get after cooling (94% if you measure 94mm instead of 100mm). The part will be scaled in Z to compensate.
 
 ## Price
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filament_cost`.  
 Filament price, for statistical purposes only.
 
 ## Softening temperature
 
-[Mode](config_option_mode): `Simple`.  
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `temperature_vitrification`.  
 The material softens at this temperature, so when the bed temperature is equal to or greater than this, it's highly recommended to open the front door and/or remove the upper glass to avoid clogs.
 

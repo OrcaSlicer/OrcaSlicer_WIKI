@@ -100,7 +100,7 @@ These settings control the orientation of the sparse infill lines to optimize st
 
 ### Direction
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `infill_direction`, `solid_infill_direction`.  
 Controls the direction of the infill lines to optimize or strengthen the print.
 
@@ -142,7 +142,7 @@ Other examples:
 
 ### Symmetric infill Y axis
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `symmetric_infill_y_axis`.  
 When enabled, the infill pattern will be mirrored along the Y-axis of the print bed. This can help achieve more uniform strength distribution in certain geometries.
 
@@ -156,7 +156,7 @@ For example, you might want to mirror the infill pattern for specific components
 
 ## Infill Wall Overlap
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `infill_wall_overlap`.  
 Infill area is enlarged slightly to overlap with wall for better bonding. The percentage value is relative to line width of sparse infill. Set this value to ~10-15% to minimize potential over extrusion and accumulation of material resulting in rough surfaces.
 
@@ -170,7 +170,7 @@ Infill area is enlarged slightly to overlap with wall for better bonding. The pe
 
 ## Apply gap fill
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gap_fill_target`.  
 Enables gap fill for the selected solid surfaces.  
 The minimum gap length that will be filled can be controlled from the filter out tiny gaps option.
@@ -188,14 +188,14 @@ However this is not advised, as gap fill between perimeters is contributing to t
 
 ## Filter out tiny gaps
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filter_out_gap_fill`.  
 Don't print gap fill with a length is smaller than the threshold specified (in mm).  
 This setting applies to top, bottom and solid infill and, if using the [classic perimeter generator](quality_settings_wall_generator#classic), to wall gap fill.
 
 ## Anchor
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `infill_anchor_max`, `infill_anchor`.  
 Connect an infill line to an internal perimeter with a short segment of an additional perimeter. If expressed as percentage (example: 15%) it is calculated over infill extrusion width.
 OrcaSlicer tries to connect two close infill lines to a short perimeter segment. If no such perimeter segment shorter than this parameter is found, the infill line is connected to a perimeter segment at just one side and the length of the perimeter segment taken is limited to infill_anchor, but no longer than this parameter. If set to 0, the old algorithm for infill connection will be used, it should create the same result as with 1000 & 0.
@@ -215,7 +215,7 @@ Line pattern of internal solid infill. If the [detect narrow internal solid infi
 
 ## Extra Solid Infill
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `extra_solid_infills`.  
 Insert extra solid infills at specific layers to add strength at critical points in your print. This feature allows you to strategically reinforce your part without changing the overall sparse infill density.
 

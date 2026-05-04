@@ -24,7 +24,7 @@ Increasing the wall loops will:
 
 ## Alternate extra wall
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `alternate_extra_wall`.  
 This setting adds an extra wall to every other layer. This way the infill gets wedged vertically between the walls, resulting in stronger prints.  
 When this option is enabled, the ensure vertical shell thickness option needs to be disabled.  
@@ -37,7 +37,7 @@ When this option is enabled, the ensure vertical shell thickness option needs to
 
 ## Detect thin wall
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `detect_thin_wall`.  
 By default, walls are printed as closed loops. When a wall is too thin to contain two line widths, enabling "Detect thin walls" prints it as a single extrusion line.  
 Thin walls printed this way may have reduced surface quality and strength because they are not closed loops.

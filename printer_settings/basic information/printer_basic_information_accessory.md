@@ -15,13 +15,13 @@
 
 ## Nozzle type
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `nozzle_type`.  
 The metallic material of the nozzle: This determines the abrasive resistance of the nozzle and what kind of filament can be printed.
 
 ## Nozzle HRC
 
-[Mode](config_option_mode): `Developer`.  
+[Mode](option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `nozzle_hrc`.  
 The Nozzle Hardness ([Hardness Rockwell C](https://en.wikipedia.org/wiki/Rockwell_hardness_test)) value is used in OrcaSlicer to validate nozzle compatibility with abrasive filaments and prevent nozzle damage during printing.
 
@@ -35,7 +35,7 @@ The Nozzle Hardness ([Hardness Rockwell C](https://en.wikipedia.org/wiki/Rockwel
 
 ## Auxiliary Part Cooling Fan
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `auxiliary_fan`.  
 Enable this option if machine has auxiliary part cooling fan.  
 The speed will be set for each material in the [material cooling settings](material_cooling#auxiliary-part-cooling-fan).
@@ -199,7 +199,7 @@ Pick the variant that best fits your workflow; the advanced version provides ext
 
 ## Support controlling chamber temperature
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_chamber_temp_control`.  
 OrcaSlicer use `M141/M191` command to control active chamber heater.
 
@@ -270,7 +270,7 @@ gcode:
 
 ## Support air filtration
 
-[Mode](config_option_mode): `Developer`.  
+[Mode](option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `support_air_filtration`.  
 Air Filtration/Exhaust Fan Control in OrcaSlicer.  
 OrcaSlicer use `M106 P3` command to control air-filtration/exhaust fan.

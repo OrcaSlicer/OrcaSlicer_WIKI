@@ -23,7 +23,7 @@ Brim is a flat layer printed around a model's base to improve adhesion to the pr
 
 ## Type
 
-[Mode](config_option_mode): `Simple`.  
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `brim_type`.  
 Controls how the brim is generated on a model's outer and/or inner sides.
 
@@ -86,7 +86,7 @@ The geometry analysis routine selects candidate locations based on the configure
 
 #### Ear max angle
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_ears_max_angle`.  
 Angle threshold (degrees) used to decide where mouse ears may be placed:
 
@@ -96,7 +96,7 @@ Angle threshold (degrees) used to decide where mouse ears may be placed:
 
 #### Ear detection radius
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_ears_detection_length`.  
 The geometry will be decimated before detecting sharp angles.  
 This parameter indicates the minimum length of the deviation for the decimation.  
@@ -104,21 +104,21 @@ This parameter indicates the minimum length of the deviation for the decimation.
 
 ## Width
 
-[Mode](config_option_mode): `Simple`.  
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `brim_width`.  
 Distance between the model and the outermost brim line.  
 Increasing this value widens the brim, which can improve adhesion but increases material usage.
 
 ## Brim-Object Gap
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_object_gap`.  
 Gap between the innermost brim line and the object.  
 Increasing the gap makes the brim easier to remove but reduces its adhesion benefit; very large gaps may eliminate contact and negate the brim's purpose.
 
 ### Brim Flow Ratio
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_flow_ratio`.  
 This factor affects the amount of material for [brims](#brim).
 Setting this value slightly above 1.0 can help the brim hold the print on the plate, but it can also make brims harder to remove.
@@ -133,7 +133,7 @@ The actual brim [flow](quality_settings_wall_and_surfaces#surface-flow-ratio) us
 
 ### Brim use EFC outline
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_use_efc_outline`.  
 When enabled, the brim is aligned with the first-layer perimeter geometry after [Elephant Foot Compensation](quality_settings_precision#elephant-foot-compensation) is applied.  
 This option is intended for cases where [Elephant Foot Compensation](quality_settings_precision#elephant-foot-compensation) significantly alters the first-layer footprint.
@@ -144,7 +144,7 @@ If your current setup already works well, enabling it may be unnecessary and can
 
 ## Combine brims
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `combine_brims`.  
 Combine adjacent brims into a single continuous brim when they touch.
 

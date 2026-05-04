@@ -12,7 +12,7 @@ These settings control how G-code is generated and formatted. They impact readab
 
 ## Reduce Infill Retraction
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `reduce_infill_retraction`.  
 When enabled, the slicer will skip retractions for travel moves that occur entirely inside infill regions. This reduces the number of retractions and can speed up printing for complex models, but it may increase oozing or stringing inside infill. Slicing time may also increase slightly.
 
@@ -20,20 +20,20 @@ When enabled, the slicer will skip retractions for travel moves that occur entir
 
 ## Add line number
 
-[Mode](config_option_mode): `Developer`.  
+[Mode](option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `gcode_add_line_number`.  
 Prefix each G-code line with a sequential line number (N1, N2, ...). Useful for debugging or tools that expect numbered G-code.
 
 ## Verbose G-code
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gcode_comments`.  
 Include descriptive comments for G-code lines and blocks to make the file human-readable and easier to debug.  
 Verbose mode produces much larger files and may slow down SD-card printing on some printers.
 
 ## Label Objects
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gcode_label_objects`.  
 Insert comments that label moves with the object they belong to (object index or name). This is useful for integrations such as OctoPrint's Cancel Object plugin and for human inspection of the G-code.
 
@@ -43,7 +43,7 @@ Insert comments that label moves with the object they belong to (object index or
 
 ## Exclude Objects
 
-[Mode](config_option_mode): `Advanced`.  
+[Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `exclude_object`.  
 Add an `EXCLUDE OBJECT` marker or command in the exported G-code for objects flagged as excluded. This helps post-processors or custom scripts recognise excluded parts.
 
