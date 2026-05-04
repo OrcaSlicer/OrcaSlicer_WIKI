@@ -460,8 +460,13 @@ foreach ($group in $groupedByFile) {
 
         $distinctModes = New-Object System.Collections.Generic.List[string]
         $seenModes = @{}
+        $modeToVars = @{}
+        $varsWithoutMode = New-Object System.Collections.Generic.List[string]
+
         foreach ($varName in $vars) {
+            $formattedVarName = "``$varName``"
             if (-not $varModes.ContainsKey($varName)) {
+                $varsWithoutMode.Add($formattedVarName)
                 continue
             }
 
@@ -469,21 +474,40 @@ foreach ($group in $groupedByFile) {
             if (-not $seenModes.ContainsKey($modeName)) {
                 $seenModes[$modeName] = $true
                 $distinctModes.Add($modeName)
+                $modeToVars[$modeName] = New-Object System.Collections.Generic.List[string]
             }
-        }
 
-        $insertModeLine = $null
-        if ($distinctModes.Count -gt 0) {
-            $formattedModes = $distinctModes | ForEach-Object { "``$_``" }
-            $modeLabel = if ($distinctModes.Count -eq 1) { "[Mode](config_option_mode):" } else { "[Modes](config_option_mode):" }
-            $insertModeLine = "$modeLabel " + ($formattedModes -join ", ") + ".  "  # ending with two spaces so Markdown line break is forced
+            $modeToVars[$modeName].Add($formattedVarName)
         }
 
         $canonicalLines = New-Object System.Collections.Generic.List[string]
-        if (-not [string]::IsNullOrWhiteSpace($insertModeLine)) {
-            $canonicalLines.Add($insertModeLine)
+
+        if ($distinctModes.Count -gt 1) {
+            $canonicalLines.Add("[Modes](config_option_mode):  ")
+            foreach ($modeName in $distinctModes) {
+                $modeVars = [System.Collections.Generic.List[string]]$modeToVars[$modeName]
+                $groupVariableLabel = if ($modeVars.Count -eq 1) { "[Variable](built_in_placeholders_variables):" } else { "[Variables](built_in_placeholders_variables):" }
+                $canonicalLines.Add("``$modeName`` $groupVariableLabel " + ($modeVars -join ", ") + ".  ")
+            }
+
+            if ($varsWithoutMode.Count -gt 0) {
+                $leftoverVariableLabel = if ($varsWithoutMode.Count -eq 1) { "[Variable](built_in_placeholders_variables):" } else { "[Variables](built_in_placeholders_variables):" }
+                $canonicalLines.Add("$leftoverVariableLabel " + ($varsWithoutMode -join ", ") + ".  ")
+            }
         }
-        $canonicalLines.Add($insertVariableLine)
+        else {
+            $insertModeLine = $null
+            if ($distinctModes.Count -gt 0) {
+                $formattedModes = $distinctModes | ForEach-Object { "``$_``" }
+                $modeLabel = if ($distinctModes.Count -eq 1) { "[Mode](config_option_mode):" } else { "[Modes](config_option_mode):" }
+                $insertModeLine = "$modeLabel " + ($formattedModes -join ", ") + ".  "  # ending with two spaces so Markdown line break is forced
+            }
+
+            if (-not [string]::IsNullOrWhiteSpace($insertModeLine)) {
+                $canonicalLines.Add($insertModeLine)
+            }
+            $canonicalLines.Add($insertVariableLine)
+        }
 
         $idx = Find-HeadingLineIndex -Lines $buffer.ToArray() -Anchor $anchor
         if ($idx -lt 0) {
@@ -505,7 +529,7 @@ foreach ($group in $groupedByFile) {
         $metadataLineIndexes = New-Object System.Collections.Generic.List[int]
 
         for ($k = $idx + 1; $k -le $sectionEnd; $k++) {
-            if ($buffer[$k] -match '^\s*(?:\[(?:Variable|Variables|Mode|Modes)\]\([^\)]+\)|Variables?|Modes?)\s*:\s*') {
+            if ($buffer[$k] -match '^\s*(?:\[(?:Variable|Variables|Mode|Modes)\]\([^\)]+\)|`[^`]+`\s+\[(?:Variable|Variables)\]\([^\)]+\)|Variables?|Modes?)\s*:\s*') {
                 $metadataLineIndexes.Add($k)
             }
         }

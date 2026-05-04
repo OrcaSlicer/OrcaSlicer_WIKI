@@ -39,8 +39,10 @@ This will cap the speed set by the process if it exceeds these values.
 
 ## Acceleration limitation
 
-[Modes](config_option_mode): `Simple`, `Advanced`.  
-[Variables](built_in_placeholders_variables): `machine_max_acceleration_x`, `machine_max_acceleration_y`, `machine_max_acceleration_e`, `machine_max_acceleration_z`, `machine_max_acceleration_extruding`, `machine_max_acceleration_retracting`, `machine_max_acceleration_travel`.  
+[Modes](config_option_mode):  
+`Simple` [Variables](built_in_placeholders_variables): `machine_max_acceleration_extruding`, `machine_max_acceleration_retracting`.  
+`Advanced` [Variable](built_in_placeholders_variables): `machine_max_acceleration_travel`.  
+[Variables](built_in_placeholders_variables): `machine_max_acceleration_x`, `machine_max_acceleration_y`, `machine_max_acceleration_z`, `machine_max_acceleration_e`.  
 Safeguard maximum accelerations for all axes.
 This will cap the acceleration set by the process if it exceeds these values.
 

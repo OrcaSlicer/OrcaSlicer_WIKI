@@ -91,8 +91,9 @@ This function is used to adjust sizes slightly when the objects have assembling 
 
 ## Elephant foot compensation
 
-[Modes](config_option_mode): `Advanced`, `Expert`.  
-[Variables](built_in_placeholders_variables): `elefant_foot_compensation`, `elefant_foot_layers_density`, `elefant_foot_compensation_layers`.  
+[Modes](config_option_mode):  
+`Advanced` [Variables](built_in_placeholders_variables): `elefant_foot_compensation`, `elefant_foot_compensation_layers`.  
+`Expert` [Variable](built_in_placeholders_variables): `elefant_foot_layers_density`.  
 This feature compensates for the "elephant foot" effect, which occurs when the first few layers of a print are wider than the rest due:
 
 - Weight of the material above them.
