@@ -12,6 +12,8 @@ The Wall Generator defines how the outer and inner walls (perimeters) of the mod
         - [First layer minimum wall width](#first-layer-minimum-wall-width)
     - [Minimum feature size](#minimum-feature-size)
     - [Minimum wall length](#minimum-wall-length)
+    - [Maximum wall resolution](#maximum-wall-resolution)
+    - [Maximum wall deviation](#maximum-wall-deviation)
 
 ## Classic
 
@@ -87,3 +89,17 @@ Increasing this value removes short unconnected walls, **improving efficiency**.
 > [!NOTE]
 > Top and bottom surfaces are not affected by this setting to avoid visual artifacts.
 > Use the One Wall Threshold (in Advanced settings) to adjust how aggressively OrcaSlicer considers a region a top surface. This option only appears when this setting exceeds 0.5, or if single-wall top surfaces are enabled.
+
+### Maximum wall resolution
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `wall_maximum_resolution`.  
+This value determines the smallest wall line segment length in mm.
+The smaller you set this value, the more accurate and precise the walls will be.
+
+### Maximum wall deviation
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `wall_maximum_deviation`.  
+The maximum deviation allowed when reducing the resolution for the 'Maximum wall resolution' setting. If you increase this, the print will be less accurate, but the G-Code will be smaller.  
+'Maximum wall deviation' limits 'Maximum wall resolution', so if the two conflict, 'Maximum wall deviation' takes precedence.
