@@ -9,6 +9,7 @@ This section covers the settings that affect the precision of your prints. These
     - [X-Y hole compensation](#x-y-hole-compensation)
     - [X-Y contour compensation](#x-y-contour-compensation)
 - [Elephant foot compensation](#elephant-foot-compensation)
+    - [Elephant Foot Compensation Density](#elephant-foot-compensation-density)
 - [Precise wall](#precise-wall)
     - [Technical explanation](#technical-explanation)
 - [Precise Z Height](#precise-z-height)
@@ -107,11 +108,11 @@ To mitigate this effect, OrcaSlicer allows you to specify a negative distance th
 ![elephant-foot-compensation](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/elephant-foot-compensation.png?raw=true)
 
 The compensation works as follows:  
-When the `current_layer` is <= `input_compensation_layers`
+When $\mathrm{current\_layer} \le \mathrm{input\_compensation\_layers}$
 
-```c++
-compensation = input_compensation_distance - (input_compensation_distance / input_compensation_layers) × (current_layer - 1)
-```
+$$
+\mathrm{compensation} = \mathrm{input\_compensation\_distance} - \frac{\mathrm{input\_compensation\_distance}}{\mathrm{input\_compensation\_layers}} \times (\mathrm{current\_layer} - 1)
+$$
 
 According to the equation, we can establish the following rules:
 
@@ -140,6 +141,43 @@ Assuming the compensation value is 0.25 mm:
 > This feature will look like the part have a smaller footprint on the build plate in the preview, but the final print (if calibrated correctly) will have the correct dimensions after slicing.  
 > That's why the Brim may look disconnected from the object when this feature is enabled. But in the final print, the brim will be correctly attached to the object.  
 > If you use a high value for the Elephant Foot Compensation Distance, you may want to enable the [Brim use EFC outline](others_settings_brim#brim-use-efc-outline) option to ensure proper brim attachment.
+
+### Elephant Foot Compensation Density
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `elefant_foot_layers_density`.  
+
+Controls the [internal solid infill](strength_settings_infill#internal-solid-infill) density used on Elephant Foot Compensation layers above the bottom layer.  
+This helps reduce excess material buildup and ripple/nozzle-scrape artifacts on early solid layers when first-layer squish is high.
+
+- Range: `50%` to `100%`
+- Default: `100%` (feature disabled)
+
+This option works together with [Elephant foot compensation layers](#elephant-foot-compensation).
+For each compensated layer above the bottom layer, OrcaSlicer applies:
+
+$$
+\mathrm{effective\_density} = \mathrm{base\_density} \times \frac{N - (k - 1)}{N}
+$$
+
+Where:
+
+- `base_density` is `elefant_foot_layers_density`
+- `N` is `elefant_foot_compensation_layers`
+- `k` is the compensated layer index (`1` = first layer above the bottom layer)
+
+Example with `base_density = 80%` and `N = 4`:
+
+- 1st compensated layer: `80%`
+- 2nd compensated layer: `60%`
+- 3rd compensated layer: `40%`
+- 4th compensated layer: `20%`
+- Higher layers: normal internal solid infill density (`100%`)
+
+> [!NOTE]
+> This only affects internal solid infill inside the compensation zone.  
+> It does not change sparse infill, top surfaces, or the bottommost layer.  
+> Start with `80-90%` and `1-2` compensation layers, then tune based on visible ripples or nozzle scraping on lower solid layers.
 
 ## Precise wall
 
