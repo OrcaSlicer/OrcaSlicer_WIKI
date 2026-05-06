@@ -23,6 +23,10 @@ Useful for creating a textures or hide surface imperfections but will increase p
     - [Billow](#billow)
     - [Ridged Multifractal](#ridged-multifractal)
     - [Voronoi](#voronoi)
+    - [Ripple](#ripple)
+        - [Ripples per layer](#ripples-per-layer)
+        - [Ripple offset](#ripple-offset)
+        - [Layers between ripple offset](#layers-between-ripple-offset)
 - [Point distance](#point-distance)
 - [Skin thickness](#skin-thickness)
 - [Skin feature size](#skin-feature-size)
@@ -124,6 +128,29 @@ Creates sharp, jagged features and high-contrast detail. Useful for stone- or ma
 [Voronoi noise](https://en.wikipedia.org/wiki/Worley_noise) divides the surface into Voronoi cells and displaces each cell independently, creating a patchwork or cellular texture.
 
 ![Fuzzy-skin-voronoi](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-voronoi.png?raw=true)
+
+### Ripple
+
+The Ripple noise type creates a regular, wave-like pattern of ripples across the surface.
+
+#### Ripples per layer
+
+When using the Ripple noise type, this controls how many full cycles of ripples will be added per layer.
+
+#### Ripple offset
+
+When using the Ripple noise type, shifts the ripple pattern forward along the print path by this amount each layer-period.
+
+- A value of 0 keeps every layer identical.
+- A value equal to 0.5 shifts by a full half-wavelength, inverting the pattern.
+
+The shift is applied once per 'Layers between Ripple offset' layers, so consecutive layers within a period are printed identically on top of each other.
+
+#### Layers between ripple offset
+
+When using the Ripple noise type with a non-zero layer offset, this controls how many consecutive layers share the same ripple phase before the offset is applied.  
+For example, a period of 3 means layers 0, 1 and 2 are identical, then layers 3, 4 and 5 are shifted by one full 'Ripple layer offset', and so on.  
+Set to 1 to shift on every layer.
 
 ## Point distance
 
