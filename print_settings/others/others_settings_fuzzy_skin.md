@@ -131,27 +131,34 @@ Creates sharp, jagged features and high-contrast detail. Useful for stone- or ma
 
 ### Ripple
 
-The Ripple noise type creates a regular, wave-like pattern of ripples across the surface.
+The Ripple noise type creates a regular, wave-like pattern of ripples across the surface.  
+This is useful for decorative purposes on models that do not have abrupt changes in geometry or holes that create multiple print islands (closed loops), since the number of Ripples is applied to each closed loop and can cause discontinuities between layers.
+
+A clear example is a 3DBenchy, whose windows create small print islands where the same number of loops is applied as on the hull of the boat, where there is more space for the same number of loops.
+
 ![Fuzzy-skin-ripple](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-ripple.png?raw=true)
 
 #### Ripples per layer
 
-When using the Ripple noise type, this controls how many full cycles of ripples will be added per layer.
+Controls how many full cycles of ripples will be added per layer.
 
 #### Ripple offset
 
-When using the Ripple noise type, shifts the ripple pattern forward along the print path by this amount each layer-period.
+Shifts the ripple phase forward along the print path by the specified fraction of a wavelength each layer period.
 
-- A value of 0 keeps every layer identical.
-- A value equal to 0.5 shifts by a full half-wavelength, inverting the pattern.
+- 0 keeps every layer identical.
+- 0.5 shifts the pattern by half a wavelength, effectively inverting the phase.
+- 1 shifts the pattern by a full wavelength, returning to the original phase.
 
-The shift is applied once per 'Layers between Ripple offset' layers, so consecutive layers within a period are printed identically on top of each other.
+The shift is applied once every number of layers set by [Layers between ripple offset](#layers-between-ripple-offset), so layers within the same group are printed identically.
 
 #### Layers between ripple offset
 
-When using the Ripple noise type with a non-zero layer offset, this controls how many consecutive layers share the same ripple phase before the offset is applied.  
-For example, a period of 3 means layers 0, 1 and 2 are identical, then layers 3, 4 and 5 are shifted by one full 'Ripple layer offset', and so on.  
-Set to 1 to shift on every layer.
+Specifies how many consecutive layers share the same ripple phase before the offset is applied.  
+For example:
+
+- 1 = Layer 1 is printed with the base ripple pattern, then layer 2 is shifted by the configured offset, then layer 3 returns to the base pattern, and so on.
+- 3 = Layers 1 to 3 are printed with the base ripple pattern, then layers 4 to 6 are shifted by the configured offset, then layers 7 to 9 return to the base pattern, etc.
 
 ## Point distance
 
