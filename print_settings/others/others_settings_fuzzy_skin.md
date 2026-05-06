@@ -132,6 +132,7 @@ Creates sharp, jagged features and high-contrast detail. Useful for stone- or ma
 ### Ripple
 
 The Ripple noise type creates a regular, wave-like pattern of ripples across the surface.
+![Fuzzy-skin-ripple](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-ripple.png?raw=true)
 
 #### Ripples per layer
 
