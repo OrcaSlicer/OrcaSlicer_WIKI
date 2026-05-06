@@ -144,11 +144,11 @@ Controls how many full cycles of ripples will be added per layer.
 
 #### Ripple offset
 
-Shifts the ripple phase forward along the print path by the specified fraction of a wavelength each layer period.
+Shifts the ripple phase forward along the print path by the specified percentage of a wavelength each layer period. Values are specified between 0% and 100% (0% = no shift, 100% = a full-wavelength shift).
 
-- 0 keeps every layer identical.
-- 0.5 shifts the pattern by half a wavelength, effectively inverting the phase.
-- 1 shifts the pattern by a full wavelength, returning to the original phase.
+- 0% keeps every layer identical.
+- 50% shifts the pattern by half a wavelength, effectively inverting the phase.
+- 100% shifts the pattern by a full wavelength, returning to the original phase.
 
 The shift is applied once every number of layers set by [Layers between ripple offset](#layers-between-ripple-offset), so layers within the same group are printed identically.
 
