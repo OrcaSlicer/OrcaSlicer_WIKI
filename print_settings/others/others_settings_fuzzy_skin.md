@@ -148,10 +148,14 @@ A clear example is a 3DBenchy, whose windows create small print islands where th
 
 #### Ripples per layer
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `fuzzy_skin_ripples_per_layer`.  
 Controls how many full cycles of ripples will be added per layer.
 
 #### Ripple offset
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `fuzzy_skin_ripple_offset`.  
 Shifts the ripple phase forward along the print path by the specified percentage of a wavelength each layer period. Values are specified between 0% and 100% (0% = no shift, 100% = a full-wavelength shift).
 
 - 0% keeps every layer identical.
@@ -162,6 +166,8 @@ The shift is applied once every number of layers set by [Layers between ripple o
 
 #### Layers between ripple offset
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `fuzzy_skin_layers_between_ripple_offset`.  
 Specifies how many consecutive layers share the same ripple phase before the offset is applied.  
 For example:
 
