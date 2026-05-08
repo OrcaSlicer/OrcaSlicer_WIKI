@@ -141,6 +141,7 @@ This is useful for decorative purposes on models that do not have abrupt changes
 A clear example is a 3DBenchy, whose windows create small print islands where the same number of loops is applied as on the hull of the boat, where there is more space for the same number of loops.
 
 ![Fuzzy-skin-ripple](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-ripple.png?raw=true)
+![Fuzzy-skin-ripple-example](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-ripple-example.jpg?raw=true)
 
 > [!IMPORTANT]
 > NEW FEATURE: **Ripple Noise**  
