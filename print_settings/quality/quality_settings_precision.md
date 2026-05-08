@@ -156,22 +156,24 @@ This option works together with [Elephant foot compensation layers](#elephant-fo
 For each compensated layer above the bottom layer, OrcaSlicer applies:
 
 $$
-\mathrm{effective\_density} = \mathrm{base\_density} \times \frac{N - (k - 1)}{N}
+\mathrm{effective\_density} = 1 - (1 - \mathrm{elefant\_foot\_layers\_density}) \times \frac{elefant\_foot\_compensation\_layers - (layer\_id - 1)}{elefant\_foot\_compensation\_layers}
 $$
 
 Where:
 
-- `base_density` is `elefant_foot_layers_density`
-- `N` is `elefant_foot_compensation_layers`
-- `k` is the compensated layer index (`1` = first layer above the bottom layer)
+- `elefant_foot_layers_density` = 80%.
+- `elefant_foot_compensation_layers` = 4.
+- `layer_id` = Layer number, starting from 1 for the bottom layer.
+- [Bottom Shell Layers](strength_settings_top_bottom_shells#shell-layers) > `elefant_foot_compensation_layers`. Otherwise, the adjustment will be applied only to the number of internal solid infill layers available.
 
-Example with `base_density = 80%` and `N = 4`:
+Results in:
 
-- 1st compensated layer: `80%`
-- 2nd compensated layer: `60%`
-- 3rd compensated layer: `40%`
-- 4th compensated layer: `20%`
-- Higher layers: normal internal solid infill density (`100%`)
+- 1st layer - Uncompensated , normal internal solid infill density (`100%`).
+- 2nd layer - 1st compensated layer: `80%` density.
+- 3rd layer - 2nd compensated layer: `85%` density.
+- 4th layer - 3rd compensated layer: `90%` density.
+- 5th layer - 4th compensated layer: `95%` density.
+- Higher layers: normal internal solid infill density (`100%`).
 
 > [!NOTE]
 > This only affects internal solid infill inside the compensation zone.  
