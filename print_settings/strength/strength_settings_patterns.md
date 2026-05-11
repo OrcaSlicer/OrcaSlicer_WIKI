@@ -304,7 +304,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
         - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
         - **Layer time Variability:** None
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
