@@ -4,7 +4,7 @@ Settings related to the motion capabilities of the printer.
 
 - [Emit limits to G-code](#emit-limits-to-g-code)
 - [Resonance Compensation](#resonance-compensation)
-    - [Resonance Avoidance Speed](#resonance-avoidance-speed)
+    - [Resonance Avoidance](#resonance-avoidance)
     - [Input Shaping](#input-shaping)
         - [Input Shaping Type](#input-shaping-type)
             - [Default](#default)
@@ -27,10 +27,10 @@ This option will be ignored if the G-code flavor is set to Klipper.
 
 Resonance Compensations are the methods used to reduce the vibrations of the printer during high-speed movements, which can cause ringing on the surface of the model.
 
-### Resonance Avoidance Speed
+### Resonance Avoidance
 
 [Mode](option_mode): `Advanced`.  
-[Variables](built_in_placeholders_variables): `min_resonance_avoidance_speed`, `max_resonance_avoidance_speed`.  
+[Variables](built_in_placeholders_variables): `resonance_avoidance`, `min_resonance_avoidance_speed`, `max_resonance_avoidance_speed`.  
 By reducing the speed of the outer wall to avoid the resonance zone of the printer, ringing on the surface of the model are avoided.
 
 > [!TIP]
@@ -38,6 +38,8 @@ By reducing the speed of the outer wall to avoid the resonance zone of the print
 
 ### Input Shaping
 
+[Mode](option_mode): `Expert`.  
+[Variables](built_in_placeholders_variables): `input_shaping_emit`, `input_shaping_freq_x`, `input_shaping_freq_y`, `input_shaping_damp_x`, `input_shaping_damp_y`.  
 During high-speed movements, vibrations can cause a phenomenon called "ringing," where periodic ripples appear on the print surface. Input Shaping provides an effective solution by counteracting these vibrations, improving print quality and reducing wear on components without needing to significantly lower print speeds.
 
 > [!NOTE]
@@ -58,6 +60,8 @@ During high-speed movements, vibrations can cause a phenomenon called "ringing,"
 
 #### Input Shaping Type
 
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `input_shaping_type`.  
 The Input Shaping type determines the algorithm used to counteract the vibrations.  
 It is usually recommended to use MZV, EI (specially for Delta printers) or ZV as a simple and effective solution.  
 Not all Input Shaping types are available in all firmware and their performance may vary depending on the firmware implementation and the printer's mechanics.
@@ -103,7 +107,7 @@ This will cap the speed set by the process if it exceeds these values.
 [Modes](option_mode):  
 `Simple` [Variables](built_in_placeholders_variables): `machine_max_acceleration_extruding`, `machine_max_acceleration_retracting`.  
 `Advanced` [Variable](built_in_placeholders_variables): `machine_max_acceleration_travel`.  
-[Variables](built_in_placeholders_variables): `machine_max_acceleration_x`, `machine_max_acceleration_y`, `machine_max_acceleration_z`, `machine_max_acceleration_e`.  
+[Variables](built_in_placeholders_variables): `machine_max_acceleration_e`, `machine_max_acceleration_z`, `machine_max_acceleration_x`, `machine_max_acceleration_y`.  
 Safeguard maximum accelerations for all axes.
 This will cap the acceleration set by the process if it exceeds these values.
 
@@ -116,7 +120,7 @@ Safeguard maximum jerks for all axes.
 
 ### Maximum Jerk
 
-[Variables](built_in_placeholders_variables): `machine_max_jerk_y`, `machine_max_jerk_x`, `machine_max_jerk_z`, `machine_max_jerk_e`.  
+[Variables](built_in_placeholders_variables): `machine_max_jerk_z`, `machine_max_jerk_e`, `machine_max_jerk_x`, `machine_max_jerk_y`.  
 Maximum [jerk](speed_settings_jerk_xy) for each axis (M205 X, Y, Z, E, only apply if JD = 0 for Marlin 2 Firmware)
 
 ### Maximum Junction Deviation
