@@ -43,7 +43,7 @@ Infill density determines the amount of material used to fill the interior of a 
 [Variable](built_in_placeholders_variables): `fill_multiline`.  
 This setting allows the selected [infill pattern](#sparse-infill-pattern) to be generated using up to 10 parallel extrusion lines per path, while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
 
-To check which patterns support multiline infill, see the Patterns Quick Reference table in the [Infill Patterns Wiki List](strength_settings_patterns#patterns-quick-reference).
+To check which patterns support multiline infill, see the Patterns Quick Reference table in the [Infill Patterns Wiki List](strength_settings_patterns_quick_reference) or each pattern's specifics in the [Patterns section](strength_settings_patterns).
 
 ![multiline-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/multiline-infill.png?raw=true)
 
