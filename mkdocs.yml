@@ -190,6 +190,7 @@ nav:
     - Infill: print_settings/strength/strength_settings_infill.md
     - "Infill rotation template metalanguage": print_settings/strength/strength_settings_infill_rotation_template_metalanguage.md
     - Patterns: print_settings/strength/strength_settings_patterns.md
+    - Reference: print_settings/strength/strength_settings_patterns_quick_reference.md
     - "Top and Bottom Shells": print_settings/strength/strength_settings_top_bottom_shells.md
     - Walls: print_settings/strength/strength_settings_walls.md
     - "Strength Advanced": print_settings/strength/strength_settings_advanced.md
