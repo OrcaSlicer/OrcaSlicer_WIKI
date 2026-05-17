@@ -171,7 +171,7 @@ How to building with Xcode on MacOS 64-bit.
 ### MacOS Tools Required
 
 - Xcode
-- CMake (version 3.31.x is mandatory)
+- CMake
 - Git
 - gettext
 - libtool
@@ -182,27 +182,10 @@ How to building with Xcode on MacOS 64-bit.
 > [!TIP]
 > You can install most of them by running:
 >
-> ```pwsh
-> brew install gettext libtool automake autoconf texinfo
-> ```
+```pwsh
+brew install cmake gettext libtool automake autoconf texinfo
+```
 
-Homebrew currently only offers the latest version of CMake (e.g. **4.X**), which is not compatible. To install the required version **3.31.X**, follow these steps:
-
-1. Download CMake **3.31.10** from: [https://cmake.org/download/](https://cmake.org/download/)
-2. Install the application (drag it to `/Applications`).
-3. Add the following line to your shell configuration file (`~/.zshrc` or `~/.bash_profile`):
-
-    ```sh
-    export PATH="/Applications/CMake.app/Contents/bin:$PATH"
-    ```
-
-4. Restart the terminal and check the version:
-
-    ```pwsh
-    cmake --version
-    ```
-
-5. Make sure it reports a **3.31.x** version.
 
 > [!IMPORTANT]
 > If you've recently upgraded Xcode, be sure to open Xcode at least once and install the required macOS build support.
