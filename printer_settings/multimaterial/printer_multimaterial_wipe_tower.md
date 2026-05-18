@@ -15,3 +15,13 @@ Purge remaining filament into prime tower.
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `enable_filament_ramming`.  
 Enable filament ramming
+
+## Tool Change on Wipe Tower
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `tool_change_on_wipe_tower`.  
+Force the toolhead to travel to the wipe tower before issuing the tool change command (Tx).  
+Only relevant for multi-extruder (multi-toolhead) printers using a Type 2 wipe tower.  
+By default Orca skips the travel on multi-toolhead machines because the firmware handles the head swap, which can result in the Tx command being issued above the printed part.
+
+Enable this option if you want the tool change to always be issued above the wipe tower instead.
