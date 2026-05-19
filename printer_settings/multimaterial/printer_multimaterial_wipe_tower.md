@@ -25,3 +25,7 @@ Only relevant for multi-extruder (multi-toolhead) printers using a Type 2 wipe t
 By default Orca skips the travel on multi-toolhead machines because the firmware handles the head swap, which can result in the Tx command being issued above the printed part.
 
 Enable this option if you want the tool change to always be issued above the wipe tower instead.
+
+> [!IMPORTANT]
+> NEW FEATURE: **Tool Change on Wipe Tower**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
