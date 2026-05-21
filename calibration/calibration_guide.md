@@ -11,34 +11,16 @@ To access the calibration features, you can find them in the **Calibration** sec
 > [!IMPORTANT]
 > After completing the calibration process, remember to create a new project in order to exit the calibration mode.
 
-!!! recommended "Recommended: Watch this first for a detailed overview"
-    <div class="orca-video-embed">
-      <a
-        class="orca-video-poster-link"
-        href="https://www.youtube.com/watch?v=gVU5If1VsAM"
-        data-embed-src="https://www.youtube.com/embed/gVU5If1VsAM?autoplay=1&amp;rel=0"
-        aria-label="Play Filament Calibration Masterclass video by Factorian Designs">
-        <img src="../images/video/factorian-calibration-029.png" alt="Filament Calibration Masterclass video preview at 0:29">
-      </a>
-    </div>
-    <script>
-      document.querySelectorAll(".orca-video-poster-link[data-embed-src]").forEach(function(link) {
-        if (link.dataset.videoReady) return;
-        link.dataset.videoReady = "true";
-        link.addEventListener("click", function(event) {
-          event.preventDefault();
-          var iframe = document.createElement("iframe");
-          iframe.src = link.dataset.embedSrc;
-          iframe.title = "Filament Calibration Masterclass - 95% do it wrong! by Factorian Designs";
-          iframe.loading = "lazy";
-          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-          iframe.allowFullscreen = true;
-          link.parentElement.replaceChildren(iframe);
-        });
-      });
-    </script>
-
-    <span class="orca-video-credit">Video by <strong>Factorian Designs</strong>, with consent.</span>
+> [!TIP]
+> <strong class="orca-video-title">Recommended: Watch this first for a detailed overview</strong>
+>
+> <div class="orca-video-embed">
+>   <a class="orca-video-poster-link" href="https://www.youtube.com/watch?v=gVU5If1VsAM" aria-label="Watch Filament Calibration Masterclass video by Factorian Designs">
+>     <img src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/video/factorian-calibration-029.png?raw=true" alt="Filament Calibration Masterclass video preview at 0:29">
+>   </a>
+> </div>
+>
+> <span class="orca-video-credit">Video by <strong>Factorian Designs</strong>, with consent.</span>
 
 The recommended order for calibration is as follows:
 
