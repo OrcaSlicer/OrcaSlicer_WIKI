@@ -16,7 +16,7 @@ To access the calibration features, you can find them in the **Calibration** sec
 >
 > <div class="orca-video-embed">
 >   <a class="orca-video-poster-link" href="https://www.youtube.com/watch?v=gVU5If1VsAM" aria-label="Watch Filament Calibration Masterclass video by Factorian Designs">
->     <img src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/video/factorian-calibration-029.png?raw=true" alt="Filament Calibration Masterclass video preview at 0:29">
+>     <img alt="Filament Calibration Masterclass video preview at 0:29" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/video/factorian-calibration-029.png?raw=true">
 >   </a>
 > </div>
 >
