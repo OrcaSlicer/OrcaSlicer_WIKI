@@ -14,6 +14,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [Prepare](#prepare)
 - [Calibrations](#calibrations)
 - [General Settings](#general-settings)
+- [Release Notes](#release-notes)
 - [Developer Section](#developer-section)
 
 > [!NOTE]
@@ -93,6 +94,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [<img alt="param_shell" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_shell.svg?raw=true" height="22"> Top and Bottom Shells](strength_settings_top_bottom_shells)
 - [<img alt="param_infill" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_infill.svg?raw=true" height="22"> Infill](strength_settings_infill)
     - [<img alt="param_concentric" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_concentric.svg?raw=true" height="22"> Fill Patterns](strength_settings_patterns)
+        - [Patterns Quick Reference Table Guide](strength_settings_patterns_quick_reference)
     - [<img alt="param_gcode" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true" height="22"> Template Metalanguage for infill rotation](strength_settings_infill_rotation_template_metalanguage)
 - [<img alt="param_advanced" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true" height="22"> Advanced](strength_settings_advanced)
 

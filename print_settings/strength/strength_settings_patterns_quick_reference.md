@@ -1,4 +1,5 @@
 ## Patterns Quick Reference
+
 | - | Pattern | Strength | Material Usage | Print Time | Layer time Variability | Multiline |
 |---|---|---|---|---|---|---|
 | <img alt="param_monotonic" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_monotonic.svg?raw=true" height="45"> | [Monotonic](strength_settings_patterns#monotonic) | X-Y: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)<br> Z: ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true) | ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) | ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) | ![level-to-worse-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-0.svg?raw=true) | N/A |

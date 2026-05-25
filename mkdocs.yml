@@ -230,6 +230,8 @@ nav:
     - "Multimaterial setup": printer_settings/multimaterial/printer_multimaterial_setup.md
     - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
     - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
+- Releases:
+  - "Release V2.4.0 Alpha": releases/release_2_4_0_alpha.md
 - "Developer Reference":
   - "Localization and translation guide": developer_reference/localization_guide.md
   - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
