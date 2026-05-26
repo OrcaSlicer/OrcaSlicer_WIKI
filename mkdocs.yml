@@ -110,6 +110,8 @@ copyright: Copyright &copy; 2022-2026 Li Jiang. All rights reserved.
 # Navigation structure based on home.md
 nav:
 - Home: index.md
+- Guides:
+  - "Mixed Nozzle Sizes": guides/mixed_nozzle_sizes.md
 - Calibration:
   - "Calibration Guide": calibration/calibration_guide.md
   - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
@@ -230,10 +232,10 @@ nav:
     - "Multimaterial setup": printer_settings/multimaterial/printer_multimaterial_setup.md
     - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
     - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
-- "User Profiles and Syncing":
-  - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
 - Releases:
   - "Release V2.4.0 Alpha": releases/release_2_4_0_alpha.md
+- "User Profiles":
+  - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
 - "Developer Reference":
   - "Localization and translation guide": developer_reference/localization_guide.md
   - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md

@@ -1,6 +1,15 @@
 # Color Painting
 
-Color Painting allows you to paint specific areas of your 3D model with different colors in the Prepare tab. This feature is useful for visualizing different sections of your model, planning multi-material prints, or simply adding a creative touch to your design.
+Color Painting allows you to paint specific areas of your 3D model with different colors in the Prepare tab.  
+This feature is useful for visualizing different sections of your model, planning multi-material prints, or simply adding a creative touch to your design.
+
+> [!NOTE]
+> A similar efect can be achieved by using the [Filament for Features](multimaterial_settings_filament_for_features) settings,  
+> but Color Painting gives you more control over the specific areas you want to paint and allows you to visualize it directly on the model in the Prepare tab.
+
+> [!TIP]
+> Color Painting can be used to assign different nozzle sizes or materials to specific areas of your print.  
+> Check [Mixed Nozzle Sizes Guide](mixed_nozzle_sizes).
 
 ## Tools
 

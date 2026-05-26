@@ -1,12 +1,22 @@
 # Basic Extruder Information
 
-This section contains the basic information about the extruder.
+This section contains the basic information about the extruder.  
+When using multiple extruders, you can set different values for each extruder.
+
+- [Nozzle diameter](#nozzle-diameter)
+- [Nozzle volume](#nozzle-volume)
+- [Extruder Layer Height Limits](#extruder-layer-height-limits)
+- [Extruder offset Position](#extruder-offset-position)
 
 ## Nozzle diameter
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `nozzle_diameter[extruder_idx]`.  
-The diameter of nozzle.
+The diameter of the nozzle for each extruder.  
+
+> [!TIP]
+> You can use different nozzle diameters for each extruder to achieve different print qualities and speeds.  
+> Follow the [Mixed Nozzle Sizes](mixed_nozzle_sizes) guide for more information on how to use this feature.
 
 ## Nozzle volume
 

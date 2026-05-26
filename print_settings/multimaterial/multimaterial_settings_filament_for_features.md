@@ -1,24 +1,32 @@
 # Filament for Features
 
-This option is available only for Multi-Extruder printers.
+These settings allow you to specify which extruder to use for different features of the print, such as walls, infill, and wipe tower.
+
+![filament_for_features](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/multi-tool/filament_for_features.png?raw=true)
+
+> [!NOTE]
+> This option is available only for Multi-Extruder printers.
 
 ## Walls
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wall_filament`.  
-Filament to print walls.
+Filament to print walls.  
+When using a [mixed nozzle size setup](mixed_nozzle_sizes), it's recommended to use the smaller nozzle for walls to achieve better surface quality and detail.
 
 ## Infill
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `sparse_infill_filament`.  
-Filament to print internal sparse infill.
+Filament to print internal sparse infill.  
+When using a [mixed nozzle size setup](mixed_nozzle_sizes), you can use a larger nozzle for infill to speed up printing while maintaining good layer adhesion.
 
 ## Solid infill
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `solid_infill_filament`.  
 Filament to print solid infill.
+When using a [mixed nozzle size setup](mixed_nozzle_sizes), you can use a larger nozzle for solid infill to speed up printing while maintaining good layer adhesion.
 
 ## Wipe Tower
 
