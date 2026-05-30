@@ -6,7 +6,9 @@ Basic setup for multimaterial printing.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `single_extruder_multi_material`.  
-Use single nozzle to print multi filament.
+Allow using a single extruder to print with multiple filaments.  
+If your printer has an MultiMaterialUnit, this will run the [Change filament G-code](printer_machine_gcode#change-filament-g-code) when changing filament is needed.
+If your printer does not have an MultiMaterialUnit, you will need to enable [Manual Filament Change](#manual-filament-change).
 
 ## Extruders
 
