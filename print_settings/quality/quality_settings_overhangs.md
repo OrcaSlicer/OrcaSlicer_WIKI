@@ -1,5 +1,8 @@
 # Overhangs
 
+Overhangs are areas of a print that extend outward without full support underneath.  
+Low overhang angles can be printed without support, while higher angles may require support, speed reduction, or specific settings to ensure good print quality.
+
 - [Detect overhang wall](#detect-overhang-wall)
 - [Make overhang printable](#make-overhang-printable)
     - [Maximum angle](#maximum-angle)

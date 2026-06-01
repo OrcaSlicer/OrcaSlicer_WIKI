@@ -354,6 +354,26 @@ Support |Cubic is a variation of the [Cubic](#cubic) infill pattern that is spec
 
 Ultra-fast, ultra-low material infill. Designed for speed and efficiency, ideal for quick prints or non-structural prototypes.
 
+### Overhang Angle
+
+Similar to the [overhang](quality_settings_overhangs) angle used for support generation, but specifically for Lightning infill.  
+It determines how far the infill can extend from walls before needing support.
+
+### Prune Angle
+
+Controls how aggressively short/unsupported branches of the Lightning infill are pruned.  
+A lower angle will result in more pruning, while a higher angle will allow for more unsupported branches.
+
+### Straightening Angle
+
+Limits how far junctions in the Lightning infill can be moved to straighten lines.  
+Using a low value will result in a low lateral distortion between layers, but may cause more pruning.  
+A higher value will allow for more straightening, improving strength but increasing lateral distortion.
+
+![infill-top-lightning-straightening](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-lightning-straightening.png?raw=true)  
+![infill-top-front-lightning-straightening](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-front-lightning-straightening.png?raw=true)  
+![infill-front-lightning-straightening](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-front-lightning-straightening.png?raw=true)
+
 - **Strength**
     - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Vertical (Z):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
