@@ -36,6 +36,10 @@ Otherwise the provided angle will be used according to:
 When enabled, the bridge angle values are added to the automatically calculated bridge direction instead of overriding it.  
 Recommended to add a small angle (<10°) to improve bridge covering in closed shapes.
 
+![bridge-angle-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-angle-0.png?raw=true)
+![bridge-angle-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-angle-2.png?raw=true)
+![bridge-angle-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-angle-8.png?raw=true)
+
 ## Minimum sparse infill threshold
 
 [Mode](option_mode): `Advanced`.  
