@@ -2,6 +2,7 @@
 
 - [Align infill direction to model](#align-infill-direction-to-model)
 - [Bridge infill direction](#bridge-infill-direction)
+- [Relative Bridge Angle](#relative-bridge-angle)
 - [Minimum sparse infill threshold](#minimum-sparse-infill-threshold)
 - [Infill Combination](#infill-combination)
     - [Max layer height](#max-layer-height)
@@ -12,8 +13,8 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `align_infill_direction_to_model`.  
-Aligns infill and surface fill directions to follow the model's orientation on the build plate.  
-When enabled, fill directions rotate with the model to maintain optimal characteristics.
+Aligns [infill](strength_settings_infill#direction), [bridge](#bridge-infill-direction), [ironing](quality_settings_ironing#angle-offset) and [surface fill](strength_settings_top_bottom_shells#surface-pattern) directions to follow the model's orientation on the build plate.  
+When enabled, directions rotate with the model to maintain optimal strength characteristics.
 
 ![fill-direction-to-model](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-direction-to-model.png?raw=true)
 
@@ -21,9 +22,19 @@ When enabled, fill directions rotate with the model to maintain optimal characte
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `bridge_angle`, `internal_bridge_angle`.  
-Bridging angle override.  
-If left at zero, the bridging angle will be calculated automatically. Otherwise, the provided angle will be used for bridges.  
-Use 180° to represent a zero angle.
+If left to zero, the bridging angle will be calculated automatically for each specific bridge.  
+Otherwise the provided angle will be used according to:
+    - The absolute coordinates
+    - The absolute coordinates + Model rotation: If [Align infill direction to model](#align-infill-direction-to-model) is enabled
+    - The optimal automatic angle + this value: If [Relative Bridge Angle](#relative-bridge-angle) is enabled
+
+> [!NOTE]
+> Use 180° for zero absolute angle.
+
+## Relative Bridge Angle
+
+When enabled, the bridge angle values are added to the automatically calculated bridge direction instead of overriding it.  
+Recommended to add a small angle (<10°) to improve bridge covering in closed shapes.
 
 ## Minimum sparse infill threshold
 
