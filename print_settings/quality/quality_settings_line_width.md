@@ -1,7 +1,7 @@
 # Line Width
 
 [Mode](option_mode): `Advanced`.  
-[Variables](built_in_placeholders_variables): `line_width`, `initial_layer_line_width`, `outer_wall_line_width`, `inner_wall_line_width`, `top_surface_line_width`, `sparse_infill_line_width`, `internal_solid_infill_line_width`, `support_line_width`.  
+[Variable](built_in_placeholders_variables): `line_width`.  
 These settings define how wide each extruded line of filament will be.  
 Line width can be configured in two ways:
 
@@ -32,40 +32,56 @@ Fallback value used when a specific line width is not set (set to `0`).
 
 ### First Layer
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `initial_layer_line_width`.  
 A wider first layer (with a higher [first layer height](quality_settings_layer_height#first-layer-height)) improves bed adhesion and compensates for uneven build surfaces.  
 First layer line width also overrides [Brim's](others_settings_brim) and [Skirt's](others_settings_skirt) line width.
 
 ### Outer Wall
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `outer_wall_line_width`.  
 Controls dimensional accuracy and surface finish.  
 Recommended: **105%–120%** of the nozzle diameter for clean overhangs and detail.
 
 ### Inner Wall
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `inner_wall_line_width`.  
 Can be set wider than the outer wall to enhance structural strength.  
 Typical value: **≥120%**.
 
 ### Top Surface
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `top_surface_line_width`.  
 Affects the quality of visible top layers.  
 Recommended: **100%–105%** for smooth results without over-extrusion.
 
 ### Sparse Infill
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `sparse_infill_line_width`.  
 Recommended to use a conservative value, typically around 115% to improve layer adhesion without getting near volumetric flow limitations.  
 If you need stronger infill, it's recommended to use [infill line multiplier](strength_settings_infill#fill-multiline) when possible.
 
 ### Internal Solid Infill
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `internal_solid_infill_line_width`.  
 Used for solid top/bottom layers or [100% infill](strength_settings_infill#sparse-infill-density).  
 Recommended: **~110%** for good layer adhesion and visual quality.
 
 ### Support
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `support_line_width`.  
 Typically set to **100%** to balance material usage and functionality. Reducing it too much can lead to weak support structures that may not hold up during printing or break easily during removal leaving debris on the model.
 
 ### Bridge
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `bridge_line_width`.  
 Bridges are printed in mid-air, so the bridge line width can't exceed the nozzle diameter.  
 To achieve proper bridge lines union between contiguous lines and reduce sagging, it's recommended to use **~100%** of the nozzle diameter and increase [Bridge density](quality_settings_bridging#bridge-density).
 
