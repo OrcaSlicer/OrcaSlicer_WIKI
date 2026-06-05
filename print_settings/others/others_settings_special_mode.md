@@ -16,6 +16,9 @@ These settings control advanced slicing and printing behaviours, such as how lay
     - [Spiral starting flow ratio](#spiral-starting-flow-ratio)
     - [Spiral finishing flow ratio](#spiral-finishing-flow-ratio)
 - [Timelapse](#timelapse)
+    - [Traditional](#traditional)
+    - [Smooth](#smooth)
+    - [Printer profile support](#printer-profile-support)
 
 ## Slicing Mode
 
@@ -107,4 +110,38 @@ Use this to control the ending and ensure consistent extrusion.
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `timelapse_type`.  
-WIP...
+Timelapse controls how OrcaSlicer asks the printer to capture a frame at layer changes. The generated commands come from the printer profile's [Timelapse G-code](printer_machine_gcode#timelapse-g-code) or layer-change G-code.
+
+Available values:
+
+- **Traditional** (`0`): Takes a frame after each layer without adding the smooth-timelapse parking move. This is the default mode.
+- **Smooth** (`1`): Moves the toolhead to a profile-defined safe or waste position before taking each frame, then resumes printing. This keeps the printed object in a more consistent position in the video, but it adds travel time and may require a prime or wipe tower to handle nozzle ooze.
+
+### Traditional
+
+Traditional mode is intended for printers that can capture a frame at the current layer-change position. It usually has the least effect on print time and toolhead motion, but the toolhead may appear in the timelapse and object framing may vary between layers.
+
+Printer profiles commonly implement this with a simple frame command such as `TIMELAPSE_TAKE_FRAME` in `time_lapse_gcode` or `layer_change_gcode`.
+
+### Smooth
+
+Smooth mode is intended for printer profiles that define a safe parking sequence before each frame. The profile G-code typically retracts, raises Z, moves the toolhead to a waste chute or other safe position, triggers the frame capture, and returns to printing.
+
+> [!NOTE]
+> Smooth timelapse functionality is entirely dictated by the machine's G-code, OrcaSlicer just presents the value as a variable to the profile. Whether a prime or wipe tower is necessary is entirely up to how this functionality is implemented for your specific printer profile.
+
+### Printer profile support
+
+The Timelapse selector is shown for Bambu Lab printers and for printer profiles that opt in with `support_smooth_timelapse = 1`.
+
+A profile that supports Smooth timelapse should also provide G-code that branches on `timelapse_type`, for example:
+
+```gcode
+{if timelapse_type == 1} ; smooth timelapse
+; move to a safe/waste position
+TIMELAPSE_TAKE_FRAME
+{elsif timelapse_type == 0} ; traditional timelapse
+TIMELAPSE_TAKE_FRAME
+{endif}
+```
+
