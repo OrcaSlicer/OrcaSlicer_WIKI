@@ -252,16 +252,16 @@ the settings UI. Changing this file and running codegen regenerates `TabLayout_g
 <!-- markdownlint-disable MD007 -->
 ```yaml
 tabs:
-  - name: TabPrint         # matches the C++ class name
-    pages:
-      - name: "Quality"
-        icon: "custom-gcode_quality"   # page icon key
-        groups:
-          - name: "Layer height"
-            icon: "param_layer_height"  # optgroup anchor key
-            fields:
-              - layer_height            # simple field (path looked up automatically)
-              - initial_layer_print_height
+    - name: TabPrint         # matches the C++ class name
+      pages:
+        - name: "Quality"
+          icon: "custom-gcode_quality"   # page icon key
+          groups:
+            - name: "Layer height"
+              icon: "param_layer_height"  # optgroup anchor key
+              fields:
+                - layer_height            # simple field (path looked up automatically)
+                - initial_layer_print_height
 ```
 <!-- markdownlint-enable MD007 -->
 
@@ -270,10 +270,10 @@ tabs:
 <!-- markdownlint-disable MD007 -->
 ```yaml
 fields:
-  - field_key                          # no doc path
-  - field_key: "doc/path#anchor"       # with doc path (dict, single key)
-  - [field_a, field_b]                 # multi-option line (two fields on one row)
-  - _separator_                        # visual separator
+    - field_key                          # no doc path
+    - field_key: "doc/path#anchor"       # with doc path (dict, single key)
+    - [field_a, field_b]                 # multi-option line (two fields on one row)
+    - _separator_                        # visual separator
 ```
 <!-- markdownlint-enable MD007 -->
 
@@ -336,16 +336,16 @@ To add a completely new page to an existing tab, add it to `layout.yaml` under t
 <!-- markdownlint-disable MD007 -->
 ```yaml
 tabs:
-  - name: TabPrint
-    pages:
-      - name: "My New Page"
-        icon: "custom-gcode_my_icon"    # page icon key
-        groups:
-          - name: "My Group"
-            icon: "param_my_group"
-            fields:
-              - my_field_one
-              - my_field_two
+    - name: TabPrint
+      pages:
+        - name: "My New Page"
+          icon: "custom-gcode_my_icon"    # page icon key
+          groups:
+            - name: "My Group"
+              icon: "param_my_group"
+              fields:
+                - my_field_one
+                - my_field_two
 ```
 <!-- markdownlint-enable MD007 -->
 
@@ -379,9 +379,9 @@ Then run `python tools/run_codegen.py`. No C++ changes needed.
 1. Add the group to `layout.yaml` with `hook: true`:
 
     ```yaml
-   - name: "My Custom Group"
-     icon: "param_my_group"
-     hook: true
+    - name: "My Custom Group"
+      icon: "param_my_group"
+      hook: true
     ```
 
 2. Declare the hook method in `Tab.hpp` on the appropriate tab class:
