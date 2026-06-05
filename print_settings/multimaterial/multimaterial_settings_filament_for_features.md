@@ -2,7 +2,7 @@
 
 These settings allow you to specify which extruder to use for different features of the print, such as walls, infill, and wipe tower.
 
-![filament_for_features](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/multi-tool/filament_for_features.png?raw=true)
+![filament_for_features](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/filament-for-features/filament_for_features.png?raw=true)
 
 > [!IMPORTANT]
 > NEW FEATURE: **Filament for Features for [Single Extruder Multi Material](printer_multimaterial_setup#single-extruder-multi-material)**  
