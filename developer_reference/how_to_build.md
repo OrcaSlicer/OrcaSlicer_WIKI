@@ -68,7 +68,7 @@ How to building with Visual Studio on Windows 64-bit.
   > dependencies (`grpcio-tools`, `pyyaml`) automatically on first run. You just need Python
   > on your PATH. These tools generate C++ source files from the `.proto` schema and
   > `layout.yaml` before the C++ compiler runs. See
-  > [Proto Config Codegen](proto_config_codegen.md) for details.
+  > [Proto Config Codegen](proto_config_codegen) for details.
 
 > [!TIP]
 > GitHub Desktop (optional): A GUI for Git that can simplify repository management and branch control.

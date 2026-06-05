@@ -68,7 +68,7 @@ The cmake `codegen_config ALL` target runs before every build and checks timesta
 
 2. **Add a field** with the appropriate annotations:
 
-   ```protobuf
+    ```protobuf
    float my_new_setting = <next_field_number> [
      (label)         = "My Setting",
      (tooltip)       = "Describe what this does.",
@@ -80,7 +80,7 @@ The cmake `codegen_config ALL` target runs before every build and checks timesta
      (default_value) = "1.0",
      (invalidates)   = STEP_GCODE_EXPORT
    ];
-   ```
+    ```
 
    Field numbers must be unique within the message and **never reused**, even after removal.
 
@@ -100,9 +100,9 @@ The cmake `codegen_config ALL` target runs before every build and checks timesta
 
 3. **Run the codegen:**
 
-   ```bash
+    ```bash
    python tools/run_codegen.py
-   ```
+    ```
 
 4. **Add the field to `layout.yaml`** if you want it to appear in the settings UI
    (see [UI layout](#ui-layout-layoutyaml) below).
@@ -249,6 +249,7 @@ the settings UI. Changing this file and running codegen regenerates `TabLayout_g
 
 ### Basic structure
 
+<!-- markdownlint-disable MD007 -->
 ```yaml
 tabs:
   - name: TabPrint         # matches the C++ class name
@@ -262,9 +263,11 @@ tabs:
               - layer_height            # simple field (path looked up automatically)
               - initial_layer_print_height
 ```
+<!-- markdownlint-enable MD007 -->
 
 ### Field formats
 
+<!-- markdownlint-disable MD007 -->
 ```yaml
 fields:
   - field_key                          # no doc path
@@ -272,6 +275,7 @@ fields:
   - [field_a, field_b]                 # multi-option line (two fields on one row)
   - _separator_                        # visual separator
 ```
+<!-- markdownlint-enable MD007 -->
 
 > [!NOTE]
 > Multi-option lines `[f1, f2]` use the **first field's label and tooltip** as the line label.
@@ -329,6 +333,7 @@ Generates the standard G-code group pattern: `validate_custom_gcode_cb` callback
 
 To add a completely new page to an existing tab, add it to `layout.yaml` under the correct tab:
 
+<!-- markdownlint-disable MD007 -->
 ```yaml
 tabs:
   - name: TabPrint
@@ -342,6 +347,7 @@ tabs:
               - my_field_one
               - my_field_two
 ```
+<!-- markdownlint-enable MD007 -->
 
 The codegen generates `TabPrint_build_my_new_page_layout(TabPrint& tab)` and a wrapper
 `TabPrint_build_layout` that calls it in order. The page will appear automatically in the UI.
@@ -372,21 +378,21 @@ Then run `python tools/run_codegen.py`. No C++ changes needed.
 
 1. Add the group to `layout.yaml` with `hook: true`:
 
-   ```yaml
+    ```yaml
    - name: "My Custom Group"
      icon: "param_my_group"
      hook: true
-   ```
+    ```
 
 2. Declare the hook method in `Tab.hpp` on the appropriate tab class:
 
-   ```cpp
+    ```cpp
    void layout_hook_my_custom_group(ConfigOptionsGroup* optgroup);
-   ```
+    ```
 
 3. Implement it in `src/slic3r/GUI/TabLayoutExtra.cpp`:
 
-   ```cpp
+    ```cpp
    void TabPrinter::layout_hook_my_custom_group(ConfigOptionsGroup* optgroup)
    {
        create_line_with_widget(optgroup, "my_key", "doc/path", [this](wxWindow* parent) {
@@ -394,7 +400,7 @@ Then run `python tools/run_codegen.py`. No C++ changes needed.
        });
        optgroup->append_single_option_line("another_key", "doc/path");
    }
-   ```
+    ```
 
 4. Run `python tools/run_codegen.py` — the generated function calls your hook automatically.
 
