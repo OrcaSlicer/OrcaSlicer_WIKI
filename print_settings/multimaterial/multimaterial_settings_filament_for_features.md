@@ -8,6 +8,10 @@ These settings allow you to specify which extruder to use for different features
 > NEW FEATURE: **Filament for Features for [Single Extruder Multi Material](printer_multimaterial_setup#single-extruder-multi-material)**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
 
+> [!IMPORTANT]
+> NEW FEATURE: **Divided Walls into Outer and Inner Walls, Infill into Sparse and Internal Solid Infill, Top and Bottom Surfaces**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
+
 ## Outer Walls
 
 [Mode](option_mode): `Advanced`.  
