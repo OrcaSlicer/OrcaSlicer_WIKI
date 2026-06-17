@@ -33,11 +33,16 @@ How to building with Visual Studio on Windows 64-bit.
 
 ### Windows Tools Required
 
-- [Visual Studio](https://visualstudio.microsoft.com/vs/) 2026, 2022 or Visual Studio 2019
+- [Visual Studio](https://visualstudio.microsoft.com/vs/) 2026, 2022 or Visual Studio 2019, with the *Desktop development with C++* workload
 
-  ```pwsh
-  winget install --id=Microsoft.VisualStudio.Community -e
-  ```
+    ```pwsh
+    winget install --id=Microsoft.VisualStudio.Community -e --override "--add Microsoft.VisualStudio.Workload.NativeDesktop --includeRecommended --passive --wait"
+    ```
+
+> [!IMPORTANT]
+> A plain `winget install` of Visual Studio installs the IDE without any C++ compiler, and the build will later fail with CMake unable to find a Visual Studio instance. The `--override` flags above add the required *Desktop development with C++* workload.
+>
+> If you already installed Visual Studio without it, add the workload by opening **Visual Studio Installer** -> **Modify** -> check *Desktop development with C++* -> **Modify**
 
 - [CMake](https://cmake.org/)
 

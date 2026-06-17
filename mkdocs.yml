@@ -104,6 +104,8 @@ extra:
       link: https://discord.gg/P4VE9UY9gJ
     - icon: fontawesome/brands/x-twitter
       link: https://x.com/real_OrcaSlicer
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@OfficialOrcaSlicer
 
 copyright: Copyright &copy; 2022-2026 Li Jiang. All rights reserved.
 
@@ -234,6 +236,7 @@ nav:
     - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
 - Releases:
   - "Release V2.4.0 Alpha": releases/release_2_4_0_alpha.md
+  - "Release V2.4.0 Beta": releases/release_2_4_0_beta.md
 - "User Profiles":
   - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
 - "Developer Reference":
