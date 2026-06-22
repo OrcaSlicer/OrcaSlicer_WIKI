@@ -69,7 +69,3 @@ This is the process section of the feature "Change Extrusion Role G-code" that i
 
 > [!TIP]
 > Read the [Printer settings](printer_machine_gcode#change-extrusion-role-g-code) for more details and examples.
-
-> [!IMPORTANT]
-> NEW FEATURE: **Process Change Extrusion Role G-code**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.

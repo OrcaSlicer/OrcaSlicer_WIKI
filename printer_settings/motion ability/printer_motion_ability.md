@@ -54,10 +54,6 @@ During high-speed movements, vibrations can cause a phenomenon called "ringing,"
 
 ![inputshaping_printer](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/InputShaping/inputshaping_printer.png?raw=true)
 
-> [!IMPORTANT]
-> NEW FEATURE: **Input Shaping**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
-
 #### Input Shaping Type
 
 [Mode](option_mode): `Expert`.  

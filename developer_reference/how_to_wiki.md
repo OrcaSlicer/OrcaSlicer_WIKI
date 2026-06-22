@@ -208,7 +208,7 @@ Example:
 
 > [!IMPORTANT]
 > NEW FEATURE: **Inverse Hole Direction**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.0**.
 
 This notes should be removed after a new stable release is made that includes the new feature.
 

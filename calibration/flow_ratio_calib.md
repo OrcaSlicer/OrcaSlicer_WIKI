@@ -10,10 +10,6 @@ A properly calibrated flow ratio ensures consistent layer adhesion and accurate 
 > **BambuLab Printers:** Make sure you do **not** select the 'Flow calibration' option.
 > ![flowrate-Bambulab-uncheck](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowrate-Bambulab-uncheck.png?raw=true)
 
-> [!IMPORTANT]
-> NEW FEATURE: **Selectable pattern (Monotonic line)**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
-
 - [Calibration Types](#calibration-types)
     - [Archimedean chords + YOLO (Recommended)](#archimedean-chords--yolo-recommended)
     - [Monotonic Line + 2-Pass Calibration](#monotonic-line--2-pass-calibration)

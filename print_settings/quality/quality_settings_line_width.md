@@ -92,7 +92,3 @@ To achieve proper bridge lines union between contiguous lines and reduce sagging
 > If disabled (set to 0), [Internal Solid Infill](#internal-solid-infill) line width will be used for bridges.  
 > This allows you to use a theoretically wider line width for bridges.  
 > However, it is recommended to use [thick bridges](quality_settings_bridging#thick-bridges) or a [bridge flow adjustment](quality_settings_bridging#flow-ratio) instead.
-
-> [!IMPORTANT]
-> NEW FEATURE: **Bridge Width**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.

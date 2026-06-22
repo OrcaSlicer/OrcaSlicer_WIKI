@@ -108,7 +108,3 @@ Defines the maximum allowed geometric error (in mm) when simplifying wall paths.
 Increasing this value allows stronger simplification (smaller G-code and fewer tiny moves), but can reduce wall accuracy.
 Decreasing this value keeps walls closer to the original geometry, but retains more segments.
 If this setting conflicts with [Maximum wall resolution](#maximum-wall-resolution), this deviation limit takes precedence.
-
-> [!IMPORTANT]
-> NEW FEATURE: **Maximum wall resolution/deviation**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.

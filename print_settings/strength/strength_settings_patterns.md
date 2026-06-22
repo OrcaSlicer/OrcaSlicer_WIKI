@@ -356,10 +356,6 @@ Support |Cubic is a variation of the [Cubic](#cubic) infill pattern that is spec
 [Variables](built_in_placeholders_variables): `lightning_overhang_angle`, `lightning_prune_angle`, `lightning_straightening_angle`.  
 Ultra-fast, ultra-low material infill. Designed for speed and efficiency, ideal for quick prints or non-structural prototypes.
 
-> [!IMPORTANT]
-> NEW FEATURE: **Lightning Angles**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
-
 ### Overhang Angle
 
 Similar to the [overhang](quality_settings_overhangs) angle used for support generation, but specifically for Lightning infill.  
@@ -550,9 +546,6 @@ Mathematical, isotropic surface providing equal strength in all directions. Exce
 ### Gyroid Optimized
 
 [Variable](built_in_placeholders_variables): `gyroid_optimized`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Z-buckling bias optimization (experimental)**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
 
 Tightens the gyroid wave along the Z (vertical) axis at low infill density to shorten the effective vertical column length and improve Z-axis compression buckling resistance. Filament use is preserved. No effect at ~30% sparse infill density and above. Only applies when Sparse infill pattern is set to Gyroid.
 

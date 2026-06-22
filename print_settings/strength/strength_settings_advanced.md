@@ -42,10 +42,6 @@ Recommended to add a small angle (<10°) to improve bridge covering in closed sh
 ![bridge-angle-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-angle-2.png?raw=true)
 ![bridge-angle-8](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-angle-8.png?raw=true)
 
-> [!IMPORTANT]
-> NEW FEATURE: **Relative Bridge Angle**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
-
 ## Minimum sparse infill threshold
 
 [Mode](option_mode): `Advanced`.  
