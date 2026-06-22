@@ -20,7 +20,6 @@ Full manual for GNUgettext can be seen here: [http://www.gnu.org/software/gettex
 2. Open this file in PoEdit as "Edit a translation"
 3. Apply your corrections to the translation
 4. Push changed OrcaSlicer_xx.po into the original folder
-5. copy OrcaSlicer_xx.mo into resources/i18n/xx and rename it to OrcaSlicer.mo, then push the changed file.
 
 ### Scenario 2. How do I add a new language support
 
@@ -31,9 +30,7 @@ Full manual for GNUgettext can be seen here: [http://www.gnu.org/software/gettex
 4. As a result you will have fr.po - the file containing translation to French.
 Notice. When the translation is complete you need to:
     - Rename the file to OrcaSlicer_fr.po
-    - Click "Save file" button. OrcaSlicer_fr.mo will be created immediately
-    - Bambu_Studio_fr.po needs to be copied into the sub-folder fr of [https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n](https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n), and be pushed
-    - copy OrcaSlicer_xx.mo into resources/i18n/xx and rename it to OrcaSlicer.mo, then push the changed file.
+    - OrcaSlicer_fr.po needs to be copied into the sub-folder fr of [https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n](https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n), and be pushed
 ( name of folder "fr" means "French" - the translation language).
 
 ### Scenario 3. How do I add a new text resource when implementing a feature to OrcaSlicer
