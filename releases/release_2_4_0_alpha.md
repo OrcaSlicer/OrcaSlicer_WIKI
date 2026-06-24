@@ -1,4 +1,4 @@
-# Release V2.4.0 Alpha
+# V2.4.0 Alpha
 
 This is the OrcaSlicer V2.4.0 Alpha release. The headline feature is **Orca Cloud** — a new centralized platform for profile sync, preset bundle sharing, and community discovery at cloud.orcaslicer.com. This release also introduces **Z Anti-Aliasing (ZAA) contouring** for smoother top surfaces, an Expert user mode, native Wayland support for Linux, Machine Input Shaping, Optimized Gyroid infill, Prusa-style combined brims, a redesigned printer selection dialog, and a large number of bug fixes and profile updates.
 

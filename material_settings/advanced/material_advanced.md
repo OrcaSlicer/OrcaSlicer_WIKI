@@ -17,7 +17,3 @@ This is the material section of the feature "Change Extrusion Role G-code" that 
 
 > [!TIP]
 > Read the [Printer settings](printer_machine_gcode#change-extrusion-role-g-code) for more details and examples.
-
-> [!IMPORTANT]
-> NEW FEATURE: **Material Change Extrusion Role G-code**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.

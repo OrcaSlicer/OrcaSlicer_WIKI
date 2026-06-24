@@ -20,7 +20,14 @@ OrcaSlicer stores user profiles in the application's configuration directory. Th
 | Linux (AppImage / native) | `~/.config/OrcaSlicer` |
 | Linux (Flatpak) | `~/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer` |
 
-Reinstalling OrcaSlicer does **not** delete these profiles, so your settings and custom presets are preserved across updates.
+Uninstalling/reinstalling OrcaSlicer does **not** delete these profiles, so your settings and custom presets are preserved across updates.
+
+!!! info "Profiles persist after uninstall"
+    Uninstalling OrcaSlicer — including the **Microsoft Store** version — does not
+    delete your configuration folder. Your profiles in `%APPDATA%\OrcaSlicer`
+    (Windows) and the equivalent paths above are intentionally left in place so they
+    survive reinstall and stay shared with other OrcaSlicer builds. To remove them,
+    delete that folder manually after uninstalling.
 
 > [!WARNING]
 > On macOS, uninstalling OrcaSlicer may prompt you to delete the configuration directory. If you confirm, **all your user profiles will be permanently lost**. Only delete this directory if you are sure you no longer need your profiles.
@@ -48,6 +55,10 @@ This is the folder OrcaSlicer uses when you are **not** logged into any cloud sy
 ### `<UUID>` (OrcaCloud)
 
 A folder named with a UUID (e.g., `6b89c630-39bb-42cb-a1f0-476bef493c06`). This folder is created when you sign in to **OrcaCloud** (available from version 2.4 onwards). When you are logged in, OrcaSlicer automatically saves and loads your custom presets from this folder instead of `default`.
+
+> [!NOTE]
+> **OrcaCloud is free.** Profile syncing and cloud backup stay free and remain free; see the [Orca Cloud FAQ](https://cloud.orcaslicer.com/wiki/#orca-cloud-faq)
+> for details.
 
 ### `<10-digit number>` (Bambu Cloud)
 

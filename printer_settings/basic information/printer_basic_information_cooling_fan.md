@@ -39,7 +39,3 @@ This clamp is applied after every other fan calculation (first-layer ramp, layer
 If your firmware already disables the fan below a threshold (for example Klipper's [fan] off_below: 0.10 shuts the fan off whenever the commanded duty cycle is below 10%), this option and the firmware threshold should ideally be set to the same value.  
 Matching them (e.g. off_below: 0.10 in Klipper and 10% here) guarantees the slicer never emits a non-zero value that the firmware would silently drop, and the fan never receives a value below the one you know it can actually spool at.  
 Set to 0 to deactivate.
-
-> [!IMPORTANT]
-> NEW FEATURE: **Minimum non-zero part cooling fan speed**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.

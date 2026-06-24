@@ -92,9 +92,23 @@ def get_file_title(filepath: Path) -> str:
     return filename_to_title(filepath.stem)
 
 
+# Release-note files (e.g. release_2_4_0, release_2_4_0_beta) are listed newest
+# first: higher version on top, and for the same version stable > rc > beta > alpha.
+RELEASE_RE = re.compile(r'release_(\d+)_(\d+)_(\d+)(?:_([a-z]+))?$')
+RELEASE_STAGE_ORDER = {None: 0, 'rc': 1, 'beta': 2, 'alpha': 3}  # stable (no suffix) first
+
+
 def get_sort_key(path: Path) -> tuple:
     """Generate a sort key for ordering files/folders."""
     name = path.name.lower() if path.is_dir() else path.stem.lower()
+
+    # Release notes get their own priority bucket (distinct from the default 5)
+    # so this negative-number key is only ever compared release-to-release.
+    release_match = RELEASE_RE.match(name)
+    if release_match and path.is_file():
+        major, minor, patch = map(int, release_match.group(1, 2, 3))
+        stage_order = RELEASE_STAGE_ORDER.get(release_match.group(4), 9)
+        return (7, (-major, -minor, -patch, stage_order))
 
     # Priority ordering: basic/intro first, advanced/misc last
     if any(x in name for x in ['index', 'home', 'intro', 'overview', 'guide']):

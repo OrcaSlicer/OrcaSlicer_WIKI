@@ -127,10 +127,6 @@ The actual brim [flow](quality_settings_wall_and_surfaces#surface-flow-ratio) us
 > [!NOTE]
 > The resulting value will not be affected by the [first-layer flow ratio](quality_settings_wall_and_surfaces#surface-flow-ratio).
 
-> [!IMPORTANT]
-> NEW FEATURE: **Brim Flow Ratio**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
-
 ### Brim use EFC outline
 
 [Mode](option_mode): `Advanced`.  
@@ -150,10 +146,6 @@ Combine adjacent brims into a single continuous brim when they touch.
 
 - Disable: Each object's brim is generated and printed separately; each brim is completed before its object is printed.
 - Enable: Brims that touch are merged and printed together as longer continuous loops, which can improve adhesion for small or closely spaced objects.
-
-> [!IMPORTANT]
-> NEW FEATURE: **Combine brims**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
 
 ### Combined
 
