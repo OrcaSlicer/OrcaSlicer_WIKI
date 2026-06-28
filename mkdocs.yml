@@ -249,6 +249,7 @@ nav:
   - "Managing Plugins": plugins/managing_plugins.md
 - "Developer Reference":
   - "Localization and translation guide": developer_reference/localization_guide.md
+  - "Translation glossary": developer_reference/localization_glossary.md
   - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
   - "How to Build": developer_reference/how_to_build.md
   - "Guide: Develop Profiles for OrcaSlicer": developer_reference/how_to_create_profiles.md
