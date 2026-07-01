@@ -252,3 +252,4 @@ nav:
   - "Application Structure Overview": developer_reference/plater_sidebar_tab_combobox.md
   - "Preset and Bundle": developer_reference/preset_and_bundle.md
   - Hierarchy: developer_reference/slicing_hierarchy.md
+  - "Proto Config Codegen": developer_reference/proto_config_codegen.md

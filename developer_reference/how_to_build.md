@@ -62,6 +62,19 @@ How to building with Visual Studio on Windows 64-bit.
   winget install --id=Git.Git -e
   ```
 
+- [Python 3.8+](https://www.python.org/) — required for config code generation
+
+  ```pwsh
+  winget install --id=Python.Python.3 -e
+  ```
+
+  > [!NOTE]
+  > The build script (`build_release_vs.bat`) and the codegen pipeline install their Python
+  > dependencies (`grpcio-tools`, `pyyaml`) automatically on first run. You just need Python
+  > on your PATH. These tools generate C++ source files from the `.proto` schema and
+  > `layout.yaml` before the C++ compiler runs. See
+  > [Proto Config Codegen](proto_config_codegen) for details.
+
 > [!TIP]
 > GitHub Desktop (optional): A GUI for Git that can simplify repository management and branch control.
 >
