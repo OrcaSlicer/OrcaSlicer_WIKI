@@ -110,6 +110,7 @@ Metadata describing the loaded models and their instances.
 | `scale[]` | string per object | Human-readable scale applied to each object (zero-based object index). Example: `x:100% y:50% z:100%`. |
 | `input_filename_base` | string | Source filename of the first imported object without the extension. |
 | `input_filename` | string | Full filename (with extension) of the first imported object. |
+| `first_object_name` | string | Name of the first printable object on the plate. |
 
 ## Plates
 
@@ -193,7 +194,7 @@ The slicer resolves `filename_format` **before** any G-code is produced (see `Pr
 Only placeholders that are already present in the global parser at that time can be used in the exported file name:
 
 - Configuration keys from the active print/filament/printer presets, including `print_preset`, `filament_preset[]`, `printer_preset`, and every regular setting (line widths, temperatures, etc.).
-- Object metadata injected up front: `input_filename`, `input_filename_base`, `num_objects`, `num_instances`, `scale[]`, `plate_name`, `model_name`, plus the timestamp and user placeholders.
+- Object metadata injected up front: `input_filename`, `input_filename_base`, `first_object_name`, `num_objects`, `num_instances`, `scale[]`, `plate_name`, `model_name`, plus the timestamp and user placeholders.
 - Print statistics computed right after slicing such as `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `extruded_volume`, `total_cost`, `total_toolchanges`, `total_weight`, and wipe-tower totals.
 
 Placeholders that are populated later, during per-layer or per-tool G-code generation, are **not** available inside `filename_format`. This includes everything under *Global Slicing State*, *Slicing State*, *Layer-aware*, *Toolchange*, *Filament start/end*, *Timelapse*, *Extrusion role*, and *Pause/color change helpers*. Using them in templates causes filename evaluation to fail because they are unset when the template is processed.
