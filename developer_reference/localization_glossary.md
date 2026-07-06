@@ -32,6 +32,7 @@ acronyms/brand names but may add a translated descriptor.
 | **WebView2 Runtime** | Microsoft's embedded-browser component. Official product name — translating it would stop users from finding and installing it. |
 | **AMS** | *Automatic Material System* — Bambu Lab's automatic filament changer. Established product acronym used worldwide. |
 | **G-code** / G-Code | The machine-control language sent to the printer. Universal, industry-standard name. |
+| **FDM** | *Fused Deposition Modeling* - the filament printing process. Standard technology acronym. |
 | **SLA** | *Stereolithography* — the resin printing process. Standard technology acronym. |
 | **HRC** | Rockwell C hardness scale, used for nozzle hardness. International measurement unit. |
 | **LAN**, **IP**, **FTP**, **HTTPS** | Networking acronyms (local network, Internet Protocol, file transfer, secure HTTP). Universal technical acronyms. |
