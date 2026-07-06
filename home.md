@@ -226,6 +226,10 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
     - [Use mixed with different nozzle sizes](mixed_nozzle_sizes)
     - [Calibrate Your Printer](calibration_guide)
     - [Create Profiles](how_to_create_profiles)
+    - [Localization and translation guide](localization_guide)
+        - [Glossary](localization_glossary)
+    - [Contribute to the wiki](how_to_wiki)
+    - [Download Pull Requests Artifacts for Testing](how_to_download_pr_artifacts)
 
 
 ## Release Notes
@@ -241,11 +245,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 - [How to build OrcaSlicer](how_to_build)
 - [How to run tests](how_to_test)
-- [Localization and translation guide](localization_guide)
-- [How to create profiles](how_to_create_profiles)
-- [How to contribute to the wiki](how_to_wiki)
 - [Preset, PresetBundle and PresetCollection](preset_and_bundle)
 - [Plater, Sidebar, Tab, ComboBox](plater_sidebar_tab_combobox)
 - [Built-in placeholders & variables](built_in_placeholders_variables)
 - [Slicing Call Hierarchy](slicing_hierarchy)
-- [How to Download Pull Requests Artifacts for Testing](how_to_download_pr_artifacts)

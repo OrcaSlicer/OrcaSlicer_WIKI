@@ -113,9 +113,14 @@ copyright: Copyright &copy; 2022-2026 Li Jiang. All rights reserved.
 nav:
 - Home: index.md
 - Guides:
+  - "Calibration Guide": guides/calibration_guide.md
+  - "Localization and translation guide": guides/localization_guide.md
+  - "Guide: Develop Profiles for OrcaSlicer": guides/how_to_create_profiles.md
+  - "How to Download Pull Requests Artifacts for Testing": guides/how_to_download_pr_artifacts.md
+  - "How to Contribute to the Wiki": guides/how_to_wiki.md
+  - "OrcaSlicer Translation Glossary": guides/localization_glossary.md
   - "Mixed Nozzle Sizes": guides/mixed_nozzle_sizes.md
 - Calibration:
-  - "Calibration Guide": calibration/calibration_guide.md
   - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
   - Cornering: calibration/cornering_calib.md
   - "Flow Ratio Calibration": calibration/flow_ratio_calib.md
@@ -248,14 +253,9 @@ nav:
   - "Plugin Types": plugins/plugin_types.md
   - "Managing Plugins": plugins/managing_plugins.md
 - "Developer Reference":
-  - "Localization and translation guide": developer_reference/localization_guide.md
-  - "Translation glossary": developer_reference/localization_glossary.md
   - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
   - "How to Build": developer_reference/how_to_build.md
-  - "Guide: Develop Profiles for OrcaSlicer": developer_reference/how_to_create_profiles.md
-  - "How to Download Pull Requests Artifacts for Testing": developer_reference/how_to_download_pr_artifacts.md
   - "How to Test": developer_reference/how_to_test.md
-  - "How to Contribute to the Wiki": developer_reference/how_to_wiki.md
   - "Application Structure Overview": developer_reference/plater_sidebar_tab_combobox.md
   - "Preset and Bundle": developer_reference/preset_and_bundle.md
   - Hierarchy: developer_reference/slicing_hierarchy.md
