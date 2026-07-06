@@ -3,7 +3,7 @@
 Cross-language reference of key OrcaSlicer terms, to keep translations
 **consistent** within each language. The base column is English (the `msgid`).
 
-This is a companion to the [Localization and translation guide](localization_guide.md):
+This is a companion to the [Localization and translation guide](localization_guide):
 before translating a recurring term, check here for the established form so the
 same English word is always rendered the same way within a language.
 
