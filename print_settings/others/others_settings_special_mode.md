@@ -11,6 +11,7 @@ These settings control advanced slicing and printing behaviours, such as how lay
         - [Intra-layer order](#intra-layer-order)
     - [By Object](#by-object)
 - [Spiral vase](#spiral-vase)
+    - [Bottom fillet radius](#bottom-fillet-radius)
     - [Smooth Spiral](#smooth-spiral)
         - [Max XY Smoothing](#max-xy-smoothing)
     - [Spiral starting flow ratio](#spiral-starting-flow-ratio)
@@ -70,6 +71,17 @@ This setting requires more models separation and may not be suitable for all pri
 [Variable](built_in_placeholders_variables): `spiral_mode`.  
 Spiral vase mode transforms a solid model into a single-walled print with solid bottom layers, eliminating seams by continuously spiralling the outer contour.  
 This creates a smooth, vase-like appearance.
+
+### Bottom fillet radius
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `spiral_mode_bottom_fillet_radius`.  
+Prints a fillet of this radius between the bottom shell and the vase wall, strengthening and smoothing the otherwise abrupt transition from the solid bottom to the single-walled spiral.  
+The fillet is built from extra concentric walls on the inside of the vase, tapering with height along a quarter-circle profile. It works on ordinary solid models — no changes to the model are needed.  
+Set to 0 to disable the fillet.
+
+> [!NOTE]
+> Layers within the fillet cannot be spiralled, so the seam is still visible there — just like on the bottom shell layers. The spiral starts right above the fillet.
 
 ### Smooth Spiral
 
