@@ -41,7 +41,7 @@ acronyms/brand names but may add a translated descriptor.
 | **UTF-8** / UTF8 | Unicode text-encoding standard. Standard name. |
 | **I3**, **CoreXY**, **H-bot**, **Delta** | Printer motion-system / frame types (I3 is Prusa i3 style; CoreXY and H-bot are belt arrangements; Delta is the parallel-arm type). Established machine-design names. |
 | **Arachne** | Name of variable-width wall-generation engine. Proper name of the algorithm. |
-| **Pressure Advance** | Firmware feature that compensates for extrusion-pressure lag. Established firmware term shared across slicers and firmware — kept in English so it matches firmware settings and documentation. |
+| **Pressure Advance** | Firmware feature that compensates for extrusion-pressure lag. Established firmware term shared across slicers and firmware — kept in English so it matches firmware settings and documentation. In *"Adaptive Pressure Advance"*, only the *"Pressure Advance"* part stays in English; the qualifier *"Adaptive"* is translatable (e.g. es: *"Pressure Advance adaptativo"*). |
 | **Bowden** | Extruder drive type, named after the Bowden cable. Proper noun / established term. |
 | **File formats**: 3MF, STL, STEP, OBJ, AMF, ZIP | File-format names and extensions. Extensions are fixed identifiers, not words, so they are never translated. |
 | **Materials**: PLA, PETG, TPU, ABS, ASA, PC, PA, PVA, PEI | Polymer/material abbreviations (PEI is also the plate surface). International standard chemical abbreviations. |
