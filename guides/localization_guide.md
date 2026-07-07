@@ -51,22 +51,24 @@ Some English words are identical but need different translations depending on wh
 - `"Right"` as an **alignment** (left/right) vs. `"Right"` as in **correct**.
 - `"in"` meaning **inside** vs. `"in"` as the abbreviation for **inches**.
 
-To split these into separate translatable entries, attach a **context** to the string. The context is not shown to the user; it is only visible to the translator and is used to keep the entries distinct. Use the context-aware variants of the localization macros:
+To split these into separate translatable entries, attach a **context** to the string. The context is not shown to the user; it is only visible to the translator and is used to keep the entries distinct. Each context-aware macro takes the string and its context as **two arguments** — write the context **once**:
 
 | Without context | With context |
 | --- | --- |
 | `L("Right")` | `L_CONTEXT("Right", "Alignment")` |
-| `_L("Right")` | `_CTX(L_CONTEXT("Right", "Alignment"))` |
-| `_u8L("Right")` | `_CTX_utf8(L_CONTEXT("Right", "Alignment"))` |
+| `_L("Right")` | `_CTX("Right", "Alignment")` |
+| `_u8L("Right")` | `_CTX_utf8("Right", "Alignment")` |
+
+The distinction mirrors the plain macros: `L_CONTEXT` **only marks** the string for extraction (use it where the translation happens elsewhere, e.g. a value stored now and translated later), while `_CTX` / `_CTX_utf8` **mark and translate at runtime** — the direct equivalents of `_L` / `_u8L`.
 
 For the `"in"` example you would mark each occurrence with the context that matches its meaning, for instance:
 
 ```C++
-L_CONTEXT("in", "Inside")    // "in" meaning inside
-L_CONTEXT("in", "Inches")    // "in" as the unit inches
+_CTX_utf8("in", "inside")    // "in" meaning inside
+_CTX_utf8("in", "inches")    // "in" as the unit inches
 ```
 
-In PoEdit each entry then appears with its context, so `Right [Alignment]` and `Right [Correct]` (or `in [Inside]` and `in [Inches]`) can be translated independently.
+In PoEdit each entry then appears with its context, so `Right [Alignment]` and `Right [Correct]` (or `in [inside]` and `in [inches]`) can be translated independently.
 
 > [!NOTE]
 > Only add a context when a string is genuinely ambiguous. Every distinct context creates a new entry that has to be translated separately for every language, so reuse the same context spelling wherever the same meaning appears.
