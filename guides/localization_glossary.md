@@ -3,9 +3,8 @@
 Cross-language reference of key OrcaSlicer terms, to keep translations
 **consistent** within each language. The base column is English (the `msgid`).
 
-This is a companion to the [Localization and translation guide](localization_guide):
-before translating a recurring term, check here for the established form so the
-same English word is always rendered the same way within a language.
+This is a companion to the [Localization and translation guide](localization_guide):  
+before translating a recurring term, check here for the established form so the same English word is always rendered the same way within a language.
 
 - [Kept in English (do not translate)](#kept-in-english-do-not-translate)
 - [Translation table glossary](#translation-table-glossary)
@@ -19,9 +18,8 @@ same English word is always rendered the same way within a language.
 
 ## Kept in English (do not translate)
 
-These are written verbatim in the `msgstr` in essentially all languages.
-Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin
-acronyms/brand names but may add a translated descriptor.
+These are written verbatim in the `msgstr` in essentially all languages.  
+Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronyms/brand names but may add a translated descriptor.
 
 | Term | What it is, and why it stays in English |
 | --- | --- |
