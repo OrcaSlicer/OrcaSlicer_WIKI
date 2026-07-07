@@ -44,6 +44,33 @@ auto msg = L("This message to be localized")
 To get translated text use one of needed macro/function (`_(s)` or `_CHB(s)` ).
 If you add new file resource, add it to the list of files containing macro `L()`
 
+#### Adding a context to disambiguate translations
+
+Some English words are identical but need different translations depending on where they are used. Without extra information, gettext merges them into a single entry, so a translator only sees one string and cannot tell the cases apart. Typical examples:
+
+- `"Right"` as an **alignment** (left/right) vs. `"Right"` as in **correct**.
+- `"in"` meaning **inside** vs. `"in"` as the abbreviation for **inches**.
+
+To split these into separate translatable entries, attach a **context** to the string. The context is not shown to the user; it is only visible to the translator and is used to keep the entries distinct. Use the context-aware variants of the localization macros:
+
+| Without context | With context |
+| --- | --- |
+| `L("Right")` | `L_CONTEXT("Right", "Alignment")` |
+| `_L("Right")` | `_CTX(L_CONTEXT("Right", "Alignment"))` |
+| `_u8L("Right")` | `_CTX_utf8(L_CONTEXT("Right", "Alignment"))` |
+
+For the `"in"` example you would mark each occurrence with the context that matches its meaning, for instance:
+
+```C++
+L_CONTEXT("in", "Inside")    // "in" meaning inside
+L_CONTEXT("in", "Inches")    // "in" as the unit inches
+```
+
+In PoEdit each entry then appears with its context, so `Right [Alignment]` and `Right [Correct]` (or `in [Inside]` and `in [Inches]`) can be translated independently.
+
+> [!NOTE]
+> Only add a context when a string is genuinely ambiguous. Every distinct context creates a new entry that has to be translated separately for every language, so reuse the same context spelling wherever the same meaning appears.
+
 ### Scenario 4. How do I use GNUgettext to localize my own application taking OrcaSlicer as an example
 
 1. For convenience create a list of files with this macro `L(s)`. We have [localization/i18n/list.txt](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/localization/i18n/list.txt).
