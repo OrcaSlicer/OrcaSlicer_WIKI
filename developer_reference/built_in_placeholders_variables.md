@@ -60,6 +60,7 @@ The following functions are available:
 | `random(a, b)` | A random number between `a` and `b`. |
 | `interpolate_table(x, (x0, y0), (x1, y1), ...)` | Piecewise-linear interpolation of `x` through the given points. |
 | `one_of(value, a, b, ...)` | True when `value` matches one of the listed entries; entries may be `/regex/` patterns. |
+| `regex_replace(text, /pattern/, replacement)` | Replace every match of `/pattern/` in `text` with `replacement`, which may reference capture groups (`$1`, `$2`, ...). `{regex_replace(first_object_name, /\.[^.]*$/, "")}` strips a file extension. |
 | `size(vec)`, `empty(vec)` | Length of a vector option, and whether it is empty. |
 
 Expressions can also branch. `{if}` / `{elsif}` / `{else}` / `{endif}` chooses between values, so `{if layer_num == 1}first{else}later{endif}` selects text by layer.
