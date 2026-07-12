@@ -280,6 +280,11 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 
 [Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `top_layer_direction`, `bottom_layer_direction`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Top/Bottom layer direction**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 Fixed angle (in degrees) for the top and bottom solid infill lines.  
 ![top-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/top-direction.png?raw=true)
 
@@ -290,6 +295,11 @@ Set to `-1` to follow the default solid infill [direction](#direction).
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `separated_infills`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Separated infills**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 Centers the internal infill of each part on itself, as if it were sliced on its own, instead of on the whole assembly.  
 By default the entire assembly is treated as a single whole, so a centered or rotated infill pattern is referenced to one common center and rotates around it. When enabled, each part is centered on its own full 3D bounding box — producing the same pattern you would get by slicing that part on its own.
 

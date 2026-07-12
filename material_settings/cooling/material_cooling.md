@@ -40,6 +40,11 @@ Disabling the fan for the first few layers improves build-plate adhesion and red
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `initial_layer_fan_speed`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **First layer fan speed**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 Sets an exact fan speed (in %) for the first layer, overriding all other cooling settings.  
 This is useful for protecting 3D-printed toolhead parts (e.g. Voron-style ABS/ASA ducts) from a hot bed: a small amount of airflow cools the ducts down without using full cooling, which may in certain conditions hurt first-layer adhesion. From the second layer onwards, normal cooling resumes.  
 If [Full fan speed at layer](#full-fan-speed-at-layer) is also set, the fan ramps smoothly from this value on the first layer up to your target by the chosen layer.  

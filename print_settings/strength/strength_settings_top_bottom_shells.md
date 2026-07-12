@@ -73,6 +73,11 @@ If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_expansion`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Top surface expansion** (expansion, margin and direction)  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 Expands the top surfaces by this distance (in mm) to connect distinct top surfaces and fill the gaps left where a feature rises through them.  
 This is useful when the top surface is interrupted by a raised feature, such as text or a boss on a plane, or when overlapping objects would otherwise split it: expanding the surface removes the holes beneath these features, keeps the top-surface pattern uninterrupted, and anchors the solid infill for a cleaner finish when printing on top. It also improves [concentric](strength_settings_patterns#concentric) top surfaces, whose pattern would otherwise be broken up by those small holes.  
 The expansion is applied to the original top surface, before any other processing such as bridging or overhang detection. Set to `0` to disable it.
@@ -115,6 +120,11 @@ Direction in which the [Surface Expansion](#surface-expansion) grows:
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `center_of_surface_pattern`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Center surface pattern on**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 Chooses where the centering point of centered top/bottom surface patterns ([Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)) is placed.  
 By default these patterns are centered individually on each surface, which does not keep the pattern continuous across a whole product — a drawback for some artistic prints where the surfaces should read as one piece. This setting widens the scope of the shared center:
 
@@ -134,6 +144,11 @@ By default these patterns are centered individually on each surface, which does 
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `anisotropic_surfaces`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Anisotropic surfaces**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 Applies anisotropic patterns to the top and bottom surfaces using a co-directional printing mode. For certain patterns, omni-directional filling provides color dispersion when using multi-colored or silk filaments.  
 This option disables gap fill and can increase printing time.
 
