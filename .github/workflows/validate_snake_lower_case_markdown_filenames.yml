@@ -28,6 +28,8 @@ jobs:
             const workspaceRoot = process.cwd();
             const failures = [];
             const snakeCasePattern = /^[a-z0-9]+(?:_[a-z0-9]+)*$/;
+            // Root-level meta docs that are exempt from the snake_case filename rule.
+            const exemptFiles = new Set(['README.md', 'AGENTS.md', 'CLAUDE.md']);
 
             collectFailures('');
 
@@ -69,7 +71,7 @@ jobs:
                   continue;
                 }
 
-                if (relativePath === 'README.md') {
+                if (exemptFiles.has(relativePath)) {
                   continue;
                 }
 

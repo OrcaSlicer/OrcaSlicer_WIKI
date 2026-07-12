@@ -177,7 +177,7 @@ jobs:
 
             // Build ranking = list of files sorted by total refs (home + others) descending
             const rankingArray = [];
-            const excludedFromRanking = ['home.md', 'readme.md'];
+            const excludedFromRanking = ['home.md', 'readme.md', 'agents.md', 'claude.md'];
             for (const [f, obj] of counts) {
               if (excludedFromRanking.includes(path.basename(f).toLowerCase())) {
                 // keep home.md and README.md out of ranking as they are not referenced or never referenced
@@ -195,7 +195,7 @@ jobs:
 
             // Gather orphaned = files with both counts zero except home.md itself
             const orphanLines = [];
-            const excludedFromOrphans = ['home.md', 'readme.md'];
+            const excludedFromOrphans = ['home.md', 'readme.md', 'agents.md', 'claude.md'];
             for (const [f, obj] of counts) {
               if (excludedFromOrphans.includes(path.basename(f).toLowerCase())) continue; // skip home.md and readme.md
               if (obj.home === 0 && obj.others === 0) {
