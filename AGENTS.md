@@ -58,6 +58,8 @@ Enforced by CI (`validate_images.yml` + `unreferenced_images.yml`):
 
 - Formats: **SVG** preferred (theme-adaptive), **PNG** for screenshots/transparency, **JPG** for photos. Only use images you have rights to.
 
+To auto-fix these on existing pages, run [`fix-image-links.ps1`](fix-image-links.ps1) (repo root): `pwsh ./fix-image-links.ps1` (add `-DryRun` to preview). It rewrites relative/root-absolute paths (`](/images…`, `](../images…`) to the canonical `…/blob/main/<path>?raw=true` URL, appends a missing `?raw=true`, sets the alt text to the image filename, and moves `alt` before `src` in `<img>` tags. It only touches OrcaSlicer `blob`/`raw` asset URLs and local paths that resolve to a real file — badges, external/`user-attachments` URLs, fenced code blocks, `wiki/`, and `releases/` are left alone; unresolved local paths are reported, not rewritten.
+
 ## List Indentation
 
 Enforced by CI (`validate_list_indentation.yml`):
