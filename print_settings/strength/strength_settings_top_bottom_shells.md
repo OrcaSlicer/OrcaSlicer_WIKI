@@ -110,3 +110,5 @@ Chooses where the centering point of centered top/bottom surface patterns ([Arch
 [Variable](built_in_placeholders_variables): `anisotropic_surfaces`.  
 Applies anisotropic patterns to the top and bottom surfaces using a co-directional printing mode. For certain patterns, omni-directional filling provides color dispersion when using multi-colored or silk filaments.  
 This option disables gap fill and can increase printing time.
+
+![anisotropic_surfaces](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/anisotropic_surfaces.jpg?raw=true)
