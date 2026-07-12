@@ -66,6 +66,9 @@ If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be 
 - **[Archimedean Chords](strength_settings_patterns#archimedean-chords)**
 - **[Octagram Spiral](strength_settings_patterns#octagram-spiral)**
 
+> [!TIP]
+> Enable [Align directions to model](strength_settings_advanced#align-directions-to-model) to make the top/bottom surface fill direction follow the model's orientation on the build plate.
+
 ## Surface Expansion
 
 [Mode](option_mode): `Advanced`.  

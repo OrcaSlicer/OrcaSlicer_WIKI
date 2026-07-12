@@ -108,6 +108,9 @@ Controls the direction of the infill lines to optimize or strengthen the print.
 
 ![fill-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-direction.png?raw=true)
 
+> [!TIP]
+> Enable [Align directions to model](strength_settings_advanced#align-directions-to-model) to make this direction follow the model's orientation on the build plate.
+
 ### Rotation
 
 This parameter adds a rotation to the sparse infill direction for each layer according to the specified template.  

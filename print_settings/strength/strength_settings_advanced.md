@@ -1,6 +1,6 @@
 # Strength Advanced
 
-- [Align infill direction to model](#align-infill-direction-to-model)
+- [Align directions to model](#align-directions-to-model)
 - [Bridge infill direction](#bridge-infill-direction)
 - [Relative Bridge Angle](#relative-bridge-angle)
 - [Minimum sparse infill threshold](#minimum-sparse-infill-threshold)
@@ -9,12 +9,12 @@
 - [Detect narrow internal solid infill](#detect-narrow-internal-solid-infill)
 - [Ensure vertical shell thickness](#ensure-vertical-shell-thickness)
 
-## Align infill direction to model
+## Align directions to model
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `align_infill_direction_to_model`.  
-Aligns [infill](strength_settings_infill#direction), [bridge](#bridge-infill-direction), [ironing](quality_settings_ironing#angle-offset) and [surface fill](strength_settings_top_bottom_shells#surface-pattern) directions to follow the model's orientation on the build plate.  
-When enabled, directions rotate with the model to maintain optimal strength characteristics.
+Aligns [infill](strength_settings_infill#direction), [bridge](#bridge-infill-direction), [ironing](quality_settings_ironing#angle-offset) and [top/bottom surface fill](strength_settings_top_bottom_shells#surface-pattern) directions to follow the model's orientation on the build plate.  
+When enabled, these directions rotate together with the model so the printed features keep their intended orientation relative to the part, preserving optimal strength and surface characteristics regardless of how the model is placed.
 
 ![fill-direction-to-model](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-direction-to-model.png?raw=true)
 
@@ -25,7 +25,7 @@ When enabled, directions rotate with the model to maintain optimal strength char
 If left to zero, the bridging angle will be calculated automatically for each specific bridge.  
 Otherwise the provided angle will be used according to:
     - The absolute coordinates
-    - The absolute coordinates + Model rotation: If [Align infill direction to model](#align-infill-direction-to-model) is enabled
+    - The absolute coordinates + Model rotation: If [Align directions to model](#align-directions-to-model) is enabled
     - The optimal automatic angle + this value: If [Relative Bridge Angle](#relative-bridge-angle) is enabled
 
 > [!NOTE]
