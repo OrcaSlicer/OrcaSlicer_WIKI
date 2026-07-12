@@ -281,6 +281,8 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 [Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `top_layer_direction`, `bottom_layer_direction`.  
 Fixed angle (in degrees) for the top and bottom solid infill lines.  
+![top-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/top-direction.png?raw=true)
+
 The top angle also applies to ironing lines.  
 Set to `-1` to follow the default solid infill [direction](#direction).
 
