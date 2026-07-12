@@ -73,16 +73,30 @@ If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_expansion`.  
-Expands the top surfaces by this distance (in mm) to connect distinct top surfaces and fill gaps.  
-This is useful when the top surface is interrupted by a raised feature, such as text on a plane. Expanding it removes the holes beneath these features and creates a continuous path with a better finish for printing on top.  
-The expansion is applied to the original top surface, before any other processing such as bridging or overhang detection.
+Expands the top surfaces by this distance (in mm) to connect distinct top surfaces and fill the gaps left where a feature rises through them.  
+This is useful when the top surface is interrupted by a raised feature, such as text or a boss on a plane, or when overlapping objects would otherwise split it: expanding the surface removes the holes beneath these features, keeps the top-surface pattern uninterrupted, and anchors the solid infill for a cleaner finish when printing on top. It also improves [concentric](strength_settings_patterns#concentric) top surfaces, whose pattern would otherwise be broken up by those small holes.  
+The expansion is applied to the original top surface, before any other processing such as bridging or overhang detection. Set to `0` to disable it.
+
+- **Original**
+
+![surface_expansion_original](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_original.png?raw=true)
+
+- **Expanded by 5 mm**
+
+![surface_expansion_5mm](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_5mm.png?raw=true)
+
+Improved [concentric](strength_settings_patterns#concentric) top surface:
+
+![surface_expansion_concentric](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_concentric.png?raw=true)
 
 ### Surface Expansion Margin
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_expansion_margin`.  
-Using [Surface Expansion](#surface-expansion) may cause a surface that did not previously touch the model's outer walls to now do so, which can create contraction marks (such as a hull line) on the outer walls.  
-Adding a small margin (in mm) keeps this contraction away from the walls, preventing a visible mark.
+Using [Surface Expansion](#surface-expansion) may cause a surface that did not previously touch the model's outer walls to now reach them, which can create contraction marks (such as a hull line) on the outer walls.  
+Adding a margin (in mm) keeps the expansion away from the walls where possible, so no hull line is created. The example below uses a 5 mm expansion with a 2 mm margin — compare it with the 5 mm expansion above, which reaches the walls.
+
+![surface_expansion_margin](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_margin.png?raw=true)
 
 ### Surface Expansion Direction
 
@@ -91,8 +105,11 @@ Adding a small margin (in mm) keeps this contraction away from the walls, preven
 Direction in which the [Surface Expansion](#surface-expansion) grows:
 
 - **Inward:** grows into the holes and gaps left by features rising from the middle of a top surface.
+  ![surface_expansion_direction_inward](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_direction_inward.png?raw=true)
 - **Outward:** grows the outer edge of the surface, connecting surfaces separated by features that can divide a surface, such as a lattice pattern.
-- **Inward and Outward:** does both.
+  ![surface_expansion_direction_outward](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_direction_outward.png?raw=true)
+- **Inward and Outward:** does both. This is the default.
+  ![surface_expansion_direction_inward_and_outward](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_direction_inward_and_outward.png?raw=true)
 
 ## Center Surface Pattern On
 
