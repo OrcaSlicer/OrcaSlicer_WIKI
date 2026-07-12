@@ -98,11 +98,20 @@ Direction in which the [Surface Expansion](#surface-expansion) grows:
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `center_of_surface_pattern`.  
-Chooses where the centering point of centered top/bottom surface patterns ([Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)) is placed:
+Chooses where the centering point of centered top/bottom surface patterns ([Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)) is placed.  
+By default these patterns are centered individually on each surface, which does not keep the pattern continuous across a whole product — a drawback for some artistic prints where the surfaces should read as one piece. This setting widens the scope of the shared center:
 
-- **Each Surface:** centers the pattern on every individual surface region, so each island is symmetric on its own.
-- **Each Model:** centers the pattern on each connected body. Parts that touch or overlap share one center; parts detached from the rest each get their own.
-- **Each Assembly:** uses a single shared center for the whole object or assembly.
+- **Each Surface:** centers the pattern on every individual surface region, so each island is symmetric on its own. This is the previous behavior.
+
+![center_of_surface_pattern_each_surface](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/center_of_surface_pattern_each_surface.png?raw=true)
+
+- **Each Model:** combines all the surfaces of one model — or each shape in the assembly — under a single center. Parts that touch or overlap share one center; parts detached from the rest each get their own.
+
+![center_of_surface_pattern_each_model](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/center_of_surface_pattern_each_model.png?raw=true)
+
+- **Each Assembly:** all the surfaces of the assembly fall under a single shared center. Well suited for articulated models that should keep one continuous pattern across their parts.
+
+![center_of_surface_pattern_each_assembly](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/center_of_surface_pattern_each_assembly.png?raw=true)
 
 ## Anisotropic Surfaces
 
