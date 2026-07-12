@@ -111,6 +111,8 @@ Use fenced triple-backtick blocks and **specify the language** for highlighting 
 
 The OrcaSlicer GUI deep-links into these pages from [src/slic3r/GUI/Tab.cpp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/slic3r/GUI/Tab.cpp) using the same `filename#anchor` scheme (validated weekly by `validate_tab_links.yml`). If you **rename a page or a heading that a Tab.cpp link targets**, that redirect breaks — flag it in the PR so the OrcaSlicer side can be updated. See [how_to_wiki.md](guides/how_to_wiki.md#orca-to-wiki-redirection) for the C++ patterns.
 
+The `[Mode](option_mode)` and `[Variable(s)](built_in_placeholders_variables)` lines under an option's heading are **generated — never hand-edited**. Run [`sync-tab-options-to-wiki.ps1`](sync-tab-options-to-wiki.ps1) (repo root) to import/refresh them: it reads the option→page map from `Tab.cpp` and the option mode from `PrintConfig.cpp`, then inserts the metadata under the matching heading (and prunes it from unreferenced sections). When adding an option's docs, write only the heading + body, then run `pwsh ./sync-tab-options-to-wiki.ps1` (add `-DryRun` to preview). Manual edits to these lines are overwritten. See [how_to_wiki.md](guides/how_to_wiki.md#option-mode-and-variables-metadata).
+
 ## CI Checks
 
 PRs touching Markdown run these validators (all must pass):
