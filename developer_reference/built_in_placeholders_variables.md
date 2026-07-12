@@ -41,7 +41,7 @@ Template expressions inside `{ }` can be computed, not just substituted, using a
 
 The following operators are available:
 
-- Arithmetic `+`, `-`, `*`, `/`, `%` (modulo). For example `{used_filament / 1000}` converts filament usage to metres.
+- Arithmetic `+`, `-`, `*`, `/`, `%` (modulo). For example `{used_filament * 1000}` converts filament usage to milimeters.
 - Comparison `==`, `!=`, `<`, `>`, `<=`, `>=`, producing a boolean.
 - Logical `and` / `&&`, `or` / `||`, `not` / `!`.
 - Ternary `condition ? a : b`.
@@ -116,7 +116,7 @@ Summaries of the sliced job such as time estimates, material usage, and wipe-tow
 | `silent_print_time` | string (`hh:mm:ss`) | Estimated print duration in silent mode. |
 | `total_layer_count` | int | Number of sliced layers. |
 | `total_toolchanges` | int | Number of planned tool changes (including wipe tower changes). |
-| `used_filament` | float (mm) | Total filament length consumed by the entire job. |
+| `used_filament` | float (m) | Total filament length consumed by the entire job. |
 | `extruded_volume[]` | float per extruder (mm³) | Volume extruded by each extruder. |
 | `extruded_volume_total` | float (mm³) | Sum of `extruded_volume[]`. |
 | `extruded_weight[]` | float per extruder (g) | Material weight per extruder (via filament density). |
