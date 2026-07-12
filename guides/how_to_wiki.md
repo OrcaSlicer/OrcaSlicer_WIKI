@@ -164,8 +164,6 @@ Most option sections start with one or two metadata lines directly under the hea
 ```markdown
 ## Infill/Wall Overlap
 
-[Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `top_bottom_infill_wall_overlap`.  
 The top solid infill area is slightly enlarged to overlap with walls...
 ```
 

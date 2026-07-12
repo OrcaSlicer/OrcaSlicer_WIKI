@@ -4,6 +4,17 @@ Controls how the top and bottom solid layers (shells) are generated.
 
 ![top-bottom-shells](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/top-bottom-shells.png?raw=true)
 
+- [Shell Layers](#shell-layers)
+- [Shell Thickness](#shell-thickness)
+- [Surface Density](#surface-density)
+- [Infill/Wall Overlap](#infillwall-overlap)
+- [Surface Pattern](#surface-pattern)
+- [Surface Expansion](#surface-expansion)
+    - [Surface Expansion Margin](#surface-expansion-margin)
+    - [Surface Expansion Direction](#surface-expansion-direction)
+- [Center Surface Pattern On](#center-surface-pattern-on)
+- [Anisotropic Surfaces](#anisotropic-surfaces)
+
 ## Shell Layers
 
 [Variables](built_in_placeholders_variables): `top_shell_layers`, `bottom_shell_layers`.  
@@ -54,3 +65,45 @@ If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be 
 - **[Hilbert Curve](strength_settings_patterns#hilbert-curve)**
 - **[Archimedean Chords](strength_settings_patterns#archimedean-chords)**
 - **[Octagram Spiral](strength_settings_patterns#octagram-spiral)**
+
+## Surface Expansion
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `top_surface_expansion`.  
+Expands the top surfaces by this distance (in mm) to connect distinct top surfaces and fill gaps.  
+This is useful when the top surface is interrupted by a raised feature, such as text on a plane. Expanding it removes the holes beneath these features and creates a continuous path with a better finish for printing on top.  
+The expansion is applied to the original top surface, before any other processing such as bridging or overhang detection.
+
+### Surface Expansion Margin
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `top_surface_expansion_margin`.  
+Using [Surface Expansion](#surface-expansion) may cause a surface that did not previously touch the model's outer walls to now do so, which can create contraction marks (such as a hull line) on the outer walls.  
+Adding a small margin (in mm) keeps this contraction away from the walls, preventing a visible mark.
+
+### Surface Expansion Direction
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `top_surface_expansion_direction`.  
+Direction in which the [Surface Expansion](#surface-expansion) grows:
+
+- **Inward:** grows into the holes and gaps left by features rising from the middle of a top surface.
+- **Outward:** grows the outer edge of the surface, connecting surfaces separated by features that can divide a surface, such as a lattice pattern.
+- **Inward and Outward:** does both.
+
+## Center Surface Pattern On
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `center_of_surface_pattern`.  
+Chooses where the centering point of centered top/bottom surface patterns ([Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)) is placed:
+
+- **Each Surface:** centers the pattern on every individual surface region, so each island is symmetric on its own.
+- **Each Model:** centers the pattern on each connected body. Parts that touch or overlap share one center; parts detached from the rest each get their own.
+- **Each Assembly:** uses a single shared center for the whole object or assembly.
+
+## Anisotropic Surfaces
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `anisotropic_surfaces`.  
+Applies anisotropic patterns to the top and bottom surfaces using a co-directional printing mode. For certain patterns, omni-directional filling provides color dispersion when using multi-colored or silk filaments.  
+This option disables gap fill and can increase printing time.

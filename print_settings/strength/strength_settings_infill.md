@@ -21,6 +21,8 @@ Infill is the internal structure of a 3D print, providing strength and support. 
     - [Interval Pattern](#interval-pattern)
     - [Explicit Layer List](#explicit-layer-list)
 - [Sparse Infill Pattern](#sparse-infill-pattern)
+- [Top-Bottom Direction](#top-bottom-direction)
+- [Separated Infills](#separated-infills)
 - [Credits](#credits)
 
 ## Sparse infill density
@@ -270,6 +272,28 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 [Variable](built_in_placeholders_variables): `sparse_infill_pattern`.  
 > [!TIP]
 > See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
+
+## Top-Bottom Direction
+
+[Mode](option_mode): `Simple`.  
+[Variables](built_in_placeholders_variables): `top_layer_direction`, `bottom_layer_direction`.  
+Fixed angle (in degrees) for the top and bottom solid infill lines.  
+The top angle also applies to ironing lines.  
+Set to `-1` to follow the default solid infill [direction](#direction).
+
+## Separated Infills
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `separated_infills`.  
+Centers the internal infill of each part on itself, as if it were sliced on its own, instead of on the whole assembly.  
+Parts that touch or overlap are treated as one body and share a center; separate parts (or distinct 3D objects) each get their own.  
+Useful when an assembly groups several objects that should each keep a consistent, self-centered infill.
+
+> [!NOTE]
+> The main disadvantage is that, for complex and large slices, centering each part independently can increase slicing time.
+
+Affects line and grid patterns and [rotation-template](#rotation) infills.  
+Patterns locked to global coordinates ([Gyroid](strength_settings_patterns#gyroid), [Honeycomb](strength_settings_patterns#honeycomb), TPMS, ...) are unaffected.
 
 ## Credits
 
