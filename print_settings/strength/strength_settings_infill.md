@@ -290,6 +290,9 @@ Set to `-1` to follow the default solid infill [direction](#direction).
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `separated_infills`.  
+
+![separated-infills](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/separated-infills.png?raw=true)
+
 Centers the internal infill of each part on itself, as if it were sliced on its own, instead of on the whole assembly.  
 Parts that touch or overlap are treated as one body and share a center; separate parts (or distinct 3D objects) each get their own.  
 Useful when an assembly groups several objects that should each keep a consistent, self-centered infill.
