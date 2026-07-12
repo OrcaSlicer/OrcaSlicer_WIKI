@@ -240,7 +240,7 @@ nav:
     - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
     - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
 - Releases:
-  - releases/index.md
+  - Releases: releases/releases_index.md
   - V2.4.2: releases/release_2_4_2.md
   - V2.4.1: releases/release_2_4_1.md
   - V2.4.0: releases/release_2_4_0.md
