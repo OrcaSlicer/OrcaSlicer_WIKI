@@ -45,6 +45,7 @@ Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronym
 | **Materials**: PLA, PETG, TPU, ABS, ASA, PC, PA, PVA, PEI | Polymer/material abbreviations (PEI is also the plate surface). International standard chemical abbreviations. |
 | **G-code commands**: `M141`, `M191` | Literal printer commands (set / wait for chamber temperature). They are machine instructions and must be copied exactly. |
 | **Macros & variables**: `PRINT_START`, `CHAMBER_TEMP`, `CHAMBER_MIN_TEMP`, `chamber_temperature`, `chamber_minimal_temperature` | Literal identifiers used in custom G-code. Translating or altering them breaks the macro/variable reference. |
+| **Inch symbol**: `″` (U+2033) | The abbreviation for inches (`msgctxt "inches"`, `msgid "in"`). Use the Unicode double-prime character `″` (U+2033) as the standard — not a straight quote `"`, two apostrophes `''`, or the letters *in*. It is a script-neutral typographic symbol, so it stays the same in every language. |
 
 ## Translation table glossary
 
