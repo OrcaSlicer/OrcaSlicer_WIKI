@@ -1,4 +1,4 @@
-# OrcaSlicer Translation Glossary
+# Translation Glossary
 
 Cross-language reference of key OrcaSlicer terms, to keep translations
 **consistent** within each language. The base column is English (the `msgid`).
