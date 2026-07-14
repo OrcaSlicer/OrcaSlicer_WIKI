@@ -13,7 +13,7 @@ Controls how the top and bottom solid layers (shells) are generated.
     - [Surface Expansion Margin](#surface-expansion-margin)
     - [Surface Expansion Direction](#surface-expansion-direction)
 - [Center Surface Pattern On](#center-surface-pattern-on)
-- [Anisotropic Surfaces](#anisotropic-surfaces)
+- [Fill Order](#fill-order)
 
 ## Shell Layers
 
@@ -140,16 +140,19 @@ By default these patterns are centered individually on each surface, which does 
 
 ![center_of_surface_pattern_each_assembly](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/center_of_surface_pattern_each_assembly.png?raw=true)
 
-## Anisotropic Surfaces
+## Fill Order
 
-[Mode](option_mode): `Expert`.  
-[Variable](built_in_placeholders_variables): `anisotropic_surfaces`.  
+[Mode](option_mode): `Advanced`.  
+[Variables](built_in_placeholders_variables): `top_surface_fill_order`, `bottom_surface_fill_order`.  
 
 > [!IMPORTANT]
-> NEW FEATURE: **Anisotropic surfaces**  
+> NEW FEATURE: **Fill order**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-Applies anisotropic patterns to the top and bottom surfaces using a co-directional printing mode. For certain patterns, omni-directional filling provides color dispersion when using multi-colored or silk filaments.  
-This option disables gap fill and can increase printing time.
+Direction in which the top and bottom surfaces are filled when using a center-based pattern ([Concentric](strength_settings_patterns#concentric), [Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)). The spirals/rings are then deposited consistently inward or outward instead of following the default shortest path.
 
-![anisotropic_surfaces](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/anisotropic_surfaces.jpg?raw=true)
+![fill-order](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/fill-order.jpg?raw=true)
+
+- **Default:** uses legacy ordering.
+- **Outward:** starts at the center of the surface, so any excess material is pushed towards the edge where it is least visible. Preferred for **top** surfaces, as it hides small imperfections better.
+- **Inward:** starts at the edge and ends with the tight curves at the center. Preferred for **bottom** surfaces, as starting each surface with the wider outer curves improves first layer adhesion on build plates where the tight curves at the center may not stick.
