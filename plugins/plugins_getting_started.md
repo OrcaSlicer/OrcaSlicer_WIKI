@@ -3,12 +3,13 @@
 Plugins add extra features to OrcaSlicer. They are managed from the Plugins window.
 
 > [!IMPORTANT]
-> The **Python Plugin System** is available in the [nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+> NEW FEATURE: **Python Plugin System**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.3.2**.
 
-- [Local Plugins](local_plugins)
-- [Cloud Plugins](cloud_plugins)
-- [Plugin Types](plugin_types)
-- [Managing Plugins](managing_plugins)
+- [Local Plugins](plugins_local)
+- [Cloud Plugins](plugins_cloud)
+- [Plugin Types](plugins_types)
+- [Managing Plugins](plugins_management)
 
 ## Open the Plugins Window
 

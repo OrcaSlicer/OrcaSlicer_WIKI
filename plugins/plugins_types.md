@@ -41,7 +41,7 @@ configuration.
 
 ## Actions Speed Dial
 
-The [Actions Speed Dial](speed_dial) provides a quick launcher for script capabilities.
+The [Actions Speed Dial](plugins_speed_dial) provides a quick launcher for script capabilities.
 
 ## Printer Connection
 
