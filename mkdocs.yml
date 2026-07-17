@@ -249,12 +249,12 @@ nav:
 - "User Profiles":
   - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
 - Plugins:
-  - "Getting Started": plugins/getting_started.md
-  - "Local Plugins": plugins/local_plugins.md
-  - "Cloud Plugins": plugins/cloud_plugins.md
-  - "Plugin Types": plugins/plugin_types.md
-  - "Managing Plugins": plugins/managing_plugins.md
-  - "Actions Speed Dial": plugins/speed_dial.md
+  - "Getting Started": plugins/plugins_getting_started.md
+  - "Local Plugins": plugins/plugins_local.md
+  - "Cloud Plugins": plugins/plugins_cloud.md
+  - "Plugin Types": plugins/plugins_types.md
+  - "Managing Plugins": plugins/plugins_management.md
+  - "Actions Speed Dial": plugins/plugins_speed_dial.md
 - "Developer Reference":
   - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
   - "How to Build": developer_reference/how_to_build.md
