@@ -109,7 +109,8 @@ Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronym
 The [translation table](#translation-table-glossary) is **generated**.  
 Its source is `guides/localization_glossary.tsv`, and edits made directly to the table in this page are overwritten the next time the generator runs.
 
-The file is **tab-separated**, so a cell is exactly the text between two tabs and commas or quotation marks inside a description need no escaping. It opens as a spreadsheet in Excel, LibreOffice and Google Sheets — just keep the tabs when saving, and never type one inside a cell. It has one row per term and one column per catalog:
+The file is **tab-separated**, so a cell is exactly the text between two tabs and commas or quotation marks inside a description need no escaping. It opens as a spreadsheet in Excel, LibreOffice and Google Sheets — just keep the tabs when saving, and never type one inside a cell.  
+It has one row per term and one column per catalog:
 
 | Column | Contents |
 | --- | --- |
