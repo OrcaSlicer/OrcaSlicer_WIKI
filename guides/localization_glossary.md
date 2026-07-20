@@ -46,7 +46,9 @@ Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronym
 ## Translation table glossary
 
 > [!TIP]
-> You can [download the glossary is CSV format clicking here](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/guides/localization_glossary.csv?raw=true)
+> You can [download the glossary spreadsheet clicking here](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/guides/localization_glossary.tsv?raw=true)  
+> TSV (*tab-separated values*) is the same as CSV, but the cells are separated by tabs instead of commas, so the commas and quotation marks used inside descriptions and translations need no escaping.  
+> Excel, LibreOffice Calc and Google Sheets all open it as a normal spreadsheet, and any text editor shows it as plain text.
 
 > [!NOTE]
 > Translations with ⚠ require translators revision.
@@ -104,11 +106,10 @@ Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronym
 
 ### Updating the glossary
 
-The [translation table](#translation-table-glossary) is **generated**. Its source
-is `guides/localization_glossary.csv`, and edits made directly to the table in
-this page are overwritten the next time the generator runs.
+The [translation table](#translation-table-glossary) is **generated**.  
+Its source is `guides/localization_glossary.tsv`, and edits made directly to the table in this page are overwritten the next time the generator runs.
 
-The CSV has one row per term and one column per catalog:
+The file is **tab-separated**, so a cell is exactly the text between two tabs and commas or quotation marks inside a description need no escaping. It opens as a spreadsheet in Excel, LibreOffice and Google Sheets — just keep the tabs when saving, and never type one inside a cell. It has one row per term and one column per catalog:
 
 | Column | Contents |
 | --- | --- |
@@ -129,7 +130,7 @@ python generate_glossary.py            # print the table and report whether the 
 ```
 
 ```bash
-python generate_glossary.py --check    # exit 1 if the page no longer matches the CSV
+python generate_glossary.py --check    # exit 1 if the page no longer matches the TSV
 ```
 
 ## Language specifics

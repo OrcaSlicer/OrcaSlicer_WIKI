@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """
 Regenerate the translation table in guides/localization_glossary.md from
-guides/localization_glossary.csv.
+guides/localization_glossary.tsv.
 
-The CSV is the source of truth: the first column is the English term, the second
+The TSV is the source of truth: the first column is the English term, the second
 is its description, and every remaining column is a language catalog (`de`, `es`,
 ... — the column name is the folder name under `localization/i18n/`). Add a
 language by adding a column, add a term by adding a row.
+
+Tab-separated rather than comma-separated so that commas and quotes in a
+description or a translation need no escaping: a cell is exactly the text between
+two tabs. It opens as a spreadsheet in Excel, LibreOffice and Google Sheets, and
+GitHub renders it as a table.
 
 Usage:
     python generate_glossary.py              # print the table, report if the page is stale
@@ -15,12 +20,11 @@ Usage:
 """
 
 import argparse
-import csv
 import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent
-CSV_PATH = REPO_ROOT / "guides" / "localization_glossary.csv"
+TSV_PATH = REPO_ROOT / "guides" / "localization_glossary.tsv"
 MD_PATH = REPO_ROOT / "guides" / "localization_glossary.md"
 
 # The table is the first block of `|` lines after this heading.
@@ -30,16 +34,16 @@ SECTION_HEADING = "## Translation table glossary"
 MISSING = "—"
 
 
-def read_csv() -> tuple[list[str], list[list[str]]]:
+def read_tsv() -> tuple[list[str], list[list[str]]]:
     """Return (header, rows) with every row padded to the header width."""
-    with CSV_PATH.open(encoding="utf-8-sig", newline="") as f:
-        rows = [r for r in csv.reader(f) if any(c.strip() for c in r)]
+    text = TSV_PATH.read_text(encoding="utf-8-sig")
+    rows = [line.split("\t") for line in text.splitlines() if line.strip()]
     if not rows:
-        sys.exit(f"{CSV_PATH.name} is empty")
+        sys.exit(f"{TSV_PATH.name} is empty")
     header, body = rows[0], rows[1:]
     for i, row in enumerate(body, start=2):
         if len(row) > len(header):
-            sys.exit(f"{CSV_PATH.name} line {i}: {len(row)} cells, header has {len(header)}")
+            sys.exit(f"{TSV_PATH.name} line {i}: {len(row)} cells, header has {len(header)}")
         row += [""] * (len(header) - len(row))
     return header, body
 
@@ -80,7 +84,7 @@ def main() -> int:
     parser.add_argument("--check", action="store_true", help="exit 1 if the page is stale")
     args = parser.parse_args()
 
-    header, rows = read_csv()
+    header, rows = read_tsv()
     table = build_table(header, rows)
 
     md_lines = MD_PATH.read_text(encoding="utf-8").splitlines()
