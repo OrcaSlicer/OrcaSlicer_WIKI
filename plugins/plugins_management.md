@@ -6,6 +6,7 @@ Select a plugin to view its information in the lower panel. The tabs show:
 |---|---|
 | **Plugin Info** | Source, type, author, installed version, and latest version |
 | **Description** | Information from the plugin author |
+| **Config** | JSON or custom configuration for the plugin's capabilities |
 | **Changelog** | Version history, if provided |
 | **Diagnostics** | Loading or error information |
 
@@ -20,3 +21,7 @@ Common actions include:
 - **Reinstall** installs the plugin again from its source file.
 
 Use **Refresh** if you installed, updated, or subscribed to a plugin and the list has not changed yet.
+
+Disabling a plugin or one of its capabilities removes it from workflows that use it. Presets that
+refer to an inactive or missing capability show a missing-plugin notification and cannot be sliced
+until the reference is resolved or the setting is changed.

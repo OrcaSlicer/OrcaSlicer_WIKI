@@ -5,7 +5,7 @@ slicer. It is intended for analysis, reporting, and export plugins; nothing here
 model.
 
 **Script plugins run on the main/UI thread**, so within one `execute()` the model cannot
-change under you. **G-code/post-processing and printer-agent plugins run on a background
+change under you. **Slicing-pipeline and printer-agent plugins run on a background
 thread** while the GUI keeps running. Either way, treat everything as a momentary snapshot and
 do not stash references across runs.
 

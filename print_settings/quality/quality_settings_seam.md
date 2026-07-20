@@ -56,8 +56,7 @@ Unlike "Back" which always places seams at the rearmost position, "Aligned Back"
 
 ### Nearest
 
-Will place the seam at the nearest starting point compared to where the nozzle stopped printing in the previous layer.
-This is optimized for speed, low travel, and acceptable strength.
+Picks the seam at the point that is closest to where the nozzle already is (while still preferring concave corners, avoiding overhangs, and avoiding visible spots). This reduces travel moves but results in seams scattered around the object rather than aligned in a vertical line.
 
 ![seam-nearest](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-nearest.png?raw=true)
 

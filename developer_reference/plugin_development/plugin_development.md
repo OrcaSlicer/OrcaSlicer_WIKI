@@ -75,7 +75,7 @@ A single-file (`.py`) plugin has three parts:
 1. A **PEP 723 inline metadata block** (a special comment header) declaring identity and
    dependencies.
 2. One or more **capability classes**, each subclassing a typed base exposed by the embedded
-   `orca` module (a script, G-code/post-processing, or printer-agent capability) and
+`orca` module (a script, slicing-pipeline, or printer-agent capability) and
    implementing `get_name()` plus its entry method.
 3. A **package class** decorated with `@orca.plugin` (subclassing `orca.base`) whose
    `register_capabilities()` method calls `orca.register_capability(...)` once per capability.
@@ -123,7 +123,7 @@ fields live at the TOML root. Parsing is implemented in
 
 The detailed API reference is split into [Registry](registry),
 [Host](host), [Host UI](host_ui),
-[Script](script), [G-code](gcode), and
+[Script](script), [Slicing Pipeline](slicing), and
 [Printer Agent](printer_agent). The summary below covers the main symbols
 used when writing a plugin.
 
@@ -135,7 +135,7 @@ for read-only access to the live slicer model graph, presets, and mesh geometry 
 
 | Symbol | Kind | Members / purpose |
 |---|---|---|
-| `orca.PluginType` | enum | `PostProcessing`, `PrinterConnection`, `Automation`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `Unknown` |
+| `orca.PluginType` | enum | `PrinterConnection`, `Automation`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `SlicingPipeline`, `Unknown` |
 | `orca.PluginResult` | enum | `Success`, `Skipped`, `RecoverableError`, `FatalError` |
 | `orca.PluginContext` | class | base context, field `orca_version: str` |
 | `orca.ExecutionResult` | class | fields `status`, `message`, `data`; factories below |
@@ -143,7 +143,7 @@ for read-only access to the live slicer model graph, presets, and mesh geometry 
 | `orca.base` | class | the **package** base; subclass it and override `register_capabilities()` |
 | `orca.plugin` | decorator | marks the single package class for the file (exactly one per file) |
 | `orca.register_capability(cls)` | function | register one capability class; call it inside `register_capabilities()` |
-| `orca.gcode` | submodule | `GCodePluginContext`, `GCodePluginCapabilityBase` |
+| `orca.slicing` | submodule | [Slicing Pipeline](slicing): `Step`, `SlicingPipelineContext`, `SlicingPipelineCapabilityBase` |
 | `orca.script` | submodule | `ScriptPluginCapabilityBase` |
 | `orca.printer_agent` | submodule | `PrinterAgentBase` and its data types |
 | `orca.host` | submodule | read-only host access: live `Model` graph, presets/bundle, and zero-copy mesh geometry |
@@ -161,12 +161,79 @@ orca.ExecutionResult.failure(status, message, data="")   # status is an orca.Plu
 - `data` - a free-form string whose meaning is defined by the plugin/workflow (not
   interpreted by the framework).
 
+#### Capability configuration
+
+Every capability has a JSON configuration, regardless of its capability type. The **Config** tab
+in the Plugins dialog uses the host's JSON editor unless the capability supplies a custom HTML UI.
+The global configuration is stored under `data_dir()/orca_plugins/config.json` and is keyed by the
+full capability identity (plugin key, capability type, and capability name).
+
+The configuration methods are available on `orca.PythonPluginBase`:
+
+| Method | Purpose |
+|---|---|
+| `has_config_ui() -> bool` | Return `True` to use the custom UI returned by `get_config_ui()` instead of the JSON editor. |
+| `get_config_ui() -> str` | Return a self-contained HTML string. An empty or failing result falls back to the JSON editor. |
+| `get_default_config() -> str` | Override the method to return a Python `dict`; OrcaSlicer exposes the resulting JSON as a string and uses it when the user restores global defaults. Without an override, the default is `{}`. |
+| `get_config() -> str` | Return this capability's effective stored configuration as a JSON string. It is `{}` when no configuration has been saved. |
+| `get_config_version() -> str` | Return the plugin version that last saved the configuration. Use this to detect and migrate an older schema. |
+| `save_config(config: str) -> bool` | Persist a JSON string for this capability. Use `json.dumps(config_dict)` and check the return value. |
+
+Example:
+
+```python
+import json
+import orca
+
+class ConfigurableScript(orca.script.ScriptPluginCapabilityBase):
+    def get_name(self):
+        return "Configurable Script"
+
+    def get_default_config(self):
+        return {"greeting": "Hello", "repeat": 1}
+
+    def execute(self):
+        config = json.loads(self.get_config())
+        greeting = config.get("greeting", "Hello")
+        return orca.ExecutionResult.success(greeting * int(config.get("repeat", 1)))
+
+    def migrate_config_if_needed(self):
+        version = self.get_config_version()
+        config = json.loads(self.get_config())
+        # Validate or migrate config here, then write it back with save_config().
+        return version, config
+```
+
+`save_config()` supplies the plugin identity and current version automatically; a plugin cannot
+write another capability's configuration through this API. Preset-specific overrides are edited
+from a preset's plugin configuration dialog and are stored inside the preset. When an override is
+present, `get_config()` returns that override; otherwise it returns the global configuration.
+
+For a custom UI, return a complete page from `get_config_ui()` and set `has_config_ui()` to `True`:
+
+```python
+def has_config_ui(self):
+    return True
+
+def get_config_ui(self):
+    return """<button id='save'>Save</button>
+    <script>
+      const config = window.orca.getConfig();
+      document.getElementById('save').onclick = () =>
+        window.orca.saveConfig({enabled: true});
+    </script>"""
+```
+
+The page runs in a sandboxed frame. It can use only the injected `window.orca.getConfig()` and
+`window.orca.saveConfig(value)` bridge for configuration; keep the page self-contained and do not
+assume same-origin access to the host.
+
 #### The `orca.host` module: read-only host access
 
 `orca.host` (bound in `PluginHostApi.cpp`) gives plugins **read-only** access to the running
 slicer. It is intended for analysis, reporting, and export plugins; nothing here mutates the
 model. **Script plugins run on the main/UI thread**, so within one `execute()` the model cannot
-change under you; **G-code/post-processing and printer-agent plugins run on a background thread**
+change under you; **slicing-pipeline and printer-agent plugins run on a background thread**
 while the GUI keeps running. Either way, treat everything as a momentary snapshot and do not stash
 references across runs.
 
@@ -463,13 +530,13 @@ Each typed base defines the method(s) OrcaSlicer will call and the type returned
 nothing).
 
 The API Reference keeps the per-module details in separate pages:
-[Script](script), [G-code](gcode), and
+[Script](script), [Slicing Pipeline](slicing), and
 [Printer Agent](printer_agent).
 
 | Base class | `get_type()` returns | Required methods | Invoked by |
 |---|---|---|---|
 | `orca.script.ScriptPluginCapabilityBase` | `Script` | `get_name()`, `execute(self) -> ExecutionResult` | the **Plugins dialog -> Run** action |
-| `orca.gcode.GCodePluginCapabilityBase` | `PostProcessing` | `get_name()`, `execute(self, ctx) -> ExecutionResult` | **G-code export / post-processing** during slicing |
+| `orca.slicing.SlicingPipelineCapabilityBase` | `SlicingPipeline` | `get_name()`, `execute(self, ctx) -> ExecutionResult` | configured slicing steps and **G-code export / post-processing** |
 | `orca.printer_agent.PrinterAgentBase` | `PrinterConnection` | `get_name()` + ~30 agent methods (`get_agent_info`, `connect_printer`, ...) | the **network / printer-agent** layer on load |
 
 > [!NOTE]
@@ -485,22 +552,28 @@ The API Reference keeps the per-module details in separate pages:
 > host handles are safe to read for the whole call and `orca.host.ui` dialogs open inline, but a
 > slow `execute()` **freezes the UI**. Keep it quick; offload heavy work to your own
 > `threading.Thread` (which must not touch the model) and surface results through a
-> `create_window` panel. `GCodePluginCapabilityBase` / `PrinterAgentBase` instead run on
+> `create_window` panel. `SlicingPipelineCapabilityBase` / `PrinterAgentBase` instead run on
 > background (slicing / network) threads.
 
-The G-code context (`orca.gcode.GCodePluginContext`) is passed to `execute` and exposes
-read/write fields:
+The slicing context (`orca.slicing.SlicingPipelineContext`) is passed to `execute` and exposes
+the live slicing graph during geometry steps. At `Step.psGCodePostProcess`, the graph fields are
+`None` and the context instead exposes the working G-code file:
 
 | Field | Meaning |
 |---|---|
 | `orca_version` | OrcaSlicer version string (inherited from `PluginContext`) |
-| `gcode_path` | absolute path to the temporary G-code file being post-processed |
+| `step` | the pipeline step currently being executed |
+| `print` | the live print graph, or `None` at `psGCodePostProcess` |
+| `object` | the current print object for object-scoped steps, or `None` |
+| `gcode_path` | the working G-code path, set at `psGCodePostProcess` |
 | `host` | target host, when exporting to a network printer |
 | `output_name` | the output file name |
+| `config_value(key)` | the resolved print configuration value, or `None` if absent |
+| `cancelled()` | whether the active print has been cancelled |
 
 > [!IMPORTANT]
 > Filesystem access is audited. While `execute()` runs, the audit hook restricts
-> writes to an allow-list. G-code plugins additionally get the folder containing
+> writes to an allow-list. Slicing-pipeline plugins at `psGCodePostProcess` additionally get the folder containing
 > `gcode_path` added as a scoped writable root, so appending to / rewriting the current
 > G-code file is allowed; writing elsewhere outside `data_dir()` is blocked. See
 > [Plugin Audit Hook](plugin_audit_hook).
@@ -538,7 +611,7 @@ class HelloPlugin(orca.base):
         orca.register_capability(HelloScript)
 ```
 
-**Multi-capability plugin:** one package that exposes a post-processing capability *and* a
+**Multi-capability plugin:** one package that exposes a slicing-pipeline capability *and* a
 script capability.
 
 ```python
@@ -552,13 +625,14 @@ script capability.
 import orca
 
 
-class EnvironmentReport(orca.gcode.GCodePluginCapabilityBase):
+class EnvironmentReport(orca.slicing.SlicingPipelineCapabilityBase):
     def get_name(self):
         return "Environment Report"
 
     def execute(self, ctx):
-        # ctx.gcode_path / ctx.output_name / ctx.host / ctx.orca_version are available.
-        # Writing to the current G-code file's folder is permitted by the audit hook.
+        # Post-process the exported file at the dedicated pipeline seam.
+        if ctx.step != orca.slicing.Step.psGCodePostProcess:
+            return orca.ExecutionResult.success()
         try:
             with open(ctx.gcode_path, "a", encoding="utf-8") as f:
                 f.write(f"\n; processed by Environment Report for {ctx.output_name}\n")
@@ -636,7 +710,7 @@ what kind of failure occurred.
 
 For **script** plugins the dialog title is *"Script Plugin Failed"* (or *"Script Plugin"*
 for a returned failure / success), and the body text is the exception message or your
-`ExecutionResult.message`. For **post-processing** plugins the failure is raised as a
+`ExecutionResult.message`. For **slicing-pipeline** plugins the failure is raised as a
 slicing error (`"Post-processing plugin <name> failed/raised..."`) and surfaces through the
 normal slicing-error path. Source: `PluginsDialog.cpp` (`run_script_plugin`,
 `complete_with_error`) and `PostProcessor.cpp`.
@@ -684,7 +758,7 @@ A practical loop:
 2. **Reload** - reopen the Plugins dialog / re-trigger discovery, or restart OrcaSlicer if
    in doubt (instances are captured at load time).
 3. **Run** - for a script plugin use the Plugins dialog **Run** action; for a
-   post-processing plugin run a slice/export so the G-code pipeline invokes it.
+   slicing-pipeline plugin run a slice/export so the pipeline invokes it.
 4. **Watch the log** - keep `data_dir()/log/python_*.log` open (e.g. `tail -f`). Tracebacks,
    `print()` output, and audit blocks all land there.
 5. **Iterate.** Use `ExecutionResult` messages for expected outcomes; rely on the log for
@@ -695,9 +769,10 @@ Tips:
 - Confirm the plugin shows the right name and version in the Plugins dialog, and that **each
   capability you registered** appears (with the expected type) in its expandable capability
   list. A capability that is never passed to `orca.register_capability` will not appear.
-- Develop against small, fast inputs; for post-processing plugins keep a tiny test model so
+- Develop against small, fast inputs; for slicing-pipeline plugins keep a tiny test model so
   each export cycle is quick.
-- Remember the audit allow-list: write only under `data_dir()` (or, for G-code plugins, the
+- Remember the audit allow-list: write only under `data_dir()` (or, for slicing-pipeline plugins at
+  `psGCodePostProcess`, the
   current G-code folder). A surprise `PermissionError` is almost always this.
 
 ## Part 2: Adding a New Plugin Type in C++
@@ -711,37 +786,42 @@ call site. So adding a type means: define a base + context + result, add a tramp
 forwards into Python (with an audit mode), register pybind11 bindings, wire one call site,
 and add the files to the build.
 
-Use the existing `gcode`, `script`, and `printerAgent` types under
-`src/slic3r/plugin/pluginTypes/` as references. `script` is the simplest, `gcode` shows a
-context + scoped audit root, and `printerAgent` shows a wide multi-method interface.
+Use the existing `slicingPipeline`, `script`, and `printerAgent` types under
+`src/slic3r/plugin/pluginTypes/` as references. `script` is the simplest,
+`slicingPipeline` shows a live graph context plus a scoped audit root, and `printerAgent` shows a
+wide multi-method interface.
 
 ### Step 1: Define the Plugin Contract
 
 Create `pluginTypes/<type>/<Type>PluginCapability.hpp`. Subclass `PluginCapabilityInterface`, hardcode
 `get_type()` to your `PluginCapabilityType`, declare your pure-virtual entry method(s) and any
-context struct, and declare a static `RegisterBindings`. The G-code base
-(`pluginTypes/gcode/GCodePluginCapability.hpp`) is the canonical small example:
+context struct, and declare a static `RegisterBindings`. The current slicing-pipeline base
+(`pluginTypes/slicingPipeline/SlicingPipelinePluginCapability.hpp`) is the canonical context example:
 
 ```cpp
-#ifndef slic3r_GCodePluginCapability_hpp_
-#define slic3r_GCodePluginCapability_hpp_
+#ifndef slic3r_SlicingPipelinePluginCapability_hpp_
+#define slic3r_SlicingPipelinePluginCapability_hpp_
 
 #include "../../PythonPluginInterface.hpp"
 
 namespace Slic3r {
 
-struct GCodePluginContext : public PluginContext {
+struct SlicingPipelineContext {
+    std::string orca_version;
+    SlicingPipelineStepPlugin step;
+    Print* print;
+    const PrintObject* object;
     std::string gcode_path;
     std::string host;
     std::string output_name;
 };
 
-class GCodePluginCapability : public PluginCapabilityInterface
+class SlicingPipelinePluginCapability : public PluginCapabilityInterface
 {
 public:
-    PluginCapabilityType get_type() const override { return PluginCapabilityType::PostProcessing; }
+    PluginCapabilityType get_type() const override { return PluginCapabilityType::SlicingPipeline; }
 
-    virtual ExecutionResult execute(const GCodePluginContext& ctx) = 0;
+    virtual ExecutionResult execute(SlicingPipelineContext& ctx) = 0;
 
     static void RegisterBindings(pybind11::module_ &module,
                                  pybind11::enum_<PluginCapabilityType> &pluginTypes);
@@ -749,7 +829,7 @@ public:
 
 } // namespace Slic3r
 
-#endif /* slic3r_GCodePluginCapability_hpp_ */
+#endif /* slic3r_SlicingPipelinePluginCapability_hpp_ */
 ```
 
 The shared building blocks come from `PythonPluginInterface.hpp`:
@@ -772,7 +852,7 @@ existing value (e.g. `Automation`) if it fits.
 
 Decide exactly what the plugin must receive and return, and expose **only that**:
 
-- **Inputs** go in the context struct (mirror `GCodePluginContext`). Keep it to data the
+- **Inputs** go in the context struct (mirror `SlicingPipelineContext`). Keep it to data the
   plugin legitimately needs.
 - **Outputs** should be an `ExecutionResult` (status + message + `data` string) unless your
   type genuinely needs richer return data. In that case, define and bind a small result
@@ -789,40 +869,40 @@ Decide exactly what the plugin must receive and return, and expose **only that**
 Create `pluginTypes/<type>/<Type>PluginCapabilityTrampoline.hpp`. Subclass
 `PyPluginCommonTrampoline<YourBase>` (which already provides the `get_name` and
 `on_load`/`on_unload` trampolines) and forward each virtual into Python via
-`ORCA_PY_OVERRIDE_AUDITED`. The G-code trampoline
-(`pluginTypes/gcode/GCodePluginCapabilityTrampoline.hpp`) in full:
+`ORCA_PY_OVERRIDE_AUDITED`. The slicing-pipeline trampoline
+(`pluginTypes/slicingPipeline/SlicingPipelinePluginCapabilityTrampoline.hpp`) follows this pattern:
 
 ```cpp
-#ifndef slic3r_GCodePluginCapabilityTrampoline_hpp_
-#define slic3r_GCodePluginCapabilityTrampoline_hpp_
+#ifndef slic3r_SlicingPipelinePluginCapabilityTrampoline_hpp_
+#define slic3r_SlicingPipelinePluginCapabilityTrampoline_hpp_
 
-#include <filesystem>
+#include <boost/filesystem.hpp>
 
 #include "../../PyPluginTrampoline.hpp"
 #include "../../PluginAuditManager.hpp"
-#include "GCodePluginCapability.hpp"
+#include "SlicingPipelinePluginCapability.hpp"
 
 namespace Slic3r {
-class PyGCodePluginCapabilityTrampoline : public PyPluginCommonTrampoline<GCodePluginCapability>
+class PySlicingPipelinePluginCapabilityTrampoline : public PyPluginCommonTrampoline<SlicingPipelinePluginCapability>
 {
 public:
-    using PyPluginCommonTrampoline<GCodePluginCapability>::PyPluginCommonTrampoline;
+    using PyPluginCommonTrampoline<SlicingPipelinePluginCapability>::PyPluginCommonTrampoline;
 
-    ExecutionResult execute(const GCodePluginContext& ctx) override
+    ExecutionResult execute(SlicingPipelineContext& ctx) override
     {
         ORCA_PY_OVERRIDE_AUDITED(
             ::Slic3r::PluginAuditManager::AuditMode::Loading,
             [&] {
-                // G-code post-processing plugins may also write into the folder holding the
-                // current temp G-code file, in addition to the globally-allowed data_dir().
+                // Only the export seam may write into the folder holding the current G-code file,
+                // in addition to the globally-allowed data_dir().
                 // The setup callback runs AFTER the context is constructed so the scoped root
                 // is not cleared by ScopedPluginAuditContext's constructor.
 
                 if (!ctx.gcode_path.empty())
                     ::Slic3r::PluginAuditManager::instance().add_scoped_allowed_root(
-                        std::filesystem::path(ctx.gcode_path).parent_path());
+                        boost::filesystem::path(ctx.gcode_path).parent_path());
             },
-            PYBIND11_OVERRIDE_PURE, ExecutionResult, GCodePluginCapability, execute, ctx);
+            PYBIND11_OVERRIDE_PURE, ExecutionResult, SlicingPipelinePluginCapability, execute, ctx);
     }
 };
 } // namespace Slic3r
@@ -852,30 +932,31 @@ ORCA_PY_OVERRIDE_AUDITED(mode, audit_setup, override_macro, ret, base, name, /*a
 ### Step 4: Register the Python Bindings
 
 Implement `RegisterBindings` in `pluginTypes/<type>/<Type>PluginCapability.cpp`: create a submodule,
-bind the context/result structs, and bind the base class with its trampoline. The G-code
-implementation (`pluginTypes/gcode/GCodePluginCapability.cpp`) in full:
+bind the context/result structs, and bind the base class with its trampoline. The slicing-pipeline
+implementation (`pluginTypes/slicingPipeline/SlicingPipelinePluginCapability.cpp`) follows this shape:
 
 ```cpp
-void GCodePluginCapability::RegisterBindings(pybind11::module_& module, pybind11::enum_<PluginCapabilityType>& pluginTypes)
+void SlicingPipelinePluginCapability::RegisterBindings(pybind11::module_& module, pybind11::enum_<PluginCapabilityType>& pluginTypes)
 {
     (void) pluginTypes;
 
-    auto gcode = module.def_submodule("gcode", "G-code API");
+    auto slicing = module.def_submodule("slicing", "Slicing pipeline API");
 
-    py::class_<GCodePluginContext, PluginContext>(gcode, "GCodePluginContext", "Context shared with G-code plugins")
+    py::class_<SlicingPipelineContext>(slicing, "SlicingPipelineContext")
         .def(py::init<>())
-        .def_readwrite("gcode_path", &GCodePluginContext::gcode_path)
-        .def_readwrite("host", &GCodePluginContext::host)
-        .def_readwrite("output_name", &GCodePluginContext::output_name);
+        .def_readonly("step", &SlicingPipelineContext::step)
+        .def_readonly("gcode_path", &SlicingPipelineContext::gcode_path)
+        .def_readonly("host", &SlicingPipelineContext::host)
+        .def_readonly("output_name", &SlicingPipelineContext::output_name);
 
-    py::class_<GCodePluginCapability, PluginCapabilityInterface, PyGCodePluginCapabilityTrampoline, std::shared_ptr<GCodePluginCapability>>(gcode, "GCodePluginCapabilityBase")
+    py::class_<SlicingPipelinePluginCapability, PluginCapabilityInterface, PySlicingPipelinePluginCapabilityTrampoline, std::shared_ptr<SlicingPipelinePluginCapability>>(slicing, "SlicingPipelineCapabilityBase")
         .def(py::init<>())
-        .def("get_type", &GCodePluginCapability::get_type)
-        .def("execute", &GCodePluginCapability::execute);
+        .def("get_type", &SlicingPipelinePluginCapability::get_type)
+        .def("execute", &SlicingPipelinePluginCapability::execute);
 }
 ```
 
-The base class is bound as `GCodePluginCapabilityBase` (the name plugin authors subclass) and
+The base class is bound as `SlicingPipelineCapabilityBase` (the name plugin authors subclass) and
 inherits `get_name` from the root `PythonPluginBase`, so you only bind the type-specific
 methods here. Then **call your `RegisterBindings` from `bind_python_api`** in
 `PythonPluginBridge.cpp`, next to the existing ones (look for the
@@ -883,7 +964,7 @@ methods here. Then **call your `RegisterBindings` from `bind_python_api`** in
 
 ```cpp
 // Make sure you register your bindings here
-GCodePluginCapability::RegisterBindings(m, pluginTypes);
+SlicingPipelinePluginCapability::RegisterBindings(m, pluginTypes);
 PrinterAgentPluginCapability::RegisterBindings(m, pluginTypes);
 ScriptPluginCapability::RegisterBindings(m, pluginTypes);
 PluginHostApi::RegisterBindings(m);
@@ -912,7 +993,7 @@ that matches your type and model it on an existing one:
 
 | Type | Where it's invoked | Pattern |
 |---|---|---|
-| `gcode` | `PostProcessor.cpp` (G-code export / post-processing) | resolve the preset's capability refs, `dynamic_pointer_cast<GCodePluginCapability>(cap->instance)`, build `GCodePluginContext`, call `execute(ctx)` under the GIL |
+| `slicingPipeline` | `Print.cpp` and `PostProcessor.cpp` | resolve the preset's capability refs, cast to `SlicingPipelinePluginCapability`, build `SlicingPipelineContext`, and call `execute(ctx)` under the GIL |
 | `script` | `PluginsDialog.cpp` (Run action) | `get_plugin_capability_by_name(...)`, `dynamic_pointer_cast<ScriptPluginCapability>(cap->instance)`, call `execute()` |
 | `printerAgent` | `NetworkAgentFactory.cpp`, wired in `GUI_App.cpp` | register via `subscribe_on_capability_load_callback` / `subscribe_on_capability_unload_callback`; the callback filters by `capability.type == PluginCapabilityType::PrinterConnection`, then registers/deregisters an agent |
 
@@ -935,7 +1016,7 @@ For your new type, add a call site (or an on-capability-load callback) that:
 ### Step 7: Add the Files to the Build
 
 List your new `.hpp` / `.cpp` files in `src/slic3r/CMakeLists.txt`, alongside the existing
-plugin-type sources (search for `plugin/pluginTypes/gcode/GCodePluginCapability.cpp`; the block is
+plugin-type sources (search for `plugin/pluginTypes/slicingPipeline/SlicingPipelinePluginCapability.cpp`; the block is
 around lines 615-623):
 
 ```cmake
@@ -971,7 +1052,7 @@ Verification is primarily manual, with targeted Catch2 tests where the logic is 
   registered capability is listed (with the expected type). A plugin that fails to load shows
   its error in the Diagnostics tab (see
   [How errors are surfaced](#how-errors-are-surfaced)).
-- **Execution** - script plugins: use the dialog **Run** action. Post-processing plugins:
+- **Execution** - script plugins: use the dialog **Run** action. Slicing-pipeline plugins:
   run a slice/export and confirm the plugin ran (e.g. its effect on the G-code, plus log
   output). Printer-agent plugins: verify the agent registers on load and deregisters on
   unload.
@@ -981,7 +1062,7 @@ Verification is primarily manual, with targeted Catch2 tests where the logic is 
   error in the details area rather than crashing.
 - **Audit** - confirm a write outside the allow-list is blocked with a `PermissionError` and
   an `[AUDIT BLOCKED]` log line, and that legitimate writes (under `data_dir()`, or the
-  G-code folder for G-code plugins) succeed.
+  G-code folder for slicing-pipeline plugins at `psGCodePostProcess`) succeed.
 
 ### Automated Tests Where Appropriate
 

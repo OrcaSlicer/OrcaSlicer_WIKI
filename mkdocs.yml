@@ -118,7 +118,7 @@ nav:
   - "Guide: Develop Profiles for OrcaSlicer": guides/how_to_create_profiles.md
   - "How to Download Pull Requests Artifacts for Testing": guides/how_to_download_pr_artifacts.md
   - "How to Contribute to the Wiki": guides/how_to_wiki.md
-  - "OrcaSlicer Translation Glossary": guides/localization_glossary.md
+  - "Translation Glossary": guides/localization_glossary.md
   - "Mixed Nozzle Sizes": guides/mixed_nozzle_sizes.md
 - Calibration:
   - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
@@ -240,7 +240,7 @@ nav:
     - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
     - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
 - Releases:
-  - releases/index.md
+  - Releases: releases/releases_index.md
   - V2.4.2: releases/release_2_4_2.md
   - V2.4.1: releases/release_2_4_1.md
   - V2.4.0: releases/release_2_4_0.md
@@ -249,11 +249,12 @@ nav:
 - "User Profiles":
   - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
 - Plugins:
-  - "Getting Started": plugins/getting_started.md
-  - "Local Plugins": plugins/local_plugins.md
-  - "Cloud Plugins": plugins/cloud_plugins.md
-  - "Plugin Types": plugins/plugin_types.md
-  - "Managing Plugins": plugins/managing_plugins.md
+  - "Getting Started": plugins/plugins_getting_started.md
+  - "Local Plugins": plugins/plugins_local.md
+  - "Cloud Plugins": plugins/plugins_cloud.md
+  - "Plugin Types": plugins/plugins_types.md
+  - "Managing Plugins": plugins/plugins_management.md
+  - "Actions Speed Dial": plugins/plugins_speed_dial.md
 - "Developer Reference":
   - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
   - "How to Build": developer_reference/how_to_build.md
@@ -269,6 +270,6 @@ nav:
       - Host: developer_reference/plugin_development/api_reference/host.md
       - "Host UI": developer_reference/plugin_development/api_reference/host_ui.md
       - Script: developer_reference/plugin_development/api_reference/script.md
-      - "G-code": developer_reference/plugin_development/api_reference/gcode.md
       - "Printer Agent": developer_reference/plugin_development/api_reference/printer_agent.md
+      - "Slicing Pipeline": developer_reference/plugin_development/api_reference/slicing.md
     - "Plugin Audit Hook": developer_reference/plugin_development/plugin_audit_hook.md

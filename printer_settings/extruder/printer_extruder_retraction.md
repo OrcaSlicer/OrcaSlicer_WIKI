@@ -16,6 +16,7 @@ Filaments like PETG and TPU are more prone to stringing, so they may require lon
 - [Wipe while retracting](#wipe-while-retracting)
 - [Wipe distance](#wipe-distance)
 - [Retract amount before wipe](#retract-amount-before-wipe)
+- [Retract amount after wipe](#retract-amount-after-wipe)
 - [Retraction When Switching Materials](#retraction-when-switching-materials)
     - [Long retraction when cut (beta)](#long-retraction-when-cut-beta)
 
@@ -74,6 +75,19 @@ Setting a value in the retract amount before wipe setting below will perform any
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `retract_before_wipe[extruder_idx]`.  
 This is the length of fast retraction before a wipe, relative to retraction length.
+
+## Retract amount after wipe
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `retract_after_wipe[extruder_idx]`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Retract amount after wipe**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+This is the length of fast retraction after a wipe, relative to retraction length.  
+Together with [Retract amount before wipe](#retract-amount-before-wipe), this lets you split the retraction across the wipe: some before, some after, and the remainder performed during the wipe move itself. The value is clamped by 100% minus the retract amount before wipe, so the two combined never exceed the total retraction length.  
+Moving more of the retraction to after the wipe allows shorter wipe distances while keeping seams clean, which is helpful for high-detail models and stringing-prone filaments.
 
 ## Retraction When Switching Materials
 

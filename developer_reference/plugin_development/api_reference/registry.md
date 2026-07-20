@@ -6,7 +6,7 @@ capability base classes, the package base, result types, and capability registra
 
 | Symbol | Kind | Members / purpose |
 |---|---|---|
-| `orca.PluginType` | enum | `PostProcessing`, `PrinterConnection`, `Automation`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `Unknown` |
+| `orca.PluginType` | enum | `PrinterConnection`, `Automation`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `SlicingPipeline`, `Unknown` |
 | `orca.PluginResult` | enum | `Success`, `Skipped`, `RecoverableError`, `FatalError` |
 | `orca.PluginContext` | class | base context, field `orca_version: str` |
 | `orca.ExecutionResult` | class | fields `status`, `message`, `data`; factories below |
@@ -14,11 +14,26 @@ capability base classes, the package base, result types, and capability registra
 | `orca.base` | class | the **package** base; subclass it and override `register_capabilities()` |
 | `orca.plugin` | decorator | marks the single package class for the file (exactly one per file) |
 | `orca.register_capability(cls)` | function | register one capability class; call it inside `register_capabilities()` |
-| `orca.gcode` | submodule | [G-code](gcode): `GCodePluginContext`, `GCodePluginCapabilityBase` |
+| `orca.slicing` | submodule | [Slicing Pipeline](slicing): `Step`, `SlicingPipelineContext`, `SlicingPipelineCapabilityBase` |
 | `orca.script` | submodule | [Script](script): `ScriptPluginCapabilityBase` |
 | `orca.printer_agent` | submodule | [Printer Agent](printer_agent): `PrinterAgentBase` and its data types |
 | `orca.host` | submodule | [Host](host): read-only host access to the live model, presets, and mesh geometry |
 | `orca.host.ui` | submodule | [Host UI](host_ui): dialogs, progress dialogs, and interactive windows |
+
+Every capability also inherits configuration methods from `orca.PythonPluginBase`:
+
+| Method | Purpose |
+|---|---|
+| `has_config_ui()` | Select a custom HTML editor instead of the host JSON editor. |
+| `get_config_ui()` | Return the custom HTML editor page. |
+| `get_default_config()` | Return a Python dict used by **Restore defaults**; the Python call returns its JSON string. |
+| `get_config()` | Return the effective configuration as a JSON string. |
+| `get_config_version()` | Return the version that last saved the configuration. |
+| `save_config(config)` | Persist a JSON string for this capability; returns `False` on invalid JSON or write failure. |
+
+Use `json.loads()` and `json.dumps()` at this boundary. See
+[Capability configuration](plugin_development#capability-configuration) for storage layers and
+custom UI messaging.
 
 ## Execution Results
 

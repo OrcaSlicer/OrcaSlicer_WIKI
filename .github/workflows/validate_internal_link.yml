@@ -36,7 +36,9 @@ jobs:
             const allowedExt = new Set(['.md', '.markdown', '.mdown', '.mkd', '.mkdn', '.mdx']);
             const markdownNameIndex = new Map();
             let markdownIndexReady = false;
-            const candidateFiles = collectMarkdownFiles('');
+            // Root-level meta docs whose links (to AGENTS.md/CLAUDE.md/guides paths) are not wiki-style; skip them.
+            const exemptFiles = new Set(['AGENTS.md', 'CLAUDE.md']);
+            const candidateFiles = collectMarkdownFiles('').filter((f) => !exemptFiles.has(f));
             if (!candidateFiles.length) {
               core.info('No Markdown files found; skipping internal link validation.');
               return;

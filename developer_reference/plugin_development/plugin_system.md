@@ -87,7 +87,7 @@ There are two broad layers:
 | `PythonInterpreter` | **Singleton RAII wrapper around embedded CPython.** Init/finalize, GIL handoff, `sys.path`, module loading, and installing the audit hook + stderr-to-log redirect. |
 | `PythonPluginBridge` | Defines the embedded **`orca` module**, the `@orca.plugin` decorator + `orca.base` package class + `register_capability` entry, and captures/instantiates the package and the capability classes it registers. |
 | `PyPluginTrampoline` | The pybind11 override base at the **C++ to Python boundary**: logs Python tracebacks and opens the per-call audit scope. |
-| `pluginTypes/*` | Per-type C++ capability bases + trampolines (`GCodePluginCapability`, `ScriptPluginCapability`, `PrinterAgentPluginCapability`) that define each type's entry method and dispatch. |
+| `pluginTypes/*` | Per-type C++ capability bases + trampolines (`SlicingPipelinePluginCapability`, `ScriptPluginCapability`, `PrinterAgentPluginCapability`) that define each type's entry method and dispatch. |
 | `PluginAuditManager` | **Singleton CPython audit hook**: filesystem policy (write allow-list), scoped roots, `Loading`/`Enforcing` modes. See the audit doc. |
 
 ## Plugin Packaging and Discovery
@@ -168,7 +168,7 @@ capabilities never change existing behavior.
 
 | Capability type | Entry method | Invoked by |
 |---|---|---|
-| `post-processing` (G-code) | `execute(ctx)` | `PostProcessor` during G-code export, resolving the preset's plugin refs |
+| `slicing-pipeline` | `execute(ctx)` | `Print` at configured slicing steps, and `PostProcessor` at `psGCodePostProcess` during G-code export |
 | `script` | `execute()` | the **Plugins dialog -> Run** action |
 | `printer-connection` | agent methods | `NetworkAgentFactory`, registered through a loader on-capability-load callback wired in `GUI_App` |
 
@@ -279,6 +279,7 @@ tabbed:
 |---|---|
 | **Plugin Info** | thumbnail, source, types, author, version (with an update badge) |
 | **Description** | the plugin's own description, taken from its Python/wheel metadata |
+| **Config** | JSON or custom configuration for the selected plugin capabilities |
 | **Changelog** | version / date / changes table |
 | **Diagnostics** | load status and any error state |
 
@@ -326,8 +327,9 @@ sidecar (written by `PluginManager`).
 | `src/slic3r/plugin/PluginAuditManager.{hpp,cpp}` | the CPython audit hook and policy |
 | `src/libslic3r/Config.cpp` | `parse_capability_ref`, the `plugins` array (de)serialization |
 | `src/libslic3r/PrintConfig.cpp` | the `plugins` / `post_process_plugin` option definitions |
-| `src/slic3r/GUI/PostProcessor.cpp` | resolves preset plugin refs and runs G-code capabilities |
+| `src/slic3r/GUI/PostProcessor.cpp` | resolves preset plugin refs and runs the `psGCodePostProcess` slicing-pipeline step |
 | `src/slic3r/GUI/PluginPickerDialog.{hpp,cpp}` | pick a capability as a setting value |
 | `src/slic3r/GUI/Plater.cpp` | the missing-plugins resolution dialog on slice (`reslice`) |
 | `src/slic3r/GUI/GUI_App.cpp` | startup wiring (init, discovery, on-load / on-capability-load callbacks) and shutdown |
 | `src/slic3r/GUI/PluginsDialog.cpp` | the Plugins dialog (capability tree, tabs, Run, Browse plugins) |
+| `src/slic3r/plugin/PluginConfig.{hpp,cpp}` | global capability config, preset overrides, and JSON/custom UI responses |

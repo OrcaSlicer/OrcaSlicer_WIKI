@@ -226,8 +226,9 @@ By enabling this parameter, the layer height of the last five layers is adjusted
 
 ## Polyholes
 
-[Mode](option_mode): `Advanced`.  
-[Variables](built_in_placeholders_variables): `hole_to_polyhole`, `hole_to_polyhole_threshold`, `hole_to_polyhole_twisted`.  
+[Modes](option_mode):  
+`Advanced` [Variables](built_in_placeholders_variables): `hole_to_polyhole`, `hole_to_polyhole_threshold`, `hole_to_polyhole_twisted`.  
+`Expert` [Variable](built_in_placeholders_variables): `hole_to_polyhole_max_edges`.  
 A polyhole is a technique used in FFF 3D printing to improve the accuracy of circular holes. Instead of modeling a perfect circle, the hole is represented as a polygon with a reduced number of flat sides. This simplification forces the slicer to treat each segment as a straight line, which prints more reliably. By carefully choosing the number of sides and ensuring the polygon sits on the outer boundary of the hole, you can produce openings that more closely match the intended diameter.
 
 ![PolyHoles](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/PolyHoles.png?raw=true)

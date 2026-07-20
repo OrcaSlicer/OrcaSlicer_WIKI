@@ -1,6 +1,7 @@
 # Multimaterial Advanced
 
 - [Interlocking Beam](#interlocking-beam)
+- [Toolchange Ordering](#toolchange-ordering)
 - [Interface Shells](#interface-shells)
 - [Maximum Width of Segmented Region](#maximum-width-of-segmented-region)
 - [Interlocking depth of Segmented Region](#interlocking-depth-of-segmented-region)
@@ -15,6 +16,20 @@
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `interlocking_beam`.  
 Generate interlocking beam structure at the locations where different filaments touch. This improves the adhesion between filaments, especially models printed in different materials.
+
+## Toolchange Ordering
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `toolchange_ordering`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Toolchange ordering**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Determines the order of tool changes on each layer:
+
+- **Default:** starts with the last used extruder to minimize tool changes.
+- **Cyclic:** uses a fixed tool sequence each layer. This sacrifices speed for better surface quality, as the extra toolchanges allow layers more time to cool.
 
 ## Interface Shells
 

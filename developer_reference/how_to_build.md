@@ -187,7 +187,7 @@ How to building with Xcode on MacOS 64-bit.
 > [!TIP]
 > You can install most of them by running:
 >
-```pwsh
+```bash
 brew install cmake gettext libtool automake autoconf texinfo
 ```
 
@@ -195,24 +195,38 @@ brew install cmake gettext libtool automake autoconf texinfo
 > [!IMPORTANT]
 > If you've recently upgraded Xcode, be sure to open Xcode at least once and install the required macOS build support.
 
+Point the command-line tools at your Xcode installation and accept the license:
+
+```bash
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -license accept   # if you haven't accepted it yet
+```
+
 ### MacOS Instructions
 
 1. Clone the repository:
 
-   ```pwsh
+   ```bash
    git clone https://github.com/OrcaSlicer/OrcaSlicer
    cd OrcaSlicer
    ```
 
 2. Build the application:
 
-   ```pwsh
+   ```bash
    ./build_release_macos.sh
    ```
 
+   > [!TIP]
+   > If you're on the latest macOS and Xcode, set the deployment target explicitly so the build targets a supported SDK, e.g.:
+   >
+   > ```bash
+   > ./build_release_macos.sh -s -t 15.4
+   > ```
+
 3. Open the application:
 
-   ```pwsh
+   ```bash
    open build/arm64/OrcaSlicer/OrcaSlicer.app
    ```
 
@@ -222,7 +236,7 @@ To build and debug directly in Xcode:
 
 1. Open the Xcode project:
 
-   ```pwsh
+   ```bash
    open build/arm64/OrcaSlicer.xcodeproj
    ```
 

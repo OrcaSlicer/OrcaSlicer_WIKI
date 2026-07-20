@@ -22,6 +22,8 @@
 - [Ironing speed](#ironing-speed)
 - [Support](#support)
 - [Support interface](#support-interface)
+- [Small tree support perimeters](#small-tree-support-perimeters)
+    - [Small tree support perimeters threshold](#small-tree-support-perimeters-threshold)
 
 ## Outer wall
 
@@ -112,3 +114,24 @@ Speed at which [support](support_settings_support) material is printed. Slower s
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_interface_speed`.  
 Speed for the support interface layers, which are the layers directly contacting the model. This is usually set even slower than the main [support speed](#support) to maximize surface quality where the support meets the model and to make support removal easier.
+
+## Small tree support perimeters
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `small_support_perimeter_speed`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Small tree support perimeters** (speed and threshold)  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Same as [Small perimeters](#small-perimeters), but for supports.  
+This separate setting affects the speed of support for areas with a perimeter length <= [small tree support perimeters threshold](#small-tree-support-perimeters-threshold).  
+If expressed as a percentage (for example: 80%), it will be calculated on the [support](#support) or [support interface](#support-interface) speed.  
+Set to zero for auto.
+
+### Small tree support perimeters threshold
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `small_support_perimeter_threshold`.  
+Sets the threshold for small support perimeter length below which [small tree support perimeters](#small-tree-support-perimeters) speed is applied.  
+The default threshold is 0 mm.

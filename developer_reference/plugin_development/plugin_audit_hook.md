@@ -115,7 +115,7 @@ There are two tiers, checked in this order:
 
 In this version the global allow-list contains **only `data_dir()`**. The executable
 directory and resources directory are deliberately *not* allowed; plugins must not write
-there. G-code plugins additionally get the temp G-code folder as a *scoped* root for the
+there. Slicing-pipeline plugins at `psGCodePostProcess` additionally get the temp G-code folder as a *scoped* root for the
 duration of their `execute()` call.
 
 Path matching (`is_inside_allowed_root`) canonicalizes both paths with
@@ -242,22 +242,22 @@ Rule of thumb:
 ### Adding Per-Call Allowed Roots
 
 `ScopedPluginAuditContext`'s constructor **clears** the scoped roots, so any scoped root
-must be added *after* construction, which is exactly what `audit_setup` is for. The G-code
-trampoline uses it to grant write access to the folder holding the current temp G-code
-file:
+must be added *after* construction, which is exactly what `audit_setup` is for. The
+slicing-pipeline trampoline uses it to grant write access to the folder holding the current
+G-code file at `psGCodePostProcess`:
 
 ```cpp
-ExecutionResult execute(const GCodePluginContext& ctx) override
+ExecutionResult execute(SlicingPipelineContext& ctx) override
 {
     ORCA_PY_OVERRIDE_AUDITED(
         ::Slic3r::PluginAuditManager::AuditMode::Loading,
         [&] {                                               // runs only when a context is active
             if (!ctx.gcode_path.empty())
                 ::Slic3r::PluginAuditManager::instance().add_scoped_allowed_root(
-                    std::filesystem::path(ctx.gcode_path).parent_path());
+                        boost::filesystem::path(ctx.gcode_path).parent_path());
         },
         PYBIND11_OVERRIDE_PURE,
-        ExecutionResult, GCodePlugin, execute, ctx);
+        ExecutionResult, SlicingPipelinePluginCapability, execute, ctx);
 }
 ```
 

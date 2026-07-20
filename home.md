@@ -81,7 +81,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [<img alt="param_seam" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_seam.svg?raw=true" height="22"> Seam Settings](quality_settings_seam)
 - [<img alt="param_precision" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_precision.svg?raw=true" height="22"> Precision](quality_settings_precision)
 - [<img alt="param_ironing" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_ironing.svg?raw=true" height="22"> Ironing](quality_settings_ironing)
-- [Z Contouring](quality_settings_z_contouring)
+- [<img alt="param_z_contouring" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_z_contouring.svg?raw=true" height="22"> Z Contouring](quality_settings_z_contouring)
 - [<img alt="param_wall_generator" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_wall_generator.svg?raw=true" height="22"> Wall generator](quality_settings_wall_generator)
 - [<img alt="param_wall_surface" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_wall_surface.svg?raw=true" height="22"> Walls and surfaces](quality_settings_wall_and_surfaces)
 - [<img alt="param_bridge" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_bridge.svg?raw=true" height="22"> Bridging](quality_settings_bridging)
@@ -214,11 +214,16 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 ## Plugins
 
-- [Getting Started](getting_started)
-- [Local Plugins](local_plugins)
-- [Cloud Plugins](cloud_plugins)
-- [Plugin Types](plugin_types)
-- [Managing Plugins](managing_plugins)
+> [!IMPORTANT]
+> NEW FEATURE: **Python Plugin System**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+- [Getting Started](plugins_getting_started)
+- [Local Plugins](plugins_local)
+- [Cloud Plugins](plugins_cloud)
+- [Plugin Types](plugins_types)
+- [Managing Plugins](plugins_management)
+- [Actions Speed Dial](plugins_speed_dial)
 
 ## Guides
 
@@ -231,10 +236,9 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
     - [Contribute to the wiki](how_to_wiki)
     - [Download Pull Requests Artifacts for Testing](how_to_download_pr_artifacts)
 
-
 ## Release Notes
 
-See the [all releases](releases/index.md) overview, or jump straight to a version:
+See the [all releases](releases_index) overview, or jump straight to a version:
 
 - [OrcaSlicer V2.4.2](release_2_4_2)
 - [OrcaSlicer V2.4.1](release_2_4_1)
