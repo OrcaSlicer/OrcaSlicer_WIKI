@@ -8,18 +8,13 @@ before translating a recurring term, check here for the established form so the 
 
 - [Kept in English (do not translate)](#kept-in-english-do-not-translate)
 - [Translation table glossary](#translation-table-glossary)
+    - [Updating the glossary](#updating-the-glossary)
 - [Language specifics](#language-specifics)
-
-> This table is derived from the `.po` files. When a term's established
-> translation changes, update both the relevant `.po` files and this table so
-> they stay in sync.
-
----
 
 ## Kept in English (do not translate)
 
 These are written verbatim in the `msgstr` in essentially all languages.  
-Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronyms/brand names but may add a translated descriptor.
+Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronyms/brand names but may add a translated descriptor. For entries that are ordinary words they follow their own regional standards instead, writing the term in the local script — transliterated (ja ホットエンド, uk *Хотенд*) or as a native equivalent (zh_CN 热端, ru *Термобарьер*); see the [translation table](#translation-table-glossary) for the form in use.
 
 | Term | What it is, and why it stays in English |
 | --- | --- |
@@ -49,6 +44,16 @@ Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronym
 | **Inch symbol**: `″` (U+2033) | The abbreviation for inches (`msgctxt "inches"`, `msgid "in"`). Use the Unicode double-prime character `″` (U+2033) as the standard — not a straight quote `"`, two apostrophes `''`, or the letters *in*. It is a script-neutral typographic symbol, so it stays the same in every language. |
 
 ## Translation table glossary
+
+> [!TIP]
+> You can [download the glossary is CSV format clicking here](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/guides/localization_glossary.csv?raw=true)
+
+> [!NOTE]
+> Translations with ⚠ require translators revision.
+
+> [!IMPORTANT]
+> Do not edit this table by hand!  
+> Check [Updating the glossary](#updating-the-glossary).
 
 | English | Description | de | es | fr | it | pt_BR | nl | ca | cs | pl | hu | lt | sv | tr | ru | uk | ja | ko | zh_CN | zh_TW | th | vi | eu |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -96,6 +101,36 @@ Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronym
 | **Gyroid** | Infill pattern based on the gyroid minimal surface. Proper name of the surface. | Gyroid | Giroide | Gyroïde | Giroide | Giroide | Gyroide | Giroide | — | Gyroidalny | — | Giroidas | — | Jiroid | Гироид | Гіроїд | ジャイロイド | 자이로이드 | 螺旋体 | 螺旋體 | ไจรอยด์ | — | Giroidea |
 | **Timelapse** | Video assembled from one frame captured per layer. | Zeitraffer | Timelapse | Timelapse | Timelapse | Timelapse | Timelapse | Timelapse | Časosběr | Timelapse | Timelapse | Intervalinis fotografavimas („Timelapse“) | Timelapse | Timelapse | Таймлапсы | Таймлапс | タイムラプス | 타임랩스 | 延时摄影 | 縮時攝影 | ไทม์แลปส์ | Timelapse | Timelapse |
 | **Dialog** | A UI dialog box. Translate the "dialog box" sense, not the "dialogue"/conversation sense. | Dialog | Cuadro de diálogo | Boîte de dialogue | Finestra di dialogo | Caixa de diálogo | Dialoogvenster | Quadre de diàleg | Dialog | Okno dialogowe | Párbeszédablak | Dialogo langas | Dialogruta | İletişim kutusu | Диалоговое окно | Діалогове вікно | ダイアログ | 대화 상자 | 对话框 | 對話框 | กล่องโต้ตอบ | Hộp thoại | Elkarrizketa-koadroa |
+
+### Updating the glossary
+
+The [translation table](#translation-table-glossary) is **generated**. Its source
+is `guides/localization_glossary.csv`, and edits made directly to the table in
+this page are overwritten the next time the generator runs.
+
+The CSV has one row per term and one column per catalog:
+
+| Column | Contents |
+| --- | --- |
+| `English` | The English term, i.e. the `msgid` as it appears in the UI. Rendered bold in the table. |
+| `Description` | One sentence saying what the term is, so a translator can render it without opening the slicer. |
+| `de`, `es`, `fr`, … | One column per language, named after its folder under `localization/i18n/`. Leave a cell empty when the catalog has no established translation — the table shows `—`. |
+
+Run the generator from the repo root:
+
+```bash
+python generate_glossary.py --update   # rewrite the table in this page
+```
+
+Extra:
+
+```bash
+python generate_glossary.py            # print the table and report whether the page is stale
+```
+
+```bash
+python generate_glossary.py --check    # exit 1 if the page no longer matches the CSV
+```
 
 ## Language specifics
 
