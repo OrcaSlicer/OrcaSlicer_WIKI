@@ -256,3 +256,10 @@ See the [all releases](releases_index) overview, or jump straight to a version:
 - [Plater, Sidebar, Tab, ComboBox](plater_sidebar_tab_combobox)
 - [Built-in placeholders & variables](built_in_placeholders_variables)
 - [Slicing Call Hierarchy](slicing_hierarchy)
+- [Profile App](profile_app_overview) — Browser-based editor for OrcaSlicer vendor profiles
+    - [Editor System](profile_app_editor_system)
+    - [State Management](profile_app_state_management)
+    - [Export Pipeline](profile_app_export_pipeline)
+    - [Vendor Root JSON](profile_app_vendor_root_json)
+    - [Persistence](profile_app_persistence)
+    - [Project Flow](profile_app_project_flow)

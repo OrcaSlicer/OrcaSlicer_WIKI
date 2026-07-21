@@ -45,11 +45,14 @@ R2 (source of truth)  ←→  IndexedDB (cache)  →  RAM (editing)  →  R2 (sy
 
 1. **Open Project** — Load vendor root JSON and all profile files from IndexedDB (with R2
    fallback), populate React state.
-2. **Edit** — Editor modals modify in-memory state only; background writes to IndexedDB.
+2. **Edit** — [Editor modals](profile_app_editor_system) modify in-memory state only; background writes to IndexedDB.
 3. **Sync to R2** — Build upload list from RAM + IndexedDB, normalize via export pipeline,
    upload in batches via signed URLs.
 4. **Download ZIP** — Gateway reads all R2 objects under the project prefix, builds ZIP
    in memory, streams to browser.
+
+For the complete lifecycle — project open, editing, sync, download, and multi-machine
+workflows — see [Project Flow](profile_app_project_flow).
 
 ## Directory Structure
 
@@ -98,7 +101,8 @@ apps/cloud-frontend/src/features/profileApp/pages/
 ### No external state library
 All state lives in React `useState` / `useRef` within a single `useProfileAppState` hook.
 This keeps the data flow transparent — every mutation is traceable through the hook's
-handler functions.
+handler functions. See [State Management](profile_app_state_management) for the full
+state architecture.
 
 ### Per-project IndexedDB databases
 Each project gets its own IndexedDB database (`orca-profile-app-db_{scopeKey}`). Keys
