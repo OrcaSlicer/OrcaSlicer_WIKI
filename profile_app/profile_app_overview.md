@@ -21,7 +21,7 @@ OrcaSlicer-compatible JSON files that drop directly into `resources/profiles/`.
 ProfileApp (React + TypeScript)
 ├── useProfileAppState        ← All state, effects, handlers (extracted hook)
 ├── UI Layer
-│   ├── ProfileAppPage        ← View coordinator (440 lines)
+│   ├── ProfileAppPage        ← View coordinator
 │   ├── LandingScreen         ← Open / create project flow
 │   ├── VariantSection        ← Sidebar: printer variants
 │   ├── ProcessSection        ← Sidebar: processes
@@ -59,7 +59,7 @@ workflows — see [Project Flow](profile_app_project_flow).
 ```
 apps/cloud-frontend/src/features/profileApp/pages/
 ├── ProfileAppPage.tsx              # View coordinator — composes the UI
-├── useProfileAppState.ts           # Core state hook (~2,200 lines)
+├── useProfileAppState.ts           # Core state hook
 ├── LandingScreen.tsx               # Landing page
 │
 ├── VariantSection.tsx              # Printer variants sidebar
@@ -67,7 +67,7 @@ apps/cloud-frontend/src/features/profileApp/pages/
 ├── FilamentSection.tsx             # Filaments sidebar
 │
 ├── VariantEditorModal.tsx          # Printer variant editor
-├── ProcessEditorModal.tsx          # Process editor (~3,500 lines)
+├── ProcessEditorModal.tsx          # Process editor
 ├── FilamentEditorModal.tsx         # Filament editor
 │
 ├── PrinterModelForm.tsx            # Printer model create/edit
@@ -93,7 +93,7 @@ apps/cloud-frontend/src/features/profileApp/pages/
 └── profileAppShared.ts             # JSON serializer + helpers
 ```
 
-**Source:** 35 files, ~13,000 lines of TypeScript/TSX.
+**Source:** 35 TypeScript/TSX files.
 **Tests:** 10 test files, 54 profileApp-specific tests.
 
 ## Key Design Decisions

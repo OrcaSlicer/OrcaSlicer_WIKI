@@ -49,7 +49,7 @@ Edits printer variant presets (`type: machine`). Notable features:
 
 ### Process Editor (`ProcessEditorModal.tsx`)
 
-The largest editor (~3,550 lines). Edits process presets (`type: process`). Notable
+Edits process presets (`type: process`). Notable
 features:
 
 - **6 tabs:** Quality, Strength, Speed, Support, Multimaterial, Others
