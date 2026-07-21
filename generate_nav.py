@@ -3,9 +3,14 @@
 Auto-generate mkdocs.yml navigation from folder structure.
 Fully dynamic - scans all folders and markdown files automatically.
 
+Entries already listed in mkdocs.yml keep the position they have there; only
+new files/folders are placed using the sort rules below. Pass --reorder to
+ignore the existing nav and sort everything from scratch.
+
 Usage:
     python3 generate_nav.py              # Preview nav structure
     python3 generate_nav.py --update     # Update mkdocs.yml directly
+    python3 generate_nav.py --reorder    # Re-sort everything, ignoring current nav
 """
 
 import re
@@ -174,8 +179,128 @@ def get_sort_key(path: Path) -> tuple:
     return (5, name)  # Default: middle priority, alphabetical
 
 
-def scan_folder(folder: Path, base_path: Path) -> list:
+def _collect_nav_paths(value, out: list) -> None:
+    """Collect every document path reachable from a nav value."""
+    if isinstance(value, str):
+        out.append(value)
+    elif isinstance(value, list):
+        for entry in value:
+            _collect_nav_paths(entry, out)
+    elif isinstance(value, dict):
+        for sub in value.values():
+            _collect_nav_paths(sub, out)
+
+
+def _common_dir(paths: list) -> str:
+    """Longest shared directory prefix of a set of document paths."""
+    if not paths:
+        return ''
+    common = paths[0].split('/')[:-1]
+    for path in paths[1:]:
+        parts = path.split('/')[:-1]
+        i = 0
+        while i < len(common) and i < len(parts) and common[i] == parts[i]:
+            i += 1
+        common = common[:i]
+    return '/'.join(common)
+
+
+def _index_nav(entries: list, order: dict) -> None:
+    """Record the position of each file/folder within its own nav list.
+
+    Folders are identified by the shared directory prefix of the pages nested
+    under a section, so a section keeps its slot even if it was renamed.
+    """
+    if not isinstance(entries, list):
+        return
+
+    for position, entry in enumerate(entries):
+        if isinstance(entry, str):
+            value = entry
+        elif isinstance(entry, dict) and len(entry) == 1:
+            value = next(iter(entry.values()))
+        else:
+            continue
+
+        if isinstance(value, str):
+            order.setdefault(value, position)
+        elif isinstance(value, list):
+            nested: list = []
+            _collect_nav_paths(value, nested)
+            folder = _common_dir(nested)
+            if folder:
+                order.setdefault(folder, position)
+            _index_nav(value, order)
+
+
+def read_existing_order(mkdocs_path: Path) -> dict:
+    """Map each path currently in mkdocs.yml's nav to its position in its list.
+
+    Returns an empty dict if the nav can't be read, which falls back to a
+    fully generated ordering.
+    """
+    try:
+        import yaml
+    except ImportError:
+        return {}
+
+    try:
+        content = mkdocs_path.read_text(encoding='utf-8')
+    except (UnicodeDecodeError, IOError, PermissionError):
+        return {}
+
+    match = re.search(r'^nav:\s*\n((?:[ \t-].*\n)*)', content, re.MULTILINE)
+    if not match:
+        return {}
+
+    try:
+        nav = yaml.safe_load('nav:\n' + match.group(1))
+    except yaml.YAMLError:
+        return {}
+
+    order: dict = {}
+    _index_nav((nav or {}).get('nav') or [], order)
+    return order
+
+
+def _order_key(path: Path, base_path: Path) -> str:
+    return path.relative_to(base_path).as_posix()
+
+
+def keep_existing_places(sorted_items: list, base_path: Path, existing_order: dict) -> list:
+    """Reorder siblings so entries already in mkdocs.yml stay where they are.
+
+    Items known to the existing nav are restored to their recorded order; each
+    new item is slotted directly after whichever sibling precedes it in the
+    freshly sorted list, so it lands next to its natural neighbour.
+    """
+    if not existing_order:
+        return sorted_items
+
+    known = {}
+    for item in sorted_items:
+        position = existing_order.get(_order_key(item, base_path))
+        if position is not None:
+            known[item] = position
+
+    if not known:
+        return sorted_items
+
+    result = sorted(known, key=lambda item: known[item])
+
+    for index, item in enumerate(sorted_items):
+        if item in known:
+            continue
+        # Everything before `item` has already been placed in `result`.
+        insert_at = 0 if index == 0 else result.index(sorted_items[index - 1]) + 1
+        result.insert(insert_at, item)
+
+    return result
+
+
+def scan_folder(folder: Path, base_path: Path, existing_order: Optional[dict] = None) -> list:
     """Recursively scan a folder and build nav structure."""
+    existing_order = existing_order or {}
     nav_items = []
 
     try:
@@ -184,13 +309,16 @@ def scan_folder(folder: Path, base_path: Path) -> list:
         return nav_items
 
     if folder.name == 'plugin_development' and folder.parent.name == 'developer_reference':
-        ordered_items = sorted(
-            [item for item in items
-             if (item.is_file() and item.suffix == '.md')
-             or (item.is_dir()
-                 and not item.name.startswith('.')
-                 and item.name.lower() not in EXCLUDED_FOLDERS)],
-            key=get_sort_key
+        ordered_items = keep_existing_places(
+            sorted(
+                [item for item in items
+                 if (item.is_file() and item.suffix == '.md')
+                 or (item.is_dir()
+                     and not item.name.startswith('.')
+                     and item.name.lower() not in EXCLUDED_FOLDERS)],
+                key=get_sort_key
+            ),
+            base_path, existing_order
         )
 
         for item in ordered_items:
@@ -199,7 +327,7 @@ def scan_folder(folder: Path, base_path: Path) -> list:
                 rel_path = item.relative_to(base_path)
                 nav_items.append((title, str(rel_path).replace('\\', '/')))
             else:
-                sub_items = scan_folder(item, base_path)
+                sub_items = scan_folder(item, base_path, existing_order)
                 if sub_items:
                     folder_title = get_display_name(item.name)
                     nav_items.append((folder_title, sub_items))
@@ -207,15 +335,21 @@ def scan_folder(folder: Path, base_path: Path) -> list:
         return nav_items
 
     # Separate and sort files and folders
-    md_files = sorted(
-        [f for f in items if f.is_file() and f.suffix == '.md'],
-        key=get_sort_key
+    md_files = keep_existing_places(
+        sorted(
+            [f for f in items if f.is_file() and f.suffix == '.md'],
+            key=get_sort_key
+        ),
+        base_path, existing_order
     )
-    subfolders = sorted(
-        [d for d in items if d.is_dir()
-         and not d.name.startswith('.')
-         and d.name.lower() not in EXCLUDED_FOLDERS],
-        key=get_sort_key
+    subfolders = keep_existing_places(
+        sorted(
+            [d for d in items if d.is_dir()
+             and not d.name.startswith('.')
+             and d.name.lower() not in EXCLUDED_FOLDERS],
+            key=get_sort_key
+        ),
+        base_path, existing_order
     )
 
     # A folder-level index.md becomes the section's index page (Material's
@@ -235,7 +369,7 @@ def scan_folder(folder: Path, base_path: Path) -> list:
 
     # Process subfolders recursively
     for subfolder in subfolders:
-        sub_items = scan_folder(subfolder, base_path)
+        sub_items = scan_folder(subfolder, base_path, existing_order)
         if sub_items:
             folder_title = get_display_name(subfolder.name)
             nav_items.append((folder_title, sub_items))
@@ -243,8 +377,9 @@ def scan_folder(folder: Path, base_path: Path) -> list:
     return nav_items
 
 
-def generate_nav(base_path: Path) -> list:
+def generate_nav(base_path: Path, existing_order: Optional[dict] = None) -> list:
     """Generate the complete navigation structure by scanning all folders."""
+    existing_order = existing_order or {}
     nav = []
 
     # Check for home.md -> becomes index.md
@@ -252,18 +387,21 @@ def generate_nav(base_path: Path) -> list:
         nav.append(("Home", "index.md"))
 
     # Scan all top-level folders that contain markdown files
-    top_level_folders = sorted(
-        [d for d in base_path.iterdir()
-         if d.is_dir()
-         and not d.name.startswith('.')
-         and d.name.lower() not in EXCLUDED_FOLDERS
-         and any(d.rglob('*.md'))],  # Only include if has .md files
-        key=get_sort_key
+    top_level_folders = keep_existing_places(
+        sorted(
+            [d for d in base_path.iterdir()
+             if d.is_dir()
+             and not d.name.startswith('.')
+             and d.name.lower() not in EXCLUDED_FOLDERS
+             and any(d.rglob('*.md'))],  # Only include if has .md files
+            key=get_sort_key
+        ),
+        base_path, existing_order
     )
 
     # Build nav from each folder
     for folder in top_level_folders:
-        items = scan_folder(folder, base_path)
+        items = scan_folder(folder, base_path, existing_order)
         if items:
             section_title = get_display_name(folder.name)
             nav.append((section_title, items))
@@ -398,6 +536,10 @@ def main():
         '--update', '-u', action='store_true',
         help='Update mkdocs.yml directly (default: preview only)'
     )
+    parser.add_argument(
+        '--reorder', '-r', action='store_true',
+        help='Sort everything from scratch instead of keeping the positions already in mkdocs.yml'
+    )
     args = parser.parse_args()
 
     script_dir = Path(__file__).parent
@@ -408,7 +550,10 @@ def main():
         return 1
 
     print(f"📂 Scanning: {script_dir}\n")
-    nav = generate_nav(script_dir)
+    existing_order = {} if args.reorder else read_existing_order(mkdocs_path)
+    if existing_order:
+        print(f"📌 Keeping the current position of {len(existing_order)} existing nav entries\n")
+    nav = generate_nav(script_dir, existing_order)
     nav_yaml = nav_to_yaml(nav)
 
     print("📋 Navigation Structure:\n")
