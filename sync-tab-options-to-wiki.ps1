@@ -342,7 +342,9 @@ Set-SyncStage -Step 2 -Status "Parsing option mappings from Tab.cpp"
 $patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
 $patternOption = 'append_option_line\(\s*[^,]+\s*,\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
 $patternAppendLineBlock = '(?s)(?<obj>\w+)\.label_path\s*=\s*"(?<ref>[^"]+)"\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
-$patternAppendLineAssignedBlock = '(?s)(?<obj>\w+)\s*=\s*\{.*?\}\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
+# Bound the brace block and the body span: unbounded '.*?' here backtracks catastrophically
+# over Tab.cpp (~160s). Real bodies are under 500 chars, so 8000 is generous headroom.
+$patternAppendLineAssignedBlock = '(?s)(?<obj>\w+)\s*=\s*\{[^{}]*?\}\s*;(?<body>.{0,8000}?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
 $patternForBlock = '(?s)for\s*\(\s*const\s+std::string\s*&\s*(?<iter>\w+)\s*:\s*(?<collection>\w+)\s*\)\s*\{(?<body>.*?)\}'
 
 $singleMatches = [regex]::Matches($tabContent, $patternSingle)
