@@ -11,4 +11,5 @@ OrcaSlicer provides four option visibility modes that control which configuratio
 
 > [!NOTE]
 > When using Developer mode, the Mode selector will be disabled.  
-> This is because Developer mode provides access to all options, and there is no need to switch between modes.
+> This is because Developer mode provides access to all options, and there is no need to switch between modes.  
+> Clicking the disabled selector on the sidebar opens the [Troubleshoot Center](troubleshoot_center) instead.
