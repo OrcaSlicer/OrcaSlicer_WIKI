@@ -56,16 +56,16 @@ To split these into separate translatable entries, attach a **context** to the s
 | Without context | With context |
 | --- | --- |
 | `L("Right")` | `L_CONTEXT("Right", "Alignment")` |
-| `_L("Right")` | `_CTX("Right", "Alignment")` |
-| `_u8L("Right")` | `_CTX_utf8("Right", "Alignment")` |
+| `_L("Right")` | `_L_CONTEXT("Right", "Alignment")` |
+| `_u8L("Right")` | `_u8L_CONTEXT("Right", "Alignment")` |
 
-The distinction mirrors the plain macros: `L_CONTEXT` **only marks** the string for extraction (use it where the translation happens elsewhere, e.g. a value stored now and translated later), while `_CTX` / `_CTX_utf8` **mark and translate at runtime** — the direct equivalents of `_L` / `_u8L`.
+The distinction mirrors the plain macros: `L_CONTEXT` **only marks** the string for extraction (use it where the translation happens elsewhere, e.g. a value stored now and translated later), while `_L_CONTEXT` / `_u8L_CONTEXT` **mark and translate at runtime** — the direct equivalents of `_L` / `_u8L`.
 
 For the `"in"` example you would mark each occurrence with the context that matches its meaning, for instance:
 
 ```C++
-_CTX_utf8("in", "inside")    // "in" meaning inside
-_CTX_utf8("in", "inches")    // "in" as the unit inches
+_u8L_CONTEXT("in", "inside")    // "in" meaning inside
+_u8L_CONTEXT("in", "inches")    // "in" as the unit inches
 ```
 
 In PoEdit each entry then appears with its context, so `Right [Alignment]` and `Right [Correct]` (or `in [inside]` and `in [inches]`) can be translated independently.
