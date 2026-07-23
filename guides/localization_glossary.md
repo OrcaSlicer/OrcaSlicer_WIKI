@@ -10,6 +10,7 @@ before translating a recurring term, check here for the established form so the 
 - [Translation table glossary](#translation-table-glossary)
     - [Updating the glossary](#updating-the-glossary)
 - [Language specifics](#language-specifics)
+    - [Russian (ru)](#russian-ru)
 
 ## Kept in English (do not translate)
 
@@ -180,9 +181,9 @@ This is a place for translators to specify some unique caracteristics for their 
 - **Nozzle** — use *Сопло* (the nozzle tip). *Экструдер* is Bambu's legacy label for the whole toolhead; the two senses are being split by `msgctxt`, so do **not** use *Экструдер* for the nozzle tip.
 - **Hotend** — *Хотэнд*, spelled with **э** (not *Хотенд*, which is the Ukrainian form).
 - Several one-word UI strings are homonyms that need a different Russian form per context and now carry a `msgctxt`; translate each context separately:
-  - **Cut** — *Разрезать* (cut tool) / *Вырезать* (clipboard, Ctrl+X)
-  - **Left** / **Right** — *Слева* / *Справа* (camera direction) / *Левое* / *Правое сопло* (nozzle side)
-  - **Smooth** — *Сгладить* (action) / *Плавный* (timelapse mode)
-  - **Edit** — *Правка* (menu) / *Изменить* (verb)
-  - **Assemble** — *Объединить в сборку* (action) / *Собрать* (assembly tool)
-  - **End** — keep *End* (keyboard key) / *до конца* (layer range)
+    - **Cut** — *Разрезать* (cut tool) / *Вырезать* (clipboard, Ctrl+X)
+    - **Left** / **Right** — *Слева* / *Справа* (camera direction) / *Левое* / *Правое сопло* (nozzle side)
+    - **Smooth** — *Сгладить* (action) / *Плавный* (timelapse mode)
+    - **Edit** — *Правка* (menu) / *Изменить* (verb)
+    - **Assemble** — *Объединить в сборку* (action) / *Собрать* (assembly tool)
+    - **End** — keep *End* (keyboard key) / *до конца* (layer range)
