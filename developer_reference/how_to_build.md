@@ -146,6 +146,17 @@ How to building with Visual Studio on Windows 64-bit.
 > If you switch back and forth between branches, it also takes a long time to rebuild, even if you haven't made any changes.
 
 > [!TIP]
+> Some changes are not picked up by the Visual Studio solution because they live in the prebuilt dependencies, not in the OrcaSlicer projects. In that case rebuild the affected dependency target instead of the whole `deps/` tree.
+>
+> For example, after modifying `wxInspector`, open the **Developer PowerShell** / **Developer Command Prompt** terminal inside Visual Studio (**View > Terminal**) and run:
+>
+> ```pwsh
+> cmake --build ..\deps\build --target dep_wxInspector --config Release
+> ```
+>
+> The path is relative to the solution folder (`build\`). If you run it from the repository root, use `deps\build` instead. Then rebuild the solution so the updated dependency is linked in.
+
+> [!TIP]
 > If the build fails, try deleting the `build/` and `deps/build/` directories to clear any cached build data. Rebuilding after a clean-up is usually sufficient to resolve most issues.
 
 > [!TIP]
