@@ -22,7 +22,12 @@ When using a [mixed nozzle size setup](mixed_nozzle_sizes), it's recommended to 
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `surface_wall_override_filament`.  
-Filament for the outermost N perimeter loops and/or the top/bottom external solid surfaces. Set to `0` (default) to disable the override — all walls and surfaces then use the regular [Walls](#walls) filament.
+
+> [!IMPORTANT]
+> NEW FEATURE: **Surface / outer wall override filament**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Filament for the outermost N perimeter loops and/or the top/bottom external solid surfaces. Set to `0` (default) to disable the override — all walls and surfaces then use the regular [Outer Walls](#outer-walls) filament.
 
 Useful when you want a cosmetic or structural contrast between the visible exterior of a print and its interior without per-volume painting. Common uses:
 
@@ -40,12 +45,22 @@ When the override filament belongs to a different polymer family than [Walls](#w
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `outer_wall_count`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Outer wall count**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 Number of outermost perimeter loops (counted from the outside in) that use the [Surface / outer wall override](#surface--outer-wall-override) filament. Only meaningful when the override filament is set and [Apply to](#apply-to) includes `Walls`. Default is `1` — only the outermost loop is overridden.
 
 ## Apply to
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `surface_wall_override_filament_target`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Surface / outer wall override target**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 Controls *where* the [Surface / outer wall override](#surface--outer-wall-override) filament is applied:
 
 - **`Walls`** — outermost N perimeter loops only.
