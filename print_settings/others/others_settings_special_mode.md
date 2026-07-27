@@ -53,10 +53,23 @@ This option prints all objects layer by layer, one layer at a time. This is effi
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `print_order`.  
-Determines the print order within a single layer.
+Determines the order in which object instances are visited within a single layer, which controls how much travel is spent moving between them.
 
-- **Default**: Prints objects based on their position on the bed and travel distance to optimise movement.
-- **As object list**: Prints objects in the order they appear in the object list, which can be useful for custom sequencing or debugging.
+Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over parts that have already been printed, which can make [Z Hop](printer_extruder_z_hop) and [Avoid crossing walls](quality_settings_wall_and_surfaces#avoid-crossing-walls) unnecessary in many plates.
+
+> [!IMPORTANT]
+> NEW FEATURE: **Snake and Best of all (shortest path) intra-layer ordering**
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+- **Default**: Nearest-neighbour chaining, refined with 2-opt and crossing removal. A good general choice and the recommended option for most plates.
+- **As object list**: Instances are printed in the same order as the object list, without any path optimisation. Use it when you need a predictable, manually controlled order, for custom sequencing or debugging.
+- **Snake**: Serpentine, row-by-row traversal (objects are grouped into rows and each row is traversed in the opposite direction to the previous one), refined with 2-opt. Well suited to regular grids of many small parts.
+- **Best of all (shortest path)**: Every strategy is evaluated and the shortest one is used. The object instance order is decided once for the whole print, while the ordering of individual islands is decided per layer, so different layers may end up using different strategies. Slightly slower to slice.
+
+> [!NOTE]
+> Ordering is applied at the island level, not only per instance, so each separate region of a layer is ordered individually. This mainly benefits assemblies and objects whose layers overlap.
+>
+> With multiple filaments or tools in the same layer, minimising tool changes takes priority: objects are grouped by filament first, and this setting only orders the instances within each filament group. The overall sequence may therefore not look like the shortest path across the plate.
 
 ### By Object
 
