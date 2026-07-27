@@ -28,8 +28,8 @@ Once the print is complete, examine each block of the tower and determine the op
 > If you plan to print at higher [speeds](speed_settings_other_layers_speed) or [flow rates](volumetric_speed_calib), consider using the higher end of that range.
 
 > [!NOTE]
-> The temperature tower will adjust its size according to your nozzle diameter.
-> This ensures that all of its features are properly scaled and visible, regardless of the nozzle size you use.
+> **Auto-scale for nozzle** is enabled by default in the test dialog. The reference model is designed around a 0.4 mm nozzle at 0.2 mm layer height; with the option enabled, the tower is scaled to your nozzle diameter and the layer height is set to half of it, so all of its features stay properly scaled and visible regardless of the nozzle size you use.
+> Disable it only if you want to print the reference model at its original 0.4 mm size, for example to compare against earlier towers.
 
 ### Interpreting results
 
