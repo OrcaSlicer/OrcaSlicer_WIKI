@@ -113,6 +113,99 @@ In PoEdit each entry then appears with its context, so `Right [Alignment]` and `
 
 When you have Catalog to translation open POT or PO file in PoEdit and start translating.
 
+## Translation principles
+
+The rules further below are mechanical (placeholders, spacing, units). This section is about *how to
+decide what a string should say*. These principles are language-agnostic; they were contributed from
+the Russian translation team's internal guidelines.
+
+### Localize, don't translate word-for-word
+
+A localizer works on the *meaning* of a string, not on its words. Before translating, know what the
+string actually controls: which feature it belongs to, where it appears in the UI, and what it does.
+A term looked up in a dictionary without that context is usually wrong.
+
+### Keep boilerplate messages consistent
+
+Recurring message shapes should read the same way every time, so users recognize them without
+re-reading. For example:
+
+- `Failed to connect to <...>` / `Connection to <...> failed` → one template in your language
+- `Are you sure you want to <...>?`
+- `If expressed as a %, it will be computed over the <...>`
+
+The English source is often phrased inconsistently for the same idea. Find those cases and unify them
+into one pattern in your language.
+
+### English terms are sometimes overloaded — translate the meaning
+
+The English UI frequently uses one word for several distinct concepts, or drops a qualifier that your
+language needs. Translate what the string *means*, not the word it uses.
+
+The clearest example is *flow*, which English collapses into one word but most languages must split
+into three (see the [glossary](localization_glossary)):
+
+| English | What it actually is |
+| --- | --- |
+| Flow ratio | An extrusion multiplier (a coefficient) |
+| Flow Rate | Material throughput (mm/s or mm³/s) |
+| Flow Dynamics | Nozzle pressure compensation (the Pressure Advance factor) |
+
+*Extruder* is overloaded the same way — depending on the string it can mean the whole toolhead, the
+feeder motor, or just the nozzle:
+
+- `High extruder current on filament swap` → the **feeder motor's** current, not "the extruder"
+- `...all extruders must have the same diameter` → **nozzles** have diameters, not extruders
+- `...filament retracted inside the hotend before changing hotends` → a **hotend/tool** change
+
+### Expand descriptions where they help
+
+Tooltips and parameter descriptions may be *expanded* beyond the English so that a reader does not
+have to go research the topic in a language they may not speak. Treat the original description as the
+basis to build on, not as a spec to reproduce.
+
+Good sources for the extra context: the [OrcaSlicer wiki](https://github.com/OrcaSlicer/OrcaSlicer/wiki),
+developer answers in GitHub Issues/Discussions, the Discord history, and comments in the source code.
+
+> [!IMPORTANT]
+> If you conclude the **original English is wrong**, do not silently "fix" it in your translation
+> only. Confirm the finding with other people, report it to the developers so the source string gets
+> corrected, and only then adjust the localization.
+
+### Simplify the phrasing ("semantic optimization")
+
+UI text in open-source projects is usually written by developers, so it tends to be phrased
+algorithmically rather than for a first-time reader. You can usually cut the scaffolding without
+losing meaning:
+
+> This option determines whether OrcaSlicer should apply the retract reduction on infill.
+
+A literal translation keeps the whole clumsy construction. But the string is already shown as the
+tooltip *of that setting*, so restating the connection is redundant:
+
+> Apply the retract reduction on infill.
+
+And since the user does not need to know that "retract reduction" is a separate post-processing step,
+rephrasing by intent makes it clear on first read:
+
+> Disable retractions while printing infill.
+
+Introduce remaining nuances gradually, in following sentences, rather than packing every condition
+into one sentence.
+
+### Find the balance
+
+These principles conflict in practice: available UI width, required precision, and grammatical
+agreement with values the slicer substitutes through variables all pull in different directions.
+Balance them and take the smallest compromise available. The goal is that a new user can find their
+way around the software without having to ask in chats or dig through articles.
+
+### Remember the audience
+
+OrcaSlicer is used by professionals *and* by people with a printer at home. Keep the professional
+terminology the glossary establishes, but use it as plainly as the string allows — accuracy and
+first-read clarity both matter.
+
 ## General guidelines for OrcaSlicer translators
 
 - We recommend using _PoEdit_ application for translation (as described above). It will help you eliminate most punctuation errors and will show you strings with "random" translations (if the fuzzy parameter was used).
