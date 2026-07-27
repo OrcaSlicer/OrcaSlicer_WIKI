@@ -199,6 +199,7 @@ This is a place for translators to specify some unique caracteristics for their 
 
 - **Nozzle** — use *Сопло* (the nozzle tip). *Экструдер* is Bambu's legacy label for the whole toolhead; the two senses are being split by `msgctxt`, so do **not** use *Экструдер* for the nozzle tip.
 - **Hotend** — *Хотэнд*, spelled with **э** (not *Хотенд*, which is the Ukrainian form).
+- **Toolhead** — never *головка*, which is the 2D-printer word. Use *голова* / *каретка* for the moving assembly in general (*Парковка головы*, *параллельных печатающих голов*), but on tool-changer UI — the nozzle rack and the hotend-rack messages — use *Печатающий инструмент*, matching the *tool → инструмент* sense used for non-swappable multi-head machines.
 - Several one-word UI strings are homonyms that need a different Russian form per context and now carry a `msgctxt`; translate each context separately:
     - **Cut** — *Разрезать* (cut tool) / *Вырезать* (clipboard, Ctrl+X)
     - **Left** / **Right** — *Слева* / *Справа* (camera direction) / *Левое* / *Правое сопло* (nozzle side)
