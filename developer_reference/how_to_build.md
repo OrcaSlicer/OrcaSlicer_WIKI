@@ -154,7 +154,7 @@ How to building with Visual Studio on Windows 64-bit.
 > cmake --build ..\deps\build --target dep_wxInspector --config Release
 > ```
 >
-> The path is relative to the solution folder (`build\`). If you run it from the repository root, use `deps\build` instead. Then rebuild the solution so the updated dependency is linked in.
+> The path is relative to the solution folder (`build\`), which is where the Visual Studio terminal starts. If you run it from the repository root, use `deps\build` instead — from any other folder CMake fails with `... deps\build is not a directory`. Then rebuild the solution so the updated dependency is linked in.
 
 > [!TIP]
 > If the build fails, try deleting the `build/` and `deps/build/` directories to clear any cached build data. Rebuilding after a clean-up is usually sufficient to resolve most issues.
@@ -387,6 +387,21 @@ The build system supports multiple Linux distributions including Ubuntu/Debian a
 
 > [!TIP]
 > For first-time builds, use `./build_linux.sh -u` to install dependencies, then `./build_linux.sh -dsti` to build everything.
+
+> [!TIP]
+> Some changes are not picked up by a normal rebuild because they live in the prebuilt dependencies (`deps/`), not in the OrcaSlicer sources. In that case rebuild the affected dependency target instead of the whole `deps/` tree.
+>
+> For example, after modifying `wxInspector`:
+>
+> ```bash
+> cd ~/OrcaSlicer   # the repository root, where build_linux.sh lives
+> cmake --build deps/build --target dep_wxInspector
+> ./build_linux.sh -s
+> ```
+>
+> The path is relative, so running it from anywhere else fails with `.../deps/build is not a directory`.
+>
+> No `--config` flag is needed here: the dependencies are configured with a single-config generator, so the build type is fixed when they are configured. Use `deps/build-dbg` for debug builds (`-b`) and `deps/build-dbginfo` for RelWithDebInfo builds (`-e`).
 
 > [!WARNING]
 > If you encounter memory issues during compilation, use `-j 1` or `-1` to limit parallel compilation and `-r` to skip memory checks.
