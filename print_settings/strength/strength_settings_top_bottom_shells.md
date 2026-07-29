@@ -12,6 +12,7 @@ Controls how the top and bottom solid layers (shells) are generated.
 - [Surface Expansion](#surface-expansion)
     - [Surface Expansion Margin](#surface-expansion-margin)
     - [Surface Expansion Direction](#surface-expansion-direction)
+    - [Surface Expansion and Only One Wall](#surface-expansion-and-only-one-wall)
 - [Center Surface Pattern On](#center-surface-pattern-on)
 - [Fill Order](#fill-order)
 
@@ -94,12 +95,17 @@ Improved [concentric](strength_settings_patterns#concentric) top surface:
 
 ![surface_expansion_concentric](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_concentric.png?raw=true)
 
+> [!NOTE]
+> Surface expansion needs a top solid surface to grow. It does nothing when [Shell Layers](#shell-layers) is `0` (the top surfaces are then treated as internal) or when [Surface Density](#surface-density) is `0%` (the top surface is left unfilled).
+
 ### Surface Expansion Margin
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_expansion_margin`.  
 Using [Surface Expansion](#surface-expansion) may cause a surface that did not previously touch the model's outer walls to now reach them, which can create contraction marks (such as a hull line) on the outer walls.  
 Adding a margin (in mm) keeps the expansion away from the walls where possible, so no hull line is created. The example below uses a 5 mm expansion with a 2 mm margin — compare it with the 5 mm expansion above, which reaches the walls.
+
+The margin is the real clearance left between the expanded top surface and the walls, so it is measured from the band the walls occupy. When [Only one wall](quality_settings_wall_and_surfaces#only-one-wall) on top surfaces is enabled, that band is a single wall, since that is all that remains over a top surface.
 
 ![surface_expansion_margin](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_margin.png?raw=true)
 
@@ -115,6 +121,18 @@ Direction in which the [Surface Expansion](#surface-expansion) grows:
   ![surface_expansion_direction_outward](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_direction_outward.png?raw=true)
 - **Inward and Outward:** does both. This is the default.
   ![surface_expansion_direction_inward_and_outward](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_direction_inward_and_outward.png?raw=true)
+
+### Surface Expansion and Only One Wall
+
+[Only one wall](quality_settings_wall_and_surfaces#only-one-wall) on top surfaces keeps a single wall where a top surface is detected. With more than one [wall loop](strength_settings_walls#wall-loops), the remaining inner walls used to be rerouted around the top surface, which could ring a feature with walls that were not needed, and cut up — or overlap with — an expanded top surface.
+
+When **Surface Expansion** is in use, those inner walls are removed over the top surface instead, so the expanded surface stays continuous and the pattern is not interrupted:
+
+- **[Classic](quality_settings_wall_generator#classic)** wall generator: the inner walls running over the top are dropped whole. The space they leave is taken by the expanded top surface, and whatever it does not cover becomes [internal solid infill](strength_settings_infill#internal-solid-infill).
+- **[Arachne](quality_settings_wall_generator#arachne)** wall generator: the inner walls are cut instead of dropped, so only the part running over the top surface is removed and the rest is kept where the geometry continues upward.
+
+> [!NOTE]
+> This behavior needs a top fill that can actually take that space. With **Surface Expansion** at `0` or [Surface Density](#surface-density) at `0%`, the inner walls are generated as before, preserving the internal support.
 
 ## Center Surface Pattern On
 
