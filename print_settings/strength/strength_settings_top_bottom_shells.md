@@ -89,11 +89,11 @@ The expansion is applied to the original top surface, before any other processin
 
 - **Expanded by 5 mm**
 
-![surface_expansion_5mm](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_5mm.png?raw=true)
+![surface_expansion_direction_inward_and_outward](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_direction_inward_and_outward.png?raw=true)
 
-Improved [concentric](strength_settings_patterns#concentric) top surface:
-
-![surface_expansion_concentric](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_concentric.png?raw=true)
+- Improved [concentric](strength_settings_patterns#concentric) top surface.
+    - Before:![surface_expansion_concentric_before](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_concentric_before.png?raw=true)
+    - After:![surface_expansion_concentric_after](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/surface_expansion_concentric_after.png?raw=true)
 
 > [!NOTE]
 > Surface expansion needs a top solid surface to grow. It does nothing when [Shell Layers](#shell-layers) is `0` (the top surfaces are then treated as internal) or when [Surface Density](#surface-density) is `0%` (the top surface is left unfilled).
