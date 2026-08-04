@@ -13,6 +13,7 @@ Brim is a flat layer printed around a model's base to improve adhesion to the pr
     - [Mouse Ears](#mouse-ears)
         - [Ear max angle](#ear-max-angle)
         - [Ear detection radius](#ear-detection-radius)
+- [Brim ears outer only](#brim-ears-outer-only)
 - [Width](#width)
 - [Brim-Object Gap](#brim-object-gap)
     - [Brim Flow Ratio](#brim-flow-ratio)
@@ -102,12 +103,24 @@ The geometry will be decimated before detecting sharp angles.
 This parameter indicates the minimum length of the deviation for the decimation.  
 0 to deactivate.
 
+## Brim ears outer only
+
+> [!IMPORTANT]
+> NEW FEATURE: **Limit automatic and painted brim ears to outer contours**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+When enabled, brim ears are generated only on the model's outer contour. Ears that would otherwise be placed in holes or other enclosed sections are excluded.
+
+This setting is available for both the **Mouse Ears** and **Painted** brim types. In Mouse Ears mode, it filters automatically detected ears. In Painted mode, it filters painted ears when the model is sliced.
+
 ## Width
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `brim_width`.  
 Distance between the model and the outermost brim line.  
 Increasing this value widens the brim, which can improve adhesion but increases material usage.
+
+When **Brim type** is set to **Mouse Ears**, this setting is labeled **Brim ear radius** and its value sets the radius of each automatically generated ear. The size of painted brim ears is controlled in the [Brim ears Painting tool](prepare_brim_ears_painting).
 
 ## Brim-Object Gap
 
