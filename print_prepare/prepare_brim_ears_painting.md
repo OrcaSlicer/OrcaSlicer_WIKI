@@ -9,7 +9,8 @@ It also includes an Auto-generate feature that automatically detects and applies
 
 ## Parameters
 
-- **Brim ear radius**: Sets the radius of brim ears placed manually or with Auto-generate. Values from 0.1 mm to 100 mm are supported.
+- **Head diameter** *(OrcaSlicer 2.4.2)*: Controls the nominal diameter of painted brim ears. The value is limited to 20 mm. Because of a sizing issue in 2.4.2, the sliced ear may not exactly match the entered diameter.
+- **Brim ear radius** *(Nightly builds and releases greater than 2.4.2)*: Sets the radius of brim ears placed manually or with Auto-generate. Values from 0.1 mm to 100 mm are supported.
 - **Max angle**: Defines the maximum angle at which brim ears will be applied with Auto-generate.
 - **Detection radius**: Lower values can detect more candidate positions. Sets the radius for detecting areas (using the [Ramer–Douglas–Peucker algorithm](https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm)) where Auto-generate may place brim ears.
 - **Section view**: Adjusts the section view height to better visualize brim ear placement.
