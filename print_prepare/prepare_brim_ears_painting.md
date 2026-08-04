@@ -15,4 +15,4 @@ It also includes an Auto-generate feature that automatically detects and applies
 - **Detection radius**: Lower values can detect more candidate positions. Sets the radius for detecting areas (using the [Ramer–Douglas–Peucker algorithm](https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm)) where Auto-generate may place brim ears.
 - **Section view**: Adjusts the section view height to better visualize brim ear placement.
 
-When **Brim type** is set to **Painted**, enable [Brim ears outer only](others_settings_brim#brim-ears-outer-only) in **Process > Others > Brim** to exclude painted ears placed in holes or other enclosed sections when slicing.
+When **Brim type** is set to **Painted**, enable [Brim ears outer only](others_settings_brim#brim-ears-outer-only) *(Nightly builds and releases greater than 2.4.2)* in **Process > Others > Brim** to exclude painted ears placed in holes or other enclosed sections when slicing.
