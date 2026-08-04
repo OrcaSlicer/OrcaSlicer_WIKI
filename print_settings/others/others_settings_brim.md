@@ -120,7 +120,7 @@ This setting is available for both the **Mouse Ears** and **Painted** brim types
 Distance between the model and the outermost brim line.  
 Increasing this value widens the brim, which can improve adhesion but increases material usage.
 
-When **Brim type** is set to **Mouse Ears**, this setting is labeled **Brim ear radius** and its value sets the radius of each automatically generated ear. When **Brim type** is set to **Painted**, the size of brim ears is controlled in the [Brim ears Painting tool](prepare_brim_ears_painting).
+When **Brim type** is set to **Mouse Ears**, this setting is labeled **Brim ear radius** *(Nightly builds and releases greater than 2.4.2)*. Its value sets the radius of each automatically generated ear. When **Brim type** is set to **Painted**, the size of brim ears is controlled in the [Brim ears Painting tool](prepare_brim_ears_painting).
 
 ## Brim-Object Gap
 
