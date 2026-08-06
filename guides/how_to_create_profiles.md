@@ -67,6 +67,41 @@ OrcaSlicer\resources\profiles_template\Template
 
 These templates can be used as a starting point for new printer, filament, and process profiles.
 
+## Setting IDs
+
+Every **instantiated** preset (a filament, process, or machine profile with `"instantiation": "true"`) must have a `setting_id` that is **globally unique across all OrcaSlicer profiles**.
+
+The `setting_id` is **deterministic** — it is derived purely from the preset's identity:
+
+```text
+setting_id = base62_16( uuid5(namespace, "<vendor>/<type>/<name>") )
+```
+
+That is, a fixed 16-character value computed from the vendor folder name, the profile type (`filament` / `process` / `machine`), and the profile `name`. Because it is a pure function of identity, uniqueness is automatic: two presets collide only if they share the same vendor, type, and name.
+
+Do **not** invent `setting_id`s or copy them from another profile. Let the helper script compute and write them:
+
+```sh
+python3 scripts/assign_vendor_setting_ids.py
+```
+
+- **Adding profiles to an existing vendor:** add your files (you can omit `setting_id` entirely), then run the script. It computes and fills in the id for every instantiated preset. The script is idempotent — re-running it on an unchanged tree produces no diff.
+- **Adding a new vendor:** the exact same workflow — there is no prefix to allocate and no registry to maintain; ids are derived directly from `vendor/type/name`.
+
+After running the script, bump the `"version"` in your `vendor_name.json` (increment the last component, e.g. `01.00.00.00` → `01.00.00.01`) so users receive the update.
+
+> [!IMPORTANT]
+> Base/template profiles (anything without `"instantiation": "true"`) must **not** have a `setting_id`. Only user-selectable presets get one.
+
+> [!IMPORTANT]
+> The id is derived from the profile **name**, so **renaming** an instantiated preset changes its `setting_id`. Re-run the script after any rename to keep the stored id in sync.
+
+> [!NOTE]
+> Bambu Lab (`BBL`) is the only exception: its profiles keep their authoritative `G*` ids (identical to Bambu Studio) and are never recomputed or renumbered. Every other vendor — including `OrcaFilamentLibrary` and `Custom` — follows the deterministic rule.
+
+> [!TIP]
+> The `setting_id` values shown in the examples on this page are illustrative — always run the script to obtain valid ones. If a profile ships without a `setting_id`, OrcaSlicer computes the same value on the fly at load time; but the [Python validation script](#2-python-profile-validation-script) (also run in CI) still requires every instantiated preset to carry the correct stored id, so always run the script before submitting.
+
 ## Filament Profiles
 
 OrcaSlicer features a global filament library called `OrcaFilamentLibrary`, which is automatically available for all printers. It includes generic filaments like `Generic PLA @System` and `Generic ABS @System` etc.
@@ -97,7 +132,7 @@ The following sample JSON file shows how to create a new generic filament profil
    {
        "type": "filament",
        "filament_id": "GFL99",
-       "setting_id": "GFSA05",
+       "setting_id": "DdFPsBKVwzyATCwK",
        "name": "Generic PLA-GF @System",
        "from": "system",
        "instantiation": "true",
@@ -156,7 +191,7 @@ Please note that here we must leave the compatible_printers field non-empty, unl
 ```json
 {
     "type": "filament",
-    "setting_id": "GFB99_MTC_0",
+    "setting_id": "h83PqSYsAi8yZyg0",
     "name": "Generic ABS @MyToolChanger",
     "from": "system",
     "instantiation": "true",
@@ -288,7 +323,7 @@ Example variant profile:
   "name": "Example M5 0.2 nozzle",
   "inherits": "fdm_machine_common",
   "from": "system",
-  "setting_id": "GM001",
+  "setting_id": "Y8DAsTuY0eg2zDcV",
   "instantiation": "true",
   "nozzle_diameter": ["0.2"],
   "printer_model": "Example M5",
@@ -411,6 +446,7 @@ In addition to the Orca validator, you should run the `orca_extra_profile_check.
 - Validation of `compatible_printers` in filament profiles
 - Consistency of filament names
 - Validation of default materials in machine profiles (optional)
+- `setting_id` rules: global uniqueness, that each id matches the deterministic rule, and that base profiles carry none (see [Setting IDs](#setting-ids))
 
 #### Example command
 

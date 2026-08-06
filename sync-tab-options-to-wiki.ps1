@@ -124,6 +124,65 @@ function Get-StringVectors {
     return $result
 }
 
+function Get-AppendLineBlockEntries {
+    param(
+        [string]$Obj,
+        [string]$Ref,
+        [string]$Body,
+        [int]$BaseIndex
+    )
+
+    $entries = New-Object System.Collections.Generic.List[object]
+
+    # 1) Direct form: obj.append_option( ... get_option("var"[, idx]) ... );
+    $directPattern = '(?s)' + [regex]::Escape($Obj) + '\.append_option\(\s*.*?get_option\("(?<variable>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\)\s*\)\s*;'
+    foreach ($om in [regex]::Matches($Body, $directPattern)) {
+        $variable = $om.Groups['variable'].Value.Trim()
+        $indexer = $om.Groups['indexer'].Value.Trim()
+        if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
+            $variable = "${variable}[$indexer]"
+        }
+
+        $entries.Add([PSCustomObject]@{
+            Variable = $variable
+            Ref      = $Ref
+            Index    = [int]($BaseIndex + $om.Index)
+        })
+    }
+
+    # 2) Indirect form: Option <name> = ...get_option("var"[, idx]); ... obj.append_option(<name>);
+    $optionVarMap = @{}
+    $declPattern = '(?:Option|ConfigOptionDef|auto)\s+(?<name>\w+)\s*=\s*[^;]*?get_option\(\s*"(?<variable>[^"]+)"(?:\s*,\s*(?<indexer>[^\),]+))?\s*\)\s*;'
+    foreach ($dm in [regex]::Matches($Body, $declPattern)) {
+        $name = $dm.Groups['name'].Value
+        $variable = $dm.Groups['variable'].Value.Trim()
+        $indexer = $dm.Groups['indexer'].Value.Trim()
+        if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
+            $variable = "${variable}[$indexer]"
+        }
+
+        $optionVarMap[$name] = $variable
+    }
+
+    if ($optionVarMap.Count -gt 0) {
+        $appendVarPattern = [regex]::Escape($Obj) + '\.append_option\(\s*(?<name>\w+)\s*\)\s*;'
+        foreach ($am in [regex]::Matches($Body, $appendVarPattern)) {
+            $name = $am.Groups['name'].Value
+            if (-not $optionVarMap.ContainsKey($name)) {
+                continue
+            }
+
+            $entries.Add([PSCustomObject]@{
+                Variable = $optionVarMap[$name]
+                Ref      = $Ref
+                Index    = [int]($BaseIndex + $am.Index)
+            })
+        }
+    }
+
+    return $entries
+}
+
 function Get-OptionModesByVariable {
     param([string]$Content)
 
@@ -283,7 +342,9 @@ Set-SyncStage -Step 2 -Status "Parsing option mappings from Tab.cpp"
 $patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
 $patternOption = 'append_option_line\(\s*[^,]+\s*,\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
 $patternAppendLineBlock = '(?s)(?<obj>\w+)\.label_path\s*=\s*"(?<ref>[^"]+)"\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
-$patternAppendLineAssignedBlock = '(?s)(?<obj>\w+)\s*=\s*\{.*?\}\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
+# Bound the brace block and the body span: unbounded '.*?' here backtracks catastrophically
+# over Tab.cpp (~160s). Real bodies are under 500 chars, so 8000 is generous headroom.
+$patternAppendLineAssignedBlock = '(?s)(?<obj>\w+)\s*=\s*\{[^{}]*?\}\s*;(?<body>.{0,8000}?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
 $patternForBlock = '(?s)for\s*\(\s*const\s+std::string\s*&\s*(?<iter>\w+)\s*:\s*(?<collection>\w+)\s*\)\s*\{(?<body>.*?)\}'
 
 $singleMatches = [regex]::Matches($tabContent, $patternSingle)
@@ -327,21 +388,9 @@ foreach ($m in $appendLineMatches) {
     $obj = $m.Groups['obj'].Value
     $ref = $m.Groups['ref'].Value.Trim()
     $body = $m.Groups['body'].Value
-    $optPattern = '(?s)' + [regex]::Escape($obj) + '\.append_option\(\s*.*?get_option\("(?<variable>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\)\s*\)\s*;'
-    $optMatches = [regex]::Matches($body, $optPattern)
 
-    foreach ($om in $optMatches) {
-        $variable = $om.Groups['variable'].Value.Trim()
-        $indexer = $om.Groups['indexer'].Value.Trim()
-        if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
-            $variable = "${variable}[$indexer]"
-        }
-
-        $rawEntries.Add([PSCustomObject]@{
-            Variable = $variable
-            Ref      = $ref
-            Index    = [int]($m.Index + $om.Index)
-        })
+    foreach ($entry in (Get-AppendLineBlockEntries -Obj $obj -Ref $ref -Body $body -BaseIndex ([int]$m.Index))) {
+        $rawEntries.Add($entry)
     }
 }
 
@@ -356,21 +405,9 @@ foreach ($m in $appendLineAssignedMatches) {
     }
 
     $ref = $labelMatch.Groups['ref'].Value.Trim()
-    $optPattern = '(?s)' + [regex]::Escape($obj) + '\.append_option\(\s*.*?get_option\("(?<variable>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\)\s*\)\s*;'
-    $optMatches = [regex]::Matches($body, $optPattern)
 
-    foreach ($om in $optMatches) {
-        $variable = $om.Groups['variable'].Value.Trim()
-        $indexer = $om.Groups['indexer'].Value.Trim()
-        if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
-            $variable = "${variable}[$indexer]"
-        }
-
-        $rawEntries.Add([PSCustomObject]@{
-            Variable = $variable
-            Ref      = $ref
-            Index    = [int]($m.Index + $om.Index)
-        })
+    foreach ($entry in (Get-AppendLineBlockEntries -Obj $obj -Ref $ref -Body $body -BaseIndex ([int]$m.Index))) {
+        $rawEntries.Add($entry)
     }
 }
 

@@ -33,7 +33,8 @@ The results from these methods should be saved to the material profile.
 The tower method may take a bit more time to complete, but it does not rely on the quality of the first layer.
 
 1. Select the printer, filament, and process you would like to use for the test.
-2. Examine each corner of the print and mark the height that yields the best overall result.
+2. Examine each corner and seams of the print and mark the height that yields the best overall result.  
+   The Pressure Advance value rises progressively from the start value at the bottom of the tower to the end value at the top, one step per millimetre of height. The tower is cut to fit the range you requested, so the top of the tower is the end value and it is never exceeded.
 3. In this example a height of 8 mm was selected, so the Pressure Advance value should be calculated as `PressureAdvanceStart + (PressureAdvanceStep x measured)`; example: `0 + (0.002 x 8) = 0.016`.  
    ![pa-tower](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pa-tower.jpg?raw=true)  
    ![pa-tower-preview](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/pa/pa-tower-preview.png?raw=true)  

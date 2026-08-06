@@ -14,6 +14,7 @@ When adding new features, consider updating the wiki so users can access the lat
         - [Index and Navigation](#index-and-navigation)
     - [File Naming and Organization](#file-naming-and-organization)
 - [Orca to Wiki Redirection](#orca-to-wiki-redirection)
+    - [Option Mode and Variables Metadata](#option-mode-and-variables-metadata)
 - [Formatting and Style](#formatting-and-style)
     - [Markdown Formatting](#markdown-formatting)
     - [Alerts and Callouts](#alerts-and-callouts)
@@ -155,6 +156,45 @@ There are 3 main ways to set up these links:
     line.append_option(optgroup->get_option("overhang_1_4_speed"));
     optgroup->append_line(line);
     ```
+
+### Option Mode and Variables Metadata
+
+Most option sections start with one or two metadata lines directly under the heading, for example:
+
+```markdown
+## Infill/Wall Overlap
+
+The top solid infill area is slightly enlarged to overlap with walls...
+```
+
+- The `[Mode](option_mode)` line records the option's visibility level (`Simple`, `Advanced`, `Expert`, or `Developer`).
+- The `[Variable](built_in_placeholders_variables)` line (or `[Variables]` when there is more than one) records the config key(s) that the section documents.
+
+> [!IMPORTANT]
+> Do **not** write or edit these lines by hand. They are generated and normalized by the [`sync-tab-options-to-wiki.ps1`](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/sync-tab-options-to-wiki.ps1) script at the repository root. Any manual edits will be overwritten the next time the script runs.
+
+The script reads the option-to-page mappings from [Tab.cpp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/slic3r/GUI/Tab.cpp) and the option mode from [PrintConfig.cpp](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/libslic3r/PrintConfig.cpp), then inserts or refreshes the metadata under the matching heading in each page. It also prunes metadata from sections that are no longer referenced from `Tab.cpp`.
+
+When you add or rename an option's documentation, **write only the heading and the descriptive body** — the section must exist and its anchor must match the `Tab.cpp` link (see above). Then run the script to populate the metadata:
+
+```powershell
+# Preview changes without writing files
+pwsh ./sync-tab-options-to-wiki.ps1 -DryRun
+
+# Apply the metadata to the Markdown pages
+pwsh ./sync-tab-options-to-wiki.ps1
+```
+
+By default the script downloads `Tab.cpp` and `PrintConfig.cpp` from the OrcaSlicer `main` branch. To run it against a local checkout, pass the paths explicitly:
+
+```powershell
+pwsh ./sync-tab-options-to-wiki.ps1 `
+    -TabCppPath "path/to/OrcaSlicer/src/slic3r/GUI/Tab.cpp" `
+    -PrintConfigCppPath "path/to/OrcaSlicer/src/libslic3r/PrintConfig.cpp"
+```
+
+> [!NOTE]
+> If the script reports `Missing heading anchors`, the `Tab.cpp` link points to a section that does not yet exist in the target page. Create that heading (matching the anchor) so the redirect resolves and the metadata can be inserted.
 
 ## Formatting and Style
 

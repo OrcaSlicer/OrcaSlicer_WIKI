@@ -1,0 +1,231 @@
+# Localization and translation guide
+
+The purpose of this guide is to describe how to contribute to the OrcaSlicer translations. We use GNUgettext for extracting string resources from the project and PoEdit for editing translations.
+
+Those can be downloaded here:
+
+- [GNUgettext](https://www.gnu.org/software/gettext/) package contains a set of tools to extract strings from the source code and to create the translation Catalog.
+- [PoEdit](https://poedit.net) provides good interface for the translators.
+
+After GNUgettext is installed, it is recommended to add the path to gettext/bin to PATH variable.
+
+Full manual for GNUgettext can be seen here: [http://www.gnu.org/software/gettext/manual/gettext.html](http://www.gnu.org/software/gettext/manual/gettext.html)
+
+## Scenarios for translators
+
+### Scenario 1. How do I add a translation or fix an existing translation
+
+1. Get PO-file 'OrcaSlicer_xx.pot' from corresponding sub-folder here:
+   [https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n](https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n)
+2. Open this file in PoEdit as "Edit a translation"
+3. Apply your corrections to the translation
+4. Push changed OrcaSlicer_xx.po into the original folder
+
+### Scenario 2. How do I add a new language support
+
+1. Get file OrcaSlicer.pot here :
+   [https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n](https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n)
+2. Open it in PoEdit for "Create new translation"
+3. Select Translation Language (for example French).
+4. As a result you will have fr.po - the file containing translation to French.
+Notice. When the translation is complete you need to:
+    - Rename the file to OrcaSlicer_fr.po
+    - OrcaSlicer_fr.po needs to be copied into the sub-folder fr of [https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n](https://github.com/OrcaSlicer/OrcaSlicer/tree/master/localization/i18n), and be pushed
+( name of folder "fr" means "French" - the translation language).
+
+### Scenario 3. How do I add a new text resource when implementing a feature to OrcaSlicer
+
+Each string resource in OrcaSlicer available for translation needs to be explicitly marked using L() macro like this:
+
+```C++
+auto msg = L("This message to be localized")
+```
+
+To get translated text use one of needed macro/function (`_(s)` or `_CHB(s)` ).
+If you add new file resource, add it to the list of files containing macro `L()`
+
+#### Adding a context to disambiguate translations
+
+Some English words are identical but need different translations depending on where they are used. Without extra information, gettext merges them into a single entry, so a translator only sees one string and cannot tell the cases apart. Typical examples:
+
+- `"Right"` as an **alignment** (left/right) vs. `"Right"` as in **correct**.
+- `"in"` meaning **inside** vs. `"in"` as the abbreviation for **inches**.
+
+To split these into separate translatable entries, attach a **context** to the string. The context is not shown to the user; it is only visible to the translator and is used to keep the entries distinct. Each context-aware macro takes the string and its context as **two arguments** — write the context **once**:
+
+| Without context | With context |
+| --- | --- |
+| `L("Right")` | `L_CONTEXT("Right", "Alignment")` |
+| `_L("Right")` | `_L_CONTEXT("Right", "Alignment")` |
+| `_u8L("Right")` | `_u8L_CONTEXT("Right", "Alignment")` |
+
+The distinction mirrors the plain macros: `L_CONTEXT` **only marks** the string for extraction (use it where the translation happens elsewhere, e.g. a value stored now and translated later), while `_L_CONTEXT` / `_u8L_CONTEXT` **mark and translate at runtime** — the direct equivalents of `_L` / `_u8L`.
+
+For the `"in"` example you would mark each occurrence with the context that matches its meaning, for instance:
+
+```C++
+_u8L_CONTEXT("in", "inside")    // "in" meaning inside
+_u8L_CONTEXT("in", "inches")    // "in" as the unit inches
+```
+
+In PoEdit each entry then appears with its context, so `Right [Alignment]` and `Right [Correct]` (or `in [inside]` and `in [inches]`) can be translated independently.
+
+> [!NOTE]
+> Only add a context when a string is genuinely ambiguous. Every distinct context creates a new entry that has to be translated separately for every language, so reuse the same context spelling wherever the same meaning appears.
+
+### Scenario 4. How do I use GNUgettext to localize my own application taking OrcaSlicer as an example
+
+1. For convenience create a list of files with this macro `L(s)`. We have [localization/i18n/list.txt](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/localization/i18n/list.txt).
+
+2. Create template file(*.POT) with GNUgettext command:
+
+    ```pwsh
+    xgettext --keyword=L --add-comments=TRN --from-code=UTF-8 --debug -o OrcaSlicer.pot -f list.txt
+    ```
+
+    Use flag `--from-code=UTF-8` to specify that the source strings are in UTF-8 encoding
+    Use flag `--debug` to correctly extract formatted strings(used %d, %s etc.)
+
+3. Create PO- and MO-files for your project as described above.
+
+4. To merge old PO-file with strings from created new POT-file use command:
+
+    ```pwsh
+    msgmerge -N -o new.po old.po new.pot
+    ```
+
+    Use option `-N` to not using fuzzy matching when an exact match is not found.
+
+5. To concatenate old PO-file with strings from new PO-file use command:
+
+    ```pwsh
+    msgcat -o new.po old.po
+    ```
+
+6. Create an English translation catalog with command:
+
+   ```pwsh
+   msgen -o new.po old.po
+   ```
+
+> [!NOTE]
+> In this Catalog it will be totally same strings for initial text and translated.
+
+When you have Catalog to translation open POT or PO file in PoEdit and start translating.
+
+## Translation principles
+
+The rules further below are mechanical (placeholders, spacing, units). This section is about *how to
+decide what a string should say*. These principles are language-agnostic; they were contributed from
+the Russian translation team's internal guidelines.
+
+### Localize, don't translate word-for-word
+
+A localizer works on the *meaning* of a string, not on its words. Before translating, know what the
+string actually controls: which feature it belongs to, where it appears in the UI, and what it does.
+A term looked up in a dictionary without that context is usually wrong.
+
+### Keep boilerplate messages consistent
+
+Recurring message shapes should read the same way every time, so users recognize them without
+re-reading. For example:
+
+- `Failed to connect to <...>` / `Connection to <...> failed` → one template in your language
+- `Are you sure you want to <...>?`
+- `If expressed as a %, it will be computed over the <...>`
+
+The English source is often phrased inconsistently for the same idea. Find those cases and unify them
+into one pattern in your language.
+
+### English terms are sometimes overloaded — translate the meaning
+
+The English UI frequently uses one word for several distinct concepts, or drops a qualifier that your
+language needs. Translate what the string *means*, not the word it uses.
+
+The clearest example is *flow*, which English collapses into one word but most languages must split
+into three (see the [glossary](localization_glossary)):
+
+| English | What it actually is |
+| --- | --- |
+| Flow ratio | An extrusion multiplier (a coefficient) |
+| Flow Rate | Material throughput (mm/s or mm³/s) |
+| Flow Dynamics | Nozzle pressure compensation (the Pressure Advance factor) |
+
+*Extruder* is overloaded the same way — depending on the string it can mean the whole toolhead, the
+feeder motor, or just the nozzle:
+
+- `High extruder current on filament swap` → the **feeder motor's** current, not "the extruder"
+- `...all extruders must have the same diameter` → **nozzles** have diameters, not extruders
+- `...filament retracted inside the hotend before changing hotends` → a **hotend/tool** change
+
+### Expand descriptions where they help
+
+Tooltips and parameter descriptions may be *expanded* beyond the English so that a reader does not
+have to go research the topic in a language they may not speak. Treat the original description as the
+basis to build on, not as a spec to reproduce.
+
+Good sources for the extra context: the [OrcaSlicer wiki](https://github.com/OrcaSlicer/OrcaSlicer/wiki),
+developer answers in GitHub Issues/Discussions, the Discord history, and comments in the source code.
+
+> [!IMPORTANT]
+> If you conclude the **original English is wrong**, do not silently "fix" it in your translation
+> only. Confirm the finding with other people, report it to the developers so the source string gets
+> corrected, and only then adjust the localization.
+
+### Simplify the phrasing ("semantic optimization")
+
+UI text in open-source projects is usually written by developers, so it tends to be phrased
+algorithmically rather than for a first-time reader. You can usually cut the scaffolding without
+losing meaning:
+
+> This option determines whether OrcaSlicer should apply the retract reduction on infill.
+
+A literal translation keeps the whole clumsy construction. But the string is already shown as the
+tooltip *of that setting*, so restating the connection is redundant:
+
+> Apply the retract reduction on infill.
+
+And since the user does not need to know that "retract reduction" is a separate post-processing step,
+rephrasing by intent makes it clear on first read:
+
+> Disable retractions while printing infill.
+
+Introduce remaining nuances gradually, in following sentences, rather than packing every condition
+into one sentence.
+
+### Find the balance
+
+These principles conflict in practice: available UI width, required precision, and grammatical
+agreement with values the slicer substitutes through variables all pull in different directions.
+Balance them and take the smallest compromise available. The goal is that a new user can find their
+way around the software without having to ask in chats or dig through articles.
+
+### Remember the audience
+
+OrcaSlicer is used by professionals *and* by people with a printer at home. Keep the professional
+terminology the glossary establishes, but use it as plainly as the string allows — accuracy and
+first-read clarity both matter.
+
+## General guidelines for OrcaSlicer translators
+
+- We recommend using _PoEdit_ application for translation (as described above). It will help you eliminate most punctuation errors and will show you strings with "random" translations (if the fuzzy parameter was used).
+
+- To check how the translated text looks on the UI elements, test it :) If you use _PoEdit_, all you need to do is save the file. At this point, a MO file will be created. Rename it OrcaSlicer.mo, and you can run OrcaSlicer (see above).
+
+- If you see an encoding error (garbage characters instead of Unicode) somewhere in OrcaSlicer, report it. It is likely not a problem of your translation, but a bug in the software.
+
+- See on which UI elements the translated phrase will be used. Especially if it's a button, it is very important to decide on the translation and not write alternative translations in parentheses, as this will significantly increase the width of the button, which is sometimes highly undesirable:
+
+- If you decide to use autocorrect or any batch processing tool, the output requires very careful proofreading. It is very easy to make it do changes that break things big time.
+
+- **Any formatting parts of the phrases must remain unchanged.** For example, you should not change `%1%` to `%1 %`, you should not change `%%` to `%` (for percent sign) and similar. This will lead to application crashes.
+
+- Please pay attention to spaces, line breaks (\n) and punctuation marks. **Don't add extra line breaks.** This is especially important for parameter names.
+
+- Description of the parameters should not contain units of measurement. For example, "Enable fan if layer print time is less than ~~n seconds~~"
+
+- For units of measurement, use the international system of units. Use "s" instead of "sec".
+
+- If the phrase doesn't have a dot at the end, don't add it. And if it does, then don't forget to :).
+
+- It is useful to stick to the same terminology in the application (especially with basic terms such as "filament" and similar). Stay consistent. Otherwise it will confuse users. See the [Translation glossary](localization_glossary) for the established translation (or English term to keep) of common OrcaSlicer terms across languages.

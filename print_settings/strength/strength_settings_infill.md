@@ -21,6 +21,8 @@ Infill is the internal structure of a 3D print, providing strength and support. 
     - [Interval Pattern](#interval-pattern)
     - [Explicit Layer List](#explicit-layer-list)
 - [Sparse Infill Pattern](#sparse-infill-pattern)
+- [Top-Bottom Direction](#top-bottom-direction)
+- [Separated Infills](#separated-infills)
 - [Credits](#credits)
 
 ## Sparse infill density
@@ -105,6 +107,9 @@ These settings control the orientation of the sparse infill lines to optimize st
 Controls the direction of the infill lines to optimize or strengthen the print.
 
 ![fill-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-direction.png?raw=true)
+
+> [!TIP]
+> Enable [Align directions to model](strength_settings_advanced#align-directions-to-model) to make this direction follow the model's orientation on the build plate.
 
 ### Rotation
 
@@ -270,6 +275,57 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 [Variable](built_in_placeholders_variables): `sparse_infill_pattern`.  
 > [!TIP]
 > See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
+
+## Top-Bottom Direction
+
+[Mode](option_mode): `Simple`.  
+[Variables](built_in_placeholders_variables): `top_layer_direction`, `bottom_layer_direction`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Top/Bottom layer direction**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Fixed angle (in degrees) for the top and bottom solid infill lines.  
+![top-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/top-direction.png?raw=true)
+
+The top angle also applies to ironing lines.  
+Set to `-1` to follow the default solid infill [direction](#direction).
+
+## Separated Infills
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `separated_infills`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Separated infills**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Centers the internal infill of each part on itself, as if it were sliced on its own, instead of on the whole assembly.  
+By default the entire assembly is treated as a single whole, so a centered or rotated infill pattern is referenced to one common center and rotates around it. When enabled, each part is centered on its own full 3D bounding box — producing the same pattern you would get by slicing that part on its own.
+
+![separated-infills](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/separated-infills.png?raw=true)
+Parts are grouped by their real geometry when deciding what shares a center:
+
+- **Touching or overlapping parts** are treated as one body and share a single center.
+- **Separate parts** with disjoint projections — including distinct 3D objects — each get their own center.
+- **Disconnected islands within a single mesh** are centered separately.
+- **Interleaved parts that never touch** (chains) each get an independent center.
+
+Useful when an assembly groups several objects that should each keep a consistent, self-centered infill.
+
+> [!NOTE]
+> The main disadvantage is that, for complex and large slices, centering each part independently can increase slicing time.
+
+Affects centered and [rotation-template](#rotation) patterns as well as most line and grid [patterns](strength_settings_patterns) — Rectilinear, Aligned Rectilinear, Zig Zag, Cross Zag, Locked Zag, Grid, Triangles, Tri-hexagon, Cubic, Quarter Cubic, Lateral Lattice, Lateral Honeycomb, Hilbert Curve, Archimedean Chords and Octagram Spiral. For rectilinear-based patterns the line grid is now phased through each part's bounding-box center instead of the global origin.  
+Patterns locked to global coordinates ([Gyroid](strength_settings_patterns#gyroid), [Honeycomb](strength_settings_patterns#honeycomb), TPMS, ...) are unaffected.
+
+- **Separated Infills Off:** the assembly is treated as a single whole, so the infill of every object is referenced to one common center.
+
+![separated_infills_off](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/separated_infills_off.png?raw=true)
+
+- **Separated Infills On:** each object in the assembly gets its own self-centered infill pattern.
+
+![separated_infills_on](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/separated_infills_on.png?raw=true)
 
 ## Credits
 

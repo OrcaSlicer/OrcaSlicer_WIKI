@@ -2,6 +2,7 @@
 
 - [Material Cooling for Specific Layer](#material-cooling-for-specific-layer)
     - [No cooling for the first](#no-cooling-for-the-first)
+    - [First layer fan speed](#first-layer-fan-speed)
     - [Full fan speed at layer](#full-fan-speed-at-layer)
 - [Material Part Cooling Fan](#material-part-cooling-fan)
     - [Fan speed threshold](#fan-speed-threshold)
@@ -34,6 +35,20 @@ Proper cooling is essential for achieving high-quality prints, especially when d
 [Variable](built_in_placeholders_variables): `close_fan_the_first_x_layers`.  
 Number of initial layers during which part-cooling fans are disabled.
 Disabling the fan for the first few layers improves build-plate adhesion and reduces early-layer warping.
+
+### First layer fan speed
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `initial_layer_fan_speed`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **First layer fan speed**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Sets an exact fan speed (in %) for the first layer, overriding all other cooling settings.  
+This is useful for protecting 3D-printed toolhead parts (e.g. Voron-style ABS/ASA ducts) from a hot bed: a small amount of airflow cools the ducts down without using full cooling, which may in certain conditions hurt first-layer adhesion. From the second layer onwards, normal cooling resumes.  
+If [Full fan speed at layer](#full-fan-speed-at-layer) is also set, the fan ramps smoothly from this value on the first layer up to your target by the chosen layer.  
+Only available when [No cooling for the first](#no-cooling-for-the-first) is 0. Set to `-1` to disable it.
 
 ### Full fan speed at layer
 

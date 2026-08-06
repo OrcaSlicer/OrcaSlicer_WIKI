@@ -3,7 +3,7 @@
 Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-code snippets and template expressions.
 
 - [Conventions](#conventions)
-    - [Functions](#functions)
+    - [Expressions and functions](#expressions-and-functions)
 - [Global Slicing State](#global-slicing-state)
     - [Read Only](#read-only)
     - [Read Write](#read-write)
@@ -35,13 +35,39 @@ Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-cod
 - `layer_num` is one-based (first layer is `1`). All other indices use zero-based numbering.
 - Every print/filament/printer setting is also available under its config key. Hover the label in the UI to see the key or check the Variable in the Wiki description. The tables below focus on additional runtime placeholders.
 
-### Functions
+### Expressions and functions
 
-Basic math operators (`+`, `-`, `*`, `/`) and parentheses are supported for numeric placeholders, allowing you to do simple calculations. For example, `{used_filament/1000}m` converts filament usage to meters.
+Template expressions inside `{ }` can be computed, not just substituted, using a small built-in expression language. Parentheses group sub-expressions.
 
-C++ functions can be used as long as they are not from a library to be included, such as `cmath`.
+The following operators are available:
 
-- Rounding: can be done using `int()`, for example `{int(total_weight*10) / 10.0}g`. `round()`: **cannot** be used because it is a function from the cmath library.
+- Arithmetic `+`, `-`, `*`, `/`, `%` (modulo). For example `{used_filament * 1000}` converts filament usage to milimeters.
+- Comparison `==`, `!=`, `<`, `>`, `<=`, `>=`, producing a boolean.
+- Logical `and` / `&&`, `or` / `||`, `not` / `!`.
+- Ternary `condition ? a : b`.
+- String concatenation with `+`, for example `{"v" + layer_num}`.
+- Regular-expression match `text =~ /pattern/` (true when `text` matches) and its negation `!~`, for example `{if printer_notes =~ /.*BAMBU.*/}bambu{endif}`.
+
+The following functions are available:
+
+| Function | Description |
+| --- | --- |
+| `int(x)` | Truncate toward zero. `{int(13.9)}` is `13`. |
+| `round(x)`, `floor(x)`, `ceil(x)` | Nearest, lower, or higher integer. |
+| `min(a, b)`, `max(a, b)` | Smaller or larger of two numbers. |
+| `digits(value, width [, decimals])` | Number right-justified in `width` characters, optionally with a fixed number of decimals. |
+| `zdigits(value, width [, decimals])` | Like `digits`, padded with leading zeros. `{zdigits(5, 4)}` is `0005`. |
+| `random(a, b)` | A random number between `a` and `b`. |
+| `interpolate_table(x, (x0, y0), (x1, y1), ...)` | Piecewise-linear interpolation of `x` through the given points. |
+| `one_of(value, a, b, ...)` | True when `value` matches one of the listed entries; entries may be `/regex/` patterns. |
+| `regex_replace(text, /pattern/, replacement)` | Replace every match of `/pattern/` in `text` with `replacement`, which may reference capture groups (`$1`, `$2`, ...). |
+| `size(vec)`, `empty(vec)` | Length of a vector option, and whether it is empty. |
+
+Expressions can also branch. `{if}` / `{elsif}` / `{else}` / `{endif}` chooses between values, so `{if layer_num == 1}first{else}later{endif}` selects text by layer.
+
+Intermediate values can be stored in variables. `{local name = "part"}{name}` defines one and reuses it. A `{local}` value is scoped to the current template, while a `{global}` value stays available to the other templates evaluated during the same print.
+
+Vector options are indexed with `[i]`, for example `{nozzle_temperature[0]}`.
 
 ## Global Slicing State
 
@@ -90,7 +116,7 @@ Summaries of the sliced job such as time estimates, material usage, and wipe-tow
 | `silent_print_time` | string (`hh:mm:ss`) | Estimated print duration in silent mode. |
 | `total_layer_count` | int | Number of sliced layers. |
 | `total_toolchanges` | int | Number of planned tool changes (including wipe tower changes). |
-| `used_filament` | float (mm) | Total filament length consumed by the entire job. |
+| `used_filament` | float (m) | Total filament length consumed by the entire job. |
 | `extruded_volume[]` | float per extruder (mm³) | Volume extruded by each extruder. |
 | `extruded_volume_total` | float (mm³) | Sum of `extruded_volume[]`. |
 | `extruded_weight[]` | float per extruder (g) | Material weight per extruder (via filament density). |
@@ -110,6 +136,7 @@ Metadata describing the loaded models and their instances.
 | `scale[]` | string per object | Human-readable scale applied to each object (zero-based object index). Example: `x:100% y:50% z:100%`. |
 | `input_filename_base` | string | Source filename of the first imported object without the extension. |
 | `input_filename` | string | Full filename (with extension) of the first imported object. |
+| `first_object_name` | string | Name of the first printable object on the plate. |
 
 ## Plates
 
@@ -193,7 +220,7 @@ The slicer resolves `filename_format` **before** any G-code is produced (see `Pr
 Only placeholders that are already present in the global parser at that time can be used in the exported file name:
 
 - Configuration keys from the active print/filament/printer presets, including `print_preset`, `filament_preset[]`, `printer_preset`, and every regular setting (line widths, temperatures, etc.).
-- Object metadata injected up front: `input_filename`, `input_filename_base`, `num_objects`, `num_instances`, `scale[]`, `plate_name`, `model_name`, plus the timestamp and user placeholders.
+- Object metadata injected up front: `input_filename`, `input_filename_base`, `first_object_name`, `num_objects`, `num_instances`, `scale[]`, `plate_name`, `model_name`, plus the timestamp and user placeholders.
 - Print statistics computed right after slicing such as `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `extruded_volume`, `total_cost`, `total_toolchanges`, `total_weight`, and wipe-tower totals.
 
 Placeholders that are populated later, during per-layer or per-tool G-code generation, are **not** available inside `filename_format`. This includes everything under *Global Slicing State*, *Slicing State*, *Layer-aware*, *Toolchange*, *Filament start/end*, *Timelapse*, *Extrusion role*, and *Pause/color change helpers*. Using them in templates causes filename evaluation to fail because they are unset when the template is processed.

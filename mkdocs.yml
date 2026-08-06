@@ -113,9 +113,14 @@ copyright: Copyright &copy; 2022-2026 Li Jiang. All rights reserved.
 nav:
 - Home: index.md
 - Guides:
+  - "Calibration Guide": guides/calibration_guide.md
+  - "Localization and translation guide": guides/localization_guide.md
+  - "Guide: Develop Profiles for OrcaSlicer": guides/how_to_create_profiles.md
+  - "How to Download Pull Requests Artifacts for Testing": guides/how_to_download_pr_artifacts.md
+  - "How to Contribute to the Wiki": guides/how_to_wiki.md
+  - "Translation Glossary": guides/localization_glossary.md
   - "Mixed Nozzle Sizes": guides/mixed_nozzle_sizes.md
 - Calibration:
-  - "Calibration Guide": calibration/calibration_guide.md
   - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
   - Cornering: calibration/cornering_calib.md
   - "Flow Ratio Calibration": calibration/flow_ratio_calib.md
@@ -131,6 +136,7 @@ nav:
   - "Keyboard Shortcuts": general_settings/keyboard_shortcuts.md
   - "Option Modes": general_settings/option_mode.md
   - "Transfer or Discard Changes popup dialog": general_settings/transfer_discard_changes.md
+  - "Troubleshoot Center": general_settings/troubleshoot_center.md
 - "Material Settings":
   - Cooling:
     - "Material Cooling": material_settings/cooling/material_cooling.md
@@ -235,19 +241,36 @@ nav:
     - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
     - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
 - Releases:
+  - Releases: releases/releases_index.md
+  - V2.4.2: releases/release_2_4_2.md
+  - V2.4.1: releases/release_2_4_1.md
   - V2.4.0: releases/release_2_4_0.md
   - "V2.4.0 Beta": releases/release_2_4_0_beta.md
   - "V2.4.0 Alpha": releases/release_2_4_0_alpha.md
 - "User Profiles":
   - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
+- Plugins:
+  - "Getting Started": plugins/plugins_getting_started.md
+  - "Local Plugins": plugins/plugins_local.md
+  - "Cloud Plugins": plugins/plugins_cloud.md
+  - "Plugin Types": plugins/plugins_types.md
+  - "Managing Plugins": plugins/plugins_management.md
+  - "Actions Speed Dial": plugins/plugins_speed_dial.md
 - "Developer Reference":
-  - "Localization and translation guide": developer_reference/localization_guide.md
   - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
   - "How to Build": developer_reference/how_to_build.md
-  - "Guide: Develop Profiles for OrcaSlicer": developer_reference/how_to_create_profiles.md
-  - "How to Download Pull Requests Artifacts for Testing": developer_reference/how_to_download_pr_artifacts.md
   - "How to Test": developer_reference/how_to_test.md
-  - "How to Contribute to the Wiki": developer_reference/how_to_wiki.md
   - "Application Structure Overview": developer_reference/plater_sidebar_tab_combobox.md
   - "Preset and Bundle": developer_reference/preset_and_bundle.md
   - Hierarchy: developer_reference/slicing_hierarchy.md
+  - "Plugin Development":
+    - "Plugin System Overview": developer_reference/plugin_development/plugin_system.md
+    - "Plugin Development": developer_reference/plugin_development/plugin_development.md
+    - "API Reference":
+      - Registry: developer_reference/plugin_development/api_reference/registry.md
+      - Host: developer_reference/plugin_development/api_reference/host.md
+      - "Host UI": developer_reference/plugin_development/api_reference/host_ui.md
+      - Script: developer_reference/plugin_development/api_reference/script.md
+      - "Printer Agent": developer_reference/plugin_development/api_reference/printer_agent.md
+      - "Slicing Pipeline": developer_reference/plugin_development/api_reference/slicing.md
+    - "Plugin Audit Hook": developer_reference/plugin_development/plugin_audit_hook.md

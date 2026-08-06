@@ -85,6 +85,11 @@ Specially useful in small features, like letters, where the top surface is very 
 
 ![only-one-wall](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/only-one-wall.gif?raw=true)
 
+Each option needs the shell it acts on, so they are only available when the matching [Shell Layers](strength_settings_top_bottom_shells#shell-layers) is greater than 0: without a top shell there is no top surface for the top option to act on, and the same applies to the first layer and the bottom shell.
+
+> [!TIP]
+> See [Surface Expansion and Only One Wall](strength_settings_top_bottom_shells#surface-expansion-and-only-one-wall) for how the inner walls are handled over an expanded top surface when using more than one wall.
+
 ### Threshold
 
 [Mode](option_mode): `Advanced`.  
