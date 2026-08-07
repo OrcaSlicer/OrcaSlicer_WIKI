@@ -4,6 +4,7 @@ Advanced settings related to the printer configuration.
 
 - [Printer structure](#printer-structure)
 - [G-code flavor](#g-code-flavor)
+- [Skip G-code config block](#skip-g-code-config-block)
 - [Pellet Modded Printer](#pellet-modded-printer)
 - [Use 3rd-party print host](#use-3rd-party-print-host)
 - [Scan first layer](#scan-first-layer)
@@ -26,6 +27,21 @@ The physical arrangement and components of a printing device.
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gcode_flavor`.  
 What kind of G-code the printer is compatible with.
+
+## Skip G-code config block
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `gcode_skip_config_block`.  
+> [!IMPORTANT]
+> NEW FEATURE: **Skip G-code config block**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Removes the `CONFIG_BLOCK` (the commented-out block listing every resolved slicer setting) from the exported G-code file.
+
+Some printer firmware parsers crash when reading certain lines in this block, most notably Anycubic's go-klipper choking on `; filament_colour_type = 1;1;1;1`. Enabling this option avoids those upload/parsing failures by not writing the block at all.
+
+> [!CAUTION]
+> The G-code file will no longer contain the resolved slicer settings, so it can no longer be used to recover the print configuration afterward.
 
 ## Pellet Modded Printer
 
