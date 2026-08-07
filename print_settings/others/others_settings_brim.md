@@ -105,6 +105,8 @@ This parameter indicates the minimum length of the deviation for the decimation.
 
 ## Brim ears outer only
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `brim_ears_outer_only`.  
 > [!IMPORTANT]
 > NEW FEATURE: **Limit automatic and painted brim ears to outer contours**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
