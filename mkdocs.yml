@@ -120,23 +120,27 @@ nav:
   - "How to Contribute to the Wiki": guides/how_to_wiki.md
   - "Translation Glossary": guides/localization_glossary.md
   - "Mixed Nozzle Sizes": guides/mixed_nozzle_sizes.md
-- Calibration:
-  - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
-  - Cornering: calibration/cornering_calib.md
-  - "Flow Ratio Calibration": calibration/flow_ratio_calib.md
-  - "Input Shaping": calibration/input_shaping_calib.md
-  - "Pressure Advance": calibration/pressure_advance_calib.md
-  - "Retraction test": calibration/retraction_calib.md
-  - "Temp Calibration": calibration/temp_calib.md
-  - "Filament Tolerance Calibration": calibration/tolerance_calib.md
-  - VFA: calibration/vfa_calib.md
-  - "Max Volumetric Speed (FlowRate) Calibration": calibration/volumetric_speed_calib.md
-- "General Settings":
-  - "Import and Export": general_settings/import_export.md
-  - "Keyboard Shortcuts": general_settings/keyboard_shortcuts.md
-  - "Option Modes": general_settings/option_mode.md
-  - "Transfer or Discard Changes popup dialog": general_settings/transfer_discard_changes.md
-  - "Troubleshoot Center": general_settings/troubleshoot_center.md
+- "Printer Settings":
+  - "Basic Information":
+    - "Printer Accessory": "printer_settings/basic information/printer_basic_information_accessory.md"
+    - "Adaptive Bed Mesh": "printer_settings/basic information/printer_basic_information_adaptive_bed_mesh.md"
+    - "Advanced Printer Settings": "printer_settings/basic information/printer_basic_information_advanced.md"
+    - "Cooling Fan": "printer_settings/basic information/printer_basic_information_cooling_fan.md"
+    - "Extruder Clearance": "printer_settings/basic information/printer_basic_information_extruder_clearance.md"
+    - "Printable Space": "printer_settings/basic information/printer_basic_information_printable_space.md"
+  - Extruder:
+    - "Basic Extruder Information": printer_settings/extruder/printer_extruder_basic_information.md
+    - Retraction: printer_settings/extruder/printer_extruder_retraction.md
+    - "Z Hop": printer_settings/extruder/printer_extruder_z_hop.md
+  - "Machine G-Code":
+    - "Machine G-code": "printer_settings/machine gcode/printer_machine_gcode.md"
+  - "Motion Ability":
+    - "Motion Ability": "printer_settings/motion ability/printer_motion_ability.md"
+  - Multimaterial:
+    - "Single Extruder Multi-Material Parameters": printer_settings/multimaterial/printer_multimaterial_semm_parameters.md
+    - "Multimaterial setup": printer_settings/multimaterial/printer_multimaterial_setup.md
+    - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
+    - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
 - "Material Settings":
   - Cooling:
     - "Material Cooling": material_settings/cooling/material_cooling.md
@@ -153,23 +157,6 @@ nav:
     - "Advanced Material Settings": material_settings/advanced/material_advanced.md
   - Dependencies:
     - "Material Dependencies": material_settings/dependencies/material_dependencies.md
-- "Print Prepare":
-  - "Prepare Toolbar": print_prepare/prepare_basic.md
-  - "Assembly Tools": print_prepare/prepare_assembly_tools.md
-  - "Auto Arrange": print_prepare/prepare_auto_arrange.md
-  - "Auto Orientation": print_prepare/prepare_auto_orient.md
-  - "Brim ears Painting": print_prepare/prepare_brim_ears_painting.md
-  - "Color Painting": print_prepare/prepare_color_painting.md
-  - "Cutting Tool": print_prepare/prepare_cutting_tool.md
-  - Emboss: print_prepare/prepare_emboss.md
-  - "Mesh Boolean": print_prepare/prepare_mesh_boolean.md
-  - "Object Manipulation": print_prepare/prepare_object_manipulation.md
-  - "Object Set": print_prepare/prepare_object_set.md
-  - "Paint on Fuzzy Skin": print_prepare/prepare_paint_on_fuzzy_skin.md
-  - "Seam Painting": print_prepare/prepare_seam_painting.md
-  - "STL Transformation": print_prepare/prepare_stl_transformation.md
-  - "Support Painting": print_prepare/prepare_support_painting.md
-  - "Variable Layer Height": print_prepare/prepare_variable_layer_height.md
 - "Print Settings":
   - Multimaterial:
     - "Filament for Features": print_settings/multimaterial/multimaterial_settings_filament_for_features.md
@@ -219,34 +206,40 @@ nav:
     - "Post-Processing Scripts": print_settings/others/others_settings_post_processing_scripts.md
     - Skirt: print_settings/others/others_settings_skirt.md
     - "Special Mode": print_settings/others/others_settings_special_mode.md
-- "Printer Settings":
-  - "Basic Information":
-    - "Printer Accessory": "printer_settings/basic information/printer_basic_information_accessory.md"
-    - "Adaptive Bed Mesh": "printer_settings/basic information/printer_basic_information_adaptive_bed_mesh.md"
-    - "Advanced Printer Settings": "printer_settings/basic information/printer_basic_information_advanced.md"
-    - "Cooling Fan": "printer_settings/basic information/printer_basic_information_cooling_fan.md"
-    - "Extruder Clearance": "printer_settings/basic information/printer_basic_information_extruder_clearance.md"
-    - "Printable Space": "printer_settings/basic information/printer_basic_information_printable_space.md"
-  - Extruder:
-    - "Basic Extruder Information": printer_settings/extruder/printer_extruder_basic_information.md
-    - Retraction: printer_settings/extruder/printer_extruder_retraction.md
-    - "Z Hop": printer_settings/extruder/printer_extruder_z_hop.md
-  - "Machine G-Code":
-    - "Machine G-code": "printer_settings/machine gcode/printer_machine_gcode.md"
-  - "Motion Ability":
-    - "Motion Ability": "printer_settings/motion ability/printer_motion_ability.md"
-  - Multimaterial:
-    - "Single Extruder Multi-Material Parameters": printer_settings/multimaterial/printer_multimaterial_semm_parameters.md
-    - "Multimaterial setup": printer_settings/multimaterial/printer_multimaterial_setup.md
-    - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
-    - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
-- Releases:
-  - Releases: releases/releases_index.md
-  - V2.4.2: releases/release_2_4_2.md
-  - V2.4.1: releases/release_2_4_1.md
-  - V2.4.0: releases/release_2_4_0.md
-  - "V2.4.0 Beta": releases/release_2_4_0_beta.md
-  - "V2.4.0 Alpha": releases/release_2_4_0_alpha.md
+- "Print Prepare":
+  - "Prepare Toolbar": print_prepare/prepare_basic.md
+  - "Assembly Tools": print_prepare/prepare_assembly_tools.md
+  - "Auto Arrange": print_prepare/prepare_auto_arrange.md
+  - "Auto Orientation": print_prepare/prepare_auto_orient.md
+  - "Brim ears Painting": print_prepare/prepare_brim_ears_painting.md
+  - "Color Painting": print_prepare/prepare_color_painting.md
+  - "Cutting Tool": print_prepare/prepare_cutting_tool.md
+  - Emboss: print_prepare/prepare_emboss.md
+  - "Mesh Boolean": print_prepare/prepare_mesh_boolean.md
+  - "Object Manipulation": print_prepare/prepare_object_manipulation.md
+  - "Object Set": print_prepare/prepare_object_set.md
+  - "Paint on Fuzzy Skin": print_prepare/prepare_paint_on_fuzzy_skin.md
+  - "Seam Painting": print_prepare/prepare_seam_painting.md
+  - "STL Transformation": print_prepare/prepare_stl_transformation.md
+  - "Support Painting": print_prepare/prepare_support_painting.md
+  - "Variable Layer Height": print_prepare/prepare_variable_layer_height.md
+- Calibration:
+  - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
+  - Cornering: calibration/cornering_calib.md
+  - "Flow Ratio Calibration": calibration/flow_ratio_calib.md
+  - "Input Shaping": calibration/input_shaping_calib.md
+  - "Pressure Advance": calibration/pressure_advance_calib.md
+  - "Retraction test": calibration/retraction_calib.md
+  - "Temp Calibration": calibration/temp_calib.md
+  - "Filament Tolerance Calibration": calibration/tolerance_calib.md
+  - VFA: calibration/vfa_calib.md
+  - "Max Volumetric Speed (FlowRate) Calibration": calibration/volumetric_speed_calib.md
+- "General Settings":
+  - "Import and Export": general_settings/import_export.md
+  - "Keyboard Shortcuts": general_settings/keyboard_shortcuts.md
+  - "Option Modes": general_settings/option_mode.md
+  - "Transfer or Discard Changes popup dialog": general_settings/transfer_discard_changes.md
+  - "Troubleshoot Center": general_settings/troubleshoot_center.md
 - "User Profiles":
   - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
 - Plugins:
@@ -256,6 +249,13 @@ nav:
   - "Plugin Types": plugins/plugins_types.md
   - "Managing Plugins": plugins/plugins_management.md
   - "Actions Speed Dial": plugins/plugins_speed_dial.md
+- Releases:
+  - Releases: releases/releases_index.md
+  - V2.4.2: releases/release_2_4_2.md
+  - V2.4.1: releases/release_2_4_1.md
+  - V2.4.0: releases/release_2_4_0.md
+  - "V2.4.0 Beta": releases/release_2_4_0_beta.md
+  - "V2.4.0 Alpha": releases/release_2_4_0_alpha.md
 - "Developer Reference":
   - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
   - "How to Build": developer_reference/how_to_build.md
