@@ -593,6 +593,22 @@ Fills the area with progressively smaller versions of the outer contour, creatin
 Hilbert Curve is a space-filling curve that can be used to create a continuous infill pattern. It is known for its aesthetic appeal and ability to fill space efficiently.
 Print speed is very low due to the complexity of the path, which can lead to longer print times. It is not recommended for structural parts but can be used for aesthetic purposes.
 
+### Sparse Infill Smooth Factor
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `sparse_infill_smooth_factor`.  
+> [!IMPORTANT]
+> NEW FEATURE: **Sparse infill smooth factor**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Rounds the corners of the Hilbert Curve infill path using quintic Bézier curves instead of the original right-angle turns.  
+`0%` keeps the original right-angle path, while `100%` produces the largest possible curves between adjacent infill lines. Currently only applies to the Hilbert Curve pattern.
+
+> [!NOTE]
+> Unlike a simple rounded corner (an arc with constant curvature), a quintic Bézier curve eases into and out of the turn gradually, starting and ending straight. This lets the nozzle change direction smoothly instead of snapping into a curve, which is what actually cuts down on vibration and ringing, compared to a plain round-over.
+
+Smoothing the corners reduces plastic shrinkage at each turn and helps keep the nozzle from scratching the infill during travel moves made with little or no Z-hop.
+
 - **Strength**
     - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
     - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
