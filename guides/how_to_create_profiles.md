@@ -22,7 +22,7 @@ In this case:
 - Vendor profile: `Orca 3D`
 - Printer profile: `Orca 3D Fuse1`
 - Printer variant profile: `Orca 3D Fuse1 0.4 nozzle`
-- Filament profile: `Generic PLA @Orca 3D Fuse1@`
+- Filament profile: `Generic PLA @Orca 3D Fuse1`
 - Process profile: `0.20mm Standard @Orca 3D Fuse1 0.4`
 
 The profile name should be same as the filename without the `.json` extension in principal.
