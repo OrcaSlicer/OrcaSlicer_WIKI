@@ -21,6 +21,9 @@ Infill is the internal structure of a 3D print, providing strength and support. 
     - [Interval Pattern](#interval-pattern)
     - [Explicit Layer List](#explicit-layer-list)
 - [Sparse Infill Pattern](#sparse-infill-pattern)
+- [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor)
+    - [Supported patterns](#supported-patterns)
+    - [Corners left sharp](#corners-left-sharp)
 - [Top-Bottom Direction](#top-bottom-direction)
 - [Separated Infills](#separated-infills)
 - [Credits](#credits)
@@ -275,6 +278,64 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 [Variable](built_in_placeholders_variables): `sparse_infill_pattern`.  
 > [!TIP]
 > See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
+
+## Sparse Infill Smooth Factor
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `sparse_infill_smooth_factor`.  
+> [!IMPORTANT]
+> NEW FEATURE: **Sparse infill smooth factor**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Rounds the corners of the sparse infill path, replacing each sharp direction change with a quintic Bézier curve that joins the two straight legs meeting at it.  
+`0%` keeps the original sharp path, while `100%` produces the largest possible curves between adjacent infill lines. A curve never consumes more than half of the shorter leg on each side of a corner, so the curves of two neighboring corners meet at most at the midpoint of the segment they share and never overlap.
+
+> [!NOTE]
+> Unlike a simple rounded corner (an arc with constant curvature), a quintic Bézier curve eases into and out of the turn gradually, starting and ending straight. This lets the nozzle change direction smoothly instead of snapping into a curve, which is what actually cuts down on vibration and ringing, compared to a plain round-over.
+
+Smoothing the corners reduces plastic shrinkage at each turn and helps keep the nozzle from scratching the infill during travel moves made with little or no Z-hop. It also lets the toolhead keep more of its speed through the turns instead of decelerating into every corner.
+
+Example with the [Octagram Spiral](strength_settings_patterns#octagram-spiral) pattern:
+
+- **0%:** the original sharp path.
+
+![infill-smooth-factor-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-smooth-factor-0.png?raw=true)
+
+- **50%:** each curve reaches a quarter of the shorter leg on both sides of the corner.
+
+![infill-smooth-factor-50](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-smooth-factor-50.png?raw=true)
+
+- **100%:** the curves of two neighboring corners meet at the midpoint of the segment they share, leaving no straight section between them.
+
+![infill-smooth-factor-100](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-smooth-factor-100.png?raw=true)
+
+### Supported patterns
+
+The setting only affects **sparse infill**, and only the [patterns](strength_settings_patterns) that implement it. It is hidden in the GUI when the selected pattern is not one of them.
+
+- [Hilbert Curve](strength_settings_patterns#hilbert-curve)
+- [Octagram Spiral](strength_settings_patterns#octagram-spiral)
+- [Lightning](strength_settings_patterns#lightning)
+- [Honeycomb](strength_settings_patterns#honeycomb)
+- [3D Honeycomb](strength_settings_patterns#3d-honeycomb)
+- [Concentric](strength_settings_patterns#concentric)
+- [Cross Hatch](strength_settings_patterns#cross-hatch)
+- With [Fill Multiline](#fill-multiline) set to more than one line only:
+    - [Grid](strength_settings_patterns#grid)
+    - [Triangles](strength_settings_patterns#triangles)
+    - [Tri-hexagon](strength_settings_patterns#tri-hexagon)
+
+> [!NOTE]
+> [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles) and [Tri-hexagon](strength_settings_patterns#tri-hexagon) are only rounded in their trapezoidal, [Non-Crossing](#non-crossing-strategy) form, which needs more than one line per infill wall. With a single line they are plain crossing lines with no corner to round.
+
+### Corners left sharp
+
+Not every vertex of a supported pattern can be rounded, so some parts of the path stay as they are:
+
+- **Hairpins.** A turn that doubles back on itself (a direction change sharper than about 154 degrees) would collapse into a degenerate loop instead of a curve, so it is left sharp. This is what keeps the tips of the [Lightning](strength_settings_patterns#lightning) branches pointed.
+- **Straight layers.** Layers where a pattern degenerates into straight lines have no corner to round — the flat layers of [3D Honeycomb](strength_settings_patterns#3d-honeycomb), the repeat layers of [Cross Hatch](strength_settings_patterns#cross-hatch) and the straight base lines of the [Triangles](strength_settings_patterns#triangles) family.
+- **[Concentric](strength_settings_patterns#concentric) corners that would leave the fill region.** Its loops are offsets of the region rather than a path clipped to it, and rounding always cuts toward the inside of the turn. Around a hole, at a concave feature or across a thin region that cut falls outside the fill and would put the extrusion over a wall, so those corners keep their original shape. The reach is also capped at half the distance between two loops, since a loop is as long as the object rather than as long as one cell of a pattern.
+- **[Lightning](strength_settings_patterns#lightning) turns are capped as well.** Cutting a corner moves the whole branch, so the reach is limited to half the distance between two branches — or, with [Fill Multiline](#fill-multiline), to half the printed branch width, which keeps the outlines drawn around merging branches from breaking up into separate loops.
 
 ## Top-Bottom Direction
 
