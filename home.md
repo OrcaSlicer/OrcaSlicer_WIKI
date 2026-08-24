@@ -252,6 +252,9 @@ See the [all releases](releases_index) overview, or jump straight to a version:
 <img alt="im_code" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/im_code.svg?raw=true" height="22"> This is a documentation from someone exploring the code and is by no means complete or even completely accurate. Please edit the parts you might find inaccurate. This is probably going to be helpful nonetheless.
 
 - [How to build OrcaSlicer](how_to_build)
+    - [Windows](how_to_build_windows)
+    - [macOS](how_to_build_macos)
+    - [Linux](how_to_build_linux)
 - [How to run tests](how_to_test)
 - [Preset, PresetBundle and PresetCollection](preset_and_bundle)
 - [Plater, Sidebar, Tab, ComboBox](plater_sidebar_tab_combobox)

@@ -258,7 +258,11 @@ nav:
   - "V2.4.0 Alpha": releases/release_2_4_0_alpha.md
 - "Developer Reference":
   - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
-  - "How to Build": developer_reference/how_to_build.md
+  - "How to Build":
+    - "Build Overview": developer_reference/how_to_build/how_to_build.md
+    - "Build on Windows": developer_reference/how_to_build/how_to_build_windows.md
+    - "Build on macOS": developer_reference/how_to_build/how_to_build_macos.md
+    - "Build on Linux": developer_reference/how_to_build/how_to_build_linux.md
   - "How to Test": developer_reference/how_to_test.md
   - "Application Structure Overview": developer_reference/plater_sidebar_tab_combobox.md
   - "Preset and Bundle": developer_reference/preset_and_bundle.md
