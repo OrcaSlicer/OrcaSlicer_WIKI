@@ -59,6 +59,10 @@ Building OrcaSlicer for 64-bit Windows. MSVC is the default toolchain, and clang
 >
 > OrcaSlicer needs CMake 3.13 or newer, and 3.21 or newer for the clang-cl presets below. CMake 4.x is fine.
 
+![windows_variables_path](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/windows_variables_path.png?raw=true)
+
+![windows_variables_order](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/windows_variables_order.png?raw=true)
+
 > [!TIP]
 > [GitHub Desktop](https://desktop.github.com/) is optional and gives you a GUI for repository and branch management:
 >
@@ -114,6 +118,8 @@ Those install into `deps\build-dbg\` and are required for a Debug build under ei
     ```pwsh
     build_release_vs.bat slicer
     ```
+
+    ![vs_cmd](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/vs_cmd.png?raw=true)
 
 2. Open the generated solution:
 
