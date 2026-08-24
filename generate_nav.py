@@ -308,45 +308,16 @@ def scan_folder(folder: Path, base_path: Path, existing_order: Optional[dict] = 
     except PermissionError:
         return nav_items
 
-    if folder.name == 'plugin_development' and folder.parent.name == 'developer_reference':
-        ordered_items = keep_existing_places(
-            sorted(
-                [item for item in items
-                 if (item.is_file() and item.suffix == '.md')
-                 or (item.is_dir()
-                     and not item.name.startswith('.')
-                     and item.name.lower() not in EXCLUDED_FOLDERS)],
-                key=get_sort_key
-            ),
-            base_path, existing_order
-        )
-
-        for item in ordered_items:
-            if item.is_file():
-                title = get_file_title(item)
-                rel_path = item.relative_to(base_path)
-                nav_items.append((title, str(rel_path).replace('\\', '/')))
-            else:
-                sub_items = scan_folder(item, base_path, existing_order)
-                if sub_items:
-                    folder_title = get_display_name(item.name)
-                    nav_items.append((folder_title, sub_items))
-
-        return nav_items
-
-    # Separate and sort files and folders
-    md_files = keep_existing_places(
+    # Sort pages and subfolders as one list so a section can hold a slot
+    # between loose pages; keep_existing_places then restores whatever order
+    # mkdocs.yml already records.
+    entries = keep_existing_places(
         sorted(
-            [f for f in items if f.is_file() and f.suffix == '.md'],
-            key=get_sort_key
-        ),
-        base_path, existing_order
-    )
-    subfolders = keep_existing_places(
-        sorted(
-            [d for d in items if d.is_dir()
-             and not d.name.startswith('.')
-             and d.name.lower() not in EXCLUDED_FOLDERS],
+            [item for item in items
+             if (item.is_file() and item.suffix == '.md')
+             or (item.is_dir()
+                 and not item.name.startswith('.')
+                 and item.name.lower() not in EXCLUDED_FOLDERS)],
             key=get_sort_key
         ),
         base_path, existing_order
@@ -355,24 +326,24 @@ def scan_folder(folder: Path, base_path: Path, existing_order: Optional[dict] = 
     # A folder-level index.md becomes the section's index page (Material's
     # navigation.indexes feature): emit it as a bare, first entry with no title
     # (represented as (None, path)) so the section header itself links to it.
-    index_file = next((f for f in md_files if f.stem == 'index'), None)
+    index_file = next(
+        (f for f in entries if f.is_file() and f.stem == 'index'), None
+    )
     if index_file:
-        md_files = [f for f in md_files if f is not index_file]
+        entries = [f for f in entries if f is not index_file]
         rel_path = str(index_file.relative_to(base_path)).replace('\\', '/')
         nav_items.append((None, rel_path))
 
-    # Process markdown files
-    for md_file in md_files:
-        title = get_file_title(md_file)
-        rel_path = md_file.relative_to(base_path)
-        nav_items.append((title, str(rel_path).replace('\\', '/')))
-
-    # Process subfolders recursively
-    for subfolder in subfolders:
-        sub_items = scan_folder(subfolder, base_path, existing_order)
-        if sub_items:
-            folder_title = get_display_name(subfolder.name)
-            nav_items.append((folder_title, sub_items))
+    for item in entries:
+        if item.is_file():
+            title = get_file_title(item)
+            rel_path = item.relative_to(base_path)
+            nav_items.append((title, str(rel_path).replace('\\', '/')))
+        else:
+            sub_items = scan_folder(item, base_path, existing_order)
+            if sub_items:
+                folder_title = get_display_name(item.name)
+                nav_items.append((folder_title, sub_items))
 
     return nav_items
 
