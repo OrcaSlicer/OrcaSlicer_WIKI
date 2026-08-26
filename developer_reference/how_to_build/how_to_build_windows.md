@@ -275,9 +275,6 @@ Only RelWithDebInfo is compiled with `/Zi`, so switch to it when you need to deb
 > [119/760  15% :: 00:07 / 07:23] Building CXX object src\libslic3r\CMakeFiles\libslic3r.dir\RelWithDebInfo\Fill\FillBase.cpp.obj
 > ```
 
-> [!NOTE]
-> `CMakeUserPresets.json` holds personal settings and is not covered by the repository's `.gitignore`, so it shows up as untracked. Leave it out of commits.
-
 ### Visual Studio
 
 1. Open the repository as a CMake project: **File > Open > Folder**. Do not open `build\OrcaSlicer.slnx`, which is the MSVC solution.
