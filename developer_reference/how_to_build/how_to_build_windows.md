@@ -162,7 +162,7 @@ OrcaSlicer also builds with the **clang-cl (LLVM)** toolchain and the **Ninja** 
 On top of the *Desktop development with C++* workload:
 
 - The **C++ Clang Compiler for Windows** individual component (`Microsoft.VisualStudio.Component.VC.Llvm.Clang`). Add it from **Visual Studio Installer** -> **Modify** -> **Individual components**, searching for *Clang*. It installs `clang-cl.exe` and `lld-link.exe` under `VC\Tools\Llvm\x64\bin`.
-- **Ninja**, for the command-line build only. Visual Studio and VS Code each ship their own copy.
+- **Ninja**. Visual Studio ships its own copy; VS Code and the command line both need this one.
 
     ```pwsh
     winget install --id=Ninja-build.Ninja -e
@@ -189,7 +189,8 @@ Visual Studio, VS Code and the command line all read the same CMake preset file.
       "toolset": { "value": "host=x64", "strategy": "external" },
       "environment": {
         "CC": "clang-cl",
-        "CXX": "clang-cl"
+        "CXX": "clang-cl",
+        "NINJA_STATUS": "[%s/%t %p :: %e] "
       },
       "cacheVariables": {
         "CMAKE_CONFIGURATION_TYPES": "Release;RelWithDebInfo;MinSizeRel",
@@ -213,7 +214,8 @@ Visual Studio, VS Code and the command line all read the same CMake preset file.
       "toolset": { "value": "host=x64", "strategy": "external" },
       "environment": {
         "CC": "clang-cl",
-        "CXX": "clang-cl"
+        "CXX": "clang-cl",
+        "NINJA_STATUS": "[%s/%t %p :: %e] "
       },
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
@@ -265,6 +267,13 @@ Only RelWithDebInfo is compiled with `/Zi`, so switch to it when you need to deb
 
 > [!TIP]
 > `BUILD_TESTS` is `ON` so the test suites build alongside the application, and the test presets can run them. Set it to `OFF` for slightly faster builds if you do not need them. See [How to Test](how_to_test).
+
+> [!TIP]
+> On Ninja 1.12 or newer, changing `NINJA_STATUS` to `"[%f/%t %p :: %w / %W] "` adds elapsed time and an ETA to each line:
+>
+> ```text
+> [119/760  15% :: 00:07 / 07:23] Building CXX object src\libslic3r\CMakeFiles\libslic3r.dir\RelWithDebInfo\Fill\FillBase.cpp.obj
+> ```
 
 > [!NOTE]
 > `CMakeUserPresets.json` holds personal settings and is not covered by the repository's `.gitignore`, so it shows up as untracked. Leave it out of commits.
