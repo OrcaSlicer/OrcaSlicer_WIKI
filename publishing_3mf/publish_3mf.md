@@ -14,6 +14,10 @@
     - [Process tab](#process-tab)
     - [Filament tab](#filament-tab)
     - [Mixed filament slots](#mixed-filament-slots)
+- [Publishable settings](#publishable-settings)
+    - [Printer settings](#printer-settings)
+    - [Filament settings](#filament-settings)
+    - [Process settings](#process-settings)
 - [Opening a published 3MF](#opening-a-published-3mf)
 - [Compatibility notes](#compatibility-notes)
 
@@ -82,6 +86,77 @@ For each slot you can additionally choose:
 ### Mixed filament slots
 
 Projects using mixed (multi-material blended) filament slots publish those slots as a whole when their category is enabled. The blend definition — which slots are mixed, the mixing ratios and any gradient information — is included automatically so the mix survives on the other side.
+
+## Publishable settings
+
+The publish dialog offers a fixed scope of settings. Printer and filament values come from a built-in allowlist, while process values can be selected freely from every print setting except a handful of structural keys that are never published.
+
+### Printer settings
+
+Printer settings are offered per extruder — one inner tab per extruder, mirroring the printer tab's **Retraction** and **Z-hop** sections.
+
+- Retraction
+    - Retraction Length
+    - Extra length on restart
+    - Retraction speed
+    - Deretraction speed
+    - Travel distance threshold
+    - Retract on layer change
+    - Wipe while retracting
+    - Wipe distance
+    - Retract amount before wipe
+    - Retract amount after wipe
+- Z-hop
+    - On surfaces
+    - Z-hop type
+    - Z-hop height
+    - Traveling angle
+    - Only lift Z above
+    - Only lift Z below
+
+Toolchange retraction (**Retraction Length (Toolchange)** and **Extra length on restart (Toolchange)**) is excluded: it belongs to the machine profile rather than a publishable behavior tweak.
+
+### Filament settings
+
+Filament values come from the filament tab's *Setting Overrides* page, grouped into two selectable categories:
+
+- Retraction
+    - Retraction Length
+    - Z-hop height
+    - Z-hop type
+    - Only lift Z above
+    - Only lift Z below
+    - On surfaces
+    - Retraction speed
+    - Deretraction speed
+    - Extra length on restart
+    - Travel distance threshold
+    - Retract on layer change
+    - Wipe while retracting
+    - Wipe distance
+    - Retract amount before wipe
+    - Retract amount after wipe
+    - Long retraction when cut (beta)
+    - Retraction distance when cut
+- Retraction when switching material
+    - Retraction Length (Toolchange)
+    - Extra length on restart (Toolchange)
+
+The *Ironing* overrides group is not publishable.
+
+Material identity keys — colour, material type, vendor and diameter — are always embedded regardless of your selection so a published file remains valid on the receiving side. See [Mixed filament slots](#mixed-filament-slots) for how blended slots travel with the file.
+
+### Process settings
+
+Every process setting that differs from the base preset may be selected — layer height, speeds, walls, infill and so on. The only process-side exclusions are structural keys that describe preset identity and machine hardware rather than print behavior:
+
+| Excluded keys | What they govern |
+| --- | --- |
+| `printer_settings_id`, `filament_settings_id`, `print_settings_id`, `sla_print_settings_id`, `sla_material_settings_id`, `physical_printer_settings_id` | Which preset each value belongs to; publishing them would rewrite the recipient's preset inheritance |
+| `inherits`, `inherits_group` | Preset inheritance chain |
+| `compatible_printers`, `compatible_prints`, `compatible_printers_condition`, `compatible_prints_condition`, `default_filament_profile`, `default_print_profile`, `default_sla_print_profile`, `default_sla_material_profile` | Preset compatibility and default-profile selection |
+| `printer_technology`, `printer_model`, `printer_variant`, `bed_shape`, `extruder_count`, `filament_ids` | Machine definition and hardware layout |
+| `different_settings_to_system` | Dirty-state marker used by the UI |
 
 ## Opening a published 3MF
 
