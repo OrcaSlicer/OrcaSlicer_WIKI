@@ -6,14 +6,16 @@
 
 **Publish 3MF** lets you export a project as a 3MF file with selected print, filament and printer settings embedded. Whoever opens the published file gets your configuration alongside the geometry, so a shared model slices exactly the way you intended.
 
+Unlike a 3MF that's generated from saving a project, this published 3MF format does not modify your printer setup when imported.
+
 - [Overview](#overview)
 - [Publishing a project](#publishing-a-project)
     - [Accessing the dialog](#accessing-the-dialog)
     - [Selecting settings](#selecting-settings)
     - [Printer tab](#printer-tab)
-    - [Process tab](#process-tab)
     - [Filament tab](#filament-tab)
     - [Mixed filament slots](#mixed-filament-slots)
+    - [Process tab](#process-tab)
 - [Publishable settings](#publishable-settings)
     - [Printer settings](#printer-settings)
     - [Filament settings](#filament-settings)
@@ -23,7 +25,7 @@
 
 ## Overview
 
-A regular 3MF export saves geometry plus a snapshot of the currently selected presets. A published 3MF goes further: you choose exactly which settings travel with the file — nothing more, nothing less. Typical uses:
+A regular project save embeds a snapshot of the full project configuration and the presets in use. A published 3MF goes further in the other direction: it is deliberately minimal — you choose exactly which settings travel with the file, nothing more, nothing less. Typical uses:
 
 - Sharing a calibrated model together with the profile it was tuned for.
 - Sending a print job to another machine without dictating settings you consider optional.
@@ -33,7 +35,7 @@ A regular 3MF export saves geometry plus a snapshot of the currently selected pr
 
 ### Accessing the dialog
 
-Open the menu **File → Publish 3MF…**, or press `Ctrl`+`Shift`+`E`. The publish dialog lists every setting that differs from the base presets of your current project.
+Open the menu **File → Publish 3MF…**, or press `Ctrl`+`Shift`+`E` (available whenever the project holds at least one object). The dialog lists every publishable setting across its three tabs — **Printer**, **Filament** and **Process**. Settings that differ from the base presets of your current project are **pre-checked and shown bold**; everything else starts unchecked but can still be selected.
 
 <!-- TODO: screenshot of the Publish 3MF dialog -->
 
@@ -41,14 +43,16 @@ Open the menu **File → Publish 3MF…**, or press `Ctrl`+`Shift`+`E`. The publ
 
 ### Selecting settings
 
-The top bar of the dialog contains:
+Each row shows the setting name with its current value and unit. The top bar of the dialog contains:
 
 - A **filter box** to narrow the list by setting name ("Type to filter...").
 - **All** and **None** buttons to check or uncheck everything at once.
 - A filter menu (right-click or the menu button) with:
     - Select All / Deselect All
-    - Select visible / Deselect visible (applies only while a text filter is active)
-    - Filter selected / Filter non-selected
+    - Select visible / Deselect visible (only available while a filter is active)
+    - Filter selected / Filter non-selected — show only the checked / unchecked rows; while one is active a chip replaces **All**/**None** in the bar, and clicking the chip clears it
+
+Publishing is always allowed: if nothing is checked the file carries only the geometry plus the identity keys that are always embedded (see [Publishable settings](#publishable-settings)).
 
 <!-- TODO: screenshot of selection controls -->
 
@@ -56,28 +60,21 @@ The top bar of the dialog contains:
 
 ### Printer tab
 
-Lists printer settings such as retraction and Z-hop options from the printer preset. Check the individual rows you want embedded in the published file.
+One inner tab per extruder (named like the printer preset's extruders, e.g. **Extruder 1** or **Left Extruder**), each listing that extruder's **Retraction** and **Z-Hop** settings with its own values. Selection is independent per extruder: a checked row publishes exactly that extruder's value.
 
 <!-- TODO: screenshot of the Printer tab -->
 
 *[Screenshot placeholder: the Printer tab]*
 
-### Process tab
-
-Lists process (print settings) entries that differ from the system preset — layer height, speeds, walls, infill and so on. Check the rows you want to publish.
-
-<!-- TODO: screenshot of the Process tab -->
-
-*[Screenshot placeholder: the Process tab]*
-
 ### Filament tab
 
-The filament section shows one entry per loaded filament slot with its material type and color. Each category can be toggled with an **Enable** checkbox.
+One inner tab per loaded filament slot, labeled with the preset name and its color chip. A slot publishes nothing until its **Enable** checkbox is ticked — until then the rest of the page stays hidden. An enabled slot offers:
 
-For each slot you can additionally choose:
+- A **Material** group with two optional requirement rows: **Color** (the filament color the slot must carry) and **Type** (the required vendor-agnostic material family, e.g. `PLA`). These don't publish setting values — they constrain what the receiving side applies (see [Opening a published 3MF](#opening-a-published-3mf)).
+- **Full Publish** — embeds the complete filament preset for that slot instead of individual keys; while it is checked the per-setting rows are disabled.
+- The selectable setting groups **Retraction** and **Retraction when switching material** (see [Filament settings](#filament-settings)).
 
-- **Full Publish** — embeds the complete filament preset for that slot instead of only selected keys.
-- A required **material type** — the receiving side will only apply matching filaments.
+Mixed-color slots are listed on a second tab row below the physical ones — see [Mixed filament slots](#mixed-filament-slots).
 
 <!-- TODO: screenshot of the Filament tab -->
 
@@ -85,7 +82,21 @@ For each slot you can additionally choose:
 
 ### Mixed filament slots
 
-Projects using mixed (multi-material blended) filament slots publish those slots as a whole when their category is enabled. The blend definition — which slots are mixed, the mixing ratios and any gradient information — is included automatically so the mix survives on the other side.
+Mixed (multi-material blended) filament slots appear in their own tab strip under the Filament tab, titled by their composition — for example `1 (60%) + 2 (40%)`, or an arrow (`1 → 2`) for gradient mixes. A mixed slot has no per-setting rows and no Full Publish toggle: enabling it publishes the slot as a whole unit. The blend definition — which slots are mixed, the sublayer ratios and any gradient description (curve, range, per-part flag) — is included automatically so the mix survives on the other side. The slot's page also shows a read-only visualization of the definition (a stacked ratio bar, a triangle marker for three-component mixes, or a material-ratio-over-model-height graph for gradients).
+
+Enabling a mixed slot automatically enables **Full Publish** on its component filament slots, so the physical materials always ship their identity. If you undo that — a component ends up neither Full Published nor carrying a **Type** requirement — pressing **OK** warns which filaments are affected; choose **Cancel** to fix the selection or **Proceed** to publish anyway. (The mix's colors are deliberately not required: the receiving side renders the blend from its own component colors.)
+
+<!-- TODO: screenshot of a mixed filament slot page -->
+
+*[Screenshot placeholder: a mixed filament slot with its ratio visualization]*
+
+### Process tab
+
+Mirrors the Process settings tab: one inner tab per settings page (Quality, Speed, Strength and so on), each keeping the same option grouping. Every process setting is offered; the ones that differ from the base preset are simply pre-checked.
+
+<!-- TODO: screenshot of the Process tab -->
+
+*[Screenshot placeholder: the Process tab]*
 
 ## Publishable settings
 
@@ -114,7 +125,7 @@ Printer settings are offered per extruder — one inner tab per extruder, mirror
     - Only lift Z above
     - Only lift Z below
 
-Toolchange retraction (**Retraction Length (Toolchange)** and **Extra length on restart (Toolchange)**) is excluded: it belongs to the machine profile rather than a publishable behavior tweak.
+Toolchange retraction (**Retraction Length (Toolchange)** and **Extra length on restart (Toolchange)**) is excluded on the printer side: it belongs to the machine profile rather than a publishable behavior tweak. On the filament side it is publishable (next section).
 
 ### Filament settings
 
@@ -144,29 +155,21 @@ Filament values come from the filament tab's *Setting Overrides* page, grouped i
 
 The *Ironing* overrides group is not publishable.
 
-Material identity keys — colour, material type, vendor and diameter — are always embedded regardless of your selection so a published file remains valid on the receiving side. See [Mixed filament slots](#mixed-filament-slots) for how blended slots travel with the file.
-
 ### Process settings
 
-Every process setting that differs from the base preset may be selected — layer height, speeds, walls, infill and so on. The only process-side exclusions are structural keys that describe preset identity and machine hardware rather than print behavior:
-
-| Excluded keys | What they govern |
-| --- | --- |
-| `printer_settings_id`, `filament_settings_id`, `print_settings_id`, `sla_print_settings_id`, `sla_material_settings_id`, `physical_printer_settings_id` | Which preset each value belongs to; publishing them would rewrite the recipient's preset inheritance |
-| `inherits`, `inherits_group` | Preset inheritance chain |
-| `compatible_printers`, `compatible_prints`, `compatible_printers_condition`, `compatible_prints_condition`, `default_filament_profile`, `default_print_profile`, `default_sla_print_profile`, `default_sla_material_profile` | Preset compatibility and default-profile selection |
-| `printer_technology`, `printer_model`, `printer_variant`, `bed_shape`, `extruder_count`, `filament_ids` | Machine definition and hardware layout |
-| `different_settings_to_system` | Dirty-state marker used by the UI |
+Every process setting may be selected — layer height, speeds, walls, infill and so on. The only process-side exclusions are structural keys that describe preset identity and machine hardware rather than print behavior (e.g. which preset each value belongs to, preset inheritance, preset compatibility, machine definition).
 
 ## Opening a published 3MF
 
 When a published 3MF is opened in OrcaSlicer:
 
-- Selected print and printer settings are applied to the recipient's current presets.
+- Selected print and printer settings are applied to your current presets.
 - Selected filament values are applied slot by slot, matching the author's slot order.
 - Settings marked **Full Publish** become standalone filament presets embedded inside the opened project. They live only within that project — the recipient's own preset library is never modified, nor are existing presets overwritten or auto-selected.
-- Required material types are checked before applying; a mismatched slot is replaced by a same-type filament from the recipient's library where possible.
+- A slot with a checked **Type** requirement keeps your filament only on a material-type match; on a mismatch the slot is replaced with the best same-type candidate from your own library where one exists. A checked **Color** requirement is applied regardless of the type match.
+- Published mixed slots are placed on the matching virtual slot; when the author's slot position holds a physical filament in your project, the mix is moved onto a free virtual slot instead.
+- Anything that could not be applied — for example a setting whose value does not match your machine setup — is skipped and listed in a notification after the file loads.
 
 ## Compatibility notes
 
-Older versions of OrcaSlicer that do not support publishing simply ignore the embedded settings and open the file's geometry only. The model always opens; no error is shown.
+A published 3MF is written as a minimal project file without the usual embedded presets, project configuration or slicer version tags. An older OrcaSlicer that does not support publishing therefore does not show a wrong-version prompt — it simply falls back to importing the file's geometry with its own settings. The model always opens; no error is shown.
