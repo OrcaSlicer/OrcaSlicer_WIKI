@@ -60,8 +60,8 @@ distinguishes them:
 
 **One plugin, many capabilities.** A plugin is a *package* that registers one or more
 **capabilities**. Each capability is a single typed unit of functionality: a script you can
-run, a G-code post-processor, a printer agent, with its own display name. A plugin's *types*
-are derived from the capabilities it registers (they are descriptive tags, not a single fixed
+run, a G-code post-processor, a printer agent, or a final-toolpath visualizer, with its own
+display name. A plugin's *types* are derived from the capabilities it registers (they are descriptive tags, not a single fixed
 role), so one plugin can, for example, offer both a script capability and a post-processing
 capability at once.
 
@@ -75,7 +75,7 @@ A single-file (`.py`) plugin has three parts:
 1. A **PEP 723 inline metadata block** (a special comment header) declaring identity and
    dependencies.
 2. One or more **capability classes**, each subclassing a typed base exposed by the embedded
-`orca` module (a script, slicing-pipeline, or printer-agent capability) and
+`orca` module (for example script, slicing-pipeline, printer-agent, or visualization) and
    implementing `get_name()` plus its entry method.
 3. A **package class** decorated with `@orca.plugin` (subclassing `orca.base`) whose
    `register_capabilities()` method calls `orca.register_capability(...)` once per capability.
@@ -123,9 +123,9 @@ fields live at the TOML root. Parsing is implemented in
 
 The detailed API reference is split into [Registry](registry),
 [Host](host), [Host UI](host_ui),
-[Script](script), [Slicing Pipeline](slicing), and
-[Printer Agent](printer_agent). The summary below covers the main symbols
-used when writing a plugin.
+[Script](script), [Slicing Pipeline](slicing),
+[Printer Agent](printer_agent), and [Visualization](visualization). The summary below covers the
+main symbols used when writing a plugin.
 
 The interpreter exposes a single embedded module named **`orca`**
 (`PYBIND11_EMBEDDED_MODULE(orca, ...)` in `PythonPluginBridge.cpp`). It provides the capability
@@ -146,6 +146,7 @@ for read-only access to the live slicer model graph, presets, and mesh geometry 
 | `orca.slicing` | submodule | [Slicing Pipeline](slicing): `Step`, `SlicingPipelineContext`, `SlicingPipelineCapabilityBase` |
 | `orca.script` | submodule | `ScriptPluginCapabilityBase` |
 | `orca.printer_agent` | submodule | `PrinterAgentBase` and its data types |
+| `orca.visualization` | submodule | [Visualization](visualization): typed final-FFF session callbacks and [ORPM v1](orpm_v1) descriptor |
 | `orca.host` | submodule | read-only host access: live `Model` graph, presets/bundle, and zero-copy mesh geometry |
 
 `ExecutionResult` is how a plugin reports the outcome of a run:
@@ -530,14 +531,15 @@ Each typed base defines the method(s) OrcaSlicer will call and the type returned
 nothing).
 
 The API Reference keeps the per-module details in separate pages:
-[Script](script), [Slicing Pipeline](slicing), and
-[Printer Agent](printer_agent).
+[Script](script), [Slicing Pipeline](slicing),
+[Printer Agent](printer_agent), and [Visualization](visualization).
 
 | Base class | `get_type()` returns | Required methods | Invoked by |
 |---|---|---|---|
 | `orca.script.ScriptPluginCapabilityBase` | `Script` | `get_name()`, `execute(self) -> ExecutionResult` | the **Plugins dialog -> Run** action |
 | `orca.slicing.SlicingPipelineCapabilityBase` | `SlicingPipeline` | `get_name()`, `execute(self, ctx) -> ExecutionResult` | configured slicing steps and **G-code export / post-processing** |
 | `orca.printer_agent.PrinterAgentBase` | `PrinterConnection` | `get_name()` + ~30 agent methods (`get_agent_info`, `connect_printer`, ...) | the **network / printer-agent** layer on load |
+| `orca.visualization.VisualizationPluginCapabilityBase` | `Visualization` | `get_name()`, `open(ctx)`, `update(ctx)`; optional `close()` | Preview **Visualize**, completed final FFF scene changes, and teardown |
 
 > [!NOTE]
 > `get_name()` is required; `get_type()` usually is not. Every capability must implement
@@ -553,7 +555,9 @@ The API Reference keeps the per-module details in separate pages:
 > slow `execute()` **freezes the UI**. Keep it quick; offload heavy work to your own
 > `threading.Thread` (which must not touch the model) and surface results through a
 > `create_window` panel. `SlicingPipelineCapabilityBase` / `PrinterAgentBase` instead run on
-> background (slicing / network) threads.
+> background (slicing / network) threads. Visualization snapshot work runs on a host worker and
+> its audited Python callbacks are serialized, but plugin code must not depend on a fixed callback
+> thread. See [Visualization threading and callbacks](visualization#threading-and-callbacks).
 
 The slicing context (`orca.slicing.SlicingPipelineContext`) is passed to `execute` and exposes
 the live slicing graph during geometry steps. At `Step.psGCodePostProcess`, the graph fields are
@@ -758,7 +762,8 @@ A practical loop:
 2. **Reload** - reopen the Plugins dialog / re-trigger discovery, or restart OrcaSlicer if
    in doubt (instances are captured at load time).
 3. **Run** - for a script plugin use the Plugins dialog **Run** action; for a
-   slicing-pipeline plugin run a slice/export so the pipeline invokes it.
+   slicing-pipeline plugin run a slice/export so the pipeline invokes it; for a visualization
+   plugin complete an FFF slice and use Preview **Visualize**.
 4. **Watch the log** - keep `data_dir()/log/python_*.log` open (e.g. `tail -f`). Tracebacks,
    `print()` output, and audit blocks all land there.
 5. **Iterate.** Use `ExecutionResult` messages for expected outcomes; rely on the log for
@@ -770,7 +775,9 @@ Tips:
   capability you registered** appears (with the expected type) in its expandable capability
   list. A capability that is never passed to `orca.register_capability` will not appear.
 - Develop against small, fast inputs; for slicing-pipeline plugins keep a tiny test model so
-  each export cycle is quick.
+  each export cycle is quick. For visualization plugins, begin with the
+  [minimal dummy visualizer](visualization#minimal-dummy-visualizer), then verify that updates,
+  disable/unload, and shutdown release every accepted [ORPM v1](orpm_v1) snapshot.
 - Remember the audit allow-list: write only under `data_dir()` (or, for slicing-pipeline plugins at
   `psGCodePostProcess`, the
   current G-code folder). A surprise `PermissionError` is almost always this.
@@ -1055,14 +1062,21 @@ Verification is primarily manual, with targeted Catch2 tests where the logic is 
 - **Execution** - script plugins: use the dialog **Run** action. Slicing-pipeline plugins:
   run a slice/export and confirm the plugin ran (e.g. its effect on the G-code, plus log
   output). Printer-agent plugins: verify the agent registers on load and deregisters on
-  unload.
+  unload. Visualization plugins: complete an FFF slice, open the capability from Preview,
+  reslice to exercise `update()`, then disable/unload it and confirm one idempotent cleanup.
 - **Error handling** - deliberately make the plugin (a) raise an exception and (b) return
   `ExecutionResult.failure(...)`; confirm the message box text, and that the full traceback
   appears in `data_dir()/log/python_*.log`. Confirm an invalid-metadata plugin surfaces its
   error in the details area rather than crashing.
 - **Audit** - confirm a write outside the allow-list is blocked with a `PermissionError` and
   an `[AUDIT BLOCKED]` log line, and that legitimate writes (under `data_dir()`, or the
-  G-code folder for slicing-pipeline plugins at `psGCodePostProcess`) succeed.
+  G-code folder for slicing-pipeline plugins at `psGCodePostProcess`) succeed. A visualization
+  callback receives no additional writable root and must be able to read its published snapshot
+  in `Loading` mode.
+- **Visualization scope and failure** - change Preview's visible layer range before opening a
+  visualizer and confirm ORPM still contains the complete FFF extrusion scene. Return a
+  recoverable update error and confirm standard Preview and the previous successful snapshot
+  remain available.
 
 ### Automated Tests Where Appropriate
 
@@ -1077,6 +1091,10 @@ running interpreter or GUI. For example:
 - The audit allow-list logic (`PluginAuditManager::check_open`, `is_inside_allowed_root`):
   inside/outside roots, `..` traversal, read vs write under each mode.
 - Type-string round-trips (`plugin_capability_type_from_string` / `plugin_capability_type_to_string`).
+- ORPM serialization/validation: header and record layout, malformed offsets/counts, index and
+  group coverage, strings, file limits, and atomic publication.
+- Visualization lifecycle: one session per capability, unchanged-scene skipping, cancellation,
+  recoverable/fatal results, disable/unload/shutdown cleanup, and snapshot lifetime.
 
 Anything that requires the embedded interpreter, file installs, or GUI dialogs is currently
 best covered by the manual steps above.

@@ -17,6 +17,7 @@ capability base classes, the package base, result types, and capability registra
 | `orca.slicing` | submodule | [Slicing Pipeline](slicing): `Step`, `SlicingPipelineContext`, `SlicingPipelineCapabilityBase` |
 | `orca.script` | submodule | [Script](script): `ScriptPluginCapabilityBase` |
 | `orca.printer_agent` | submodule | [Printer Agent](printer_agent): `PrinterAgentBase` and its data types |
+| `orca.visualization` | submodule | [Visualization](visualization): `VisualizationContext`, `VisualizationPluginCapabilityBase` |
 | `orca.host` | submodule | [Host](host): read-only host access to the live model, presets, and mesh geometry |
 | `orca.host.ui` | submodule | [Host UI](host_ui): dialogs, progress dialogs, and interactive windows |
 
@@ -86,6 +87,13 @@ Rules enforced when a plugin loads (most in `PythonPluginBridge.cpp`):
   not unique across it.
 - A capability class you never pass to `orca.register_capability` is **invisible** to
   OrcaSlicer, even if it is defined in the file.
+
+## Capability References
+
+- [Script](script)
+- [Slicing Pipeline](slicing)
+- [Printer Agent](printer_agent)
+- [Visualization](visualization), with the [ORPM v1](orpm_v1) geometry contract
 
 ## Capability Names and Types
 
