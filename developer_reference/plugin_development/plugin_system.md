@@ -200,10 +200,11 @@ and the Plugins dialog refreshes. Adding a new type and wiring a call site is co
 - **Every touch of Python from a non-main thread acquires the GIL** through the
   `PythonGILState` RAII guard (`PyGILState_Ensure` / `Release`) - load, execute, and the
   instance destructor (`on_unload` + `Py_DECREF`) all wrap in it.
-- **Visualization capture and ORPM serialization do not call Python.** The host builds and
-  publishes the snapshot on its worker, then enters the audited capability trampoline. Calls
-  for one visualization capability are serialized; plugin code must not depend on a fixed
-  callback thread and must return quickly.
+- **Visualization snapshot production does not call Python.** Capture runs synchronously in the
+  Preview workflow; ORPM serialization and publication run on a host worker. Only after
+  publication does Orca enter the audited capability trampoline. Calls for one visualization
+  capability are serialized; plugin code must not depend on a fixed callback thread and must
+  return quickly.
 
 ## Cloud Subscriptions
 

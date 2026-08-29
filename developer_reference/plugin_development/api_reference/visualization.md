@@ -55,10 +55,11 @@ invoked for a non-FFF result or before a complete final scene exists.
 
 ## Threading and Callbacks
 
-Snapshot capture and serialization run outside Python on a host worker. OrcaSlicer invokes
-Python only after publication, holds the GIL for each capability call, and serializes calls for
-a capability. Host lifecycle can initiate cleanup from a different host thread, so do not rely
-on callback thread identity.
+Snapshot capture runs synchronously in the Preview workflow without entering Python. ORPM
+serialization and publication then run on a host worker. OrcaSlicer invokes Python only after
+publication, holds the GIL for each capability call, and serializes calls for a capability. Host
+lifecycle can initiate cleanup from a different host thread, so do not rely on callback thread
+identity.
 
 `open()`, `update()`, and `close()` must return quickly. Use them to validate the descriptor and
 signal an already managed renderer or worker; do not parse or render a large scene synchronously
