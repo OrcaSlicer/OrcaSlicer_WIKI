@@ -65,7 +65,7 @@ The other plugin development pages cover the implementation details:
                                                                        ▼
    workflow call sites:  PostProcessor (G-code post-processing) ·
                          PluginsDialog "Run" (script) · NetworkAgentFactory (printer agent) ·
-                         Preview "Visualize" (visualization session + ORPM snapshot)
+                         Preview "Visualize" (visualization session + negotiated resource)
 ```
 
 There are two broad layers:
@@ -175,7 +175,7 @@ capabilities never change existing behavior.
 | `visualization` | `open(ctx)`, `update(ctx)`, `close()` | Preview **Visualize** for a complete final FFF scene, then completed scene changes and teardown |
 
 Visualization is a long-lived typed workflow rather than a one-shot execution. OrcaSlicer keeps
-one session per capability identity and passes an immutable [ORPM v1](orpm_v1) snapshot path;
+one session per capability identity and passes a negotiated immutable input descriptor;
 missing or disabled visualizers leave standard Preview unchanged. See the
 [Visualization API](visualization) for lifecycle and error semantics.
 
@@ -201,7 +201,7 @@ and the Plugins dialog refreshes. Adding a new type and wiring a call site is co
   `PythonGILState` RAII guard (`PyGILState_Ensure` / `Release`) - load, execute, and the
   instance destructor (`on_unload` + `Py_DECREF`) all wrap in it.
 - **Visualization snapshot production does not call Python.** Capture runs synchronously in the
-  Preview workflow; ORPM serialization and publication run on a host worker. Only after
+  Preview workflow; negotiated resource serialization and publication run on a host worker. Only after
   publication does Orca enter the audited capability trampoline. Calls for one visualization
   capability are serialized; plugin code must not depend on a fixed callback thread and must
   return quickly.
@@ -322,7 +322,7 @@ sidecar (written by `PluginManager`).
 - [Plugin Audit Hook](plugin_audit_hook) - the audit hook: modes, allow-list,
   extending the policy.
 - [Visualization](visualization) - final FFF visualization sessions and typed context.
-- [ORPM v1](orpm_v1) - the immutable Preview mesh wire format.
+- [Visualization](visualization) - negotiated GLB, STL, OBJ, and Draco Preview inputs.
 
 ## Key Files
 
@@ -339,7 +339,7 @@ sidecar (written by `PluginManager`).
 | `src/slic3r/plugin/PyPluginTrampoline.hpp` | C++ to Python boundary macros (traceback logging + audit scope) |
 | `src/slic3r/plugin/pluginTypes/*` | per-type capability bases + trampolines |
 | `src/slic3r/plugin/host/PluginVisualizations.{hpp,cpp}` | visualization requests, one-session-per-capability lifecycle, cancellation, callback dispatch |
-| `src/slic3r/plugin/host/PreviewGeometrySnapshot.{hpp,cpp}` | ORPM capture, validation, serialization, and publication |
+| `src/slic3r/plugin/host/PreviewGeometrySnapshot.{hpp,cpp}` | Preview capture and negotiated-format serialization/publication |
 | `src/slic3r/GUI/ToolpathMeshBuilder.{hpp,cpp}` | authoritative final-toolpath Preview tessellation shared with mesh export |
 | `src/slic3r/plugin/PluginAuditManager.{hpp,cpp}` | the CPython audit hook and policy |
 | `src/libslic3r/Config.cpp` | `parse_capability_ref`, the `plugins` array (de)serialization |

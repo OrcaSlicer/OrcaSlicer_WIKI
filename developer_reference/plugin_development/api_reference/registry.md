@@ -93,7 +93,7 @@ Rules enforced when a plugin loads (most in `PythonPluginBridge.cpp`):
 - [Script](script)
 - [Slicing Pipeline](slicing)
 - [Printer Agent](printer_agent)
-- [Visualization](visualization), with the [ORPM v1](orpm_v1) geometry contract
+- [Visualization](visualization), with negotiated GLB, STL, OBJ, or Draco file inputs
 
 ## Capability Names and Types
 

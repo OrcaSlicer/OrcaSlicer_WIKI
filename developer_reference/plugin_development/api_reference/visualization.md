@@ -1,13 +1,13 @@
 # Visualization
 
 The `orca.visualization` module exposes `VisualizationPluginCapabilityBase` for plugins that
-consume OrcaSlicer's complete final FFF Preview scene. OrcaSlicer publishes the scene as an
-immutable [ORPM v1](orpm_v1) file and passes only its typed descriptor to Python. Standard
+consume OrcaSlicer's complete final FFF Preview scene. A capability declares acceptable inputs,
+then OrcaSlicer publishes a negotiated immutable resource and passes its typed descriptor to Python. Standard
 Preview remains available if no visualizer is installed or a visualizer fails.
 
 | Base class | `get_type()` returns | Required methods | Invoked by |
 |---|---|---|---|
-| `orca.visualization.VisualizationPluginCapabilityBase` | `Visualization` | `get_name()`, `open(self, ctx) -> ExecutionResult`, `update(self, ctx) -> ExecutionResult` | the Preview **Visualize** action and later completed FFF scenes |
+| `orca.visualization.VisualizationPluginCapabilityBase` | `Visualization` | `get_name()`, `get_supported_inputs()`, `open(self, ctx) -> ExecutionResult`, `update(self, ctx) -> ExecutionResult` | the Preview **Visualize** action and later completed FFF scenes |
 
 `close(self) -> None` is optional and defaults to doing nothing. Implement it when the
 capability owns a window, renderer, mapping, or other session resource.
@@ -20,15 +20,24 @@ capability owns a window, renderer, mapping, or other session resource.
 | Field | Type | Meaning |
 |---|---|---|
 | `orca_version` | `str` | OrcaSlicer version string inherited from `PluginContext` |
-| `scene_id` | `int` | process-scoped identity of the completed slice result |
-| `plate_index` | `int` | zero-based plate index; `-1` means no plate |
-| `geometry_path` | `str` | absolute path to the immutable, fully published snapshot |
-| `geometry_format` | `str` | `"ORPM"` in v1 |
-| `geometry_major_version` | `int` | ORPM major version, `1` in v1 |
-| `geometry_minor_version` | `int` | ORPM minor version, `0` in v1 |
+| `revision` | `int` | monotonically increasing identity of the source content |
+| `input` | `VisualizationInput` | negotiated immutable resource descriptor |
+| `metadata` | `dict[str, str]` | optional producer strings; currently includes `plate_index` |
 
-Treat the context and snapshot as read-only. Detailed scene data belongs in ORPM; there is no
-schema-less metadata field and Python does not receive Preview vertex or index arrays.
+`input` exposes read-only `kind`, `format`, `transport`, `location`, `major_version`, and
+`minor_version` fields. Treat the context and resource as read-only and ignore unknown metadata.
+
+## Input negotiation
+
+`get_supported_inputs()` is called once while the capability is materialized. Return one or more
+`VisualizationInputSpec` alternatives. Identifiers are case-sensitive, and version bounds are
+inclusive `(major, minor)` pairs. OrcaSlicer currently produces file-transport toolpaths as GLB,
+STL, OBJ, or Draco and selects the first declared format it can produce.
+
+GLB is the rich toolpath format: it retains normals, UVs, material slots, primitive metadata, and
+Orca scene metadata. STL, OBJ, and Draco are geometry-only alternatives. The built-in constants
+are `INPUT_TOOLPATH`, `FORMAT_GLTF_BINARY`, `FORMAT_STL`, `FORMAT_OBJ`, `FORMAT_DRACO`, and
+`TRANSPORT_FILE`.
 
 ## Session and Snapshot Lifecycle
 
@@ -49,13 +58,13 @@ update is skipped, fails, raises, or is cancelled, the previous successful snaps
 valid and the rejected snapshot is removed. Do not delete, rename, or modify a host-owned
 snapshot, and do not retain it after replacement or close.
 
-ORPM v1 always contains the **complete final FFF extrusion scene**. Preview layer-slider and
+The toolpath input contains the **complete final FFF extrusion scene**. Preview layer-slider and
 feature visibility do not truncate it, and travel moves are not included. Visualization is not
 invoked for a non-FFF result or before a complete final scene exists.
 
 ## Threading and Callbacks
 
-Snapshot capture runs synchronously in the Preview workflow without entering Python. ORPM
+Snapshot capture runs synchronously in the Preview workflow without entering Python. Resource
 serialization and publication then run on a host worker. OrcaSlicer invokes Python only after
 publication, holds the GIL for each capability call, and serializes calls for a capability. Host
 lifecycle can initiate cleanup from a different host thread, so do not rely on callback thread
@@ -98,7 +107,7 @@ and its limitations.
 
 ## Minimal Dummy Visualizer
 
-This visualizer verifies the typed descriptor and ORPM magic, records the accepted scene, and
+This visualizer negotiates GLB and verifies its typed descriptor and magic, then records the accepted revision.
 performs no rendering. It is useful for checking registration and lifecycle behavior without a
 GUI toolkit or renderer dependency.
 
@@ -106,7 +115,7 @@ GUI toolkit or renderer dependency.
 # /// script
 # [tool.orcaslicer.plugin]
 # name = "Dummy Visualizer"
-# description = "Validates visualization lifecycle and ORPM publication."
+# description = "Validates visualization lifecycle and GLB publication."
 # author = "Your Name"
 # version = "1.0.0"
 # ///
@@ -117,43 +126,51 @@ import orca
 
 class DummyVisualizer(orca.visualization.VisualizationPluginCapabilityBase):
     def __init__(self):
-        self.scene_id = None
-        self.geometry_path = None
+        self.revision = None
+        self.location = None
 
     def get_name(self):
         return "Dummy Visualizer"
 
+    def get_supported_inputs(self):
+        return [orca.visualization.VisualizationInputSpec(
+            orca.visualization.INPUT_TOOLPATH,
+            orca.visualization.FORMAT_GLTF_BINARY,
+            orca.visualization.TRANSPORT_FILE,
+            2, 0, 2, 0)]
+
     @staticmethod
     def _accept(ctx):
-        if (ctx.geometry_format, ctx.geometry_major_version) != ("ORPM", 1):
+        if (ctx.input.format, ctx.input.major_version) != (
+                orca.visualization.FORMAT_GLTF_BINARY, 2):
             return orca.ExecutionResult.failure(
                 orca.PluginResult.RecoverableError,
-                "Unsupported visualization geometry format")
-        path = Path(ctx.geometry_path)
+                "Unsupported visualization input")
+        path = Path(ctx.input.location)
         with path.open("rb") as snapshot:
-            if snapshot.read(4) != b"ORPM":
+            if snapshot.read(4) != b"glTF":
                 return orca.ExecutionResult.failure(
                     orca.PluginResult.RecoverableError,
-                    "Invalid ORPM snapshot")
+                    "Invalid GLB resource")
         return orca.ExecutionResult.success()
 
     def open(self, ctx):
         result = self._accept(ctx)
         if result.status == orca.PluginResult.Success:
-            self.scene_id = ctx.scene_id
-            self.geometry_path = ctx.geometry_path
+            self.revision = ctx.revision
+            self.location = ctx.input.location
         return result
 
     def update(self, ctx):
         result = self._accept(ctx)
         if result.status == orca.PluginResult.Success:
-            self.scene_id = ctx.scene_id
-            self.geometry_path = ctx.geometry_path
+            self.revision = ctx.revision
+            self.location = ctx.input.location
         return result
 
     def close(self):
-        self.scene_id = None
-        self.geometry_path = None
+        self.revision = None
+        self.location = None
 
 
 @orca.plugin
@@ -163,5 +180,5 @@ class DummyVisualizerPlugin(orca.base):
 ```
 
 This example intentionally does only a bounded header check in the callback. A real consumer
-must validate the complete [ORPM v1](orpm_v1) file before using any record or offset, preferably
+must validate the complete negotiated file before using any record or offset, preferably
 outside Python.

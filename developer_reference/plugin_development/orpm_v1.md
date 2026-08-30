@@ -1,8 +1,12 @@
 # ORPM v1 Preview Mesh Specification
 
-ORPM is OrcaSlicer's binary transport for an immutable, indexed final-toolpath Preview mesh.
-The `orca.visualization` [Visualization](visualization) capability receives a published ORPM
-path instead of Python objects or JSON geometry. This page is the normative v1 wire contract.
+> [!WARNING]
+> ORPM is a legacy experimental transport retained for historical reference. Current
+> `orca.visualization` capabilities negotiate GLB, STL, OBJ, or Draco inputs as documented in
+> [Visualization](visualization); OrcaSlicer no longer publishes ORPM to plugins.
+
+ORPM was OrcaSlicer's binary transport for an immutable, indexed final-toolpath Preview mesh.
+The remainder of this page records the old v1 wire contract.
 
 ORPM v1 represents the **complete final FFF extrusion scene** for one plate and completed slice
 result. It uses OrcaSlicer's authoritative Preview tessellation, including its joins and caps.

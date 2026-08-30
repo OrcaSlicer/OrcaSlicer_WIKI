@@ -146,7 +146,7 @@ for read-only access to the live slicer model graph, presets, and mesh geometry 
 | `orca.slicing` | submodule | [Slicing Pipeline](slicing): `Step`, `SlicingPipelineContext`, `SlicingPipelineCapabilityBase` |
 | `orca.script` | submodule | `ScriptPluginCapabilityBase` |
 | `orca.printer_agent` | submodule | `PrinterAgentBase` and its data types |
-| `orca.visualization` | submodule | [Visualization](visualization): typed final-FFF session callbacks and [ORPM v1](orpm_v1) descriptor |
+| `orca.visualization` | submodule | [Visualization](visualization): negotiated final-FFF inputs and session callbacks |
 | `orca.host` | submodule | read-only host access: live `Model` graph, presets/bundle, and zero-copy mesh geometry |
 
 `ExecutionResult` is how a plugin reports the outcome of a run:
@@ -539,7 +539,7 @@ The API Reference keeps the per-module details in separate pages:
 | `orca.script.ScriptPluginCapabilityBase` | `Script` | `get_name()`, `execute(self) -> ExecutionResult` | the **Plugins dialog -> Run** action |
 | `orca.slicing.SlicingPipelineCapabilityBase` | `SlicingPipeline` | `get_name()`, `execute(self, ctx) -> ExecutionResult` | configured slicing steps and **G-code export / post-processing** |
 | `orca.printer_agent.PrinterAgentBase` | `PrinterConnection` | `get_name()` + ~30 agent methods (`get_agent_info`, `connect_printer`, ...) | the **network / printer-agent** layer on load |
-| `orca.visualization.VisualizationPluginCapabilityBase` | `Visualization` | `get_name()`, `open(ctx)`, `update(ctx)`; optional `close()` | Preview **Visualize**, completed final FFF scene changes, and teardown |
+| `orca.visualization.VisualizationPluginCapabilityBase` | `Visualization` | `get_name()`, `get_supported_inputs()`, `open(ctx)`, `update(ctx)`; optional `close()` | Preview **Visualize**, completed final FFF scene changes, and teardown |
 
 > [!NOTE]
 > `get_name()` is required; `get_type()` usually is not. Every capability must implement
@@ -777,7 +777,7 @@ Tips:
 - Develop against small, fast inputs; for slicing-pipeline plugins keep a tiny test model so
   each export cycle is quick. For visualization plugins, begin with the
   [minimal dummy visualizer](visualization#minimal-dummy-visualizer), then verify that updates,
-  disable/unload, and shutdown release every accepted [ORPM v1](orpm_v1) snapshot.
+  disable/unload, and shutdown release every accepted negotiated visualization resource.
 - Remember the audit allow-list: write only under `data_dir()` (or, for slicing-pipeline plugins at
   `psGCodePostProcess`, the
   current G-code folder). A surprise `PermissionError` is almost always this.
@@ -1074,7 +1074,7 @@ Verification is primarily manual, with targeted Catch2 tests where the logic is 
   callback receives no additional writable root and must be able to read its published snapshot
   in `Loading` mode.
 - **Visualization scope and failure** - change Preview's visible layer range before opening a
-  visualizer and confirm ORPM still contains the complete FFF extrusion scene. Return a
+  visualizer and confirm the negotiated resource still contains the complete FFF extrusion scene. Return a
   recoverable update error and confirm standard Preview and the previous successful snapshot
   remain available.
 
@@ -1091,7 +1091,7 @@ running interpreter or GUI. For example:
 - The audit allow-list logic (`PluginAuditManager::check_open`, `is_inside_allowed_root`):
   inside/outside roots, `..` traversal, read vs write under each mode.
 - Type-string round-trips (`plugin_capability_type_from_string` / `plugin_capability_type_to_string`).
-- ORPM serialization/validation: header and record layout, malformed offsets/counts, index and
+- Visualization serialization/validation: supported formats, malformed offsets/counts, index and
   group coverage, strings, file limits, and atomic publication.
 - Visualization lifecycle: one session per capability, unchanged-scene skipping, cancellation,
   recoverable/fatal results, disable/unload/shutdown cleanup, and snapshot lifetime.
