@@ -31,13 +31,36 @@ capability owns a window, renderer, mapping, or other session resource.
 
 `get_supported_inputs()` is called once while the capability is materialized. Return one or more
 `VisualizationInputSpec` alternatives. Identifiers are case-sensitive, and version bounds are
-inclusive `(major, minor)` pairs. OrcaSlicer currently produces file-transport toolpaths as GLB,
-STL, OBJ, or Draco and selects the first declared format it can produce.
+inclusive `(major, minor)` pairs.
 
-GLB is the rich toolpath format: it retains normals, UVs, material slots, primitive metadata, and
-Orca scene metadata. STL, OBJ, and Draco are geometry-only alternatives. The built-in constants
-are `INPUT_TOOLPATH`, `FORMAT_GLTF_BINARY`, `FORMAT_STL`, `FORMAT_OBJ`, `FORMAT_DRACO`, and
-`TRANSPORT_FILE`.
+The current Preview producer publishes GLB files containing indexed geometry, normals, UVs,
+materials, plate outlines, and Orca metadata. A capability appears in the Preview **Visualize**
+action only when it declares the `toolpath` kind, `model/gltf-binary` format, `file` transport,
+and a version range that includes `(2, 0)`.
+
+The built-in constants are `INPUT_TOOLPATH`, `FORMAT_GLTF_BINARY`, `FORMAT_STL`, `FORMAT_OBJ`,
+`FORMAT_DRACO`, and `TRANSPORT_FILE`. The additional format identifiers are reserved for
+capabilities and future producers; the current Preview producer negotiates only GLB.
+
+## GLB Payload
+
+The GLB is standard glTF 2.0. Position accessors remain in OrcaSlicer's right-handed, Z-up printer
+space; the root node contains a -90-degree X rotation so a normal glTF renderer presents the scene
+in Y-up coordinates. Consumers reading raw accessors without applying node transforms must account
+for that rotation themselves.
+
+OrcaSlicer stores its extension data in ordinary glTF `extras` objects:
+
+| JSON path | Fields |
+|---|---|
+| `scenes[0].extras.orca` | `sceneId`, `plateIndex`, `spiralVase`, `zOffset`, `printableHeight` |
+| toolpath primitive `extras.orca` | `layerId`, `extrusionRole`, `extruderId`, `colourId` |
+| `materials[*].extras.orca` | `extruderId`, `presetId` |
+| plate-outline primitive `extras.orca` | `areaKind`: `printable`, `bed-excluded`, or `wrapping-excluded` |
+
+Toolpath primitives are indexed triangles. Plate outlines are closed line-loop primitives.
+Material names and `presetId` currently contain the captured filament preset identifier; the base
+color is OrcaSlicer's resolved Preview color. Unknown `extras` fields must be ignored.
 
 ## Session and Snapshot Lifecycle
 
@@ -107,9 +130,9 @@ and its limitations.
 
 ## Minimal Dummy Visualizer
 
-This visualizer negotiates GLB and verifies its typed descriptor and magic, then records the accepted revision.
-performs no rendering. It is useful for checking registration and lifecycle behavior without a
-GUI toolkit or renderer dependency.
+This visualizer negotiates GLB, verifies its typed descriptor and magic, and records the accepted
+revision. It performs no rendering, so it is useful for checking registration and lifecycle
+behavior without a GUI toolkit or renderer dependency.
 
 ```python
 # /// script

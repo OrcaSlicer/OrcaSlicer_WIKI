@@ -295,10 +295,11 @@ opened**, so its calls run completely unaudited. The existing call sites are
 | G-code `execute()` | `Loading` | + write under the current temp G-code folder |
 | Script `execute()` | `Loading` | read anywhere; write only under `data_dir()` |
 | Printer-agent methods | `Loading` | read anywhere; write only under `data_dir()` |
-| Visualization `open` / `update` / `close` | `Loading` | read the negotiated published resource and imports; write only under `data_dir()` |
+| Visualization `get_supported_inputs` / `open` / `update` / `close` | `Loading` | read anywhere; write only under `data_dir()` |
 
-Visualization uses `Loading` because a lifecycle callback may lazily import its resource reader or
-renderer adapter. `Enforcing` would also restrict those reads and can break ordinary imports.
+Visualization uses `Loading` because capability negotiation or a lifecycle callback may lazily
+import its resource reader or renderer adapter. `Enforcing` would also restrict those reads and
+can break ordinary imports.
 The snapshot already lives under OrcaSlicer's plugin data storage, so visualization needs no
 additional scoped or global writable root. This choice does not create a host-managed subprocess
 API or special process permission; the limitations below still apply.

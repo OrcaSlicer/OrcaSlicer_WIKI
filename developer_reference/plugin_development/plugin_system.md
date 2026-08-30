@@ -321,8 +321,7 @@ sidecar (written by `PluginManager`).
   host access, UI helpers, and each capability module.
 - [Plugin Audit Hook](plugin_audit_hook) - the audit hook: modes, allow-list,
   extending the policy.
-- [Visualization](visualization) - final FFF visualization sessions and typed context.
-- [Visualization](visualization) - negotiated GLB, STL, OBJ, and Draco Preview inputs.
+- [Visualization](visualization) - final FFF visualization sessions, typed context, and negotiated Preview inputs.
 
 ## Key Files
 
