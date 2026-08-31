@@ -50,7 +50,16 @@ The available export formats are:
 
 - **[STL](#stl):** Export the current model as an STL file.
 - **[DRC](#drc):** Export the current model as a Draco-compressed file.
+- **GLB:** Export selected or all objects as standard binary glTF, either combined in one `.glb`
+  file or split into one file per object.
 - **[Generic 3MF](#3mf):** Export the current model as a generic 3MF file without printer, material, or process information.
+
+> [!IMPORTANT]
+> NEW FEATURE: **GLB model export**
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Use **File** > **Export** for all objects, or right-click a selection for the corresponding
+**Export as one GLB** and **Export as GLBs** actions.
 
 ## Project
 

@@ -60,7 +60,7 @@ distinguishes them:
 
 **One plugin, many capabilities.** A plugin is a *package* that registers one or more
 **capabilities**. Each capability is a single typed unit of functionality: a script you can
-run, a G-code post-processor, a printer agent, or a final-toolpath visualizer, with its own
+run, a G-code post-processor, a printer agent, or a model/toolpath visualizer, with its own
 display name. A plugin's *types* are derived from the capabilities it registers (they are descriptive tags, not a single fixed
 role), so one plugin can, for example, offer both a script capability and a post-processing
 capability at once.
@@ -146,7 +146,7 @@ for read-only access to the live slicer model graph, presets, and mesh geometry 
 | `orca.slicing` | submodule | [Slicing Pipeline](slicing): `Step`, `SlicingPipelineContext`, `SlicingPipelineCapabilityBase` |
 | `orca.script` | submodule | `ScriptPluginCapabilityBase` |
 | `orca.printer_agent` | submodule | `PrinterAgentBase` and its data types |
-| `orca.visualization` | submodule | [Visualization](visualization): negotiated final-FFF inputs and session callbacks |
+| `orca.visualization` | submodule | [Visualization](visualization): negotiated model/toolpath resources and session callbacks |
 | `orca.host` | submodule | read-only host access: live `Model` graph, presets/bundle, and zero-copy mesh geometry |
 
 `ExecutionResult` is how a plugin reports the outcome of a run:
@@ -231,7 +231,7 @@ assume same-origin access to the host.
 
 #### The `orca.host` module: read-only host access
 
-`orca.host` (bound in `PluginHostApi.cpp`) gives plugins **read-only** access to the running
+`orca.host` (bound in `PluginHost.cpp`) gives plugins **read-only** access to the running
 slicer. It is intended for analysis, reporting, and export plugins; nothing here mutates the
 model. **Script plugins run on the main/UI thread**, so within one `execute()` the model cannot
 change under you; **slicing-pipeline and printer-agent plugins run on a background thread**
@@ -539,7 +539,7 @@ The API Reference keeps the per-module details in separate pages:
 | `orca.script.ScriptPluginCapabilityBase` | `Script` | `get_name()`, `execute(self) -> ExecutionResult` | the **Plugins dialog -> Run** action |
 | `orca.slicing.SlicingPipelineCapabilityBase` | `SlicingPipeline` | `get_name()`, `execute(self, ctx) -> ExecutionResult` | configured slicing steps and **G-code export / post-processing** |
 | `orca.printer_agent.PrinterAgentBase` | `PrinterConnection` | `get_name()` + ~30 agent methods (`get_agent_info`, `connect_printer`, ...) | the **network / printer-agent** layer on load |
-| `orca.visualization.VisualizationPluginCapabilityBase` | `Visualization` | `get_name()`, `get_supported_inputs()`, `open(ctx)`, `update(ctx)`; optional `close()` | Preview **Visualize**, completed final FFF scene changes, and teardown |
+| `orca.visualization.VisualizationPluginCapabilityBase` | `Visualization` | `get_name()`, `get_supported_inputs()`, `open(ctx)`, `update(ctx)`; optional `get_requested_resources()`, `close()` | its Actions Speed Dial entry, explicit resource updates, and teardown |
 
 > [!NOTE]
 > `get_name()` is required; `get_type()` usually is not. Every capability must implement
@@ -555,9 +555,9 @@ The API Reference keeps the per-module details in separate pages:
 > slow `execute()` **freezes the UI**. Keep it quick; offload heavy work to your own
 > `threading.Thread` (which must not touch the model) and surface results through a
 > `create_window` panel. `SlicingPipelineCapabilityBase` / `PrinterAgentBase` instead run on
-> background (slicing / network) threads. Visualization snapshot work runs on a host worker and
-> its audited Python callbacks are serialized, but plugin code must not depend on a fixed callback
-> thread. See [Visualization threading and callbacks](visualization#threading-and-callbacks).
+> background (slicing / network) threads. Visualization geometry is serialized on a host worker;
+> `open()` and `update()` run on the UI thread after publication, while teardown may call `close()`
+> from another host thread. See [Visualization threading and callbacks](visualization#threading-and-callbacks).
 
 The slicing context (`orca.slicing.SlicingPipelineContext`) is passed to `execute` and exposes
 the live slicing graph during geometry steps. At `Step.psGCodePostProcess`, the graph fields are
@@ -761,9 +761,9 @@ A practical loop:
 1. **Edit** the plugin source in its `orca_plugins/<plugin>/` folder.
 2. **Reload** - reopen the Plugins dialog / re-trigger discovery, or restart OrcaSlicer if
    in doubt (instances are captured at load time).
-3. **Run** - for a script plugin use the Plugins dialog **Run** action; for a
-   slicing-pipeline plugin run a slice/export so the pipeline invokes it; for a visualization
-   plugin complete an FFF slice and use Preview **Visualize**.
+3. **Run** - for a script plugin use its action; for a slicing-pipeline plugin run a
+   slice/export so the pipeline invokes it; for a visualization plugin prepare its requested
+   geometry and run the capability's entry in the Actions Speed Dial.
 4. **Watch the log** - keep `data_dir()/log/python_*.log` open (e.g. `tail -f`). Tracebacks,
    `print()` output, and audit blocks all land there.
 5. **Iterate.** Use `ExecutionResult` messages for expected outcomes; rely on the log for
@@ -793,7 +793,7 @@ call site. So adding a type means: define a base + context + result, add a tramp
 forwards into Python (with an audit mode), register pybind11 bindings, wire one call site,
 and add the files to the build.
 
-Use the existing `slicingPipeline`, `script`, and `printerAgent` types under
+Use the existing `slicingPipeline`, `script`, `printerAgent`, and `visualization` types under
 `src/slic3r/plugin/pluginTypes/` as references. `script` is the simplest,
 `slicingPipeline` shows a live graph context plus a scoped audit root, and `printerAgent` shows a
 wide multi-method interface.
@@ -943,10 +943,8 @@ bind the context/result structs, and bind the base class with its trampoline. Th
 implementation (`pluginTypes/slicingPipeline/SlicingPipelinePluginCapability.cpp`) follows this shape:
 
 ```cpp
-void SlicingPipelinePluginCapability::RegisterBindings(pybind11::module_& module, pybind11::enum_<PluginCapabilityType>& pluginTypes)
+void SlicingPipelinePluginCapability::RegisterBindings(pybind11::module_& module)
 {
-    (void) pluginTypes;
-
     auto slicing = module.def_submodule("slicing", "Slicing pipeline API");
 
     py::class_<SlicingPipelineContext>(slicing, "SlicingPipelineContext")
@@ -971,10 +969,11 @@ methods here. Then **call your `RegisterBindings` from `bind_python_api`** in
 
 ```cpp
 // Make sure you register your bindings here
-SlicingPipelinePluginCapability::RegisterBindings(m, pluginTypes);
-PrinterAgentPluginCapability::RegisterBindings(m, pluginTypes);
-ScriptPluginCapability::RegisterBindings(m, pluginTypes);
-PluginHostApi::RegisterBindings(m);
+PrinterAgentPluginCapability::RegisterBindings(m);
+ScriptPluginCapability::RegisterBindings(m);
+SlicingPipelinePluginCapability::RegisterBindings(m);
+VisualizationPluginCapability::RegisterBindings(m);
+PluginHost::RegisterBindings(m);
 // YourTypeCapability::RegisterBindings(m, pluginTypes);   // <-- add this
 ```
 
@@ -1003,6 +1002,7 @@ that matches your type and model it on an existing one:
 | `slicingPipeline` | `Print.cpp` and `PostProcessor.cpp` | resolve the preset's capability refs, cast to `SlicingPipelinePluginCapability`, build `SlicingPipelineContext`, and call `execute(ctx)` under the GIL |
 | `script` | `PluginsDialog.cpp` (Run action) | `get_plugin_capability_by_name(...)`, `dynamic_pointer_cast<ScriptPluginCapability>(cap->instance)`, call `execute()` |
 | `printerAgent` | `NetworkAgentFactory.cpp`, wired in `GUI_App.cpp` | register via `subscribe_on_capability_load_callback` / `subscribe_on_capability_unload_callback`; the callback filters by `capability.type == PluginCapabilityType::PrinterConnection`, then registers/deregisters an agent |
+| `visualization` | `ActionRegistry.cpp` and `PluginVisualizations.cpp` | register a host action for each enabled capability, negotiate and publish requested resources, then call `open(ctx)` / `update(ctx)` and close the session on teardown |
 
 For your new type, add a call site (or an on-capability-load callback) that:
 
@@ -1062,8 +1062,9 @@ Verification is primarily manual, with targeted Catch2 tests where the logic is 
 - **Execution** - script plugins: use the dialog **Run** action. Slicing-pipeline plugins:
   run a slice/export and confirm the plugin ran (e.g. its effect on the G-code, plus log
   output). Printer-agent plugins: verify the agent registers on load and deregisters on
-  unload. Visualization plugins: complete an FFF slice, open the capability from Preview,
-  reslice to exercise `update()`, then disable/unload it and confirm one idempotent cleanup.
+  unload. Visualization plugins: prepare the requested geometry, open the capability from the
+  Actions Speed Dial, call `request_update()` to exercise `update()`, then disable/unload it and
+  confirm one idempotent cleanup.
 - **Error handling** - deliberately make the plugin (a) raise an exception and (b) return
   `ExecutionResult.failure(...)`; confirm the message box text, and that the full traceback
   appears in `data_dir()/log/python_*.log`. Confirm an invalid-metadata plugin surfaces its
@@ -1073,10 +1074,11 @@ Verification is primarily manual, with targeted Catch2 tests where the logic is 
   G-code folder for slicing-pipeline plugins at `psGCodePostProcess`) succeed. A visualization
   callback receives no additional writable root and must be able to read its published snapshot
   in `Loading` mode.
-- **Visualization scope and failure** - change Preview's visible layer range before opening a
-  visualizer and confirm the negotiated resource still contains the complete FFF extrusion scene. Return a
-  recoverable update error and confirm standard Preview and the previous successful snapshot
-  remain available.
+- **Visualization scope and failure** - request current-plate and project resources and confirm
+  each descriptor has the expected `scope` and `plate_index`. Change Preview's visible layer range
+  before opening a toolpath visualizer and confirm the resource still contains the complete FFF
+  extrusion scene. Return a recoverable update error and confirm standard Preview and the previous
+  successful resources remain available.
 
 ### Automated Tests Where Appropriate
 
@@ -1093,8 +1095,8 @@ running interpreter or GUI. For example:
 - Type-string round-trips (`plugin_capability_type_from_string` / `plugin_capability_type_to_string`).
 - Visualization serialization/validation: supported formats, malformed offsets/counts, index and
   group coverage, strings, file limits, and atomic publication.
-- Visualization lifecycle: one session per capability, unchanged-scene skipping, cancellation,
-  recoverable/fatal results, disable/unload/shutdown cleanup, and snapshot lifetime.
+- Visualization lifecycle: one session per capability, scoped multi-resource requests, request
+  supersession, recoverable/fatal results, disable/unload/shutdown cleanup, and resource lifetime.
 
 Anything that requires the embedded interpreter, file installs, or GUI dialogs is currently
 best covered by the manual steps above.

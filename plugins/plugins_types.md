@@ -15,6 +15,21 @@ Script plugins are run manually from the Plugins window.
 
 ![script-plugin-run-result](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/plugins/script-plugin-run-result.png?raw=true)
 
+## Visualization
+
+> [!IMPORTANT]
+> NEW FEATURE: **Visualization plugin capabilities**
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Visualization plugins receive model or sliced-toolpath geometry for their own renderer or analysis
+view. OrcaSlicer automatically adds an action for each enabled visualization capability to the
+[Actions Speed Dial](plugins_speed_dial).
+
+Prepare the geometry requested by the plugin, then press **Space** in the Prepare tab and run its
+action. Toolpath visualizers require a completed slice; model-only visualizers do not. A plugin
+failure does not replace or close OrcaSlicer's standard Preview. Disabling or unloading the
+capability closes its active visualization session.
+
 ## Slicing Pipeline
 
 Slicing-pipeline plugins run at selected points in the slicing workflow. They can inspect or modify
@@ -41,7 +56,8 @@ configuration.
 
 ## Actions Speed Dial
 
-The [Actions Speed Dial](plugins_speed_dial) provides a quick launcher for script capabilities.
+The [Actions Speed Dial](plugins_speed_dial) provides a quick launcher for script and visualization
+capabilities.
 
 ## Printer Connection
 

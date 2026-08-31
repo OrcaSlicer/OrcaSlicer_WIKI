@@ -1,6 +1,6 @@
 # Host
 
-`orca.host` (bound in `PluginHostApi.cpp`) gives plugins **read-only** access to the running
+`orca.host` (bound in `PluginHost.cpp`) gives plugins **read-only** access to the running
 slicer. It is intended for analysis, reporting, and export plugins; nothing here mutates the
 model.
 

@@ -65,7 +65,7 @@ The other plugin development pages cover the implementation details:
                                                                        ▼
    workflow call sites:  PostProcessor (G-code post-processing) ·
                          PluginsDialog "Run" (script) · NetworkAgentFactory (printer agent) ·
-                         Preview "Visualize" (visualization session + negotiated resource)
+                         Actions Speed Dial (visualization session + negotiated resources)
 ```
 
 There are two broad layers:
@@ -172,11 +172,13 @@ capabilities never change existing behavior.
 | `slicing-pipeline` | `execute(ctx)` | `Print` at configured slicing steps, and `PostProcessor` at `psGCodePostProcess` during G-code export |
 | `script` | `execute()` | the **Plugins dialog -> Run** action |
 | `printer-connection` | agent methods | `NetworkAgentFactory`, registered through a loader on-capability-load callback wired in `GUI_App` |
-| `visualization` | `open(ctx)`, `update(ctx)`, `close()` | Preview **Visualize** for a complete final FFF scene, then completed scene changes and teardown |
+| `visualization` | `open(ctx)`, `update(ctx)`, `close()` | its Actions Speed Dial entry, explicit resource updates, and teardown |
 
-Visualization is a long-lived typed workflow rather than a one-shot execution. OrcaSlicer keeps
-one session per capability identity and passes a negotiated immutable input descriptor;
-missing or disabled visualizers leave standard Preview unchanged. See the
+Visualization is a long-lived typed workflow rather than a one-shot execution. OrcaSlicer adds an
+Actions Speed Dial entry for each enabled visualization capability, keeps one session per capability
+identity, and passes one or more negotiated immutable resource descriptors. A plugin calls
+`request_update()` when it needs fresh resources; missing or disabled visualizers leave standard
+Preview unchanged. See the
 [Visualization API](visualization) for lifecycle and error semantics.
 
 The on-load / on-unload **callbacks** (`PluginLoader::subscribe_on_load_callback` /
@@ -200,11 +202,11 @@ and the Plugins dialog refreshes. Adding a new type and wiring a call site is co
 - **Every touch of Python from a non-main thread acquires the GIL** through the
   `PythonGILState` RAII guard (`PyGILState_Ensure` / `Release`) - load, execute, and the
   instance destructor (`on_unload` + `Py_DECREF`) all wrap in it.
-- **Visualization snapshot production does not call Python.** Capture runs synchronously in the
-  Preview workflow; negotiated resource serialization and publication run on a host worker. Only after
-  publication does Orca enter the audited capability trampoline. Calls for one visualization
-  capability are serialized; plugin code must not depend on a fixed callback thread and must
-  return quickly.
+- **Visualization snapshot production does not call Python.** Capture runs synchronously on the UI
+  thread; negotiated resource serialization and publication run on a host worker. Only after
+  publication does Orca invoke `open()` or `update()` on the UI thread. Teardown may call `close()`
+  from another host thread. Calls for one visualization capability are serialized and must return
+  quickly.
 
 ## Cloud Subscriptions
 
@@ -348,4 +350,5 @@ sidecar (written by `PluginManager`).
 | `src/slic3r/GUI/Plater.cpp` | the missing-plugins resolution dialog on slice (`reslice`) |
 | `src/slic3r/GUI/GUI_App.cpp` | startup wiring (init, discovery, on-load / on-capability-load callbacks) and shutdown |
 | `src/slic3r/GUI/PluginsDialog.cpp` | the Plugins dialog (capability tree, tabs, Run, Browse plugins) |
+| `src/slic3r/GUI/ActionRegistry.cpp` | host-owned Actions Speed Dial entries for enabled script and visualization capabilities |
 | `src/slic3r/plugin/PluginConfig.{hpp,cpp}` | global capability config, preset overrides, and JSON/custom UI responses |

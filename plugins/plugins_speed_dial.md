@@ -4,8 +4,8 @@
 > NEW FEATURE: **Actions Speed Dial**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-The Actions Speed Dial is a search-first launcher for enabled **Script** plugin capabilities.
-It is available from the **Prepare** tab by pressing **Space**.
+The Actions Speed Dial is a search-first launcher for enabled **Script** and **Visualization**
+plugin capabilities. It is available from the **Prepare** tab by pressing **Space**.
 
 ## Use the speed dial
 
@@ -14,9 +14,10 @@ It is available from the **Prepare** tab by pressing **Space**.
 3. Press **Enter** or double-click an action to run it.
 4. Press **Escape** to clear the search, then press it again to close the launcher.
 
-The action list is ordered by recent and frequent use. Each action runs through the same Script
-capability path as the Plugins dialog. The first run asks for confirmation; enable **Don't ask
-again for this action** if confirmation is no longer needed.
+The action list is ordered by recent and frequent use. Script actions run through the same path as
+the Plugins dialog. Visualization actions open their capability with its requested model or sliced
+toolpath resources; they do not replace OrcaSlicer's standard Preview. The first run asks for
+confirmation; enable **Don't ask again for this action** if confirmation is no longer needed.
 
 ## Favourites
 
