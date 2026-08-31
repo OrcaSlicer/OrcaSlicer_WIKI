@@ -22,8 +22,8 @@ The other plugin development pages cover the implementation details:
   one from the cloud) and OrcaSlicer loads it.
 - **Capabilities, not single-purpose plugins** - one plugin is a *package* that registers one
   or more **capabilities**, each a typed unit of functionality (e.g. `post-processing`,
-  `script`, `printer-connection`). Each capability type has a fixed C++ entry point and is
-  invoked at a specific place in the app; a plugin's "types" are simply the set of capability
+  `script`, `printer-connection`, `visualization`). Each capability type has a fixed C++ entry
+  point and is invoked at a specific place in the app; a plugin's "types" are simply the set of capability
   types it registers.
 - **Presets remember the plugins they use** - when a preset references a plugin capability,
   the full reference is stored in the preset and can be restored from OrcaCloud on another
@@ -59,12 +59,13 @@ The other plugin development pages cover the implementation details:
    │   PythonPluginBridge → `orca` module + @orca.plugin/register_capability + capture │
    │   PyPluginTrampoline → C++↔Python call boundary (traceback logging + audit scope) │
    │   PluginAuditManager → CPython audit hook (filesystem policy)                     │
-   │   pluginTypes/* (gcode, script, printerAgent) → typed capability bases + tramps   │
+   │ pluginTypes/* (slicing, script, printerAgent, visualization) → typed bases/tramps │
    └─────────────────────────────────────────────────────────────────────────────────┘
                                                                        │ get_plugin_capability_* + dynamic_pointer_cast
                                                                        ▼
    workflow call sites:  PostProcessor (G-code post-processing) ·
-                         PluginsDialog "Run" (script) · NetworkAgentFactory (printer agent)
+                         PluginsDialog "Run" (script) · NetworkAgentFactory (printer agent) ·
+                         Actions Speed Dial (visualization session + negotiated resources)
 ```
 
 There are two broad layers:
@@ -87,7 +88,7 @@ There are two broad layers:
 | `PythonInterpreter` | **Singleton RAII wrapper around embedded CPython.** Init/finalize, GIL handoff, `sys.path`, module loading, and installing the audit hook + stderr-to-log redirect. |
 | `PythonPluginBridge` | Defines the embedded **`orca` module**, the `@orca.plugin` decorator + `orca.base` package class + `register_capability` entry, and captures/instantiates the package and the capability classes it registers. |
 | `PyPluginTrampoline` | The pybind11 override base at the **C++ to Python boundary**: logs Python tracebacks and opens the per-call audit scope. |
-| `pluginTypes/*` | Per-type C++ capability bases + trampolines (`SlicingPipelinePluginCapability`, `ScriptPluginCapability`, `PrinterAgentPluginCapability`) that define each type's entry method and dispatch. |
+| `pluginTypes/*` | Per-type C++ capability bases + trampolines (`SlicingPipelinePluginCapability`, `ScriptPluginCapability`, `PrinterAgentPluginCapability`, `VisualizationPluginCapability`) that define each type's entry method and dispatch. |
 | `PluginAuditManager` | **Singleton CPython audit hook**: filesystem policy (write allow-list), scoped roots, `Loading`/`Enforcing` modes. See the audit doc. |
 
 ## Plugin Packaging and Discovery
@@ -171,6 +172,14 @@ capabilities never change existing behavior.
 | `slicing-pipeline` | `execute(ctx)` | `Print` at configured slicing steps, and `PostProcessor` at `psGCodePostProcess` during G-code export |
 | `script` | `execute()` | the **Plugins dialog -> Run** action |
 | `printer-connection` | agent methods | `NetworkAgentFactory`, registered through a loader on-capability-load callback wired in `GUI_App` |
+| `visualization` | `open(ctx)`, `update(ctx)`, `close()` | its Actions Speed Dial entry, explicit resource updates, and teardown |
+
+Visualization is a long-lived typed workflow rather than a one-shot execution. OrcaSlicer adds an
+Actions Speed Dial entry for each enabled visualization capability, keeps one session per capability
+identity, and passes one or more negotiated immutable resource descriptors. A plugin calls
+`request_update()` when it needs fresh resources; missing or disabled visualizers leave standard
+Preview unchanged. See the
+[Visualization API](visualization) for lifecycle and error semantics.
 
 The on-load / on-unload **callbacks** (`PluginLoader::subscribe_on_load_callback` /
 `subscribe_on_unload_callback`) and the per-capability variants
@@ -193,6 +202,11 @@ and the Plugins dialog refreshes. Adding a new type and wiring a call site is co
 - **Every touch of Python from a non-main thread acquires the GIL** through the
   `PythonGILState` RAII guard (`PyGILState_Ensure` / `Release`) - load, execute, and the
   instance destructor (`on_unload` + `Py_DECREF`) all wrap in it.
+- **Visualization snapshot production does not call Python.** Capture runs synchronously on the UI
+  thread; negotiated resource serialization and publication run on a host worker. Only after
+  publication does Orca invoke `open()` or `update()` on the UI thread. Teardown may call `close()`
+  from another host thread. Calls for one visualization capability are serialized and must return
+  quickly.
 
 ## Cloud Subscriptions
 
@@ -309,6 +323,7 @@ sidecar (written by `PluginManager`).
   host access, UI helpers, and each capability module.
 - [Plugin Audit Hook](plugin_audit_hook) - the audit hook: modes, allow-list,
   extending the policy.
+- [Visualization](visualization) - final FFF visualization sessions, typed context, and negotiated Preview inputs.
 
 ## Key Files
 
@@ -324,6 +339,9 @@ sidecar (written by `PluginManager`).
 | `src/slic3r/plugin/PyPluginPackage.hpp` | the package base (`orca.base`) + `register_capabilities` |
 | `src/slic3r/plugin/PyPluginTrampoline.hpp` | C++ to Python boundary macros (traceback logging + audit scope) |
 | `src/slic3r/plugin/pluginTypes/*` | per-type capability bases + trampolines |
+| `src/slic3r/plugin/host/PluginVisualizations.{hpp,cpp}` | visualization requests, one-session-per-capability lifecycle, cancellation, callback dispatch |
+| `src/slic3r/plugin/host/PreviewGeometrySnapshot.{hpp,cpp}` | Preview capture and negotiated-format serialization/publication |
+| `src/slic3r/GUI/ToolpathMeshBuilder.{hpp,cpp}` | authoritative final-toolpath Preview tessellation shared with mesh export |
 | `src/slic3r/plugin/PluginAuditManager.{hpp,cpp}` | the CPython audit hook and policy |
 | `src/libslic3r/Config.cpp` | `parse_capability_ref`, the `plugins` array (de)serialization |
 | `src/libslic3r/PrintConfig.cpp` | the `plugins` / `post_process_plugin` option definitions |
@@ -332,4 +350,5 @@ sidecar (written by `PluginManager`).
 | `src/slic3r/GUI/Plater.cpp` | the missing-plugins resolution dialog on slice (`reslice`) |
 | `src/slic3r/GUI/GUI_App.cpp` | startup wiring (init, discovery, on-load / on-capability-load callbacks) and shutdown |
 | `src/slic3r/GUI/PluginsDialog.cpp` | the Plugins dialog (capability tree, tabs, Run, Browse plugins) |
+| `src/slic3r/GUI/ActionRegistry.cpp` | host-owned Actions Speed Dial entries for enabled script and visualization capabilities |
 | `src/slic3r/plugin/PluginConfig.{hpp,cpp}` | global capability config, preset overrides, and JSON/custom UI responses |

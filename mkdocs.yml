@@ -277,4 +277,5 @@ nav:
       - Script: developer_reference/plugin_development/api_reference/script.md
       - "Printer Agent": developer_reference/plugin_development/api_reference/printer_agent.md
       - "Slicing Pipeline": developer_reference/plugin_development/api_reference/slicing.md
+      - Visualization: developer_reference/plugin_development/api_reference/visualization.md
     - "Plugin Audit Hook": developer_reference/plugin_development/plugin_audit_hook.md

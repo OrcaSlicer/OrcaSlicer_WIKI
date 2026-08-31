@@ -295,6 +295,14 @@ opened**, so its calls run completely unaudited. The existing call sites are
 | G-code `execute()` | `Loading` | + write under the current temp G-code folder |
 | Script `execute()` | `Loading` | read anywhere; write only under `data_dir()` |
 | Printer-agent methods | `Loading` | read anywhere; write only under `data_dir()` |
+| Visualization `get_supported_inputs` / `open` / `update` / `close` | `Loading` | read anywhere; write only under `data_dir()` |
+
+Visualization uses `Loading` because capability negotiation or a lifecycle callback may lazily
+import its resource reader or renderer adapter. `Enforcing` would also restrict those reads and
+can break ordinary imports.
+The snapshot already lives under OrcaSlicer's plugin data storage, so visualization needs no
+additional scoped or global writable root. This choice does not create a host-managed subprocess
+API or special process permission; the limitations below still apply.
 
 > [!NOTE]
 > Modes are chosen at each trampoline call site, so this table reflects the current source;
@@ -304,23 +312,23 @@ opened**, so its calls run completely unaudited. The existing call sites are
 
 This version is deliberately minimal. Do **not** treat it as a hardened sandbox. Known gaps:
 
-- **Only the `open` event is enforced.** `subprocess.Popen`, `os.system`, `socket.*`,
-  `ctypes.*` and friends are *not* blocked. (The `Enforcing` enum comment describes an
-  aspiration, not current behavior.)
+- **Only `open`, `os.rename`, and `os.remove` are enforced.** `subprocess.Popen`,
+  `os.system`, `socket.*`, `ctypes.*` and friends are *not* blocked. (The `Enforcing`
+  enum comment describes an aspiration, not current behavior.)
 - **Non-string paths slip through the `open` check.** The audit callback parses only a
   string path (`"s|si"`); any `open`-event call whose first argument is bytes or an integer
   file descriptor, including `os.open`, which additionally passes `mode = None`, fails the
   parse and is allowed. Low-level and non-`str` opens are currently unaudited.
 - **`open(path, "x")`** (exclusive create, a write) contains no `w`/`a`/`+`, so it is
   classified as a read and allowed under `Loading`.
-- **Non-`open` filesystem mutations are unaudited.** `os.remove`, `os.rename`, `os.mkdir`,
-  `shutil.*` raise their own events, which we don't yet handle. A plugin can delete or
-  rename files outside `data_dir()` without tripping anything.
+- **Other filesystem mutations remain unaudited.** String-path `os.rename`/`os.replace`
+  and `os.remove`/`os.unlink` are checked at both affected paths, but `os.mkdir`,
+  `shutil.*`, descriptor-relative operations, and non-string paths are not yet covered.
 - Enforcement is **per process / per thread** via thread-locals; code that hops threads
   without re-establishing a context runs unaudited.
 
-Closing these gaps (especially the filesystem-mutation events and `os.open` flags) is the
-natural next step for anyone hardening this into a real write-sandbox.
+Closing these gaps (especially the remaining filesystem-mutation events and `os.open` flags)
+is the natural next step for anyone hardening this into a real write-sandbox.
 
 ## Debugging
 
