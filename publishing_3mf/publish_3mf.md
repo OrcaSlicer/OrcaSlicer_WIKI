@@ -33,13 +33,11 @@ Typical uses:
 
 ### Opening the dialog
 
-Open the menu **File → Publish 3MF…**, or press `Ctrl`+`Shift`+`E` (available whenever the project holds at least one object).
+Open the menu **File → Publish 3MF…**, or press `Ctrl`/`Cmd`+`Shift`+`E` (available whenever the project holds at least one object).
 
 The dialog lists every publishable setting across three tabs — **Printer**, **Filament**, and **Process**. Settings that differ from the base presets of your current project are **pre-checked and shown in bold**; everything else starts unchecked but can still be selected.
 
-<!-- TODO: screenshot of the Publish 3MF dialog -->
-
-*[Screenshot placeholder: the Publish 3MF dialog]*
+![publish_dialog](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/publish_3mf/publish_dialog.png?raw=true)
 
 ### Choosing which settings to include
 
@@ -54,17 +52,13 @@ Each row shows the setting name with its current value and unit. The top bar of 
 
 Publishing is always allowed: if nothing is checked the file carries only the geometry.
 
-<!-- TODO: screenshot of selection controls -->
-
-*[Screenshot placeholder: filter bar and selection controls]*
+<video src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/publish_3mf/publish_dialog_settings.webm?raw=true" controls width="640" height="360"></video>
 
 ### Printer tab
 
 One tab per extruder (named like your printer's extruders, e.g. **Extruder 1** or **Left Extruder**), each listing that extruder's **Retraction** and **Z-Hop** settings with its own values. Selection is independent per extruder: a checked row publishes exactly that extruder's value.
 
-<!-- TODO: screenshot of the Printer tab -->
-
-*[Screenshot placeholder: the Printer tab]*
+<video src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/publish_3mf/publish_dialog_printer_settings.webm?raw=true" controls width="640" height="360"></video>
 
 ### Filament tab
 
