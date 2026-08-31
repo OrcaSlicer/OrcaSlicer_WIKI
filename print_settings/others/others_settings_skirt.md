@@ -18,6 +18,8 @@ A skirt is one or more additional perimeters printed around the model outline on
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `skirt_loops`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--skirt-loops=1`.  
 Number of skirt loops to print.  
 Usually 2 loops are recommended but increasing loops improve priming and give a larger buffer between the nozzle and the part, at the cost of extra filament and time.  
 Set to 0 to disable the skirt.
@@ -28,6 +30,9 @@ Set to 0 to disable the skirt.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `skirt_type`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `combined, perobject`.  
+[CLI Example](cli_mode#setting-overrides): `--skirt-type=combined`.  
 
 ### Combined
 
@@ -47,6 +52,8 @@ Each object gets its own skirt printed separately.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `min_skirt_length`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--min-skirt-length=1`.  
 Minimum filament extrusion length in mm when printing the skirt. Zero means this feature is disabled.  
 Using a non-zero value is useful if the printer is set up to print without a prime line.  
 Final number of loops is not taken into account while arranging or validating objects distance. Increase loop number in such case.
@@ -55,6 +62,8 @@ Final number of loops is not taken into account while arranging or validating ob
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `skirt_distance`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--skirt-distance=1`.  
 Distance from skirt to brim or object.  
 Increasing this distance can help avoid collisions with brims or supports, but will increase the footprint of the skirt and filament usage.
 
@@ -62,6 +71,8 @@ Increasing this distance can help avoid collisions with brims or supports, but w
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `skirt_start_angle`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--skirt-start-angle=1`.  
 Start angle for the skirt relative to the object centre. 0° is the right-most position (along the +X axis), angles increase counter-clockwise.  
 Use this to control where the skirt begins to better align with part features or prime locations.
 
@@ -69,6 +80,8 @@ Use this to control where the skirt begins to better align with part features or
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `skirt_speed`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--skirt-speed=1`.  
 Printing speed for the skirt in mm/s. Set to 0 to use the default first-layer extrusion speed.  
 Slower speeds give a more reliable prime; very fast skirt speeds may not adhere properly and come off, causing problems with the part.
 
@@ -76,12 +89,17 @@ Slower speeds give a more reliable prime; very fast skirt speeds may not adhere 
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `skirt_height`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--skirt-height=1`.  
 Number of layers the skirt should be printed for. Usually 1 layer for priming. Increase the height if you want a taller draft shield effect.
 
 ## Shield
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `disabled, enabled`.  
+[CLI Example](cli_mode#setting-overrides): `--draft-shield=disabled`.  
 When enabled the skirt can be printed as a draft shield: a taller wall surrounding the part to help protect prints (especially ABS/ASA) from drafts and sudden temperature changes.  
 This is most useful for open-frame printers without an enclosure.
 
@@ -95,4 +113,6 @@ This is most useful for open-frame printers without an enclosure.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `single_loop_draft_shield`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--single-loop-draft-shield=1`.  
 When enabled, limits the draft shield to a single wall after the first layer (i.e. only one loop is printed on subsequent shield layers). This reduces filament and print time but makes the shield less robust and more prone to warping or cracking.

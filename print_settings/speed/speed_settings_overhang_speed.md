@@ -9,6 +9,8 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `enable_overhang_speed`.  
+[Type](option_type#list-types): `Boolean list`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-overhang-speed=1`.  
 Enable this option to slow printing down for different overhang degree.
 This can help improve print quality and reduce issues like stringing or sagging.
 
@@ -16,6 +18,8 @@ This can help improve print quality and reduce issues like stringing or sagging.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `slowdown_for_curled_perimeters`.  
+[Type](option_type#list-types): `Boolean list`.  
+[CLI Example](cli_mode#setting-overrides): `--slowdown-for-curled-perimeters=1`.  
 Enable this option to slow down printing in areas where perimeters may have curled upwards.  
 For example, additional slowdown will be applied when printing overhangs on sharp corners like the front of the Benchy hull, reducing curling which compounds over multiple layers.
 
@@ -40,6 +44,8 @@ Root cause of these artifacts is most likely PA tuning being slightly off, espec
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `overhang_1_4_speed`, `overhang_2_4_speed`, `overhang_3_4_speed`, `overhang_4_4_speed`.  
+[Type](option_type#list-types): `Float or Percentage list`.  
+[CLI Example](cli_mode#setting-overrides): `--overhang-1-4-speed=20%` (same pattern for the other variables above).  
 This is the speed for various overhang degrees. Overhang degrees are expressed as a percentage of [line width](quality_settings_line_width).  
 
 > [!NOTE]

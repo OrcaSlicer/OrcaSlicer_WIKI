@@ -21,6 +21,9 @@ These settings control advanced slicing and printing behaviours, such as how lay
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `slicing_mode`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `regular, even_odd, close_holes`.  
+[CLI Example](cli_mode#setting-overrides): `--slicing-mode=regular`.  
 The slicing mode determines how the model is sliced into layers and how the G-code is generated. Different modes can be used to achieve various printing effects or to optimize the print process.
 
 ### Regular
@@ -43,6 +46,9 @@ Use "Even-odd" for specific models like [3DLabPrint](https://3dlabprint.com) air
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `print_sequence`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `by layer, by object`.  
+[CLI Example](cli_mode#setting-overrides): `--print-sequence="by layer"`.  
 This setting controls how multiple objects are printed in a single print job.
 
 ### By Layer
@@ -53,6 +59,9 @@ This option prints all objects layer by layer, one layer at a time. This is effi
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `print_order`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `default, as_obj_list, best_of, snake`.  
+[CLI Example](cli_mode#setting-overrides): `--print-order=default`.  
 Determines the order in which object instances are visited within a single layer, which controls how much travel is spent moving between them.
 
 Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over parts that have already been printed, which can make [Z Hop](printer_extruder_z_hop) and [Avoid crossing walls](quality_settings_wall_and_surfaces#avoid-crossing-walls) unnecessary in many plates.
@@ -81,6 +90,8 @@ This setting requires more models separation and may not be suitable for all pri
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `spiral_mode`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--spiral-mode=1`.  
 Spiral vase mode transforms a solid model into a single-walled print with solid bottom layers, eliminating seams by continuously spiralling the outer contour.  
 This creates a smooth, vase-like appearance.
 
@@ -88,6 +99,8 @@ This creates a smooth, vase-like appearance.
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `spiral_mode_smooth`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--spiral-mode-smooth=1`.  
 When enabled, Smooth Spiral smooths out X and Y moves as well, resulting in no visible seams even on non-vertical walls.  
 This produces the smoothest possible spiral print.
 
@@ -98,6 +111,8 @@ This produces the smoothest possible spiral print.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `spiral_mode_max_xy_smoothing`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--spiral-mode-max-xy-smoothing=20%`.  
 Maximum distance to move points in XY to achieve a smooth spiral. If expressed as a percentage, it is calculated relative to the nozzle diameter.  
 Higher values allow more smoothing but may distort the model slightly.
 
@@ -105,6 +120,8 @@ Higher values allow more smoothing but may distort the model slightly.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `spiral_starting_flow_ratio`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--spiral-starting-flow-ratio=1`.  
 Sets the starting flow ratio when transitioning from the last bottom layer to the spiral.  
 Normally, the flow scales from 0% to 100% during the first loop, which can sometimes cause under-extrusion at the start.  
 Adjust this to fine-tune the transition and prevent issues.
@@ -113,6 +130,8 @@ Adjust this to fine-tune the transition and prevent issues.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `spiral_finishing_flow_ratio`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--spiral-finishing-flow-ratio=1`.  
 Sets the finishing flow ratio when ending the spiral. Normally, the flow scales from 100% to 0% during the last loop, which can lead to under-extrusion at the end.  
 Use this to control the ending and ensure consistent extrusion.
 
@@ -120,4 +139,7 @@ Use this to control the ending and ensure consistent extrusion.
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `timelapse_type`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `0, 1`.  
+[CLI Example](cli_mode#setting-overrides): `--timelapse-type=0`.  
 WIP...

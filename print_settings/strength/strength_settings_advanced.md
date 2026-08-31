@@ -13,6 +13,8 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `align_infill_direction_to_model`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--align-infill-direction-to-model=1`.  
 Aligns [infill](strength_settings_infill#direction), [bridge](#bridge-infill-direction), [ironing](quality_settings_ironing#angle-offset) and [top/bottom surface fill](strength_settings_top_bottom_shells#surface-pattern) directions to follow the model's orientation on the build plate.  
 When enabled, these directions rotate together with the model so the printed features keep their intended orientation relative to the part, preserving optimal strength and surface characteristics regardless of how the model is placed.
 
@@ -22,6 +24,8 @@ When enabled, these directions rotate together with the model so the printed fea
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `bridge_angle`, `internal_bridge_angle`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--bridge-angle=1` (same pattern for the other variables above).  
 If left to zero, the bridging angle will be calculated automatically for each specific bridge.  
 Otherwise the provided angle will be used according to:
     - The absolute coordinates
@@ -35,6 +39,8 @@ Otherwise the provided angle will be used according to:
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `relative_bridge_angle`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--relative-bridge-angle=1`.  
 When enabled, the bridge angle values are added to the automatically calculated bridge direction instead of overriding it.  
 Recommended to add a small angle (<10°) to improve bridge covering in closed shapes.
 
@@ -46,6 +52,8 @@ Recommended to add a small angle (<10°) to improve bridge covering in closed sh
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `minimum_sparse_infill_area`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--minimum-sparse-infill-area=1`.  
 Sparse infill areas smaller than the threshold value are replaced by [internal solid infill](strength_settings_infill#internal-solid-infill).
 This setting helps to ensure that small areas of sparse infill do not compromise the strength of the print. It is particularly useful for models with intricate designs or small features where sparse infill may not provide sufficient support.
 
@@ -53,6 +61,8 @@ This setting helps to ensure that small areas of sparse infill do not compromise
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `infill_combination`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--infill-combination=1`.  
 Automatically combine [sparse infill](strength_settings_infill) of several layers so they print together and reduce print time and while increasing strength. While walls are still printed with the original [layer height](quality_settings_layer_height).
 
 ![fill-combination](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-combination.png?raw=true)
@@ -61,6 +71,8 @@ Automatically combine [sparse infill](strength_settings_infill) of several layer
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `infill_combination_max_layer_height`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--infill-combination-max-layer-height=20%`.  
 Maximum layer height for the combined sparse infill.  
 Set it to 0 or 100% to use the nozzle diameter (for maximum reduction in print time), or to a value of ~80% to maximize sparse infill strength.
 
@@ -72,12 +84,17 @@ Use either absolute mm values (e.g., 0.32mm for a 0.4mm nozzle) or percentages (
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `detect_narrow_internal_solid_infill`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--detect-narrow-internal-solid-infill=1`.  
 This option auto-detects narrow internal solid infill areas. If enabled, the [concentric pattern](strength_settings_patterns#concentric) will be used in those areas to speed up printing. Otherwise, the [rectilinear pattern](strength_settings_patterns#rectilinear) will be used by default.
 
 ## Ensure vertical shell thickness
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ensure_vertical_shell_thickness`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `none, ensure_critical_only, ensure_moderate, ensure_all`.  
+[CLI Example](cli_mode#setting-overrides): `--ensure-vertical-shell-thickness=none`.  
 Add solid infill near sloping surfaces to guarantee the vertical shell thickness (top and bottom solid layers).
 
 - **None**: No solid infill will be added anywhere. **Caution:** Use this option carefully if your model has sloped surfaces.

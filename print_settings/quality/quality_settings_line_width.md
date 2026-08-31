@@ -2,6 +2,8 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `line_width`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--line-width=20%`.  
 These settings define how wide each extruded line of filament will be.  
 Line width can be configured in two ways:
 
@@ -34,6 +36,8 @@ Fallback value used when a specific line width is not set (set to `0`).
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `initial_layer_line_width`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--initial-layer-line-width=20%`.  
 A wider first layer (with a higher [first layer height](quality_settings_layer_height#first-layer-height)) improves bed adhesion and compensates for uneven build surfaces.  
 First layer line width also overrides [Brim's](others_settings_brim) and [Skirt's](others_settings_skirt) line width.
 
@@ -41,6 +45,8 @@ First layer line width also overrides [Brim's](others_settings_brim) and [Skirt'
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `outer_wall_line_width`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--outer-wall-line-width=20%`.  
 Controls dimensional accuracy and surface finish.  
 Recommended: **105%–120%** of the nozzle diameter for clean overhangs and detail.
 
@@ -48,6 +54,8 @@ Recommended: **105%–120%** of the nozzle diameter for clean overhangs and deta
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `inner_wall_line_width`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--inner-wall-line-width=20%`.  
 Can be set wider than the outer wall to enhance structural strength.  
 Typical value: **≥120%**.
 
@@ -55,6 +63,8 @@ Typical value: **≥120%**.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_line_width`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--top-surface-line-width=20%`.  
 Affects the quality of visible top layers.  
 Recommended: **100%–105%** for smooth results without over-extrusion.
 
@@ -62,6 +72,8 @@ Recommended: **100%–105%** for smooth results without over-extrusion.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `sparse_infill_line_width`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--sparse-infill-line-width=20%`.  
 Recommended to use a conservative value, typically around 115% to improve layer adhesion without getting near volumetric flow limitations.  
 If you need stronger infill, it's recommended to use [infill line multiplier](strength_settings_infill#fill-multiline) when possible.
 
@@ -69,6 +81,8 @@ If you need stronger infill, it's recommended to use [infill line multiplier](st
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `internal_solid_infill_line_width`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--internal-solid-infill-line-width=20%`.  
 Used for solid top/bottom layers or [100% infill](strength_settings_infill#sparse-infill-density).  
 Recommended: **~110%** for good layer adhesion and visual quality.
 
@@ -76,12 +90,16 @@ Recommended: **~110%** for good layer adhesion and visual quality.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_line_width`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--support-line-width=20%`.  
 Typically set to **100%** to balance material usage and functionality. Reducing it too much can lead to weak support structures that may not hold up during printing or break easily during removal leaving debris on the model.
 
 ### Bridge
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `bridge_line_width`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--bridge-line-width=20%`.  
 Bridges are printed in mid-air, so the bridge line width can't exceed the nozzle diameter.  
 To achieve proper bridge lines union between contiguous lines and reduce sagging, it's recommended to use **~100%** of the nozzle diameter and increase [Bridge density](quality_settings_bridging#bridge-density).
 

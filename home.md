@@ -14,6 +14,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [Prepare](#prepare)
 - [Calibrations](#calibrations)
 - [General Settings](#general-settings)
+- [Command Line Interface](#command-line-interface)
 - [Plugins](#plugins)
 - [Guides](#guides)
 - [Release Notes](#release-notes)
@@ -212,6 +213,15 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [Transfer or Discard Changes popup dialog](transfer_discard_changes)
 - [User Profiles](user_profiles)
 - [Troubleshoot Center](troubleshoot_center)
+
+## Command Line Interface
+
+OrcaSlicer can run headless from the command line for automation, batch processing, and CI pipelines.
+
+- [CLI Mode](cli_mode)
+- [Actions](cli_actions)
+- [Transform](cli_transform)
+- [Misc](cli_misc)
 
 ## Plugins
 

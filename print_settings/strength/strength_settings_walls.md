@@ -1,6 +1,8 @@
 # Walls
 
 [Variable](built_in_placeholders_variables): `wall_loops`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--wall-loops=1`.  
 In 3D printing, "walls" refer to the outer layers of a printed object that provide its shape and structural integrity.  
 Adjusting wall settings can significantly affect layer adhesion, strength, appearance and print time of your model.
 
@@ -26,6 +28,8 @@ Adjusting wall settings can significantly affect layer adhesion, strength, appea
 ## Wall loops
 
 [Variable](built_in_placeholders_variables): `wall_loops`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--wall-loops=1`.  
 "Wall loops" refers to the number of times the outer wall is printed in a loop.  
 Increasing the wall loops will:
 
@@ -40,6 +44,8 @@ Increasing the wall loops will:
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `alternate_extra_wall`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--alternate-extra-wall=1`.  
 This setting adds an extra wall to every other layer. This way the infill gets wedged vertically between the walls, resulting in stronger prints.  
 When this option is enabled, the ensure vertical shell thickness option needs to be disabled.  
 
@@ -53,6 +59,8 @@ When this option is enabled, the ensure vertical shell thickness option needs to
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `detect_thin_wall`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--detect-thin-wall=1`.  
 By default, walls are printed as closed loops. When a wall is too thin to contain two line widths, enabling "Detect thin walls" prints it as a single extrusion line.  
 Thin walls printed this way may have reduced surface quality and strength because they are not closed loops.
 
