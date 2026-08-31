@@ -35,6 +35,9 @@ Unless printed in spiral vase mode, every layer needs to begin somewhere and end
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `seam_position`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `nearest, aligned, aligned_back, back, random`.  
+[CLI Example](cli_mode#setting-overrides): `--seam-position=nearest`.  
 Controlling the position of seams can help improve the appearance and strength of the final print.
 
 Typically, [Aligned Back](#aligned-back), [Aligned](#aligned), or [Back](#back) work the best, especially in combination with seam painting.  
@@ -78,6 +81,8 @@ This option places the seam randomly across the object, which can help to distri
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `staggered_inner_seams`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--staggered-inner-seams=1`.  
 As the seam location forms a weak point in the print, staggering the seam on the internal perimeters can help reduce stress points. This setting moves the start of the internal wall's seam around across layers as well as away from the external perimeter seam. This way, the internal and external seams don't all align at the same point and between them across layers, distributing those weak points further away from the seam location, hence making the part stronger. It can also help improve the water tightness of your model.
 
 ![seam-staggered-inner](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-staggered-inner.gif?raw=true)
@@ -86,6 +91,8 @@ As the seam location forms a weak point in the print, staggering the seam on the
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `seam_gap`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--seam-gap=20%`.  
 Controls the gap in mm or as a percentage of the nozzle size between the two ends of a loop starting and ending with a seam.
 
 - A larger gap will reduce the bulging seen at the seam.
@@ -147,7 +154,7 @@ If enabled, the scarf joint wraps around the full perimeter of the wall. Typical
 
 #### Scarf length
 
-Defines the horizontal length over which the scarf ramp transitions. A value of 0 disables the scarf joint. The default (e.g. 20 mm) generally offers smooth and effective blending.
+Defines the horizontal length over which the scarf ramp transitions. A value of 0 disables the scarf joint. The default (e.g. 20 mm) generally offers smooth and effective blending.
 
 #### Scarf steps
 
@@ -167,6 +174,8 @@ When enabled, scarf joints are also applied to inner perimeters (e.g., holes). T
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `role_based_wipe_speed`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--role-based-wipe-speed=1`.  
 Controls the speed of a wipe motion, i.e., how fast the nozzle will move over a printed area to "clean" it before traveling to another area of the model.  
 It is recommended to turn this option on, to ensure the nozzle performs the wipe motion with the same speed that the feature was printed with.
 
@@ -174,12 +183,16 @@ It is recommended to turn this option on, to ensure the nozzle performs the wipe
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wipe_speed`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--wipe-speed=20%`.  
 If role-based wipe speed is disabled, set this field to the absolute wipe speed or as a percentage over the travel speed.
 
 ### Wipe on loop (inward movement)
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wipe_on_loops`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--wipe-on-loops=1`.  
 When finishing printing a "loop" (i.e., an extrusion that starts and ends at the same point), move the nozzle slightly inwards towards the part. That move aims to reduce seam unevenness by tucking in the end of the seam to the part. It also slightly cleans the nozzle before traveling to the next area of the model, reducing stringing.  
 This setting will use your printer/material Wipe Distance and retract amount before wipe values.
 
@@ -191,6 +204,8 @@ This setting will use your printer/material Wipe Distance and retract amount bef
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wipe_before_external_loop`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--wipe-before-external-loop=1`.  
 To minimize the visibility of potential over-extrusion at the start of an external perimeter, the de-retraction move is performed slightly on the inside of the model and, hence, the start of the external perimeter. That way, any potential over-extrusion is hidden from the outside surface.
 
 This is useful when printing with [Outer/Inner](quality_settings_wall_and_surfaces#outerinner) or [Inner/Outer/Inner](quality_settings_wall_and_surfaces#innerouterinner) wall print order, as in these modes, it is more likely an external perimeter is printed immediately after a de-retraction move, which would cause slight extrusion variance at the start of a seam.

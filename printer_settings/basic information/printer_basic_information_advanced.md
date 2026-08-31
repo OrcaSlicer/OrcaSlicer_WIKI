@@ -20,18 +20,26 @@ Advanced settings related to the printer configuration.
 
 [Mode](option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `printer_structure`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `undefine, corexy, i3, hbot, delta`.  
+[CLI Example](cli_mode#setting-overrides): `--printer-structure=undefine`.  
 The physical arrangement and components of a printing device.
 
 ## G-code flavor
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gcode_flavor`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `marlin, klipper, reprapfirmware, repetier, marlin2`.  
+[CLI Example](cli_mode#setting-overrides): `--gcode-flavor=marlin`.  
 What kind of G-code the printer is compatible with.
 
 ## Skip G-code config block
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gcode_skip_config_block`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--gcode-skip-config-block=1`.  
 > [!IMPORTANT]
 > NEW FEATURE: **Skip G-code config block**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
@@ -47,6 +55,8 @@ Some printer firmware parsers crash when reading certain lines in this block, mo
 
 [Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `pellet_flow_coefficient`, `pellet_modded_printer`.  
+[Type](option_type): `pellet_flow_coefficient` (Float list), `pellet_modded_printer` (Boolean).  
+[CLI Example](cli_mode#setting-overrides): `--pellet-flow-coefficient=1` (`pellet_flow_coefficient` shown; other variables above follow their own type).  
 Enable this option if your printer uses pellets instead of filaments.
 Large format printers with print volumes in the order of 1m^3 generally use pellets for printing.
 The overall tech is very similar to FDM printing.
@@ -71,18 +81,25 @@ Higher packing density -> more material extruded by single turn -> higher pellet
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `bbl_use_printhost`.  
+[Type](option_type#boolean): `Boolean`.  
+Not available via CLI — see [Setting Overrides](cli_mode#setting-overrides) for the full list of excluded keys.  
 Allow controlling BambuLab's printer through 3rd party print hosts.
 
 ## Scan first layer
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `scan_first_layer`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--scan-first-layer=1`.  
 Enable this to enable the camera on printer to check the quality of first layer.
 
 ## Power Loss Recovery
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `enable_power_loss_recovery`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `printer_configuration, enable, disable`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-power-loss-recovery=printer_configuration`.  
 Enable or Disable power loss recovery by inserting commands in generated G-code.  
 Set `Printer configuration` to use the current printer's power loss recovery configuration.
 
@@ -104,6 +121,8 @@ Power loss recovery saves the current execution point to non-volatile memory (SD
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `disable_m73`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--disable-m73=1`.  
 Disable generating of the M73: Set remaining print time in the final G-code.
 
 ## G-code thumbnails
@@ -114,22 +133,31 @@ Picture sizes to be stored into a .gcode and .sl1 / .sl1s files, in the followin
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `use_relative_e_distances`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--use-relative-e-distances=1`.  
 Relative extrusion is recommended when using "label_objects" option. Some extruders work better with this option unchecked (absolute extrusion mode). Wipe tower is only compatible with relative mode. It is recommended on most printers. Default is checked.
 
 ## Use firmware retraction
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `use_firmware_retraction`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--use-firmware-retraction=1`.  
 This experimental setting uses G10 and G11 commands to have the firmware handle the retraction. This is only supported in recent Marlin.
 
 ## Bed temperature type
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `bed_temperature_formula`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `by_first_filament, by_highest_temp`.  
+[CLI Example](cli_mode#setting-overrides): `--bed-temperature-formula=by_first_filament`.  
 This option determines how the bed temperature is set during slicing: based on the temperature of the first filament or the highest temperature of the printed filaments.
 
 ## Time cost
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `time_cost`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--time-cost=1`.  
 The printer cost per hour.

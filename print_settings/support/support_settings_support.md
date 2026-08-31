@@ -2,6 +2,8 @@
 
 [Mode](option_mode): `Developer`.  
 [Variables](built_in_placeholders_variables): `enable_support`, `enforce_support_layers`.  
+[Type](option_type): `enable_support` (Boolean), `enforce_support_layers` (Integer).  
+[CLI Example](cli_mode#setting-overrides): `--enable-support=1` (`enable_support` shown; other variables above follow their own type).  
 Support structures are used in 3D printing to provide stability to overhangs and complex geometries.
 
 - [Type](#type)
@@ -28,6 +30,9 @@ Support structures are used in 3D printing to provide stability to overhangs and
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `support_type`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `normal(auto), tree(auto), normal(manual), tree(manual)`.  
+[CLI Example](cli_mode#setting-overrides): `--support-type=normal(auto)`.  
 Support structures can be generated in various styles, each suited for different printing needs:
 
 ### Normal
@@ -42,6 +47,8 @@ Tree-like support structures are designed to minimize material usage while still
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_critical_regions_only`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--support-critical-regions-only=1`.  
 Only create support for critical regions including sharp tail, cantilever, etc.
 
 ### Auto
@@ -56,6 +63,9 @@ Limit support generation to specific areas defined by manual placement in the pr
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_style`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `default, grid, snug, organic, tree_slim, tree_strong, tree_hybrid`.  
+[CLI Example](cli_mode#setting-overrides): `--support-style=default`.  
 Style and shape of the support.  
 
 ### Grid
@@ -86,12 +96,16 @@ Create similar structure to normal support under large flat overhangs.
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `support_threshold_angle`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--support-threshold-angle=1`.  
 Support will be generated for overhangs whose slope angle is below the threshold.
 
 ## Threshold overlap
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `support_threshold_overlap`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--support-threshold-overlap=20%`.  
 If threshold angle is zero, support will be generated for overhangs whose overlap is below the threshold.
 The smaller this value is, the steeper the overhang that can be printed without support.
 
@@ -99,22 +113,30 @@ The smaller this value is, the steeper the overhang that can be printed without 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `raft_first_layer_density`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--raft-first-layer-density=20%`.  
 Density of the first raft or support layer.
 
 ## Initial layer expansion
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `raft_first_layer_expansion`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--raft-first-layer-expansion=1`.  
 Expand the first raft or support layer to improve bed plate adhesion.
 
 ## On build plate only
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `support_on_build_plate_only`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--support-on-build-plate-only=1`.  
 Don't create support on model surface, only on build plate.
 
 ## Ignore small overhangs
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_remove_small_overhang`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--support-remove-small-overhang=1`.  
 With this setting small overhangs that possibly need no supports will be ignored from support generation.

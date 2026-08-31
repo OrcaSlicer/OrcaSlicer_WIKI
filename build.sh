@@ -56,6 +56,7 @@ rsync -av \
   # Copy all directories with markdown files
   [ -d "images" ] && cp -r images docs/ 2>/dev/null || true
   [ -d "calibration" ] && cp -r calibration docs/ 2>/dev/null || true
+  [ -d "cli" ] && cp -r cli docs/ 2>/dev/null || true
   [ -d "developer_reference" ] && cp -r developer_reference docs/ 2>/dev/null || true
   [ -d "general_settings" ] && cp -r general_settings docs/ 2>/dev/null || true
   [ -d "material_settings" ] && cp -r material_settings docs/ 2>/dev/null || true

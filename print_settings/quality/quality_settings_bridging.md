@@ -13,6 +13,8 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `bridge_flow`, `internal_bridge_flow`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--bridge-flow=1` (same pattern for the other variables above).  
 This value governs the thickness of the bridge layer.
 
 For external bridges, when material tends to sag, reducing the flow ratio can help improve appearance.  
@@ -27,6 +29,8 @@ The actual bridge flow used is calculated by multiplying this value with the [fi
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `bridge_density`, `internal_bridge_density`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--bridge-density=20%` (same pattern for the other variables above).  
 Controls the density (spacing) of external bridge lines. Default is 100%.  
 Theoretically, 100% means a solid bridge, but due to the tendency of bridge extrusions to sag, 100% may not be sufficient.
 
@@ -43,6 +47,8 @@ The actual internal bridge flow used is calculated by multiplying this value wit
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `thick_bridges`, `thick_internal_bridges`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--thick-bridges=1` (same pattern for the other variables above).  
 
 When enabled, bridge extrusion uses a line height equal to the nozzle diameter.  
 ![thick-bridges](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/thick-bridges.png?raw=true)  
@@ -54,6 +60,9 @@ It's recommended to enable this option for internal bridges, as it increases the
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `enable_extra_bridge_layer`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `disabled, external_bridge_only, internal_bridge_only, apply_to_all`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-extra-bridge-layer=disabled`.  
 This option enables the generation of an extra bridge layer over bridges.
 
 Extra bridge layers help improve bridge appearance and reliability, as the solid infill is better supported. This is especially useful in fast printers, where the bridge and solid infill speeds vary greatly. The extra bridge layer results in reduced pillowing on top surfaces, as well as reduced separation of the external bridge layer from its surrounding perimeters.
@@ -71,6 +80,9 @@ It is generally recommended to set this to at least **External bridge only**, un
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `dont_filter_internal_bridges`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `disabled, limited, nofilter`.  
+[CLI Example](cli_mode#setting-overrides): `--dont-filter-internal-bridges=disabled`.  
 This option can help reduce pillowing on top surfaces in heavily slanted or curved models.
 
 By default, small internal bridges are filtered out and the internal solid infill is printed directly over the sparse infill. This works well in most cases, speeding up printing without too much compromise on top surface quality.
@@ -87,6 +99,9 @@ Enabling limited filtering or no filtering will print internal bridge layer over
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `counterbore_hole_bridging`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `none, partiallybridge, sacrificiallayer`.  
+[CLI Example](cli_mode#setting-overrides): `--counterbore-hole-bridging=none`.  
 When printing counterbore holes, the unsupported area can lead to sagging or poor surface quality. Also the perimeters of the counterbore hole may not be printed correctly, leading to gaps or weak points in the structure.
 
 This option creates bridges for counterbore holes, allowing them to be printed without support.  

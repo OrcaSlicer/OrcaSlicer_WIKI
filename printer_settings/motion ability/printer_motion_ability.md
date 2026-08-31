@@ -20,6 +20,8 @@ Settings related to the motion capabilities of the printer.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `emit_machine_limits_to_gcode`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--emit-machine-limits-to-gcode=1`.  
 If enabled, the machine limits will be emitted to G-code file.
 This option will be ignored if the G-code flavor is set to Klipper.
 
@@ -31,6 +33,8 @@ Resonance Compensations are the methods used to reduce the vibrations of the pri
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `resonance_avoidance`, `min_resonance_avoidance_speed`, `max_resonance_avoidance_speed`.  
+[Type](option_type): `resonance_avoidance` (Boolean), `min_resonance_avoidance_speed` (Float), `max_resonance_avoidance_speed` (Float).  
+[CLI Example](cli_mode#setting-overrides): `--resonance-avoidance=1` (`resonance_avoidance` shown; other variables above follow their own type).  
 By reducing the speed of the outer wall to avoid the resonance zone of the printer, ringing on the surface of the model are avoided.
 
 > [!TIP]
@@ -40,6 +44,8 @@ By reducing the speed of the outer wall to avoid the resonance zone of the print
 
 [Mode](option_mode): `Expert`.  
 [Variables](built_in_placeholders_variables): `input_shaping_emit`, `input_shaping_freq_x`, `input_shaping_freq_y`, `input_shaping_damp_x`, `input_shaping_damp_y`.  
+[Type](option_type): `input_shaping_emit` (Boolean), `input_shaping_freq_x` (Float), `input_shaping_freq_y` (Float), `input_shaping_damp_x` (Float), `input_shaping_damp_y` (Float).  
+[CLI Example](cli_mode#setting-overrides): `--input-shaping-emit=1` (`input_shaping_emit` shown; other variables above follow their own type).  
 During high-speed movements, vibrations can cause a phenomenon called "ringing," where periodic ripples appear on the print surface. Input Shaping provides an effective solution by counteracting these vibrations, improving print quality and reducing wear on components without needing to significantly lower print speeds.
 
 > [!NOTE]
@@ -58,6 +64,9 @@ During high-speed movements, vibrations can cause a phenomenon called "ringing,"
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `input_shaping_type`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `Default, MZV, ZV, ZVD, ZVDD, ZVDDD, EI, EI2, 2HUMP_EI, EI3, 3HUMP_EI, DAA, Disable`.  
+[CLI Example](cli_mode#setting-overrides): `--input-shaping-type=Default`.  
 The Input Shaping type determines the algorithm used to counteract the vibrations.  
 It is usually recommended to use MZV, EI (specially for Delta printers) or ZV as a simple and effective solution.  
 Not all Input Shaping types are available in all firmware and their performance may vary depending on the firmware implementation and the printer's mechanics.
@@ -104,6 +113,8 @@ This will cap the speed set by the process if it exceeds these values.
 `Simple` [Variables](built_in_placeholders_variables): `machine_max_acceleration_extruding`, `machine_max_acceleration_retracting`.  
 `Advanced` [Variable](built_in_placeholders_variables): `machine_max_acceleration_travel`.  
 [Variables](built_in_placeholders_variables): `machine_max_acceleration_e`, `machine_max_acceleration_z`, `machine_max_acceleration_x`, `machine_max_acceleration_y`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--machine-max-acceleration-extruding=1` (same pattern for the other variables above).  
 Safeguard maximum accelerations for all axes.
 This will cap the acceleration set by the process if it exceeds these values.
 
@@ -117,10 +128,14 @@ Safeguard maximum jerks for all axes.
 ### Maximum Jerk
 
 [Variables](built_in_placeholders_variables): `machine_max_jerk_z`, `machine_max_jerk_e`, `machine_max_jerk_x`, `machine_max_jerk_y`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--machine-max-jerk-z=1` (same pattern for the other variables above).  
 Maximum [jerk](speed_settings_jerk_xy) for each axis (M205 X, Y, Z, E, only apply if JD = 0 for Marlin 2 Firmware)
 
 ### Maximum Junction Deviation
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `machine_max_junction_deviation`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--machine-max-junction-deviation=1`.  
 Maximum [junction deviation](speed_settings_jerk_xy#junction-deviation) (M205 J, only apply if JD > 0 for Marlin Firmware. If your Marlin 2 printer uses Classic Jerk set this value to 0.)

@@ -32,6 +32,7 @@ DISPLAY_NAME_OVERRIDES = {
     # Examples:
     # "print_settings": "Process Settings",
     # "developer_reference": "Developer Section",
+    "cli": "Command Line Interface",
 }
 
 

@@ -33,6 +33,8 @@ Proper cooling is essential for achieving high-quality prints, especially when d
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `close_fan_the_first_x_layers`.  
+[Type](option_type#list-types): `Integer list`.  
+[CLI Example](cli_mode#setting-overrides): `--close-fan-the-first-x-layers=1`.  
 Number of initial layers during which part-cooling fans are disabled.
 Disabling the fan for the first few layers improves build-plate adhesion and reduces early-layer warping.
 
@@ -40,6 +42,8 @@ Disabling the fan for the first few layers improves build-plate adhesion and red
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `initial_layer_fan_speed`.  
+[Type](option_type#list-types): `Integer list`.  
+[CLI Example](cli_mode#setting-overrides): `--initial-layer-fan-speed=1`.  
 
 > [!IMPORTANT]
 > NEW FEATURE: **First layer fan speed**  
@@ -54,6 +58,8 @@ Only available when [No cooling for the first](#no-cooling-for-the-first) is 0. 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `full_fan_speed_layer`.  
+[Type](option_type#list-types): `Integer list`.  
+[CLI Example](cli_mode#setting-overrides): `--full-fan-speed-layer=1`.  
 Fan speed is increased linearly from 0% starting at the layer specified by [close_fan_the_first_x_layers](#no-cooling-for-the-first) up to the maximum part-cooling speed at this specified layer.  
 If this layer is less than or equal to [close_fan_the_first_x_layers](#no-cooling-for-the-first), it is ignored and the fan will reach the maximum allowed speed on the layer immediately after [close_fan_the_first_x_layers](#no-cooling-for-the-first) (i.e. at layer [close_fan_the_first_x_layers](#no-cooling-for-the-first) + 1).  
 Set this option to `0` to disable the automatic ramp.
@@ -62,6 +68,8 @@ Set this option to `0` to disable the automatic ramp.
 
 [Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `fan_min_speed`, `fan_cooling_layer_time`, `fan_max_speed`, `slow_down_layer_time`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--fan-min-speed=1` (same pattern for the other variables above).  
 These settings control the behavior of the part cooling fan during printing. Proper configuration of these parameters can significantly enhance print quality by optimizing cooling for different features and layer times.
 
 ### Fan speed threshold
@@ -81,16 +89,22 @@ When auto-cooling is enabled, the fan speed may increase as needed, up to the de
 ### Keep fan always on
 
 [Variable](built_in_placeholders_variables): `reduce_fan_stop_start_freq`.  
+[Type](option_type#list-types): `Boolean list`.  
+[CLI Example](cli_mode#setting-overrides): `--reduce-fan-stop-start-freq=1`.  
 Enabling this setting means that part cooling fan will never stop entirely and will instead run at least at minimum speed to reduce the frequency of starting and stopping.
 
 ### Slow printing down for better layer cooling
 
 [Variable](built_in_placeholders_variables): `slow_down_for_layer_cooling`.  
+[Type](option_type#list-types): `Boolean list`.  
+[CLI Example](cli_mode#setting-overrides): `--slow-down-for-layer-cooling=1`.  
 Enable this option to slow printing speed down to ensure that the final layer time is not shorter than the layer time threshold in [Max fan speed threshold](#max-fan-speed-threshold), so that the layer can be cooled for a longer time. This can improve the quality for small details.
 
 ### Don't slow down outer walls
 
 [Variable](built_in_placeholders_variables): `dont_slow_down_outer_wall`.  
+[Type](option_type#list-types): `Boolean list`.  
+[CLI Example](cli_mode#setting-overrides): `--dont-slow-down-outer-wall=1`.  
 If enabled, this setting will ensure external perimeters are not slowed down to meet the minimum layer time. This is particularly helpful in the below scenarios:
 
 1. To avoid changes in shine when printing glossy filaments
@@ -101,24 +115,33 @@ If enabled, this setting will ensure external perimeters are not slowed down to 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `slow_down_min_speed`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--slow-down-min-speed=1`.  
 The minimum print speed to which the printer slows down to maintain the minimum layer time defined above when the slowdown for better layer cooling is enabled.
 
 ### Force cooling for overhangs and bridges
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `enable_overhang_bridge_fan`.  
+[Type](option_type#list-types): `Boolean list`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-overhang-bridge-fan=1`.  
 Enable this option to allow adjustment of the part cooling fan speed for specifically for overhangs, internal and external bridges. Setting the fan speed specifically for these features can improve overall print quality and reduce warping.
 
 ### Overhang cooling activation threshold
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `overhang_fan_threshold`.  
+[Type](option_type#list-types): `Choice list`.  
+[Options](option_type#choice): `0%, 10%, 25%, 50%, 75%, 95%`.  
+[CLI Example](cli_mode#setting-overrides): `--overhang-fan-threshold=0%`.  
 When the overhang exceeds this specified threshold, force the cooling fan to run at the 'Overhang Fan Speed' set below. This threshold is expressed as a percentage, indicating the portion of each line's width that is unsupported by the layer beneath it. Setting this value to 0% forces the cooling fan to run for all outer walls, regardless of the overhang degree.
 
 ### Overhangs and external bridges fan speed
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `overhang_fan_speed`.  
+[Type](option_type#list-types): `Integer list`.  
+[CLI Example](cli_mode#setting-overrides): `--overhang-fan-speed=1`.  
 Use this part cooling fan speed when printing bridges or overhang walls with an overhang threshold that exceeds the value set in the 'Overhangs cooling threshold' parameter above. Increasing the cooling specifically for overhangs and bridges can improve the overall print quality of these features.
 
 Please note, this fan speed is clamped on the lower end by the minimum fan speed threshold set above. It is also adjusted upwards up to the maximum fan speed threshold when the minimum layer time threshold is not met.
@@ -127,6 +150,8 @@ Please note, this fan speed is clamped on the lower end by the minimum fan speed
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `internal_bridge_fan_speed`.  
+[Type](option_type#list-types): `Integer list`.  
+[CLI Example](cli_mode#setting-overrides): `--internal-bridge-fan-speed=1`.  
 The part cooling fan speed used for all internal bridges. Set to -1 to use the overhang fan speed settings instead.
 
 Reducing the internal bridges fan speed, compared to your regular fan speed, can help reduce part warping due to excessive cooling applied over a large surface for a prolonged period of time.
@@ -135,6 +160,8 @@ Reducing the internal bridges fan speed, compared to your regular fan speed, can
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_material_interface_fan_speed`.  
+[Type](option_type#list-types): `Integer list`.  
+[CLI Example](cli_mode#setting-overrides): `--support-material-interface-fan-speed=1`.  
 This part cooling fan speed is applied when printing support interfaces. Setting this parameter to a higher than regular speed reduces the layer binding strength between supports and the supported part, making them easier to separate.  
 Set to -1 to disable it.  
 This setting is overridden by disable_fan_first_layers.
@@ -143,6 +170,8 @@ This setting is overridden by disable_fan_first_layers.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_fan_speed`.  
+[Type](option_type#list-types): `Integer list`.  
+[CLI Example](cli_mode#setting-overrides): `--ironing-fan-speed=1`.  
 This part cooling fan speed is applied when ironing. Setting this parameter to a lower than regular speed reduces possible nozzle clogging due to the low volumetric flow rate, making the interface smoother.  
 Set to -1 to disable it.
 
@@ -150,6 +179,8 @@ Set to -1 to disable it.
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `additional_cooling_fan_speed`.  
+[Type](option_type#list-types): `Integer list`.  
+[CLI Example](cli_mode#setting-overrides): `--additional-cooling-fan-speed=1`.  
 Set the speed for the auxiliary part-cooling fan if your printer provides one (see [auxiliary part-cooling fan](printer_basic_information_accessory#auxiliary-part-cooling-fan)). The auxiliary fan runs during printing but is disabled for the initial layers defined by [No cooling for the first](#no-cooling-for-the-first).
 
 G-code command: `M106 P2 S(0-255)`
@@ -160,6 +191,8 @@ G-code command: `M106 P2 S(0-255)`
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `activate_air_filtration`.  
+[Type](option_type#list-types): `Boolean list`.  
+[CLI Example](cli_mode#setting-overrides): `--activate-air-filtration=1`.  
 Activate for better air filtration.
 
 G-code command: `M106 P3 S(0-255)`
@@ -168,10 +201,14 @@ G-code command: `M106 P3 S(0-255)`
 
 [Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `activate_air_filtration_during_print`, `during_print_exhaust_fan_speed`.  
+[Type](option_type): `activate_air_filtration_during_print` (Boolean list), `during_print_exhaust_fan_speed` (Integer list).  
+[CLI Example](cli_mode#setting-overrides): `--activate-air-filtration-during-print=1` (`activate_air_filtration_during_print` shown; other variables above follow their own type).  
 Speed of exhaust fan during printing. This speed will override the speed in filament custom G-code.
 
 #### Complete print
 
 [Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `activate_air_filtration_on_completion`, `complete_print_exhaust_fan_speed`.  
+[Type](option_type): `activate_air_filtration_on_completion` (Boolean list), `complete_print_exhaust_fan_speed` (Integer list).  
+[CLI Example](cli_mode#setting-overrides): `--activate-air-filtration-on-completion=1` (`activate_air_filtration_on_completion` shown; other variables above follow their own type).  
 Speed of exhaust fan after printing completes.

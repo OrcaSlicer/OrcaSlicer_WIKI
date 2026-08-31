@@ -2,6 +2,8 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `raft_layers`, `raft_contact_distance`.  
+[Type](option_type): `raft_layers` (Integer), `raft_contact_distance` (Float).  
+[CLI Example](cli_mode#setting-overrides): `--raft-layers=1` (`raft_layers` shown; other variables above follow their own type).  
 Raft is a base layer that is printed under the object to improve adhesion and prevent warping. It consists of multiple layers of material that create a stable foundation for the print.
 
 ## Layers

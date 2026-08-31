@@ -14,6 +14,9 @@ Ironing is a process used to improve the surface finish of 3D prints by smoothin
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_type`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `no ironing, top, topmost, solid`.  
+[CLI Example](cli_mode#setting-overrides): `--ironing-type="no ironing"`.  
 This setting controls which layer being ironed.
 
 - **Top Surfaces**: All [top surfaces](strength_settings_top_bottom_shells) will be ironed. This is the most common setting and is used to smooth out the top layers of the print.  
@@ -27,6 +30,9 @@ This setting controls which layer being ironed.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_pattern`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `rectilinear, concentric`.  
+[CLI Example](cli_mode#setting-overrides): `--ironing-pattern=rectilinear`.  
 The pattern that will be used when ironing. Usually, the best pattern is the one with the most efficient coverage of the surface.  
 
 > [!TIP]
@@ -41,6 +47,8 @@ The pattern that will be used when ironing. Usually, the best pattern is the one
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_flow`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--ironing-flow=20%`.  
 The amount of material to extrude during ironing.  
 This % is a percentage of the normal flow rate. A lower value will result in a smoother finish but may not cover the surface completely. A higher value may cover the surface better but can lead to over extrusion or rougher finish.
 
@@ -50,6 +58,8 @@ A lower layer height may require higher flow due to less volumetric extrusion pe
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_spacing`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--ironing-spacing=1`.  
 The distance between the lines of ironing.  
 It's recommended to set this value to be equal to or less than the nozzle diameter for optimal coverage and surface finish.
 
@@ -57,6 +67,8 @@ It's recommended to set this value to be equal to or less than the nozzle diamet
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_inset`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--ironing-inset=1`.  
 The distance to keep from the edges, which can help prevent over-extrusion at the edges of the surface being ironed.
 
 ![ironing-inset](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ironing/ironing-inset.png?raw=true)
@@ -67,6 +79,8 @@ If this value is set to 0, the ironing toolpath will start directly at the perim
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_angle`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--ironing-angle=1`.  
 The angle of ironing lines offset relative to the top surface solid infill direction.
 
 Commonly used ironing angle offsets are 0°, 45°, and 90° each producing a [different surface finish](https://github.com/OrcaSlicer/OrcaSlicer/issues/10834#issuecomment-3322628589) which will depend on your printer nozzle.
@@ -78,6 +92,8 @@ Commonly used ironing angle offsets are 0°, 45°, and 90° each producing a [di
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_angle_fixed`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--ironing-angle-fixed=1`.  
 Use a fixed absolute angle for ironing that is not offset from the top surface infill direction. This results in an ironing finish that does not have alternating line directions and may result in a more uniform surface finish and reduced tiger striping effect when reflecting light.
 
 Set the Ironing Angle Offset to an angle with optimal ironing angle offsets from all affected top surface solid infill directions.

@@ -1,0 +1,364 @@
+{
+  "_pages": {
+    "cli_actions": {
+      "title": "CLI Actions",
+      "intro": "Action options tell OrcaSlicer what to *do* with the model(s) it loaded \u2014 export, slice, or inspect them. See [CLI Mode](cli_mode) for general flag syntax.",
+      "admonition": "",
+      "groups": [
+        "Export",
+        "Slicing",
+        "Model Info",
+        "Misc Actions"
+      ],
+      "group_intro": {}
+    },
+    "cli_transform": {
+      "title": "CLI Transform",
+      "intro": "Transform options change the loaded model's geometry or placement before slicing. See [CLI Mode](cli_mode) for general flag syntax.",
+      "admonition": "> [!IMPORTANT]\n> Transform flags are applied in the order they appear on the command line, not in the order listed on this page. `--rotate 90 --scale 2` rotates then scales; `--scale 2 --rotate 90` scales then rotates. For most of these options the end result is identical either way, but it's worth being deliberate about ordering when combining several.",
+      "groups": [
+        "Arrangement",
+        "Geometry",
+        "Object Handling"
+      ],
+      "group_intro": {}
+    },
+    "cli_misc": {
+      "title": "CLI Misc",
+      "intro": "Options for loading settings/filaments, selecting objects, output locations, logging, and 3MF metadata. See [CLI Mode](cli_mode) for general flag syntax.",
+      "admonition": "",
+      "groups": [
+        "Loading Settings & Filaments",
+        "Object Selection",
+        "Output & Logging",
+        "Arrange Behavior",
+        "Metadata",
+        "Print Behavior"
+      ],
+      "group_intro": {
+        "Loading Settings & Filaments": "These load the same per-tab JSON files produced by each settings tab's Save/Export action \u2014 see [Export Preset Bundle](import_export#export-preset-bundle) for how those files are created in the GUI.",
+        "Arrange Behavior": "These correspond to options in the GUI's [Auto Arrange](prepare_auto_arrange#parameters) panel."
+      }
+    }
+  },
+  "options": {
+    "export_3mf": {
+      "group": "Export",
+      "input": "`filename.3mf`",
+      "description": "Export the project as a 3MF file.",
+      "notes": "Default filename: `output.3mf`."
+    },
+    "export_stl": {
+      "group": "Export",
+      "input": "boolean",
+      "description": "Export the model(s) as a single STL.",
+      "notes": ""
+    },
+    "export_stls": {
+      "group": "Export",
+      "input": "`stl_path`",
+      "description": "Export the model(s) as multiple STLs, one per object, to a directory.",
+      "notes": ""
+    },
+    "export_slicedata": {
+      "group": "Export",
+      "input": "`slicing_data_directory`",
+      "description": "Export slicing data (the sliced result cache) to a folder.",
+      "notes": "Cannot be combined with `--load-slicedata`."
+    },
+    "load_slicedata": {
+      "group": "Export",
+      "input": "`slicing_data_directory`",
+      "description": "Load previously-cached slicing data from a directory instead of re-slicing.",
+      "notes": "Cannot be combined with `--export-slicedata` or [`--repetitions`](cli_transform#object-handling)."
+    },
+    "export_settings": {
+      "group": "Export",
+      "input": "`settings.json`",
+      "description": "Export the current effective process/printer/filament settings to a JSON file.",
+      "notes": "Default filename: `output.json`."
+    },
+    "min_save": {
+      "group": "Export",
+      "input": "boolean",
+      "description": "Export the 3MF with minimum size (strips extra data not needed for printing).",
+      "notes": ""
+    },
+    "slice": {
+      "group": "Slicing",
+      "input": "`option` (int)",
+      "description": "Slice the plate(s): `0` = all plates, `i` = plate `i`, any other value is invalid.",
+      "notes": ""
+    },
+    "mtcpp": {
+      "group": "Slicing",
+      "input": "`count`",
+      "description": "Maximum triangle count per plate allowed for slicing.",
+      "notes": "Default: `1000000`."
+    },
+    "mstpp": {
+      "group": "Slicing",
+      "input": "`time` (seconds)",
+      "description": "Maximum slicing time allowed per plate.",
+      "notes": "Default: `300`."
+    },
+    "no_check": {
+      "group": "Slicing",
+      "input": "boolean",
+      "description": "Skip validity checks such as G-code path conflict detection.",
+      "notes": ""
+    },
+    "normative_check": {
+      "group": "Slicing",
+      "input": "boolean",
+      "description": "Run the normative (specification) checks.",
+      "notes": "Default: on."
+    },
+    "info": {
+      "group": "Model Info",
+      "input": "boolean",
+      "description": "Print the loaded model's information (object/instance counts, dimensions, etc.) to stdout.",
+      "notes": "Runs on the unrepaired model."
+    },
+    "uptodate": {
+      "group": "Misc Actions",
+      "input": "boolean",
+      "description": "Update the config values embedded in a loaded 3MF to the current OrcaSlicer version's defaults/schema.",
+      "notes": ""
+    },
+    "load_defaultfila": {
+      "group": "Misc Actions",
+      "input": "boolean",
+      "description": "For any object without an explicitly loaded filament, use the first filament as its default.",
+      "notes": ""
+    },
+    "pipe": {
+      "group": "Misc Actions",
+      "input": "`pipename`",
+      "description": "Send slicing progress updates to a named pipe, for integration with external tooling.",
+      "notes": ""
+    },
+    "help": {
+      "group": "Misc Actions",
+      "input": "boolean",
+      "description": "Print CLI usage help.",
+      "notes": ""
+    },
+    "arrange": {
+      "group": "Arrangement",
+      "input": "`option` (int)",
+      "description": "Arrange objects on the plate: `0` = disable, `1` = force enable, any other value = auto. See [Auto Arrange](prepare_auto_arrange) for the underlying behavior.",
+      "notes": ""
+    },
+    "orient": {
+      "group": "Arrangement",
+      "input": "`option` (int)",
+      "description": "Auto-orient objects: `0` = disable, `1` = force enable, any other value = auto. See [Auto Orient](prepare_auto_orient).",
+      "notes": ""
+    },
+    "ensure_on_bed": {
+      "group": "Arrangement",
+      "input": "boolean",
+      "description": "Lift any object that is partially below the bed so it sits on top of it.",
+      "notes": "Disabled by default."
+    },
+    "rotate": {
+      "group": "Geometry",
+      "input": "degrees (float)",
+      "description": "Rotate every loaded object around the Z axis. See [Rotate](prepare_object_manipulation#rotate).",
+      "notes": ""
+    },
+    "rotate_x": {
+      "group": "Geometry",
+      "input": "degrees (float)",
+      "description": "Rotate every loaded object around the X axis.",
+      "notes": ""
+    },
+    "rotate_y": {
+      "group": "Geometry",
+      "input": "degrees (float)",
+      "description": "Rotate every loaded object around the Y axis.",
+      "notes": ""
+    },
+    "scale": {
+      "group": "Geometry",
+      "input": "`factor` (float)",
+      "description": "Scale every loaded object by this factor. See [Scale](prepare_object_manipulation#scale).",
+      "notes": "Must be greater than `0`."
+    },
+    "convert_unit": {
+      "group": "Geometry",
+      "input": "boolean",
+      "description": "Detect models saved in meters or inches and convert them to millimeters.",
+      "notes": ""
+    },
+    "repetitions": {
+      "group": "Object Handling",
+      "input": "`count` (int)",
+      "description": "Duplicate the whole model this many times on the plate.",
+      "notes": "Requires [`--slice`](cli_actions#slicing) to target a single plate (not `0`/all-plates). Cannot exceed the plate count."
+    },
+    "assemble": {
+      "group": "Object Handling",
+      "input": "boolean",
+      "description": "Merge all loaded models into a single object on one plate, so subsequent actions apply to it as a whole.",
+      "notes": "Cannot be combined with [`--clone-objects`](cli_misc#object-selection)."
+    },
+    "load_settings": {
+      "group": "Loading Settings & Filaments",
+      "input": "`\"setting1.json;setting2.json\"`",
+      "description": "Load process/machine settings from the given file(s), semicolon-separated.",
+      "notes": ""
+    },
+    "load_filaments": {
+      "group": "Loading Settings & Filaments",
+      "input": "`\"filament1.json;filament2.json;...\"`",
+      "description": "Load filament settings from the given file(s), semicolon-separated.",
+      "notes": ""
+    },
+    "uptodate_settings": {
+      "group": "Loading Settings & Filaments",
+      "input": "`\"setting1.json;setting2.json\"`",
+      "description": "Process/machine settings to load when used together with [`--uptodate`](cli_actions#misc-actions).",
+      "notes": ""
+    },
+    "uptodate_filaments": {
+      "group": "Loading Settings & Filaments",
+      "input": "`\"filament1.json;filament2.json;...\"`",
+      "description": "Filament settings to load when used together with [`--uptodate`](cli_actions#misc-actions).",
+      "notes": ""
+    },
+    "downward_check": {
+      "group": "Loading Settings & Filaments",
+      "input": "boolean",
+      "description": "Check whether the current machine is downward-compatible with the machines listed in `--downward-settings`.",
+      "notes": ""
+    },
+    "downward_settings": {
+      "group": "Loading Settings & Filaments",
+      "input": "`\"machine1.json;machine2.json;...\"`",
+      "description": "Machine settings list to check against when `--downward-check` is enabled.",
+      "notes": ""
+    },
+    "load_custom_gcodes": {
+      "group": "Loading Settings & Filaments",
+      "input": "`custom_gcode_toolchange.json`",
+      "description": "Load a custom G-code toolchange definition from a JSON file. Related concept: [Machine G-code](printer_machine_gcode).",
+      "notes": ""
+    },
+    "skip_objects": {
+      "group": "Object Selection",
+      "input": "`\"3,5,10,77\"`",
+      "description": "Skip the given object indices when printing.",
+      "notes": ""
+    },
+    "clone_objects": {
+      "group": "Object Selection",
+      "input": "`\"1,3,1,10\"`",
+      "description": "Clone count for each object in the load list.",
+      "notes": "Cannot be combined with [`--assemble`](cli_transform#object-handling)."
+    },
+    "load_filament_ids": {
+      "group": "Object Selection",
+      "input": "`\"1,2,3,1\"`",
+      "description": "Filament ID to assign to each loaded object, one entry per input file.",
+      "notes": "List length must match the number of input files."
+    },
+    "load_assemble_list": {
+      "group": "Object Selection",
+      "input": "`assemble_list.json`",
+      "description": "Load a full assemble object list (plates, objects, and their parameters) from a config file, instead of loading models directly.",
+      "notes": "Cannot be combined with positional input model files or with any [transform](cli_transform) flag."
+    },
+    "datadir": {
+      "group": "Output & Logging",
+      "input": "`dir`",
+      "description": "Load and store settings at the given directory, instead of the default user config location. Useful for maintaining separate profile sets. Related concept: [Portable User Configuration](how_to_build#portable-user-configuration).",
+      "notes": ""
+    },
+    "outputdir": {
+      "group": "Output & Logging",
+      "input": "`dir`",
+      "description": "Output directory for exported files.",
+      "notes": "Created recursively if it doesn't exist; the process exits with an error if creation fails."
+    },
+    "debug": {
+      "group": "Output & Logging",
+      "input": "`level` (int, 0-5)",
+      "description": "Debug logging level: `0` fatal, `1` error, `2` warning, `3` info, `4` debug, `5` trace.",
+      "notes": "Default: `1`."
+    },
+    "logfile": {
+      "group": "Output & Logging",
+      "input": "`file`",
+      "description": "Redirect debug logging to a file instead of stderr.",
+      "notes": ""
+    },
+    "allow_multicolor_oneplate": {
+      "group": "Arrange Behavior",
+      "input": "boolean",
+      "description": "Allow multiple materials/colors to be arranged onto the same plate. See \"Allow multiple materials on same plate\" in [Auto Arrange](prepare_auto_arrange#parameters).",
+      "notes": "Default: on."
+    },
+    "allow_rotations": {
+      "group": "Arrange Behavior",
+      "input": "boolean",
+      "description": "Allow arrange to rotate objects to fit. See \"Auto rotate for arrangement\" in [Auto Arrange](prepare_auto_arrange#parameters).",
+      "notes": "Default: on."
+    },
+    "avoid_extrusion_cali_region": {
+      "group": "Arrange Behavior",
+      "input": "boolean",
+      "description": "Avoid the extrusion calibration region on the plate when arranging.",
+      "notes": "Default: off."
+    },
+    "makerlab_name": {
+      "group": "Metadata",
+      "input": "`name`",
+      "description": "MakerLab name embedded when generating the 3MF.",
+      "notes": ""
+    },
+    "makerlab_version": {
+      "group": "Metadata",
+      "input": "`version`",
+      "description": "MakerLab version embedded when generating the 3MF.",
+      "notes": ""
+    },
+    "metadata_name": {
+      "group": "Metadata",
+      "input": "`\"name1;name2;...\"`",
+      "description": "Custom metadata field name(s) to add to the 3MF, semicolon-separated.",
+      "notes": "Paired positionally with `--metadata-value`."
+    },
+    "metadata_value": {
+      "group": "Metadata",
+      "input": "`\"value1;value2;...\"`",
+      "description": "Custom metadata field value(s) to add to the 3MF, semicolon-separated.",
+      "notes": "Paired positionally with `--metadata-name`."
+    },
+    "enable_timelapse": {
+      "group": "Print Behavior",
+      "input": "boolean",
+      "description": "Treat this slicing run as using timelapse. See [Timelapse](others_settings_special_mode#timelapse).",
+      "notes": "Default: off."
+    },
+    "skip_modified_gcodes": {
+      "group": "Print Behavior",
+      "input": "boolean",
+      "description": "Skip modified G-code (from printer/filament presets) embedded in a loaded 3MF.",
+      "notes": "Default: off."
+    },
+    "allow_newer_file": {
+      "group": "Print Behavior",
+      "input": "boolean",
+      "description": "Allow slicing a 3MF that was saved by a newer OrcaSlicer version than the one running.",
+      "notes": "Default: off."
+    },
+    "allow_mix_temp": {
+      "group": "Print Behavior",
+      "input": "boolean",
+      "description": "Allow filaments with high/low temperature requirements to be printed together.",
+      "notes": "Internal use; default: off."
+    }
+  }
+}

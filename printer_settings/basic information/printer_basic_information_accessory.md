@@ -17,12 +17,17 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `nozzle_type`.  
+[Type](option_type#list-types): `Choice list`.  
+[Options](option_type#choice): `undefine, hardened_steel, stainless_steel, tungsten_carbide, brass`.  
+[CLI Example](cli_mode#setting-overrides): `--nozzle-type=undefine`.  
 The metallic material of the nozzle: This determines the abrasive resistance of the nozzle and what kind of filament can be printed.
 
 ## Nozzle HRC
 
 [Mode](option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `nozzle_hrc`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--nozzle-hrc=1`.  
 The Nozzle Hardness ([Hardness Rockwell C](https://en.wikipedia.org/wiki/Rockwell_hardness_test)) value is used in OrcaSlicer to validate nozzle compatibility with abrasive filaments and prevent nozzle damage during printing.
 
 | Material          | Value |
@@ -37,6 +42,8 @@ The Nozzle Hardness ([Hardness Rockwell C](https://en.wikipedia.org/wiki/Rockwel
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `auxiliary_fan`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--auxiliary-fan=1`.  
 Enable this option if machine has auxiliary part cooling fan.  
 The speed will be set for each material in the [material cooling settings](material_cooling#auxiliary-part-cooling-fan).
 
@@ -201,6 +208,8 @@ Pick the variant that best fits your workflow; the advanced version provides ext
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_chamber_temp_control`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--support-chamber-temp-control=1`.  
 OrcaSlicer use `M141/M191` command to control active chamber heater.
 
 If your Filament's [Activate temperature control](material_temperatures#print-chamber-temperature) and your printer `Support control chamber temperature` option are checked , OrcaSlicer will insert `M191` command at the beginning of the gcode (before `Machine G-code`).
@@ -272,6 +281,8 @@ gcode:
 
 [Mode](option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `support_air_filtration`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--support-air-filtration=1`.  
 Air Filtration/Exhaust Fan Control in OrcaSlicer.  
 OrcaSlicer use `M106 P3` command to control air-filtration/exhaust fan.
 
