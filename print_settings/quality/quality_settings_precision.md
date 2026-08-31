@@ -76,7 +76,7 @@ Used to compensate external dimensions of the model.
 With this option you can compensate material expansion or shrinkage, which can occur due to various factors such as the type of filament used, temperature fluctuations, or printer calibration issues.
 
 > [!TIP]
-> Follow the [Calibration Guide](https://github.com/OrcaSlicer/OrcaSlicer/wiki/calibration) and [Filament Tolerance Calibration](https://github.com/OrcaSlicer/OrcaSlicer/wiki/tolerance_calib) to determine the correct value for your printer and filament combination.
+> Follow the [Calibration Guide](calibration_guide) and [Filament Tolerance Calibration](tolerance_calib) to determine the correct value for your printer and filament combination.
 
 ### X-Y hole compensation
 
