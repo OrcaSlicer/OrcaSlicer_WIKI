@@ -26,7 +26,7 @@ If you check nothing, the file carries only the geometry.
 
 One tab per extruder, each listing that extruder's **Retraction** and **Z-Hop** values.
 
-![publish_dialog](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/publish_3mf/publish_dialog_printer_settings.png?raw=true)
+![publish_dialog_printer_settings](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/publish_3mf/publish_dialog_printer_settings.png?raw=true)
 
 ### Filament tab
 

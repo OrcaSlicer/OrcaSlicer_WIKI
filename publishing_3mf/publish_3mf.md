@@ -14,7 +14,7 @@ When another user opens it, nothing on the user's setup is overwritten; publishe
 
 A 3MF that's published from OrcaSlicer will show a little badge on the top-left corner of the file, along with green <span style="background-color: #009688; color: #FFFFFF; margin-right: 4px; padding: 0 4px;">PUB</span> text next to the file title.
 
-![publish_dialog](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/publish_3mf/publish_3mf_homepage.png?raw=true)
+![publish_3mf_homepage](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/publish_3mf/publish_3mf_homepage.png?raw=true)
 
 ## Opening a Published 3MF file
 
