@@ -16,9 +16,10 @@ The related plugin development pages cover adjacent topics:
 
 - [API Reference](registry) - the embedded `orca` module, registration,
   host access, UI helpers, and each capability module.
-- [Plugin Audit Hook](plugin_audit_hook) - the CPython audit hook that restricts
-  what plugin code may do (today: a filesystem write allow-list). Anyone adding a new
-  trampoline method must read it; every C++ to Python call must choose an audit mode.
+- [Plugin Audit Hook](plugin_audit_hook) - the CPython audit hook that prompts the
+  user before plugin code performs a sensitive filesystem, network, or process-spawn
+  operation, and remembers the answer. Anyone adding a new trampoline method must read it;
+  every C++ to Python call opens an audit context.
 - [Plugin System Overview](plugin_system) - the catalog/loader/cloud-subscription side of the
   system (discovery, install, update).
 
@@ -572,10 +573,13 @@ the live slicing graph during geometry steps. At `Step.psGCodePostProcess`, the 
 | `cancelled()` | whether the active print has been cancelled |
 
 > [!IMPORTANT]
-> Filesystem access is audited. While `execute()` runs, the audit hook restricts
-> writes to an allow-list. Slicing-pipeline plugins at `psGCodePostProcess` additionally get the folder containing
-> `gcode_path` added as a scoped writable root, so appending to / rewriting the current
-> G-code file is allowed; writing elsewhere outside `data_dir()` is blocked. See
+> Filesystem, network, and process access are audited. While `execute()` runs, a
+> sensitive operation (a file read/write/create/delete, an HTTP/socket connection, spawning
+> a process) prompts the user with a Yes/No dialog naming the target; a "Yes" is remembered
+> for that plugin so the same target does not prompt again. An operation inside a
+> pre-determined allowed folder — `data_dir()`, the read-only `resources_dir()`, or (at
+> `psGCodePostProcess`) the current G-code file's folder — needs no prompt at all; a
+> `secrets`/`cert`/`conf`-like path is blocked outright, with no prompt either. See
 > [Plugin Audit Hook](plugin_audit_hook).
 
 ### Complete Examples
@@ -741,8 +745,8 @@ session log via Boost.
   problem (a capability that doesn't subclass a typed base, a missing `get_name()`, a
   duplicate capability name, or no `@orca.plugin` package class) or an import error. Fix it,
   then reload.
-- **Anything blocked with a `PermissionError` about a file path** -> the audit hook blocked a
-  write/read outside the allow-list. See the *Debugging* section of
+- **Anything blocked with a `PermissionError`** -> the user answered "No" to the audit
+  hook's prompt for that operation (or it was auto-denied). See the *Debugging* section of
   [Plugin Audit Hook](plugin_audit_hook) and the `[AUDIT BLOCKED]` log line.
 
 **Prefer returning a result over raising** for failures you anticipate:
@@ -771,9 +775,10 @@ Tips:
   list. A capability that is never passed to `orca.register_capability` will not appear.
 - Develop against small, fast inputs; for slicing-pipeline plugins keep a tiny test model so
   each export cycle is quick.
-- Remember the audit allow-list: write only under `data_dir()` (or, for slicing-pipeline plugins at
-  `psGCodePostProcess`, the
-  current G-code folder). A surprise `PermissionError` is almost always this.
+- Remember that filesystem/network/process actions prompt on first use per plugin: a
+  surprise `PermissionError` usually means an earlier prompt was answered "No" — or, for a
+  path with `secret`/`cert`/`conf` in it, that it's categorically denied and was never
+  prompted for at all. See [Plugin Audit Hook](plugin_audit_hook).
 
 ## Part 2: Adding a New Plugin Type in C++
 
@@ -783,13 +788,13 @@ contract, such as an "importer" capability type. The system has no per-type regi
 `register_capabilities()` registers it via `register_capability`, and the rest of the app
 reaches the loaded capability instance by `std::dynamic_pointer_cast<ConcreteType>` at the
 call site. So adding a type means: define a base + context + result, add a trampoline that
-forwards into Python (with an audit mode), register pybind11 bindings, wire one call site,
+forwards into Python through the audit macro, register pybind11 bindings, wire one call site,
 and add the files to the build.
 
 Use the existing `slicingPipeline`, `script`, and `printerAgent` types under
 `src/slic3r/plugin/pluginTypes/` as references. `script` is the simplest,
-`slicingPipeline` shows a live graph context plus a scoped audit root, and `printerAgent` shows a
-wide multi-method interface.
+`slicingPipeline` shows a live graph context plus a per-call `audit_setup` callback, and
+`printerAgent` shows a wide multi-method interface.
 
 ### Step 1: Define the Plugin Contract
 
@@ -891,10 +896,8 @@ public:
     ExecutionResult execute(SlicingPipelineContext& ctx) override
     {
         ORCA_PY_OVERRIDE_AUDITED(
-            ::Slic3r::PluginAuditManager::AuditMode::Loading,
             [&] {
-                // Only the export seam may write into the folder holding the current G-code file,
-                // in addition to the globally-allowed data_dir().
+                // Only the export seam may write into the folder holding the current G-code file.
                 // The setup callback runs AFTER the context is constructed so the scoped root
                 // is not cleared by ScopedPluginAuditContext's constructor.
 
@@ -911,23 +914,23 @@ public:
 ```
 
 The macros (`PyPluginTrampoline.hpp`) do two jobs at this single boundary: log + rethrow the
-Python traceback, and open the filesystem audit scope.
+Python traceback, and open the audit context.
 
 ```
-ORCA_PY_OVERRIDE_AUDITED(mode, audit_setup, override_macro, ret, base, name, /*args...*/)
+ORCA_PY_OVERRIDE_AUDITED(audit_setup, override_macro, ret, base, name, /*args...*/)
 ```
 
 | Argument | Meaning |
 |---|---|
-| `mode` | `AuditMode::Loading` (permissive reads, writes restricted to allow-list) or `AuditMode::Enforcing` (reads also restricted); see the audit doc |
-| `audit_setup` | a lambda run *after* the audit context is opened; use it to `add_scoped_allowed_root(...)`. Pass `[] {}` if none |
+| `audit_setup` | a lambda run *after* the audit context is opened; use it to `add_scoped_allowed_root(...)` if your call needs one. Pass `[] {}` if none |
 | `override_macro` | pybind11's own `PYBIND11_OVERRIDE` (has a C++ fallback) or `PYBIND11_OVERRIDE_PURE` (pure virtual, no fallback) |
 | `ret, base, name, ...` | the standard pybind11 override arguments |
 
 > [!IMPORTANT]
-> You must choose an audit mode for every new trampoline method. Most lifecycle/entry
-> calls use `Loading` (so the plugin can still import modules). Read
-> [Plugin Audit Hook](plugin_audit_hook) before picking `Enforcing`.
+> Every new trampoline method must go through `ORCA_PY_OVERRIDE_AUDITED` (or call
+> `ORCA_PY_AUDIT_SCOPE()` directly if you need to hand-unpack the Python return value). There
+> is no mode to choose — read [Plugin Audit Hook](plugin_audit_hook) to understand what gets
+> prompted and persisted for the events your new type's Python surface can trigger.
 
 ### Step 4: Register the Python Bindings
 
@@ -978,13 +981,13 @@ only add your type-specific submodule.
 
 ### Step 5: Add Audit Hooks
 
-Auditing is not optional. Each trampoline method you wrote in Step 3 already opts into a mode
-through `ORCA_PY_OVERRIDE_AUDITED`. If your type needs a per-call writable directory (as
-G-code does for the temp folder), grant it as a **scoped** root in the `audit_setup` lambda;
-prefer scoped roots over widening the global allow-list. If your type performs a sensitive
-operation the current hook doesn't yet police, consider extending the hook itself. All of
-this is documented in [Plugin Audit Hook](plugin_audit_hook); read it before
-finalizing the modes.
+Auditing is not optional. Each trampoline method you wrote in Step 3 already opens an audit
+context through `ORCA_PY_OVERRIDE_AUDITED`, so any filesystem/network/process operation your
+type's Python surface performs is automatically categorized, prompted, and (for most
+categories) persisted per plugin — see [Plugin Audit Hook](plugin_audit_hook) for the
+category table. If your type performs a sensitive operation the current event map doesn't
+cover, add the CPython event to `audit_event_categories` in `PluginAuditManager.cpp` rather
+than inventing a parallel check. Read the audit doc before finalizing your trampoline.
 
 ### Step 6: Hook the Type Into an OrcaSlicer Workflow
 
@@ -1032,10 +1035,11 @@ around lines 615-623):
 2. **Contract**: `pluginTypes/<type>/<Type>PluginCapability.hpp` - base + context + result + static
    `RegisterBindings`.
 3. **Trampoline**: `pluginTypes/<type>/<Type>PluginCapabilityTrampoline.hpp` - forward each virtual via
-   `ORCA_PY_OVERRIDE_AUDITED`, choosing an audit mode.
+   `ORCA_PY_OVERRIDE_AUDITED`.
 4. **Bindings**: `pluginTypes/<type>/<Type>PluginCapability.cpp` `RegisterBindings`, then call it from
    `bind_python_api` in `PythonPluginBridge.cpp`.
-5. **Audit**: confirm the modes / scoped roots per [Plugin Audit Hook](plugin_audit_hook).
+5. **Audit**: confirm the events your type's Python surface can trigger are categorized
+   correctly per [Plugin Audit Hook](plugin_audit_hook).
 6. **Workflow**: add a call site / on-load callback that casts and invokes; gate it so an
    absent type is a no-op.
 7. **Build**: add the files to `src/slic3r/CMakeLists.txt`.
@@ -1060,9 +1064,10 @@ Verification is primarily manual, with targeted Catch2 tests where the logic is 
   `ExecutionResult.failure(...)`; confirm the message box text, and that the full traceback
   appears in `data_dir()/log/python_*.log`. Confirm an invalid-metadata plugin surfaces its
   error in the details area rather than crashing.
-- **Audit** - confirm a write outside the allow-list is blocked with a `PermissionError` and
-  an `[AUDIT BLOCKED]` log line, and that legitimate writes (under `data_dir()`, or the
-  G-code folder for slicing-pipeline plugins at `psGCodePostProcess`) succeed.
+- **Audit** - trigger a filesystem/network/process action, confirm the Yes/No dialog names
+  the right target, and that answering **No** blocks it with a `PermissionError` and an
+  `[AUDIT BLOCKED]` log line while answering **Yes** lets it through and persists the grant
+  so a repeat of the same action does not prompt again.
 
 ### Automated Tests Where Appropriate
 
@@ -1074,8 +1079,11 @@ running interpreter or GUI. For example:
 - Capability reference parsing/serialization (`parse_capability_ref` in `Config.cpp`) - see
   `tests/libslic3r/test_config.cpp` and `tests/slic3rutils/test_plugin_capability_identifier.cpp`
   for local vs. cloud refs and malformed input.
-- The audit allow-list logic (`PluginAuditManager::check_open`, `is_inside_allowed_root`):
-  inside/outside roots, `..` traversal, read vs write under each mode.
+- The allowed-root/denied-path logic (`PluginAuditManager::check_open`,
+  `is_inside_allowed_root`, `is_denied_path_keyword`) that `tests/slic3rutils/test_plugin_audit.cpp`
+  already covers: inside/outside roots, read-only roots, `..` traversal, read vs write,
+  denied filenames and keywords. See
+  [Plugin Audit Hook](plugin_audit_hook#allowed-roots-and-denied-paths).
 - Type-string round-trips (`plugin_capability_type_from_string` / `plugin_capability_type_to_string`).
 
 Anything that requires the embedded interpreter, file installs, or GUI dialogs is currently
@@ -1084,9 +1092,9 @@ best covered by the manual steps above.
 ### Cross-Platform and Regression Checks
 
 - **Cross-platform** - the plugin code must build and run on Windows, macOS, and Linux. Be
-  careful with path handling (the audit allow-list canonicalizes paths; keep using
-  `std::filesystem` / the existing helpers), and with line endings in the PEP 723 parser
-  (it already strips `\r`).
+  careful with path handling (audit target extraction canonicalizes paths via `PyOS_FSPath`;
+  keep using `std::filesystem` / the existing helpers), and with line endings in the PEP 723
+  parser (it already strips `\r`).
 - **No regressions** - changes to the framework must not alter behavior when no plugin of a
   given type is installed (Step 6). When touching the trampoline/audit headers, note that
   `PyPluginTrampoline.hpp` and `PluginAuditManager.hpp` are included by many translation
@@ -1112,4 +1120,4 @@ best covered by the manual steps above.
 | `src/slic3r/GUI/PluginsDialog.cpp` | Plugins dialog: details/error area, script **Run**, error dialogs |
 | `src/slic3r/GUI/PostProcessor.cpp` | resolves the preset's plugin refs and invokes post-processing (G-code) capabilities during export |
 | `src/slic3r/CMakeLists.txt` (~609-623) | build list for plugin sources |
-| [Plugin Audit Hook](plugin_audit_hook) | the audit hook: modes, allow-list, extending it |
+| [Plugin Audit Hook](plugin_audit_hook) | the audit hook: categories, prompting/persistence, extending it |

@@ -10,8 +10,9 @@ The other plugin development pages cover the implementation details:
   add a new plugin type in C++.
 - [API Reference](registry) - the embedded `orca` module, registration,
   host access, UI helpers, and each capability module.
-- [Plugin Audit Hook](plugin_audit_hook) - the CPython audit hook that constrains
-  what plugin code may do.
+- [Plugin Audit Hook](plugin_audit_hook) - the CPython audit hook that prompts the
+  user before plugin code performs a sensitive filesystem, network, or process-spawn
+  operation, and remembers the answer.
 
 > [!NOTE]
 > All paths below are under `src/slic3r/plugin/` unless stated otherwise.
@@ -30,8 +31,9 @@ The other plugin development pages cover the implementation details:
   machine (see [Plugin references in presets](#plugin-references-in-presets)).
 - **A single, narrow API surface** - plugins see only the embedded `orca` module, not the
   slicer internals.
-- **A security boundary** - file access by plugin code is filtered by an audit hook with a
-  write allow-list (groundwork; see the audit doc for current scope).
+- **A permission boundary, not a sandbox** - filesystem, network, and process-spawn
+  operations by plugin code are categorized and gated by an audit hook that prompts the user
+  and remembers the answer per plugin; see the audit doc for current scope and gaps.
 - **Isolation of failure** - a misbehaving plugin reports an error and is unloaded rather
   than taking down the app; tracebacks are persisted to a log file.
 
@@ -58,7 +60,7 @@ The other plugin development pages cover the implementation details:
    │                       Embedded CPython  (PythonInterpreter, singleton)            │
    │   PythonPluginBridge → `orca` module + @orca.plugin/register_capability + capture │
    │   PyPluginTrampoline → C++↔Python call boundary (traceback logging + audit scope) │
-   │   PluginAuditManager → CPython audit hook (filesystem policy)                     │
+   │   PluginAuditManager → CPython audit hook (categorize, prompt, persist)           │
    │   pluginTypes/* (gcode, script, printerAgent) → typed capability bases + tramps   │
    └─────────────────────────────────────────────────────────────────────────────────┘
                                                                        │ get_plugin_capability_* + dynamic_pointer_cast
@@ -88,7 +90,7 @@ There are two broad layers:
 | `PythonPluginBridge` | Defines the embedded **`orca` module**, the `@orca.plugin` decorator + `orca.base` package class + `register_capability` entry, and captures/instantiates the package and the capability classes it registers. |
 | `PyPluginTrampoline` | The pybind11 override base at the **C++ to Python boundary**: logs Python tracebacks and opens the per-call audit scope. |
 | `pluginTypes/*` | Per-type C++ capability bases + trampolines (`SlicingPipelinePluginCapability`, `ScriptPluginCapability`, `PrinterAgentPluginCapability`) that define each type's entry method and dispatch. |
-| `PluginAuditManager` | **Singleton CPython audit hook**: filesystem policy (write allow-list), scoped roots, `Loading`/`Enforcing` modes. See the audit doc. |
+| `PluginAuditManager` | **Singleton CPython audit hook**: categorizes filesystem/network/process events, prompts the user, and persists granted permissions per plugin. See the audit doc. |
 
 ## Plugin Packaging and Discovery
 
@@ -119,7 +121,7 @@ logged in.
 2. PluginManager::initialize()
         │   └─ PythonInterpreter::initialize()  (MAIN THREAD ONLY)
         │        ├─ start embedded CPython, set sys.path / python home
-        │        ├─ install the audit hook (global allowed root = data_dir())
+        │        ├─ install the audit hook (registers CPython's audit callback)
         │        ├─ tee sys.stderr → data_dir()/log/python_*.log
         │        └─ release the GIL (PyEval_SaveThread)
         │
@@ -291,9 +293,9 @@ sidecar (written by `PluginManager`).
 ## Security and Observability
 
 - **Security** - all C++ to Python calls cross a trampoline that opens a per-call audit context;
-  the `PluginAuditManager` audit hook then filters sensitive operations (today: a filesystem
-  write allow-list rooted at `data_dir()`, plus scoped roots such as the current G-code
-  folder). This is groundwork, not a hardened sandbox; read
+  the `PluginAuditManager` audit hook then categorizes sensitive filesystem/network/process
+  events, prompts the user with a Yes/No dialog naming the target, and persists most
+  categories' grants per plugin. This is a permission system, not a hardened sandbox; read
   [Plugin Audit Hook](plugin_audit_hook) for exactly what is and isn't enforced.
 - **Observability** - Python `sys.stderr` (plugin tracebacks, including from
   plugin-spawned threads) is teed to `data_dir()/log/python_*.log`; C++-side
@@ -307,8 +309,8 @@ sidecar (written by `PluginManager`).
   C++ plugin type; testing and debugging.
 - [API Reference](registry) - the embedded `orca` module, registration,
   host access, UI helpers, and each capability module.
-- [Plugin Audit Hook](plugin_audit_hook) - the audit hook: modes, allow-list,
-  extending the policy.
+- [Plugin Audit Hook](plugin_audit_hook) - the audit hook: categories, prompting,
+  persistence, extending the policy.
 
 ## Key Files
 
