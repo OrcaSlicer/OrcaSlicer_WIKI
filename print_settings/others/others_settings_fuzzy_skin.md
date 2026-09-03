@@ -2,6 +2,9 @@
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `none, external, hole, all, allwalls, disabled_fuzzy`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin=none`.  
 Fuzzy skin randomly perturbs the wall path to produce a deliberately rough, matte appearance on the model surface.  
 These settings control where the effect is applied, how the noise is generated, and how aggressive the displacement or extrusion modulation is.
 
@@ -39,6 +42,9 @@ Useful for creating a textures or hide surface imperfections but will increase p
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_mode`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `displacement, extrusion, combined`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-mode=displacement`.  
 Choose which parts of the model receive the fuzzy-skin effect.
 
 ### Contour
@@ -97,6 +103,9 @@ This is a combination of Displacement and Extrusion modes. The clarity of the dr
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_noise_type`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `classic, perlin, billow, ridgedmulti, voronoi, ripple`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-noise-type=classic`.  
 Select the noise algorithm used to generate the random offsets. Different noise types produce distinct visual textures.
 
 ### Classic
@@ -143,12 +152,16 @@ A clear example is a 3DBenchy, whose windows create small print islands where th
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_ripples_per_layer`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-ripples-per-layer=1`.  
 Controls how many full cycles of ripples will be added per layer.
 
 #### Ripple offset
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_ripple_offset`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-ripple-offset=20%`.  
 Shifts the ripple phase forward along the print path by the specified percentage of a wavelength each layer period. Values are specified between 0% and 100% (0% = no shift, 100% = a full-wavelength shift).
 
 - 0% keeps every layer identical.
@@ -161,6 +174,8 @@ The shift is applied once every number of layers set by [Layers between ripple o
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_layers_between_ripple_offset`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-layers-between-ripple-offset=1`.  
 Specifies how many consecutive layers share the same ripple phase before the offset is applied.  
 For example:
 
@@ -171,6 +186,8 @@ For example:
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_point_distance`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-point-distance=1`.  
 Average distance between random sample points along each line segment.  
 Smaller values add more detail and increase computation; larger values produce coarser, faster results.
 
@@ -178,6 +195,8 @@ Smaller values add more detail and increase computation; larger values produce c
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_thickness`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-thickness=1`.  
 Maximum lateral width (in mm) over which points can be displaced. This defines how far the wall can be jittered.  
 Keep this below or near your outer wall line width and within nozzle/flow limits for reliable prints.
 
@@ -185,24 +204,32 @@ Keep this below or near your outer wall line width and within nozzle/flow limits
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_scale`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-scale=1`.  
 Base size of coherent noise features, in mm. Larger values yield bigger, more prominent structures; smaller values give fine-grained texture.
 
 ## Skin Noise Octaves
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_octaves`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-octaves=1`.  
 The number of octaves of coherent noise to use. Higher values increase the detail of the noise, but also increase computation time.
 
 ## Skin Noise Persistence
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_persistence`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-persistence=1`.  
 Controls how amplitude decays across octaves. Lower persistence results in smoother noise; higher persistence keeps finer-scale detail stronger.
 
 ## Apply fuzzy skin to first layer
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `fuzzy_skin_first_layer`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-first-layer=1`.  
 Enable to apply fuzzy skin to the first layer.
 
 > [!CAUTION]

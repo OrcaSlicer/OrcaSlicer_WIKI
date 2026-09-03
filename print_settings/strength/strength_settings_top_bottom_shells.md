@@ -19,6 +19,8 @@ Controls how the top and bottom solid layers (shells) are generated.
 ## Shell Layers
 
 [Variables](built_in_placeholders_variables): `top_shell_layers`, `bottom_shell_layers`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--top-shell-layers=1` (same pattern for the other variables above).  
 This is the number of solid shell layers, including the surface layer.  
 When the thickness calculated from this value is less than [shell thickness](#shell-thickness), the shell layers will be increased.
 
@@ -28,12 +30,16 @@ It's usually recommended to have at least 3 shell layers for most prints.
 ## Shell Thickness
 
 [Variables](built_in_placeholders_variables): `top_shell_thickness`, `bottom_shell_thickness`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--top-shell-thickness=1` (same pattern for the other variables above).  
 The number of solid layers is increased during slicing if the thickness calculated from shell layers is thinner than this value. This avoids having too thin a shell when layer height is small.  
 0 means this setting is disabled and shell thickness is determined entirely by [shell layers](#shell-layers).
 
 ## Surface Density
 
 [Variables](built_in_placeholders_variables): `top_surface_density`, `bottom_surface_density`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--top-surface-density=20%` (same pattern for the other variables above).  
 This setting controls the density of the top and bottom surfaces. A value of 100% means a solid surface, while lower values create a sparse surface.  
 This can be used for aesthetic purposes, improving grip or creating interfaces.
 
@@ -41,6 +47,8 @@ This can be used for aesthetic purposes, improving grip or creating interfaces.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_bottom_infill_wall_overlap`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--top-bottom-infill-wall-overlap=20%`.  
 The top solid infill area is slightly enlarged to overlap with walls for better bonding and to minimize pinholes where the infill meets the walls.  
 A value of 25-30% is a good starting point. The percentage value is relative to the line width of the sparse infill.
 
@@ -50,6 +58,9 @@ A value of 25-30% is a good starting point. The percentage value is relative to 
 ## Surface Pattern
 
 [Variables](built_in_placeholders_variables): `top_surface_pattern`, `bottom_surface_pattern`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `monotonic, monotonicline, rectilinear, alignedrectilinear, concentric, hilbertcurve, archimedeanchords, octagramspiral`.  
+[CLI Example](cli_mode#setting-overrides): `--top-surface-pattern=monotonic` (same pattern for the other variables above).  
 This setting controls the pattern of the surfaces.  
 If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be applied to the outermost shell layer only and the rest will use [Internal Solid Infill Pattern](strength_settings_infill#internal-solid-infill).
 
@@ -74,6 +85,8 @@ If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_expansion`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--top-surface-expansion=1`.  
 
 > [!IMPORTANT]
 > NEW FEATURE: **Top surface expansion** (expansion, margin and direction)  
@@ -102,6 +115,8 @@ The expansion is applied to the original top surface, before any other processin
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_expansion_margin`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--top-surface-expansion-margin=1`.  
 Using [Surface Expansion](#surface-expansion) may cause a surface that did not previously touch the model's outer walls to now reach them, which can create contraction marks (such as a hull line) on the outer walls.  
 Adding a margin (in mm) keeps the expansion away from the walls where possible, so no hull line is created. The example below uses a 5 mm expansion with a 2 mm margin — compare it with the 5 mm expansion above, which reaches the walls.
 
@@ -113,6 +128,9 @@ The margin is the real clearance left between the expanded top surface and the w
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_expansion_direction`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `inward_and_outward, inward, outward`.  
+[CLI Example](cli_mode#setting-overrides): `--top-surface-expansion-direction=inward_and_outward`.  
 Direction in which the [Surface Expansion](#surface-expansion) grows:
 
 - **Inward:** grows into the holes and gaps left by features rising from the middle of a top surface.
@@ -138,6 +156,9 @@ When **Surface Expansion** is in use, those inner walls are removed over the top
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `center_of_surface_pattern`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `each_surface, each_model, each_assembly`.  
+[CLI Example](cli_mode#setting-overrides): `--center-of-surface-pattern=each_surface`.  
 
 > [!IMPORTANT]
 > NEW FEATURE: **Center surface pattern on**  
@@ -162,6 +183,9 @@ By default these patterns are centered individually on each surface, which does 
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `top_surface_fill_order`, `bottom_surface_fill_order`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `default, outward, inward`.  
+[CLI Example](cli_mode#setting-overrides): `--top-surface-fill-order=default` (same pattern for the other variables above).  
 
 > [!IMPORTANT]
 > NEW FEATURE: **Fill order**  

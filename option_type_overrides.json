@@ -1,0 +1,14 @@
+{
+  "machine_max_speed_x": { "type": "coFloats" },
+  "machine_max_speed_y": { "type": "coFloats" },
+  "machine_max_speed_z": { "type": "coFloats" },
+  "machine_max_speed_e": { "type": "coFloats" },
+  "machine_max_acceleration_x": { "type": "coFloats" },
+  "machine_max_acceleration_y": { "type": "coFloats" },
+  "machine_max_acceleration_z": { "type": "coFloats" },
+  "machine_max_acceleration_e": { "type": "coFloats" },
+  "machine_max_jerk_x": { "type": "coFloats" },
+  "machine_max_jerk_y": { "type": "coFloats" },
+  "machine_max_jerk_z": { "type": "coFloats" },
+  "machine_max_jerk_e": { "type": "coFloats" }
+}

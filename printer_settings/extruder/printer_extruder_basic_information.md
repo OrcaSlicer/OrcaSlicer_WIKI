@@ -12,6 +12,8 @@ When using multiple extruders, you can set different values for each extruder.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `nozzle_diameter[extruder_idx]`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--nozzle-diameter=1`.  
 The diameter of the nozzle for each extruder.  
 
 > [!TIP]
@@ -22,16 +24,22 @@ The diameter of the nozzle for each extruder.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `nozzle_volume[extruder_idx]`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--nozzle-volume=1`.  
 Volume of nozzle between the filament cutter and the end of the nozzle
 
 ## Extruder Layer Height Limits
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `extruder_printable_height[extruder_idx]`, `min_layer_height[extruder_idx]`, `max_layer_height[extruder_idx]`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--extruder-printable-height=1` (same pattern for the other variables above).  
 Min and max layer height limits for the extruder. These settings are used when adaptive layer height is enabled.
 
 ## Extruder offset Position
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `extruder_offset[extruder_idx]`.  
+[Type](option_type#list-types): `Point list`.  
+[CLI Example](cli_mode#setting-overrides): `--extruder-offset=100,100`.  
 If your firmware doesn't handle the extruder displacement you need the G-code to take it into account. This option lets you specify the displacement of each extruder with respect to the first one. It expects positive coordinates (they will be subtracted from the XY coordinate).

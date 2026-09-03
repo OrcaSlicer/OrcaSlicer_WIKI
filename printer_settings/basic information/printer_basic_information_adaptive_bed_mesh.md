@@ -18,6 +18,8 @@ The implementation is designed to be straightforward, requiring no additional pl
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `bed_mesh_min`, `bed_mesh_max`.  
+[Type](option_type#point): `Point`.  
+[CLI Example](cli_mode#setting-overrides): `--bed-mesh-min=100,100` (same pattern for the other variables above).  
 This option sets the min and max point for the allowed bed mesh area. Due to the probe's XY offset, most printers are unable to probe the entire bed. To ensure the probe point does not go outside the bed area, the minimum and maximum points of the bed mesh should be set appropriately.  
 OrcaSlicer ensures that adaptive_bed_mesh_min/adaptive_bed_mesh_max values do not exceed these min/max points. This information can usually be obtained from your printer manufacturer.  
 The default setting is (-99999, -99999), which means there are no limits, thus allowing probing across the entire bed.
@@ -26,12 +28,16 @@ The default setting is (-99999, -99999), which means there are no limits, thus a
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `bed_mesh_probe_distance`.  
+[Type](option_type#point): `Point`.  
+[CLI Example](cli_mode#setting-overrides): `--bed-mesh-probe-distance=100,100`.  
 This option sets the preferred distance between probe points (grid size) for the X and Y directions, with the default being 50mm for both X and Y.
 
 ## Mesh margin
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `adaptive_bed_mesh_margin`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--adaptive-bed-mesh-margin=1`.  
 This option determines the additional distance by which the adaptive bed mesh area should be expanded in the XY directions.
 
 > [!NOTE]

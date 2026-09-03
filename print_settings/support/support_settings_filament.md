@@ -11,18 +11,24 @@ Support filament settings allow you to customize the material used for support s
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `support_filament`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--support-filament=1`.  
 Filament to print support base and raft. "Default" means no specific filament for support and current filament is used.
 
 ## Interface
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `support_interface_filament`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--support-interface-filament=1`.  
 Filament to print support interface. "Default" means no specific filament for support interface and current filament is used.
 
 ### Avoid interface filament for base
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `support_interface_not_for_body`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--support-interface-not-for-body=1`.  
 Avoid using support interface filament to print support base if possible.
 
 This affects the support **body** only. It is a separate thing from the bonding layer described below, which is part of the interface itself.

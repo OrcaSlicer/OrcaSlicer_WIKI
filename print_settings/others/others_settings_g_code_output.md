@@ -14,6 +14,8 @@ These settings control how G-code is generated and formatted. They impact readab
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `reduce_infill_retraction`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--reduce-infill-retraction=1`.  
 When enabled, the slicer will skip retractions for travel moves that occur entirely inside infill regions. This reduces the number of retractions and can speed up printing for complex models, but it may increase oozing or stringing inside infill. Slicing time may also increase slightly.
 
 **Recommended** when internal cosmetic quality is not critical and you want fewer retractions.
@@ -22,12 +24,16 @@ When enabled, the slicer will skip retractions for travel moves that occur entir
 
 [Mode](option_mode): `Developer`.  
 [Variable](built_in_placeholders_variables): `gcode_add_line_number`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--gcode-add-line-number=1`.  
 Prefix each G-code line with a sequential line number (N1, N2, ...). Useful for debugging or tools that expect numbered G-code.
 
 ## Verbose G-code
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gcode_comments`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--gcode-comments=1`.  
 Include descriptive comments for G-code lines and blocks to make the file human-readable and easier to debug.  
 Verbose mode produces much larger files and may slow down SD-card printing on some printers.
 
@@ -35,6 +41,8 @@ Verbose mode produces much larger files and may slow down SD-card printing on so
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gcode_label_objects`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--gcode-label-objects=1`.  
 Insert comments that label moves with the object they belong to (object index or name). This is useful for integrations such as OctoPrint's Cancel Object plugin and for human inspection of the G-code.
 
 > [!IMPORTANT]
@@ -45,6 +53,8 @@ Insert comments that label moves with the object they belong to (object index or
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `exclude_object`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--exclude-object=1`.  
 Add an `EXCLUDE OBJECT` marker or command in the exported G-code for objects flagged as excluded. This helps post-processors or custom scripts recognise excluded parts.
 
 ## Filename Format

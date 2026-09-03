@@ -26,6 +26,9 @@ Brim is a flat layer printed around a model's base to improve adhesion to the pr
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `brim_type`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `auto_brim, brim_ears, painted, outer_only, inner_only, outer_and_inner, no_brim`.  
+[CLI Example](cli_mode#setting-overrides): `--brim-type=auto_brim`.  
 Controls how the brim is generated on a model's outer and/or inner sides.
 
 ### Auto
@@ -89,6 +92,8 @@ The geometry analysis routine selects candidate locations based on the configure
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_ears_max_angle`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--brim-ears-max-angle=1`.  
 Angle threshold (degrees) used to decide where mouse ears may be placed:
 
 - 0° — disabled; no mouse ears are generated.
@@ -99,6 +104,8 @@ Angle threshold (degrees) used to decide where mouse ears may be placed:
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_ears_detection_length`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--brim-ears-detection-length=1`.  
 The geometry will be decimated before detecting sharp angles.  
 This parameter indicates the minimum length of the deviation for the decimation.  
 0 to deactivate.
@@ -107,6 +114,8 @@ This parameter indicates the minimum length of the deviation for the decimation.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_ears_outer_only`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--brim-ears-outer-only=1`.  
 > [!IMPORTANT]
 > NEW FEATURE: **Limit automatic and painted brim ears to outer contours**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
@@ -119,6 +128,8 @@ This setting is available for both the **Mouse Ears** and **Painted** brim types
 
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `brim_width`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--brim-width=1`.  
 Distance between the model and the outermost brim line.  
 Increasing this value widens the brim, which can improve adhesion but increases material usage.
 
@@ -128,6 +139,8 @@ When **Brim type** is set to **Mouse Ears**, this setting is labeled **Brim ear 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_object_gap`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--brim-object-gap=1`.  
 Gap between the innermost brim line and the object.  
 Increasing the gap makes the brim easier to remove but reduces its adhesion benefit; very large gaps may eliminate contact and negate the brim's purpose.
 
@@ -135,6 +148,8 @@ Increasing the gap makes the brim easier to remove but reduces its adhesion bene
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_flow_ratio`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--brim-flow-ratio=1`.  
 This factor affects the amount of material for [brims](#brim).
 Setting this value slightly above 1.0 can help the brim hold the print on the plate, but it can also make brims harder to remove.
 The actual brim [flow](quality_settings_wall_and_surfaces#surface-flow-ratio) used is calculated by multiplying this value by the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.
@@ -146,6 +161,8 @@ The actual brim [flow](quality_settings_wall_and_surfaces#surface-flow-ratio) us
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `brim_use_efc_outline`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--brim-use-efc-outline=1`.  
 When enabled, the brim is aligned with the first-layer perimeter geometry after [Elephant Foot Compensation](quality_settings_precision#elephant-foot-compensation) is applied.  
 This option is intended for cases where [Elephant Foot Compensation](quality_settings_precision#elephant-foot-compensation) significantly alters the first-layer footprint.
 
@@ -157,6 +174,8 @@ If your current setup already works well, enabling it may be unnecessary and can
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `combine_brims`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--combine-brims=1`.  
 Combine adjacent brims into a single continuous brim when they touch.
 
 - Disable: Each object's brim is generated and printed separately; each brim is completed before its object is printed.

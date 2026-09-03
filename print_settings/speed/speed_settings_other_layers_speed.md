@@ -29,6 +29,8 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `outer_wall_speed`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--outer-wall-speed=1`.  
 Speed of outer wall which is outermost and visible. It's used to be slower than [inner wall speed](#inner-wall) to get better quality and good layer adhesion.
 This setting is also limited by [Machine / Motion ability / Resonance avoidance speed settings](vfa_calib).
 
@@ -36,12 +38,16 @@ This setting is also limited by [Machine / Motion ability / Resonance avoidance 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `inner_wall_speed`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--inner-wall-speed=1`.  
 Speed of inner wall which is printed faster than outer wall to reduce print time but is still recommended to be slower than the [maximum volumetric speed](volumetric_speed_calib) to ensure good layer adhesion and reduce material internal stresses.
 
 ## Small perimeters
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `small_perimeter_speed`.  
+[Type](option_type#list-types): `Float or Percentage list`.  
+[CLI Example](cli_mode#setting-overrides): `--small-perimeter-speed=20%`.  
 Speed of outer wall with theoretical radius <= [small perimeters threshold](#small-perimeters-threshold).
 Any shape (not only circles) will be considered as a small perimeter.
 
@@ -54,6 +60,8 @@ If expressed as percentage (for example: 80%) it will be calculated on the [oute
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `small_perimeter_threshold`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--small-perimeter-threshold=1`.  
 **Radius** in millimeters below which the speed of perimeters will be reduced to the [small perimeters speed](#small-perimeters).  
 To know the length of the perimeter, you can use the formula:
 
@@ -74,6 +82,8 @@ For example, if the threshold is set to 5 mm, then the perimeter length must be 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `sparse_infill_speed`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--sparse-infill-speed=1`.  
 Speed of [sparse infill](strength_settings_infill) which is printed faster than solid infill to reduce print time.  
 In case you are using your [Infill Pattern](strength_settings_infill) as aesthetic feature, you may want to set it closer to the [outer wall speed](#outer-wall) to get better quality.
 
@@ -81,6 +91,8 @@ In case you are using your [Infill Pattern](strength_settings_infill) as aesthet
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `internal_solid_infill_speed`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--internal-solid-infill-speed=1`.  
 Speed of internal solid infill, which fills the interior of the model with solid layers.  
 This is typically set faster than the [top surface speed](#top-surface) to optimize print time, while still ensuring adequate strength and layer adhesion. Adjusting this speed can help balance print quality and efficiency, especially for models requiring strong internal structures.  
 Solid infill is also considered when [infill % is set to 100%](strength_settings_infill#internal-solid-infill).
@@ -89,36 +101,48 @@ Solid infill is also considered when [infill % is set to 100%](strength_settings
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_speed`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--top-surface-speed=1`.  
 Speed of the [topmost solid layers](strength_settings_top_bottom_shells) of the print. This is usually set similar to the [outer wall speed](#outer-wall) to achieve a smoother and higher-quality finish on visible surfaces. Lower speeds help minimize surface defects and improve the appearance of the final printed object.
 
 ## Gap infill
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gap_infill_speed`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--gap-infill-speed=1`.  
 Speed of [gap infill](strength_settings_infill#apply-gap-fill), which is used to fill small gaps or holes in the print.
 
 ## Ironing speed
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `ironing_speed`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--ironing-speed=1`.  
 [Ironing](quality_settings_ironing) and [Support Ironing](support_settings_ironing) speed, typically slower than the top surface speed to ensure a smooth finish.
 
 ## Support
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_speed`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--support-speed=1`.  
 Speed at which [support](support_settings_support) material is printed. Slower speeds help ensure that supports are stable and effective during the print process.
 
 ## Support interface
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_interface_speed`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--support-interface-speed=1`.  
 Speed for the support interface layers, which are the layers directly contacting the model. This is usually set even slower than the main [support speed](#support) to maximize surface quality where the support meets the model and to make support removal easier.
 
 ## Small tree support perimeters
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `small_support_perimeter_speed`.  
+[Type](option_type#list-types): `Float or Percentage list`.  
+[CLI Example](cli_mode#setting-overrides): `--small-support-perimeter-speed=20%`.  
 
 > [!IMPORTANT]
 > NEW FEATURE: **Small tree support perimeters** (speed and threshold)  
@@ -133,5 +157,7 @@ Set to zero for auto.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `small_support_perimeter_threshold`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--small-support-perimeter-threshold=1`.  
 Sets the threshold for small support perimeter length below which [small tree support perimeters](#small-tree-support-perimeters) speed is applied.  
 The default threshold is 0 mm.

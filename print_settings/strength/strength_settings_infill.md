@@ -31,6 +31,8 @@ Infill is the internal structure of a 3D print, providing strength and support. 
 ## Sparse infill density
 
 [Variable](built_in_placeholders_variables): `sparse_infill_density`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--sparse-infill-density=20%`.  
 Infill density determines the amount of material used to fill the interior of a 3D print. It is usually expressed as a percentage, with 100% being completely solid.
 
 - Higher density increases
@@ -46,6 +48,8 @@ Infill density determines the amount of material used to fill the interior of a 
 ## Fill Multiline
 
 [Variable](built_in_placeholders_variables): `fill_multiline`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--fill-multiline=1`.  
 This setting allows the selected [infill pattern](#sparse-infill-pattern) to be generated using up to 10 parallel extrusion lines per path, while preserving both the defined [infill density](#sparse-infill-density) and the overall material usage.
 
 To check which patterns support multiline infill, see the Patterns Quick Reference table in the [Infill Patterns Wiki List](strength_settings_patterns_quick_reference) or each pattern's specifics in the [Patterns section](strength_settings_patterns).
@@ -107,6 +111,8 @@ These settings control the orientation of the sparse infill lines to optimize st
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `infill_direction`, `solid_infill_direction`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--infill-direction=1` (same pattern for the other variables above).  
 Controls the direction of the infill lines to optimize or strengthen the print.
 
 ![fill-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-direction.png?raw=true)
@@ -152,6 +158,8 @@ Other examples:
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `symmetric_infill_y_axis`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--symmetric-infill-y-axis=1`.  
 When enabled, the infill pattern will be mirrored along the Y-axis of the print bed. This can help achieve more uniform strength distribution in certain geometries.
 
 > [!IMPORTANT]
@@ -166,6 +174,8 @@ For example, you might want to mirror the infill pattern for specific components
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `infill_wall_overlap`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--infill-wall-overlap=20%`.  
 Infill area is enlarged slightly to overlap with wall for better bonding. The percentage value is relative to line width of sparse infill. Set this value to ~10-15% to minimize potential over extrusion and accumulation of material resulting in rough surfaces.
 
 - **Infill Wall Overlap Off**
@@ -180,6 +190,9 @@ Infill area is enlarged slightly to overlap with wall for better bonding. The pe
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `gap_fill_target`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `everywhere, topbottom, nowhere`.  
+[CLI Example](cli_mode#setting-overrides): `--gap-fill-target=everywhere`.  
 Enables gap fill for the selected solid surfaces.  
 The minimum gap length that will be filled can be controlled from the filter out tiny gaps option.
 
@@ -198,6 +211,8 @@ However this is not advised, as gap fill between perimeters is contributing to t
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `filter_out_gap_fill`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--filter-out-gap-fill=1`.  
 Don't print gap fill with a length is smaller than the threshold specified (in mm).  
 This setting applies to top, bottom and solid infill and, if using the [classic perimeter generator](quality_settings_wall_generator#classic), to wall gap fill.
 
@@ -205,6 +220,8 @@ This setting applies to top, bottom and solid infill and, if using the [classic 
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `infill_anchor_max`, `infill_anchor`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--infill-anchor-max=20%` (same pattern for the other variables above).  
 Connect an infill line to an internal perimeter with a short segment of an additional perimeter. If expressed as percentage (example: 15%) it is calculated over infill extrusion width.
 OrcaSlicer tries to connect two close infill lines to a short perimeter segment. If no such perimeter segment shorter than this parameter is found, the infill line is connected to a perimeter segment at just one side and the length of the perimeter segment taken is limited to infill_anchor, but no longer than this parameter. If set to 0, the old algorithm for infill connection will be used, it should create the same result as with 1000 & 0.
 
@@ -219,12 +236,17 @@ OrcaSlicer tries to connect two close infill lines to a short perimeter segment.
 ## Internal Solid Infill
 
 [Variable](built_in_placeholders_variables): `internal_solid_infill_pattern`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `monotonic, monotonicline, rectilinear, alignedrectilinear, concentric, hilbertcurve, archimedeanchords, octagramspiral`.  
+[CLI Example](cli_mode#setting-overrides): `--internal-solid-infill-pattern=monotonic`.  
 Line pattern of internal solid infill. If the [detect narrow internal solid infill](strength_settings_advanced#detect-narrow-internal-solid-infill) be enabled, the [concentric pattern](strength_settings_patterns#concentric) will be used for the small area.
 
 ## Extra Solid Infill
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `extra_solid_infills`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--extra-solid-infills=value`.  
 Insert extra solid infills at specific layers to add strength at critical points in your print. This feature allows you to strategically reinforce your part without changing the overall sparse infill density.
 
 ![extra-solid-infill](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/extra-solid-infill.gif?raw=true)
@@ -276,6 +298,9 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 ## Sparse Infill Pattern
 
 [Variable](built_in_placeholders_variables): `sparse_infill_pattern`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `rectilinear, alignedrectilinear, zigzag, crosszag, lockedzag, line, grid, triangles, tri-hexagon, cubic, adaptivecubic, quartercubic, supportcubic, lightning, honeycomb, 3dhoneycomb, lateral-honeycomb, lateral-lattice, crosshatch, tpmsd, tpmsfk, gyroid, concentric, hilbertcurve, archimedeanchords, octagramspiral`.  
+[CLI Example](cli_mode#setting-overrides): `--sparse-infill-pattern=rectilinear`.  
 > [!TIP]
 > See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
 
@@ -283,6 +308,8 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `sparse_infill_smooth_factor`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--sparse-infill-smooth-factor=20%`.  
 > [!IMPORTANT]
 > NEW FEATURE: **Sparse infill smooth factor**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
@@ -341,6 +368,8 @@ Not every vertex of a supported pattern can be rounded, so some parts of the pat
 
 [Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `top_layer_direction`, `bottom_layer_direction`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--top-layer-direction=1` (same pattern for the other variables above).  
 
 > [!IMPORTANT]
 > NEW FEATURE: **Top/Bottom layer direction**  
@@ -356,6 +385,8 @@ Set to `-1` to follow the default solid infill [direction](#direction).
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `separated_infills`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--separated-infills=1`.  
 
 > [!IMPORTANT]
 > NEW FEATURE: **Separated infills**  

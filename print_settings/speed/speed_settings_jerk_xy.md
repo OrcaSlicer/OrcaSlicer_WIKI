@@ -45,6 +45,8 @@ This setting overrides firmware jerk values when different motion types need spe
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `default_junction_deviation`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--default-junction-deviation=1`.  
 Alternative to Jerk, Junction Deviation is the default method for controlling cornering speed in Marlin 2 printers.  
 Instead of setting a cornering speed for each line type, it calculates the cornering speed based on the [each line's acceleration](speed_settings_acceleration) and speed using the formula:
 
@@ -64,6 +66,8 @@ This value is limited by [Printer settings > Motion ability > Maximum Junction D
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `default_jerk`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--default-jerk=1`.  
 Default Jerk value.
 
 > [!NOTE]
@@ -73,36 +77,48 @@ Default Jerk value.
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `outer_wall_jerk`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--outer-wall-jerk=1`.  
 Jerk for outer wall printing. This is usually set to a lower value than normal printing to ensure better quality.
 
 ### Inner wall
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `inner_wall_jerk`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--inner-wall-jerk=1`.  
 Jerk for inner wall printing. This is usually set to a higher but still reasonable value than outer wall printing to improve speed.
 
 ### Infill
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `infill_jerk`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--infill-jerk=1`.  
 Jerk for infill printing. This is usually set to a value higher than inner wall printing to improve speed.
 
 ### Top surface
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `top_surface_jerk`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--top-surface-jerk=1`.  
 Jerk for top surface printing. This is usually set to a lower value than infill to ensure better quality.
 
 ### Initial layer
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `initial_layer_jerk`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--initial-layer-jerk=1`.  
 Jerk for initial layer printing. This is usually set to a lower value than top surface to improve adhesion.
 
 ### Initial layer travel
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `initial_layer_travel_jerk`.  
+[Type](option_type#list-types): `Float or Percentage list`.  
+[CLI Example](cli_mode#setting-overrides): `--initial-layer-travel-jerk=20%`.  
 Jerk for initial layer travel.
 Using a lower value can improve build plate adhesion. If the value is expressed as a percentage (e.g. 50%), it will be calculated based on the [Travel Jerk](#travel).
 
@@ -110,6 +126,8 @@ Using a lower value can improve build plate adhesion. If the value is expressed 
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `travel_jerk`.  
+[Type](option_type#list-types): `Float list`.  
+[CLI Example](cli_mode#setting-overrides): `--travel-jerk=1`.  
 Jerk for travel printing. This is usually set to a higher value than infill to reduce travel time.
 
 ## Useful links

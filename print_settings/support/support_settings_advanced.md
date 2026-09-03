@@ -2,6 +2,8 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `support_interface_loop_pattern`, `max_bridge_length`.  
+[Type](option_type): `support_interface_loop_pattern` (Boolean), `max_bridge_length` (Float).  
+[CLI Example](cli_mode#setting-overrides): `--support-interface-loop-pattern=1` (`support_interface_loop_pattern` shown; other variables above follow their own type).  
 
 - [Z distance](#z-distance)
 - [Support wall loops](#support-wall-loops)
@@ -21,36 +23,49 @@
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `support_top_z_distance`, `support_bottom_z_distance`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--support-top-z-distance=1` (same pattern for the other variables above).  
 The Z gap between support interface and object.
 
 ## Support wall loops
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `tree_support_wall_count`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--tree-support-wall-count=1`.  
 This setting specifies the count of support walls in the range of [0,2]. 0 means auto.
 
 ## Base Pattern
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_base_pattern`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `default, rectilinear, rectilinear-grid, honeycomb, lightning, hollow`.  
+[CLI Example](cli_mode#setting-overrides): `--support-base-pattern=default`.  
 Line pattern for the base of the support.
 
 ### Base pattern spacing
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_base_pattern_spacing`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--support-base-pattern-spacing=1`.  
 Spacing between support lines.
 
 ## Pattern angle
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_angle`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--support-angle=1`.  
 Use this setting to rotate the support pattern on the horizontal plane.
 
 ## Interface layers
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `support_interface_top_layers`, `support_interface_bottom_layers`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--support-interface-top-layers=1` (same pattern for the other variables above).  
 The number of interface layers.
 
 The number you set is the total thickness of the dense interface, counted in printed layers and including the layer that faces the model. Set `1` and you get a single dense layer; set `3` and you get three. More layers give a flatter, better supported surface but take longer to print and are harder to peel off.
@@ -69,6 +84,9 @@ With both set to `0` there is no interface at all: the support prints all the wa
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_interface_pattern`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `auto, rectilinear, concentric, rectilinear_interlaced, grid`.  
+[CLI Example](cli_mode#setting-overrides): `--support-interface-pattern=auto`.  
 The pattern used for the support interface.
 
 Each option lays the interface lines out differently, and all of them are measured from [Pattern angle](#pattern-angle), so rotating that rotates the interface with it. The same rules apply to normal and tree supports.
@@ -87,6 +105,8 @@ If [Interface spacing](#interface-spacing) is wide enough that the interface is 
 
 [Mode](option_mode): `Advanced`.  
 [Variables](built_in_placeholders_variables): `support_interface_spacing`, `support_bottom_interface_spacing`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--support-interface-spacing=1` (same pattern for the other variables above).  
 Spacing of interface lines. Zero means solid interface.
 
 The top (`support_interface_spacing`) and bottom (`support_bottom_interface_spacing`) values are set separately and neither one affects the other, so a bottom interface keeps the spacing you gave it even if you have turned top interfaces off.
@@ -95,30 +115,40 @@ The top (`support_interface_spacing`) and bottom (`support_bottom_interface_spac
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_expansion`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--support-expansion=1`.  
 Expand (+) or shrink (-) the horizontal span of normal support.
 
 ## Support/object XY distance
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_object_xy_distance`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--support-object-xy-distance=1`.  
 XY separation between an object and its support.
 
 ## Support/object first layer gap
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `support_object_first_layer_gap`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--support-object-first-layer-gap=1`.  
 XY separation between an object and its support at the first layer.
 
 ## Don't support bridges
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `bridge_no_support`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--bridge-no-support=1`.  
 Don't support the whole bridge area which make support very large. Bridges can usually be printed directly without support if not very long.
 
 ## Independent support layer height
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `independent_support_layer_height`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--independent-support-layer-height=1`.  
 Support layer uses layer height independent with object layer. This is to support customizing z-gap and save print time. This option will be invalid when the prime tower is enabled.
 
 Turning this on changes the height of the support layers, not their number: you still get exactly the [Interface layers](#interface-layers) you asked for, including with the `Tree Slim`, `Tree Strong` and `Tree Hybrid` styles.
