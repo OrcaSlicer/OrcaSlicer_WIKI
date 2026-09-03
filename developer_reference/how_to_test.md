@@ -29,43 +29,47 @@ Tests aren't built by default. On any platform you have to ask for them, which s
 
 ### Building Tests on Windows
 
-Pass `tests` to the build script:
+Pass `--tests` to the build script:
 
 ```pwsh
-build_release_vs.bat tests
+build_win.bat -s --tests
 ```
 
-That hands `-DBUILD_TESTS=ON` to CMake. It works alongside the other options, so `build_release_vs.bat slicer tests` skips rebuilding the dependencies, and adding `-x` uses Ninja Multi-Config instead of Visual Studio.
+That hands `-DBUILD_TESTS=ON` to CMake. `-l -x` builds them with clang-cl and Ninja Multi-Config instead of MSVC and Visual Studio.
 
-Which build directory you end up with depends on the configuration. `build` for Release, `build-dbginfo` for RelWithDebInfo, `build-dbg` for Debug, each with an `-arm64` suffix when you build for ARM64.
+The build directory is named for the configuration, compiler and architecture, so `build` for Release under MSVC and `build-clang` under clang-cl. See [Build on Windows](how_to_build_windows#the-build-script) for the full naming.
 
 ### Faster Rebuilds on Windows
 
 After the first build you can rebuild one suite instead of everything:
 
 ```pwsh
-cd build
-cmake --build . --config Release --target libslic3r_tests
+build_win.bat -s --tests --slicer-target libslic3r_tests
 ```
 
-Opening the generated solution in Visual Studio and building the test project works too.
+Add `--no-configure` to skip the configure step when only sources changed. Opening the generated solution in Visual Studio and building the test project works too.
 
 ### Running Tests on Windows
 
-Visual Studio and Ninja Multi-Config are multi-configuration generators, so `ctest` needs `-C` to know which configuration you mean. Without it you get no tests found.
+`--run-tests` builds the suites and runs them:
 
 ```pwsh
-cd build
-ctest --test-dir tests -C Release --output-on-failure
+build_win.bat -s --run-tests
+```
+
+The run ends by printing the `ctest` line for that build directory, so you can re-run without rebuilding. Visual Studio and Ninja Multi-Config are multi-configuration generators, so `ctest` needs `-C` to know which configuration you mean. Without it you get no tests found.
+
+```pwsh
+ctest --test-dir build/tests -C Release --output-on-failure
 ```
 
 For a specific set, point at its directory:
 
 ```pwsh
-ctest --test-dir tests/libslic3r -C Release
+ctest --test-dir build/tests/libslic3r -C Release
 ```
 
-The executables land in `tests/<suite>/<config>/`. Running one directly is the easiest way to use Catch2's own filtering:
+The executables land in `tests/<suite>/<config>/` inside the build directory. Running one directly is the easiest way to use Catch2's own filtering:
 
 ```pwsh
 build\tests\libslic3r\Release\libslic3r_tests.exe "[Geometry]"
