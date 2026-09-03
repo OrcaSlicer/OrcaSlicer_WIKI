@@ -15,6 +15,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [Calibrations](#calibrations)
 - [General Settings](#general-settings)
 - [Plugins](#plugins)
+- [Publishing 3MF](#publishing-3mf)
 - [Guides](#guides)
 - [Release Notes](#release-notes)
 - [Developer Section](#developer-section)
@@ -225,6 +226,15 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [Plugin Types](plugins_types)
 - [Managing Plugins](plugins_management)
 - [Actions Speed Dial](plugins_speed_dial)
+
+## Publishing 3MF
+
+> [!IMPORTANT]
+> NEW FEATURE: **Publish 3MF**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than 2.5.0.
+
+- [What does Publish 3MF do?](publish_3mf)
+- [For creators](publish_3mf_creators)
 
 ## Guides
 

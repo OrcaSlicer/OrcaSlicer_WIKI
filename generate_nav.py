@@ -29,9 +29,7 @@ EXCLUDED_FOLDERS = {
 # If not specified, names are auto-generated from folder names
 # Format: "folder_name": "Display Name"
 DISPLAY_NAME_OVERRIDES = {
-    # Examples:
-    # "print_settings": "Process Settings",
-    # "developer_reference": "Developer Section",
+    "publishing_3mf": "Publishing 3MF",
 }
 
 

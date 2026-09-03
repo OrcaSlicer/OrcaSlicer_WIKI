@@ -249,6 +249,9 @@ nav:
   - "Plugin Types": plugins/plugins_types.md
   - "Managing Plugins": plugins/plugins_management.md
   - "Actions Speed Dial": plugins/plugins_speed_dial.md
+- "Publishing 3MF":
+  - "What does Publish 3MF do?": publishing_3mf/publish_3mf.md
+  - "For creators": publishing_3mf/publish_3mf_creators.md
 - Releases:
   - Releases: releases/releases_index.md
   - V2.4.2: releases/release_2_4_2.md
