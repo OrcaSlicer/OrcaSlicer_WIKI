@@ -242,6 +242,14 @@ nav:
   - "Troubleshoot Center": general_settings/troubleshoot_center.md
 - "User Profiles":
   - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
+- "Profile App":
+  - "Overview": profile_app/profile_app_overview.md
+  - "Export Pipeline": profile_app/profile_app_export_pipeline.md
+  - "Vendor Root JSON": profile_app/profile_app_vendor_root_json.md
+  - "Persistence": profile_app/profile_app_persistence.md
+  - "Project Flow": profile_app/profile_app_project_flow.md
+  - "Editor System": profile_app/profile_app_editor_system.md
+  - "State Management": profile_app/profile_app_state_management.md
 - Plugins:
   - "Getting Started": plugins/plugins_getting_started.md
   - "Local Plugins": plugins/plugins_local.md
