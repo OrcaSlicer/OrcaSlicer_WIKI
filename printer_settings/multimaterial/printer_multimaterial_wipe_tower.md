@@ -43,7 +43,7 @@ Enable this option if you want the tool change to always be issued above the wip
 [CLI Example](cli_mode#setting-overrides): `--wait-for-temp-on-wipe-tower=1`.  
 > [!IMPORTANT]
 > NEW FEATURE: **Wait for temperature on wipe tower**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.5.0**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Only relevant for multi-extruder (multi-toolhead) printers using a Type 2 wipe tower.  
 By default, the new tool's temperature wait happens immediately after the tool change command, wherever the toolhead is at that moment, which can leave ooze from the heat-up on top of the printed part.

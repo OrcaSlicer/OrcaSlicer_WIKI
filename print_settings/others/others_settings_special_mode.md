@@ -68,7 +68,7 @@ Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over part
 
 > [!IMPORTANT]
 > NEW FEATURE: **Snake and Best of all (shortest path) intra-layer ordering**
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 - **Default**: Nearest-neighbour chaining, refined with 2-opt and crossing removal. A good general choice and the recommended option for most plates.
 - **As object list**: Instances are printed in the same order as the object list, without any path optimisation. Use it when you need a predictable, manually controlled order, for custom sequencing or debugging.

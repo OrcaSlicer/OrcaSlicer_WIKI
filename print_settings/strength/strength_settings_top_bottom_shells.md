@@ -90,7 +90,7 @@ If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be 
 
 > [!IMPORTANT]
 > NEW FEATURE: **Top surface expansion** (expansion, margin and direction)  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Expands the top surfaces by this distance (in mm) to connect distinct top surfaces and fill the gaps left where a feature rises through them.  
 This is useful when the top surface is interrupted by a raised feature, such as text or a boss on a plane, or when overlapping objects would otherwise split it: expanding the surface removes the holes beneath these features, keeps the top-surface pattern uninterrupted, and anchors the solid infill for a cleaner finish when printing on top. It also improves [concentric](strength_settings_patterns#concentric) top surfaces, whose pattern would otherwise be broken up by those small holes.  
@@ -162,7 +162,7 @@ When **Surface Expansion** is in use, those inner walls are removed over the top
 
 > [!IMPORTANT]
 > NEW FEATURE: **Center surface pattern on**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Chooses where the centering point of centered top/bottom surface patterns ([Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)) is placed.  
 By default these patterns are centered individually on each surface, which does not keep the pattern continuous across a whole product — a drawback for some artistic prints where the surfaces should read as one piece. This setting widens the scope of the shared center:
@@ -189,7 +189,7 @@ By default these patterns are centered individually on each surface, which does 
 
 > [!IMPORTANT]
 > NEW FEATURE: **Fill order**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Direction in which the top and bottom surfaces are filled when using a center-based pattern ([Concentric](strength_settings_patterns#concentric), [Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)). The spirals/rings are then deposited consistently inward or outward instead of following the default shortest path.
 

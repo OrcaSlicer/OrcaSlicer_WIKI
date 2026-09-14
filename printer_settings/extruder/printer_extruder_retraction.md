@@ -103,7 +103,7 @@ This is the length of fast retraction before a wipe, relative to retraction leng
 
 > [!IMPORTANT]
 > NEW FEATURE: **Retract amount after wipe**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.5.0**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 This is the length of fast retraction after a wipe, relative to retraction length.  
 Together with [Retract amount before wipe](#retract-amount-before-wipe), this lets you split the retraction across the wipe: some before, some after, and the remainder performed during the wipe move itself. The value is clamped by 100% minus the retract amount before wipe, so the two combined never exceed the total retraction length.  

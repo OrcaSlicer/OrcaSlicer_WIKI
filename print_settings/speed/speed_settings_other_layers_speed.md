@@ -146,7 +146,7 @@ Speed for the support interface layers, which are the layers directly contacting
 
 > [!IMPORTANT]
 > NEW FEATURE: **Small tree support perimeters** (speed and threshold)  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Same as [Small perimeters](#small-perimeters), but for supports.  
 This separate setting affects the speed of support for areas with a perimeter length <= [small tree support perimeters threshold](#small-tree-support-perimeters-threshold).  

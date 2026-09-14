@@ -5,7 +5,7 @@ It also includes an Auto-generate feature that automatically detects and applies
 
 > [!IMPORTANT]
 > NEW FEATURE: **The Head diameter control is renamed Brim ear radius and now accepts values from 0.1 mm to 100 mm.**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.5.0**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 ## Parameters
 

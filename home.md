@@ -228,7 +228,7 @@ OrcaSlicer can run headless from the command line for automation, batch processi
 
 > [!IMPORTANT]
 > NEW FEATURE: **Python Plugin System**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.5.0**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 - [Getting Started](plugins_getting_started)
 - [Local Plugins](plugins_local)
@@ -241,7 +241,7 @@ OrcaSlicer can run headless from the command line for automation, batch processi
 
 > [!IMPORTANT]
 > NEW FEATURE: **Publish 3MF**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.5.0** .
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than 2.5.0.
 
 - [What does Publish 3MF do?](publish_3mf)
 - [For creators](publish_3mf_creators)

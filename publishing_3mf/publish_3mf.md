@@ -2,7 +2,7 @@
 
 > [!IMPORTANT]
 > NEW FEATURE: **Publish 3MF**
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from 2.5.0.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than 2.5.0.
 
 **Publish 3MF** embeds the settings you choose into a 3MF file, so the model and its configuration are shared together.
 
