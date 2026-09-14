@@ -13,7 +13,7 @@ The VFA Speed Test in OrcaSlicer helps identify which print speeds trigger MRR a
 
 > [!IMPORTANT]
 > NEW FEATURE: **Nozzle-aware VFA tower with automatic volumetric speed handling**
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 1. Set the VFA test parameters in OrcaSlicer:  
    ![vfa_test_menu](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/vfa/vfa_test_menu.png?raw=true)

@@ -29,7 +29,7 @@ Generate interlocking beam structure at the locations where different filaments 
 
 > [!IMPORTANT]
 > NEW FEATURE: **Toolchange ordering**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Determines the order of tool changes on each layer:
 

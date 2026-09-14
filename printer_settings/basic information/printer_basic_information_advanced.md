@@ -42,7 +42,7 @@ What kind of G-code the printer is compatible with.
 [CLI Example](cli_mode#setting-overrides): `--gcode-skip-config-block=1`.  
 > [!IMPORTANT]
 > NEW FEATURE: **Skip G-code config block**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **2.5.0**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Removes the `CONFIG_BLOCK` (the commented-out block listing every resolved slicer setting) from the exported G-code file.
 

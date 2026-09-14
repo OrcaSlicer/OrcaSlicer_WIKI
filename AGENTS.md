@@ -95,7 +95,7 @@ When documenting a feature that is only in nightly/newer builds, add:
 ```markdown
 > [!IMPORTANT]
 > NEW FEATURE: **Feature short description**
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases starting from **<stable version at merge time>**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **<stable version at merge time>**.
 ```
 
 Remove the note once a stable release that includes the feature ships.
