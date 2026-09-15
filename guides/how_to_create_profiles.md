@@ -4,6 +4,7 @@ This guide explains OrcaSlicer's profile system and how to create or maintain it
 
 - [High-level Overview](#high-level-overview)
 - [File Structure and Templates](#file-structure-and-templates)
+- [Naming Conventions](#naming-conventions)
 - [Create or Update a Profile Bundle](#create-or-update-a-profile-bundle)
 - [Vendor Meta File](#vendor-meta-file)
 - [Printer Model Profiles](#printer-model-profiles)
@@ -30,7 +31,7 @@ A **profile**, also called a **preset**, is a named collection of settings store
 | Filament (`filament`) | What material am I printing with? | Temperatures, cooling, flow ratio and maximum volumetric speed |
 | Process (`process`) | How should the part be printed? | Layer height, walls, infill, supports and print speeds |
 
-For example, a user might select `Orca 3D Fuse1 0.4 nozzle`, `Generic PLA @System` and `0.20mm Standard @Orca 3D Fuse1 0.4`. Changing the layer height belongs in the process profile; changing the material's temperature belongs in the filament profile. These settings are kept separate so the same printer can use many materials and quality levels.
+For example, a user might select `Orca 3D Fuse1 0.4 nozzle`, `Generic PLA @System` and `0.20mm Standard @Orca 3D Fuse1 0.4 nozzle`. Changing the layer height belongs in the process profile; changing the material's temperature belongs in the filament profile. These settings are kept separate so the same printer can use many materials and quality levels.
 
 ### Models, Variants and Bundles
 
@@ -58,42 +59,59 @@ A global filament can serve many printers. When a printer-specific filament has 
 
 ### How the Files Connect
 
-Each box below represents a JSON file. Dotted arrows mean the meta file registers a profile; solid arrows show references through named fields. The example includes a vendor filament that inherits settings from a global filament.
+The diagram below uses the example `Orca 3D` bundle from this guide. Each box is one JSON file, labeled with its profile name. The shaded areas are folders, nested as they are on disk, and each bundle's meta file lists every profile inside its folder. Solid arrows are references through the named field, and dashed boxes are shared bases that users never select.
 
 ```mermaid
+%%{init: {"flowchart": {"wrappingWidth": 400}}}%%
 flowchart TB
-    subgraph Vendor["Printer vendor bundle"]
-        Index["Vendor meta file"]
-        Model["Printer model"]
-        Machine["Printer variant"]
-        MachineBase["Shared printer base"]
-        Process["Process preset"]
-        ProcessBase["Shared process base"]
-        Filament["Printer-specific filament"]
+    VendorMeta["<b>Orca 3D.json</b><br>vendor meta file"]
+    LibraryMeta["<b>OrcaFilamentLibrary.json</b><br>library meta file"]
 
-        Index -.-> Model
-        Index -.-> Machine
-        Index -.-> MachineBase
-        Index -.-> Process
-        Index -.-> ProcessBase
-        Index -.-> Filament
-        Machine -->|printer_model| Model
-        Machine -->|inherits| MachineBase
-        Process -->|inherits| ProcessBase
-        Process -->|compatible_printers| Machine
-        Filament -->|compatible_printers| Machine
+    subgraph Vendor["Orca 3D/"]
+        subgraph VendorMachine["machine/"]
+            Variant["<b>Orca 3D Fuse1 0.4 nozzle</b><br>printer variant"]
+            MachineBase["<b>fdm_machine_common</b><br>shared printer base"]
+            Model["<b>Orca 3D Fuse1</b><br>printer model"]
+        end
+        subgraph VendorProcess["process/"]
+            Process["<b>0.20mm Standard @Orca 3D Fuse1 0.4 nozzle</b><br>process preset"]
+            ProcessBase["<b>fdm_process_common</b><br>shared process base"]
+        end
+        subgraph VendorFilament["filament/"]
+            Filament["<b>Generic ABS @Orca 3D Fuse1</b><br>printer-specific filament"]
+        end
     end
 
-    subgraph Library["OrcaFilamentLibrary"]
-        LibraryIndex["Library meta file"]
-        GlobalFilament["Global filament"]
-        LibraryIndex -.-> GlobalFilament
+    subgraph Library["OrcaFilamentLibrary/"]
+        subgraph LibraryFilament["filament/"]
+            subgraph Brand["Polymaker/"]
+                subgraph BrandPrinter["Orca 3D/"]
+                    BrandFilament["<b>PolyLite PLA @Orca 3D Fuse1</b><br>printer-specific filament"]
+                end
+                BrandBase["<b>PolyLite PLA @base</b><br>shared filament base"]
+            end
+            GenericBase["<b>Generic ABS @base</b><br>shared filament base"]
+            GlobalFilament["<b>Generic ABS @System</b><br>global filament"]
+        end
     end
 
-    Filament -->|inherits| GlobalFilament
+    VendorMeta -.->|lists every profile in| Vendor
+    LibraryMeta -.->|lists every profile in| Library
+    Process -->|inherits| ProcessBase
+    Process --->|compatible_printers| Variant
+    Filament --->|compatible_printers| Variant
+    Filament -->|inherits| GenericBase
+    GlobalFilament -->|inherits| GenericBase
+    BrandFilament --->|compatible_printers| Variant
+    BrandFilament -->|inherits| BrandBase
+    Variant -->|inherits| MachineBase
+    Variant -->|printer_model| Model
+
+    classDef base stroke-dasharray: 5 5
+    class ProcessBase,MachineBase,BrandBase,GenericBase base
 ```
 
-The filament's `inherits` arrow reuses settings. Replacing the global fallback is a separate effect of sharing its alias and listing the target printers; that replacement does not require an inheritance relationship.
+A printer-specific filament can live in either bundle. `Generic ABS @Orca 3D Fuse1` is the printer vendor's own tune, so it lives in the vendor bundle. `PolyLite PLA @Orca 3D Fuse1` is a filament brand's tune for the same printer, so it lives in the brand's folder in the library. Each inherits its product's shared base, `Generic ABS @base` or `PolyLite PLA @base`, the same base its global preset inherits. Both list the Fuse1 variant in `compatible_printers`, and on that printer each replaces the global preset with the same alias, `Generic ABS @System` and `PolyLite PLA @System`. This replacement comes from the shared alias and the compatibility list, not from inheritance: neither tune inherits the global preset it replaces.
 
 ### Two IDs Serve Different Purposes
 
@@ -110,33 +128,30 @@ Edit `resources/profiles/` in your **OrcaSlicer source checkout**. This is the s
 
 ```text
 resources/profiles/
-├── Orca 3D.json                         # Vendor meta file (the index)
+├── Orca 3D.json                          # Vendor meta file (the index)
 ├── Orca 3D/
 │   ├── machine/
-│   │   ├── fdm_machine_common.json      # Shared printer settings
+│   │   ├── fdm_machine_common.json       # Shared printer settings
 │   │   ├── Orca 3D Fuse1.json            # Printer model
 │   │   └── Orca 3D Fuse1 0.4 nozzle.json # Selectable printer variant
 │   ├── process/
-│   │   ├── fdm_process_common.json      # Shared process settings
-│   │   └── 0.20mm Standard @Orca 3D Fuse1 0.4.json
-│   └── filament/                       # Optional printer-specific tuning
+│   │   ├── fdm_process_common.json       # Shared process settings
+│   │   └── 0.20mm Standard @Orca 3D Fuse1 0.4 nozzle.json
+│   └── filament/                         # Optional vendor filament tuning
 │       └── Generic ABS @Orca 3D Fuse1.json
-├── OrcaFilamentLibrary.json             # Shared filament index
+├── OrcaFilamentLibrary.json              # Shared filament index
 └── OrcaFilamentLibrary/
-    └── filament/                       # Generic and branded materials
+    └── filament/
+        ├── Generic ABS @base.json        # Shared product settings
+        ├── Generic ABS @System.json      # Generic material for all printers
+        └── Polymaker/                    # Filament brand
+            ├── PolyLite PLA @base.json   # Shared product settings
+            ├── PolyLite PLA @System.json # Brand's filament for all printers
+            └── Orca 3D/                  # Optional brand tuning for Orca 3D printers
+                └── PolyLite PLA @Orca 3D Fuse1.json
 ```
 
-Each profile's filename is its `name` plus `.json`. Use the same name in the vendor meta file and in references from other profiles.
-
-| File or profile | Name pattern | Example |
-| --- | --- | --- |
-| Vendor meta file | `<vendor>` | `Orca 3D` |
-| Printer model | `<vendor> <printer>` | `Orca 3D Fuse1` |
-| Printer variant | `<vendor> <printer> <nozzle> nozzle` | `Orca 3D Fuse1 0.4 nozzle` |
-| Filament | `<product name> @<target>` | `Generic ABS @Orca 3D Fuse1` |
-| Process | `<layer height> <quality> @<target>` | `0.20mm Standard @Orca 3D Fuse1 0.4` |
-
-A process quality name is usually Standard, Fine, Fast or Draft. A filament's target is often `System`, a printer model or a printer variant. The target suffix describes the intended use; compatibility is still controlled by the profile's fields.
+Each profile's filename is its `name` plus `.json`. Use the same name in the vendor meta file and in references from other profiles. Choose names by following the [Naming Conventions](#naming-conventions).
 
 Templates are in `resources/profiles_template/Template/`. Existing bundles are also useful examples, especially for printer hardware similar to yours. When adapting one, review its firmware, dimensions, motion limits and G-code instead of assuming that all settings transfer to your printer.
 
@@ -157,6 +172,72 @@ Printer, filament and process JSON files use these fields. A `machine_model` is 
 Write JSON field names in quotes and preserve the value types used by the templates, including the strings `"true"` and `"false"`. A folder name or a suffix such as `@System` or `@base` does not create inheritance; use `inherits` to name the parent.
 
 Set compatibility explicitly on selectable filament and process profiles. Use printer variant names, not model names or filenames. Printer vendor filaments require a non-empty list; the global library can use an empty list, subject to compatibility conditions and replacement by a printer-specific preset.
+
+## Naming Conventions
+
+Users pick presets by name, and other profiles refer to them by name. Name new profiles by these conventions so users can tell at a glance which printer and nozzle a preset is for. A name only describes a profile; `inherits` and `compatible_printers` still decide what it inherits and where it is available.
+
+### Selectable Presets
+
+| Profile | Name pattern | Example |
+| --- | --- | --- |
+| Printer model | `<brand> <printer>` | `Orca 3D Fuse1` |
+| Printer variant | `<brand> <printer> <nozzle> nozzle` | `Orca 3D Fuse1 0.4 nozzle` |
+| Process | `<layer height> <quality> @<vendor> <printer code> <nozzle> nozzle` | `0.30mm Standard @Orca 3D Fuse1 0.6 nozzle` |
+| Filament | `<filament name> @<vendor> <printer code>` | `Generic ABS @Orca 3D Fuse1` |
+| Global filament | `<filament name> @System` | `Generic PLA-GF @System` |
+
+| Part | Rule | Examples |
+| --- | --- | --- |
+| `<brand> <printer>` | The printer's full product name | `Orca 3D Fuse1`, `Orca 3D Fuse1 Pro` |
+| `<nozzle>` | Nozzle diameter in millimeters | `0.2`, `0.25`, `0.4`, `0.6`, `0.8` |
+| `<layer height>` | Layer height with two decimals, followed by `mm`, so presets sort by layer height | `0.08mm`, `0.20mm`, `0.28mm` |
+| `<quality>` | A capitalized quality label. Name the printer's default process `Standard` | `Extra Fine`, `Fine`, `Standard`, `Draft`, `Extra Draft` |
+| `<vendor>` | The vendor's short name, as used for its folder and meta file | `Orca 3D` |
+| `<printer code>` | The printer name without the brand, shortened if it is long. Use the same code in every suffix | `Fuse1`, `Fuse1P` for Fuse1 Pro |
+| `<filament name>` | The brand or product line, the material, then the product variant | `Generic PETG HF`, `Generic PLA Silk`, `PolyLite PLA` |
+
+The filament name, the part before `@`, normally becomes the preset's alias and is part of its [filament ID](#filament-ids). Use exactly the same filament name for every preset of a product.
+
+### Nozzle Suffix
+
+A process targets one nozzle size, so its suffix ends with `<nozzle> nozzle`. For the 0.4 mm nozzle the suffix may leave it out; use the same form throughout a bundle.
+
+| Nozzle | Process | Filament |
+| --- | --- | --- |
+| 0.4 mm | `0.20mm Standard @Orca 3D Fuse1 0.4 nozzle` or `0.20mm Standard @Orca 3D Fuse1` | `Generic ABS @Orca 3D Fuse1` |
+| 0.2 mm | `0.10mm Standard @Orca 3D Fuse1 0.2 nozzle` | `Generic ABS @Orca 3D Fuse1 0.2 nozzle` |
+| 0.6 mm | `0.30mm Standard @Orca 3D Fuse1 0.6 nozzle` | Can be covered by `Generic ABS @Orca 3D Fuse1` |
+
+A filament tune often suits several nozzles, so a filament suffix without a nozzle can list several nozzle variants in `compatible_printers`. Add a nozzle to a filament name only for a tune specific to that nozzle, most often the 0.2 mm.
+
+### Printers That Share Hardware
+
+When printers share the same hardware, one preset can serve all of them. Its suffix names one of the printers, and `compatible_printers` lists the variants of each. For example, `0.20mm Standard @Orca 3D Fuse1 0.4 nozzle` can also list `Orca 3D Fuse1 Pro 0.4 nozzle`. Extend the list instead of copying the preset under each printer's name.
+
+### Shared Bases
+
+Users never see shared bases, so their names are for maintainers. General bases use lowercase `snake_case` with an `fdm_` prefix, where `<scope>` names what their children share, such as a vendor, firmware or printer line. A filament product's base uses the filament name followed by `@base`.
+
+| Base | Name pattern | Example |
+| --- | --- | --- |
+| Root of each profile type | `fdm_<type>_common` | `fdm_machine_common`, `fdm_process_common`, `fdm_filament_common` |
+| Printer group | `fdm_<scope>_common` | `fdm_klipper_common`, `fdm_orca3d_common` |
+| Process group | `fdm_process_<scope>_common` | `fdm_process_klipper_common` |
+| Process layer height | `fdm_process_<scope>_<layer height>_nozzle_<nozzle>` | `fdm_process_orca3d_0.20_nozzle_0.4` |
+| Material | `fdm_filament_<material>` | `fdm_filament_pla`, `fdm_filament_pet` |
+| Filament product | `<filament name> @base` | `PolyLite PLA @base` |
+
+A bundle can chain these bases, with each selectable preset at the end of its chain:
+
+```text
+fdm_machine_common → fdm_orca3d_common → Orca 3D Fuse1 0.4 nozzle
+fdm_process_common → fdm_process_orca3d_0.20_nozzle_0.4 → 0.20mm Standard @Orca 3D Fuse1 0.4 nozzle
+fdm_filament_common → fdm_filament_pla → PolyLite PLA @base → PolyLite PLA @System
+```
+
+> [!IMPORTANT]
+> Apply these conventions to new profiles. Renaming an existing preset changes its `setting_id`, and for a filament also its `filament_id`; see [Renaming or Correcting a Filament](#renaming-or-correcting-a-filament).
 
 ## Create or Update a Profile Bundle
 
@@ -223,8 +304,8 @@ Each entry's `name` matches the profile's name. Its `sub_path` is relative to th
             "sub_path": "process/fdm_process_common.json"
         },
         {
-            "name": "0.20mm Standard @Orca 3D Fuse1 0.4",
-            "sub_path": "process/0.20mm Standard @Orca 3D Fuse1 0.4.json"
+            "name": "0.20mm Standard @Orca 3D Fuse1 0.4 nozzle",
+            "sub_path": "process/0.20mm Standard @Orca 3D Fuse1 0.4 nozzle.json"
         }
     ],
     "filament_list": [
@@ -283,7 +364,7 @@ Start from a shared printer base such as `fdm_machine_common`. Put settings shar
     "printer_model": "Orca 3D Fuse1",
     "printer_variant": "0.4",
     "default_filament_profile": ["Generic PLA @System"],
-    "default_print_profile": "0.20mm Standard @Orca 3D Fuse1 0.4",
+    "default_print_profile": "0.20mm Standard @Orca 3D Fuse1 0.4 nozzle",
     "printable_area": ["0x0", "235x0", "235x235", "0x235"],
     "nozzle_type": "brass"
 }
@@ -304,7 +385,7 @@ A shared base uses `"instantiation": "false"`. A selectable quality preset inher
 ```json
 {
     "type": "process",
-    "name": "0.20mm Standard @Orca 3D Fuse1 0.4",
+    "name": "0.20mm Standard @Orca 3D Fuse1 0.4 nozzle",
     "inherits": "fdm_process_common",
     "from": "system",
     "instantiation": "true",
@@ -461,7 +542,7 @@ This example tunes `Generic ABS` for `Orca 3D Fuse1`. Only the changed material 
     "name": "Generic ABS @Orca 3D Fuse1",
     "from": "system",
     "instantiation": "true",
-    "inherits": "Generic ABS @System",
+    "inherits": "Generic ABS @base",
     "filament_flow_ratio": ["0.98"],
     "filament_max_volumetric_speed": ["12"],
     "compatible_printers": ["Orca 3D Fuse1 0.4 nozzle"]
@@ -470,7 +551,7 @@ This example tunes `Generic ABS` for `Orca 3D Fuse1`. Only the changed material 
 
 These values illustrate an override; use values measured for your printer. Add other nozzle variants to `compatible_printers` only when the tuning applies to them too.
 
-The profile keeps the `Generic ABS` name and inherits `Generic ABS @System`, so it can inherit the library's `filament_id`. It still needs its own generated `setting_id`. A vendor's own branded filament has a different product identity and needs its own filament ID; see [Filament IDs](#filament-ids).
+The profile keeps the `Generic ABS` name and inherits `Generic ABS @base`, so it can inherit the library's `filament_id`. It still needs its own generated `setting_id`. A vendor's own branded filament has a different product identity and needs its own filament ID; see [Filament IDs](#filament-ids).
 
 Register the file in the printer vendor's `filament_list`, bump that bundle's version, then [generate the IDs, update the snapshot and validate](#generating-the-id).
 
