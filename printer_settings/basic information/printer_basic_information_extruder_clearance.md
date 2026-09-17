@@ -10,6 +10,15 @@ Extruder clearance settings define the minimum distances required around the ext
 [CLI Example](cli_mode#setting-overrides): `--extruder-clearance-radius=1`.  
 Clearance radius around extruder: used for collision avoidance in by-object printing.
 
+## Distance to rod
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `extruder_clearance_dist_to_rod`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--extruder-clearance-dist-to-rod=1`.  
+
+Horizontal distance from the nozzle tip to the rod's farther edge. Besides by-object printing, it sizes the keep-out band the gantry rod sweeps around a prime tower printed with [no sparse layers](multimaterial_settings_prime_tower#no-sparse-layers).
+
 ## Height to rod
 
 [Mode](option_mode): `Advanced`.  
