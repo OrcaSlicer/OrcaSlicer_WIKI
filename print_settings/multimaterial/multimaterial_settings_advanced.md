@@ -2,6 +2,7 @@
 
 - [Interlocking Beam](#interlocking-beam)
 - [Toolchange Ordering](#toolchange-ordering)
+    - [Toolchange Order](#toolchange-order)
 - [Interface Shells](#interface-shells)
 - [Maximum Width of Segmented Region](#maximum-width-of-segmented-region)
 - [Interlocking depth of Segmented Region](#interlocking-depth-of-segmented-region)
@@ -35,6 +36,32 @@ Determines the order of tool changes on each layer:
 
 - **Default:** starts with the last used extruder to minimize tool changes.
 - **Cyclic:** uses a fixed tool sequence each layer. This sacrifices speed for better surface quality, as the extra toolchanges allow layers more time to cool.
+
+### Toolchange Order
+
+[Mode](option_mode): `Expert`.  
+[Variables](built_in_placeholders_variables): `toolchange_cyclic_order`, `toolchange_cyclic_first_layer`.  
+[Type](option_type): `toolchange_cyclic_order` (Text), `toolchange_cyclic_first_layer` (Boolean).  
+[CLI Example](cli_mode#setting-overrides): `--toolchange-cyclic-order=value` (`toolchange_cyclic_order` shown; other variables above follow their own type).  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Custom cyclic toolchange sequence**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Only available when [Toolchange Ordering](#toolchange-ordering) is set to `Cyclic`.
+
+**Cyclic order** sets the filament sequence the cyclic ordering follows, written as filament numbers separated by commas (e.g. `3,2,1,4`). Each layer prints its filaments in that order, and filaments left out of the sequence are printed last, in ascending order. Leave it empty to cycle through all filaments in ascending order.
+
+Entries that cannot be used are dropped and the rest of the sequence still applies:
+
+- Numbers outside the range of your filaments, such as `0` or a number higher than your filament count.
+- Repeated numbers, where only the first occurrence counts.
+- Anything that is not a plain number, such as `abc` or `2x`.
+
+**Apply cyclic order to first layer** extends that sequence to the first layer as well. It is disabled by default, because the first layer is instead ordered for the best bed adhesion: filaments that print small, fragile first-layer features are printed last, so the following toolchanges and travel moves are less likely to knock those weakly anchored parts loose. This adhesion order also honors a custom first layer filament sequence when one is set, and the cooling benefit of the cyclic order does not apply to the first layer, which is printed slowly and hot for adhesion.
+
+> [!TIP]
+> Enable it only if you need the exact same tool sequence on every layer, including the first, at the cost of that adhesion optimization.
 
 ## Interface Shells
 
