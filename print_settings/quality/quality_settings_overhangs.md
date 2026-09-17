@@ -4,6 +4,7 @@ Overhangs are areas of a print that extend outward without full support undernea
 Low overhang angles can be printed without support, while higher angles may require support, speed reduction, or specific settings to ensure good print quality.
 
 - [Detect overhang wall](#detect-overhang-wall)
+- [Unsupported wall last](#unsupported-wall-last)
 - [Make overhang printable](#make-overhang-printable)
     - [Maximum angle](#maximum-angle)
     - [Hole area](#hole-area)
@@ -22,6 +23,29 @@ Detect the overhang percentage relative to line width and use different speed to
 When detecting line width with 100% overhang, bridge options are used.
 
 ![overhang](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/overhangs/overhang.png?raw=true)
+
+## Unsupported wall last
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `unsupported_wall_last`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--unsupported-wall-last=1`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Print unsupported walls last**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Wall loops that lie entirely in mid air, with nothing under them on the layer below, are printed once something can hold them: they are extruded after the walls that anchor them, innermost first, whatever the [walls printing order](quality_settings_wall_and_surfaces#walls-printing-order) is.
+
+Anchorage spreads outwards, so a loop leaning on a loop that is itself anchored counts as anchored too. What is left over falls into two cases:
+
+- A loop running alongside a supported wall belongs to the same wall stack and keeps its place before the infill, which needs it as an anchor.
+- A loop that touches nothing has only the infill to rest on, so it is held back and extruded in a second wall pass after the infill of its layer. This includes loops that only the bridges of the layer can anchor, which wait until those bridges are down.
+
+This works with both the classic and Arachne wall generators, and with either setting of [print infill first](quality_settings_wall_and_surfaces#print-infill-first).
+
+> [!NOTE]
+> Only available when [Detect overhang wall](#detect-overhang-wall) is enabled. If that condition is not met, this setting will be hidden.
 
 ## Make overhang printable
 
