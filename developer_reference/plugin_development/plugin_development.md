@@ -310,7 +310,8 @@ is not installed (declare `dependencies = ["numpy"]`). Everything else - counts,
 #### The `orca.host.ui` module: dialogs and interactive windows
 
 `orca.host.ui` lets a plugin show host-owned UI: a native message box, a native progress
-dialog, a modal HTML dialog, and non-modal interactive windows. **A plugin must never import
+dialog, a modal HTML dialog, non-modal interactive windows, and a panel docked beside the 3D
+view. **A plugin must never import
 its own GUI toolkit**
 (PyQt/wxPython/tkinter): a `script` plugin shares the host's UI thread, so a second toolkit's
 event loop would clash with wxWidgets, and a `gcode`/`printer-agent` plugin runs off the main
@@ -336,6 +337,30 @@ win.close()
 
 `message` arguments: `buttons` is `"ok"|"ok_cancel"|"yes_no"|"yes_no_cancel"`; `icon` is
 `"info"|"warning"|"error"|"question"`.
+
+**Docked panels:**
+
+`create_dock_panel()` puts your page in a pane of the same dock area as the sidebar, instead of
+a separate window. The user can drag it to another edge, float it, resize it or close it.
+Opened again, it comes back where and how big it was when the window layout was last saved,
+which happens when a new project is started, not on exit. `dock` is `"left"`, `"right"`,
+`"bottom"` or `"float"`; `width` and `height` are in DIPs. It belongs to the Prepare and Preview
+tabs, and is hidden while the user is on another tab.
+
+```python
+# Docked HTML panel -> returns a UiDockPanel handle
+panel = orca.host.ui.create_dock_panel(html=PAGE, title="My Panel", width=320, height=480,
+                                       on_message=self.on_message, on_close=self.on_close,
+                                       dock="right")
+panel.post({"type": "data", "rows": [...]})  # push a payload to the page
+panel.hide()                                 # keep it open but out of the way
+panel.show()
+panel.is_open()                              # True until closed; a hidden panel is still open
+panel.close()                                # fires on_close
+```
+
+The page talks to the plugin exactly as in a window, except `orca.submit()`, which only applies
+to modal dialogs.
 
 **Progress dialogs:**
 
@@ -443,8 +468,9 @@ hardcoded colors so your dialog follows light *and* dark mode automatically. The
 - `on_message(data)` runs on the **UI thread**; keep it quick; offload heavy work to a
   `threading.Thread` and push results back with `win.post(...)`.
 - A **modal** dialog (`show_dialog`) fits a one-shot `execute()`. A **persistent** panel
-  (`create_window`) is best opened from `on_load()` so it lives for the plugin's lifetime; the
-  host closes a plugin's windows automatically when it is unloaded/reloaded or the app exits.
+  (`create_window` or `create_dock_panel`) is best opened from `on_load()` so it lives for the
+  plugin's lifetime; the host closes a plugin's windows and panels automatically when it is
+  unloaded/reloaded or the app exits, without calling `on_close`.
 - Content is loaded as raw HTML; prefer **self-contained** pages (inline CSS/JS). There is no
   CSP and developer tools are disabled.
 
