@@ -247,10 +247,11 @@ nav:
 - Plugins:
   - "Getting Started": plugins/plugins_getting_started.md
   - "Local Plugins": plugins/plugins_local.md
+  - "Managing Plugins": plugins/plugins_management.md
   - "Cloud Plugins": plugins/plugins_cloud.md
   - "Plugin Types": plugins/plugins_types.md
-  - "Managing Plugins": plugins/plugins_management.md
-  - "Actions Speed Dial": plugins/plugins_speed_dial.md
+- "Speed Dial":
+  - "Speed Dial": speed_dial/speed_dial.md
 - "Publishing 3MF":
   - "What does Publish 3MF do?": publishing_3mf/publish_3mf.md
   - "For creators": publishing_3mf/publish_3mf_creators.md

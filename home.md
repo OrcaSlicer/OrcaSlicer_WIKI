@@ -16,6 +16,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [General Settings](#general-settings)
 - [Command Line Interface](#command-line-interface)
 - [Plugins](#plugins)
+- [Speed Dial](#speed_dial)
 - [Publishing 3MF](#publishing-3mf)
 - [Guides](#guides)
 - [Release Notes](#release-notes)
@@ -235,13 +236,18 @@ OrcaSlicer can run headless from the command line for automation, batch processi
 - [Cloud Plugins](plugins_cloud)
 - [Plugin Types](plugins_types)
 - [Managing Plugins](plugins_management)
-- [Actions Speed Dial](plugins_speed_dial)
+
+## Speed Dial
+> [!IMPORTANT]
+> NEW FEATURE: **Speed Dial**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+- [Speed Dial](speed_dial)
 
 ## Publishing 3MF
 
 > [!IMPORTANT]
 > NEW FEATURE: **Publish 3MF**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than 2.5.0.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 - [What does Publish 3MF do?](publish_3mf)
 - [For creators](publish_3mf_creators)

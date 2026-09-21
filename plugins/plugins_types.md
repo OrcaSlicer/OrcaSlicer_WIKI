@@ -39,9 +39,9 @@ When a preset uses a plugin capability, its configuration can also be overridden
 The override is stored with the preset when you save it; otherwise the capability uses its global
 configuration.
 
-## Actions Speed Dial
+## Speed Dial
 
-The [Actions Speed Dial](plugins_speed_dial) provides a quick launcher for script capabilities.
+The [Speed Dial](speed_dial) allows quick access to installed plugins.
 
 ## Printer Connection
 
