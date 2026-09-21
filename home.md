@@ -11,6 +11,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
     - [Support Settings](#support-settings)
     - [Multimaterial Settings](#multimaterial-settings)
     - [Others Settings](#others-settings)
+- [Design](#design)
 - [Prepare](#prepare)
 - [Calibrations](#calibrations)
 - [General Settings](#general-settings)
@@ -151,6 +152,15 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [<img alt="param_gcode" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true" height="22"> G-Code Output](others_settings_g_code_output)
 - [<img alt="param_gcode" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true" height="22"> Post Processing Scripts](others_settings_post_processing_scripts)
 - [<img alt="note" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/note.svg?raw=true" height="22"> Notes](others_settings_notes)
+
+## Design
+
+<img alt="tab_design_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_design_active.svg?raw=true" height="22"> Parametric CAD inside the slicer: sketch, constrain, build solids and send them to the plate.
+
+- [Design Tab](design_tab)
+    - [Sketching](design_sketching)
+    - [Modeling Tools](design_modeling_tools)
+    - [Design Keyboard Shortcuts](design_keyboard_shortcuts)
 
 ## Prepare
 

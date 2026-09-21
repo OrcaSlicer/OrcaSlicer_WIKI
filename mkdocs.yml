@@ -202,6 +202,11 @@ nav:
     - "Post-Processing Scripts": print_settings/others/others_settings_post_processing_scripts.md
     - Skirt: print_settings/others/others_settings_skirt.md
     - "Special Mode": print_settings/others/others_settings_special_mode.md
+- Design:
+  - "Design Tab": design/design_tab.md
+  - Sketching: design/design_sketching.md
+  - "Modeling Tools": design/design_modeling_tools.md
+  - "Design Keyboard Shortcuts": design/design_keyboard_shortcuts.md
 - "Print Prepare":
   - "Prepare Toolbar": print_prepare/prepare_basic.md
   - "Assembly Tools": print_prepare/prepare_assembly_tools.md

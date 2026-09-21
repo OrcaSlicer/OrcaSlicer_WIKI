@@ -8,6 +8,7 @@ This page lists the keyboard shortcuts available in the application, and how to 
 
 - [Customizing Shortcuts](#customizing-shortcuts)
 - [Global](#global)
+- [Design](#design)
 - [Prepare](#prepare)
 - [Painting](#painting)
 - [Objects list](#objects-list)
@@ -66,6 +67,24 @@ Available anywhere in the window, even while typing in a text field.
 | `Space` | Open the [Speed Dial](speed_dial) |
 | `Alt + 1-9, 0` | Run a speed dial favorite while the dial is open |
 | `Ctrl + Tab` | Switch to the next main tab |
+
+## Design
+
+Shortcuts for the [Design tab](design_tab). The tab carries two key maps: while a sketch is open single letters drive the sketch tools, and when no sketch is open `Shift` and a letter drive the modeling tools. Both maps are listed in full in [Design Keyboard Shortcuts](design_keyboard_shortcuts); the keys below are the ones that act on the view and the document.
+
+| Key | Action |
+| --- | --- |
+| `Home` | Isometric view, fitted to the model |
+| `P` | Show or hide the origin planes |
+| `A` | Show or hide the world axes |
+| `X` | Section view on or off |
+| `Page Up` / `Page Down` | Move the section plane, while the section is on |
+| `F` | Flip the section while it is on, otherwise lay the picked face on the bed |
+| `Ctrl + Shift + B` | Show or hide the printer bed |
+| `Ctrl + Shift + P` | Commit to Plate |
+| `Menu` / `Shift + F10` | Open the offer menu on the current selection |
+| `F2` | Rename the selected feature |
+| `Esc` | Clear the selection |
 
 ## Prepare
 
