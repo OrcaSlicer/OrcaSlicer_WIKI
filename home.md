@@ -155,6 +155,10 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 ## Design
 
+> [!IMPORTANT]
+> NEW FEATURE: **Design Tab**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 <img alt="tab_design_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_design_active.svg?raw=true" height="22"> Parametric CAD inside the slicer: sketch, constrain, build solids and send them to the plate.
 
 - [Design Tab](design_tab)

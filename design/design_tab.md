@@ -1,7 +1,7 @@
 # Design Tab
 
 > [!IMPORTANT]
-> NEW FEATURE: **Design tab — parametric CAD inside the slicer**
+> NEW FEATURE: **Design Tab**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 The Design tab is a sketch-first parametric CAD environment inside OrcaSlicer. Draw a sketch, constrain it, turn it into a solid, refine it and send it straight to the plate, without leaving for another application and coming back through an STL.
