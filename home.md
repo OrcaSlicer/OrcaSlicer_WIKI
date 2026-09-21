@@ -11,6 +11,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
     - [Support Settings](#support-settings)
     - [Multimaterial Settings](#multimaterial-settings)
     - [Others Settings](#others-settings)
+- [Design](#design)
 - [Prepare](#prepare)
 - [Calibrations](#calibrations)
 - [General Settings](#general-settings)
@@ -151,6 +152,24 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [<img alt="param_gcode" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true" height="22"> G-Code Output](others_settings_g_code_output)
 - [<img alt="param_gcode" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_gcode.svg?raw=true" height="22"> Post Processing Scripts](others_settings_post_processing_scripts)
 - [<img alt="note" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/note.svg?raw=true" height="22"> Notes](others_settings_notes)
+
+## Design
+
+> [!IMPORTANT]
+> NEW FEATURE: **Design tab — parametric CAD inside the slicer**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+<img alt="tab_design_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_design_active.svg?raw=true" height="22"> Sketch-first parametric CAD inside the slicer. Experimental, and switched off until you enable it in Preferences.
+
+- [<img alt="tab_design_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_design_active.svg?raw=true" height="22"> Design Tab](design_tab)
+    - [<img alt="design_select" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/design_select.svg?raw=true" height="22"> Selection and the Offer Menu](design_interaction)
+    - [<img alt="design_sketch" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/design_sketch.svg?raw=true" height="22"> Sketching](design_sketching)
+    - [<img alt="design_extrude" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/design_extrude.svg?raw=true" height="22"> Solid and Surface Features](design_features)
+    - [<img alt="design_plane" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/design_plane.svg?raw=true" height="22"> Reference Geometry](design_reference_geometry)
+    - [<img alt="design_c_coincident" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/design_c_coincident.svg?raw=true" height="22"> Assemblies](design_assemblies)
+    - [<img alt="design_constrain" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/design_constrain.svg?raw=true" height="22"> Variables and Expressions](design_variables)
+    - [<img alt="design_step" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/design_step.svg?raw=true" height="22"> Import, Export and Commit to Plate](design_import_export)
+    - [Design Keyboard Shortcuts](design_keyboard_shortcuts)
 
 ## Prepare
 

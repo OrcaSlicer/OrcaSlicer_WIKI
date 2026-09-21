@@ -8,6 +8,9 @@ This page lists the keyboard shortcuts available in the application to enhance y
 - [Objects list](#objects-list)
 - [Preview](#preview)
 
+> [!NOTE]
+> The [Design tab](design_tab) has its own key maps, listed on [Design Keyboard Shortcuts](design_keyboard_shortcuts).
+
 ## Global
 
 Shortcuts that are available throughout the application.

@@ -235,6 +235,16 @@ nav:
   - "CLI Mode": cli/cli_mode.md
   - "CLI Transform": cli/cli_transform.md
   - "CLI Misc": cli/cli_misc.md
+- Design:
+  - "Design Tab": design/design_tab.md
+  - "Selection and the Offer Menu": design/design_interaction.md
+  - Sketching: design/design_sketching.md
+  - "Solid and Surface Features": design/design_features.md
+  - "Reference Geometry": design/design_reference_geometry.md
+  - Assemblies: design/design_assemblies.md
+  - "Variables and Expressions": design/design_variables.md
+  - "Import, Export and Commit to Plate": design/design_import_export.md
+  - "Design Keyboard Shortcuts": design/design_keyboard_shortcuts.md
 - "General Settings":
   - "Import and Export": general_settings/import_export.md
   - "Keyboard Shortcuts": general_settings/keyboard_shortcuts.md

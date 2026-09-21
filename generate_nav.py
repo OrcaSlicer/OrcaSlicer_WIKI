@@ -124,6 +124,17 @@ PLUGINS_ORDER = {
     'plugin_types': 3,
     'managing_plugins': 4,
 }
+DESIGN_ORDER = {
+    'design_tab': 0,
+    'design_interaction': 1,
+    'design_sketching': 2,
+    'design_features': 3,
+    'design_reference_geometry': 4,
+    'design_assemblies': 5,
+    'design_variables': 6,
+    'design_import_export': 7,
+    'design_keyboard_shortcuts': 8,
+}
 TOP_LEVEL_FOLDER_ORDER = {
     'user_profiles': 10,
     'plugins': 11,
@@ -153,6 +164,9 @@ def get_sort_key(path: Path) -> tuple:
 
     if path.is_file() and path.parent.name == 'plugins' and name in PLUGINS_ORDER:
         return (-1, PLUGINS_ORDER[name], name)
+
+    if path.is_file() and path.parent.name == 'design' and name in DESIGN_ORDER:
+        return (-1, DESIGN_ORDER[name], name)
 
     if path.is_dir() and path.parent == Path(__file__).parent and name in TOP_LEVEL_FOLDER_ORDER:
         return (TOP_LEVEL_FOLDER_ORDER[name], name)
