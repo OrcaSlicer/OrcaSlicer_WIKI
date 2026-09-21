@@ -38,7 +38,7 @@ You can bookmark up to 10 actions in the favourites bar.
 ## Details and Wiki
 
 - Certain process settings show their tooltip in the footer.
-  - Use the arrow button to expand or collapse it.
+    - Use the arrow button to expand or collapse it.
 - Press **F1** (or click the **Wiki** link) to open its page.
 
 ![speed_dial_tooltip](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/speed_dial/speed_dial_tooltip.png?raw=true)
