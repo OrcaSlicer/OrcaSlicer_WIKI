@@ -49,6 +49,7 @@ These correspond to options in the GUI's [Auto Arrange](prepare_auto_arrange#par
 | --- | --- | --- | --- |
 | `--allow-multicolor-oneplate` | boolean | Allow multiple materials/colors to be arranged onto the same plate. See "Allow multiple materials on same plate" in [Auto Arrange](prepare_auto_arrange#parameters). | Default: on. |
 | `--allow-rotations` | boolean | Allow arrange to rotate objects to fit. See "Auto rotate for arrangement" in [Auto Arrange](prepare_auto_arrange#parameters). | Default: on. |
+| `--align-to-y-axis` | boolean | Turn each object so its long side runs along the Y axis before arranging. See "Align to Y axis" in [Auto Arrange](prepare_auto_arrange#parameters). | Default: on for i3 printers, off for the others. |
 | `--avoid-extrusion-cali-region` | boolean | Avoid the extrusion calibration region on the plate when arranging. | Default: off. |
 
 ## Metadata
