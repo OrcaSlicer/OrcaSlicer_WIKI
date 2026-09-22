@@ -23,6 +23,10 @@
 .PARAMETER PrintConfigCppPath
     Passed through to the sync scripts (PrintConfig.cpp URL or local path). Uses each script's default when omitted.
 
+.PARAMETER PublishSettingsCppPath
+    Passed through to sync-tab-options-to-wiki.ps1 (PublishSettings.cpp URL or local path), which reads the
+    Retraction/Z-Hop option tables from it. Derived from PrintConfigCppPath (same directory) when omitted.
+
 .PARAMETER DryRun
     Preview mode: image fixer and option sync run with -DryRun, and mkdocs.yml / the glossary table are previewed (not written).
 
@@ -37,6 +41,7 @@ param(
     [string]$WikiRoot = $PSScriptRoot,
     [string]$TabCppPath,
     [string]$PrintConfigCppPath,
+    [string]$PublishSettingsCppPath,
     [switch]$DryRun
 )
 
@@ -77,6 +82,7 @@ $syncArgs = @{ WikiRoot = $WikiRoot }
 if ($DryRun) { $syncArgs.DryRun = $true }
 if (-not [string]::IsNullOrWhiteSpace($TabCppPath)) { $syncArgs.TabCppPath = $TabCppPath }
 if (-not [string]::IsNullOrWhiteSpace($PrintConfigCppPath)) { $syncArgs.PrintConfigCppPath = $PrintConfigCppPath }
+if (-not [string]::IsNullOrWhiteSpace($PublishSettingsCppPath)) { $syncArgs.PublishSettingsCppPath = $PublishSettingsCppPath }
 & $syncScript @syncArgs
 
 # --- Step 3: sync option types (after step 2, which places the [Variable] tags it keys on)

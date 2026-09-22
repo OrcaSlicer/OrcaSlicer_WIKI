@@ -1,6 +1,7 @@
 param(
     [string]$TabCppPath = "https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/slic3r/GUI/Tab.cpp",
     [string]$PrintConfigCppPath = "https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/libslic3r/PrintConfig.cpp",
+    [string]$PublishSettingsCppPath,
     [string]$WikiRoot = $PSScriptRoot,
     [switch]$DryRun
 )
@@ -103,6 +104,59 @@ function Get-CppSourceContent {
     }
 
     return Get-Content -LiteralPath $Source -Raw
+}
+
+function Resolve-PublishSettingsPath {
+    param(
+        [string]$Explicit,
+        [string]$PrintConfigPath
+    )
+
+    if (-not [string]::IsNullOrWhiteSpace($Explicit)) {
+        return $Explicit
+    }
+
+    # PublishSettings.cpp sits next to PrintConfig.cpp in libslic3r, so follow whatever
+    # checkout or URL the caller already pointed PrintConfig.cpp at.
+    if ([string]::IsNullOrWhiteSpace($PrintConfigPath) -or $PrintConfigPath -notmatch '(?i)PrintConfig\.cpp$') {
+        return ""
+    }
+
+    return ($PrintConfigPath -replace '(?i)PrintConfig\.cpp$', 'PublishSettings.cpp')
+}
+
+function Get-PublishablePrinterOptionTables {
+    param([string]$Content)
+
+    $result = @{}
+    # const std::vector<PublishablePrinterOption>& publishable_printer_retraction_options()
+    # {
+    #     static const std::vector<PublishablePrinterOption> options = {
+    #         { "retraction_length", "printer_extruder_retraction#length" },
+    # Bound the body span: an unbounded '.*?' backtracks badly over a whole translation unit.
+    # The lazy match stops at the first column-0 '}', i.e. the function's own closing brace.
+    $tablePattern = '(?s)std::vector\s*<\s*PublishablePrinterOption\s*>\s*&?\s*(?<name>\w+)\s*\(\s*\)\s*\{(?<body>.{0,8000}?)\r?\n\}'
+
+    foreach ($tm in [regex]::Matches($Content, $tablePattern)) {
+        $name = $tm.Groups['name'].Value
+        $body = $tm.Groups['body'].Value
+
+        $options = New-Object System.Collections.Generic.List[object]
+        foreach ($om in [regex]::Matches($body, '\{\s*"(?<key>[^"]+)"\s*,\s*"(?<ref>[^"]+)"\s*\}')) {
+            $options.Add([PSCustomObject]@{
+                Key = $om.Groups['key'].Value.Trim()
+                Ref = $om.Groups['ref'].Value.Trim()
+            })
+        }
+
+        if ($options.Count -gt 0) {
+            # .ToArray(): wrapping a List[object] in @() and assigning it through the hashtable
+            # indexer fails with "Argument types do not match" on PowerShell 7.6.
+            $result[$name] = $options.ToArray()
+        }
+    }
+
+    return $result
 }
 
 function Get-StringVectors {
@@ -346,13 +400,39 @@ $patternAppendLineBlock = '(?s)(?<obj>\w+)\.label_path\s*=\s*"(?<ref>[^"]+)"\s*;
 # over Tab.cpp (~160s). Real bodies are under 500 chars, so 8000 is generous headroom.
 $patternAppendLineAssignedBlock = '(?s)(?<obj>\w+)\s*=\s*\{[^{}]*?\}\s*;(?<body>.{0,8000}?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
 $patternForBlock = '(?s)for\s*\(\s*const\s+std::string\s*&\s*(?<iter>\w+)\s*:\s*(?<collection>\w+)\s*\)\s*\{(?<body>.*?)\}'
+# for (const PublishablePrinterOption& opt : publishable_printer_retraction_options())
+#     optgroup->append_single_option_line(opt.key, opt.icon, extruder_idx);
+# Either a braced block or the single statement up to its ';'.
+$patternPublishableForBlock = '(?s)for\s*\(\s*const\s+PublishablePrinterOption\s*&\s*(?<iter>\w+)\s*:\s*(?<table>\w+)\s*\(\s*\)\s*\)\s*(?<body>\{[^{}]{0,2000}\}|[^{}]{0,2000}?;)'
 
 $singleMatches = [regex]::Matches($tabContent, $patternSingle)
 $optionMatches = [regex]::Matches($tabContent, $patternOption)
 $appendLineMatches = [regex]::Matches($tabContent, $patternAppendLineBlock)
 $appendLineAssignedMatches = [regex]::Matches($tabContent, $patternAppendLineAssignedBlock)
 $forMatches = [regex]::Matches($tabContent, $patternForBlock)
+$publishableForMatches = [regex]::Matches($tabContent, $patternPublishableForBlock)
 $stringVectors = Get-StringVectors -Content $tabContent
+
+# The printer tab's Retraction/Z-Hop optgroups are built by looping over the option tables in
+# libslic3r/PublishSettings.cpp, so their config key / doc ref pairs live there rather than at
+# the Tab.cpp call site. Without them those sections parse as unmapped and Remove-StaleSectionMetadata
+# strips their [Mode]/[Variable] lines.
+$publishableOptionTables = @{}
+if ($publishableForMatches.Count -gt 0) {
+    $publishSettingsSource = Resolve-PublishSettingsPath -Explicit $PublishSettingsCppPath -PrintConfigPath $PrintConfigCppPath
+    if ([string]::IsNullOrWhiteSpace($publishSettingsSource)) {
+        Write-Host "[WARN] Cannot locate PublishSettings.cpp from '$PrintConfigCppPath'. Pass -PublishSettingsCppPath." -ForegroundColor Yellow
+    }
+    else {
+        try {
+            $publishSettingsContent = Get-CppSourceContent -Source $publishSettingsSource -Description "PublishSettings.cpp"
+            $publishableOptionTables = Get-PublishablePrinterOptionTables -Content $publishSettingsContent
+        }
+        catch {
+            Write-Host "[WARN] Could not read PublishSettings.cpp ($publishSettingsSource): $($_.Exception.Message)" -ForegroundColor Yellow
+        }
+    }
+}
 
 $rawEntries = New-Object System.Collections.Generic.List[object]
 
@@ -429,12 +509,15 @@ foreach ($fm in $forMatches) {
         $prefix = $pm.Groups['prefix'].Value
         $ref = $pm.Groups['ref'].Value.Trim()
 
+        $valueOrder = 0
         foreach ($v in $values) {
             $rawEntries.Add([PSCustomObject]@{
                 Variable = "$prefix$v"
                 Ref      = $ref
                 Index    = [int]($fm.Index + $pm.Index)
+                Order    = $valueOrder
             })
+            $valueOrder++
         }
     }
 
@@ -443,18 +526,64 @@ foreach ($fm in $forMatches) {
         $suffix = $sm.Groups['suffix'].Value
         $ref = $sm.Groups['ref'].Value.Trim()
 
+        $valueOrder = 0
         foreach ($v in $values) {
             $rawEntries.Add([PSCustomObject]@{
                 Variable = "$v$suffix"
                 Ref      = $ref
                 Index    = [int]($fm.Index + $sm.Index)
+                Order    = $valueOrder
             })
+            $valueOrder++
         }
     }
 }
 
 
-$parsedMatches = @($rawEntries | Sort-Object -Property Index)
+foreach ($fm in $publishableForMatches) {
+    $iter = $fm.Groups['iter'].Value
+    $tableName = $fm.Groups['table'].Value
+    $body = $fm.Groups['body'].Value
+
+    if (-not $publishableOptionTables.ContainsKey($tableName)) {
+        Write-Host "[WARN] No option table '$tableName' found in PublishSettings.cpp; its optgroup will be skipped." -ForegroundColor Yellow
+        continue
+    }
+
+    $options = $publishableOptionTables[$tableName]
+    $escapedIter = [regex]::Escape($iter)
+    # append_single_option_line(opt.key, opt.icon[, idx]) and the append_option_line(optgroup, ...) form.
+    # The struct's two fields are (key, doc ref), matching the call's own argument order.
+    $singleFieldPattern = 'append_single_option_line\(\s*' + $escapedIter + '\.\w+\s*,\s*' + $escapedIter + '\.\w+(?:\s*,\s*(?<indexer>[^\),]+))?\s*\)'
+    $optionFieldPattern = 'append_option_line\(\s*[^,]+\s*,\s*' + $escapedIter + '\.\w+\s*,\s*' + $escapedIter + '\.\w+(?:\s*,\s*(?<indexer>[^\),]+))?\s*\)'
+
+    foreach ($pattern in @($singleFieldPattern, $optionFieldPattern)) {
+        foreach ($am in [regex]::Matches($body, $pattern)) {
+            $indexer = $am.Groups['indexer'].Value.Trim()
+            $optionOrder = 0
+
+            foreach ($option in $options) {
+                $variable = $option.Key
+                if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
+                    $variable = "${variable}[$indexer]"
+                }
+
+                $rawEntries.Add([PSCustomObject]@{
+                    Variable = $variable
+                    Ref      = $option.Ref
+                    Index    = [int]($fm.Index + $am.Index)
+                    Order    = $optionOrder
+                })
+                $optionOrder++
+            }
+        }
+    }
+}
+
+# Sort-Object is unstable: values expanded from one source loop share an Index, so
+# without -Stable and the Order tiebreak their order is decided arbitrarily and
+# reshuffles whenever Tab.cpp shifts (e.g. machine_max_jerk_x/y/z/e).
+$parsedMatches = @($rawEntries | Sort-Object -Property Index, Order -Stable)
 
 if ($parsedMatches.Count -eq 0) {
     Write-Host "No supported option-to-doc mappings were found." -ForegroundColor Yellow

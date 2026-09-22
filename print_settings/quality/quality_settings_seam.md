@@ -24,6 +24,8 @@ Unless printed in spiral vase mode, every layer needs to begin somewhere and end
     - [Role based wipe speed](#role-based-wipe-speed)
     - [Wipe speed](#wipe-speed)
     - [Wipe on loop (inward movement)](#wipe-on-loop-inward-movement)
+    - [Wipe inward](#wipe-inward)
+        - [Wipe inward distance](#wipe-inward-distance)
     - [Wipe Before External](#wipe-before-external)
 - [Tips](#tips)
 - [Troubleshooting Seam Performance](#troubleshooting-seam-performance)
@@ -200,6 +202,41 @@ This setting will use your printer/material Wipe Distance and retract amount bef
 
 ![seam-wipe-on-loops-options](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-wipe-on-loops-options.png?raw=true)
 
+### Wipe inward
+
+[Mode](option_mode): `Expert`.  
+[Variables](built_in_placeholders_variables): `wipe_inward`, `wipe_inward_distance`.  
+[Type](option_type): `wipe_inward` (Boolean), `wipe_inward_distance` (Float or Percentage).  
+[CLI Example](cli_mode#setting-overrides): `--wipe-inward=1` (`wipe_inward` shown; other variables above follow their own type).  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Wipe inward**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Shifts the wipe that follows an external wall away from the outer surface and onto the inner wall next to it. Instead of running the hot nozzle back over the outside of the part it has just extruded, the nozzle wipes over material that is no longer visible, which reduces the reheating that leaves a mark around the seam. This is most noticeable at layer heights below 0.1 mm, where wipe marks stand out the most.
+
+It applies only to external walls, including the walls around holes. On an outer contour the wipe moves inwards; around a hole it moves outwards, away from the hole and into the surrounding material. Inner walls, infill and supports keep their regular wipe.
+
+The inward wipe runs at the end of the external loop, after the [Wipe on loop](#wipe-on-loop-inward-movement) move if that option is enabled, and without retracting filament, so a short travel to the next wall still will not force a retraction or Z hop.
+
+For the option to take effect:
+
+- [Wipe while retracting](printer_extruder_retraction#wipe-while-retracting) must be enabled for the filament in use, and the length of the move is limited by the [Wipe distance](printer_extruder_retraction#wipe-distance).
+- An inner wall beside the seam must already be on the plate when the wipe runs, so the region needs more than one wall and a wall order that prints the inner walls first. With [Outer/Inner](quality_settings_wall_and_surfaces#outerinner) order the inner wall has not been printed yet, so the regular wipe is kept.
+
+Orca keeps the regular wipe path whenever no supported inward path exists: single wall areas, places where the inner wall is locally missing, tight corners, narrow features or a wide [seam gap](#seam-gap). The fallback is silent and only affects the loops concerned. Both the classic and Arachne wall generators are supported, and the real width of each path is used, so automatic [line widths](quality_settings_line_width) and Arachne's variable widths are taken into account.
+
+> [!NOTE]
+> Inward wiping is switched off automatically during the [Pressure Advance](pressure_advance_calib) and [Retraction](retraction_calib) calibrations so that it cannot mask the behavior being measured.
+
+#### Wipe inward distance
+
+How far the wipe path is shifted away from the external perimeter, either in millimeters or as a percentage of the actual outer wall extrusion width. The default, 50%, shifts the path by half of the outer wall width, which places it over the boundary between the outer and the inner wall.
+
+The offset is clamped by the actual outer wall width and by the spacing available to the adjacent wall, so values above 100%, or the equivalent absolute distance, have no further effect. Setting it to 0 disables the offset and the regular wipe is used.
+
+This option is only shown when *Wipe inward* is enabled.
+
 ### Wipe Before External
 
 [Mode](option_mode): `Advanced`.  
@@ -215,7 +252,7 @@ This is useful when printing with [Outer/Inner](quality_settings_wall_and_surfac
 With seams being inevitable when 3D printing using FFF, there are two distinct approaches on how to deal with them:
 
 1. **Try and hide the seam as much as possible:** This can be done by enabling scarf seam, which works very well, especially with simple models with limited overhang regions.
-2. **Try and make the seam as "clean" and "distinct" as possible:** This can be done by tuning the seam gap and enabling role-based wipe speed, wipe on loops, and wipe before the external loop.
+2. **Try and make the seam as "clean" and "distinct" as possible:** This can be done by tuning the seam gap and enabling role-based wipe speed, wipe on loops, wipe inward, and wipe before the external loop.
 
 ## Troubleshooting Seam Performance
 

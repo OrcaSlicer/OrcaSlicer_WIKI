@@ -112,7 +112,7 @@ This will cap the speed set by the process if it exceeds these values.
 [Modes](option_mode):  
 `Simple` [Variables](built_in_placeholders_variables): `machine_max_acceleration_extruding`, `machine_max_acceleration_retracting`.  
 `Advanced` [Variable](built_in_placeholders_variables): `machine_max_acceleration_travel`.  
-[Variables](built_in_placeholders_variables): `machine_max_acceleration_e`, `machine_max_acceleration_z`, `machine_max_acceleration_x`, `machine_max_acceleration_y`.  
+[Variables](built_in_placeholders_variables): `machine_max_acceleration_x`, `machine_max_acceleration_y`, `machine_max_acceleration_z`, `machine_max_acceleration_e`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--machine-max-acceleration-extruding=1` (same pattern for the other variables above).  
 Safeguard maximum accelerations for all axes.
@@ -127,9 +127,9 @@ Safeguard maximum jerks for all axes.
 
 ### Maximum Jerk
 
-[Variables](built_in_placeholders_variables): `machine_max_jerk_z`, `machine_max_jerk_e`, `machine_max_jerk_x`, `machine_max_jerk_y`.  
+[Variables](built_in_placeholders_variables): `machine_max_jerk_x`, `machine_max_jerk_y`, `machine_max_jerk_z`, `machine_max_jerk_e`.  
 [Type](option_type#list-types): `Float list`.  
-[CLI Example](cli_mode#setting-overrides): `--machine-max-jerk-z=1` (same pattern for the other variables above).  
+[CLI Example](cli_mode#setting-overrides): `--machine-max-jerk-x=1` (same pattern for the other variables above).  
 Maximum [jerk](speed_settings_jerk_xy) for each axis (M205 X, Y, Z, E, only apply if JD = 0 for Marlin 2 Firmware)
 
 ### Maximum Junction Deviation
