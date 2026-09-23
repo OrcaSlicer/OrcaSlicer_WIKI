@@ -5,7 +5,7 @@ The [Design tab](design_tab) has two key maps, and the one in force depends on w
 - **A sketch is open** — single letters drive the [sketch tools](design_sketching).
 - **No sketch is open** — `Shift` and a letter drive the [modeling tools](design_modeling_tools), and single letters drive the view.
 
-Shortcuts are never intercepted while you are typing in a field, and the offer menu shows each verb's key beside it.
+Shortcuts are never intercepted while you are typing in a field, and the offer menu shows each verb's key beside it. These keys are fixed — unlike the rest of the application's shortcuts, they cannot be reassigned.
 
 - [Sketch Tools](#sketch-tools)
 - [Modeling Tools](#modeling-tools)
