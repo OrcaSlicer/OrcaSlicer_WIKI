@@ -75,7 +75,7 @@ The solver reports the remaining degrees of freedom while you work and tells you
 - **Cancel** in the action bar discards the sketch, and asks first when there is geometry to lose.
 - `Esc` never destroys work. It closes an open value field, or drops the entity being drawn, or drops the armed tool back to Select, or clears the selection — one step at a time, in that order. A sketch that holds geometry is only left through Confirm or Cancel.
 - `Ctrl + Z` inside a sketch removes the last entity drawn. `Del` or `Backspace` deletes the selected entities.
-- A sketch whose entities form no closed wire fails with a message rather than producing a default shape.
+- A sketch whose entities form no closed wire fails with a message rather than producing a default shape. **Auto-close sketch loops** (Preferences → General → Features) decides how forgiving that check is: on, endpoints within 0.001 mm are welded into one joint; off, only exactly coincident endpoints join, so a loop with a hairline gap is reported as open.
 
 ## Reopening a Sketch
 

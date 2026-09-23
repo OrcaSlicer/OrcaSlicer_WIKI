@@ -70,7 +70,7 @@ Available anywhere in the window, even while typing in a text field.
 
 ## Design
 
-Shortcuts for the [Design tab](design_tab). The tab carries two key maps: while a sketch is open single letters drive the sketch tools, and when no sketch is open `Shift` and a letter drive the modeling tools. Both maps are listed in full in [Design Keyboard Shortcuts](design_keyboard_shortcuts); the keys below are the ones that act on the view and the document. The Design tab's keys are fixed: they are not part of the assignable shortcut set, so they do not appear in the shortcut editor.
+Shortcuts for the [Design tab](design_tab), which is shown once the CAD feature is enabled in Preferences. The tab carries two key maps: while a sketch is open single letters drive the sketch tools, and when no sketch is open `Shift` and a letter drive the modeling tools. Both maps are listed in full in [Design Keyboard Shortcuts](design_keyboard_shortcuts); the keys below are the ones that act on the view and the document. The Design tab's keys are fixed: they are not part of the assignable shortcut set, so they do not appear in the shortcut editor.
 
 | Key | Action |
 | --- | --- |

@@ -96,6 +96,8 @@ Datum features carry no material. They exist to give later features something to
 
 **Check interference** reports every overlapping pair of solids together with the overlapping volume, so a clash is a number rather than an impression. Bodies that only touch enclose no volume and are not reported.
 
+A mate connector is drawn as a small face, whose orientation can be read at a glance. **Draw mate connectors as a face** (Preferences → Control → Camera) turns that off in favour of the conventional disc with a roll quadrant.
+
 > [!NOTE]
 > Mates are applied in the order they were created rather than solved together, and mate limits are not implemented. Build an assembly from the fixed body outwards.
 

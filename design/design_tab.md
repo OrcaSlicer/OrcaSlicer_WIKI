@@ -8,6 +8,7 @@ The Design tab is a sketch-first parametric CAD environment inside OrcaSlicer. D
 
 What you build is a **recipe**, not a mesh. Every action becomes a feature in a tree that is replayed from the start whenever anything changes, so editing a dimension you set twenty steps ago rebuilds everything that came after it. The recipe is stored inside the 3MF project file, so reopening the project restores an editable model instead of a frozen mesh.
 
+- [Enabling the Design Tab](#enabling-the-design-tab)
 - [Getting Started](#getting-started)
 - [The Status Line](#the-status-line)
 - [Selecting](#selecting)
@@ -18,6 +19,26 @@ What you build is a **recipe**, not a mesh. Every action becomes a feature in a 
 - [Limitations](#limitations)
 
 The rest of the tab is covered in [Sketching](design_sketching), [Modeling Tools](design_modeling_tools) and [Design Keyboard Shortcuts](design_keyboard_shortcuts).
+
+## Enabling the Design Tab
+
+The tab is experimental and **switched off by default**, so a fresh installation does not show it at all.
+
+1. Open **Preferences → General → Features**.
+2. Tick **CAD feature (experimental)**.
+3. Restart OrcaSlicer. The tab is built at startup, so it only appears on the next launch.
+
+Switching it on also adds two CAD tools to the [Prepare](home#prepare) toolbar — **Sketch** and **Primitive** — which drop a solid straight onto the plate without going through the Design tab. Like the tab itself, they are hidden while the feature is off.
+
+Two further preferences belong to the tab:
+
+| Preference | Where | What it does |
+| --- | --- | --- |
+| Auto-close sketch loops | General → Features | Treats sketch endpoints within 0.001 mm as one joint and welds the loop shut. With it off, only exactly coincident endpoints join, so a loop with a tiny gap stays open |
+| Draw mate connectors as a face | Control → Camera | Draws a mate connector as a small face instead of the conventional disc with a roll quadrant. Only listed while the CAD feature is enabled |
+
+> [!NOTE]
+> The feature is under active development. Expect it to change between nightly builds, and keep a backup of any project you care about.
 
 ## Getting Started
 
