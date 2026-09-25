@@ -296,9 +296,9 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
         - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
         - **Layer time Variability:** Unnoticeable
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
-    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -317,7 +317,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
         - **Material/Time (Higher better):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
         - **Layer time Variability:** Unnoticeable
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
@@ -359,7 +359,7 @@ Support |Cubic is a variation of the [Cubic](#cubic) infill pattern that is spec
         - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
         - **Layer time Variability:** Likely Noticeable
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
