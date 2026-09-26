@@ -137,5 +137,36 @@ If enabled, the prime tower is not printed on layers with no tool changes. The t
 
 Because the tower ends up below the model, the toolhead has to reach down to it past everything already printed. Orca checks the plate for that before slicing and rejects layouts where the nozzle, the toolhead body or the gantry rod would hit an object, highlighting the collision area and the height limit it would exceed. Move the model further from the tower, lower its height, or turn this option off.
 
+> [!TIP]
+> If the plate layout can't avoid a collision, [Combine sparse layers](#combine-sparse-layers) also cuts the time spent on sparse tower layers while keeping the tower level with the model.
+
 > [!NOTE]
 > This option has no effect when [smooth timelapse](others_settings_special_mode#timelapse) or clumping detection is enabled, because both need a prime tower on every layer. Enabling it while smooth timelapse is selected switches timelapse to traditional, and selecting smooth timelapse turns this option off.
+
+## Combine sparse layers
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `wipe_tower_sparse_layers_combination`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--wipe-tower-sparse-layers-combination=1`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Combine sparse prime tower layers**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+If enabled, consecutive layers on which the prime tower has no filament change (sparse layers) are printed as a single thicker tower layer instead of one thin layer each, the same way [Infill Combination](strength_settings_advanced#infill-combination) merges sparse infill. The merged layer is printed on the last layer of the run, at the combined height of all the layers it covers, and the layers below it skip the tower entirely.
+
+This removes most of the travel moves to the tower on sparse layers, which shortens print time. It saves less than [No sparse layers](#no-sparse-layers), but the tower keeps rising with the model, so the toolhead never has to reach down to it: there is no collision risk and no restriction on the plate layout.
+
+Layers are merged following these rules:
+
+- Only whole layers are merged, so a merged layer always ends at an object layer height.
+- The merged height never exceeds the maximum layer height of the nozzle printing the tower (see [Extruder Layer Height Limits](printer_extruder_basic_information#extruder-layer-height-limits)), or three quarters of the nozzle diameter when that limit is set to 0.
+- Layers with a filament change are never merged, so every purge is still printed at its own height.
+- The first layer is never merged.
+
+> [!TIP]
+> At least two layers have to fit under the maximum layer height before anything is merged, so this option has no effect at common layer heights. For example, with a 0.3 mm maximum layer height, 0.2 mm layers are not merged (2 × 0.2 mm = 0.4 mm), while 0.1 mm layers are merged three at a time (3 × 0.1 mm = 0.3 mm). Use a lower layer height or raise the extruder's maximum layer height to benefit from it.
+
+> [!NOTE]
+> This option is only shown when [No sparse layers](#no-sparse-layers) is disabled, since dropping the sparse layers leaves nothing to combine. It also has no effect when [smooth timelapse](others_settings_special_mode#timelapse) or clumping detection is enabled, because both need a prime tower on every layer.
