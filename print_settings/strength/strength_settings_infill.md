@@ -89,17 +89,24 @@ The following describes possible strategies for infill generation.
 
 #### Classic Strategy
 
-For most self intersecting infills (e.g. [Cubic](strength_settings_patterns#cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
+For most self intersecting infills (e.g. [Quarter Cubic](strength_settings_patterns#quarter-cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
 
-In this example of [Cubic](strength_settings_patterns#cubic) and [Gyroid](strength_settings_patterns#gyroid) patterns, you can see (in purple) the closed loops generated to avoid overlapping lines.
+In this example of a pattern of crossing lines and the [Gyroid](strength_settings_patterns#gyroid) pattern, you can see (in purple) the closed loops generated to avoid overlapping lines.
 
 ![infill-multiline-closed-loops](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-closed-loops.png?raw=true)
 
 #### Non-Crossing Strategy
 
-[Grid](strength_settings_patterns#grid) & [Triangles](strength_settings_patterns#triangles) patterns use a Non-crossing multiline strategy.
+[Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) & [Support Cubic](strength_settings_patterns#support-cubic) patterns use a Non-crossing multiline strategy.
 For these infill patterns, an alternative approach is used, generating trapezoidal trajectories designed to avoid self-intersections of the infill lines. In each layer, the pattern rotates to ensure isotropic strength.  
 This strategy improves printing times by avoiding closed loops in favor of continuous printing paths.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Non-Crossing Cubic, Adaptive Cubic and Support Cubic**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+- [Cubic](strength_settings_patterns#cubic) paths follow the same lines as its single-line pattern, so they still shift with the layer height: most layers look like [Tri-hexagon](strength_settings_patterns#tri-hexagon), and the layers where the three line directions meet look like [Triangles](strength_settings_patterns#triangles).
+- [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) paths follow their lines of every cube size. Where a finer line ends on a coarser one, its path stops against the path of the coarser line.
 
 ![infill-multiline-non-crossing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-non-crossing.gif?raw=true)
 
@@ -351,9 +358,10 @@ The setting only affects **sparse infill**, and only the [patterns](strength_set
     - [Grid](strength_settings_patterns#grid)
     - [Triangles](strength_settings_patterns#triangles)
     - [Tri-hexagon](strength_settings_patterns#tri-hexagon)
+    - [Cubic](strength_settings_patterns#cubic)
 
 > [!NOTE]
-> [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles) and [Tri-hexagon](strength_settings_patterns#tri-hexagon) are only rounded in their trapezoidal, [Non-Crossing](#non-crossing-strategy) form, which needs more than one line per infill wall. With a single line they are plain crossing lines with no corner to round.
+> [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon) and [Cubic](strength_settings_patterns#cubic) are only rounded in their trapezoidal, [Non-Crossing](#non-crossing-strategy) form, which needs more than one line per infill wall. With a single line they are plain crossing lines with no corner to round.
 
 ### Corners left sharp
 
