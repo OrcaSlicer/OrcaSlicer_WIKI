@@ -223,6 +223,9 @@ nav:
   - "Seam Painting": print_prepare/prepare_seam_painting.md
   - "STL Transformation": print_prepare/prepare_stl_transformation.md
   - "Support Painting": print_prepare/prepare_support_painting.md
+  - "Texture Displacement": print_prepare/prepare_texture_displacement.md
+  - "Texture Displacement Pro Mode": print_prepare/prepare_texture_displacement_pro.md
+  - "Texture Displacement UV Editor": print_prepare/prepare_texture_displacement_uv_editor.md
   - "Variable Layer Height": print_prepare/prepare_variable_layer_height.md
 - Calibration:
   - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
