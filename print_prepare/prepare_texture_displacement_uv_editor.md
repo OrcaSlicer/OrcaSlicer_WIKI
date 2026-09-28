@@ -4,77 +4,94 @@
 > NEW FEATURE: **Texture displacement**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-The UV Editor is the 2D pane that belongs to the **Unwrap (LSCM)** mapping of [Texture Displacement](prepare_texture_displacement). Unwrapping flattens the painted area into one or more **islands** and lays the texture over them; this pane is where you see that layout and change it by hand.
+Every other [Texture Displacement](prepare_texture_displacement) mapping guesses how to wrap the image onto the surface — from three axes, around a centre, or from the camera. **Unwrap (LSCM)** does not guess: it flattens the painted area into pieces that lie flat, and maps the texture onto those. That is what makes it the only mapping with no stretching surprises, and the only one that asks you to make decisions.
 
-The other mappings project the texture onto the surface from outside and need no layout, so the pane only applies to a layer whose mapping is **Unwrap (LSCM)**.
+The UV Editor is where those decisions are made. Choose **Unwrap (LSCM)** as a layer's mapping and the pane opens beside the 3D view.
 
-- [Opening the pane](#opening-the-pane)
+![td-uv-islands](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-uv-islands.svg?raw=true)
+
+A surface cannot be flattened without cutting it — a cube has to be cut into a net before it lies flat. The cuts are **seams**, the flattened pieces are **islands**, and the whole job is deciding where to cut and how to arrange what falls out.
+
+- [The workflow](#the-workflow)
 - [Unwrapping](#unwrapping)
 - [Seams](#seams)
-- [Editing the layout](#editing-the-layout)
+- [Arranging islands](#arranging-islands)
+- [Checking for stretch](#checking-for-stretch)
 - [Tools](#tools)
 - [Navigation and shortcuts](#navigation-and-shortcuts)
 
-## Opening the pane
+## The workflow
 
-Choose **Unwrap (LSCM)** as a layer's mapping and the pane opens beside the 3D view. Until a layer is mapped that way it reports *No layer mapped with Unwrap*, and until something is painted it asks you to paint the area on the model first.
+1. Paint the area on the model, as for any other mapping.
+2. Set the layer's mapping to **Unwrap (LSCM)**. The pane opens.
+3. Press **Unwrap**. The painted area is cut at its sharp edges and flattened.
+4. Look at the result in **Checker** or **Distortion**. If a piece is badly stretched, [mark a seam](#seams) through it and unwrap again.
+5. Arrange the islands if you want the pattern somewhere specific, then bake from the main panel.
 
-Along the top are the layer's texture and name, the current tile size, and three background buttons:
-
-| Background | Shows |
-| --- | --- |
-| **Height map** | The layer's own texture under the islands, repeating exactly as it will when baked. |
-| **Checker** | A test grid. Squares stay square where the unwrap does not stretch. |
-| **Distortion** | Each island coloured by how much the unwrap stretches it. |
-
-Choosing **Checker** or **Distortion** here also colours the model in the 3D view, so stretch can be judged in both places at once.
+Until a layer is mapped with Unwrap the pane says *No layer mapped with Unwrap*, and until something is painted it asks you to paint the area first.
 
 ## Unwrapping
 
-The **Unwrap** button computes the layout. Two settings decide what it produces, and both take effect at the next unwrap:
+**Unwrap** computes the layout. Two settings decide what it produces, and both take effect at the *next* unwrap:
 
-- **Seam angle** - edges sharper than this are cut, and the pieces either side of them are flattened separately. Lower it to cut more: each piece then lies flat with less stretching, at the cost of the texture not running continuously across the cut. Once you have marked any seam by hand, your seams define the pieces instead and this is ignored.
-- **Connect islands** - lays the unwrap out as a connected net: pieces that share an edge are unfolded next to each other, so a cube becomes a joined net rather than six loose squares. They stay separate islands, so any of them can still be moved by hand afterwards. Turn it off for a plain packed layout.
+| Setting | What it does |
+| --- | --- |
+| **Seam angle** | Edges sharper than this are cut, and the pieces either side are flattened separately. Lower it to cut more: each piece then lies flat with less stretching, at the cost of the pattern not running continuously across the cut. Once you mark any seam by hand, your seams define the pieces and this is ignored |
+| **Connect islands** | Lays the result out as a connected net — pieces that share an edge are unfolded next to each other, so a cube becomes a joined net rather than six loose squares. They are still separate islands and can still be moved by hand. Turn it off for a plain packed layout |
 
-A summary along the bottom reports how many islands and faces the unwrap produced. If the paint, the seams or the seam angle change afterwards, the pane marks the layout **out of date** - press **Unwrap** again to rebuild it.
+A summary along the bottom reports how many islands and faces came out. If the paint, the seams or the seam angle change afterwards, the pane marks the layout **out of date** — press **Unwrap** again.
 
 > [!NOTE]
-> Re-unwrapping re-cuts and re-places the islands, so placements made by hand before it are discarded.
+> Re-unwrapping re-cuts and re-places every island, so placements you made by hand before it are discarded. Get the seams right first, arrange second.
 
 ## Seams
 
-Seams are edges the unwrap is forced to cut along, on top of whatever the seam angle cuts. They are how you decide exactly where the flattened pieces split - the same idea as marking a seam in a 3D modelling package.
+Seams are edges the unwrap is forced to cut along, on top of whatever the seam angle cuts. They are how you decide exactly where the pattern is allowed to break — put them where a break will not be noticed: an inside corner, the back of a part, a line that is already a feature.
 
-- **Mark seams** - click edges on the model to cut the unwrap along them. The edge under the cursor is highlighted yellow; click to mark it red, and click a red edge again to unmark it. Painting is paused while this is on.
-- **Path** - instead of clicking every edge, click a start point and then an end point: the whole shortest path between them is seamed at once. Each further click continues from the last point. Available while marking seams.
-- **Clear seams** - removes every seam marked on this layer.
-
-Hold **Ctrl** and drag to move the camera while marking seams.
-
-## Editing the layout
-
-Three selection modes decide what a drag in the pane moves:
-
-| Mode | What it edits |
+| Control | What it does |
 | --- | --- |
-| **Island** | Whole islands - move, rotate and scale them. |
-| **Vertex** | Individual vertices, to reshape an island. |
-| **Edge** | Island edges, to reshape an island. |
+| **Mark seams** | Click edges on the model to cut along them. The edge under the cursor is highlighted yellow; click to mark it red, click a red edge again to unmark it. Painting is paused while this is on |
+| **Path** | Instead of clicking every edge, click a start point and then an end point — the whole shortest path between them is seamed at once, and each further click continues from the last point. Indispensable on a dense mesh |
+| **Clear seams** | Removes every seam on this layer |
 
-**Shift** or **Ctrl** with a click adds to or removes from the selection in any of the three modes, and a drag then moves everything selected together. The model updates as you drag, so the effect of a placement is visible immediately.
+Hold **Ctrl** and drag to move the camera while marking.
 
-**Clear UV edits** discards all manual vertex and edge moves and returns the unwrap to its automatic shape.
+## Arranging islands
+
+Three modes decide what a drag moves:
+
+| Mode | Edits |
+| --- | --- |
+| **Island** | Whole islands — move, rotate, scale |
+| **Vertex** | Single vertices, to reshape an island |
+| **Edge** | Island edges, to reshape an island |
+
+**Shift** or **Ctrl** with a click adds to or removes from the selection, and a drag then moves everything selected together. The model updates as you drag, so you can see where the pattern lands.
+
+**Clear UV edits** discards manual vertex and edge moves and returns the unwrap to its automatic shape.
+
+## Checking for stretch
+
+An unwrap flattens a curved surface, and flattening always distorts something. Two backgrounds make the distortion visible — they also colour the model in the 3D view, so you can judge it in both places at once.
+
+| Background | Reading it |
+| --- | --- |
+| **Height map** | The layer's own texture under the islands, tiled exactly as it will bake. What you will actually get |
+| **Checker** | A test grid. Squares that stay square are undistorted; squares stretched into rectangles mark where the pattern will be drawn out |
+| **Distortion** | Each island coloured blue to red by how much it is stretched relative to the rest |
+
+If an island is badly stretched, it is being asked to lie flat when it cannot. Mark a seam through it and unwrap again — more cuts mean less stretch.
 
 ## Tools
 
 | Tool | What it does |
 | --- | --- |
-| **Average scale** | Gives every island the same texel density, so an island scaled by hand can be matched back to its neighbours. |
-| **Cut** | Splits the selected island across its long axis - useful for a long, curved island that cannot lie flat in one piece. |
-| **Join** | Unfolds the selected island onto its nearest neighbour along their shared edge. Both stay separate islands with their own borders. |
-| **Unjoin** | Sends the selected island back to its own packed position. |
-| **Snap** | Sticks islands together when dragging one against another. |
-| **Frame** | Frames all islands in the pane. |
+| **Average scale** | Gives every island the same texel density, so one scaled by hand can be matched back to its neighbours |
+| **Cut** | Splits the selected island across its long axis — for a long, curved island that cannot lie flat in one piece |
+| **Join** | Unfolds the selected island onto its nearest neighbour along their shared edge. Both stay separate islands |
+| **Unjoin** | Sends the selected island back to its own packed position |
+| **Snap** | Sticks islands together when you drag one against another |
+| **Frame** | Frames all islands in the pane |
 
 ## Navigation and shortcuts
 
@@ -92,4 +109,4 @@ Three selection modes decide what a drag in the pane moves:
 | **Home** or **F** | Frame all islands |
 | **Ctrl+Z** / **Ctrl+Y** | Undo / redo the layout change |
 
-A status line along the bottom of the pane always names the gesture in progress and the keys that apply to it.
+A status line along the bottom always names the gesture in progress and the keys that apply to it.

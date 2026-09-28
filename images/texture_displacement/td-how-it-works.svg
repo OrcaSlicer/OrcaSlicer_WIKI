@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 268" width="960" height="268" role="img" aria-labelledby="t d" class="fig">
+  <title id="t">How texture displacement works</title>
+  <desc id="d">A greyscale height map, the area painted on the model, and the relief baked from the two.</desc>
+
+  <style>
+    .fig { font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    text { fill: #1f2328; }
+    .ttl  { font-size: 15px; font-weight: 600; }
+    .lbl  { font-size: 13px; }
+    .dim  { font-size: 12.5px; fill: #59636e; }
+    .mono { font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #59636e; }
+    .card { fill: #f6f8fa; stroke: #d0d7de; }
+    .line { stroke: #d0d7de; }
+    .surf { stroke: #57606a; fill: none; }
+    .surf-fill { fill: #57606a; fill-opacity: .10; }
+    .acc  { stroke: #009688; }
+    .acc-f{ fill: #009688; }
+    .acc-soft { fill: #009688; fill-opacity: .14; }
+    .arrow { fill: #8c959f; }
+    .ghost { stroke: #8c959f; stroke-dasharray: 3 3; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      text { fill: #e6edf3; }
+      .dim, .mono { fill: #9198a1; }
+      .card { fill: #1b1f24; stroke: #3d444d; }
+      .line { stroke: #3d444d; }
+      .surf { stroke: #b1bac4; }
+      .surf-fill { fill: #b1bac4; fill-opacity: .12; }
+      .acc  { stroke: #1ec8b6; }
+      .acc-f{ fill: #1ec8b6; }
+      .acc-soft { fill: #1ec8b6; fill-opacity: .18; }
+      .arrow { fill: #7d8590; }
+      .ghost { stroke: #6e7681; }
+    }
+  </style>
+
+<rect class="card" x="16" y="40" width="280" height="176" rx="8"/>
+<text class="ttl" x="42" y="26">1 &#183; Height map</text>
+<rect x="42.00" y="74" width="19.40" height="72" fill="rgb(20,20,20)"/>
+<rect x="61.00" y="74" width="19.40" height="72" fill="rgb(56,56,56)"/>
+<rect x="80.00" y="74" width="19.40" height="72" fill="rgb(140,140,140)"/>
+<rect x="99.00" y="74" width="19.40" height="72" fill="rgb(235,235,235)"/>
+<rect x="118.00" y="74" width="19.40" height="72" fill="rgb(224,224,224)"/>
+<rect x="137.00" y="74" width="19.40" height="72" fill="rgb(87,87,87)"/>
+<rect x="156.00" y="74" width="19.40" height="72" fill="rgb(46,46,46)"/>
+<rect x="175.00" y="74" width="19.40" height="72" fill="rgb(158,158,158)"/>
+<rect x="194.00" y="74" width="19.40" height="72" fill="rgb(255,255,255)"/>
+<rect x="213.00" y="74" width="19.40" height="72" fill="rgb(148,148,148)"/>
+<rect x="232.00" y="74" width="19.40" height="72" fill="rgb(51,51,51)"/>
+<rect x="251.00" y="74" width="19.40" height="72" fill="rgb(26,26,26)"/>
+<rect x="42" y="74" width="228" height="72" fill="none" class="line"/>
+<text class="dim" x="42" y="168">black = no movement</text>
+<text class="dim" x="270" y="168" text-anchor="end">white = full depth</text>
+<text class="lbl" x="42" y="242">An image read as heights.</text>
+<rect class="card" x="340" y="40" width="280" height="176" rx="8"/>
+<text class="ttl" x="366" y="26">2 &#183; Painted area</text>
+<path class="surf-fill" d="M366 144 L594 144 L594 178 L366 178 Z"/>
+<path class="surf" stroke-width="2" d="M366 144 L594 144"/>
+<path class="acc-soft" d="M406 144 L560 144 L560 178 L406 178 Z"/>
+<path class="acc" stroke-width="3.5" stroke-linecap="round" d="M406 144 L560 144"/>
+<circle class="acc-f" cx="483.0" cy="136" r="19" fill-opacity=".16"/>
+<circle class="acc" fill="none" stroke-width="1.5" cx="483.0" cy="136" r="19"/>
+<text class="dim" x="483.0" y="114" text-anchor="middle" style="font-size:11px">brush</text>
+<text class="dim" x="366" y="200">unpainted</text>
+<text class="dim" x="560" y="200" text-anchor="end">painted</text>
+<text class="lbl" x="366" y="242">Only what you paint is affected.</text>
+<rect class="card" x="664" y="40" width="280" height="176" rx="8"/>
+<text class="ttl" x="690" y="26">3 &#183; Baked relief</text>
+<path class="surf-fill" d="M690.00 153.52 L709.00 153.52 L709.00 145.68 L728.00 145.68 L728.00 127.20 L747.00 127.20 L747.00 106.48 L766.00 106.48 L766.00 108.72 L785.00 108.72 L785.00 138.96 L804.00 138.96 L804.00 147.92 L823.00 147.92 L823.00 123.28 L842.00 123.28 L842.00 102.00 L861.00 102.00 L861.00 125.52 L880.00 125.52 L880.00 146.80 L899.00 146.80 L899.00 152.40 L918.00 152.40 L918.00 180 L690 180 Z"/>
+<path class="surf" stroke-width="2" stroke-linejoin="round" d="M690.00 153.52 L709.00 153.52 L709.00 145.68 L728.00 145.68 L728.00 127.20 L747.00 127.20 L747.00 106.48 L766.00 106.48 L766.00 108.72 L785.00 108.72 L785.00 138.96 L804.00 138.96 L804.00 147.92 L823.00 147.92 L823.00 123.28 L842.00 123.28 L842.00 102.00 L861.00 102.00 L861.00 125.52 L880.00 125.52 L880.00 146.80 L899.00 146.80 L899.00 152.40 L918.00 152.40"/>
+<path class="ghost" stroke-width="1.5" d="M690 158 L918 158"/>
+<path class="acc" stroke-width="1.5" d="M851.5 158 L851.5 102"/>
+<path class="acc-f" d="M847.5 153 L855.5 153 L851.5 158 Z"/>
+<path class="acc-f" d="M847.5 107 L855.5 107 L851.5 102 Z"/>
+<text class="mono" x="851.5" y="93.0" text-anchor="middle">Depth</text>
+<text class="dim" x="690" y="198">original surface</text>
+<text class="lbl" x="690" y="242">Real geometry, only under the paint.</text>
+<path class="arrow" d="M313.5 119.0 L322.5 128.0 L313.5 137.0 L316.5 128.0 Z"/>
+<path class="arrow" d="M637.5 119.0 L646.5 128.0 L637.5 137.0 L640.5 128.0 Z"/>
+</svg>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" width="960" height="330" role="img" aria-labelledby="t d" class="fig">
+  <title id="t">What Midlevel does</title>
+  <desc id="d">The same height map at Midlevel 0, where the relief only rises, and at Midlevel 0.5, where mid grey stays put and darker greys cut in.</desc>
+
+  <style>
+    .fig { font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    text { fill: #1f2328; }
+    .ttl  { font-size: 15px; font-weight: 600; }
+    .lbl  { font-size: 13px; }
+    .dim  { font-size: 12.5px; fill: #59636e; }
+    .mono { font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #59636e; }
+    .card { fill: #f6f8fa; stroke: #d0d7de; }
+    .line { stroke: #d0d7de; }
+    .surf { stroke: #57606a; fill: none; }
+    .surf-fill { fill: #57606a; fill-opacity: .10; }
+    .acc  { stroke: #009688; }
+    .acc-f{ fill: #009688; }
+    .acc-soft { fill: #009688; fill-opacity: .14; }
+    .arrow { fill: #8c959f; }
+    .ghost { stroke: #8c959f; stroke-dasharray: 3 3; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      text { fill: #e6edf3; }
+      .dim, .mono { fill: #9198a1; }
+      .card { fill: #1b1f24; stroke: #3d444d; }
+      .line { stroke: #3d444d; }
+      .surf { stroke: #b1bac4; }
+      .surf-fill { fill: #b1bac4; fill-opacity: .12; }
+      .acc  { stroke: #1ec8b6; }
+      .acc-f{ fill: #1ec8b6; }
+      .acc-soft { fill: #1ec8b6; fill-opacity: .18; }
+      .arrow { fill: #7d8590; }
+      .ghost { stroke: #6e7681; }
+    }
+  </style>
+
+<rect class="card" x="16" y="44" width="452" height="242" rx="8"/>
+<text class="ttl" x="44" y="30">Midlevel 0 &#183; embosses only</text>
+<rect x="44.00" y="62" width="33.40" height="20" fill="rgb(26,26,26)"/>
+<rect x="77.00" y="62" width="33.40" height="20" fill="rgb(64,64,64)"/>
+<rect x="110.00" y="62" width="33.40" height="20" fill="rgb(128,128,128)"/>
+<rect x="143.00" y="62" width="33.40" height="20" fill="rgb(242,242,242)"/>
+<rect x="176.00" y="62" width="33.40" height="20" fill="rgb(224,224,224)"/>
+<rect x="209.00" y="62" width="33.40" height="20" fill="rgb(89,89,89)"/>
+<rect x="242.00" y="62" width="33.40" height="20" fill="rgb(38,38,38)"/>
+<rect x="275.00" y="62" width="33.40" height="20" fill="rgb(166,166,166)"/>
+<rect x="308.00" y="62" width="33.40" height="20" fill="rgb(255,255,255)"/>
+<rect x="341.00" y="62" width="33.40" height="20" fill="rgb(140,140,140)"/>
+<rect x="374.00" y="62" width="33.40" height="20" fill="rgb(56,56,56)"/>
+<rect x="407.00" y="62" width="33.40" height="20" fill="rgb(20,20,20)"/>
+<rect class="line" fill="none" x="44" y="62" width="396" height="20"/>
+<text class="dim" x="44" y="99" style="font-size:11.5px">same height map</text>
+<path class="surf-fill" d="M44.00 206.40 L77.00 206.40 L77.00 198.00 L110.00 198.00 L110.00 184.00 L143.00 184.00 L143.00 158.80 L176.00 158.80 L176.00 162.72 L209.00 162.72 L209.00 192.40 L242.00 192.40 L242.00 203.60 L275.00 203.60 L275.00 175.60 L308.00 175.60 L308.00 156.00 L341.00 156.00 L341.00 181.20 L374.00 181.20 L374.00 199.68 L407.00 199.68 L407.00 207.52 L440.00 207.52 L440.00 262 L44 262 Z"/>
+<path class="surf" stroke-width="2" stroke-linejoin="round" d="M44.00 206.40 L77.00 206.40 L77.00 198.00 L110.00 198.00 L110.00 184.00 L143.00 184.00 L143.00 158.80 L176.00 158.80 L176.00 162.72 L209.00 162.72 L209.00 192.40 L242.00 192.40 L242.00 203.60 L275.00 203.60 L275.00 175.60 L308.00 175.60 L308.00 156.00 L341.00 156.00 L341.00 181.20 L374.00 181.20 L374.00 199.68 L407.00 199.68 L407.00 207.52 L440.00 207.52"/>
+<path class="ghost" stroke-width="1.5" d="M44 212 L440 212"/>
+<text class="dim" x="44" y="228" style="font-size:11.5px">original surface</text>
+<text class="lbl" x="44" y="312">Black sits on the surface, white stands Depth proud.</text>
+<path class="acc" stroke-width="1.5" d="M324.5 212.0 L324.5 156.0"/>
+<path class="acc-f" d="M320.5 207.0 L328.5 207.0 L324.5 212.0 Z"/>
+<path class="acc-f" d="M320.5 161.0 L328.5 161.0 L324.5 156.0 Z"/>
+<text class="mono" x="324.5" y="146.0" text-anchor="middle">Depth</text>
+<rect class="card" x="492" y="44" width="452" height="242" rx="8"/>
+<text class="ttl" x="520" y="30">Midlevel 0.5 &#183; embosses and engraves</text>
+<rect x="520.00" y="62" width="33.40" height="20" fill="rgb(26,26,26)"/>
+<rect x="553.00" y="62" width="33.40" height="20" fill="rgb(64,64,64)"/>
+<rect x="586.00" y="62" width="33.40" height="20" fill="rgb(128,128,128)"/>
+<rect x="619.00" y="62" width="33.40" height="20" fill="rgb(242,242,242)"/>
+<rect x="652.00" y="62" width="33.40" height="20" fill="rgb(224,224,224)"/>
+<rect x="685.00" y="62" width="33.40" height="20" fill="rgb(89,89,89)"/>
+<rect x="718.00" y="62" width="33.40" height="20" fill="rgb(38,38,38)"/>
+<rect x="751.00" y="62" width="33.40" height="20" fill="rgb(166,166,166)"/>
+<rect x="784.00" y="62" width="33.40" height="20" fill="rgb(255,255,255)"/>
+<rect x="817.00" y="62" width="33.40" height="20" fill="rgb(140,140,140)"/>
+<rect x="850.00" y="62" width="33.40" height="20" fill="rgb(56,56,56)"/>
+<rect x="883.00" y="62" width="33.40" height="20" fill="rgb(20,20,20)"/>
+<rect class="line" fill="none" x="520" y="62" width="396" height="20"/>
+<text class="dim" x="520" y="99" style="font-size:11.5px">same height map</text>
+<path class="surf-fill" d="M520.00 234.40 L553.00 234.40 L553.00 226.00 L586.00 226.00 L586.00 212.00 L619.00 212.00 L619.00 186.80 L652.00 186.80 L652.00 190.72 L685.00 190.72 L685.00 220.40 L718.00 220.40 L718.00 231.60 L751.00 231.60 L751.00 203.60 L784.00 203.60 L784.00 184.00 L817.00 184.00 L817.00 209.20 L850.00 209.20 L850.00 227.68 L883.00 227.68 L883.00 235.52 L916.00 235.52 L916.00 262 L520 262 Z"/>
+<path class="surf" stroke-width="2" stroke-linejoin="round" d="M520.00 234.40 L553.00 234.40 L553.00 226.00 L586.00 226.00 L586.00 212.00 L619.00 212.00 L619.00 186.80 L652.00 186.80 L652.00 190.72 L685.00 190.72 L685.00 220.40 L718.00 220.40 L718.00 231.60 L751.00 231.60 L751.00 203.60 L784.00 203.60 L784.00 184.00 L817.00 184.00 L817.00 209.20 L850.00 209.20 L850.00 227.68 L883.00 227.68 L883.00 235.52 L916.00 235.52"/>
+<path class="ghost" stroke-width="1.5" d="M520 212 L916 212"/>
+<text class="lbl" x="520" y="312">Mid grey stays put, darker greys cut in below it.</text>
+<path class="acc" stroke-width="1.5" d="M734.5 212.0 L734.5 231.6"/>
+<path class="acc-f" d="M730.5 217.0 L738.5 217.0 L734.5 212.0 Z"/>
+<path class="acc-f" d="M730.5 226.6 L738.5 226.6 L734.5 231.6 Z"/>
+<text class="mono" x="734.5" y="248.6" text-anchor="middle">cuts in</text>
+<path class="acc" stroke-width="1.5" d="M800.5 212.0 L800.5 184.0"/>
+<path class="acc-f" d="M796.5 207.0 L804.5 207.0 L800.5 212.0 Z"/>
+<path class="acc-f" d="M796.5 189.0 L804.5 189.0 L800.5 184.0 Z"/>
+<text class="mono" x="800.5" y="174.0" text-anchor="middle">stands proud</text>
+</svg>

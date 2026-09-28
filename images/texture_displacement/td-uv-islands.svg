@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300" role="img" aria-labelledby="t d" class="fig">
+  <title id="t">From painted surface to UV islands</title>
+  <desc id="d">Seams cut the painted area, the unwrap flattens each piece, and Connect islands decides whether the pieces are laid out as a net or packed separately.</desc>
+
+  <style>
+    .fig { font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    text { fill: #1f2328; }
+    .ttl  { font-size: 15px; font-weight: 600; }
+    .lbl  { font-size: 13px; }
+    .dim  { font-size: 12.5px; fill: #59636e; }
+    .mono { font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #59636e; }
+    .card { fill: #f6f8fa; stroke: #d0d7de; }
+    .line { stroke: #d0d7de; }
+    .surf { stroke: #57606a; fill: none; }
+    .surf-fill { fill: #57606a; fill-opacity: .10; }
+    .acc  { stroke: #009688; }
+    .acc-f{ fill: #009688; }
+    .acc-soft { fill: #009688; fill-opacity: .14; }
+    .arrow { fill: #8c959f; }
+    .ghost { stroke: #8c959f; stroke-dasharray: 3 3; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      text { fill: #e6edf3; }
+      .dim, .mono { fill: #9198a1; }
+      .card { fill: #1b1f24; stroke: #3d444d; }
+      .line { stroke: #3d444d; }
+      .surf { stroke: #b1bac4; }
+      .surf-fill { fill: #b1bac4; fill-opacity: .12; }
+      .acc  { stroke: #1ec8b6; }
+      .acc-f{ fill: #1ec8b6; }
+      .acc-soft { fill: #1ec8b6; fill-opacity: .18; }
+      .arrow { fill: #7d8590; }
+      .ghost { stroke: #6e7681; }
+    }
+  </style>
+
+  <style>
+    .seam { stroke: #d1242f; stroke-width: 2.6; stroke-linecap: round; }
+    .face { fill: #57606a; fill-opacity: .10; stroke: #57606a; stroke-width: 1.6; }
+    .ftop { fill: #57606a; fill-opacity: .07; stroke: #57606a; stroke-width: 1.6; }
+    .flt  { fill: #57606a; fill-opacity: .20; stroke: #57606a; stroke-width: 1.6; }
+    .frt  { fill: #57606a; fill-opacity: .13; stroke: #57606a; stroke-width: 1.6; }
+    .isl  { fill: #009688; fill-opacity: .12; stroke: #009688; stroke-width: 1.6; }
+    .grd  { stroke: #8c959f; stroke-width: .7; stroke-opacity: .65; }
+    @media (prefers-color-scheme: dark) {
+      .seam { stroke: #ff7b72; }
+      .face, .ftop, .flt, .frt { stroke: #b1bac4; fill: #b1bac4; }
+      .ftop { fill-opacity: .08; } .flt { fill-opacity: .22; } .frt { fill-opacity: .15; }
+      .isl  { fill: #1ec8b6; fill-opacity: .16; stroke: #1ec8b6; }
+      .grd  { stroke: #6e7681; }
+    }
+  </style>
+<rect class="card" x="16" y="46" width="288" height="208" rx="8"/>
+<text class="ttl" x="160.0" y="32" text-anchor="middle" style="font-size:13.5px">Seams on the model</text>
+<text class="dim" x="160.0" y="278" text-anchor="middle" style="font-size:12px">red edges are where the unwrap cuts</text>
+<path class="ftop" d="M160.0 129.9 L199.8 152.9 L160.0 175.9 L120.2 152.9 Z"/>
+<path class="frt" d="M199.8 215.0 L160.0 238.0 L160.0 175.9 L199.8 152.9 Z"/>
+<path class="flt" d="M120.2 215.0 L160.0 238.0 L160.0 175.9 L120.2 152.9 Z"/>
+<path class="seam" d="M160.0 238.0 L160.0 175.9"/>
+<path class="seam" d="M160.0 175.9 L199.8 152.9"/>
+<path class="seam" d="M160.0 175.9 L120.2 152.9"/>
+<text class="mono" x="160.0" y="80" text-anchor="middle" style="font-size:10.5px">marked by hand, or by Seam angle</text>
+<rect class="card" x="336" y="46" width="288" height="208" rx="8"/>
+<text class="ttl" x="480.0" y="32" text-anchor="middle" style="font-size:13.5px">Connect islands on</text>
+<text class="dim" x="480.0" y="278" text-anchor="middle" style="font-size:12px">pieces stay joined, so the pattern runs on</text>
+<rect class="isl" x="400.0" y="144" width="40" height="40"/>
+<path class="grd" d="M410.0 144 L410.0 184"/>
+<path class="grd" d="M400.0 154.0 L440.0 154.0"/>
+<path class="grd" d="M420.0 144 L420.0 184"/>
+<path class="grd" d="M400.0 164.0 L440.0 164.0"/>
+<path class="grd" d="M430.0 144 L430.0 184"/>
+<path class="grd" d="M400.0 174.0 L440.0 174.0"/>
+<rect class="isl" x="440.0" y="144" width="40" height="40"/>
+<path class="grd" d="M450.0 144 L450.0 184"/>
+<path class="grd" d="M440.0 154.0 L480.0 154.0"/>
+<path class="grd" d="M460.0 144 L460.0 184"/>
+<path class="grd" d="M440.0 164.0 L480.0 164.0"/>
+<path class="grd" d="M470.0 144 L470.0 184"/>
+<path class="grd" d="M440.0 174.0 L480.0 174.0"/>
+<rect class="isl" x="480.0" y="144" width="40" height="40"/>
+<path class="grd" d="M490.0 144 L490.0 184"/>
+<path class="grd" d="M480.0 154.0 L520.0 154.0"/>
+<path class="grd" d="M500.0 144 L500.0 184"/>
+<path class="grd" d="M480.0 164.0 L520.0 164.0"/>
+<path class="grd" d="M510.0 144 L510.0 184"/>
+<path class="grd" d="M480.0 174.0 L520.0 174.0"/>
+<rect class="isl" x="520.0" y="144" width="40" height="40"/>
+<path class="grd" d="M530.0 144 L530.0 184"/>
+<path class="grd" d="M520.0 154.0 L560.0 154.0"/>
+<path class="grd" d="M540.0 144 L540.0 184"/>
+<path class="grd" d="M520.0 164.0 L560.0 164.0"/>
+<path class="grd" d="M550.0 144 L550.0 184"/>
+<path class="grd" d="M520.0 174.0 L560.0 174.0"/>
+<rect class="isl" x="440.0" y="104" width="40" height="40"/>
+<path class="grd" d="M450.0 104 L450.0 144"/>
+<path class="grd" d="M440.0 114.0 L480.0 114.0"/>
+<path class="grd" d="M460.0 104 L460.0 144"/>
+<path class="grd" d="M440.0 124.0 L480.0 124.0"/>
+<path class="grd" d="M470.0 104 L470.0 144"/>
+<path class="grd" d="M440.0 134.0 L480.0 134.0"/>
+<rect class="isl" x="440.0" y="184" width="40" height="40"/>
+<path class="grd" d="M450.0 184 L450.0 224"/>
+<path class="grd" d="M440.0 194.0 L480.0 194.0"/>
+<path class="grd" d="M460.0 184 L460.0 224"/>
+<path class="grd" d="M440.0 204.0 L480.0 204.0"/>
+<path class="grd" d="M470.0 184 L470.0 224"/>
+<path class="grd" d="M440.0 214.0 L480.0 214.0"/>
+<text class="mono" x="480.0" y="240" text-anchor="middle" style="font-size:10.5px">one net, six islands</text>
+<rect class="card" x="656" y="46" width="288" height="208" rx="8"/>
+<text class="ttl" x="800.0" y="32" text-anchor="middle" style="font-size:13.5px">Connect islands off</text>
+<text class="dim" x="800.0" y="278" text-anchor="middle" style="font-size:12px">each piece packed on its own</text>
+<rect class="isl" x="730.0" y="98.0" width="40" height="40"/>
+<path class="grd" d="M740.0 98 L740.0 138"/>
+<path class="grd" d="M730.0 108.0 L770.0 108.0"/>
+<path class="grd" d="M750.0 98 L750.0 138"/>
+<path class="grd" d="M730.0 118.0 L770.0 118.0"/>
+<path class="grd" d="M760.0 98 L760.0 138"/>
+<path class="grd" d="M730.0 128.0 L770.0 128.0"/>
+<rect class="isl" x="780.0" y="98.0" width="40" height="40"/>
+<path class="grd" d="M790.0 98 L790.0 138"/>
+<path class="grd" d="M780.0 108.0 L820.0 108.0"/>
+<path class="grd" d="M800.0 98 L800.0 138"/>
+<path class="grd" d="M780.0 118.0 L820.0 118.0"/>
+<path class="grd" d="M810.0 98 L810.0 138"/>
+<path class="grd" d="M780.0 128.0 L820.0 128.0"/>
+<rect class="isl" x="830.0" y="98.0" width="40" height="40"/>
+<path class="grd" d="M840.0 98 L840.0 138"/>
+<path class="grd" d="M830.0 108.0 L870.0 108.0"/>
+<path class="grd" d="M850.0 98 L850.0 138"/>
+<path class="grd" d="M830.0 118.0 L870.0 118.0"/>
+<path class="grd" d="M860.0 98 L860.0 138"/>
+<path class="grd" d="M830.0 128.0 L870.0 128.0"/>
+<rect class="isl" x="730.0" y="148.0" width="40" height="40"/>
+<path class="grd" d="M740.0 148.0 L740.0 188.0"/>
+<path class="grd" d="M730.0 158.0 L770.0 158.0"/>
+<path class="grd" d="M750.0 148.0 L750.0 188.0"/>
+<path class="grd" d="M730.0 168.0 L770.0 168.0"/>
+<path class="grd" d="M760.0 148.0 L760.0 188.0"/>
+<path class="grd" d="M730.0 178.0 L770.0 178.0"/>
+<rect class="isl" x="780.0" y="148.0" width="40" height="40"/>
+<path class="grd" d="M790.0 148.0 L790.0 188.0"/>
+<path class="grd" d="M780.0 158.0 L820.0 158.0"/>
+<path class="grd" d="M800.0 148.0 L800.0 188.0"/>
+<path class="grd" d="M780.0 168.0 L820.0 168.0"/>
+<path class="grd" d="M810.0 148.0 L810.0 188.0"/>
+<path class="grd" d="M780.0 178.0 L820.0 178.0"/>
+<rect class="isl" x="830.0" y="148.0" width="40" height="40"/>
+<path class="grd" d="M840.0 148.0 L840.0 188.0"/>
+<path class="grd" d="M830.0 158.0 L870.0 158.0"/>
+<path class="grd" d="M850.0 148.0 L850.0 188.0"/>
+<path class="grd" d="M830.0 168.0 L870.0 168.0"/>
+<path class="grd" d="M860.0 148.0 L860.0 188.0"/>
+<path class="grd" d="M830.0 178.0 L870.0 178.0"/>
+<text class="mono" x="800.0" y="240" text-anchor="middle" style="font-size:10.5px">six separate islands</text>
+<path class="arrow" d="M315.5 141.0 L324.5 150.0 L315.5 159.0 L318.5 150.0 Z"/>
+<path class="arrow" d="M635.5 141.0 L644.5 150.0 L635.5 159.0 L638.5 150.0 Z"/>
+</svg>

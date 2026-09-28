@@ -4,190 +4,269 @@
 > NEW FEATURE: **Texture displacement**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-Texture Displacement is a painting tool that stamps height-map images onto a model's surface and turns them into real relief - embossed or engraved detail that is part of the mesh, so it slices and prints like any other geometry. You paint where the texture applies, stack several textures as blended layers, choose how each one is wrapped onto the surface, and press **Bake** when the preview looks right.
+Texture Displacement paints a texture onto a model and turns it into **real relief** — knurling you can grip, brickwork you can feel, a logo engraved into a lid.
 
-A height map is an ordinary image read as heights: white lifts the surface, black leaves it where it is. The shipped library is greyscale, but a colour image can also drive the print's colours - see [Colours](#colours).
+The key idea is that it is not a print-time effect. [Fuzzy skin](prepare_paint_on_fuzzy_skin) perturbs the toolpath while slicing and leaves the model untouched; texture displacement rewrites the mesh. Once baked, the relief is ordinary geometry: it slices, previews, exports and measures like any other shape, and the slicer has no idea a texture was ever involved.
+
+![td-how-it-works](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-how-it-works.svg?raw=true)
+
+Three things decide what you get, and every control on the panel belongs to one of them:
+
+| | What it decides | Controls |
+| --- | --- | --- |
+| **Where** | Which part of the surface is affected | The paint tools. Nothing outside your paint is touched |
+| **What** | The shape of the relief | The texture image, Depth, Tile size, Midlevel and the rest of the layer settings |
+| **How finely** | How much of that shape the mesh can actually hold | Resolution and Budget |
+
+Getting the first two right and the third wrong is the most common disappointment: a beautifully set up texture baked onto too coarse a mesh comes out as soft bumps. [Baking](#baking) explains how to avoid it.
 
 - [Quick start](#quick-start)
-- [Opening the tool](#opening-the-tool)
+- [The panel](#the-panel)
 - [Standard and Pro](#standard-and-pro)
 - [Painting the area](#painting-the-area)
-- [View](#view)
-- [Texture layers](#texture-layers)
-- [Layer settings](#layer-settings)
-- [Colours](#colours)
+- [Seeing what you will get](#seeing-what-you-will-get)
+- [Textures](#textures)
+- [Stacking layers](#stacking-layers)
+- [Shaping the relief](#shaping-the-relief)
 - [Mapping](#mapping)
-- [Adjust placement](#adjust-placement)
+- [Colours](#colours)
 - [Baking](#baking)
-- [Tips and limitations](#tips-and-limitations)
+- [Recipes](#recipes)
+- [Troubleshooting](#troubleshooting)
+- [Limitations](#limitations)
 
-Two more pages cover the parts that have their own panel:
-
-- [Texture Displacement UV Editor](prepare_texture_displacement_uv_editor) - the 2D unwrap pane, seams and islands, used by the **Unwrap (LSCM)** mapping.
-- [Texture Displacement Pro Mode](prepare_texture_displacement_pro) - the mesh preparation and result controls that Pro mode exposes.
+Two more pages cover the parts with their own panel: the [UV Editor](prepare_texture_displacement_uv_editor), used by the **Unwrap** mapping, and [Pro Mode](prepare_texture_displacement_pro), which exposes the mesh preparation steps.
 
 ## Quick start
 
-1. Select an object and open **Texture displacement** from the left toolbar.
-2. A texture layer is added for you. Pick an image from the layer's texture picker, or import your own.
-3. Paint the area the texture should cover, or press **Select whole model**.
-4. The relief appears on the model straight away. Adjust **Depth**, **Tile size** and **Rotation**.
-5. Press **Bake** to turn the preview into real geometry.
+1. Select an object and open **Texture displacement** from the left toolbar. A layer is added for you.
+2. Click the layer's image and pick a texture — **Knurl** is a good first one.
+3. Paint the area you want it on, or press **Select whole model**.
+4. The relief appears as you work. Set **Depth** to how far it should stand proud, and **Tile size** to how big one copy of the pattern should be. Both are in millimetres, on the model.
+5. Press **Bake**.
 
-Nothing outside the painted area is touched, and nothing is permanent until you bake.
+That is the whole loop. Everything else is refinement.
 
-## Opening the tool
+> [!TIP]
+> Nothing is permanent until you bake, and a bake is a single undo step. Explore freely.
 
-Select a single object and click the texture displacement icon on the left toolbar. The settings panel opens beside it.
+## The panel
 
-- **Dock panel / Undock panel** - at the top of the panel, pins it to the toolbar or lets it float over the 3D view.
-- **Close** - at the bottom, leaves the tool without baking. Your paint, layers and settings stay with the model.
+![td-panel](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-panel.svg?raw=true)
+
+**Dock panel / Undock panel** at the top pins the panel beside the toolbar or lets it float over the 3D view. **Close** at the bottom leaves the tool without baking — your paint, layers and settings stay with the model.
 
 ## Standard and Pro
 
-A two-position switch at the top of the panel.
+| Mode | What it shows | Use it when |
+| --- | --- | --- |
+| **Standard** | Painting, layers, mapping, Bake | Almost always |
+| **Pro** | The same, plus subdivision, remeshing and result smoothing as separate steps | You want to prepare the mesh once and then try several textures on it, or the automatic choice is too generous with triangles |
 
-| Mode | What it shows |
-| --- | --- |
-| **Standard** | Painting, layers, mapping and **Bake**. Everything about preparing the mesh is handled for you. |
-| **Pro** | The same, plus subdivision, remeshing and result smoothing as separate steps you run yourself. See [Texture Displacement Pro Mode](prepare_texture_displacement_pro). |
-
-Standard is the right choice unless a model needs hand-holding: a height map can only move vertices that already exist, and Standard's Bake refines the painted area for you before displacing it.
+A height map can only move vertices that already exist, so a model needs enough of them before it can show any detail. Standard mode does that as part of Bake, at the resolution in its footer. Pro mode hands you the same machinery as separate buttons — see [Pro Mode](prepare_texture_displacement_pro).
 
 ## Painting the area
 
-Every layer has its own paint. What you paint goes into the **active layer** - the highlighted one in the layer list.
+Paint marks *where* a layer applies. Every layer has its own paint, and what you paint goes into the **active layer** — the highlighted one in the list.
 
 | Control | What it does |
 | --- | --- |
-| **Paint** | Adds to the active layer where you click or drag. The right mouse button erases. |
-| **Erase** | Removes the active layer where you click or drag. The right mouse button paints. |
-| **Brush** | Free-hand painting. **Brush size** sets the radius; **Circle** paints everything under the brush as seen from the camera, **Sphere** paints only within a ball around the point under the cursor. |
-| **Face** | Click individual triangles. |
-| **Connected area** | Click to flood-fill a region. **Angle threshold** stops the fill at edges sharper than the given angle. |
-| **Select whole model** | Paints every face of the model with the active layer. |
-| **Erase whole model** | Clears the active layer's paint from every face. |
+| **Paint** | Adds to the active layer where you click or drag. The right mouse button erases |
+| **Erase** | Removes it. The right mouse button paints |
+| **Brush** | Free-hand. **Brush size** sets the radius; **Circle** paints everything under the brush as seen from the camera, **Sphere** paints only within a ball around the cursor, which is what you want on a curved or folded surface |
+| **Face** | Clicks individual triangles. Precise on a low-poly model, tedious on a dense one |
+| **Connected area** | Flood-fills from the click. **Angle threshold** stops the fill at edges sharper than the given angle, so one click can take a whole face of a box but not the box |
+| **Select whole model** | Paints every face with the active layer |
+| **Erase whole model** | Clears the active layer's paint everywhere |
 
-Hold **Ctrl** and drag to rotate or pan the camera without painting.
+Hold **Ctrl** and drag to move the camera without painting.
 
-## View
+> [!TIP]
+> The paint boundary is where the relief meets the bare surface, and by default it steps down to it. **Edge fade** on the layer softens that into a ramp — see [Shaping the relief](#shaping-the-relief).
 
-A row of icons that decides what the 3D view shows. The first four are alternatives; **Wireframe** is an independent toggle.
+## Seeing what you will get
 
-| View | Meaning |
-| --- | --- |
-| **Normal** | The real displaced geometry, exactly what Bake will produce. Slower to update. |
-| **Fast** | A shaded approximation of the active layer only, with no real geometry movement. Best while tuning sliders or dragging islands. |
-| **Checker** | A test grid over the unwrap: squares stay square where the unwrap does not stretch. Needs a layer mapped with **Unwrap (LSCM)**. |
-| **Distortion** | A blue-to-red heatmap of how much the unwrap stretches each area. Also needs **Unwrap (LSCM)**. |
-| **Wireframe** | Overlays the mesh edges. Independent of the view above. |
+The **View** row decides what the 3D view shows. The first four are alternatives, **Wireframe** is an independent toggle.
 
-**Auto** (on by default) rebuilds the Normal view as soon as anything changes. Turn it off on a heavy model to rebuild only when you release a slider or finish a stroke.
+| View | Shows | Cost |
+| --- | --- | --- |
+| **Normal** | The real displaced geometry — exactly what Bake produces | Rebuilds in the background; slower on a big patch |
+| **Fast** | A shaded approximation of the **active layer only**, with no geometry movement | Cheap. The one to work in |
+| **Checker** | A test grid over the unwrap. Squares stay square where the unwrap does not stretch | Needs a layer mapped with **Unwrap** |
+| **Distortion** | A blue-to-red heatmap of how much the unwrap stretches | Needs **Unwrap** |
+| **Wireframe** | The mesh edges, on top of whichever view is active | — |
 
-## Texture layers
+Work in **Fast** while you drag sliders, then switch to **Normal** before you commit. The two can differ: Fast shows one layer, ignores how layers blend, and approximates the shading.
 
-Up to **8** layers can be stacked. Each one has its own paint, its own image and its own settings, and they combine in list order like layers in an image editor.
+**Auto** (on by default) rebuilds the Normal view whenever anything changes. Turn it off on a heavy model and it only rebuilds when you release a slider or finish a stroke.
 
-- **Add layer** - the button under the list. Disabled once all 8 are used.
-- **Move up / Move down** - reorder the stack. Up is applied earlier, down later.
-- **Remove this layer** - the cross on the layer's header row.
-- Click a layer to make it active. Only the active layer receives paint.
-- A layer with no paint is marked **not painted** and is skipped by Bake.
-- **More settings / Fewer settings** expands a layer to everything below **Rotation**.
+## Textures
 
-Each layer shows its image. Click it to open the picker:
+A texture is a greyscale image read as heights — white lifts the surface by **Depth**, black leaves it alone. Click a layer's image to open the picker.
 
-- **Built-in** - the shipped library of seamless greyscale height maps (bricks, knurls, weaves, stone, wood and so on), all of which tile without a visible join.
-- **My textures** - your own images. Import a PNG, JPG or BMP and it is converted to a height map and copied into your own texture folder, where application updates cannot overwrite it. Hover one of your own to remove it.
+**Built-in** ships 43 seamless height maps, all of which tile without a visible join:
 
-Changing a layer's image keeps its paint, depth and tiling as they are.
+![td-texture-library](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-texture-library.png?raw=true)
 
-## Layer settings
+**My textures** holds your own. Import a PNG, JPG or BMP and it is converted to a height map and copied into your own texture folder, where application updates cannot overwrite it. Hover one of your own to remove it.
+
+What makes an image work well as a height map:
+
+- **Seamless**, if you are going to tile it. A photograph with uneven lighting shows a grid of joins.
+- **Full range.** A washed-out image uses a fraction of the available depth; stretch its contrast first.
+- **Flat lighting.** Shadows in a photo read as depth, so a lit photo of a brick wall engraves its own shadows.
+- **Not too fine.** Detail smaller than the mesh resolution cannot be printed and only costs triangles. See [Baking](#baking).
+
+> [!TIP]
+> Changing a layer's image keeps its paint, depth and tiling, so you can audition textures without setting anything up again.
+
+## Stacking layers
+
+Up to **8** layers stack, each with its own paint, image and settings. They combine in list order, like layers in an image editor: **Move up** is applied earlier, **Move down** later.
+
+Where two layers overlap, the upper one's **Blend** mode decides what happens:
+
+| Blend | Effect | Typical use |
+| --- | --- | --- |
+| **Add** | Piles this relief on top of what is below | Scratches or noise over a base pattern |
+| **Subtract** | Carves this relief out of what is below | Stamping a smooth logo into a knurled area |
+| **Multiply** | Scales the relief below by this one | Masking — fade a pattern out where this layer is dark |
+| **Divide** | Amplifies the relief below where this one is dark | Rare; it is capped at 20&#215; so it cannot blow up |
+
+The lowest painted layer is the **base layer**: it has nothing beneath it, so it always adds, and the panel says so rather than offering a control that would do nothing.
+
+A layer you have not painted is marked **not painted** and is skipped by Bake — the note under the button names them.
+
+## Shaping the relief
+
+The three controls almost every layer needs are on the layer itself; **More settings** opens the rest.
 
 | Control | What it does |
 | --- | --- |
-| **Depth** | Height of the relief: how far white in the texture lifts the surface, in millimetres. Black does not move it at all, unless Midlevel says otherwise. |
-| **Tile size** | How wide one copy of the texture is on the model. Smaller repeats the pattern more often and makes its detail finer. With **Tile** off, this is the size of the single copy. |
-| **Rotation** | Turns the texture on the surface, for lining a pattern up with an edge of the model. |
-| **Midlevel** | Which grey stays where the surface already is. At 0 the texture only pushes outwards; at 0.5 mid-grey stays put, so darker greys cut in and lighter ones still push out - one image both embosses and engraves. |
-| **Smoothing** | Blurs the image before it is used, which rounds off hard steps and removes speckle from a noisy photo. It costs fine detail. |
-| **Edge fade** | Flattens the relief as it approaches the edge of the painted area, so it blends into the bare surface instead of stopping at a step. The slider beside it sets how far in the fade reaches, as a share of the painted area. |
-| **Invert** | Turns the relief inside out: what stood out is cut in, and the other way round. |
-| **Colours** | Prints the painted area in the texture's colours as well as its relief. Only available for a colour image - see [Colours](#colours). |
-| **Tile** | Whether the texture repeats. **Repeat** tiles it plainly; **Mirrored repeat** flips every other tile, so edges meet seamlessly. With Tile off the texture is placed once, like a decal. |
-| **Blend** | How this layer combines with the layers below it where they overlap: **Add**, **Subtract**, **Multiply** or **Divide**. Add and Subtract pile relief on or carve it away; Multiply and Divide scale the relief underneath, which is what makes a layer usable as a mask. |
+| **Depth** | How far white lifts the surface, in millimetres |
+| **Tile size** | How wide one copy of the texture is on the model. Smaller repeats more often and makes the detail finer. With **Tile** off, this is the size of the single copy |
+| **Rotation** | Turns the texture on the surface, for lining a pattern up with an edge |
+| **Smoothing** | Blurs the image before it is used. Rounds off hard steps and removes speckle from a noisy photo, at the cost of fine detail |
+| **Edge fade** | Flattens the relief towards the edge of the painted area so it blends into the bare surface. The slider sets how far in the fade reaches |
+| **Invert** | Turns the relief inside out — the same as using a negative of the image |
+| **Tile** | Whether the texture repeats. **Repeat** tiles it plainly, **Mirrored repeat** flips every other tile so edges meet seamlessly. Off places one copy, like a decal |
 
-The lowest painted layer is the base layer: it has nothing beneath it to combine with, so it always adds, and the panel says so instead of offering a control that would do nothing.
+**Midlevel** decides which grey means "stay where you are", and it is what turns one image into both an embossing and an engraving tool:
+
+![td-midlevel](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-midlevel.svg?raw=true)
+
+At **0** — the default — the relief only ever rises: black sits on the original surface and white stands Depth proud. At **0.5**, mid grey stays put, lighter greys rise and darker greys cut in.
 
 > [!WARNING]
-> Raising **Midlevel** makes dark areas cut inwards, and what cuts in has to fit. Inside a sharp corner or through a thin wall, a deep cut can pass through the other side. The panel warns when Depth is large and Midlevel is above 0.
-
-## Colours
-
-A greyscale height map has no colours to apply, so the **Colours** checkbox is only available on a layer whose image is in colour. With it on, the painted area is printed in the texture's colours as well as its relief: each colour is matched to the nearest of the filaments loaded on the plate, and anything you did not paint keeps the object's own filament.
-
-The result is written into the object's [Color Painting](prepare_color_painting) data when you bake, so it slices, previews and prints exactly like hand-painted colour - and can be touched up with that tool afterwards.
-
-The remaining colour controls belong to the whole stack, so they appear once, under whichever layer turned colour on.
-
-| Control | What it does |
-| --- | --- |
-| **Mix filaments** | Interleaves two filaments to fake the colours in between, so a handful of filaments can cover a photo or a gradient. An image of flat colours prints the same either way. Off uses one filament per area. |
-| **Mix by** | **Layers** alternates the two filaments between print layers, which blends smoothly on upright surfaces but disappears on flat-facing ones. **Surface** uses a fine checkerboard across the surface, which works at any angle but can read as texture rather than as a blend. **Automatic** uses layers on upright faces and the nearer single filament on flat-facing ones. |
-| **Denoise** | Cleans up single stray triangles of the wrong colour, which detail finer than the mesh leaves behind. Raise it if the result looks speckled, lower it if small features are being swallowed. |
-
-A line under the controls reports how many printable colours the current filaments produce.
+> What cuts in has to fit. Inside a sharp concave corner, or through a thin wall, a deep inward cut can pass through the other side of the part. The panel warns when Depth is large and Midlevel is above 0; keep Depth well under the wall thickness there.
 
 ## Mapping
 
-How the flat image is wrapped onto the painted area. Five icons, one per method.
+Mapping is how the flat image is wrapped onto the curved, folded surface you painted. It is the setting that decides whether a pattern crosses an edge cleanly.
 
-| Method | Best for | Notes |
+![td-mapping](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-mapping.svg?raw=true)
+
+| Mapping | Use it for | What to know |
 | --- | --- | --- |
-| **Triplanar (blended)** | Patches that wrap around edges | Projects the texture from all three axes at once and blends between them, so a patch crossing a sharp edge has no seam. The default. |
-| **Cylindrical** | Round, tube-like areas | Wraps the texture around the painted area's own centre. |
-| **Spherical** | Ball-like areas | Wraps around the painted area's own centre in both directions. |
-| **Unwrap (LSCM)** | Flat, controlled layout | Flattens the painted area and maps the texture onto it with as little stretching as possible, cutting it into pieces at its sharp edges first. Opens the [UV Editor](prepare_texture_displacement_uv_editor), where the pieces can be laid out by hand. |
-| **From view** | Decals, slide-projector looks | Projects straight onto the painted area from where you are looking. |
+| **Triplanar (blended)** | The default; anything that wraps around edges | Projects from all three axes and blends between them, so there is no hard seam at a corner — but the pattern cross-fades in a band right at the edge |
+| **Cylindrical** | Grips, knobs, anything tube-like | Wraps around the painted area's own centre |
+| **Spherical** | Domes and balls | Wraps around the centre in both directions |
+| **Unwrap (LSCM)** | A pattern that must run continuously and evenly | A real unwrap, cut at sharp edges, laid out in the [UV Editor](prepare_texture_displacement_uv_editor) where you can arrange it by hand. The only mapping with no stretching surprises — and the only one that needs work |
+| **From view** | Decals and one-off placements | Projects onto the painted area from where you are looking. Surfaces angled away from you smear |
 
-**From view** adds its own controls:
+**From view** has its own controls: **Capture current view** re-takes the direction from the camera, **Project only on visible** repaints the layer with exactly the faces the camera can see (it replaces the layer's paint rather than adding to it), and **Projection frame** opens a semi-transparent window you drag over the 3D view like a slide projector's gate — **Apply projection frame** makes its border the hard edge of the projection, and **Clear** returns to the plain projection.
 
-- **Capture current view** - re-takes the projection direction from wherever the camera is now.
-- **Project only on visible** - repaints the layer with exactly the faces the camera can see, so the projected area matches the viewpoint it was captured from. It replaces the layer's paint rather than adding to it.
-- **Projection frame** - opens a semi-transparent window you drag over the 3D view, like a slide projector's gate. **Opacity** sets how much of the model shows through it; **Apply projection frame** commits the window's rectangle as the exact edge of the projection, and **Clear** goes back to the plain projection, where tiling, rotation and offset mean something again.
+**Adjust placement** replaces painting with a handle on the model: drag the flat panel to move the texture freely, or an arrow to move it along one axis. Paint something first — the handle anchors to the painted area.
 
-## Adjust placement
+## Colours
 
-**Adjust placement** replaces painting with a handle on the model: drag the flat panel to move the texture freely, or one of the two arrows to move it along a single axis. Paint something with the layer first - the handle is anchored to the painted area.
+A colour image can drive the print's colours as well as its relief. The **Colours** checkbox is only available on a layer whose image is in colour — a greyscale height map has nothing to apply.
 
-## Baking
-
-Baking turns the preview into real geometry. The panel's footer holds everything that decides what comes out.
+With it on, each colour in the texture is matched to the nearest of the filaments loaded on the plate. Anything you did not paint keeps the object's own filament. At bake time the result is written into the object's [Color Painting](prepare_color_painting) data, so it slices, previews and prints exactly like hand-painted colour, and can be touched up with that tool afterwards.
 
 | Control | What it does |
 | --- | --- |
-| **Resolution** | How fine the mesh is made under the paint, in millimetres. It has to be smaller than the detail you want out of the texture - a 0.5 mm groove needs triangles well under 0.5 mm. Leave the **Auto** tick on to have it follow the size of the model, or untick it to set the resolution and the budget yourself. |
-| **Budget** | How many thousand triangles this bake may spend on the area you painted. Relief already baked elsewhere on the model is kept on top of it, so a second bake gets the same budget as the first. 0 keeps every triangle the refinement produced. |
-| **Bake** | Turns the painted height maps into real geometry. Runs in the background; the button reads *Baking...* while it works. |
-| **Stop** | Stops a bake in progress. Whatever it had already finished stays on the model, and can be undone. |
+| **Mix filaments** | Interleaves two filaments to fake the colours in between, so a few filaments can cover a photo or a gradient. An image of flat colours prints the same either way |
+| **Mix by** | **Layers** alternates the two between print layers — smooth on upright walls, invisible on flat-facing tops where a whole layer is one band. **Surface** uses a fine checkerboard, which works at any angle but can read as texture. **Automatic** uses layers on upright faces and the nearer single filament on flat-facing ones |
+| **Denoise** | Cleans up single stray triangles of the wrong colour. Raise it if the result looks speckled, lower it if small features are being swallowed |
 
-A line under the button reports the model's triangle count and names any layers that are not painted and will be skipped. If the resolution asks for far more triangles than the budget allows, a warning says so before you start: the bake still runs, but it simplifies back down to the budget and loses detail on the way, so the fix is to raise the budget or coarsen the resolution.
+A line under the controls reports how many printable colours your current filaments produce.
 
-After a bake:
+> [!NOTE]
+> Colour edges are only as sharp as the triangles along them, because each triangle prints in one filament. Pro mode's **Colour detail** refines the mesh where colours meet — nothing else refines there, since the surface is flat across a change of colour.
 
-- The relief is part of the mesh. It slices, previews and exports like any other geometry.
-- The paint of each baked layer is cleared, because those triangles no longer describe the same unbaked surface. The layers themselves, with their textures and settings, stay, so you can carry on painting elsewhere with them.
-- Colours land in the object's [Color Painting](prepare_color_painting) data.
-- The whole bake is a single undo step.
+## Baking
 
-## Tips and limitations
+Bake turns the preview into geometry. Two controls in the footer decide how much of the texture survives the trip.
+
+**Resolution** is the triangle size the bake refines the painted area to. It has to be smaller than the detail you want out of the texture:
+
+![td-resolution](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-resolution.svg?raw=true)
+
+Leave **Auto** ticked and the resolution follows the size of the model, which is right for most parts. Untick it when the texture is much finer or much coarser than the part it sits on.
+
+**Budget** is how many thousand triangles the bake may spend on the painted area. Relief already baked elsewhere on the model is kept on top of that, so a second bake somewhere else gets the same budget as the first.
+
+The two work against each other, and the panel tells you when they disagree: if the resolution asks for far more triangles than the budget allows, a warning appears *before* you start. The bake still runs, but it simplifies back down to the budget and the detail goes with it. Raise the budget or coarsen the resolution.
 
 > [!IMPORTANT]
-> Paint, layers and their settings are held with the model in memory but are **not yet stored in project files**. Bake before saving a `.3mf`, or the relief will not be there when the project is reopened. Baked geometry and baked colours are ordinary model data and are saved normally.
+> Halving the resolution asks for roughly **four times** the triangles. Every triangle then costs slicing time, memory and file size for the rest of the project's life. Aim for triangles a little finer than the smallest feature you actually want to feel — not the finest the image contains.
 
-- **Paint first, bake last.** The preview costs nothing to explore; only Bake changes the mesh.
-- **Fast view is an approximation** and shows only the active layer. Trust **Normal** and Bake for the real result.
-- **Deep inward cuts** (a raised Midlevel with a large Depth) can pass through a thin wall or fold a sharp concave corner into itself. Keep Depth modest there.
-- **Anything that replaces the geometry drops unbaked paint** - Simplify, and the Pro mode Subdivide and Remesh tools, rebuild the triangle list, and paint that has not been baked cannot be carried across all of them. Relief that is already baked in is unaffected.
-- **Fine relief costs triangles, and triangles cost slicing time.** A texture finer than the resolution the budget can pay for will not come out however the sliders are set; a coarser tile size or a shallower depth is often the better answer.
-- **Island placements are tied to the current unwrap.** Repainting or changing the seam angle can re-cut the pieces, which discards hand placements made before it.
+**Bake** runs in the background and the button reads *Baking…*; **Stop** ends it early, keeping whatever was finished. Afterwards:
+
+- The relief is part of the mesh, and the whole bake is one undo step.
+- The paint of each baked layer is cleared — those triangles no longer describe the same unbaked surface. The layers, their textures and their settings stay, so you can carry on somewhere else with them.
+- Colours land in the object's [Color Painting](prepare_color_painting) data.
+
+## Recipes
+
+Starting points, not gospel. All three assume Standard mode.
+
+### A knurled grip on a round handle
+
+1. Paint the band you want to grip — **Connected area** with a low angle threshold usually takes it in one click.
+2. Texture **Knurl**, mapping **Cylindrical**.
+3. **Tile size** 4 mm, **Depth** 0.35 mm, **Midlevel** 0.
+4. Untick **Auto** and set the resolution to about **0.12 mm** — a knurl ridge is a few tenths of a millimetre wide, and the triangles have to be smaller than that.
+5. Bake.
+
+### An engraved logo on a flat face
+
+1. Import the logo as a texture. A black shape on white engraves; white on black embosses.
+2. Paint the face, mapping **From view**, looking straight at it. Press **Capture current view**.
+3. Turn **Tile** off so you get one copy, and size it with **Tile size**.
+4. **Midlevel** 0.5 and **Invert** if it comes out the wrong way round; **Depth** 0.4 mm.
+5. Use **Adjust placement** to slide it into position, then bake.
+
+### Wood grain over a whole model
+
+1. **Select whole model**, texture **Wood Grain**, mapping **Triplanar**.
+2. **Tile size** 40 mm — grain wants to be much larger than the detail it contains.
+3. **Depth** 0.25 mm, **Smoothing** 0.2 to take the harshness out.
+4. Leave the resolution on **Auto** and check the triangle warning before baking; a whole-model bake is the expensive case.
+
+## Troubleshooting
+
+| Symptom | Likely cause | Fix |
+| --- | --- | --- |
+| *Nothing is painted yet* when pressing Bake | Nothing painted, or the UV editor's seam tool is on and strokes are marking seams instead | Paint the area, or turn **Mark seams** off in the UV pane |
+| A layer had no effect | It is not painted — the note under Bake names skipped layers | Make it active and paint it |
+| Relief came out soft and rounded | Resolution too coarse for the pattern, or the budget forced a simplification | Lower the resolution, raise the budget, heed the warning above Bake |
+| Relief looks harsh or speckled | The image is noisy, or has hard steps | Raise the layer's **Smoothing**, or **Smooth result** in Pro mode |
+| The pattern cross-fades in a band at a sharp edge | Inherent to **Triplanar** | Use **Unwrap** and mark a seam along that edge |
+| The pattern smears on part of the area | **From view** on faces angled away from the camera | Re-capture from a better angle, or use another mapping |
+| The relief punched through the wall | High **Midlevel** with a large **Depth** on a thin wall | Reduce Depth, or Midlevel back to 0 |
+| Triangle count exploded | Resolution far finer than the feature size | Coarsen the resolution; halving it costs 4&#215; |
+| Colours look speckled | Detail finer than the mesh can carry | Raise **Denoise**, or lower **Colour detail** in Pro mode |
+| The preview does not match the bake | **Fast** view shows only the active layer and approximates | Switch to **Normal** before judging |
+| Paint vanished after another tool | Simplify, Remesh or Subdivide replaced the geometry | Paint again, and do mesh work *before* painting |
+
+## Limitations
+
+> [!IMPORTANT]
+> Paint, layers and their settings live with the model in memory but are **not yet stored in project files**. Bake before saving a `.3mf`, or the relief will not be there when the project is reopened. Baked geometry and baked colours are ordinary model data and save normally.
+
+- **Anything that replaces the geometry drops unbaked paint** — Simplify, and Pro mode's Subdivide and Remesh. Relief that is already baked in is unaffected.
+- **Island placements are tied to the current unwrap.** Repainting or changing the seam angle re-cuts the pieces and discards placements made by hand before it.
+- **Fast view is an approximation**, and shows only the active layer.
+- **Relief cannot exceed what the mesh can hold.** There is no level of detail below the resolution the budget can pay for, however the sliders are set.
