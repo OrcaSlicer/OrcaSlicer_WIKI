@@ -20,6 +20,10 @@ A surface cannot be flattened without cutting it — a cube has to be cut into a
 - [Tools](#tools)
 - [Navigation and shortcuts](#navigation-and-shortcuts)
 
+<img alt="td-shot-uv-editor" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-shot-uv-editor.png?raw=true" height="540">
+
+The pane itself: the layer and its tile size along the top, the seam and layout settings under them, the tools down the left, and the flattened islands over the layer's own texture.
+
 ## The workflow
 
 1. Paint the area on the model, as for any other mapping.

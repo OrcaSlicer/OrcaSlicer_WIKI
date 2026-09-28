@@ -8,6 +8,10 @@ Texture Displacement paints a texture onto a model and turns it into **real reli
 
 The key idea is that it is not a print-time effect. [Fuzzy skin](prepare_paint_on_fuzzy_skin) perturbs the toolpath while slicing and leaves the model untouched; texture displacement rewrites the mesh. Once baked, the relief is ordinary geometry: it slices, previews, exports and measures like any other shape, and the slicer has no idea a texture was ever involved.
 
+![td-shot-result](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-shot-result.png?raw=true)
+
+A 50 mm plate with the built-in **Hexagons** height map baked into it: twelve triangles in, 206 000 out, and from here on it is just a mesh.
+
 ![td-how-it-works](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-how-it-works.svg?raw=true)
 
 Three things decide what you get, and every control on the panel belongs to one of them:
@@ -52,7 +56,14 @@ That is the whole loop. Everything else is refinement.
 
 ## The panel
 
-![td-panel](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-panel.svg?raw=true)
+<img alt="td-shot-panel" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-shot-panel.png?raw=true" height="620">
+
+1. **Standard / Pro** — Pro adds the mesh preparation controls.
+2. **Paint tools** — how you mark the area. The right mouse button does the opposite of the mode you are in.
+3. **View** — Fast while you tune, Normal to see what Bake will produce.
+4. **The layer** — its image, its paint and its settings. Up to 8 of them stack like image-editor layers.
+5. **Resolution and Budget** — how fine the mesh is made, and how many triangles that may cost.
+6. **Bake** — turns the preview into real geometry. **Close** leaves without baking.
 
 **Dock panel / Undock panel** at the top pins the panel beside the toolbar or lets it float over the 3D view. **Close** at the bottom leaves the tool without baking — your paint, layers and settings stay with the model.
 
@@ -102,9 +113,13 @@ Work in **Fast** while you drag sliders, then switch to **Normal** before you co
 
 ## Textures
 
-A texture is a greyscale image read as heights — white lifts the surface by **Depth**, black leaves it alone. Click a layer's image to open the picker.
+A texture is a greyscale image read as heights — white lifts the surface by **Depth**, black leaves it alone.
 
-**Built-in** ships 43 seamless height maps, all of which tile without a visible join:
+Click a layer's image to open the picker. **Built-in** ships 43 seamless height maps, all of which tile without a visible join; **My textures** below them holds your own imports.
+
+<img alt="td-shot-textures" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-shot-textures.png?raw=true" height="440">
+
+The full built-in set, with the names the picker does not show:
 
 ![td-texture-library](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-texture-library.png?raw=true)
 
