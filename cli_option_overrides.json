@@ -306,6 +306,12 @@
       "description": "Allow arrange to rotate objects to fit. See \"Auto rotate for arrangement\" in [Auto Arrange](prepare_auto_arrange#parameters).",
       "notes": "Default: on."
     },
+    "align_to_y_axis": {
+      "group": "Arrange Behavior",
+      "input": "boolean",
+      "description": "Turn each object so its long side runs along the Y axis before arranging. See \"Align to Y axis\" in [Auto Arrange](prepare_auto_arrange#parameters).",
+      "notes": "Default: on for i3 printers, off for the others."
+    },
     "avoid_extrusion_cali_region": {
       "group": "Arrange Behavior",
       "input": "boolean",
