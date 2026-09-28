@@ -2,9 +2,9 @@
 
 Options for loading settings/filaments, selecting objects, output locations, logging, and 3MF metadata. See [CLI Mode](cli_mode) for general flag syntax.
 
-- [Loading Settings \& Filaments](#loading-settings--filaments)
+- [Loading Settings & Filaments](#loading-settings-filaments)
 - [Object Selection](#object-selection)
-- [Output \& Logging](#output--logging)
+- [Output & Logging](#output-logging)
 - [Arrange Behavior](#arrange-behavior)
 - [Metadata](#metadata)
 - [Print Behavior](#print-behavior)
