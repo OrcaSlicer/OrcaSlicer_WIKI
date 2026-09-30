@@ -546,6 +546,7 @@ Triply Periodic Minimal Surface (Schwarz Diamond). Hybrid between [Cross Hatch](
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -567,10 +568,55 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
 ![infill-top-tpms-fk](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-tpms-fk.png?raw=true)
+
+## Adaptive TPMS
+
+> [!IMPORTANT]
+> NEW FEATURE: **Adaptive TPMS density**
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+[TPMS-D](#tpms-d) and [TPMS-FK](#tpms-fk) can change their density with the depth inside the object: dense next to the walls and the top and bottom surfaces, where the infill supports the shells, and sparse in the core, where it saves material and print time.
+
+### Adaptive Density
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `tpms_adaptive`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive=1`.  
+Grades the TPMS infill with the depth inside the object. The [Sparse infill density](strength_settings_infill#sparse-infill-density) is used at the surface of the object, including its top and bottom, and the density changes towards the [Interior Density](#interior-density) at the deepest point of the object.
+
+- The depth is measured from the outline of the sliced object, so holes, negative parts and the union of overlapping parts are taken into account.
+- The deepest point is found for the whole object. A thin part of an object keeps a density close to the sparse infill density, while its thickest part reaches the interior density.
+- The pattern changes its cell size by blending a dense and a sparse lattice, so the lines stay continuous. Some small closed loops may appear where the two lattices meet.
+
+### Interior Density
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `tpms_interior_density`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--tpms-interior-density=20%`.  
+Density of the adaptive TPMS infill at the deepest point of the object.  
+It can also be higher than the sparse infill density, to make the core denser than the surface.
+
+### Adaptive Gradient
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `tpms_adaptive_gradient`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `linear, quadratic, exponential`.  
+[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive-gradient=linear`.  
+How the density changes from the surface (depth `0`) to the deepest point of the object (depth `1`), where `S` is the sparse infill density and `I` the interior density:
+
+| Gradient | Density at depth `t` | Behavior |
+| --- | --- | --- |
+| Linear | `S + (I - S) × t` | Changes at a constant rate with the depth. |
+| Quadratic | `S + (I - S) × t²` | Stays close to the sparse infill density near the surface and changes faster towards the interior. Uses the most material when the surface is denser. |
+| Exponential | `S × (I / S)ᵗ` | Changes quickly just below the surface and levels off towards the interior. Uses the least material when the surface is denser. |
 
 ## Gyroid
 
