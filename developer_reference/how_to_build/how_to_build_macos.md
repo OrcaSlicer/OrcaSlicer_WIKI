@@ -16,12 +16,13 @@ How to building with Xcode on MacOS 64-bit.
 - automake
 - autoconf
 - texinfo
+- pkgconf
 
 > [!TIP]
 > You can install most of them by running:
 >
 ```bash
-brew install cmake gettext libtool automake autoconf texinfo
+brew install cmake gettext libtool automake autoconf texinfo pkgconf
 ```
 
 > [!IMPORTANT]

@@ -42,7 +42,7 @@ Unless printed in spiral vase mode, every layer needs to begin somewhere and end
 [CLI Example](cli_mode#setting-overrides): `--seam-position=nearest`.  
 Controlling the position of seams can help improve the appearance and strength of the final print.
 
-Typically, [Aligned Back](#aligned-back), [Aligned](#aligned), or [Back](#back) work the best, especially in combination with seam painting.  
+Typically, [Aligned Back](#aligned-back), [Aligned](#aligned), or [Back](#back) work the best, especially in combination with [seam painting](prepare_seam_painting) or [Precise Seam](prepare_precise_seam) modifiers.  
 However, as seams create weak points and slight surface "bulges" or "divots", [random](#random) seam placement may be optimal for parts that need higher strength as that weak point is spread to different locations between layers (e.g., a pin meant to fit through a hole).
 
 ### Aligned

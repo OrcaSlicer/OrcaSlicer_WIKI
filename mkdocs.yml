@@ -220,6 +220,7 @@ nav:
   - "Object Manipulation": print_prepare/prepare_object_manipulation.md
   - "Object Set": print_prepare/prepare_object_set.md
   - "Paint on Fuzzy Skin": print_prepare/prepare_paint_on_fuzzy_skin.md
+  - "Precise Seam": print_prepare/prepare_precise_seam.md
   - "Seam Painting": print_prepare/prepare_seam_painting.md
   - "STL Transformation": print_prepare/prepare_stl_transformation.md
   - "Support Painting": print_prepare/prepare_support_painting.md
