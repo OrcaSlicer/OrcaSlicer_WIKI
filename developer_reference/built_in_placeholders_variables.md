@@ -77,7 +77,7 @@ Momentary toolhead state when a custom G-code block runs.
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `zhop` | float (mm) | Z-hop height present when the custom block starts. |
+| `z_hop` | float (mm) | Z-hop height present when the custom block starts. |
 
 ### Read Write
 
