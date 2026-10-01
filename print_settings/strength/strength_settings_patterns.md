@@ -546,6 +546,7 @@ Triply Periodic Minimal Surface (Schwarz Diamond). Hybrid between [Cross Hatch](
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -567,10 +568,57 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
 ![infill-top-tpms-fk](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-tpms-fk.png?raw=true)
+
+## Adaptive TPMS
+
+> [!IMPORTANT]
+> NEW FEATURE: **Adaptive TPMS density**
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+[Gyroid](#gyroid), [TPMS-D](#tpms-d) and [TPMS-FK](#tpms-fk) can grade their density inside the object: fine cells next to the walls and the top and bottom surfaces, where the infill supports the shells, growing continuously towards the center of the object, where they save material and print time.
+
+### Adaptive Density
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `tpms_adaptive`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive=1`.  
+Grades the Gyroid and TPMS infill inside the object: its cells grow from the surface of the object, including its top and bottom, towards its center. The [Sparse infill density](strength_settings_infill#sparse-infill-density) is used at the surface and the [Interior Density](#interior-density) at the center.
+
+- The object is measured from its slices, so holes, negative parts and the union of overlapping parts are taken into account.
+- Every separate body of the object, and every lobe of a body joined to the rest by a neck, like two united spheres, is graded towards its own center, its deepest point. The neck between two lobes is graded half way. In a tall object the center is at its middle height, so the infill is sparsest there and not along its whole height.
+- The lines stay continuous: the pattern is scaled around the center, with round cells at the center and cells flattened along the surface near it.
+- The parts that the center cannot reach in a straight line, like the far side of the hole of a ring, keep the sparse infill density.
+- The Gyroid [Z-buckling bias optimization](#gyroid-optimized) does not apply to adaptive infill.
+
+### Interior Density
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `tpms_interior_density`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--tpms-interior-density=20%`.  
+Density of the adaptive infill at the center of the object.  
+It can also be higher than the sparse infill density, to make the core denser than the surface.
+
+### Adaptive Gradient
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `tpms_adaptive_gradient`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `linear, quadratic, exponential`.  
+[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive-gradient=linear`.  
+How the density changes from the surface (depth `0`) to the center of the object (depth `1`), where `S` is the sparse infill density and `I` the interior density:
+
+| Gradient | Density at depth `t` | Behavior |
+| --- | --- | --- |
+| Linear | `S + (I - S) × t` | Changes at a constant rate. |
+| Quadratic | `S + (I - S) × t²` | Stays close to the sparse infill density near the surface and changes faster towards the center. Uses the most material when the surface is denser. |
+| Exponential | `S × (I / S)ᵗ` | Changes quickly just below the surface and levels off towards the center. Uses the least material when the surface is denser. |
 
 ## Gyroid
 
@@ -596,6 +644,7 @@ Tightens the gyroid wave along the Z (vertical) axis at low infill density to sh
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
