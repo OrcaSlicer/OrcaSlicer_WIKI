@@ -229,3 +229,26 @@ first-read clarity both matter.
 - If the phrase doesn't have a dot at the end, don't add it. And if it does, then don't forget to :).
 
 - It is useful to stick to the same terminology in the application (especially with basic terms such as "filament" and similar). Stay consistent. Otherwise it will confuse users. See the [Translation glossary](localization_glossary) for the established translation (or English term to keep) of common OrcaSlicer terms across languages.
+
+## Machine translations and entries that need human review
+
+Some entries in the catalogs were translated by an AI model rather than by a person. Two translator comments
+(the `#` lines PoEdit shows in its "Notes for translators" panel) tell you which ones:
+
+- `# AI Translated` — the `msgstr` was produced by a model. It is a complete, working translation that users
+  already see, but nobody who speaks the language has confirmed it. If you review such an entry and keep or
+  rewrite it, you may delete the comment; never add it to a translation you wrote yourself.
+- `# Needs human review: <reason>` — the model translated the string but could not be sure it got the
+  meaning or the UI wording right, usually because the English is ambiguous out of context (is "Tile" a verb
+  or a noun?), because the string is a short label whose role only shows in the app, or because two
+  established terms compete. The reason says what to check.
+
+An entry that needs review is **not** marked `fuzzy`: a fuzzy entry is hidden from users, who would then see
+English, while a probable translation is usually better than none. So "needs review" means *shown, but
+unverified*. To review one:
+
+1. Find the entries: search the `.po` file for `Needs human review` (or filter on comments in PoEdit).
+2. Read the reason, then look at the string where it appears in OrcaSlicer — run a build with your catalog
+   (see the guidelines above) or find the string in the source to see what it labels.
+3. Correct the translation if needed, then delete the `# Needs human review` line. Delete the
+   `# AI Translated` line too if you rewrote or confirmed the translation.
