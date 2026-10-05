@@ -226,6 +226,8 @@ first-read clarity both matter.
 
 - For units of measurement, use the international system of units. Use "s" instead of "sec".
 
+- Temperatures use the single character `℃` (U+2103), exactly as in the source text: keep `%d℃`, don't rewrite it as `°C`, `° C` or `%d ℃`. In code, write it as `℃` inside the string literal.
+
 - If the phrase doesn't have a dot at the end, don't add it. And if it does, then don't forget to :).
 
 - It is useful to stick to the same terminology in the application (especially with basic terms such as "filament" and similar). Stay consistent. Otherwise it will confuse users. See the [Translation glossary](localization_glossary) for the established translation (or English term to keep) of common OrcaSlicer terms across languages.
