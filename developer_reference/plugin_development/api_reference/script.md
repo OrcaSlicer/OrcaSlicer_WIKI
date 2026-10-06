@@ -8,7 +8,8 @@ Plugins dialog.
 | `orca.script.ScriptPluginCapabilityBase` | `Script` | `get_name()`, `execute(self) -> ExecutionResult` | the **Plugins dialog -> Run** action |
 
 Lifecycle hooks `on_load()` / `on_unload()` are optional and available on every capability
-(defaults do nothing).
+(defaults do nothing). So is `on_lifecycle_event(event, ctx)`, which observes application
+events such as project saves or slicing; see [Lifecycle Events](lifecycle_events).
 
 > [!IMPORTANT]
 > `ScriptPluginCapabilityBase.execute()` runs on the **main/UI thread**: live host handles are

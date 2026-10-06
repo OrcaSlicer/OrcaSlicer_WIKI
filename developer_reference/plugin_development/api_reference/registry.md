@@ -6,21 +6,27 @@ capability base classes, the package base, result types, and capability registra
 
 | Symbol | Kind | Members / purpose |
 |---|---|---|
-| `orca.PluginType` | enum | `PrinterConnection`, `Automation`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `SlicingPipeline`, `Unknown` |
+| `orca.PluginType` | enum | `PrinterConnection`, `Pages`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `SlicingPipeline`, `Unknown` |
 | `orca.PluginResult` | enum | `Success`, `Skipped`, `RecoverableError`, `FatalError` |
 | `orca.PluginContext` | class | base context, field `orca_version: str` |
 | `orca.ExecutionResult` | class | fields `status`, `message`, `data`; factories below |
+| `orca.LifecycleEvent` | enum | [Lifecycle Events](lifecycle_events): the application moments passed to `on_lifecycle_event` |
+| `orca.LifecycleEvtCode` | enum | `Ok`, `Error`, `Warn` - the outcome carried by a lifecycle event |
+| `orca.LifecycleEventContext` | class | the read-only payload of a lifecycle event |
 | `orca.PythonPluginBase` | class | the root **capability** base; subclasses must implement `get_name()` |
 | `orca.base` | class | the **package** base; subclass it and override `register_capabilities()` |
 | `orca.plugin` | decorator | marks the single package class for the file (exactly one per file) |
 | `orca.register_capability(cls)` | function | register one capability class; call it inside `register_capabilities()` |
 | `orca.slicing` | submodule | [Slicing Pipeline](slicing): `Step`, `SlicingPipelineContext`, `SlicingPipelineCapabilityBase` |
 | `orca.script` | submodule | [Script](script): `ScriptPluginCapabilityBase` |
+| `orca.pages` | submodule | [Pages](pages): `PagesPluginCapabilityBase`, a plugin tab in the main window |
 | `orca.printer_agent` | submodule | [Printer Agent](printer_agent): `PrinterAgentBase` and its data types |
 | `orca.host` | submodule | [Host](host): read-only host access to the live model, presets, and mesh geometry |
-| `orca.host.ui` | submodule | [Host UI](host_ui): dialogs, progress dialogs, and interactive windows |
+| `orca.host.ui` | submodule | [Host UI](host_ui): dialogs, progress dialogs, interactive windows, docked panels, and notifications |
 
-Every capability also inherits configuration methods from `orca.PythonPluginBase`:
+Every capability inherits the optional hooks `on_load()`, `on_unload()` and
+`on_lifecycle_event(event, ctx)` (see [Lifecycle Events](lifecycle_events)) from
+`orca.PythonPluginBase`, along with these configuration methods:
 
 | Method | Purpose |
 |---|---|

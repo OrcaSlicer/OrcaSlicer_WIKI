@@ -1,12 +1,13 @@
 # Host UI
 
 `orca.host.ui` lets a plugin show host-owned UI: a native message box, a native progress
-dialog, a modal HTML dialog, non-modal interactive windows, and a panel docked beside the
-3D view.
+dialog, a modal HTML dialog, non-modal interactive windows, a panel docked beside the
+3D view, and notifications in the 3D view. To add a whole main-window tab instead, see
+[Pages](pages).
 
 A plugin must never import its own GUI toolkit (PyQt/wxPython/tkinter): a `script` plugin
 shares the host's UI thread, so a second toolkit's event loop would clash with wxWidgets, and
-a `gcode` / `printer-agent` plugin runs off the main thread where toolkit calls would crash.
+a `gcode` / `printer-agent` plugin can run off the main thread where toolkit calls would crash.
 These host calls run on the main thread for you and block the calling code until they return.
 
 ## Dialogs and Windows
@@ -75,6 +76,31 @@ Panel-specific notes:
 - Global shortcuts still reach the app while the user types in a panel — Ctrl/Cmd with
   R, G, J, N, O, S, F, P, I, Shift+G, Shift+S or Shift+E. Avoid binding those in your page;
   Ctrl+A/C/V/X/Z are free.
+
+## Plater Notifications
+
+`push_notification()` shows a notification in the 3D view, the same kind OrcaSlicer uses for
+its own messages. It does not block waiting for the user.
+
+```python
+lvl = orca.host.ui.NotificationLevel
+orca.host.ui.push_notification(lvl.WarningNotificationLevel, "Bed mesh is out of date.")
+
+# With a clickable link: on_click() runs on the UI thread when the link is clicked
+def on_click():
+    open_report()
+    return True   # True (or None) closes the notification, False keeps it open
+
+orca.host.ui.push_notification(lvl.RegularNotificationLevel, "Report ready.",
+                               hyper_text="Open report", on_click=on_click)
+```
+
+`notification_level` is an `orca.host.ui.NotificationLevel`: `RegularNotificationLevel`,
+`HintNotificationLevel`, `ProgressBarNotificationLevel`, `PrintInfoNotificationLevel`,
+`PrintInfoShortNotificationLevel`, `ImportantNotificationLevel`, `WarningNotificationLevel`,
+`SeriousWarningNotificationLevel` or `ErrorNotificationLevel`. The level sets the styling and
+how long the notification stays up. An exception raised in `on_click` is logged and leaves the
+notification open, and the callback is disabled once the plugin is unloaded.
 
 ## Progress Dialogs
 

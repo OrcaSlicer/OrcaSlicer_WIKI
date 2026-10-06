@@ -173,6 +173,16 @@ capabilities never change existing behavior.
 | `slicing-pipeline` | `execute(ctx)` | `Print` at configured slicing steps, and `PostProcessor` at `psGCodePostProcess` during G-code export |
 | `script` | `execute()` | the **Plugins dialog -> Run** action |
 | `printer-connection` | agent methods | `NetworkAgentFactory`, registered through a loader on-capability-load callback wired in `GUI_App` |
+| `pages` | `get_ui()`, `on_message()` | `PluginPages` (`plugin/host/PluginPages.cpp`), which adds a main-window tab per enabled capability from the on-capability-load callbacks |
+
+Independently of type, every loaded and enabled capability receives application
+**lifecycle events** through `on_lifecycle_event(event, ctx)`. Call sites in libslic3r and the
+GUI raise them with `Slic3r::fire_lifecycle_event()` (`libslic3r/LifecycleEvents.hpp`);
+`plugin_hooks` installs the dispatcher, which forwards to
+`PluginManager::dispatch_lifecycle_event()` synchronously on the raising thread, skips the
+remaining capabilities once a slice is cancelled, and logs and swallows handler exceptions. At
+shutdown the hook is uninstalled first and waits for in-flight dispatches to drain. See
+[Lifecycle Events](lifecycle_events).
 
 The on-load / on-unload **callbacks** (`PluginLoader::subscribe_on_load_callback` /
 `subscribe_on_unload_callback`) and the per-capability variants
@@ -289,6 +299,24 @@ Installing is done from a **Browse plugins** split dropdown that opens the OrcaC
 hub, with an **Install local plugin** option for side-loading a `.py` or `.whl` directly.
 Per-plugin and per-capability enablement is persisted in a per-plugin `.install_state.json`
 sidecar (written by `PluginManager`).
+
+The Status column is derived by `resolve_plugin_status()` (`GUI/PluginStatus.hpp`):
+**Loading** while a load is in flight; **Error** when the plugin has an error and is not loaded
+(a load-time failure); **RuntimeError** when it has an error but is still loaded (for example a
+capability rejected after load, such as a printer agent whose ID is already registered by
+another capability or a built-in agent); **Activated** when loaded; otherwise **Inactive**. The
+Activate checkbox follows whether the plugin is loaded, so a RuntimeError plugin stays checked,
+and disabling a plugin clears its error.
+
+A cloud plugin that is no longer subscribed or no longer returned by OrcaCloud is marked
+**orphaned** on the next cloud refresh: its local package stays installed and usable, but it can
+no longer be reinstalled or updated from the cloud and only offers **Delete** and **Show in
+folder**. When a refresh finds installed plugins whose files are gone from disk, the dialog
+offers to remove them (`get_missing_plugin_descriptors` / `remove_missing_plugins`).
+
+Every successful install (local install, reinstall or cloud update) revokes the permissions
+previously granted to that plugin key, so new code has to ask again; see
+[Plugin Audit Hook](plugin_audit_hook).
 
 ## Security and Observability
 

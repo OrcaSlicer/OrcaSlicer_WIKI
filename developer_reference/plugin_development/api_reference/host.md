@@ -1,12 +1,12 @@
 # Host
 
-`orca.host` (bound in `PluginHostApi.cpp`) gives plugins **read-only** access to the running
+`orca.host` (bound in `src/slic3r/plugin/host/`) gives plugins **read-only** access to the running
 slicer. It is intended for analysis, reporting, and export plugins; nothing here mutates the
 model.
 
 **Script plugins run on the main/UI thread**, so within one `execute()` the model cannot
-change under you. **Slicing-pipeline and printer-agent plugins run on a background
-thread** while the GUI keeps running. Either way, treat everything as a momentary snapshot and
+change under you. **Slicing-pipeline plugins run on a background thread** while the GUI
+keeps running, and printer-agent methods may be called on the UI thread or on job threads. Either way, treat everything as a momentary snapshot and
 do not stash references across runs.
 
 ## Entry Points
@@ -18,7 +18,22 @@ import orca
 model  = orca.host.model()           # the active Model
 plater = orca.host.plater()          # the Plater
 bundle = orca.host.preset_bundle()   # presets (prints/printers/filaments/...)
+lang   = orca.host.app_language()    # UI language code, e.g. "en_US", "ru_RU"
+store  = orca.host.plugin.storage()  # this plugin's private storage folder
 ```
+
+`app_language()` returns the language OrcaSlicer's UI is running in, so a plugin can localize
+its own dialogs. Use it instead of reading the app config file, which the audit hook blocks.
+
+`plugin.storage()` returns a folder reserved for the calling plugin, creating it if needed, so
+the plugin can keep data across runs and updates. A local plugin's folder is
+`orca_plugins/plugin_data/<plugin_key>`; a cloud plugin's is per signed-in user
+(`orca_plugins/plugin_data/_subscribed/<user_id>/<plugin_key>`), so it raises `RuntimeError`
+when no user is signed in. It must be called from a plugin callback (`execute()`, `on_load()`,
+a message handler, ...), not at import time.
+
+The `Plater` returned by `plater()` also exposes `model()`, `is_project_dirty()`,
+`is_presets_dirty()` and `inside_snapshot_capture()`.
 
 ## Model Graph
 
