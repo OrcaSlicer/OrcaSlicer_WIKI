@@ -21,7 +21,6 @@ Infill is the internal structure of a 3D print, providing strength and support. 
     - [Interval Pattern](#interval-pattern)
     - [Explicit Layer List](#explicit-layer-list)
 - [Sparse Infill Pattern](#sparse-infill-pattern)
-- [Infill Complete Top](#infill-complete-top)
 - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor)
     - [Supported patterns](#supported-patterns)
     - [Corners left sharp](#corners-left-sharp)
@@ -311,43 +310,6 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 [CLI Example](cli_mode#setting-overrides): `--sparse-infill-pattern=rectilinear`.  
 > [!TIP]
 > See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
-
-## Infill Complete Top
-
-[Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `infill_complete_top`.  
-[Type](option_type#boolean): `Boolean`.  
-[CLI Example](cli_mode#setting-overrides): `--infill-complete-top=1`.  
-
-> [!IMPORTANT]
-> NEW FEATURE: **Fill pattern tops**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
-Shown as **Fill pattern tops** in the GUI. Fills in the square tops of the [3D Honeycomb](strength_settings_patterns#3d-honeycomb) pattern, which are left open by default.
-
-Whenever the pattern changes its print direction, extra lines are bridged across the squares of the previous layer. This is added on top of the normal pattern, which keeps its structural stability.
-
-- **Disabled (default):** the squares are left open.
-- **Enabled:** the squares are covered.
-
-The option is only shown when the [Sparse infill pattern](#sparse-infill-pattern) is **3D Honeycomb** and the [Sparse infill density](#sparse-infill-density) is above 0%.
-
-Useful for:
-
-- **Functional parts**, for example keeping two channels (air and water) separate.
-- **Artistic prints** where the upper surface of the pattern should be filled in.
-
-> [!NOTE]
-> It is disabled by default because the direction reversals and non-extrusion moves needed to cover the squares substantially slow down the print.
-
-Behavior with other settings:
-
-- **[Fill Multiline](#fill-multiline):** the cover is not multiplied by the number of lines. It is printed as a single zigzag pass, built up over as many layers as there are lines and changing direction on every layer.
-- **Density:** the squares get smaller as the density increases (and larger with more [Fill Multiline](#fill-multiline) lines). When a square is too small to fit a cover line, none is generated, so the option has no effect at high densities.
-- **Line spacing:** the cover lines are intentionally closer together than the line width, so the squares close without gaps.
-
-> [!NOTE]
-> The covers are bridges, and small pinholes can remain in them. Test your print if it must be airtight or watertight.
 
 ## Sparse Infill Smooth Factor
 
