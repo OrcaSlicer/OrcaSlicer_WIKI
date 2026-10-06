@@ -437,6 +437,8 @@ Hexagonal pattern balancing strength and material use. Double walls in each hexa
 
 This infill tries to generate a printable honeycomb structure by printing squares and octagons maintaining a vertical angle high enough to maintain contact with the previous layer.
 
+The square at the top of each cell is left open by default. Enable [Fill pattern tops](strength_settings_infill#infill-complete-top) to cover them.
+
 - **Strength**
     - **Horizontal (X-Y):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
     - **Vertical (Z):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
