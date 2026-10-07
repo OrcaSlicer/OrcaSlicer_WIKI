@@ -587,21 +587,26 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `tpms_adaptive`.  
 [Type](option_type#choice): `Choice`.  
-[Options](option_type#choice): `disabled, 3d, normal_x, normal_y, normal_z`.  
-[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive=3d`.  
+[Options](option_type#choice): `disabled, distance_warp, smooth_blend, stepped_shells, lobes, normal_z, normal_y, normal_x`.  
+[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive=lobes`.  
 Grades the Gyroid and TPMS infill inside the object: its cells grow from the surface of the object towards its center. The [Sparse infill density](strength_settings_infill#sparse-infill-density) is used at the surface and the [Interior Density](#interior-density) at the center.
 
 | Mode | Follows | Use it for |
 | --- | --- | --- |
 | Disabled | Nothing: the regular pattern at the sparse infill density. | |
-| 3D | The whole shape of the object, including its top and bottom. | Most objects. |
-| Normal X, Normal Y | Each section of the object normal to that axis, so the density does not change along it. | Profiles extruded along X or Y, like beams and bars lying on the bed. |
+| Distance warp | The distance to the nearest surface, with one continuous pattern warped around the lobe centers. | A smooth, connected concentric grading; the pattern is sheared in plates and long parts, and long parts are graded partly along their length. |
+| Smooth blend | The distance to the nearest surface, with the patterns of neighbouring densities blended into each other. | A concentric grading without steps; small loops where the densities blend. |
+| Stepped shells | The distance to the nearest surface, including the top and bottom, like concentric shells: each shell gets the regular pattern at its density, about 1.5 times apart, with its lines joined along the shell. | A concentric grading with an undistorted pattern; the density changes in steps. |
+| Lobes | The whole 3D shape of the object, including its top and bottom: every lobe, a part joined to the rest by a narrower neck, towards its own center. | Most objects. |
 | Normal Z | Each section of the object normal to Z, so the density does not change with the height. | Profiles extruded along Z, like tall prisms and tubes. |
+| Normal Y, Normal X | Each section of the object normal to that axis, so the density does not change along it. | Profiles extruded along X or Y, like beams and bars lying on the bed. |
 
 - The object is measured from its slices, so holes, negative parts and the union of overlapping parts are taken into account.
-- Every separate body of the object, and every lobe of a body joined to the rest by a neck, like two united spheres, is graded towards its own center, its deepest point. The neck between two lobes is graded half way. In 3D, the center of a tall object is at its middle height, so the infill is sparsest there and not along its whole height.
+- Every separate body of the object, and every lobe of a body joined to the rest by a neck, like two united spheres, is graded towards its own center, its deepest point. The neck between two lobes is graded half way. With Lobes, the center of a tall object is at its middle height, so the infill is sparsest there and not along its whole height.
 - The lines stay continuous: the pattern is scaled around the center, with round cells at the center and cells flattened along the surface near it.
 - The parts that the center cannot reach in a straight line, like the far side of the hole of a ring, keep the sparse infill density.
+- In Distance warp, Smooth blend and Stepped shells the interior density is at the point farthest from the surface, so a tall object keeps its whole core sparse and a plate is graded through its thickness. On spheres and cubes, Distance warp is the same as Lobes.
+- Smooth blend and Stepped shells print more lines than their target where their densities meet, along the shells or where the patterns blend, so they save less material than Lobes for the same densities.
 - In the Normal modes every section is graded the same way within its own outline. Along the axis, the cells keep the interior density, so near the surface they are stretched along the axis. With Normal X or Y, the layers next to the sides stay at the sparse infill density.
 - The Gyroid [Z-buckling bias optimization](#gyroid-optimized) does not apply to adaptive infill.
 - At a [Sparse infill density](strength_settings_infill#sparse-infill-density) of 100% the sparse infill is printed solid, so the adaptive options are hidden.
