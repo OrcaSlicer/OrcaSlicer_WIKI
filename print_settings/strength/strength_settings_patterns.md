@@ -586,14 +586,23 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `tpms_adaptive`.  
-[Type](option_type#boolean): `Boolean`.  
-[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive=1`.  
-Grades the Gyroid and TPMS infill inside the object: its cells grow from the surface of the object, including its top and bottom, towards its center. The [Sparse infill density](strength_settings_infill#sparse-infill-density) is used at the surface and the [Interior Density](#interior-density) at the center.
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `disabled, 3d, normal_x, normal_y, normal_z`.  
+[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive=3d`.  
+Grades the Gyroid and TPMS infill inside the object: its cells grow from the surface of the object towards its center. The [Sparse infill density](strength_settings_infill#sparse-infill-density) is used at the surface and the [Interior Density](#interior-density) at the center.
+
+| Mode | Follows | Use it for |
+| --- | --- | --- |
+| Disabled | Nothing: the regular pattern at the sparse infill density. | |
+| 3D | The whole shape of the object, including its top and bottom. | Most objects. |
+| Normal X, Normal Y | Each section of the object normal to that axis, so the density does not change along it. | Profiles extruded along X or Y, like beams and bars lying on the bed. |
+| Normal Z | Each layer on its own outline, so the density does not change with the height. | Profiles extruded along Z, like tall prisms and tubes. |
 
 - The object is measured from its slices, so holes, negative parts and the union of overlapping parts are taken into account.
-- Every separate body of the object, and every lobe of a body joined to the rest by a neck, like two united spheres, is graded towards its own center, its deepest point. The neck between two lobes is graded half way. In a tall object the center is at its middle height, so the infill is sparsest there and not along its whole height.
+- Every separate body of the object, and every lobe of a body joined to the rest by a neck, like two united spheres, is graded towards its own center, its deepest point. The neck between two lobes is graded half way. In 3D, the center of a tall object is at its middle height, so the infill is sparsest there and not along its whole height.
 - The lines stay continuous: the pattern is scaled around the center, with round cells at the center and cells flattened along the surface near it.
 - The parts that the center cannot reach in a straight line, like the far side of the hole of a ring, keep the sparse infill density.
+- In the Normal modes every section is graded the same way within its own outline. Along the axis, the cells keep the interior density, so near the surface they are stretched along the axis. With Normal X or Y, the layers next to the sides stay at the sparse infill density.
 - The Gyroid [Z-buckling bias optimization](#gyroid-optimized) does not apply to adaptive infill.
 
 ### Interior Density
