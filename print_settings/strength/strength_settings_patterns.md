@@ -596,7 +596,7 @@ Grades the Gyroid and TPMS infill inside the object: its cells grow from the sur
 | Disabled | Nothing: the regular pattern at the sparse infill density. | |
 | 3D | The whole shape of the object, including its top and bottom. | Most objects. |
 | Normal X, Normal Y | Each section of the object normal to that axis, so the density does not change along it. | Profiles extruded along X or Y, like beams and bars lying on the bed. |
-| Normal Z | Each layer on its own outline, so the density does not change with the height. | Profiles extruded along Z, like tall prisms and tubes. |
+| Normal Z | Each section of the object normal to Z, so the density does not change with the height. | Profiles extruded along Z, like tall prisms and tubes. |
 
 - The object is measured from its slices, so holes, negative parts and the union of overlapping parts are taken into account.
 - Every separate body of the object, and every lobe of a body joined to the rest by a neck, like two united spheres, is graded towards its own center, its deepest point. The neck between two lobes is graded half way. In 3D, the center of a tall object is at its middle height, so the infill is sparsest there and not along its whole height.
@@ -604,6 +604,8 @@ Grades the Gyroid and TPMS infill inside the object: its cells grow from the sur
 - The parts that the center cannot reach in a straight line, like the far side of the hole of a ring, keep the sparse infill density.
 - In the Normal modes every section is graded the same way within its own outline. Along the axis, the cells keep the interior density, so near the surface they are stretched along the axis. With Normal X or Y, the layers next to the sides stay at the sparse infill density.
 - The Gyroid [Z-buckling bias optimization](#gyroid-optimized) does not apply to adaptive infill.
+- At a [Sparse infill density](strength_settings_infill#sparse-infill-density) of 100% the sparse infill is printed solid, so the adaptive options are hidden.
+- Objects made only of parts thinner than the field grid cells (0.5 mm, up to a few mm for very large objects) use the regular pattern.
 
 ### Interior Density
 
