@@ -416,8 +416,14 @@ Useful when an assembly groups several objects that should each keep a consisten
 > [!NOTE]
 > The main disadvantage is that, for complex and large slices, centering each part independently can increase slicing time.
 
-Affects centered and [rotation-template](#rotation) patterns as well as most line and grid [patterns](strength_settings_patterns) — Rectilinear, Aligned Rectilinear, Zig Zag, Cross Zag, Locked Zag, Grid, Triangles, Tri-hexagon, Cubic, Quarter Cubic, Lateral Lattice, Lateral Honeycomb, Hilbert Curve, Archimedean Chords and Octagram Spiral. For rectilinear-based patterns the line grid is now phased through each part's bounding-box center instead of the global origin.  
-Patterns locked to global coordinates ([Gyroid](strength_settings_patterns#gyroid), [Honeycomb](strength_settings_patterns#honeycomb), TPMS, ...) are unaffected.
+Applies to sparse infill, internal solid infill and bridges. Top and bottom surfaces are not affected; see [Center Surface Pattern On](strength_settings_top_bottom_shells#center-surface-pattern-on) for those.  
+The option is shown for the [sparse infill patterns](strength_settings_patterns) it can center:
+
+- **Line and grid patterns:** Rectilinear, Aligned Rectilinear, Zig Zag, Cross Zag, Locked Zag, Line, Grid, Triangles, Tri-hexagon, Cubic, Quarter Cubic, Lateral Lattice, Lateral Honeycomb, Hilbert Curve, Archimedean Chords and Octagram Spiral are phased through each part's bounding-box center, and [rotated](#rotation) infill turns around it.
+- **Patterns laid out from the object origin:** [Honeycomb](strength_settings_patterns#honeycomb), [3D Honeycomb](strength_settings_patterns#3d-honeycomb), [Cross Hatch](strength_settings_patterns#cross-hatch), [Gyroid](strength_settings_patterns#gyroid), [TPMS-D](strength_settings_patterns#tpms-d) and [TPMS-FK](strength_settings_patterns#tpms-fk) are moved onto each part's bounding-box center.
+
+[Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) always fill each part on its own, with cubes refined only near that part's surfaces, so the option is not shown for them.  
+[Lightning](strength_settings_patterns#lightning) is generated for the whole object and is unaffected, and [Concentric](strength_settings_patterns#concentric) already follows the outline of each part.
 
 - **Separated Infills Off:** the assembly is treated as a single whole, so the infill of every object is referenced to one common center.
 
