@@ -207,6 +207,11 @@ granted either way satisfies the other check, since both read/write the same JSO
 `fs_read` has a declarative form today; the other four persisted lists are populated
 reactively, one dialog "Yes" at a time.
 
+Granted permissions belong to the installed package, not just the plugin key: every successful
+install (installing a local plugin over an existing one, **Reinstall**, or a cloud update)
+clears the `permissions` block of that plugin's sidecar (`PluginManager::revoke_plugin_permissions()`),
+so the new code must be granted access again.
+
 #### The call-site ancestor cascade
 
 A single logical plugin action often fires several *nested* CPython audit events as it passes
@@ -343,11 +348,12 @@ ExecutionResult execute() override
 
 ```cpp
 // PrinterAgentPluginCapabilityTrampoline.hpp
-int connect_printer(const std::string& dev_id, const std::string& dev_ip,
-                     const std::string& username, const std::string& password, bool use_ssl) override
+// ORCA_PY_AGENT_OVERRIDE(ret, name, ...) wraps
+//   ORCA_PY_OVERRIDE_AUDITED([] {}, PYBIND11_OVERRIDE_PURE, ret, PrinterAgentPluginCapability, name, ...)
+// in a try/catch that logs the failure and returns the agent's failure value (-1 / empty).
+int connect_printer(const PrinterConnectionParams& params) override
 {
-    ORCA_PY_OVERRIDE_AUDITED([] {}, PYBIND11_OVERRIDE_PURE, int, PrinterAgentPluginCapability,
-                              connect_printer, dev_id, dev_ip, username, password, use_ssl);
+    ORCA_PY_AGENT_OVERRIDE(int, connect_printer, params);
 }
 ```
 

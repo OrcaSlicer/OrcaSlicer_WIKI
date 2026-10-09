@@ -300,5 +300,7 @@ nav:
       - "Host UI": developer_reference/plugin_development/api_reference/host_ui.md
       - Script: developer_reference/plugin_development/api_reference/script.md
       - "Printer Agent": developer_reference/plugin_development/api_reference/printer_agent.md
+      - "Lifecycle Events": developer_reference/plugin_development/api_reference/lifecycle_events.md
+      - Pages: developer_reference/plugin_development/api_reference/pages.md
       - "Slicing Pipeline": developer_reference/plugin_development/api_reference/slicing.md
     - "Plugin Audit Hook": developer_reference/plugin_development/plugin_audit_hook.md

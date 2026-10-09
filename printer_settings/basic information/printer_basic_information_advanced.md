@@ -7,6 +7,7 @@ Advanced settings related to the printer configuration.
 - [Skip G-code config block](#skip-g-code-config-block)
 - [Pellet Modded Printer](#pellet-modded-printer)
 - [Use 3rd-party print host](#use-3rd-party-print-host)
+- [Printer Agent](#printer-agent)
 - [Scan first layer](#scan-first-layer)
 - [Power Loss Recovery](#power-loss-recovery)
 - [Disable set remaining print time](#disable-set-remaining-print-time)
@@ -85,6 +86,17 @@ Higher packing density -> more material extruded by single turn -> higher pellet
 [Type](option_type#boolean): `Boolean`.  
 Not available via CLI — see [Setting Overrides](cli_mode#setting-overrides) for the full list of excluded keys.  
 Allow controlling BambuLab's printer through 3rd party print hosts.
+
+## Printer Agent
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `printer_agent`.  
+[Type](option_type#text): `Text` (shown as a dropdown of registered agents).  
+Not available via CLI — see [Setting Overrides](cli_mode#setting-overrides) for the full list of excluded keys.  
+Select the network agent implementation used to communicate with the printer. The list contains the built-in agents plus any agents registered by loaded [printer agent plugins](printer_agent). When empty, Bambu Lab printers use `bbl` and all other printers use `orca`.
+
+> [!NOTE]
+> Plugin printer agents only receive print jobs when **Preferences → Developer → Experimental Features → Use printer agents instead of print hosts** is enabled.
 
 ## Scan first layer
 
