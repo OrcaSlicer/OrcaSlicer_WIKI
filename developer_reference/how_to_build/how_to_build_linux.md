@@ -68,7 +68,6 @@ The build system supports multiple Linux distributions including Ubuntu/Debian a
 - file
 - gettext
 - git
-- glew-devel / libglew-dev
 - gstreamer-devel / libgstreamerd-3-dev
 - gtk3-devel / libgtk-3-dev
 - libmspack-dev / libmspack-devel
@@ -77,7 +76,7 @@ The build system supports multiple Linux distributions including Ubuntu/Debian a
 - libssl-dev / openssl-devel
 - libtool
 - libudev-dev
-- mesa-libGLU-devel
+- mesa-libGL-devel / libgl-dev
 - ninja-build
 - texinfo
 - webkit2gtk-devel / libwebkit2gtk-4.0-dev or libwebkit2gtk-4.1-dev
