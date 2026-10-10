@@ -46,6 +46,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
     - [<img alt="param_tower" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tower.svg?raw=true" height="22"> Wipe tower](printer_multimaterial_wipe_tower)
     - [<img alt="param_settings" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_settings.svg?raw=true" height="22"> Single extruder multi_material parameters](printer_multimaterial_semm_parameters)
     - [<img alt="param_advanced" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true" height="22"> Advanced](printer_multimaterial_advanced)
+    - [<img alt="param_advanced" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true" height="22"> IDEX/IQEX Configuration](printer_multimaterial_idex_iqex)
 - Extruder
     - [<img alt="param_information" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_information.svg?raw=true" height="22"> Basic Information](printer_extruder_basic_information)
     - [<img alt="param_retraction" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true" height="22"> Retraction](printer_extruder_retraction)
@@ -278,6 +279,7 @@ OrcaSlicer can run headless from the command line for automation, batch processi
     - [Use mixed with different nozzle sizes](mixed_nozzle_sizes)
     - [Calibrate Your Printer](calibration_guide)
     - [Print on a Belt Printer](belt_printing)
+    - [Print in Parallel on an IDEX/IQEX Printer](idex_iqex_parallel_printing)
     - [Create Profiles](how_to_create_profiles)
     - [Download Pull Requests Artifacts for Testing](how_to_download_pr_artifacts)
 

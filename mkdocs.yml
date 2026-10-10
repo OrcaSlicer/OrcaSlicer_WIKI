@@ -116,6 +116,7 @@ nav:
   - "Calibration Guide": guides/calibration_guide.md
   - "Belt Printing": guides/belt_printing.md
   - "How to Download Pull Requests Artifacts for Testing": guides/how_to_download_pr_artifacts.md
+  - "IDEX/IQEX Parallel Printing": guides/idex_iqex_parallel_printing.md
   - "Mixed Nozzle Sizes": guides/mixed_nozzle_sizes.md
 - "Printer Settings":
   - "Basic Information":
@@ -136,6 +137,7 @@ nav:
   - "Motion Ability":
     - "Motion Ability": "printer_settings/motion ability/printer_motion_ability.md"
   - Multimaterial:
+    - "IDEX/IQEX Configuration": printer_settings/multimaterial/printer_multimaterial_idex_iqex.md
     - "Single Extruder Multi-Material Parameters": printer_settings/multimaterial/printer_multimaterial_semm_parameters.md
     - "Multimaterial setup": printer_settings/multimaterial/printer_multimaterial_setup.md
     - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md

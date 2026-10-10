@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="760px" height="560px" viewBox="0 0 760 560" style="background: transparent; color-scheme: light dark;">
+  <title>Top view of two gantries: where T0 and a mirroring T2 touch, for mirror-image and for identical toolheads</title>
+  <style>
+    .ink   { stroke: #2b2b2b; stroke: light-dark(#2b2b2b, #e6e6e6); fill: none; stroke-width: 2; stroke-linecap: round; }
+    .solid { fill: #2b2b2b; fill: light-dark(#2b2b2b, #e6e6e6); stroke: none; }
+    .txt   { fill: #2b2b2b; fill: light-dark(#2b2b2b, #e6e6e6); font-family: sans-serif; font-size: 14px; }
+    .small { font-size: 13px; }
+    .bold  { font-weight: bold; font-size: 15px; }
+    .beam  { fill: #9e9e9e; fill: light-dark(#9e9e9e, #757575); stroke: none; }
+    .car   { fill: #f2f2f2; fill: light-dark(#f2f2f2, #3a3a3a); stroke: #2b2b2b; stroke: light-dark(#2b2b2b, #e6e6e6); stroke-width: 2; }
+    .bnd   { stroke: #888888; stroke-width: 1.5; stroke-dasharray: 6 4; fill: none; }
+    .cl    { stroke: #009688; stroke: light-dark(#009688, #1ec8b6); stroke-width: 1.5; fill: none; }
+    .clt   { fill: #009688; fill: light-dark(#009688, #1ec8b6); font-family: sans-serif; font-size: 14px; }
+    .ext   { stroke: #009688; stroke: light-dark(#009688, #1ec8b6); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
+    .dd    { stroke: #5c6bc0; stroke: light-dark(#5c6bc0, #9fa8da); stroke-width: 1.5; fill: none; }
+    .ddt   { fill: #5c6bc0; fill: light-dark(#5c6bc0, #9fa8da); font-family: sans-serif; font-size: 14px; }
+    .hit   { stroke: #d32f2f; stroke: light-dark(#d32f2f, #ef5350); stroke-width: 2.5; fill: none; }
+    .tcl   { fill: #009688; fill: light-dark(#009688, #1ec8b6); stroke: none; }
+    .tdd   { fill: #5c6bc0; fill: light-dark(#5c6bc0, #9fa8da); stroke: none; }
+  </style>
+  <defs>
+    <marker id="acl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="tcl" d="M 0 0 L 10 5 L 0 10 z"/></marker>
+    <marker id="add" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="tdd" d="M 0 0 L 10 5 L 0 10 z"/></marker>
+    <marker id="axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="solid" d="M 0 0 L 10 5 L 0 10 z"/></marker>
+  </defs>
+
+  <text class="txt bold" x="20" y="28">Top view</text>
+  <path class="ink" d="M 690 50 H 730" marker-end="url(#axis)"/>
+  <text class="txt" x="738" y="55">X</text>
+  <path class="ink" d="M 690 50 V 10" marker-end="url(#axis)"/>
+  <text class="txt" x="676" y="22" text-anchor="middle">Y</text>
+  <text class="txt bold" x="20" y="72">Mirror-image toolheads</text>
+  <text class="txt small" x="20" y="91">T0 and T2 each have 80 mm from the nozzle</text>
+  <text class="txt small" x="20" y="107">to the side facing the other.</text>
+  <rect class="beam" x="10" y="192" width="360" height="24"/>
+  <text class="txt small" x="364" y="209" text-anchor="end">Rear gantry</text>
+  <rect class="beam" x="10" y="384" width="360" height="24"/>
+  <text class="txt small" x="364" y="401" text-anchor="end">Front gantry</text>
+  <path class="bnd" d="M 20 300.0 H 360"/>
+  <rect class="car" x="110" y="168" width="132" height="132" rx="6"/>
+  <text class="txt bold" x="232" y="190" text-anchor="end">T2</text>
+  <circle class="solid" cx="146" cy="204" r="5"/>
+  <path class="ink" d="M 135 204 H 157 M 146 193 V 215" style="stroke-width: 1"/>
+  <rect class="car" x="110" y="300" width="132" height="132" rx="6"/>
+  <text class="txt bold" x="232" y="322" text-anchor="end">T0</text>
+  <circle class="solid" cx="146" cy="396" r="5"/>
+  <path class="ink" d="M 135 396 H 157 M 146 385 V 407" style="stroke-width: 1"/>
+  <path class="ext" d="M 90 204 H 270 M 90 396 H 270"/>
+  <path class="cl" d="M 264 207 V 297" marker-start="url(#acl)" marker-end="url(#acl)"/>
+  <text class="clt" x="272" y="257" text-anchor="start">80</text>
+  <path class="cl" d="M 264 303 V 393" marker-start="url(#acl)" marker-end="url(#acl)"/>
+  <text class="clt" x="272" y="353" text-anchor="start">80</text>
+  <path class="dd" d="M 96 207 V 297" marker-start="url(#add)" marker-end="url(#add)"/>
+  <text class="ddt" x="88" y="257" text-anchor="end">d = 80</text>
+  <path class="dd" d="M 96 303 V 393" marker-start="url(#add)" marker-end="url(#add)"/>
+  <text class="ddt" x="88" y="353" text-anchor="end">d = 80</text>
+  <circle class="hit" cx="176" cy="300" r="9"/>
+  <text class="txt small" x="20" y="482">They touch when d = 80, on the boundary.</text>
+  <text class="txt small" x="20" y="499">Nozzle Clearance Y = 80 is exact.</text>
+  <text class="txt bold" x="400.0" y="72">Identical toolheads</text>
+  <text class="txt small" x="400.0" y="91">Nozzle off-center in Y: T0 has 80 mm toward T2,</text>
+  <text class="txt small" x="400.0" y="107">but T2 has only 30 mm toward T0.</text>
+  <rect class="beam" x="390" y="222" width="360" height="24"/>
+  <text class="txt small" x="744" y="239" text-anchor="end">Rear gantry</text>
+  <rect class="beam" x="390" y="354" width="360" height="24"/>
+  <text class="txt small" x="744" y="371" text-anchor="end">Front gantry</text>
+  <path class="bnd" d="M 400.0 300.0 H 740"/>
+  <rect class="car" x="490" y="138" width="132" height="132" rx="6"/>
+  <text class="txt bold" x="612" y="160" text-anchor="end">T2</text>
+  <circle class="solid" cx="526" cy="234" r="5"/>
+  <path class="ink" d="M 515 234 H 537 M 526 223 V 245" style="stroke-width: 1"/>
+  <rect class="car" x="490" y="270" width="132" height="132" rx="6"/>
+  <text class="txt bold" x="612" y="292" text-anchor="end">T0</text>
+  <circle class="solid" cx="526" cy="366" r="5"/>
+  <path class="ink" d="M 515 366 H 537 M 526 355 V 377" style="stroke-width: 1"/>
+  <path class="ext" d="M 470 234 H 650 M 470 366 H 650"/>
+  <path class="cl" d="M 644 237 V 267" marker-start="url(#acl)" marker-end="url(#acl)"/>
+  <text class="clt" x="652" y="257" text-anchor="start">30</text>
+  <path class="cl" d="M 644 273 V 363" marker-start="url(#acl)" marker-end="url(#acl)"/>
+  <text class="clt" x="652" y="323" text-anchor="start">80</text>
+  <path class="dd" d="M 476 237 V 297" marker-start="url(#add)" marker-end="url(#add)"/>
+  <text class="ddt" x="468" y="272" text-anchor="end">d = 55</text>
+  <path class="dd" d="M 476 303 V 363" marker-start="url(#add)" marker-end="url(#add)"/>
+  <text class="ddt" x="468" y="338" text-anchor="end">d = 55</text>
+  <circle class="hit" cx="556" cy="270" r="9"/>
+  <text class="txt small" x="400.0" y="482">They touch when d = (80 + 30) / 2 = 55.</text>
+  <text class="txt small" x="400.0" y="499">A clearance of 30 lets them collide; 80 is safe.</text>
+  <path class="bnd" d="M 20 535 H 50"/>
+  <text class="txt small" x="58" y="540">zone boundary</text>
+  <circle class="hit" cx="200" cy="535" r="7"/>
+  <text class="txt small" x="214" y="540">where the carriages touch</text>
+  <path class="cl" d="M 403 535 H 427" marker-start="url(#acl)" marker-end="url(#acl)"/>
+  <text class="txt small" x="436" y="540">nozzle clearance</text>
+  <path class="dd" d="M 573 535 H 597" marker-start="url(#add)" marker-end="url(#add)"/>
+  <text class="txt small" x="606" y="540">d: nozzle to boundary</text>
+</svg>

@@ -145,6 +145,9 @@ Metadata describing the currently selected plates.
 | Placeholder | Type | Description |
 | --- | --- | --- |
 | `plate_name` | string | Name of the active plate. |
+| `imex_mode` | string | Name of the plate's [IDEX/IQEX](printer_multimaterial_idex_iqex) parallel mode, or `primary` in Primary mode. Empty when the printer is not an IDEX/IQEX printer. |
+| `imex_mode_index` | int | Zero-based index of that mode in the printer's `imex_mode_names`, which is its row in the [Modes](printer_multimaterial_idex_iqex#modes) grid. `0` is Primary. |
+| `imex_mode_gcode` | string | That mode's [Mode G-code](printer_multimaterial_idex_iqex#mode-g-code), before its placeholders are expanded. |
 
 ## Dimensions
 
