@@ -83,6 +83,14 @@ These sliders change the picture before it is matched to your filaments, and tha
 
 A logo usually arrives on a white card, and printing that card is rarely what you want. **Remove background** leaves it unprinted, so the object's own colour shows through instead of a slab of white.
 
+![td-image-background-kept](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-background-kept.png?raw=true)
+
+Without it, the card the logo was drawn on is printed too - the white slab around the ring is filament, not the plate showing through.
+
+![td-image-background-removed](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-background-removed.png?raw=true)
+
+With it on, only the ring and the triangle are printed and the object's own colour fills the rest.
+
 By default the colour removed is taken from the **four corners** of the picture, which is right for nearly every logo. When it is not:
 
 - Click the swatch to choose a colour by hand.

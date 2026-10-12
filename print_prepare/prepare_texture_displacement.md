@@ -175,6 +175,8 @@ Where two layers overlap, the upper one's **Blend** mode decides what happens:
 | **Divide** | Amplifies the relief below where this one is dark | Rare; it is capped at 20&#215; so it cannot blow up |
 | **Override** | Replaces what is below with this layer's value, rather than combining with it | A flat panel stamped into a pattern, where you want exactly this layer's height and none of what it covers |
 
+![td-blend-override](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-blend-override.png?raw=true)
+
 The lowest painted layer is the **base layer**: it has nothing beneath it, so it always adds, and the panel says so rather than offering a control that would do nothing.
 
 A layer you have not painted is marked **not painted** and is skipped by Bake - the note under the Bake button names them.
@@ -220,6 +222,10 @@ Mapping is how the flat image is wrapped onto the curved, folded surface you pai
 **From view** has its own controls: **Capture current view** re-takes the direction from the camera, **Project only on visible** repaints the layer with exactly the faces the camera can see (it replaces the layer's paint rather than adding to it), and **Projection frame** opens a semi-transparent window you drag over the 3D view like a slide projector's gate - **Apply projection frame** makes its border the hard edge of the projection, and **Clear** returns to the plain projection.
 
 **Adjust placement** replaces painting with a handle on the model: drag the flat panel to move the texture freely, or an arrow to move it along one axis. Paint something first - the handle anchors to the painted area.
+
+![td-model-uv](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-model-uv.png?raw=true)
+
+A layer on a model that carries its own UV layout: **Model UV** is the sixth mapping and is picked for you, and **Tile size** is greyed out because the layout already decides the placement.
 
 > [!NOTE]
 > Textures land the right way up, and are not mirrored from one side of the model to the other, under every mapping. Earlier builds laid them upside down under Triplanar and mirrored them on three of a cube's six faces. If you reopen a project made before that was corrected, **re-baking will place its texture differently from the first bake** - relief already baked into the mesh is geometry and is not affected.
