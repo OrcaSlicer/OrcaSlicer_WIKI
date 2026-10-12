@@ -73,6 +73,29 @@ In PoEdit each entry then appears with its context, so `Right [Alignment]` and `
 > [!NOTE]
 > Only add a context when a string is genuinely ambiguous. Every distinct context creates a new entry that has to be translated separately for every language, so reuse the same context spelling wherever the same meaning appears.
 
+#### Text in the bundled web pages
+
+The pages under `resources/web`, such as the Home page, the setup wizard and the plugin and preset-bundle dialogs, are translated through the same catalogs as the rest of the UI. A page holds no translations of its own: the C++ code that hosts it lists the page's strings under short keys, marked with `_u8L` like any other string, and the app hands that table to the page as `window.ORCA_UI_STRINGS` before any page script runs.
+
+To add text to a page:
+
+1. Add the key and its English text to the host's table: `localized_strings()` in a dialog derived from `WebViewHostDialog`, or the table its host passes to `WebViewHostDialog::localized_strings_script()` (for example `home_page_strings()` in `WebViewDialog.cpp`).
+
+    ```C++
+    {"run", _u8L("Run")},
+    {"exit_code", _u8L("Process exited with code: %s")},
+    ```
+
+2. In the markup, name the key with `data-i18n` for the element's text, or `data-i18n-title`, `data-i18n-placeholder` or `data-i18n-aria-label` for that attribute. Keep the English in the markup too; it is shown when the page is opened outside the app.
+
+    ```html
+    <button id="run-btn" data-i18n="run">Run</button>
+    ```
+
+3. In the page's scripts, use `T(key, fallback, ...args)`; each further argument fills the next `%s`. For a sentence that contains a link, write the link as `<a>label</a>` in the English text and build the sentence with `AppendTemplate`, so a translation can move the link and word it with the rest of the sentence.
+
+The page loads `resources/web/include/i18n.js`, which provides `T`, `AppendTemplate` and `TranslatePage`, and calls `TranslatePage()` once its markup is in place.
+
 ### Scenario 4. How do I use GNUgettext to localize my own application taking OrcaSlicer as an example
 
 1. For convenience create a list of files with this macro `L(s)`. We have [localization/i18n/list.txt](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/localization/i18n/list.txt).
@@ -218,7 +241,7 @@ first-read clarity both matter.
 
 - If you decide to use autocorrect or any batch processing tool, the output requires very careful proofreading. It is very easy to make it do changes that break things big time.
 
-- **Any formatting parts of the phrases must remain unchanged.** For example, you should not change `%1%` to `%1 %`, you should not change `%%` to `%` (for percent sign) and similar. This will lead to application crashes.
+- **Any formatting parts of the phrases must remain unchanged.** For example, you should not change `%1%` to `%1 %`, you should not change `%%` to `%` (for percent sign) and similar. This will lead to application crashes. Keep HTML tags too: in `Click <a>here</a> to install it.` translate the link text and keep the `<a>` and `</a>` around it.
 
 - Please pay attention to spaces, line breaks (\n) and punctuation marks. **Don't add extra line breaks.** This is especially important for parameter names.
 
