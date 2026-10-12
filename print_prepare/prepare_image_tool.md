@@ -6,6 +6,10 @@
 
 **Image** puts a colour picture on a model: a logo on a lid, a photograph on a plaque, a label on a bottle. The surface keeps its shape - nothing is raised or engraved - and the picture is printed by changing filament across it.
 
+![td-image-tool-result](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-tool-result.png?raw=true)
+
+A picture placed on a flat plate and printed in the filaments on the plate: each colour in the image is matched to the nearest one loaded, and the surface itself is not moved at all.
+
 It is the [Texture Displacement](prepare_texture_displacement) engine with the relief turned off. Everything here can also be done from that tool by setting Depth to zero and ticking Colours; this one trades the layer stack, the blend modes and the depth controls for a single picture and a short path to it. Reach for Texture Displacement instead when you want relief as well, or more than one image on the same model.
 
 - [Quick start](#quick-start)
@@ -27,6 +31,10 @@ It is the [Texture Displacement](prepare_texture_displacement) engine with the r
 
 > [!NOTE]
 > The picture is printed in the filaments you have loaded, so a two-colour logo needs two filaments on the plate and a photograph needs as many as you can give it. A single-filament printer can still place a picture, but everything in it will print in that one filament.
+
+<img alt="td-image-tool-panel" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-tool-panel.png?raw=true" height="620">
+
+The panel, top to bottom: the picture and where it goes, then **Placement** (how it is laid on, how big, how sharp), **Color** (the corrections applied before your filaments are matched to it) and **Background** (what to leave unprinted). **Apply** writes the result into the model.
 
 ## Choosing the picture
 

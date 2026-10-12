@@ -151,6 +151,10 @@ The image a layer uses is rarely perfect as it arrives: a photograph is too soft
 | **Blur** | Softens the image itself. Different from the layer's **Smoothing**, which softens the relief without altering the image - try Smoothing first |
 | **Hue** | Turns the colours of a colour image. Disabled on a greyscale one, which has no hue to turn |
 
+<img alt="td-image-adjust" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-adjust.png?raw=true" height="440">
+
+Above, Hue turned by -55 degrees: the preview follows the sliders, and **Save as copy** lights up once something has actually moved.
+
 The panel is an ordinary window rather than a modal, so the 3D view stays live behind it: orbit the model and watch the relief change as you drag. The image preview updates as you move a slider and the model follows when you let go.
 
 Because the adjusted pixels *are* the image the layer uses, they feed the colour and the relief together - raising brightness really does raise the relief. That is deliberate: one image, one source of truth, rather than a second set of knobs the bake would have to replay in the right order.
