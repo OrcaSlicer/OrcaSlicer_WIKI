@@ -43,6 +43,9 @@ Getting the first two right and the third wrong is the most common disappointmen
 
 Two more pages cover the parts with their own panel: the [UV Editor](prepare_texture_displacement_uv_editor), used by the **Unwrap** mapping, and [Pro Mode](prepare_texture_displacement_pro), which exposes the mesh preparation steps.
 
+> [!TIP]
+> For a colour picture on a model and no relief at all - a logo, a photograph, a label - the [Image](prepare_image_tool) tool is this one with the depth taken out and a much shorter panel.
+
 ## Quick start
 
 1. Select an object and open **Texture displacement** from the toolbar above the 3D view. A layer is added for you.
