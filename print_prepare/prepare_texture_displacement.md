@@ -30,6 +30,7 @@ Getting the first two right and the third wrong is the most common disappointmen
 - [Painting the area](#painting-the-area)
 - [Seeing what you will get](#seeing-what-you-will-get)
 - [Textures](#textures)
+    - [Adjusting the image](#adjusting-the-image)
 - [Stacking layers](#stacking-layers)
 - [Shaping the relief](#shaping-the-relief)
 - [Mapping](#mapping)
@@ -135,6 +136,24 @@ What makes an image work well as a height map:
 > [!TIP]
 > Changing a layer's image keeps its paint, depth and tiling, so you can audition textures without setting anything up again.
 
+### Adjusting the image
+
+The image a layer uses is rarely perfect as it arrives: a photograph is too soft, a scan is too flat, a render has speckle in it. The icon beside a layer's name opens an adjustment panel for that layer's image.
+
+| Slider | What it does |
+| --- | --- |
+| **Brightness** | Lifts the whole image towards white, or drops it towards black |
+| **Contrast** | Pushes light and dark apart about mid grey. The one to reach for when a photograph comes out as shallow mush |
+| **Sharpness** | Brings out the finest detail, applied after Blur so the two can be used together |
+| **Blur** | Softens the image itself. Different from the layer's **Smoothing**, which softens the relief without altering the image - try Smoothing first |
+| **Hue** | Turns the colours of a colour image. Disabled on a greyscale one, which has no hue to turn |
+
+The panel is an ordinary window rather than a modal, so the 3D view stays live behind it: orbit the model and watch the relief change as you drag. The image preview updates as you move a slider and the model follows when you let go.
+
+Because the adjusted pixels *are* the image the layer uses, they feed the colour and the relief together - raising brightness really does raise the relief. That is deliberate: one image, one source of truth, rather than a second set of knobs the bake would have to replay in the right order.
+
+**Save as copy** writes the adjusted image into your own texture library as a new file and points the layer at it. That is the only way an adjustment becomes permanent - **Cancel**, or closing the panel, puts the layer back as it was. An adjustment you have not saved is not written to the project either, so a `.3mf` saved mid-adjustment holds the original image.
+
 ## Stacking layers
 
 Up to **8** layers stack, each with its own paint, image and settings. They combine in list order, like layers in an image editor: **Move up** is applied earlier, **Move down** later.
@@ -147,6 +166,7 @@ Where two layers overlap, the upper one's **Blend** mode decides what happens:
 | **Subtract** | Carves this relief out of what is below | Stamping a smooth logo into a knurled area |
 | **Multiply** | Scales the relief below by this one | Masking - fade a pattern out where this layer is dark |
 | **Divide** | Amplifies the relief below where this one is dark | Rare; it is capped at 20&#215; so it cannot blow up |
+| **Override** | Replaces what is below with this layer's value, rather than combining with it | A flat panel stamped into a pattern, where you want exactly this layer's height and none of what it covers |
 
 The lowest painted layer is the **base layer**: it has nothing beneath it, so it always adds, and the panel says so rather than offering a control that would do nothing.
 
@@ -188,10 +208,14 @@ Mapping is how the flat image is wrapped onto the curved, folded surface you pai
 | **Spherical** | Domes and balls | Wraps around the centre in both directions |
 | **Unwrap (LSCM)** | A pattern that must run continuously and evenly | A real unwrap, cut at sharp edges, laid out in the [UV Editor](prepare_texture_displacement_uv_editor) where you can arrange it by hand. The only mapping with no stretching surprises - and the only one that needs work |
 | **From view** | Decals and one-off placements | Projects onto the painted area from where you are looking. Surfaces angled away from you smear |
+| **Model UV** | A model that already carries texture coordinates | Uses the UV layout the model was authored with, so a texture made for that model lands exactly where its author meant it to. Offered, and chosen by default, only when the model has one. **Tile size** does nothing here - the layout *is* the placement, and one copy of the texture covers it exactly |
 
 **From view** has its own controls: **Capture current view** re-takes the direction from the camera, **Project only on visible** repaints the layer with exactly the faces the camera can see (it replaces the layer's paint rather than adding to it), and **Projection frame** opens a semi-transparent window you drag over the 3D view like a slide projector's gate - **Apply projection frame** makes its border the hard edge of the projection, and **Clear** returns to the plain projection.
 
 **Adjust placement** replaces painting with a handle on the model: drag the flat panel to move the texture freely, or an arrow to move it along one axis. Paint something first - the handle anchors to the painted area.
+
+> [!NOTE]
+> Textures land the right way up, and are not mirrored from one side of the model to the other, under every mapping. Earlier builds laid them upside down under Triplanar and mirrored them on three of a cube's six faces. If you reopen a project made before that was corrected, **re-baking will place its texture differently from the first bake** - relief already baked into the mesh is geometry and is not affected.
 
 ## Colours
 
@@ -206,6 +230,8 @@ With it on, each colour in the texture is matched to the nearest of the filament
 | **Denoise** | Cleans up single stray triangles of the wrong colour. Raise it if the result looks speckled, lower it if small features are being swallowed |
 
 A line under the controls reports how many printable colours your current filaments produce.
+
+Colour already on the model is kept. That covers both halves of the problem: the colours a model **arrived with** - an imported `.obj` with its material, or a coloured `.3mf` - survive a bake even though the bake rebuilds the mesh under them, and colour from an **earlier bake** survives the next one, so successive bakes accumulate instead of overwriting each other. This bake's own colour goes on top of whatever was there; a triangle it does not colour keeps what it had.
 
 > [!NOTE]
 > Colour edges are only as sharp as the triangles along them, because each triangle prints in one filament. Pro mode's **Colour detail** refines the mesh where colours meet - nothing else refines there, since the surface is flat across a change of colour.
