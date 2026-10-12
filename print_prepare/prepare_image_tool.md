@@ -8,7 +8,7 @@
 
 ![td-image-tool-result](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-tool-result.png?raw=true)
 
-A picture placed on a flat plate and printed in the filaments on the plate: each colour in the image is matched to the nearest one loaded, and the surface itself is not moved at all.
+A twelve-hue colour wheel placed on a flat plate. The surface is not moved at all; what you see is each colour in the picture matched to the nearest of the four filaments loaded, which is why twelve segments come out as four colours and two blends.
 
 It is the [Texture Displacement](prepare_texture_displacement) engine with the relief turned off. Everything here can also be done from that tool by setting Depth to zero and ticking Colours; this one trades the layer stack, the blend modes and the depth controls for a single picture and a short path to it. Reach for Texture Displacement instead when you want relief as well, or more than one image on the same model.
 
@@ -74,6 +74,14 @@ These sliders change the picture before it is matched to your filaments, and tha
 | **Colours** | Reduces the picture to at most this many colours before your filaments are matched to it. The colours chosen are the ones the picture is actually made of, not an even split of the range, so a tartan keeps its own greens and reds. **Off** leaves it alone |
 | **Negative** | Prints the picture inverted, light for dark and each colour for its opposite |
 
+![td-image-colors-off](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-colors-off.png?raw=true)
+
+**Colours** off: the picture keeps every shade it arrived with, and the sky is a smooth gradient.
+
+![td-image-colors-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-colors-4.png?raw=true)
+
+The same picture reduced to four. The gradient collapses into flat bands and the sun merges into the sky - which is what printing it in four filaments was going to do anyway, so it is better to see it here and judge it.
+
 **Reset all** puts every correction and the background back to where they started. Where you placed the picture and how big it is are not touched.
 
 > [!TIP]
@@ -85,11 +93,11 @@ A logo usually arrives on a white card, and printing that card is rarely what yo
 
 ![td-image-background-kept](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-background-kept.png?raw=true)
 
-Without it, the card the logo was drawn on is printed too - the white slab around the ring is filament, not the plate showing through.
+Without it, the card the wheel was drawn on is printed too - the white square around the disc is filament, not the plate showing through.
 
 ![td-image-background-removed](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-background-removed.png?raw=true)
 
-With it on, only the ring and the triangle are printed and the object's own colour fills the rest.
+With it on, only the coloured segments are printed. Note that the hole in the middle of the wheel goes with it: it is the same white, and the key removes a colour, not a region. Lower **Tolerance**, or pick the background with the dropper, when that is not what you want.
 
 By default the colour removed is taken from the **four corners** of the picture, which is right for nearly every logo. When it is not:
 

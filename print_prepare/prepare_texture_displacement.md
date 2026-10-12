@@ -153,7 +153,11 @@ The image a layer uses is rarely perfect as it arrives: a photograph is too soft
 
 <img alt="td-image-adjust" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-adjust.png?raw=true" height="440">
 
-Above, Hue turned by -55 degrees: the preview follows the sliders, and **Save as copy** lights up once something has actually moved.
+The panel as it opens, on a layer whose image is a colour wheel.
+
+<img alt="td-image-adjust-hue" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-adjust-hue.png?raw=true" height="440">
+
+The same layer with **Hue** turned by 120 degrees: every colour has walked a third of the way round the wheel, the preview follows as you drag, and **Save as copy** lights up once something has actually moved.
 
 The panel is an ordinary window rather than a modal, so the 3D view stays live behind it: orbit the model and watch the relief change as you drag. The image preview updates as you move a slider and the model follows when you let go.
 
@@ -226,6 +230,10 @@ Mapping is how the flat image is wrapped onto the curved, folded surface you pai
 ![td-model-uv](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-model-uv.png?raw=true)
 
 A layer on a model that carries its own UV layout: **Model UV** is the sixth mapping and is picked for you, and **Tile size** is greyed out because the layout already decides the placement.
+
+![td-orientation](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-orientation.png?raw=true)
+
+A deliberately lopsided test image - one arrow, four different corner markers, a dashed strip along the bottom - laid on a plate. The arrow points up the model and the strip stays at the bottom, which is how you tell at a glance that a texture is neither upside down nor mirrored.
 
 > [!NOTE]
 > Textures land the right way up, and are not mirrored from one side of the model to the other, under every mapping. Earlier builds laid them upside down under Triplanar and mirrored them on three of a cube's six faces. If you reopen a project made before that was corrected, **re-baking will place its texture differently from the first bake** - relief already baked into the mesh is geometry and is not affected.
