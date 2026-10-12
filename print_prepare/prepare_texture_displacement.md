@@ -35,6 +35,7 @@ Getting the first two right and the third wrong is the most common disappointmen
 - [Mapping](#mapping)
 - [Colours](#colours)
 - [Baking](#baking)
+- [Saving the project](#saving-the-project)
 - [Recipes](#recipes)
 - [Troubleshooting](#troubleshooting)
 - [Limitations](#limitations)
@@ -66,6 +67,9 @@ That is the whole loop. Everything else is refinement.
 6. **Bake** - turns the preview into real geometry. **Close** leaves without baking.
 
 **Dock panel / Undock panel** at the top of the panel pins it to the side of the 3D view or lets it float freely over it. Whichever you choose, leaving the tool keeps your paint, layers and settings with the model.
+
+> [!TIP]
+> Every slider in the panel also takes an exact number: **Ctrl+click** the track, or press the small edit icon at its right end. Hovering a slider shows what it does and the range it accepts.
 
 ## Standard and Pro
 
@@ -229,6 +233,25 @@ The budget is the ceiling and the resolution is the demand, so the panel warns y
 - The paint of each baked layer is cleared - those triangles no longer describe the same unbaked surface. The layers, their textures and their settings stay, so you can carry on somewhere else with them.
 - Colours land in the object's [Color Painting](prepare_color_painting) data.
 
+## Saving the project
+
+Everything the panel holds is written into the `.3mf`, so a project reopens with the relief still set up and still editable - not only the baked geometry.
+
+What travels with the project:
+
+- The layer stack, and every setting on every layer.
+- Each layer's **texture image**, copied into the archive itself. A project opened on another machine, or after you have tidied your texture folder, still has its textures.
+- The **painted region** of each layer.
+- The **unwrap work**: seams you marked, islands you placed by hand, and individual UV edits - see the [UV Editor](prepare_texture_displacement_uv_editor).
+- Which layer was selected, and whether you were in Standard or Pro.
+
+What does not:
+
+- The preview mesh, which is rebuilt when you reopen the project.
+- Whether the panel was docked, which is an application preference rather than a property of the model.
+
+A project is readable both ways round: an older OrcaSlicer opens one of these files and simply ignores the texture data, and this version opens an older project and finds nothing to restore. Baked relief and baked colours are ordinary model geometry, so they were always saved and still are.
+
 ## Recipes
 
 Three worked examples to start from. All of them assume Standard mode.
@@ -274,10 +297,7 @@ Three worked examples to start from. All of them assume Standard mode.
 
 ## Limitations
 
-> [!IMPORTANT]
-> Paint, layers and their settings live with the model in memory but are **not yet stored in project files**. Bake before saving a `.3mf`, or the relief will not be there when the project is reopened. Baked geometry and baked colours are ordinary model data and save normally.
-
 - **Anything that replaces the geometry drops unbaked paint** - Simplify, and Pro mode's Subdivide and Remesh. Relief that is already baked in is unaffected.
-- **Island placements are tied to the current unwrap.** Repainting or changing the seam angle re-cuts the pieces and discards placements made by hand before it.
+- **Island placements are tied to the current unwrap.** They are saved with the project, but repainting or changing the seam angle re-cuts the pieces and discards placements made by hand before it.
 - **Fast view is an approximation**, and shows only the active layer.
 - **Relief cannot exceed what the mesh can hold.** There is no level of detail below the resolution the budget can pay for, however the sliders are set.
