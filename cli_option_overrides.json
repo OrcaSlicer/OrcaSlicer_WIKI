@@ -192,6 +192,12 @@
       "description": "Detect models saved in meters or inches and convert them to millimeters.",
       "notes": ""
     },
+    "repair": {
+      "group": "Geometry",
+      "input": "boolean",
+      "description": "Repair every part of the loaded models as [Fix Model](prepare_stl_transformation#fix-model) does: close holes and cracks, orient the meshes outward and remove local self-intersections. Painting is kept.",
+      "notes": "Disabled by default. A part the repair cannot turn into a solid is left as it was, with a warning in the log."
+    },
     "repetitions": {
       "group": "Object Handling",
       "input": "`count` (int)",

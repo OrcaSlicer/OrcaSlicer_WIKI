@@ -22,6 +22,7 @@ Transform options change the loaded model's geometry or placement before slicing
 | Flag | Input | Description | Notes |
 | --- | --- | --- | --- |
 | `--convert-unit` | boolean | Detect models saved in meters or inches and convert them to millimeters. | |
+| `--repair` | boolean | Repair every part of the loaded models as [Fix Model](prepare_stl_transformation#fix-model) does: close holes and cracks, orient the meshes outward and remove local self-intersections. Painting is kept. | Disabled by default. A part the repair cannot turn into a solid is left as it was, with a warning in the log. |
 | `--rotate` | degrees (float) | Rotate every loaded object around the Z axis. See [Rotate](prepare_object_manipulation#rotate). | |
 | `--rotate-x` | degrees (float) | Rotate every loaded object around the X axis. | |
 | `--rotate-y` | degrees (float) | Rotate every loaded object around the Y axis. | |

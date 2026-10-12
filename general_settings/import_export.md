@@ -154,6 +154,8 @@ A finer mesh will result in a more accurate representation of the original surfa
 
 Enabling this option will split the imported 3D file into separate [parts of the same object](prepare_object_set#split-to-parts). This is especially useful for adjusting individual part positions, tweaking print settings, or optimizing the model through simplification while maintaining the original design [assembly](prepare_assembly_tools).
 
+Each solid becomes a part, and so does each shell outside a solid, as found in surface models. Faces that belong to no shell stay together as one part.
+
 ![stl-transformation-split](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/STL-Transformation/stl-transformation-split.png?raw=true)
 
 ##### Don't show again
