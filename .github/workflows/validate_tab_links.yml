@@ -137,15 +137,16 @@ jobs:
 
             function collectReferences(text) {
               const refs = [];
-              const appendSinglePattern = /append_single_option_line\s*\(\s*"([^"]+)"\s*(?:,\s*"([^"]+)")?/g;
+              // The first argument is an option key or an Option variable, as in append_single_option_line(option, "link").
+              const appendSinglePattern = /append_single_option_line\s*\(\s*(?:"([^"]+)"|([A-Za-z_][\w.]*))\s*(?:,\s*"([^"]+)")?/g;
               let match;
               while ((match = appendSinglePattern.exec(text)) !== null) {
-                if (!match[2]) {
+                if (!match[3]) {
                   continue;
                 }
                 refs.push({
-                  option: match[1],
-                  target: match[2].trim(),
+                  option: match[1] || match[2],
+                  target: match[3].trim(),
                   line: lineFromIndex(match.index),
                 });
               }
