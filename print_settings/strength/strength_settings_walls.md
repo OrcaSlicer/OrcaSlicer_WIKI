@@ -30,7 +30,7 @@ Adjusting wall settings can significantly affect layer adhesion, strength, appea
 [Variable](built_in_placeholders_variables): `wall_loops`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--wall-loops=1`.  
-"Wall loops" refers to the number of times the outer wall is printed in a loop.  
+"Wall loops" is the number of walls printed on each layer.  
 Increasing the wall loops will:
 
 - Enhance:
@@ -47,13 +47,13 @@ Increasing the wall loops will:
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--alternate-extra-wall=1`.  
 This setting adds an extra wall to every other layer. This way the infill gets wedged vertically between the walls, resulting in stronger prints.  
-When this option is enabled, the ensure vertical shell thickness option needs to be disabled.  
+This option doesn't work well when Ensure vertical shell thickness is set to **All**; when both are enabled, OrcaSlicer offers to change it to **Moderate**.  
 
 > [!WARNING]
 > It's not recommended to use this option with:
 >
 > - [Lightning infill](strength_settings_patterns#lightning) as there is limited infill to anchor the extra perimeters to.
-> - **[Ensure vertical shell thickness: ALL](strength_settings_advanced#ensure-vertical-shell-thickness)**
+> - **[Ensure vertical shell thickness: All](strength_settings_advanced#ensure-vertical-shell-thickness)**
 
 ## Detect thin wall
 
@@ -65,9 +65,9 @@ By default, walls are printed as closed loops. When a wall is too thin to contai
 Thin walls printed this way may have reduced surface quality and strength because they are not closed loops.
 
 > [!TIP]
-> Usually, it is recommended to use [Arachne wall generator](quality_settings_wall_generator#arachne) which will disable "Detect thin walls" because it uses a different approach to wall generation.
+> It is usually recommended to use the [Arachne wall generator](quality_settings_wall_generator#arachne), which disables "Detect thin walls" because it uses a different approach to wall generation.
 
-- In small details it can generate details that wouldn't be possible with traditional wall generation methods.  
+- In small details, it can generate features that wouldn't be possible with traditional wall generation methods.  
   ![walls-small-detect-thin-off](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/walls/walls-small-detect-thin-off.png?raw=true)
   ![walls-small-detect-thin-on](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/walls/walls-small-detect-thin-on.png?raw=true)
 - In large prints, it can generate defects more easily due to the reduced wall thickness.

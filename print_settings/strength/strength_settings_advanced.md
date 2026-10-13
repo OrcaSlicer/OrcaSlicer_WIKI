@@ -28,9 +28,10 @@ When enabled, these directions rotate together with the model so the printed fea
 [CLI Example](cli_mode#setting-overrides): `--bridge-angle=1` (same pattern for the other variables above).  
 If left to zero, the bridging angle will be calculated automatically for each specific bridge.  
 Otherwise the provided angle will be used according to:
-    - The absolute coordinates
-    - The absolute coordinates + Model rotation: If [Align directions to model](#align-directions-to-model) is enabled
-    - The optimal automatic angle + this value: If [Relative Bridge Angle](#relative-bridge-angle) is enabled
+
+- The absolute coordinates
+- The absolute coordinates + Model rotation: If [Align directions to model](#align-directions-to-model) is enabled
+- The optimal automatic angle + this value: If [Relative Bridge Angle](#relative-bridge-angle) is enabled
 
 > [!NOTE]
 > Use 180° for zero absolute angle.
@@ -42,7 +43,7 @@ Otherwise the provided angle will be used according to:
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--relative-bridge-angle=1`.  
 When enabled, the bridge angle values are added to the automatically calculated bridge direction instead of overriding it.  
-Recommended to add a small angle (<10°) to improve bridge covering in closed shapes.
+A small angle (<10°) is recommended to improve bridge coverage in closed shapes.
 
 ![bridge-angle-0](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-angle-0.png?raw=true)
 ![bridge-angle-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-angle-2.png?raw=true)
@@ -54,7 +55,7 @@ Recommended to add a small angle (<10°) to improve bridge covering in closed sh
 [Variable](built_in_placeholders_variables): `minimum_sparse_infill_area`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--minimum-sparse-infill-area=1`.  
-Sparse infill areas smaller than the threshold value are replaced by [internal solid infill](strength_settings_infill#internal-solid-infill).
+Sparse infill areas smaller than the threshold value (in mm²) are replaced by [internal solid infill](strength_settings_infill#internal-solid-infill).
 This setting helps to ensure that small areas of sparse infill do not compromise the strength of the print. It is particularly useful for models with intricate designs or small features where sparse infill may not provide sufficient support.
 
 ## Infill Combination
@@ -63,7 +64,7 @@ This setting helps to ensure that small areas of sparse infill do not compromise
 [Variable](built_in_placeholders_variables): `infill_combination`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--infill-combination=1`.  
-Automatically combine [sparse infill](strength_settings_infill) of several layers so they print together and reduce print time and while increasing strength. While walls are still printed with the original [layer height](quality_settings_layer_height).
+Automatically combine [sparse infill](strength_settings_infill) of several layers so they print together, reducing print time while increasing strength. Walls are still printed with the original [layer height](quality_settings_layer_height).
 
 ![fill-combination](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-combination.png?raw=true)
 
@@ -76,7 +77,7 @@ Automatically combine [sparse infill](strength_settings_infill) of several layer
 Maximum layer height for the combined sparse infill.  
 Set it to 0 or 100% to use the nozzle diameter (for maximum reduction in print time), or to a value of ~80% to maximize sparse infill strength.
 
-The number of layers over which infill is combined is derived by dividing this value by the layer height and rounding down to the nearest decimal.
+The number of layers over which infill is combined is derived by dividing this value by the layer height and rounding down to a whole number.
 
 Use either absolute mm values (e.g., 0.32mm for a 0.4mm nozzle) or percentages (e.g., 80%). This value must not be larger than the nozzle diameter.
 
@@ -86,7 +87,7 @@ Use either absolute mm values (e.g., 0.32mm for a 0.4mm nozzle) or percentages (
 [Variable](built_in_placeholders_variables): `detect_narrow_internal_solid_infill`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--detect-narrow-internal-solid-infill=1`.  
-This option auto-detects narrow internal solid infill areas. If enabled, the [concentric pattern](strength_settings_patterns#concentric) will be used in those areas to speed up printing. Otherwise, the [rectilinear pattern](strength_settings_patterns#rectilinear) will be used by default.
+This option auto-detects narrow internal solid infill areas. If enabled, the [concentric pattern](strength_settings_patterns#concentric) will be used in those areas to speed up printing. Otherwise, they use the selected [internal solid infill](strength_settings_infill#internal-solid-infill) pattern (for example, the [rectilinear pattern](strength_settings_patterns#rectilinear)).
 
 ## Ensure vertical shell thickness
 

@@ -41,7 +41,7 @@ Infill density determines the amount of material used to fill the interior of a 
     - Print time.
 
 > [!NOTE]
-> Density usually is calculated as a % of the total infill volume, not the total print volume.  
+> Density is usually calculated as a percentage of the total infill volume, not the total print volume.  
 > Nevertheless, **not all patterns interpret density the same way**, so the actual material usage may vary.  
 > You can see each pattern's material usage in the [Patterns section](strength_settings_patterns).
 
@@ -77,8 +77,8 @@ To check which patterns support multiline infill, see the Patterns Quick Referen
 - Increasing the number of lines (e.g., 2 or 3) can **improve part strength** and **print speed** without increasing material usage.
 - **Fire-retardant applications:** Some flame-resistant materials (like PolyMax PC-FR) require a minimum printed wall/infill thickness—often 1.5–3 mm—to comply with standards. Since infill contributes to overall part thickness, using multiple lines helps achieve the necessary thickness without switching to a large nozzle or printing with 100% infill. This is especially useful for high-temperature materials like PC, which are prone to warping when fully solid.
 - Creating **aesthetic** infill patterns (like [Grid](strength_settings_patterns#grid) or [Honeycomb](strength_settings_patterns#honeycomb)) with multiple line widths—without relying on CAD modeling or being limited to a single extrusion width.
-- Increase stability for weak infill patterns like [Lightning](strength_settings_patterns#lightning).  
-- Printing gears and other mechanisms, because multiline infill transfer torque better.  
+- Increasing stability for weak infill patterns like [Lightning](strength_settings_patterns#lightning).  
+- Printing gears and other mechanisms, because multiline infill transfers torque better.  
 
 ![infill-multiline-aesthetic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-aesthetic.gif?raw=true)
 
@@ -89,7 +89,7 @@ The following describes possible strategies for infill generation.
 
 #### Classic Strategy
 
-For most self intersecting infills (e.g. [Quarter Cubic](strength_settings_patterns#quarter-cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
+For most self-intersecting infills (e.g. [Quarter Cubic](strength_settings_patterns#quarter-cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
 
 In this example of a pattern of crossing lines and the [Gyroid](strength_settings_patterns#gyroid) pattern, you can see (in purple) the closed loops generated to avoid overlapping lines.
 
@@ -112,7 +112,7 @@ This strategy improves printing times by avoiding closed loops in favor of conti
 
 ## Direction and Rotation
 
-These settings control the orientation of the sparse infill lines to optimize strength and material usage.
+These settings control the orientation of the sparse and solid infill lines to optimize strength and material usage.
 
 ### Direction
 
@@ -129,7 +129,7 @@ Controls the direction of the infill lines to optimize or strengthen the print.
 
 ### Rotation
 
-This parameter adds a rotation to the sparse infill direction for each layer according to the specified template.  
+This parameter sets the sparse (or solid) infill direction for each layer according to the specified template. When a template is set, the matching [Direction](#direction) setting is ignored.  
 The template is a comma-separated list of angles in degrees.
 
 For example:
@@ -167,13 +167,13 @@ Other examples:
 [Variable](built_in_placeholders_variables): `symmetric_infill_y_axis`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--symmetric-infill-y-axis=1`.  
-When enabled, the infill pattern will be mirrored along the Y-axis of the print bed. This can help achieve more uniform strength distribution in certain geometries.
+When enabled, the infill pattern is mirrored about an axis parallel to the Y axis that passes through the center of the object. This can help achieve more uniform strength distribution in certain geometries.
 
 > [!IMPORTANT]
-> This setting may not be supported by all infill patterns.
+> This setting is only available for the [Zig Zag](strength_settings_patterns#zig-zag), [Cross Zag](strength_settings_patterns#cross-zag) and [Locked Zag](strength_settings_patterns#locked-zag) patterns.
 
 You can apply this setting with multiple objects or using modifiers to control infill orientation for different parts of your print.  
-For example, you might want to mirror the infill pattern for specific components to enhance their structural integrity like planes's wings or boat hulls without the need of using 45° rotation.
+For example, you might want to mirror the infill pattern of symmetric components, like airplane wings or boat hulls, to enhance their structural integrity without needing a 45° rotation.
 
 ![symmetric_infill_y_axis](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/symmetric_infill_y_axis.png?raw=true)
 
@@ -183,7 +183,7 @@ For example, you might want to mirror the infill pattern for specific components
 [Variable](built_in_placeholders_variables): `infill_wall_overlap`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--infill-wall-overlap=20%`.  
-Infill area is enlarged slightly to overlap with wall for better bonding. The percentage value is relative to line width of sparse infill. Set this value to ~10-15% to minimize potential over extrusion and accumulation of material resulting in rough surfaces.
+Infill area is enlarged slightly to overlap with wall for better bonding. The percentage value is relative to line width of sparse infill. Set this value to ~10-15% to minimize potential over-extrusion and accumulation of material resulting in rough surfaces.
 
 - **Infill Wall Overlap Off**
 
@@ -201,18 +201,18 @@ Infill area is enlarged slightly to overlap with wall for better bonding. The pe
 [Options](option_type#choice): `everywhere, topbottom, nowhere`.  
 [CLI Example](cli_mode#setting-overrides): `--gap-fill-target=everywhere`.  
 Enables gap fill for the selected solid surfaces.  
-The minimum gap length that will be filled can be controlled from the filter out tiny gaps option.
+The minimum gap length that will be filled can be controlled with the [Filter out tiny gaps](#filter-out-tiny-gaps) option.
 
 1. **Everywhere:** Applies gap fill to top, bottom and internal solid surfaces for maximum strength.
-2. **Top and Bottom surfaces:** Applies gap fill to top and bottom surfaces only, balancing print speed, reducing potential over extrusion in the solid infill and making sure the top and bottom surfaces have no pinhole gaps.
+2. **Top and bottom surfaces:** Applies gap fill to top and bottom surfaces only, balancing print speed, reducing potential over-extrusion in the solid infill and making sure the top and bottom surfaces have no pinhole gaps.
 3. **Nowhere:** Disables gap fill for all solid infill areas.
 
 Note that if using the [classic perimeter generator](quality_settings_wall_generator#classic), gap fill may also be generated between perimeters, if a full width line cannot fit between them.
 That perimeter gap fill is not controlled by this setting.
 
-If you would like all gap fill, including the classic perimeter generated one, removed, set the filter out tiny gaps value to a large number, like 999999.
+If you would like all gap fill, including the classic perimeter generated one, removed, set the Filter out tiny gaps value to a large number, like 999999.
 
-However this is not advised, as gap fill between perimeters is contributing to the model's strength. For models where excessive gap fill is generated between perimeters, a better option would be to switch to the [arachne wall generator](quality_settings_wall_generator#arachne) and use this option to control whether the cosmetic top and bottom surface gap fill is generated.
+However, this is not advised, as gap fill between perimeters contributes to the model's strength. For models where excessive gap fill is generated between perimeters, a better option would be to switch to the [Arachne wall generator](quality_settings_wall_generator#arachne) and use this option to control whether the cosmetic top and bottom surface gap fill is generated.
 
 ## Filter out tiny gaps
 
@@ -220,7 +220,7 @@ However this is not advised, as gap fill between perimeters is contributing to t
 [Variable](built_in_placeholders_variables): `filter_out_gap_fill`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--filter-out-gap-fill=1`.  
-Don't print gap fill with a length is smaller than the threshold specified (in mm).  
+Don't print gap fill with a length smaller than the specified threshold (in mm).  
 This setting applies to top, bottom and solid infill and, if using the [classic perimeter generator](quality_settings_wall_generator#classic), to wall gap fill.
 
 ## Anchor
@@ -229,8 +229,8 @@ This setting applies to top, bottom and solid infill and, if using the [classic 
 [Variables](built_in_placeholders_variables): `infill_anchor_max`, `infill_anchor`.  
 [Type](option_type#integer-float-percentage): `Float or Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--infill-anchor-max=20%` (same pattern for the other variables above).  
-Connect an infill line to an internal perimeter with a short segment of an additional perimeter. If expressed as percentage (example: 15%) it is calculated over infill extrusion width.
-OrcaSlicer tries to connect two close infill lines to a short perimeter segment. If no such perimeter segment shorter than this parameter is found, the infill line is connected to a perimeter segment at just one side and the length of the perimeter segment taken is limited to infill_anchor, but no longer than this parameter. If set to 0, the old algorithm for infill connection will be used, it should create the same result as with 1000 & 0.
+Connect an infill line to an internal perimeter with a short segment of an additional perimeter. If expressed as a percentage (example: 15%), it is calculated over the infill extrusion width.
+OrcaSlicer tries to connect two close infill lines to a short perimeter segment. If no such perimeter segment shorter than the Maximum length of the infill anchor is found, the infill line is connected to a perimeter segment at just one side and the length of the perimeter segment taken is limited to the Sparse infill anchor length, but no longer than the Maximum length of the infill anchor. If the Maximum length of the infill anchor is set to 0, the old algorithm for infill connection is used, which should create the same result as 1000 & 0.
 
 - **Anchor Off**
 
@@ -246,7 +246,7 @@ OrcaSlicer tries to connect two close infill lines to a short perimeter segment.
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `monotonic, monotonicline, rectilinear, alignedrectilinear, concentric, spiralinset, hilbertcurve, archimedeanchords, octagramspiral`.  
 [CLI Example](cli_mode#setting-overrides): `--internal-solid-infill-pattern=monotonic`.  
-Line pattern of internal solid infill. If the [detect narrow internal solid infill](strength_settings_advanced#detect-narrow-internal-solid-infill) be enabled, the [concentric pattern](strength_settings_patterns#concentric) will be used for the small area.
+Line pattern of internal solid infill. If [Detect narrow internal solid infill](strength_settings_advanced#detect-narrow-internal-solid-infill) is enabled, the [Concentric pattern](strength_settings_patterns#concentric) will be used for small areas.
 
 ## Extra Solid Infill
 
@@ -268,7 +268,7 @@ The pattern supports two formats:
 
 Examples:
 
-```
+```text
 5 or 5#1    # Insert 1 solid layer every 5 layers
 5#          # Same as 5#1
 10#2        # Insert 2 consecutive solid layers every 10 layers
@@ -278,7 +278,7 @@ Examples:
 
 Specify exact layer numbers (1-based) using comma-separated values. Each entry may be a single layer `N` or a range `N#K` to insert K consecutive solid layers starting at layer N:
 
-```
+```text
 1,7,9       # Insert solid layers at layers 1, 7, and 9
 5,15,25     # Insert solid layers at layers 5, 15, and 25
 5,9#2,18    # Insert at 5; at 9 and 10 (because #2); and at 18
@@ -288,7 +288,7 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 >
 > - Layer numbers are 1-based (first layer is layer 1)
 > - `#K` is optional in both interval and explicit list entries (`N#` equals `N#1`)
-> - Solid layers are inserted in addition to the normal sparse infill pattern
+> - Solid infill replaces the sparse infill only on the selected layers; all other layers keep the normal sparse infill pattern
 
 > [!TIP]
 > Use this feature to:
@@ -383,7 +383,7 @@ Not every vertex of a supported pattern can be rounded, so some parts of the pat
 > NEW FEATURE: **Top/Bottom layer direction**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-Fixed angle (in degrees) for the top and bottom solid infill lines.  
+Fixed angle (in degrees) for the top and bottom surface lines.  
 ![top-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/top-direction.png?raw=true)
 
 The top angle also applies to ironing lines.  
@@ -404,6 +404,7 @@ Centers the internal infill of each part on itself, as if it were sliced on its 
 By default the entire assembly is treated as a single whole, so a centered or rotated infill pattern is referenced to one common center and rotates around it. When enabled, each part is centered on its own full 3D bounding box — producing the same pattern you would get by slicing that part on its own.
 
 ![separated-infills](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/separated-infills.png?raw=true)
+
 Parts are grouped by their real geometry when deciding what shares a center:
 
 - **Touching or overlapping parts** are treated as one body and share a single center.

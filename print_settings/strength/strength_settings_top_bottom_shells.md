@@ -53,7 +53,7 @@ The top solid infill area is slightly enlarged to overlap with walls for better 
 A value of 25-30% is a good starting point. The percentage value is relative to the line width of the sparse infill.
 
 > [!TIP]
-> Check [Monotonic Line](strength_settings_patterns#monotonic-line) to learn about its overlaying differences with [Monotonic](strength_settings_patterns#monotonic) and [Rectilinear](strength_settings_patterns#rectilinear).
+> Check [Monotonic line](strength_settings_patterns#monotonic-line) to learn about its overlap differences with [Monotonic](strength_settings_patterns#monotonic) and [Rectilinear](strength_settings_patterns#rectilinear).
 
 ## Surface Pattern
 
@@ -67,13 +67,14 @@ If [Shell Layers](#shell-layers) is greater than 1, the surface pattern will be 
 > [!TIP]
 > See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
 
- The surface patterns are:
+The surface patterns are:
 
 - **[Concentric](strength_settings_patterns#concentric)**
 - **[Rectilinear](strength_settings_patterns#rectilinear)**
 - **[Monotonic](strength_settings_patterns#monotonic)**
-- **[Monotonic Line](strength_settings_patterns#monotonic-line)** Usually Recommended for Top.
+- **[Monotonic line](strength_settings_patterns#monotonic-line)**: usually recommended for top surfaces.
 - **[Aligned Rectilinear](strength_settings_patterns#aligned-rectilinear)**
+- **Spiral Inset**
 - **[Hilbert Curve](strength_settings_patterns#hilbert-curve)**
 - **[Archimedean Chords](strength_settings_patterns#archimedean-chords)**
 - **[Octagram Spiral](strength_settings_patterns#octagram-spiral)**
@@ -142,7 +143,7 @@ Direction in which the [Surface Expansion](#surface-expansion) grows:
 
 ### Surface Expansion and Only One Wall
 
-[Only one wall](quality_settings_wall_and_surfaces#only-one-wall) on top surfaces keeps a single wall where a top surface is detected. With more than one [wall loop](strength_settings_walls#wall-loops), the remaining inner walls used to be rerouted around the top surface, which could ring a feature with walls that were not needed, and cut up — or overlap with — an expanded top surface.
+[Only one wall](quality_settings_wall_and_surfaces#only-one-wall) on top surfaces keeps a single wall where a top surface is detected. With more than one [wall loop](strength_settings_walls#wall-loops), the remaining inner walls are rerouted around the top surface, which can ring a feature with walls that are not needed, and cut up — or overlap with — an expanded top surface.
 
 When **Surface Expansion** is in use, those inner walls are removed over the top surface instead, so the expanded surface stays continuous and the pattern is not interrupted:
 
@@ -150,7 +151,7 @@ When **Surface Expansion** is in use, those inner walls are removed over the top
 - **[Arachne](quality_settings_wall_generator#arachne)** wall generator: the inner walls are cut instead of dropped, so only the part running over the top surface is removed and the rest is kept where the geometry continues upward.
 
 > [!NOTE]
-> This behavior needs a top fill that can actually take that space. With **Surface Expansion** at `0` or [Surface Density](#surface-density) at `0%`, the inner walls are generated as before, preserving the internal support.
+> This behavior needs a top fill that can actually take that space. With **Surface Expansion** at `0` or [Surface Density](#surface-density) at `0%`, the inner walls are still rerouted around the top surface, preserving the internal support.
 
 ## Center Surface Pattern On
 
@@ -167,7 +168,7 @@ When **Surface Expansion** is in use, those inner walls are removed over the top
 Chooses where the centering point of centered top/bottom surface patterns ([Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)) is placed.  
 By default these patterns are centered individually on each surface, which does not keep the pattern continuous across a whole product — a drawback for some artistic prints where the surfaces should read as one piece. This setting widens the scope of the shared center:
 
-- **Each Surface:** centers the pattern on every individual surface region, so each island is symmetric on its own. This is the previous behavior.
+- **Each Surface:** centers the pattern on every individual surface region, so each island is symmetric on its own. This is the default.
 
 ![center_of_surface_pattern_each_surface](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/top-bottom-shells/center_of_surface_pattern_each_surface.png?raw=true)
 
@@ -191,10 +192,10 @@ By default these patterns are centered individually on each surface, which does 
 > NEW FEATURE: **Fill order**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-Direction in which the top and bottom surfaces are filled when using a center-based pattern ([Concentric](strength_settings_patterns#concentric), [Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)). The spirals/rings are then deposited consistently inward or outward instead of following the default shortest path.
+Direction in which the top and bottom surfaces are filled when using a center-based pattern ([Concentric](strength_settings_patterns#concentric), Spiral Inset, [Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)). The spirals/rings are then deposited consistently inward or outward instead of following the default shortest path.
 
 ![fill-order](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/fill-order.jpg?raw=true)
 
-- **Default:** uses legacy ordering.
+- **Default:** uses shortest-path ordering, which may run in either direction.
 - **Outward:** starts at the center of the surface, so any excess material is pushed towards the edge where it is least visible. Preferred for **top** surfaces, as it hides small imperfections better.
 - **Inward:** starts at the edge and ends with the tight curves at the center. Preferred for **bottom** surfaces, as starting each surface with the wider outer curves improves first layer adhesion on build plates where the tight curves at the center may not stick.

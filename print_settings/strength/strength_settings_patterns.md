@@ -6,7 +6,7 @@ The infill pattern also impacts the uniformity of the layer times, since the pat
 There is no one-size-fits-all solution, as the best pattern depends on the specific print and its requirements.
 
 Many patterns may look similar and have similar overall specifications, but they can behave very differently in practice.  
-As most settings in 3D printing, experience is the best way to determine which pattern works best for your specific needs.
+As with most settings in 3D printing, experience is the best way to determine which pattern works best for your specific needs.
 
 > [!TIP]
 > Quickly compare patterns with the [Patterns Quick Reference Table](strength_settings_patterns_quick_reference).
@@ -29,7 +29,7 @@ Print time can vary significantly between patterns due to differences in their p
 Some patterns may complete faster due to more efficient use of the print head's movement, while others may take longer due to more complex paths.
 
 > [!NOTE]
-> OrcaSlicer Time estimations are not always accurate, especially with complex patterns.  
+> OrcaSlicer time estimates are not always accurate, especially with complex patterns.  
 > This analysis was estimated with [Klipper Estimator](https://github.com/Annex-Engineering/klipper_estimator).
 
 ### Layer Time Variability
@@ -84,7 +84,7 @@ Layer time variability refers to the differences in time it takes to print each 
 
 ## Rectilinear
 
-Parallel lines spaced according to infill density. Each layer is printed perpendicular to the previous, resulting in low vertical bonding. Consider using new [Zig Zag](#zig-zag) infill instead.
+Parallel lines spaced according to infill density. Each layer is printed perpendicular to the previous, resulting in low vertical bonding. Consider using [Zig Zag](#zig-zag) infill instead.
 
 - **Strength**
     - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
@@ -108,8 +108,8 @@ Parallel lines spaced according to infill density. Each layer is printed perpend
 
 ## Aligned Rectilinear
 
-Parallel lines spaced by the infill spacing, each layer printed in the same direction as the previous layer. Good horizontal strength perpendicular to the lines, but terrible in parallel direction.
-Recommended with layer anchoring to improve not perpendicular strength.
+Parallel lines spaced by the infill spacing, each layer printed in the same direction as the previous layer. Good horizontal strength perpendicular to the lines, but very poor in the parallel direction.
+Recommended with layer anchoring to improve non-perpendicular strength.
 
 - **Strength**
     - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
@@ -132,7 +132,7 @@ Recommended with layer anchoring to improve not perpendicular strength.
 
 ## Zig Zag
 
-Similar to [rectilinear](#rectilinear) with consistent pattern between layers.
+Similar to [rectilinear](#rectilinear), with a consistent pattern between layers.
 
 - **Strength**
     - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
@@ -153,7 +153,7 @@ Similar to [rectilinear](#rectilinear) with consistent pattern between layers.
 
 ## Cross Zag
 
-Similar to [Zig Zag](#zig-zag) but displacing each layer with Infill shift step parameter.
+Similar to [Zig Zag](#zig-zag), but each layer is shifted by the **Infill shift step** parameter.
 
 - **Strength**
     - **Horizontal (X-Y):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
@@ -185,7 +185,7 @@ When using this fill, you can individually modify the density of the skeleton an
     - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
     - **Vertical (Z):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
 - **Density Calculation:** Similar to [Zig Zag](#zig-zag).
-Skin density * ( Infill Area - Skin Area + lock depth area) + ( Skin density * Skin area).
+Skeleton density * (Infill area - Skin area + Lock depth area) + (Skin density * Skin area).
     - **Material Usage:** Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true)
     - **Print Time:** Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true)
         - **Material/Time (Higher better):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
@@ -222,7 +222,7 @@ Similar to [rectilinear](#rectilinear), but each line is slightly rotated to imp
 
 ## Grid
 
-Two-layer pattern of perpendicular lines, forming a grid. Overlapping points may cause noise or artifacts.
+Two sets of perpendicular lines on every layer, forming a grid. Overlapping points may cause noise or artifacts.
 
 - **Strength**
     - **Horizontal (X-Y):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
@@ -348,7 +348,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
 
 ## Support Cubic
 
-Support |Cubic is a variation of the [Cubic](#cubic) infill pattern that is specifically designed for support top layers. Will use more material than Lightning infill but will provide better strength. Nevertheless, it is still a low-density infill pattern.
+Support Cubic is a variation of the [Cubic](#cubic) infill pattern that is specifically designed to support top layers. It uses more material than Lightning infill but provides better strength. Nevertheless, it is still a low-density infill pattern.
 
 - **Strength**
     - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
@@ -383,7 +383,7 @@ It determines how far the infill can extend from walls before needing support.
 ### Prune Angle
 
 Controls how aggressively short/unsupported branches of the Lightning infill are pruned.  
-A lower angle will result in more pruning, while a higher angle will allow for more unsupported branches.
+A higher angle will result in more pruning, while a lower angle will keep longer branches.
 
 ### Straightening Angle
 
@@ -425,7 +425,7 @@ Hexagonal pattern balancing strength and material use. Double walls in each hexa
         - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
         - **Layer time Variability:** None
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
@@ -497,7 +497,7 @@ Behavior with other settings:
 [Variable](built_in_placeholders_variables): `infill_overhang_angle`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--infill-overhang-angle=1`.  
-Vertical Honeycomb pattern. Acceptable torsional stiffness. Developed for low densities structures like wings. Improve over [Lateral Lattice](#lateral-lattice) offers same performance with lower densities.This infill includes a Overhang angle parameter to improve the point of contact between layers and reduce the risk of delamination.
+Vertical honeycomb pattern with acceptable torsional stiffness, developed for low-density structures like wings. An improvement over [Lateral Lattice](#lateral-lattice), it offers the same performance at lower densities. This infill includes an **Infill overhang angle** parameter to improve the contact between layers and reduce the risk of delamination.
 
 - **Strength**
     - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
@@ -522,7 +522,7 @@ Vertical Honeycomb pattern. Acceptable torsional stiffness. Developed for low de
 [Variables](built_in_placeholders_variables): `lateral_lattice_angle_1`, `lateral_lattice_angle_2`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--lateral-lattice-angle-1=1` (same pattern for the other variables above).  
-Low-strength pattern with good flexibility. You can adjust **Angle 1** and **Angle 2** to optimize the infill for your specific model. Each angle adjusts the plane of each layer generated by the pattern. 0° is vertical.
+Low-strength pattern with good flexibility. You can adjust **Angle 1** and **Angle 2** to optimize the infill for your specific model. Each angle sets the tilt in the Z direction of one of the two sets of lattice elements. 0° is vertical.
 
 - **Strength**
     - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
@@ -614,7 +614,7 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 ## Adaptive TPMS
 
 > [!IMPORTANT]
-> NEW FEATURE: **Adaptive TPMS density**
+> NEW FEATURE: **Adaptive TPMS density**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 [Gyroid](#gyroid), [TPMS-D](#tpms-d) and [TPMS-FK](#tpms-fk) can grade their density inside the object: fine cells next to the walls and the top and bottom surfaces, where the infill supports the shells, growing continuously towards the center of the object, where they save material and print time.
@@ -632,14 +632,14 @@ Grades the Gyroid and TPMS infill inside the object: its cells grow from the sur
 | --- | --- | --- |
 | Disabled | Nothing: the regular pattern at the sparse infill density. | |
 | Distance warp | The distance to the nearest surface, with one continuous pattern warped around the lobe centers. | A smooth, connected concentric grading; the pattern is sheared in plates and long parts, and long parts are graded partly along their length. |
-| Smooth blend | The distance to the nearest surface, with the patterns of neighbouring densities blended into each other. | A concentric grading without steps; small loops where the densities blend. |
+| Smooth blend | The distance to the nearest surface, with the patterns of neighboring densities blended into each other. | A concentric grading without steps; small loops where the densities blend. |
 | Stepped shells | The distance to the nearest surface, including the top and bottom, like concentric shells: each shell gets the regular pattern at its density, about 1.5 times apart, with its lines joined along the shell. | A concentric grading with an undistorted pattern; the density changes in steps. |
 | Lobes | The whole 3D shape of the object, including its top and bottom: every lobe, a part joined to the rest by a narrower neck, towards its own center. | Most objects. |
 | Normal Z | Each section of the object normal to Z, so the density does not change with the height. | Profiles extruded along Z, like tall prisms and tubes. |
 | Normal Y, Normal X | Each section of the object normal to that axis, so the density does not change along it. | Profiles extruded along X or Y, like beams and bars lying on the bed. |
 
 - The object is measured from its slices, so holes, negative parts and the union of overlapping parts are taken into account.
-- Every separate body of the object, and every lobe of a body joined to the rest by a neck, like two united spheres, is graded towards its own center, its deepest point. The neck between two lobes is graded half way. With Lobes, the center of a tall object is at its middle height, so the infill is sparsest there and not along its whole height.
+- Every separate body of the object, and every lobe of a body joined to the rest by a neck, like two united spheres, is graded towards its own center, its deepest point. The neck between two lobes is graded halfway. With Lobes, the center of a tall object is at its middle height, so the infill is sparsest there and not along its whole height.
 - The lines stay continuous: the pattern is scaled around the center, with round cells at the center and cells flattened along the surface near it.
 - The parts that the center cannot reach in a straight line, like the far side of the hole of a ring, keep the sparse infill density.
 - In Distance warp, Smooth blend and Stepped shells the interior density is at the point farthest from the surface, so a tall object keeps its whole core sparse and a plate is graded through its thickness. On spheres and cubes, Distance warp is the same as Lobes.
