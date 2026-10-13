@@ -26,6 +26,14 @@ This test will be set detect automatically your printer firmware type and will a
 - Marlin Legacy: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-).
 - RepRap: [Maximum instantaneous speed changes](https://docs.duet3d.com/User_manual/Reference/Gcodes#m566-set-allowable-instantaneous-speed-change)
 
+> [!WARNING]
+> **The firmware limits cornering, and OrcaSlicer can't check that limit.**  
+> OrcaSlicer sends the test values to the printer, but it can't read what the firmware actually applies. Above the firmware limit, a higher value doesn't make corners faster in real prints, and the rest of the tower prints the same.
+>
+> - **Klipper:** the corner speed is also limited by the print speed, the acceleration and the length of the moves, so above a certain `square_corner_velocity` the corners don't get any faster. To see the value in use, send `SET_VELOCITY_LIMIT` without parameters in the console while the test prints.
+> - **Marlin 2 (Junction Deviation):** only values between `0.01` and `0.3` mm are accepted. Values outside this range are ignored.
+> - **Marlin (Classic Jerk):** firmware built with `LIMITED_JERK_EDITING` caps the jerk values (by default to twice the firmware default). Send `M503` to see the values in use.
+
 > [!NOTE]
 > This calibration example uses Junction Deviation as an example. The process is similar for Jerk calibration; just read the Jerk values instead of JD values.  
 > JD values are between `0.0` and `0.3` (in mm) while Jerk values are usually between `1` and `20` or higher (in mm/s).
@@ -39,7 +47,7 @@ This test will be set detect automatically your printer firmware type and will a
 2. Open the Cornering test.  
    ![jd_first_menu](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/JunctionDeviation/jd_first_menu.png?raw=true)
     1. In this first approximation, set a wide range of Start and End values.
-        - If you don't see any loss of quality, increase the End value and retry.
+        - If you don't see any loss of quality, increase the End value and retry. If the whole tower still looks the same, you have probably reached the firmware limit (see the warning above), and a higher value won't help.
         - If you do see a loss of quality, measure the maximum height when the corners start losing sharpness and read the Cornering/Jerk/JunctionDeviation value set at that point in OrcaSlicer.  
         ![jd_first_print_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/JunctionDeviation/jd_first_print_measure.jpg?raw=true)  
         ![jd_first_slicer_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/JunctionDeviation/jd_first_slicer_measure.png?raw=true)
