@@ -1,10 +1,5 @@
 # Fuzzy Skin
 
-[Mode](option_mode): `Simple`.  
-[Variable](built_in_placeholders_variables): `fuzzy_skin`.  
-[Type](option_type#choice): `Choice`.  
-[Options](option_type#choice): `none, external, hole, all, allwalls, disabled_fuzzy`.  
-[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin=none`.  
 Fuzzy skin randomly perturbs the wall path to produce a deliberately rough, matte appearance on the model surface.  
 These settings control where the effect is applied, how the noise is generated, and how aggressive the displacement or extrusion modulation is.
 
@@ -41,10 +36,10 @@ Useful for creating textures or hiding surface imperfections, but it increases p
 ## Fuzzy Skin Mode
 
 [Mode](option_mode): `Simple`.  
-[Variable](built_in_placeholders_variables): `fuzzy_skin_mode`.  
+[Variable](built_in_placeholders_variables): `fuzzy_skin`.  
 [Type](option_type#choice): `Choice`.  
-[Options](option_type#choice): `displacement, extrusion, combined`.  
-[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-mode=displacement`.  
+[Options](option_type#choice): `none, external, hole, all, allwalls, disabled_fuzzy`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin=none`.  
 Choose which parts of the model receive the fuzzy-skin effect.
 
 ### Contour
@@ -71,6 +66,11 @@ Apply fuzzy skin to every wall (external and internal). This gives the strongest
 
 ## Fuzzy Skin Generator Mode
 
+[Mode](option_mode): `Simple`.  
+[Variable](built_in_placeholders_variables): `fuzzy_skin_mode`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `displacement, extrusion, combined`.  
+[CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-mode=displacement`.  
 Select the underlying method used to produce the fuzzy effect. Each mode has different trade-offs for strength, speed and mechanical load.
 
 ### Displacement

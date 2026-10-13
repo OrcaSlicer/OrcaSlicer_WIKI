@@ -153,6 +153,10 @@ Similar to [rectilinear](#rectilinear), with a consistent pattern between layers
 
 ## Cross Zag
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `infill_shift_step`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--infill-shift-step=1`.  
 Similar to [Zig Zag](#zig-zag), but each layer is shifted by the **Infill shift step** parameter.
 
 - **Strength**
@@ -543,10 +547,6 @@ Low-strength pattern with good flexibility. You can adjust **Angle 1** and **Ang
 
 ## Cross Hatch
 
-[Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `infill_shift_step`.  
-[Type](option_type#integer-float-percentage): `Float`.  
-[CLI Example](cli_mode#setting-overrides): `--infill-shift-step=1`.  
 Similar to [Gyroid](#gyroid) but with linear patterns, creating weak points at internal corners.
 Easier to slice but consider using [TPMS-D](#tpms-d) or [Gyroid](#gyroid) for better strength and flexibility.
 
