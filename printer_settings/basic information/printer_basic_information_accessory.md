@@ -16,7 +16,7 @@
 ## Nozzle type
 
 [Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `nozzle_type`.  
+[Variable](built_in_placeholders_variables): `nozzle_type[extruder_idx]`.  
 [Type](option_type#list-types): `Choice list`.  
 [Options](option_type#choice): `undefine, hardened_steel, stainless_steel, tungsten_carbide, brass`.  
 [CLI Example](cli_mode#setting-overrides): `--nozzle-type=undefine`.  
