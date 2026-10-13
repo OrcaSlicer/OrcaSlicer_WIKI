@@ -17,7 +17,7 @@ Proper cornering settings can reduce artifacts such as ringing, ghosting, and ov
 
 ## Calibration
 
-This test will be set detect automatically your printer firmware type and will adapt to the specific calibration process.
+This test automatically detects your printer firmware type and adapts the calibration process to it.
 
 - Klipper: [square_corner_velocity](https://www.klipper3d.org/Config_Reference.html#printer)
 - Marlin 2:

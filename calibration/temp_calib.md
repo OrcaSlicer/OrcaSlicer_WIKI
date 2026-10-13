@@ -39,7 +39,7 @@ Once the print is complete, examine each block of the tower and determine the op
 
 ### Interpreting results
 
-- **Stringing:** lower temperatures typically reduce stringing.
+- **Stringing:** lower temperatures typically reduce stringing, but going too low can cause it too.
 - **Layer adhesion / strength:** higher temperatures generally improve adhesion.
 - **Overhangs / bridging:** higher temperatures can help flow, but too high causes sagging.
 - **Surface finish:** balance temperature and flow for the best finish.
