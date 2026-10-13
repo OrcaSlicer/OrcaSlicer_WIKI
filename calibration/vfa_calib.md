@@ -7,6 +7,9 @@ Vertical Fine Artifacts (VFA) are small surface imperfections that appear on ver
 - **[Jerk/Junction Deviation](cornering_calib)** settings can also contribute to VFA, as they control how the printer handles rapid changes in direction.
 - **[Input Shaping](input_shaping_calib)** can help mitigate VFA by reducing vibrations during printing.
 
+> [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
 ## VFA Test
 
 The VFA Speed Test in OrcaSlicer helps identify which print speeds trigger MRR artifacts. It prints a vertical tower with walls at various angles while progressively increasing the print speed.

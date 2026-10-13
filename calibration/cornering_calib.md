@@ -7,6 +7,9 @@ Proper cornering settings can reduce artifacts such as ringing, ghosting, and ov
 > This test will help you find the Maximum Cornering settings your printer can handle without losing print quality.  
 > If you are not experiencing issues with corners in your prints and are satisfied with the print speed, you may choose to skip this calibration.
 
+> [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
 ## Types of Cornering Settings
 
 > [!TIP]

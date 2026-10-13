@@ -2,6 +2,9 @@
 
 [Max Volumetric Speed](material_volumetric_speed_limitation) value varies depending on your **material**, **machine**, **nozzle diameter**, and even your **extruder setup**, so it’s important to calibrate it for your specific printer and each filament you use.
 
+> [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
 > [!NOTE]
 > Even for the same material type (e.g., PLA), the **brand** and **color** can significantly affect the maximum flow rate.
 

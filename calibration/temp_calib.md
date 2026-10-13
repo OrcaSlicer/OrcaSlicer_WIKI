@@ -3,6 +3,9 @@
 In FDM 3D printing, temperature is a critical factor that affects print quality.
 There is no other calibration that can have such a big impact on print quality as temperature calibration.
 
+> [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
 - [Nozzle Temp Tower](#nozzle-temp-tower)
     - [Interpreting results](#interpreting-results)
 
