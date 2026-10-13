@@ -1,6 +1,6 @@
 # Skirt
 
-A skirt is one or more additional perimeters printed around the model outline on the first layer(s). It helps prime the hotend, stabilise extrusion before the model starts, and can act as a basic wind/draft shield when built taller.
+A skirt is one or more additional perimeters printed around the model outline on the first layer(s). It helps prime the hotend, stabilize extrusion before the model starts, and can act as a basic wind/draft shield when built taller.
 
 - [Loops](#loops)
 - [Type](#type)
@@ -21,7 +21,7 @@ A skirt is one or more additional perimeters printed around the model outline on
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--skirt-loops=1`.  
 Number of skirt loops to print.  
-Usually 2 loops are recommended but increasing loops improve priming and give a larger buffer between the nozzle and the part, at the cost of extra filament and time.  
+Usually 2 loops are recommended, but more loops improve priming and give a larger buffer between the nozzle and the part, at the cost of extra filament and time.  
 Set to 0 to disable the skirt.
 
 ![skirt](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/skirt/skirt.png?raw=true)
@@ -43,7 +43,7 @@ A single skirt that surrounds all objects on the bed.
 
 ### Per object
 
-Each object gets its own skirt printed separately.
+Each object gets its own skirt printed separately. Objects close enough for their skirts to overlap share a single skirt.
   Recommended when using [Print sequence by object](others_settings_special_mode#by-object).
 
 ![skirt-per-object](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/skirt/skirt-per-object.png?raw=true)
@@ -56,7 +56,7 @@ Each object gets its own skirt printed separately.
 [CLI Example](cli_mode#setting-overrides): `--min-skirt-length=1`.  
 Minimum filament extrusion length in mm when printing the skirt. Zero means this feature is disabled.  
 Using a non-zero value is useful if the printer is set up to print without a prime line.  
-Final number of loops is not taken into account while arranging or validating objects distance. Increase loop number in such case.
+The final number of loops is not taken into account when arranging objects or validating the distance between them. Increase the number of loops in that case.
 
 ## Distance
 
@@ -73,7 +73,7 @@ Increasing this distance can help avoid collisions with brims or supports, but w
 [Variable](built_in_placeholders_variables): `skirt_start_angle`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--skirt-start-angle=1`.  
-Start angle for the skirt relative to the object centre. 0° is the right-most position (along the +X axis), angles increase counter-clockwise.  
+Start angle for the skirt relative to the object center. 0° is the right-most position (along the +X axis), angles increase counter-clockwise.  
 Use this to control where the skirt begins to better align with part features or prime locations.
 
 ## Speed
@@ -82,7 +82,7 @@ Use this to control where the skirt begins to better align with part features or
 [Variable](built_in_placeholders_variables): `skirt_speed`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--skirt-speed=1`.  
-Printing speed for the skirt in mm/s. Set to 0 to use the default first-layer extrusion speed.  
+Printing speed for the skirt in mm/s. Set to 0 to use the [First layer infill](speed_settings_initial_layer_speed#initial-layer-infill) speed on the first layer and the [Support](speed_settings_other_layers_speed#support) speed on higher layers.  
 Slower speeds give a more reliable prime; very fast skirt speeds may not adhere properly and come off, causing problems with the part.
 
 ## Height
@@ -100,14 +100,14 @@ Number of layers the skirt should be printed for. Usually 1 layer for priming. I
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `disabled, enabled`.  
 [CLI Example](cli_mode#setting-overrides): `--draft-shield=disabled`.  
-When enabled the skirt can be printed as a draft shield: a taller wall surrounding the part to help protect prints (especially ABS/ASA) from drafts and sudden temperature changes.  
+When enabled, the skirt is printed as a draft shield: a taller wall surrounding the part to help protect prints (especially ABS/ASA) from drafts and sudden temperature changes.  
 This is most useful for open-frame printers without an enclosure.
 
-- If set to follow the highest object, the shield will be as tall as the tallest printed model on the bed.
-- Otherwise it will use the value specified in "Skirt height".
+- Enabled: the shield is as tall as the tallest printed model on the bed.
+- Disabled: the skirt uses the [Height](#height) value.
 
 > [!NOTE]
-> With the draft shield active, the skirt will be printed at [skirt distance](#distance) from the object. Therefore, if brims are active it may intersect with them. To avoid this, increase the skirt distance value.
+> The skirt is printed at the [skirt distance](#distance) from the brim, or from the object if it has no brim, so the draft shield does not intersect brims.
 
 ## Single loop after first layer
 
@@ -115,4 +115,4 @@ This is most useful for open-frame printers without an enclosure.
 [Variable](built_in_placeholders_variables): `single_loop_draft_shield`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--single-loop-draft-shield=1`.  
-When enabled, limits the draft shield to a single wall after the first layer (i.e. only one loop is printed on subsequent shield layers). This reduces filament and print time but makes the shield less robust and more prone to warping or cracking.
+When enabled, limits the skirt or draft shield to a single wall after the first layer (i.e. only one loop is printed on subsequent layers). This reduces filament and print time but makes the shield less robust and more prone to warping or cracking.

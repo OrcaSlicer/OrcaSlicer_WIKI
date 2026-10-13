@@ -1,6 +1,6 @@
 # Special Mode
 
-These settings control advanced slicing and printing behaviours, such as how layers are processed, object printing order, and special effects like spiral vase mode.
+These settings control advanced slicing and printing behaviors, such as how layers are processed, object printing order, and special effects like spiral vase mode.
 
 - [Slicing Mode](#slicing-mode)
     - [Regular](#regular)
@@ -24,7 +24,7 @@ These settings control advanced slicing and printing behaviours, such as how lay
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `regular, even_odd, close_holes`.  
 [CLI Example](cli_mode#setting-overrides): `--slicing-mode=regular`.  
-The slicing mode determines how the model is sliced into layers and how the G-code is generated. Different modes can be used to achieve various printing effects or to optimize the print process.
+The slicing mode determines how the outlines found in each layer of the model are interpreted as solid areas or holes. Different modes can be used for models that need special handling.
 
 ### Regular
 
@@ -40,7 +40,7 @@ This can help with models that have gaps or incomplete surfaces, ensuring a more
 
 ### Even Odd
 
-Use "Even-odd" for specific models like [3DLabPrint](https://3dlabprint.com) airplane models. This mode applies a special slicing algorithm that may be required for certain proprietary or experimental prints.
+Use "Even-odd" for specific models like [3DLabPrint](https://3dlabprint.com) airplane models. In this mode, nested outlines alternate between solid areas and holes (the even-odd fill rule), which may be required for certain proprietary or experimental prints.
 
 ## Print Sequence
 
@@ -53,7 +53,7 @@ This setting controls how multiple objects are printed in a single print job.
 
 ### By Layer
 
-This option prints all objects layer by layer, one layer at a time. This is efficient for multi-part prints as it minimises travel time between objects and can improve overall print speed.
+This option prints all objects layer by layer, one layer at a time. This is the default and works well for most multi-part prints.
 
 #### Intra-layer order
 
@@ -70,21 +70,21 @@ Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over part
 > NEW FEATURE: **Snake and Best of all (shortest path) intra-layer ordering**
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-- **Default**: Nearest-neighbour chaining, refined with 2-opt and crossing removal. A good general choice and the recommended option for most plates.
-- **As object list**: Instances are printed in the same order as the object list, without any path optimisation. Use it when you need a predictable, manually controlled order, for custom sequencing or debugging.
+- **Default**: Nearest-neighbor chaining, refined with 2-opt and crossing removal. A good general choice and the recommended option for most plates.
+- **As object list**: Instances are printed in the same order as the object list, without any path optimization. Use it when you need a predictable, manually controlled order, for custom sequencing or debugging.
 - **Snake**: Serpentine, row-by-row traversal (objects are grouped into rows and each row is traversed in the opposite direction to the previous one), refined with 2-opt. Well suited to regular grids of many small parts.
 - **Best of all (shortest path)**: Every strategy is evaluated and the shortest one is used. The object instance order is decided once for the whole print, while the ordering of individual islands is decided per layer, so different layers may end up using different strategies. Slightly slower to slice.
 
 > [!NOTE]
-> Ordering is applied at the island level, not only per instance, so each separate region of a layer is ordered individually. This mainly benefits assemblies and objects whose layers overlap.
+> Except with **As object list**, ordering is applied at the island level, not only per instance, so each separate region of a layer is ordered individually. This mainly benefits assemblies and objects whose layers overlap.
 >
-> With multiple filaments or tools in the same layer, minimising tool changes takes priority: objects are grouped by filament first, and this setting only orders the instances within each filament group. The overall sequence may therefore not look like the shortest path across the plate.
+> With multiple filaments or tools in the same layer, minimizing tool changes takes priority: objects are grouped by filament first, and this setting only orders the instances within each filament group. The overall sequence may therefore not look like the shortest path across the plate.
 
 ### By Object
 
-This option prints each object completely before moving on to the next object. This is better for prints where objects need to cool separately or when using different materials per object, but it may increase total print time due to more travel moves.
+This option prints each object completely before moving on to the next object. This is better for prints where objects need to cool separately or when using different materials per object, but it may increase total print time.
 
-This setting requires more models separation and may not be suitable for all print scenarios.
+This setting requires more space between models and may not be suitable for all print scenarios.
 
 ## Spiral vase
 
@@ -92,7 +92,7 @@ This setting requires more models separation and may not be suitable for all pri
 [Variable](built_in_placeholders_variables): `spiral_mode`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--spiral-mode=1`.  
-Spiral vase mode transforms a solid model into a single-walled print with solid bottom layers, eliminating seams by continuously spiralling the outer contour.  
+Spiral vase mode transforms a solid model into a single-walled print with solid bottom layers, eliminating seams by continuously spiraling the outer contour.  
 This creates a smooth, vase-like appearance.
 
 ### Smooth Spiral
@@ -105,7 +105,7 @@ When enabled, Smooth Spiral smooths out X and Y moves as well, resulting in no v
 This produces the smoothest possible spiral print.
 
 > [!NOTE]
-> If you are using absolute e distances, the smoothing may not work as expected.
+> If you are using absolute E distances, the smoothing may not work as expected.
 
 #### Max XY Smoothing
 
@@ -124,7 +124,7 @@ Higher values allow more smoothing but may distort the model slightly.
 [CLI Example](cli_mode#setting-overrides): `--spiral-starting-flow-ratio=1`.  
 Sets the starting flow ratio when transitioning from the last bottom layer to the spiral.  
 Normally, the flow scales from 0% to 100% during the first loop, which can sometimes cause under-extrusion at the start.  
-Adjust this to fine-tune the transition and prevent issues.
+Adjust this to fine-tune the transition and prevent issues. Only applied when [Use relative E distances](printer_basic_information_advanced#use-relative-e-distances) is enabled.
 
 ### Spiral finishing flow ratio
 
@@ -133,7 +133,7 @@ Adjust this to fine-tune the transition and prevent issues.
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--spiral-finishing-flow-ratio=1`.  
 Sets the finishing flow ratio when ending the spiral. Normally, the flow scales from 100% to 0% during the last loop, which can lead to under-extrusion at the end.  
-Use this to control the ending and ensure consistent extrusion.
+Use this to control the ending and ensure consistent extrusion. Only applied when [Use relative E distances](printer_basic_information_advanced#use-relative-e-distances) is enabled.
 
 ## Timelapse
 

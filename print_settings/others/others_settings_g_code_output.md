@@ -46,7 +46,7 @@ Verbose mode produces much larger files and may slow down SD-card printing on so
 Insert comments that label moves with the object they belong to (object index or name). This is useful for integrations such as OctoPrint's Cancel Object plugin and for human inspection of the G-code.
 
 > [!IMPORTANT]
-> Object labelling is not compatible with Single-Extruder Multi-Material configurations or with "Wipe into Object" / "Wipe into Infill" strategies.  
+> Object labeling is not compatible with Single Extruder Multi Material configurations or with the **Flush into this object** / **Flush into objects' infill** options.  
 > When those features are active, labels may be omitted.
 
 ## Exclude Objects
@@ -55,7 +55,7 @@ Insert comments that label moves with the object they belong to (object index or
 [Variable](built_in_placeholders_variables): `exclude_object`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--exclude-object=1`.  
-Add an `EXCLUDE OBJECT` marker or command in the exported G-code for objects flagged as excluded. This helps post-processors or custom scripts recognise excluded parts.
+Add commands to the G-code that define each object and mark where it starts and ends, so the printer firmware can skip (cancel) individual objects during the print: `EXCLUDE_OBJECT_DEFINE`, `EXCLUDE_OBJECT_START` and `EXCLUDE_OBJECT_END` for Klipper, and `M486` for Marlin and RepRapFirmware.
 
 ## Filename Format
 
@@ -67,15 +67,15 @@ For example:
 {input_filename_base}_{filament_type[initial_tool]}_{print_time}.gcode
 ```
 
-Can be used to generate filenames like `OrcaCube_PLA_1h15m.gcode`.
+This can be used to generate filenames like `OrcaCube_PLA_1h15m.gcode`.
 
 > [!TIP]
-> Check [Naming Built in placeholders variables](built_in_placeholders_variables#filename-templates) for available tokens and their meanings.
+> Check [Filename Templates](built_in_placeholders_variables#filename-templates) for available tokens and their meanings.
 
 ## Change extrusion role G-code
 
 This G-code is inserted when the [extrusion role](built_in_placeholders_variables#extrusion-roles) is changed.  
-This is the process section of the feature "Change Extrusion Role G-code" that is also available in the [Material settings](material_advanced#change-extrusion-role-g-code) and [Printer settings](printer_machine_gcode#change-extrusion-role-g-code).
+This is the process version of the **Change extrusion role G-code** that is also available in the [Material settings](material_advanced#change-extrusion-role-g-code) and [Printer settings](printer_machine_gcode#change-extrusion-role-g-code), and it runs after both of them.
 
 > [!TIP]
 > Read the [Printer settings](printer_machine_gcode#change-extrusion-role-g-code) for more details and examples.

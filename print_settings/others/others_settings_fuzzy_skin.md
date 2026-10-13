@@ -8,7 +8,7 @@
 Fuzzy skin randomly perturbs the wall path to produce a deliberately rough, matte appearance on the model surface.  
 These settings control where the effect is applied, how the noise is generated, and how aggressive the displacement or extrusion modulation is.
 
-Useful for creating a textures or hide surface imperfections but will increase print time and will affect dimensional accuracy.
+Useful for creating textures or hiding surface imperfections, but it increases print time and affects dimensional accuracy.
 
 - [Fuzzy Skin Mode](#fuzzy-skin-mode)
     - [Contour](#contour)
@@ -77,27 +77,27 @@ Select the underlying method used to produce the fuzzy effect. Each mode has dif
 
 ![Fuzzy-skin-Displacement-mode](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-Displacement-mode.png?raw=true)
 
-The classic method is when the pattern on the walls is achieved by shifting the printhead perpendicular to the wall.  
-It gives a predictable result, but decreases the strength entire shells and open the pores inside the walls. It also increases the mechanical stress on the kinematics of the printer. The speed of general printing is slowing down.
+The classic method, where the pattern on the walls is created by shifting the print head perpendicular to the wall.  
+It gives a predictable result, but it reduces the strength of the whole shell and opens pores inside the walls. It also increases the mechanical stress on the printer's kinematics and slows down printing overall.
 
 ### Extrusion
 
 ![Fuzzy-skin-Extrusion-mode](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-Extrusion-mode.png?raw=true)
 
-The fuzzy skin condition is obtained by changing the amount of extruded plastic as the print head moves linearly. There is no extra load on the kinematics, there is no decrease in the printing speed, the pores do not open, but the drawing turns out to be smoother by a factor of 2. It is suitable for creating "loose" walls to reduce internal stress into extruded plastic, or masking printing defects on the side walls - a matte effect.
+The fuzzy skin effect is created by varying the amount of extruded plastic while the print head follows the original path. There is no extra load on the kinematics, no decrease in print speed, and no pores open, but the pattern is about half as pronounced. It is suitable for creating "loose" walls that reduce internal stress in the extruded plastic, or for masking print defects on the side walls with a matte effect.
 
 > [!CAUTION]
-> The "Fuzzy skin thicknesses" parameter cannot be more than about 70%-125% (selected individually for different conditions) of the nozzle diameter! This is a complex condition that also depends on the height of the layer, and determines how thin the lines can be extruded.  
-> [Arachne](quality_settings_wall_generator#arachne) wall generator mode should also be enabled.
+> The **Fuzzy skin thickness** parameter cannot be more than about 70%-125% (selected individually for different conditions) of the nozzle diameter! This is a complex condition that also depends on the layer height, and determines how thin the lines can be extruded.  
+> The [Arachne](quality_settings_wall_generator#arachne) wall generator must also be enabled.
 
 ### Combined
 
 ![Fuzzy-skin-Combined-mode](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-Combined-mode.png?raw=true)
 
-This is a combination of Displacement and Extrusion modes. The clarity of the drawing is the same in the classic mode, but the walls remain strong and tight. The load on the kinematics is 2 times lower. The printing speed is faster than in Displacement mode, but the elapsed time will still be longer.
+This is a combination of the Displacement and Extrusion modes. The pattern is as sharp as in Displacement mode, but the walls remain strong and tight. The load on the kinematics is halved. Printing is faster than in Displacement mode, but still slower than in Extrusion mode.
 
 > [!WARNING]
-> The limits on line thickness are the same as in the Extrusion mode.
+> The limits on line thickness and the Arachne requirement are the same as in the Extrusion mode.
 
 ## Noise Type
 
@@ -141,9 +141,9 @@ Creates sharp, jagged features and high-contrast detail. Useful for stone- or ma
 ### Ripple
 
 The Ripple noise type creates a regular, wave-like pattern of ripples across the surface.  
-This is useful for decorative purposes on models that do not have abrupt changes in geometry or holes that create multiple print islands (closed loops), since the number of Ripples is applied to each closed loop and can cause discontinuities between layers.
+This is useful for decorative purposes on models that do not have abrupt changes in geometry or holes that create multiple print islands (closed loops), since the number of ripples is applied to each closed loop and can cause discontinuities between layers.
 
-A clear example is a 3DBenchy, whose windows create small print islands where the same number of loops is applied as on the hull of the boat, where there is more space for the same number of loops.
+A clear example is a 3DBenchy, whose windows create small print islands that get the same number of ripples as the hull of the boat, where there is much more space for them.
 
 ![Fuzzy-skin-ripple](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-ripple.png?raw=true)
 ![Fuzzy-skin-ripple-example](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Fuzzy-skin/Fuzzy-skin-ripple-example.jpg?raw=true)
@@ -177,7 +177,7 @@ The shift is applied once every number of layers set by [Layers between ripple o
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--fuzzy-skin-layers-between-ripple-offset=1`.  
 Specifies how many consecutive layers share the same ripple phase before the offset is applied.  
-For example:
+For example, with the default 50% [Ripple offset](#ripple-offset):
 
 - 1 = Layer 1 is printed with the base ripple pattern, then layer 2 is shifted by the configured offset, then layer 3 returns to the base pattern, and so on.
 - 3 = Layers 1 to 3 are printed with the base ripple pattern, then layers 4 to 6 are shifted by the configured offset, then layers 7 to 9 return to the base pattern, etc.
