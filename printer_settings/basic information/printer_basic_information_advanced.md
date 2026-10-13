@@ -171,7 +171,7 @@ The printer cost per hour.
 [CLI Example](cli_mode#setting-overrides): `--build-plate-tilt-x=1` (same pattern for the other variables above).  
 > [!IMPORTANT]
 > NEW FEATURE: **Build plate tilt**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) with the `_belt` suffix (built from the `belt-printer` branch) or Releases greater than **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 **Build plate tilt X** and **Build plate tilt Y** specify the build surface's tilt in degrees. Support generation uses these values to adjust its gravity direction, so overhangs are evaluated relative to the machine's actual downward direction rather than the slicer's Z axis.
 

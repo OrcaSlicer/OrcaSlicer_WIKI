@@ -61,7 +61,7 @@ Enable this option to defer that wait instead: the incoming tool's target temper
 [CLI Example](cli_mode#setting-overrides): `--enable-belt-purge-tower=1`.  
 > [!IMPORTANT]
 > NEW FEATURE: **Belt purge tower**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) with the `_belt` suffix (built from the `belt-printer` branch) or Releases greater than **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 ![belt_purge_tower_printer_option](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/belt/belt_purge_tower_printer_option.png?raw=true)
 

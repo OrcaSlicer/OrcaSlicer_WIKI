@@ -2,7 +2,7 @@
 
 > [!IMPORTANT]
 > NEW FEATURE: **Belt printer support**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) with the `_belt` suffix (built from the `belt-printer` branch) or Releases greater than **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 ![belt_machine_frame_transforms](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/belt/belt_machine_frame_transforms.png?raw=true)
 
