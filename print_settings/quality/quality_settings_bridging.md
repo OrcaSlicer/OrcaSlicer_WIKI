@@ -21,9 +21,10 @@ For external bridges, when material tends to sag, reducing the flow ratio can he
 For internal bridges, increasing the flow ratio can enhance strength and upper layer quality.
 
 - Values above 1.0: Increase the amount of material while maintaining line spacing. This can improve line contact and strength.
-- Values below 1.0: Reduce the amount of material while adjusting line spacing to maintain contact. This can improve sagging.
+- Values below 1.0: Reduce the amount of material while adjusting line spacing to maintain contact. This can reduce sagging.
 
-The actual bridge flow used is calculated by multiplying this value with the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.
+The actual bridge flow used is calculated by multiplying this value with the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.  
+For internal bridges, the internal bridge flow ratio is also multiplied by the bridge flow ratio.
 
 ## Bridge density
 
@@ -31,17 +32,17 @@ The actual bridge flow used is calculated by multiplying this value with the [fi
 [Variables](built_in_placeholders_variables): `bridge_density`, `internal_bridge_density`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--bridge-density=20%` (same pattern for the other variables above).  
-Controls the density (spacing) of external bridge lines. Default is 100%.  
+Controls the density (spacing) of external and internal bridge lines. Default is 100%.  
 Theoretically, 100% means a solid bridge, but due to the tendency of bridge extrusions to sag, 100% may not be sufficient.
 
-- Higher than 100% density (**Recommended**):
-    - Pros: Produce smoother bridge surfaces, as overlapping lines provide additional support during printing.
+- Higher than 100% density (**Recommended**, max 125%):
+    - Pros: Produces smoother bridge surfaces, as overlapping lines provide additional support during printing.
     - Cons: Can cause overextrusion, decreasing lower and upper surface quality.
-- Lower than 100% density:
-    - Pros: Can create a string like the first layer. Quick and with better cooling, as there is more space for air to circulate around the extruded bridge.
+- Lower than 100% density (min 10%):
+    - Pros: Can create a string-like first layer. Faster and with better cooling, as there is more space for air to circulate around the extruded bridge.
     - Cons: May lead to sagging and poor surface finish.
 
-The actual internal bridge flow used is calculated by multiplying this value with the [bridge flow ratio](#flow-ratio), the [filament flow ratio](material_flow_ratio_and_pressure_advance#flow-ratio), and if set, the object's flow ratio.
+The density changes the spacing between bridge lines, not the [flow ratio](#flow-ratio) of each line.
 
 ## Thick bridges
 
@@ -89,7 +90,7 @@ By default, small internal bridges are filtered out and the internal solid infil
 
 However, in heavily slanted or curved models, especially where too low a sparse infill density is used, this may result in curling of the unsupported solid infill, causing pillowing.
 
-Enabling limited filtering or no filtering will print internal bridge layer over slightly unsupported internal solid infill. The options below control the sensitivity of the filtering, i.e. they control where internal bridges are created:
+Enabling limited filtering or no filtering will print an internal bridge layer over slightly unsupported internal solid infill. The options below control the sensitivity of the filtering, i.e. they control where internal bridges are created:
 
 - **Filter:** enables this option. This is the default behavior and works well in most cases.
 - **Limited filtering:** creates internal bridges on heavily slanted surfaces while avoiding unnecessary bridges. This works well for most difficult models.
@@ -102,14 +103,14 @@ Enabling limited filtering or no filtering will print internal bridge layer over
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `none, partiallybridge, sacrificiallayer`.  
 [CLI Example](cli_mode#setting-overrides): `--counterbore-hole-bridging=none`.  
-When printing counterbore holes, the unsupported area can lead to sagging or poor surface quality. Also the perimeters of the counterbore hole may not be printed correctly, leading to gaps or weak points in the structure.
+When printing counterbore holes, the unsupported area can lead to sagging or poor surface quality. Also, the perimeters of the counterbore hole may not be printed correctly, leading to gaps or weak points in the structure.
 
 This option creates bridges for counterbore holes, allowing them to be printed without support.  
 Available modes include:
 
 - **None:** No bridge is created.  
   ![bridge-counterbore-none](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-counterbore-none.png?raw=true)
-- **Partially Bridged:** Only a part of the unsupported area will be bridged, creating a supporting layer for the next layer.  
+- **Partially bridged:** Only a part of the unsupported area will be bridged, creating a supporting layer for the next layer.  
   ![bridge-counterbore-partially](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-counterbore-partially.gif?raw=true)
-- **Sacrificial Layer:** A full sacrificial bridge layer is created. This will close the counterbore hole, allowing the next layer to be printed without sagging. The sacrificial layer must be broken through after printing.  
+- **Sacrificial layer:** A full sacrificial bridge layer is created. This will close the counterbore hole, allowing the next layer to be printed without sagging. The sacrificial layer must be broken through after printing.  
   ![bridge-counterbore-sacrificial](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge-counterbore-sacrificial.png?raw=true)
