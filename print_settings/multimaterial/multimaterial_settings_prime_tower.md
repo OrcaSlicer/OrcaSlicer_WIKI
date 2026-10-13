@@ -5,9 +5,7 @@
 `Advanced` [Variables](built_in_placeholders_variables): `prime_tower_skip_points`, `enable_tower_interface_features`, `enable_tower_interface_cooldown_during_tower`, `prime_tower_enable_framework`, `prime_tower_infill_gap`, `single_extruder_multi_material_priming`.  
 [Type](option_type): `enable_prime_tower` (Boolean), `prime_volume` (Float), `prime_tower_skip_points` (Boolean), `enable_tower_interface_features` (Boolean), `enable_tower_interface_cooldown_during_tower` (Boolean), `prime_tower_enable_framework` (Boolean), `prime_tower_infill_gap` (Percentage), `single_extruder_multi_material_priming` (Boolean).  
 [CLI Example](cli_mode#setting-overrides): `--enable-prime-tower=1` (`enable_prime_tower` shown; other variables above follow their own type).  
-The wiping tower can be used to clean up the residue on the nozzle and "
-"stabilize the chamber pressure inside the nozzle, in order to avoid "
-"appearance defects when printing objects.
+The prime tower can be used to clean up residue on the nozzle and stabilize the chamber pressure inside the nozzle, in order to avoid appearance defects when printing objects.
 
 ## Width
 
@@ -31,7 +29,7 @@ Width of the brim around the prime tower.
 [Variable](built_in_placeholders_variables): `wipe_tower_rotation_angle`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-tower-rotation-angle=1`.  
-Wipe tower rotation angle with respect to x-axis.
+Wipe tower rotation angle with respect to the X axis.
 
 ## Maximal bridging distance
 
@@ -55,7 +53,7 @@ Spacing of purge lines on the wipe tower.
 [Variable](built_in_placeholders_variables): `wipe_tower_extra_flow`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-tower-extra-flow=20%`.  
-Extra flow used for the purging lines on the wipe tower. This makes the purging lines thicker or narrower than they normally would be. The spacing is adjusted automatically.
+Extra flow used for the purging lines on the wipe tower. This makes the purging lines thicker than they normally would be. The spacing is adjusted automatically.
 
 ## Maximum wipe tower print speed
 
@@ -64,10 +62,10 @@ Extra flow used for the purging lines on the wipe tower. This makes the purging 
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-tower-max-purge-speed=1`.  
 The maximum print speed when purging in the wipe tower and printing the wipe tower sparse layers. When purging, if the sparse infill speed or calculated speed from the filament max volumetric speed is lower, the lowest will be used instead.  
-When printing the sparse layers, if the internal perimeter speed or calculated speed from the filament max volumetric speed is lower, the lowest will be used instead.  
+When printing the sparse layers, if the sparse infill speed or calculated speed from the filament max volumetric speed is lower, the lowest will be used instead.  
 Increasing this speed may affect the tower's stability as well as increase the force with which the nozzle collides with any blobs that may have formed on the wipe tower.  
 Before increasing this parameter beyond the default of 90 mm/s, make sure your printer can reliably bridge at the increased speeds and that ooze when tool changing is well controlled.  
-For the wipe tower external perimeters the internal perimeter speed is used regardless of this setting.
+The wipe tower external perimeters use the inner wall speed, also limited by this setting.
 
 ## Wall type
 
@@ -80,7 +78,7 @@ Wipe tower outer wall type.
 
 ### Rectangle
 
-The default wall type, a rectangle with fixed width and height.
+A rectangle with fixed width and height.
 
 ### Cone
 
@@ -92,11 +90,11 @@ A cone with a fillet at the bottom to help stabilize the wipe tower.
 [Variable](built_in_placeholders_variables): `wipe_tower_cone_angle`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-tower-cone-angle=1`.  
-Angle at the apex of the cone that is used to stabilize the wipe tower. Large angle means wider base.
+Angle at the apex of the cone that is used to stabilize the wipe tower. A larger angle means a wider base.
 
 ### Rib
 
-Adds four ribs to the tower wall for enhanced stability.
+The default wall type. Adds four ribs to the tower wall for enhanced stability and makes the tower square, so [Width](#width) cannot be set.
 
 #### Extra rib length
 
@@ -104,7 +102,7 @@ Adds four ribs to the tower wall for enhanced stability.
 [Variable](built_in_placeholders_variables): `wipe_tower_extra_rib_length`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-tower-extra-rib-length=1`.  
-Positive values can increase the size of the rib wall, while negative values can reduce the size. However, the size of the rib wall can not be smaller than that determined by the cleaning volume.
+Positive values can increase the size of the rib wall, while negative values can reduce the size. However, the size of the rib wall cannot be smaller than that determined by the purge volume.
 
 #### Rib width
 
@@ -120,7 +118,7 @@ Width of the rib wall.
 [Variable](built_in_placeholders_variables): `wipe_tower_fillet_wall`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-tower-fillet-wall=1`.  
-The wall of prime tower will fillet.
+Rounds the corners of the prime tower's rib wall.
 
 ## No sparse layers
 
@@ -179,7 +177,7 @@ Layers are merged following these rules:
 [CLI Example](cli_mode#setting-overrides): `--belt-purge-tower-width=1`.  
 > [!IMPORTANT]
 > NEW FEATURE: **Belt purge tower**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) with the `_belt` suffix (built from the `belt-printer` branch) or Releases greater than **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Sets the width of the [belt purge tower](printer_multimaterial_wipe_tower#belt-purge-tower), measured across the belt. This tower replaces the prime tower on belt printers. The setting is shown when the belt purge tower is enabled in the printer settings.
 
