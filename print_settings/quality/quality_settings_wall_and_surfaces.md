@@ -4,6 +4,7 @@
     - [Inner/Outer](#innerouter)
     - [Inner/Outer/Inner](#innerouterinner)
     - [Outer/Inner](#outerinner)
+    - [Narrow walls](#narrow-walls)
     - [Print infill first](#print-infill-first)
 - [Wall loop direction](#wall-loop-direction)
 - [Surface flow ratio](#surface-flow-ratio)
@@ -22,6 +23,11 @@
 [Options](option_type#choice): `inner wall/outer wall, outer wall/inner wall, inner-outer-inner wall`.  
 [CLI Example](cli_mode#setting-overrides): `--wall-sequence="inner wall/outer wall"`.  
 Print sequence of the internal (inner) and external (outer) walls.  
+The order applies to each side of a wall on its own: the walls around a hole follow it just like the walls around the contour.
+
+> [!NOTE]
+> Under an [Outer](others_settings_brim#outer), [Outer and Inner](others_settings_brim#outer-and-inner) or [Leading edge only](others_settings_brim#leading-edge-only) brim, the first layer prints its outer walls first whatever this setting, so the brim runs straight on into the outer wall.  
+> [Auto](others_settings_brim#auto), [Mouse Ears](others_settings_brim#mouse-ears) and [Painted](others_settings_brim#painted) brims may leave the outer walls bare, so they keep this order.
 
 ### Inner/Outer
 
@@ -35,11 +41,32 @@ Use Inner/Outer/Inner for the best external surface finish and dimensional accur
 
 ![inner-outer-inner](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/inner-outer-inner.gif?raw=true)
 
+- The first layer is printed [Inner/Outer](#innerouter).
+- Where a side has fewer than 3 walls there is nothing to print first, so that side is printed [Outer/Inner](#outerinner).
+- A wall too narrow for an inner wall on each side prints the hole first, see [Narrow walls](#narrow-walls).
+
 ### Outer/Inner
 
 Use Outer/Inner for the same external wall quality and dimensional accuracy benefits of [Inner/Outer/Inner](#innerouterinner) option. However, the z seams will appear less consistent as the first extrusion of a new layer starts on a visible surface.
 
 ![outer-inner](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/outer-inner.gif?raw=true)
+
+### Narrow walls
+
+When a wall is too narrow for the walls of both its sides, like the wall of a thin tube, the contour and the hole share the room between them:
+
+- **2 lines**: only the outer walls of the contour and the hole fit, touching each other. The hole's outer wall is printed first so the contour's leans on it, unless the order is [Outer/Inner](#outerinner).
+- **3 lines**: the two outer walls and one line between them. [Arachne](quality_settings_wall_generator#arachne) prints that line as an inner wall shared by both sides, and it follows the wall order like any other inner wall. [Inner/Outer/Inner](#innerouterinner) has no 3rd wall to print first, so it prints the hole's outer wall, then the contour's, then the line between them.
+
+For example, a tube with 0.5mm walls and 3 wall loops, with Arachne:
+
+| Tube wall | Lines | Inner/Outer | Outer/Inner | Inner/Outer/Inner, after the first layer |
+| --- | --- | --- | --- | --- |
+| 1mm | 2 | hole, contour | contour, hole | hole, contour |
+| 1.5mm | 3 | middle, contour, hole | contour, hole, middle | hole, contour, middle |
+| 2mm | 4 | each side inner, outer | each side outer, inner | each side outer, inner |
+
+[Classic](quality_settings_wall_generator#classic) fills the middle of a 3 line wall with [gap fill](strength_settings_infill#apply-gap-fill) instead, printed after both outer walls, which keep the 2 line order.
 
 ### Print infill first
 
@@ -66,6 +93,7 @@ When using this option is recommended to use the [Precise Wall](quality_settings
 [CLI Example](cli_mode#setting-overrides): `--wall-direction=ccw`.  
 The direction which the **contour** wall loops are extruded when looking down from the top.  
 Holes are printed in the opposite direction to the contour to maintain alignment with layers whose contour polygons are incomplete and change direction, also partially forming the contour of a hole.
+A hole whose outer wall touches the contour's with nothing between them, like a [narrow wall](#narrow-walls) 2 lines wide, runs with the contour instead, so both walls are laid side by side in the same direction.
 Check [PR 12669](https://github.com/OrcaSlicer/OrcaSlicer/pull/12669) for more details about reversing hole direction.
 
 The usage of [Reverse on even](quality_settings_overhangs#reverse-on-even) will reverse wall direction based on this setting.
