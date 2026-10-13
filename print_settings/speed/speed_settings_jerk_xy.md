@@ -1,6 +1,6 @@
 # Jerk XY
 
-**Jerk** is the rate of change of acceleration and how quickly your printer can change between different accelerations. It controls direction changes and velocity transitions during movement.
+In printer firmware, **Jerk** is the maximum speed change (in mm/s) the printer can make instantly, without accelerating. It controls direction changes and velocity transitions during movement.
 
 - [Key Effects](#key-effects)
 - [Cornering Control Types](#cornering-control-types)
@@ -34,12 +34,12 @@ This setting overrides firmware jerk values when different motion types need spe
 - **Jerk**: Traditional method, sets a maximum speed for direction changes.
     - Klipper: [Square corner velocity](https://www.klipper3d.org/Config_Reference.html#printer)
     - RepRapFirmware: [Maximum instantaneous speed changes](https://docs.duet3d.com/User_manual/Reference/Gcodes#m566-set-allowable-instantaneous-speed-change)
-    - Marlin 2: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-) (deprecated in favor of [Junction Deviation](https://marlinfw.org/docs/configuration/configuration.html#junction-deviation-)) but can still be used.
+    - Marlin 2: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-) (deprecated in favor of [Junction Deviation](https://marlinfw.org/docs/configuration/configuration.html#junction-deviation-), but can still be used).
     - Marlin Legacy: [Classic Jerk](https://marlinfw.org/docs/configuration/configuration.html#jerk-).
 - **[Junction Deviation](#junction-deviation)**: Modern method, calculates cornering speed based on acceleration.
 
 > [!TIP]
-> Calibrate your Cornering Values using the [Cornering Calibration guide](cornering_calib).
+> Calibrate your cornering values using the [Cornering Calibration guide](cornering_calib).
 
 ### Junction Deviation
 
@@ -48,17 +48,17 @@ This setting overrides firmware jerk values when different motion types need spe
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--default-junction-deviation=1`.  
 Alternative to Jerk, Junction Deviation is the default method for controlling cornering speed in Marlin 2 printers.  
-Instead of setting a cornering speed for each line type, it calculates the cornering speed based on the [each line's acceleration](speed_settings_acceleration) and speed using the formula:
+Instead of setting a cornering speed for each line type, it calculates the cornering speed from [each line's acceleration](speed_settings_acceleration) and the corner angle. A Junction Deviation equivalent to a given jerk value can be estimated with the formula:
 
 $$
-JD = 0,4 \cdot \frac{\text{Jerk}^2}{\text{Accel.}}
+JD = 0.4 \cdot \frac{\text{Jerk}^2}{\text{Accel.}}
 $$
 
 Higher values result in faster and more aggressive cornering speeds, while lower values produce smoother, more controlled cornering.
 
 > [!NOTE]
 > Classic Jerk can still be used in Marlin 2, but it is deprecated in favor of Junction Deviation.  
-> If your printer uses Classic Jerk, you need to set your Junction Deviation to `0` to enable the use of Classic Jerk.
+> If your printer uses Classic Jerk, set [Maximum Junction Deviation](printer_motion_ability#maximum-junction-deviation) to `0` in the printer settings to enable the Jerk settings.
 
 This value is limited by [Printer settings > Motion ability > Maximum Junction Deviation](printer_motion_ability#maximum-junction-deviation).
 
@@ -87,7 +87,7 @@ Jerk for outer wall printing. This is usually set to a lower value than normal p
 [Variable](built_in_placeholders_variables): `inner_wall_jerk`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--inner-wall-jerk=1`.  
-Jerk for inner wall printing. This is usually set to a higher but still reasonable value than outer wall printing to improve speed.
+Jerk for inner wall printing. This is usually set to a moderately higher value than outer wall jerk to improve speed.
 
 ### Infill
 
@@ -128,7 +128,7 @@ Using a lower value can improve build plate adhesion. If the value is expressed 
 [Variable](built_in_placeholders_variables): `travel_jerk`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--travel-jerk=1`.  
-Jerk for travel printing. This is usually set to a higher value than infill to reduce travel time.
+Jerk for travel moves. This is usually set to a higher value than infill to reduce travel time.
 
 ## Useful links
 

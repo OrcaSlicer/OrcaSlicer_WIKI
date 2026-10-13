@@ -11,7 +11,7 @@
 [Variable](built_in_placeholders_variables): `enable_overhang_speed`.  
 [Type](option_type#list-types): `Boolean list`.  
 [CLI Example](cli_mode#setting-overrides): `--enable-overhang-speed=1`.  
-Enable this option to slow printing down for different overhang degree.
+Enable this option to slow printing down for different overhang degrees.
 This can help improve print quality and reduce issues like stringing or sagging.
 
 ### Slow down for curled perimeters
@@ -38,7 +38,7 @@ Root cause of these artifacts is most likely PA tuning being slightly off, espec
 
 > [!NOTE]
 > When this option is enabled, overhang perimeters are treated like overhangs, meaning the overhang speed is applied even if the overhanging perimeter is part of a bridge.  
-> For example, when the perimeters are 100% overhanging, with no wall supporting them from underneath, the 100% overhang speed will be applied.
+> For example, when the perimeters are 100% overhanging, with no wall supporting them from underneath, the 75% [overhang speed](#speed) will be applied, capped at the external [bridge speed](#bridge-speed).
 
 ### Speed
 

@@ -4,9 +4,9 @@
 [Variables](built_in_placeholders_variables): `accel_to_decel_enable`, `accel_to_decel_factor`.  
 [Type](option_type): `accel_to_decel_enable` (Boolean), `accel_to_decel_factor` (Percentage).  
 [CLI Example](cli_mode#setting-overrides): `--accel-to-decel-enable=1` (`accel_to_decel_enable` shown; other variables above follow their own type).  
-Acceleration in 3D printing is usually set on the printer's firmware settings.  
-This setting will try to override the acceleration when [normal printing acceleration](#normal-printing) value is different than 0.  
-Orca will limit the acceleration to not exceed the acceleration set in the Printer's Motion Ability settings.
+Acceleration in 3D printing is usually set in the printer's firmware.  
+These settings override the firmware acceleration when the [normal printing acceleration](#normal-printing) is greater than 0.  
+Orca limits the acceleration so it doesn't exceed the maximum set in the printer's Motion Ability settings.
 
 - [Normal printing](#normal-printing)
 - [Outer wall](#outer-wall)
@@ -25,10 +25,10 @@ Orca will limit the acceleration to not exceed the acceleration set in the Print
 [Variable](built_in_placeholders_variables): `default_acceleration`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--default-acceleration=1`.  
-The default acceleration of both normal printing and travel.
+The default acceleration for both normal printing and travel after the first layer.
 
 > [!NOTE]
-> If this value is set to 0, the acceleration will be set to the printer's default acceleration.
+> If this value is set to 0, Orca doesn't send acceleration commands, so the printer's own acceleration is used and the other acceleration settings are disabled.
 
 ## Outer wall
 
@@ -94,7 +94,7 @@ Using a lower value can improve build plate adhesion. If the value is expressed 
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--top-surface-acceleration=1`.  
 Acceleration of [top surface infill](speed_settings_other_layers_speed#top-surface). Using a lower value may improve top surface quality.  
-Recommended to use a similar value to the [outer wall acceleration](#outer-wall).
+A value similar to the [outer wall acceleration](#outer-wall) is recommended.
 
 ## Travel
 
