@@ -39,7 +39,7 @@ Above the contact layer comes the [Contact Z distance](#contact-z-distance) gap,
 
 Number of raft layers printed under the object. The object is raised by the height of the raft. `0` disables the raft.
 
-Half of the layers, rounded up, are interface layers, and the rest are base layers. The first layer counts as a base layer.
+Half of the layers, rounded up, are interface layers, and the rest are base layers. With two or more layers, the first layer counts as a base layer.
 
 | Layers | Base layers | Interface layers |
 | --- | --- | --- |

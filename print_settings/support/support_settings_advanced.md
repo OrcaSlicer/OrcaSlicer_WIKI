@@ -25,7 +25,9 @@
 [Variables](built_in_placeholders_variables): `support_top_z_distance`, `support_bottom_z_distance`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--support-top-z-distance=1` (same pattern for the other variables above).  
-The Z gap between support interface and object.
+The Z gap between the support and the object: **Top Z distance** is the gap between the top of the support and the overhang above it, and **Bottom Z distance** the gap between the object and a support standing on it. Both are rounded to a multiple of the layer height unless [Independent support layer height](#independent-support-layer-height) is enabled.
+
+A Top Z distance of `0` is meant for soluble supports. In that case, Bottom Z distance is also ignored when there are bottom interface layers, and the support is printed in direct contact with the object.
 
 ## Support wall loops
 
@@ -33,7 +35,7 @@ The Z gap between support interface and object.
 [Variable](built_in_placeholders_variables): `tree_support_wall_count`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--tree-support-wall-count=1`.  
-This setting specifies the count of support walls in the range of [0,2]. 0 means auto.
+This setting specifies the number of support walls, from 0 to 2. 0 means auto.
 
 ## Base Pattern
 
@@ -97,9 +99,9 @@ Each option lays the interface lines out differently, and all of them are measur
 | `Rectilinear` | Straight lines at 90° to Pattern angle. With the [Snug](support_settings_support#snug) style they are rotated a further 45°. |
 | `Concentric` | Loops following the outline of the interface, which peel off in one piece and leave no line ends on the surface. |
 | `Rectilinear Interlaced` | Straight lines that swing 45° one way then the other on each successive layer, so the layers cross instead of stacking. This ties the interface together and makes it stiffer under the overhang. |
-| `Grid` | Straight lines running along Pattern angle, in line with the [Base Pattern](#base-pattern) below. |
+| `Grid` | Straight lines crossing in a grid on every layer: one set runs along Pattern angle, in line with the [Base Pattern](#base-pattern) below, and the other at 90° to it. |
 
-If [Interface spacing](#interface-spacing) is wide enough that the interface is no longer solid, the straight-line options switch to the base support pattern so that the sparse lines still anchor to each other.
+If [Interface spacing](#interface-spacing) is wide enough that the interface is no longer solid, `Default` and `Rectilinear` switch to the base support pattern so that the sparse lines still anchor to each other.
 
 ## Interface spacing
 
@@ -110,6 +112,8 @@ If [Interface spacing](#interface-spacing) is wide enough that the interface is 
 Spacing of interface lines. Zero means solid interface.
 
 The top (`support_interface_spacing`) and bottom (`support_bottom_interface_spacing`) values are set separately and neither one affects the other, so a bottom interface keeps the spacing you gave it even if you have turned top interfaces off.
+
+When [Support ironing](support_settings_ironing) is enabled, the top interface is always printed solid and the top value is ignored.
 
 ## Normal support expansion
 
@@ -141,7 +145,9 @@ XY separation between an object and its support at the first layer.
 [Variable](built_in_placeholders_variables): `bridge_no_support`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--bridge-no-support=1`.  
-Don't support the whole bridge area which make support very large. Bridges can usually be printed directly without support if not very long.
+Don't support bridge areas, which would otherwise make the support very large. Bridges can usually be printed directly without support if they are not very long.
+
+This option is only shown for normal supports. Tree supports use **Max bridge length** instead: bridges up to that length are left unsupported, and `0` supports all bridges.
 
 ## Independent support layer height
 
@@ -149,6 +155,6 @@ Don't support the whole bridge area which make support very large. Bridges can u
 [Variable](built_in_placeholders_variables): `independent_support_layer_height`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--independent-support-layer-height=1`.  
-Support layer uses layer height independent with object layer. This is to support customizing z-gap and save print time. This option will be invalid when the prime tower is enabled.
+Support layers use a layer height independent of the object layers. This allows a custom Z gap and saves print time. This option is ignored when a prime tower is printed, and it is not available with the Organic tree support style.
 
 Turning this on changes the height of the support layers, not their number: you still get exactly the [Interface layers](#interface-layers) you asked for, including with the `Tree Slim`, `Tree Strong` and `Tree Hybrid` styles.
