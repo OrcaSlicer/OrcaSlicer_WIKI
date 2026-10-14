@@ -13,6 +13,7 @@ Brim is a flat layer printed around a model's base to improve adhesion to the pr
     - [Mouse Ears](#mouse-ears)
         - [Ear max angle](#ear-max-angle)
         - [Ear detection radius](#ear-detection-radius)
+    - [No-brim](#no-brim)
     - [Leading edge only](#leading-edge-only)
 - [Brim ears outer only](#brim-ears-outer-only)
 - [Width](#width)
@@ -113,6 +114,11 @@ Angle threshold (degrees) used to decide where mouse ears may be placed:
 The geometry is decimated before sharp angles are detected.  
 This parameter sets the minimum deviation length used for the decimation.  
 Set to 0 to disable.
+
+### No-brim
+
+No brim is printed around the model. The brims of neighboring objects are still kept one brim line away from it, so they don't touch it.  
+Useful as a per-object setting to skip the brim on parts that don't need one. The other brim settings are disabled while it is selected.
 
 ### Leading edge only
 

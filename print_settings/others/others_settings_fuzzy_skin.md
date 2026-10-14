@@ -11,6 +11,7 @@ Useful for creating textures or hiding surface imperfections, but it increases p
     - [Contour and Hole](#contour-and-hole)
     - [Painted Only](#painted-only)
     - [All Walls](#all-walls)
+    - [Disabled](#disabled)
 - [Fuzzy Skin Generator Mode](#fuzzy-skin-generator-mode)
     - [Displacement](#displacement)
     - [Extrusion](#extrusion)
@@ -63,6 +64,11 @@ This allows for precise control over where the texture is applied, ideal for add
 ### All Walls
 
 Apply fuzzy skin to every wall (external and internal). This gives the strongest overall textured appearance but will increase slicing and print time considerably.
+
+### Disabled
+
+The default. No fuzzy skin is applied, not even on areas painted with the [Fuzzy Skin Paint Tool](prepare_paint_on_fuzzy_skin), and the other fuzzy skin settings are hidden.  
+This is what sets it apart from [Painted Only](#painted-only), which applies fuzzy skin to the painted areas only. If you paint an object while fuzzy skin is disabled, the paint tool warns that the painting won't take effect and offers to switch that object to Painted Only.
 
 ## Fuzzy Skin Generator Mode
 
