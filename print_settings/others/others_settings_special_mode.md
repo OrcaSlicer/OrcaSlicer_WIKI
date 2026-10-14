@@ -10,6 +10,7 @@ These settings control advanced slicing and printing behaviors, such as how laye
     - [By Layer](#by-layer)
         - [Intra-layer order](#intra-layer-order)
     - [By Object](#by-object)
+- [Optimize infill travel](#optimize-infill-travel)
 - [Spiral vase](#spiral-vase)
     - [Smooth Spiral](#smooth-spiral)
         - [Max XY Smoothing](#max-xy-smoothing)
@@ -86,6 +87,21 @@ Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over part
 This option prints each object completely before moving on to the next object. This is better for prints where objects need to cool separately or when using different materials per object, but it may increase total print time.
 
 This setting requires more space between models and may not be suitable for all print scenarios.
+
+## Optimize infill travel
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `optimize_infill_travel`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--optimize-infill-travel=1`.  
+Shortens the travel between the infill paths of each island, which [Intra-layer order](#intra-layer-order) does not reach: it only decides the order of the objects and islands.
+
+By default the infill and ironing paths of an island are chained greedily, joining the closest free path ends first, which tends to leave a few long travels across the island for the last joins. With this option the chain is refined afterwards: runs of paths are reversed or moved elsewhere in the sequence whenever that shortens the travel, starting from where the nozzle is when the infill begins. Paths that must keep their direction, such as [Grid](strength_settings_patterns#grid) infill, are only reordered.
+
+The extrusions themselves do not change, only their order and direction. Across the infill patterns on a 3DBenchy, a Stanford bunny and a 100 mm cube with 2 walls and 15% infill, the travel between infill paths was 8 to 24% shorter (median per model) and up to 40% shorter on some patterns, which saved about 0.3% (bunny) to 1.3% (Benchy) of the print time. Slicing takes slightly longer.
+
+> [!TIP]
+> The gain is largest when the infill is cut into many pieces: complex islands, patterns that cross themselves, or [Infill anchor](strength_settings_infill#anchor) disabled.
 
 ## Spiral vase
 
