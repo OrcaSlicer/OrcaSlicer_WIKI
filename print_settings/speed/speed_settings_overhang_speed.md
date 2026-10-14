@@ -12,7 +12,7 @@
 [Type](option_type#list-types): `Boolean list`.  
 [CLI Example](cli_mode#setting-overrides): `--enable-overhang-speed=1`.  
 Enable this option to slow printing down for different overhang degrees.
-This can help improve print quality and reduce issues like stringing or sagging.
+This can help improve print quality and reduce issues like sagging.
 
 ### Slow down for curled perimeters
 

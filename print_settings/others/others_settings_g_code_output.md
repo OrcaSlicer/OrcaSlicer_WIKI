@@ -45,10 +45,6 @@ Verbose mode produces much larger files and may slow down SD-card printing on so
 [CLI Example](cli_mode#setting-overrides): `--gcode-label-objects=1`.  
 Insert comments that label moves with the object they belong to (object index or name). This is useful for integrations such as OctoPrint's Cancel Object plugin and for human inspection of the G-code.
 
-> [!IMPORTANT]
-> Object labeling is not compatible with Single Extruder Multi Material configurations or with the **Flush into this object** / **Flush into objects' infill** options.  
-> When those features are active, labels may be omitted.
-
 ## Exclude Objects
 
 [Mode](option_mode): `Advanced`.  

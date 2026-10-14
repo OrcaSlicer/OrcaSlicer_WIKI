@@ -64,7 +64,7 @@ This setting helps to ensure that small areas of sparse infill do not compromise
 [Variable](built_in_placeholders_variables): `infill_combination`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--infill-combination=1`.  
-Automatically combine [sparse infill](strength_settings_infill) of several layers so they print together, reducing print time while increasing strength. Walls are still printed with the original [layer height](quality_settings_layer_height).
+Automatically combine [sparse infill](strength_settings_infill) of several layers so they print together, reducing print time. Walls are still printed with the original [layer height](quality_settings_layer_height).
 
 ![fill-combination](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-combination.png?raw=true)
 

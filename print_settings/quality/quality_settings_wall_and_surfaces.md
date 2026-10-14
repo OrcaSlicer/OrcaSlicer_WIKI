@@ -133,9 +133,6 @@ Highly recommended for detailed or aesthetic prints.
 
 ![avoid-crossing-walls](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/avoid-crossing-walls.png?raw=true)
 
-> [!NOTE]
-> This feature is not compatible with Timelapse mode, as it can cause unexpected travel moves.
-
 ### Max detour length
 
 [Mode](option_mode): `Advanced`.  
