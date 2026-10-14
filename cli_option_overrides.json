@@ -291,8 +291,8 @@
     "export_statistics": {
       "group": "Output & Logging",
       "input": "boolean",
-      "description": "Write the statistics of each sliced plate as JSON to `plate_N.statistics.json` in the output directory: print time, filament and feature totals, and the same per layer and per object.",
-      "notes": "Same file as the [Export Statistics](import_export#export-statistics) preference. Without `--outputdir` it is written to the working directory."
+      "description": "Write the statistics of each sliced plate as JSON, as `plate_N.statistics.json` next to its G-code in the output directory and inside the 3MF of [`--export-3mf`](cli_actions#export): print time, filament and feature totals, and the same per layer and per object.",
+      "notes": "Same files as the [Export Statistics](import_export#export-statistics) preference."
     },
     "debug": {
       "group": "Output & Logging",
