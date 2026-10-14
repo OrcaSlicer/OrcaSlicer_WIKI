@@ -5,7 +5,7 @@
 [Variable](built_in_placeholders_variables): `flush_into_infill`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--flush-into-infill=1`.  
-Purging after a filament change will be done inside the objects' infill. This may lower the amount of waste and decrease the print time. If the walls are printed with transparent filament, the mixed color infill will be visible. It will not take effect unless the prime tower is enabled.
+Purging after a filament change will be done inside the objects' infill. This may lower the amount of waste and decrease the print time. If the walls are printed with transparent filament, the mixed color infill will be visible. It will not take effect unless the prime tower is enabled. With a Type 2 [wipe tower](printer_multimaterial_wipe_tower), purging into objects is only used on single extruder multi-material printers with [Purge in prime tower](printer_multimaterial_wipe_tower#purge-in-prime-tower) enabled.
 
 ## Flush into this object
 
@@ -21,4 +21,4 @@ This is a per-object setting, so it isn't shown in the global process settings. 
 [Variable](built_in_placeholders_variables): `flush_into_support`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--flush-into-support=1`.  
-Purging after a filament change will be done inside the objects' support. This may lower the amount of waste and decrease the print time. It will not take effect unless the prime tower is enabled.
+Purging after a filament change will be done inside the objects' support. This may lower the amount of waste and decrease the print time. It will not take effect unless the prime tower is enabled. With a Type 2 [wipe tower](printer_multimaterial_wipe_tower), purging into objects is only used on single extruder multi-material printers with [Purge in prime tower](printer_multimaterial_wipe_tower#purge-in-prime-tower) enabled.

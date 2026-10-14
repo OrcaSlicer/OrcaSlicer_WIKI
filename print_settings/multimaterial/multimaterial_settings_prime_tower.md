@@ -15,6 +15,11 @@ The prime tower can be used to clean up residue on the nozzle and stabilize the 
 [Variable](built_in_placeholders_variables): `prime_tower_skip_points`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--prime-tower-skip-points=1`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Skip points on the Type 2 prime tower**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 Leaves a short gap in the outer wall of the prime tower where each tool change starts its purge, so the nozzle enters the tower through the gap instead of crossing the printed wall. Enabled by default. It has no effect on the [Cone](#cone) wall of the Type 2 tower.
 
 ## Enable tower interface features
