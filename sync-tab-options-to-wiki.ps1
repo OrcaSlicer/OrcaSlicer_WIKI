@@ -297,9 +297,16 @@ function Get-OptionModesByVariable {
     param([string]$Content)
 
     $result = @{}
+    # The GUI reads print_config_def only; the CLI and placeholder defs follow it.
+    $cutoff = $Content.IndexOf('CLIActionsConfigDef::CLIActionsConfigDef')
+    if ($cutoff -ge 0) {
+        $Content = $Content.Substring(0, $cutoff)
+    }
+
     $lines = $Content -split "`r?`n"
     $currentVariable = $null
-    $addPattern = '(?:\b\w+\s*=\s*)*def\s*=\s*this->add(?:_nullable)?\(\s*"(?<variable>[^"]+)"\s*,'
+    # The key group is optional so a key built at runtime still ends the previous definition.
+    $addPattern = 'def\s*=\s*this->add(?:_nullable)?\(\s*(?:"(?<variable>[^"]+)"\s*,)?'
     $modePattern = 'def->mode\s*=\s*(?<mode>comSimple|comAdvanced|comExpert|comDevelop)\s*;'
 
     foreach ($line in $lines) {
@@ -310,6 +317,10 @@ function Get-OptionModesByVariable {
             }
             else {
                 $currentVariable = $capturedVariable.Trim()
+                # ConfigOptionDef::mode defaults to comSimple; adding a key again keeps its def.
+                if (-not $result.ContainsKey($currentVariable)) {
+                    $result[$currentVariable] = 'comSimple'
+                }
             }
             continue
         }
