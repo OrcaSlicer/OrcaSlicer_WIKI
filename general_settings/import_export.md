@@ -81,7 +81,7 @@ After slicing a model, you can export the sliced result for printing.
 
 ### Export Statistics
 
-With **Export statistics with G-code** enabled in the Preferences (`Control` > `Slicing`), exporting a G-code file also writes `<name>.statistics.json` next to it. The CLI writes the same file for each sliced plate with [`--export-statistics`](cli_misc#output-logging).
+With **Export statistics with G-code** enabled in the Preferences (`Developer` > `Settings`), exporting a G-code file also writes `<name>.statistics.json` next to it. The CLI writes the same file for each sliced plate with [`--export-statistics`](cli_misc#output-logging).
 
 The file holds the estimates the preview shows, for scripts and spreadsheets that compare prints or settings. Times are in seconds, in the normal time mode, lengths in mm, volumes in mm³ and weights in g, as its `units` say.
 
