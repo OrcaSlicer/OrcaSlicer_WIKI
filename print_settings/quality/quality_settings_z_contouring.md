@@ -42,7 +42,7 @@ The default of 35 degrees is a reasonable starting point.
 Minimum local layer height allowed for contoured toolpaths. This setting also controls the slicing plane used for contoured layers.
 
 - Lower values allow stronger contouring but leave less minimum layer thickness.
-- Higher values reduce the amount of contouring and keep the adjusted path closer to the nominal layer height.
+- Higher values move the slicing plane up (it sits this far above the bottom of the layer), and paths are never lowered below it, so walls and top surface infill can drop less. Top surface infill can also rise up to this amount above the nominal layer height, while walls are never raised.
 
 ## Don't alternate fill direction
 

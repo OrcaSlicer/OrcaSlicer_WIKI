@@ -93,7 +93,7 @@ It gives a predictable result, but it reduces the strength of the whole shell an
 The fuzzy skin effect is created by varying the amount of extruded plastic while the print head follows the original path. There is no extra load on the kinematics, no decrease in print speed, and no pores open, but the pattern is about half as pronounced. It is suitable for creating "loose" walls that reduce internal stress in the extruded plastic, or for masking print defects on the side walls with a matte effect.
 
 > [!CAUTION]
-> The **Fuzzy skin thickness** parameter cannot be more than about 70%-125% (selected individually for different conditions) of the nozzle diameter! This is a complex condition that also depends on the layer height, and determines how thin the lines can be extruded.  
+> In this mode, **Fuzzy skin thickness** sets how much the line width varies. A line can't be extruded thinner than about 23% of the layer height, so Orca clamps the thinnest parts to that minimum. Once the thickness exceeds the wall line width, higher values only make the wide parts wider.  
 > The [Arachne](quality_settings_wall_generator#arachne) wall generator must also be enabled.
 
 ### Combined

@@ -187,7 +187,7 @@ For example, you might want to mirror the infill pattern of symmetric components
 [Variable](built_in_placeholders_variables): `infill_wall_overlap`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--infill-wall-overlap=20%`.  
-Infill area is enlarged slightly to overlap with wall for better bonding. The percentage value is relative to line width of sparse infill. Set this value to ~10-15% to minimize potential over-extrusion and accumulation of material resulting in rough surfaces.
+Infill area is enlarged slightly to overlap with wall for better bonding. The percentage value is approximately relative to the inner wall line width. More precisely, it is relative to half the inner wall line spacing plus half the internal solid infill line spacing with the [Classic](quality_settings_wall_generator#classic) wall generator, and to the inner wall line spacing with [Arachne](quality_settings_wall_generator#arachne) (the outer wall line spacing in both cases where only one wall is printed). Set this value to ~10-15% to minimize potential over-extrusion and accumulation of material resulting in rough surfaces.
 
 - **Infill Wall Overlap Off**
 

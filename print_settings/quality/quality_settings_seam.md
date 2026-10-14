@@ -199,7 +199,7 @@ If [Role based wipe speed](#role-based-wipe-speed) is disabled, this sets the wi
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-on-loops=1`.  
 When finishing printing an outer wall "loop" (i.e., an extrusion that starts and ends at the same point), move the nozzle slightly inwards towards the part. This only applies when [Wall loops](strength_settings_walls#wall-loops) is greater than 1. That move aims to reduce seam unevenness by tucking in the end of the seam to the part. It also slightly cleans the nozzle before traveling to the next area of the model, reducing stringing.  
-This setting will use your printer/material Wipe Distance and retract amount before wipe values.
+The inward move itself is a short, fixed move of about 20% of the nozzle diameter. The wipe and retraction that follow use your printer/material Wipe distance and Retract amount before wipe values.
 
 ![seam-wipe-on-loop](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-wipe-on-loop.png?raw=true)
 

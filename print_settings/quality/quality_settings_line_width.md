@@ -17,7 +17,7 @@ A good starting point is setting the line width to **100% of the nozzle diameter
 However, slightly wider lines generally improve **layer bonding** and **print strength**, especially for internal features like walls and infill.
 
 > [!NOTE]
-> **100% line width will extrude slightly narrower than the nozzle**, but once squished onto the layer below, it flattens to match the nozzle size.  
+> **Line width is the width of the line as laid on the layer.** Orca calculates the extruded volume from the line width and layer height, so a 100% line width gives a line as wide as the nozzle, and higher values squish the line wider than the nozzle opening.  
 > You can read more on the flow math here: [Flow Math](https://manual.slic3r.org/advanced/flow-math).
 
 > [!IMPORTANT]

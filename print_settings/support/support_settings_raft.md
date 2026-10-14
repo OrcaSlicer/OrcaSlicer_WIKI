@@ -29,7 +29,7 @@ The raft is made by the support generator, so it is printed with the support set
 
 From the build plate up, a raft has:
 
-1. **First layer**: printed at the [first layer height](quality_settings_layer_height#first-layer-height), with the [Initial layer density](support_settings_support#initial-layer-density), and widened by the [Initial layer expansion](support_settings_support#initial-layer-expansion) to stick to the bed.
+1. **First layer**: with two or more raft layers, printed at the [first layer height](quality_settings_layer_height#first-layer-height), with the [Initial layer density](support_settings_support#initial-layer-density), and widened by the [Initial layer expansion](support_settings_support#initial-layer-expansion) to stick to the bed. A one-layer raft has only the contact layer, printed at the first layer height with the interface settings described below and without the extra widening of the Initial layer expansion.
 2. **Base layers**: sparse layers spaced by the [Base pattern spacing](support_settings_advanced#base-pattern-spacing) and printed with the [base support filament](support_settings_filament#base).
 3. **Interface layers**: denser layers that alternate direction, spaced by the [Interface spacing](support_settings_advanced#interface-spacing) and printed with the [interface support filament](support_settings_filament#interface). The top one is the contact layer the object sits on.
 

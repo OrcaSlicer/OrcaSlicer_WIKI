@@ -53,7 +53,7 @@ This can be used for aesthetic purposes, improving grip or creating interfaces.
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--top-bottom-infill-wall-overlap=20%`.  
 The top solid infill area is slightly enlarged to overlap with walls for better bonding and to minimize pinholes where the infill meets the walls.  
-A value of 25-30% is a good starting point. The percentage value is relative to the line width of the sparse infill.
+A value of 25-30% is a good starting point. The percentage value is approximately relative to the inner wall line width. More precisely, it is relative to half the inner wall line spacing plus half the internal solid infill line spacing with the [Classic](quality_settings_wall_generator#classic) wall generator, and to the inner wall line spacing with [Arachne](quality_settings_wall_generator#arachne) (the outer wall line spacing in both cases where only one wall is printed).
 
 > [!TIP]
 > Check [Monotonic line](strength_settings_patterns#monotonic-line) to learn about its overlap differences with [Monotonic](strength_settings_patterns#monotonic) and [Rectilinear](strength_settings_patterns#rectilinear).
@@ -151,7 +151,7 @@ Direction in which the [Surface Expansion](#surface-expansion) grows:
 
 When **Surface Expansion** is in use, those inner walls are removed over the top surface instead, so the expanded surface stays continuous and the pattern is not interrupted:
 
-- **[Classic](quality_settings_wall_generator#classic)** wall generator: the inner walls running over the top are dropped whole. The space they leave is taken by the expanded top surface, and whatever it does not cover becomes [internal solid infill](strength_settings_infill#internal-solid-infill).
+- **[Classic](quality_settings_wall_generator#classic)** wall generator: the inner walls running over the top are dropped whole. The space they leave is taken by the expanded top surface, and whatever it does not cover becomes [internal solid infill](strength_settings_infill#internal-solid-infill) with [Ensure vertical shell thickness](strength_settings_advanced#ensure-vertical-shell-thickness) set to **All** (the default), or sparse infill with the other options.
 - **[Arachne](quality_settings_wall_generator#arachne)** wall generator: the inner walls are cut instead of dropped, so only the part running over the top surface is removed and the rest is kept where the geometry continues upward.
 
 > [!NOTE]
