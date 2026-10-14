@@ -293,6 +293,341 @@ function Resolve-OptionVariable {
     return $variable
 }
 
+function Find-ClosingBracket {
+    param(
+        [string]$Text,
+        [int]$OpenIndex
+    )
+
+    $open = $Text[$OpenIndex]
+    $close = if ($open -eq '{') { '}' } elseif ($open -eq '(') { ')' } else { ']' }
+    $depth = 0
+    for ($i = $OpenIndex; $i -lt $Text.Length; $i++) {
+        $c = $Text[$i]
+        if ($c -eq '"' -or $c -eq "'") {
+            for ($i++; $i -lt $Text.Length -and $Text[$i] -ne $c; $i++) {
+                if ($Text[$i] -eq '\') { $i++ }
+            }
+            continue
+        }
+
+        if ($c -eq $open) {
+            $depth++
+        }
+        elseif ($c -eq $close) {
+            $depth--
+            if ($depth -eq 0) {
+                return $i
+            }
+        }
+    }
+
+    return -1
+}
+
+function Split-CppList {
+    param([string]$Text)
+
+    # Commas inside brackets or literals don't split.
+    $items = New-Object System.Collections.Generic.List[string]
+    $depth = 0
+    $start = 0
+    for ($i = 0; $i -lt $Text.Length; $i++) {
+        $c = $Text[$i]
+        if ($c -eq '"' -or $c -eq "'") {
+            for ($i++; $i -lt $Text.Length -and $Text[$i] -ne $c; $i++) {
+                if ($Text[$i] -eq '\') { $i++ }
+            }
+        }
+        elseif ($c -eq '(' -or $c -eq '{' -or $c -eq '[') {
+            $depth++
+        }
+        elseif ($c -eq ')' -or $c -eq '}' -or $c -eq ']') {
+            $depth--
+        }
+        elseif ($c -eq ',' -and $depth -eq 0) {
+            $items.Add($Text.Substring($start, $i - $start).Trim())
+            $start = $i + 1
+        }
+    }
+
+    $last = $Text.Substring($start).Trim()
+    if ($last.Length -gt 0) {
+        $items.Add($last)
+    }
+
+    return ,$items.ToArray()
+}
+
+function Get-CppRangeValues {
+    param(
+        [string]$Content,
+        [string]$Range,
+        [string]$ElementType,
+        [string]$Field,
+        [int]$BeforeIndex
+    )
+
+    # A braced list of string literals, or the nearest preceding std::vector of them or of struct rows (with a field).
+    if ($Range.StartsWith('{') -and $Range.EndsWith('}')) {
+        $listText = $Range.Substring(1, $Range.Length - 2)
+    }
+    elseif ($Range -match '^[A-Za-z_]\w*$') {
+        $decl = [regex]::Matches($Content, 'std::vector\s*<[^;{}()]*>\s*' + [regex]::Escape($Range) + '\s*=?\s*\{') |
+            Where-Object { $_.Index -lt $BeforeIndex } | Select-Object -Last 1
+        if ($null -eq $decl) {
+            return $null
+        }
+
+        $open = $decl.Index + $decl.Length - 1
+        $close = Find-ClosingBracket -Text $Content -OpenIndex $open
+        if ($close -lt 0) {
+            return $null
+        }
+
+        $listText = $Content.Substring($open + 1, $close - $open - 1)
+    }
+    else {
+        return $null
+    }
+
+    $fieldIndex = -1
+    if (-not [string]::IsNullOrEmpty($Field)) {
+        $struct = [regex]::Matches($Content, 'struct\s+' + [regex]::Escape($ElementType) + '\s*\{(?<members>[^{}]*)\}') |
+            Where-Object { $_.Index -lt $BeforeIndex } | Select-Object -Last 1
+        if ($null -eq $struct) {
+            return $null
+        }
+
+        $members = @($struct.Groups['members'].Value -split ';' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+        for ($k = 0; $k -lt $members.Count; $k++) {
+            if ($members[$k] -match '(?<name>\w+)$' -and $Matches['name'] -eq $Field) {
+                $fieldIndex = $k
+            }
+        }
+
+        if ($fieldIndex -lt 0) {
+            return $null
+        }
+    }
+
+    $values = New-Object System.Collections.Generic.List[string]
+    foreach ($item in (Split-CppList -Text $listText)) {
+        $value = $item
+        if ($fieldIndex -ge 0) {
+            if (-not ($item.StartsWith('{') -and $item.EndsWith('}'))) {
+                return $null
+            }
+
+            $row = Split-CppList -Text $item.Substring(1, $item.Length - 2)
+            if ($fieldIndex -ge $row.Count) {
+                return $null
+            }
+
+            $value = $row[$fieldIndex]
+        }
+
+        if ($value -notmatch '^"(?<value>[^"\\]*)"$') {
+            return $null
+        }
+
+        $values.Add($Matches['value'])
+    }
+
+    return ,$values.ToArray()
+}
+
+function Get-DefinitionMode {
+    param(
+        [string]$Segment,
+        [string]$Variable
+    )
+
+    # No assignment, one unconditional assignment, or: if (var == "a" || ...) def->mode = X; else def->mode = Y;
+    $statements = [regex]::Matches($Segment, 'def->mode\s*=\s*(?<mode>\w+)\s*;')
+    if ($statements.Count -eq 0) {
+        return [PSCustomObject]@{ Kind = 'Default' }
+    }
+
+    if ($statements.Count -eq 1) {
+        $before = $Segment.Substring(0, $statements[0].Index).TrimEnd()
+        if ($before.Length -gt 0 -and ';{}'.Contains($before[-1])) {
+            return [PSCustomObject]@{ Kind = 'Fixed'; Mode = $statements[0].Groups['mode'].Value }
+        }
+
+        return $null
+    }
+
+    $conditional = [regex]::Match($Segment, '\bif\s*\((?<cond>[^{};()]*)\)\s*def->mode\s*=\s*(?<then>com\w+)\s*;\s*else\s+def->mode\s*=\s*(?<else>com\w+)\s*;')
+    if ($statements.Count -ne 2 -or -not $conditional.Success -or [string]::IsNullOrEmpty($Variable)) {
+        return $null
+    }
+
+    $values = @{}
+    foreach ($term in ($conditional.Groups['cond'].Value -split '\|\|')) {
+        if ($term -notmatch ('^\s*' + [regex]::Escape($Variable) + '\s*==\s*"(?<value>[^"]*)"\s*$')) {
+            return $null
+        }
+
+        $values[$Matches['value']] = $true
+    }
+
+    return [PSCustomObject]@{ Kind = 'ByValue'; Values = $values; Then = $conditional.Groups['then'].Value; Else = $conditional.Groups['else'].Value }
+}
+
+function Get-RuntimeOptionModes {
+    param([string]$Content)
+
+    # Keys built in a range-for loop, or in a helper lambda called with a literal key (and maybe a mode).
+    $definitions = New-Object System.Collections.Generic.List[object]
+    $unresolved = New-Object System.Collections.Generic.List[object]
+    $modeValuePattern = '^com(?:Simple|Advanced|Expert|Develop)$'
+    $addMatches = [regex]::Matches($Content, 'def\s*=\s*this->add(?:_nullable)?\(\s*(?<expr>[^,;]+?)\s*,')
+    $headerMatches = [regex]::Matches($Content, '\bfor\s*\(|\bauto\s+(?<lambda>\w+)\s*=\s*\[[^\]]*\]\s*\(')
+    $bodyOpenPattern = [regex]'\G\s*(?:mutable\s*)?(?:->\s*[\w:<>&*\s]+?)?\{'
+
+    for ($a = 0; $a -lt $addMatches.Count; $a++) {
+        $site = $addMatches[$a]
+        $expr = $site.Groups['expr'].Value
+        if ($expr -match '^"[^"]*"$') {
+            continue
+        }
+
+        # The innermost enclosing loop or lambda is the nearest preceding header whose body holds the site.
+        $construct = $null
+        for ($h = $headerMatches.Count - 1; $h -ge 0 -and $null -eq $construct; $h--) {
+            $hm = $headerMatches[$h]
+            if ($hm.Index -ge $site.Index) {
+                continue
+            }
+
+            $parenOpen = $hm.Index + $hm.Length - 1
+            $parenClose = Find-ClosingBracket -Text $Content -OpenIndex $parenOpen
+            if ($parenClose -lt 0) {
+                continue
+            }
+
+            $bm = $bodyOpenPattern.Match($Content, $parenClose + 1)
+            if (-not $bm.Success) {
+                continue
+            }
+
+            $bodyOpen = $bm.Index + $bm.Length - 1
+            $bodyClose = Find-ClosingBracket -Text $Content -OpenIndex $bodyOpen
+            if ($bodyOpen -lt $site.Index -and $site.Index -lt $bodyClose) {
+                $construct = [PSCustomObject]@{
+                    Lambda    = if ($hm.Groups['lambda'].Success) { $hm.Groups['lambda'].Value } else { $null }
+                    Index     = $hm.Index
+                    Header    = $Content.Substring($parenOpen + 1, $parenClose - $parenOpen - 1)
+                    BodyClose = $bodyClose
+                }
+            }
+        }
+
+        # The key is literal parts around one variable: key, "prefix" + axis.name, ...
+        $prefix = ''
+        $suffix = ''
+        $variable = $null
+        $field = $null
+        $keyParsed = $true
+        foreach ($part in ($expr -split '\s*\+\s*')) {
+            if ($part -match '^"(?<literal>[^"\\]*)"$') {
+                if ($null -eq $variable) { $prefix += $Matches['literal'] } else { $suffix += $Matches['literal'] }
+            }
+            elseif ($null -eq $variable -and $part -match '^(?<variable>[A-Za-z_]\w*)(?:\.(?<field>[A-Za-z_]\w*))?$') {
+                $variable = $Matches['variable']
+                $field = $Matches['field']
+            }
+            else {
+                $keyParsed = $false
+            }
+        }
+
+        $segmentEnd = if ($null -ne $construct) { $construct.BodyClose } else { $Content.Length }
+        if ($a + 1 -lt $addMatches.Count -and $addMatches[$a + 1].Index -lt $segmentEnd) {
+            $segmentEnd = $addMatches[$a + 1].Index
+        }
+
+        $mode = Get-DefinitionMode -Segment $Content.Substring($site.Index, $segmentEnd - $site.Index) -Variable $variable
+        $resolved = New-Object System.Collections.Generic.List[object]
+        $failed = $null -eq $construct -or -not $keyParsed -or $null -eq $variable -or $null -eq $mode
+
+        if (-not $failed -and $null -eq $construct.Lambda) {
+            $loop = [regex]::Match($construct.Header, '^\s*(?:const\s+)?(?<type>[\w:]+)\s*[&*]*\s*(?<iter>\w+)\s*:(?!:)\s*(?<range>.+?)\s*$', 'Singleline')
+            $values = $null
+            if ($loop.Success -and $loop.Groups['iter'].Value -eq $variable) {
+                $elementType = ($loop.Groups['type'].Value -split '::')[-1]
+                $values = Get-CppRangeValues -Content $Content -Range $loop.Groups['range'].Value -ElementType $elementType -Field $field -BeforeIndex $construct.Index
+            }
+
+            if ($null -eq $values -or ($mode.Kind -eq 'Fixed' -and $mode.Mode -notmatch $modeValuePattern) -or
+                ($mode.Kind -eq 'ByValue' -and ($mode.Then -notmatch $modeValuePattern -or $mode.Else -notmatch $modeValuePattern))) {
+                $failed = $true
+            }
+            else {
+                foreach ($value in $values) {
+                    $valueMode = switch ($mode.Kind) {
+                        'Fixed' { $mode.Mode }
+                        'ByValue' { if ($mode.Values.ContainsKey($value)) { $mode.Then } else { $mode.Else } }
+                        default { $null }
+                    }
+
+                    $resolved.Add([PSCustomObject]@{ Index = $site.Index; Key = "$prefix$value$suffix"; Mode = $valueMode })
+                }
+            }
+        }
+        elseif (-not $failed) {
+            $params = @((Split-CppList -Text $construct.Header) | ForEach-Object { if ($_ -notmatch '<' -and $_ -match '(?<name>\w+)$') { $Matches['name'] } else { '' } })
+            $keyIndex = [array]::IndexOf($params, $variable)
+            $modeIndex = if ($mode.Kind -eq 'Fixed') { [array]::IndexOf($params, $mode.Mode) } else { -1 }
+            if ($params -contains '' -or $null -ne $field -or $keyIndex -lt 0 -or $mode.Kind -eq 'ByValue' -or
+                ($mode.Kind -eq 'Fixed' -and $modeIndex -lt 0 -and $mode.Mode -notmatch $modeValuePattern)) {
+                $failed = $true
+            }
+            else {
+                # Calls up to the next lambda of the same name.
+                $nextDefinition = $headerMatches | Where-Object { $_.Index -gt $construct.Index -and $_.Groups['lambda'].Value -eq $construct.Lambda } | Select-Object -First 1
+                $callsEnd = if ($null -ne $nextDefinition) { $nextDefinition.Index } else { $Content.Length }
+                foreach ($call in [regex]::Matches($Content, '\b' + [regex]::Escape($construct.Lambda) + '\s*\(')) {
+                    if ($call.Index -le $construct.BodyClose -or $call.Index -ge $callsEnd) {
+                        continue
+                    }
+
+                    $callOpen = $call.Index + $call.Length - 1
+                    $callClose = Find-ClosingBracket -Text $Content -OpenIndex $callOpen
+                    $arguments = @()
+                    if ($callClose -gt $callOpen) {
+                        $arguments = Split-CppList -Text $Content.Substring($callOpen + 1, $callClose - $callOpen - 1)
+                    }
+
+                    $keyArgument = if ($arguments.Count -eq $params.Count) { [regex]::Match($arguments[$keyIndex], '^"(?<value>[^"\\]*)"$') } else { $null }
+                    $callMode = if ($modeIndex -ge 0 -and $null -ne $keyArgument) { $arguments[$modeIndex] } elseif ($mode.Kind -eq 'Fixed') { $mode.Mode } else { $null }
+                    if ($null -eq $keyArgument -or -not $keyArgument.Success -or ($null -ne $callMode -and $callMode -notmatch $modeValuePattern)) {
+                        $unresolved.Add([PSCustomObject]@{ Index = $call.Index; Text = "$($construct.Lambda)(...)" })
+                        continue
+                    }
+
+                    $resolved.Add([PSCustomObject]@{ Index = $call.Index; Key = $prefix + $keyArgument.Groups['value'].Value + $suffix; Mode = $callMode })
+                }
+            }
+        }
+
+        if ($failed) {
+            $unresolved.Add([PSCustomObject]@{ Index = $site.Index; Text = $expr })
+            continue
+        }
+
+        $definitions.AddRange($resolved)
+    }
+
+    foreach ($u in $unresolved) {
+        $lineNumber = [regex]::Matches($Content.Substring(0, $u.Index), "`n").Count + 1
+        Write-Host "[WARN] No mode for the option keys built from '$($u.Text)' (PrintConfig.cpp line $lineNumber)." -ForegroundColor Yellow
+    }
+
+    return ,$definitions.ToArray()
+}
+
 function Get-OptionModesByVariable {
     param([string]$Content)
 
@@ -327,6 +662,25 @@ function Get-OptionModesByVariable {
 
         if (-not [string]::IsNullOrWhiteSpace($currentVariable) -and $line -match $modePattern) {
             $result[$currentVariable] = [string]$Matches['mode']
+        }
+    }
+
+    # A key also added by name would depend on definition order, so it gets no mode.
+    $namedKeys = @{}
+    foreach ($key in $result.Keys) {
+        $namedKeys[$key] = $true
+    }
+
+    foreach ($definition in ((Get-RuntimeOptionModes -Content $Content) | Sort-Object -Property Index -Stable)) {
+        if ($namedKeys.ContainsKey($definition.Key)) {
+            Write-Host "[WARN] '$($definition.Key)' is added both by name and at runtime; it gets no mode." -ForegroundColor Yellow
+            $result.Remove($definition.Key)
+        }
+        elseif ($null -ne $definition.Mode) {
+            $result[$definition.Key] = $definition.Mode
+        }
+        elseif (-not $result.ContainsKey($definition.Key)) {
+            $result[$definition.Key] = 'comSimple'
         }
     }
 

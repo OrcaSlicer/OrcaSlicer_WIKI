@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Insert/refresh [Type], [Options] and [CLI Example] tags on the wiki's
-    print/printer/material settings pages, from the option definitions in
+    print/printer/material settings and plugins pages, from the option definitions in
     libslic3r/PrintConfig.cpp.
 
 .DESCRIPTION
@@ -89,7 +89,7 @@ $ManualHoldouts = @{
     'print_settings/quality/quality_settings_wall_and_surfaces.md' = @('Surface flow ratio')
 }
 
-$SettingsDirs = @('print_settings', 'printer_settings', 'material_settings')
+$SettingsDirs = @('print_settings', 'printer_settings', 'material_settings', 'plugins')
 
 $HeadingPattern = '^(#{1,6})\s+(.+?)\s*$'
 $KeyInBackticksPattern = '`(?<key>[a-zA-Z0-9_]+)(\[[a-zA-Z_]+\])?`'

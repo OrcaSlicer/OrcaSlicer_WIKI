@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Insert/refresh [Type], [Options] and [CLI Example] tags on the wiki's
-print/printer/material settings pages, from the option definitions in
+print/printer/material settings and plugins pages, from the option definitions in
 libslic3r/PrintConfig.cpp. The [Type] counterpart to sync-tab-options-to-
 wiki.ps1's [Mode]/[Variable] sync — only touches headings that already
 carry a [Variable] tag; never places one itself.
@@ -28,7 +28,7 @@ import urllib.request
 
 DEFAULT_SOURCE = "https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/libslic3r/PrintConfig.cpp"
 DEFAULT_OVERRIDES = "option_type_overrides.json"
-SETTINGS_DIRS = ["print_settings", "printer_settings", "material_settings"]
+SETTINGS_DIRS = ["print_settings", "printer_settings", "material_settings", "plugins"]
 
 # C++ option type -> human label shown in [Type]. Extend here for a new coXxx.
 TYPE_MAP = {
