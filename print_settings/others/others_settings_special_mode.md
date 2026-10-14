@@ -16,6 +16,7 @@ These settings control advanced slicing and printing behaviors, such as how laye
     - [Spiral starting flow ratio](#spiral-starting-flow-ratio)
     - [Spiral finishing flow ratio](#spiral-finishing-flow-ratio)
 - [Timelapse](#timelapse)
+- [Enable clumping detection](#enable-clumping-detection)
 
 ## Slicing Mode
 
@@ -67,7 +68,7 @@ Determines the order in which object instances are visited within a single layer
 Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over parts that have already been printed, which can make [Z Hop](printer_extruder_z_hop) and [Avoid crossing walls](quality_settings_wall_and_surfaces#avoid-crossing-walls) unnecessary in many plates.
 
 > [!IMPORTANT]
-> NEW FEATURE: **Snake and Best of all (shortest path) intra-layer ordering**
+> NEW FEATURE: **Snake and Best of all (shortest path) intra-layer ordering**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 - **Default**: Nearest-neighbor chaining, refined with 2-opt and crossing removal. A good general choice and the recommended option for most plates.
@@ -142,4 +143,28 @@ Use this to control the ending and ensure consistent extrusion. Only applied whe
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `0, 1`.  
 [CLI Example](cli_mode#setting-overrides): `--timelapse-type=0`.  
-WIP...
+Selects how the printer's camera takes the snapshots for a timelapse video. A snapshot is taken after each layer, and the snapshots are combined into a video when the print finishes. Recording itself is turned on with the **Timelapse** option of the print dialog when sending the job to the printer.
+
+This option is only shown for Bambu Lab printers. The moves and camera commands for each snapshot come from the printer's [Timelapse G-code](printer_machine_gcode#timelapse-g-code), which is inserted once per layer. On other printers, add your own snapshot commands to that G-code.
+
+- **Traditional**: The snapshot is taken without a prime tower. Whether the toolhead stays where it is or moves out of the way for the snapshot depends on the printer's Timelapse G-code.
+- **Smooth**: After each layer, the toolhead moves to the excess chute and the snapshot is taken there. The next layer then starts by printing the prime tower, which wipes off any filament that leaked from the nozzle during the snapshot before the model is printed.
+
+> [!NOTE]
+> Smooth mode requires a [prime tower](multimaterial_settings_prime_tower), which is printed on every layer, even when the plate uses a single filament. Without it, the model may show flaws.
+>
+> - Selecting Smooth while the prime tower is disabled offers to enable it, and disabling the prime tower while Smooth is selected asks for confirmation.
+> - Selecting Smooth turns off [No sparse layers](multimaterial_settings_prime_tower#no-sparse-layers), and enabling No sparse layers switches timelapse back to Traditional.
+> - Smooth is not supported with the [By Object](#by-object) print sequence when the plate has more than one object.
+
+[Spiral vase](#spiral-vase) mode requires Traditional. On printers with an i3 structure, such as the Bambu Lab A1 and A1 mini, no timelapse video is generated in spiral vase mode, and Traditional timelapse is not supported with the By Object print sequence.
+
+## Enable clumping detection
+
+Lets the printer check, by probing, whether filament has clumped around the nozzle during the first layers of the print. When enabled, the printer's [Clumping detection G-code](printer_machine_gcode#clumping-detection-g-code) is inserted on each layer, and the Bambu Lab profiles run the check on a few of the early layers.
+
+This option is only shown for printers that support it, currently the Bambu Lab H2D, H2D Pro, H2C and P2S. It is turned off when switching to a printer that does not support it.
+
+- **Prime tower**: Clumping detection requires a [prime tower](multimaterial_settings_prime_tower), which is printed even when the plate uses a single filament. Enabling the option while the prime tower is disabled asks for confirmation, and slicing without a prime tower shows a warning, as the model may show flaws.
+- **Detection area**: The printer profile defines an area of the bed that is used for probing. While the option is enabled, this area is shown on the plate and kept free when arranging, and slicing stops with an error if an object or the prime tower overlaps it.
+- **Incompatible settings**: Not supported with the [By Object](#by-object) print sequence when the plate has more than one object, and turned off when [Spiral vase](#spiral-vase) mode is enabled. [No sparse layers](multimaterial_settings_prime_tower#no-sparse-layers) has no effect while it is enabled.
