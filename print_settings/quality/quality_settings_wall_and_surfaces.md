@@ -164,12 +164,14 @@ In these cases, standard extrusion flow may be too much for the available space,
 
 It works by dynamically adjusting the extrusion flow based on the length of the extrusion path, ensuring more precise material deposition in small spaces.
 
+The compensation only applies to internal solid infill, top surfaces and first layer bottom surfaces, and only when that surface uses the [Rectilinear](strength_settings_patterns#rectilinear), [Aligned Rectilinear](strength_settings_patterns#aligned-rectilinear), [Monotonic](strength_settings_patterns#monotonic) or [Monotonic line](strength_settings_patterns#monotonic-line) pattern.
+
 This is a native implementation of @Alexander-T-Moss's [Small Area Flow Compensation](https://github.com/Alexander-T-Moss/Small-Area-Flow-Comp).
 
 ### Flow Compensation Model
 
 The model uses a list of Extrusion Length and Flow Correction Factor value pairs. Each pair defines how much flow should be used for a specific Extrusion Length.  
-For values between the listed points, the flow is calculated using linear interpolation.
+For values between the listed points, the flow follows a smooth curve through them (PCHIP interpolation), which never overshoots the listed values.
 
 ![flow-compensation-model-graph](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Wall-Order/flow-compensation-model-graph.png?raw=true)
 

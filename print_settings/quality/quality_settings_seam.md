@@ -125,6 +125,8 @@ Disadvantages:
 - Less effective on sharp corners and overhangs
 - Requires tuning of parameters like length, speed, and flow for best results
 
+Scarf joints are never applied on the first layer, in [spiral vase](others_settings_special_mode#spiral-vase) mode, or on [belt printers](belt_printing#features-that-are-not-available).
+
 > [!NOTE]
 > Read more here: [Better Seams - An OrcaSlicer Guide](https://www.printables.com/model/783313-better-seams-an-orca-slicer-guide-to-using-scarf-s).
 

@@ -87,6 +87,8 @@ A value of 0 will fill all the holes in the model base.
 [CLI Example](cli_mode#setting-overrides): `--extra-perimeters-on-overhangs=1`.  
 Create additional perimeter (overhang wall) paths over steep overhangs and areas where bridges cannot be anchored.
 
+This option only works when [Detect overhang walls](#detect-overhang-wall) is enabled, even though it stays visible and editable when that option is off.
+
 ![extra-perimeters-on-overhangs](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/overhangs/extra-perimeters-on-overhangs.png?raw=true)
 
 ## Reverse on even

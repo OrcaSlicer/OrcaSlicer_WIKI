@@ -14,6 +14,9 @@ This section covers the settings that affect the precision of your prints. These
     - [Technical explanation](#technical-explanation)
 - [Precise Z Height](#precise-z-height)
 - [Polyholes](#polyholes)
+    - [Polyhole detection margin](#polyhole-detection-margin)
+    - [Polyhole twist](#polyhole-twist)
+    - [Maximum Polyhole edge count](#maximum-polyhole-edge-count)
 
 ## Slice gap closing radius
 
@@ -46,6 +49,8 @@ Arc fitting mainly changes how the toolpath is *encoded* in G-code. It can be be
 
 > [!IMPORTANT]
 > Ensure that the printer supports G2/G3 commands!
+
+Arc fitting is not available on [belt printers](belt_printing#features-that-are-not-available) or while [Extrusion rate smoothing](speed_settings_advanced) is enabled. Enabling Extrusion rate smoothing also turns arc fitting off.
 
 **Advantages**
 
@@ -114,6 +119,8 @@ This feature compensates for the "elephant foot" effect, which occurs when the f
 ![elephant-foot](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/elephant-foot.svg?raw=true)
 
 To mitigate this effect, OrcaSlicer allows you to specify a positive distance by which the first layer is shrunk, decreasing linearly over the specified number of layers. This adjustment effectively reduces the width of the first few layers, helping to achieve a more accurate final print size.
+
+The compensation is only applied when the object is printed directly on the build plate. It is skipped when a [raft](support_settings_raft) is used.
 
 ![elephant-foot-compensation](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/elephant-foot-compensation.png?raw=true)
 
@@ -253,3 +260,27 @@ A polyhole is a technique used in FFF 3D printing to improve the accuracy of cir
 
 - Original implementation: [SuperSlicer Polyholes](https://github.com/supermerill/SuperSlicer/wiki/Polyholes)
 - Idea and mathematics: [Hydraraptor](https://hydraraptor.blogspot.com/2011/02/polyholes.html)
+
+### Polyhole detection margin
+
+How far the points of a hole may deviate from its estimated circle for the hole to still be detected as circular, in mm or as a percentage of the hole radius. Cylinders are often exported with triangles of varying size, so their points are not always exactly on the circumference; a larger margin broadens the detection.
+
+Only convex holes with more than 8 points are considered. The same margin is used to match a hole across consecutive layers, and a hole is only converted if it spans at least two layers or is on the first layer.
+
+This option is only shown when *Convert holes to polyholes* is enabled.
+
+### Polyhole twist
+
+Rotates the polyhole on every layer so its corners don't line up vertically. Each layer uses one of five orientations, spaced a fifth of the angle between two corners apart, and the sequence repeats every five layers. When disabled, every layer uses the same polygon.
+
+This option is only shown when *Convert holes to polyholes* is enabled.
+
+### Maximum Polyhole edge count
+
+> [!IMPORTANT]
+> NEW FEATURE: **Maximum Polyhole edge count**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Limits the number of sides a polyhole can have. The number of sides is calculated from the hole size and the nozzle diameter: about twice the hole diameter in mm with a 0.4 mm nozzle, proportionally fewer with larger nozzles, and never fewer than 3. With the default of 50, holes larger than about 25 mm are capped when using a 0.4 mm nozzle.
+
+This option is only shown when *Convert holes to polyholes* is enabled.

@@ -81,7 +81,8 @@ If this value is set to 0, an inset of half the nozzle diameter is used, so the 
 [Variable](built_in_placeholders_variables): `ironing_angle`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--ironing-angle=1`.  
-The angle of ironing lines offset relative to the top surface solid infill direction.
+The angle of ironing lines offset relative to the top surface solid infill direction.  
+This option can only be edited when the ironing [Pattern](#pattern) is Rectilinear.
 
 Commonly used ironing angle offsets are 0°, 45°, and 90°, each producing a [different surface finish](https://github.com/OrcaSlicer/OrcaSlicer/issues/10834#issuecomment-3322628589) which will depend on your printer nozzle.
 
@@ -99,6 +100,8 @@ Use a fixed absolute angle for ironing that is not offset from the top surface i
 When enabled, the [Angle Offset](#angle-offset) value is used as the absolute ironing angle. Choose an angle that is well offset from all the affected top surface solid infill directions.
 
 Suggested fixed ironing angles are 0° and 90° if you are using the default solid infill direction of 45°.
+
+This option can only be edited when the ironing [Pattern](#pattern) is Rectilinear.
 
 ## Speed
 
