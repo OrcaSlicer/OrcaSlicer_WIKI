@@ -102,6 +102,7 @@ In this example of a pattern of crossing lines and the [Gyroid](strength_setting
 [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) & [Support Cubic](strength_settings_patterns#support-cubic) patterns use a Non-crossing multiline strategy.
 For these infill patterns, an alternative approach is used, generating trapezoidal trajectories designed to avoid self-intersections of the infill lines. In each layer, the pattern rotates to ensure isotropic strength.  
 This strategy improves printing times by avoiding closed loops in favor of continuous printing paths.  
+[3D Honeycomb](strength_settings_patterns#3d-honeycomb) is also non-crossing: it draws its multiline copies itself as parallel waves that never cross.  
 
 > [!IMPORTANT]
 > NEW FEATURE: **Non-Crossing Cubic, Adaptive Cubic and Support Cubic**  

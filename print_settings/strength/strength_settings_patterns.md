@@ -489,7 +489,7 @@ Behavior with other settings:
         - **Material/Time (Higher better):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
         - **Layer time Variability:** Possibly Noticeable
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
