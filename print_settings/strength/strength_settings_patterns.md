@@ -183,7 +183,9 @@ Similar to [Zig Zag](#zig-zag), but each layer is shifted by the **Infill shift 
 [Type](option_type): `skin_infill_density` (Percentage), `skeleton_infill_density` (Percentage), `infill_lock_depth` (Float), `skin_infill_depth` (Float), `skin_infill_line_width` (Float or Percentage), `skeleton_infill_line_width` (Float or Percentage).  
 [CLI Example](cli_mode#setting-overrides): `--skin-infill-density=20%` (`skin_infill_density` shown; other variables above follow their own type).  
 Version of [Zig Zag](#zig-zag) that adds extra skin.
-When using this fill, you can individually modify the density of the skeleton and skin, as well as the size of the skin and how much interconnection there is between the skin and the skeleton (a lock depth of 50% of the skin depth is recommended).
+When using this fill, you can individually modify the density of the skeleton and skin, as well as the size of the skin and how much interconnection there is between the skin and the skeleton (a lock depth of 50% of the skin depth is recommended).  
+**Skin line width** and **Skeleton line width** set the line width of the skin and skeleton paths. If expressed as a %, they are computed over the nozzle diameter.  
+The **Infill shift step** of [Cross Zag](#cross-zag) also applies to Locked Zag, but it only shifts the skin. The skeleton is not shifted.
 
 - **Strength**
     - **Horizontal (X-Y):** Normal-Low ![level-to-better-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-3.svg?raw=true)
@@ -726,6 +728,33 @@ Fills the area with progressively smaller versions of the outer contour, creatin
     - **[Ironing](quality_settings_ironing)**
 
 ![infill-top-concentric](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-concentric.png?raw=true)
+
+## Spiral Inset
+
+> [!IMPORTANT]
+> NEW FEATURE: **Spiral Inset pattern**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Version of [Concentric](#concentric) that joins its loops into one continuous spiral: each loop is cut short and runs straight into the next loop inside it, instead of being printed as a separate closed loop.
+
+The outer end of the spiral is at a convex corner of the outer loop, preferably one close to a right angle, and each loop inside it continues from the point nearest to the end of the loop outside it.  
+The step from one loop to the next is extruded, not traveled. When the next loop cannot be reached with a short step inside the surface (it belongs to another island, is more than four loop spacings away, or the step would cross a hole or a notch), the spiral ends and a new one starts.
+
+On solid top and bottom surfaces, the loops use variable line widths, as in the [Arachne](quality_settings_wall_generator#arachne) wall generator, to fill the gaps that fixed-width loops would leave. Internal solid infill, support interfaces and surfaces below 100% density use fixed-width loops, and a short line into the center fills the small hole the innermost loop can leave there.  
+On top and bottom surfaces, the direction of the spiral is set by [Fill Order](strength_settings_top_bottom_shells#fill-order).
+
+- **Strength:** Not measured yet.
+- **Density Calculation:** Same as [Concentric](#concentric).
+    - **Material Usage:** Not measured yet.
+    - **Print Time:** Not measured yet.
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** N/A
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** N/A
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** N/A
+- **Applies to:**
+    - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
+    - **[Surface](strength_settings_top_bottom_shells)**
+    - **[Support Interface](support_settings_advanced#interface-pattern)**
 
 ## Hilbert Curve
 

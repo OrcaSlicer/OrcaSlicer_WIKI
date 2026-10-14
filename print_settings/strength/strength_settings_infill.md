@@ -122,6 +122,8 @@ These settings control the orientation of the sparse and solid infill lines to o
 [CLI Example](cli_mode#setting-overrides): `--infill-direction=1` (same pattern for the other variables above).  
 Controls the direction of the infill lines to optimize or strengthen the print.
 
+[Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) do not support rotation, so the sparse infill direction and the sparse infill [rotation template](#rotation) are disabled for them. The solid infill direction and rotation template are not affected.
+
 ![fill-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/fill-direction.png?raw=true)
 
 > [!TIP]
@@ -231,6 +233,9 @@ This setting applies to top, bottom and solid infill and, if using the [classic 
 [CLI Example](cli_mode#setting-overrides): `--infill-anchor-max=20%` (same pattern for the other variables above).  
 Connect an infill line to an internal perimeter with a short segment of an additional perimeter. If expressed as a percentage (example: 15%), it is calculated over the infill extrusion width.
 OrcaSlicer tries to connect two close infill lines to a short perimeter segment. If no such perimeter segment shorter than the Maximum length of the infill anchor is found, the infill line is connected to a perimeter segment at just one side and the length of the perimeter segment taken is limited to the Sparse infill anchor length, but no longer than the Maximum length of the infill anchor. If the Maximum length of the infill anchor is set to 0, the old algorithm for infill connection is used, which should create the same result as 1000 & 0.
+
+[Concentric](strength_settings_patterns#concentric) loops follow the outline of the infill area instead of ending at the walls, so there is nothing to anchor and both settings are hidden for that pattern.  
+With the [Line](strength_settings_patterns#line) pattern both settings are disabled, and the Sparse infill anchor length is also disabled whenever the Maximum length of the infill anchor is `0`.
 
 - **Anchor Off**
 

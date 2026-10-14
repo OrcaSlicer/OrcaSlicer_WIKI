@@ -74,7 +74,7 @@ The surface patterns are:
 - **[Monotonic](strength_settings_patterns#monotonic)**
 - **[Monotonic line](strength_settings_patterns#monotonic-line)**: usually recommended for top surfaces.
 - **[Aligned Rectilinear](strength_settings_patterns#aligned-rectilinear)**
-- **Spiral Inset**
+- **[Spiral Inset](strength_settings_patterns#spiral-inset)**
 - **[Hilbert Curve](strength_settings_patterns#hilbert-curve)**
 - **[Archimedean Chords](strength_settings_patterns#archimedean-chords)**
 - **[Octagram Spiral](strength_settings_patterns#octagram-spiral)**
@@ -192,7 +192,7 @@ By default these patterns are centered individually on each surface, which does 
 > NEW FEATURE: **Fill order**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-Direction in which the top and bottom surfaces are filled when using a center-based pattern ([Concentric](strength_settings_patterns#concentric), Spiral Inset, [Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)). The spirals/rings are then deposited consistently inward or outward instead of following the default shortest path.
+Direction in which the top and bottom surfaces are filled when using a center-based pattern ([Concentric](strength_settings_patterns#concentric), [Spiral Inset](strength_settings_patterns#spiral-inset), [Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)). The spirals/rings are then deposited consistently inward or outward instead of following the default shortest path.
 
 ![fill-order](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/fill-order.jpg?raw=true)
 
