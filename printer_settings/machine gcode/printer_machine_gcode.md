@@ -87,7 +87,7 @@ This G-code is used for capturing timelapse videos. It typically includes comman
 
 ## Clumping detection G-code
 
-This G-code is executed when clumping is detected during printing. It can be used to pause the print, retract filament, or perform other actions to address the clumping issue.
+This G-code is inserted on every layer when [Enable clumping detection](others_settings_special_mode#enable-clumping-detection) is enabled, to run the printer's check for filament clumped around the nozzle. Use the `layer_num` placeholder to choose the layers to check; the Bambu Lab profiles check a few of the early layers.
 
 ## Change filament G-code
 
