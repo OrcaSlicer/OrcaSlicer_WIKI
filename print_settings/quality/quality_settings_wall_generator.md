@@ -9,7 +9,7 @@ The Wall Generator defines how the outer and inner walls (perimeters) of the mod
 
 - [Classic](#classic)
 - [Arachne](#arachne)
-    - [Wall transitioning threshhold angle](#wall-transitioning-threshhold-angle)
+    - [Wall transitioning threshold angle](#wall-transitioning-threshold-angle)
     - [Wall transitioning filter margin](#wall-transitioning-filter-margin)
     - [Wall transitioning length](#wall-transitioning-length)
     - [Wall distribution count](#wall-distribution-count)
@@ -36,7 +36,7 @@ The Arachne wall generator dynamically adjusts extrusion width to follow the sha
 > [!NOTE]
 > [A Framework for Adaptive Width Control of Dense Contour-Parallel Toolpaths in Fused Deposition Modeling](https://www.sciencedirect.com/science/article/pii/S0010448520301007?via%3Dihub)
 
-### Wall transitioning threshhold angle
+### Wall transitioning threshold angle
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wall_transition_angle`.  
