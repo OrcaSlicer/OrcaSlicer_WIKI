@@ -11,6 +11,9 @@ This happens by reducing the stresses put on the extrusion system as well as red
 
 This feature is especially helpful when printing at high accelerations and large flow rates as the deviations are larger in these cases.
 
+> [!NOTE]
+> A value of 0 disables Extrusion rate smoothing. Any value greater than 0 turns off [Arc fitting](quality_settings_precision#arc-fitting) and locks that option while smoothing is enabled.
+
 ![ers-intro](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ERS/ers-intro.png?raw=true)
 
 - [Theory](#theory)
@@ -19,6 +22,7 @@ This feature is especially helpful when printing at high accelerations and large
 - [Finding the ideal Extrusion Rate smoothing value](#finding-the-ideal-extrusion-rate-smoothing-value)
 - [A note for Bowden printers using Marlin without pressure advance](#a-note-for-bowden-printers-using-marlin-without-pressure-advance)
 - [A note on ERS Segment length](#a-note-on-ers-segment-length)
+- [Apply only on external features](#apply-only-on-external-features)
 - [Limitations](#limitations)
 - [Credits](#credits)
 
@@ -177,6 +181,11 @@ Ideally, you want this value set low (for example, 1) to allow for more steps be
 For Klipper printers, a segment length of 1 works OK as the RPI or similar have enough computational power to handle the G-code command volume.
 
 Similarly, for a Bambu Lab printer, a segment length of 1 works well. **However, if you do notice your printer stuttering or stalling** (which may be the case with the lower-powered P1 series printers) **or getting "Timer too close" errors** in Klipper, **increase this value to 2 or 3**. This would reduce the effectiveness of the setting but will present a more manageable load to your printer.
+
+## Apply only on external features
+
+Applies extrusion rate smoothing only to outer walls and overhang walls, leaving the flow of all other features unchanged. This can reduce artifacts caused by sharp speed transitions on visible overhangs without slowing down features that won't be seen.  
+This option is only shown when Extrusion rate smoothing is greater than 0, and it is disabled by default.
 
 ## Limitations
 

@@ -54,7 +54,7 @@ Any shape (not only circles) will be considered as a small perimeter.
 If expressed as a percentage (for example: 80%), it will be calculated on the [outer wall speed](#outer-wall).
 
 > [!NOTE]
-> Zero will use [50%](https://github.com/OrcaSlicer/OrcaSlicer/blob/7d2a12aa3cbf2e7ca5d0523446bf1d1d4717f8d1/src/libslic3r/GCode.cpp#L4698) of [outer wall speed](#outer-wall).
+> The default is 50% of the [outer wall speed](#outer-wall).
 
 ### Small perimeters threshold
 
@@ -119,7 +119,8 @@ Speed of [gap infill](strength_settings_infill#apply-gap-fill), which is used to
 [Variable](built_in_placeholders_variables): `ironing_speed`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--ironing-speed=1`.  
-[Ironing](quality_settings_ironing) and [Support Ironing](support_settings_ironing) speed, typically slower than the top surface speed to ensure a smooth finish.
+[Ironing](quality_settings_ironing) and [Support Ironing](support_settings_ironing) speed, typically slower than the top surface speed to ensure a smooth finish.  
+Each filament can replace this speed with its own Ironing speed in its [setting overrides](material_setting_overrides#ironing).
 
 ## Support
 
@@ -151,7 +152,7 @@ Speed for the support interface layers, which are the layers directly contacting
 Same as [Small perimeters](#small-perimeters), but for supports.  
 This separate setting affects the speed of support extrusions whose length is within the [small support perimeters threshold](#small-tree-support-perimeters-threshold).  
 If expressed as a percentage (for example: 80%), it will be calculated on the [support](#support) or [support interface](#support-interface) speed.  
-Zero will use 50% of the [support](#support) or [support interface](#support-interface) speed.
+The default is 50% of the [support](#support) or [support interface](#support-interface) speed.
 
 ### Small tree support perimeters threshold
 

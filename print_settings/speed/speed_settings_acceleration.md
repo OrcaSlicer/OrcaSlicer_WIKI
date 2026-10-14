@@ -18,6 +18,8 @@ Orca limits the acceleration so it doesn't exceed the maximum set in the printer
 - [Initial layer travel](#initial-layer-travel)
 - [Top surface](#top-surface)
 - [Travel](#travel)
+- [Enable accel to decel](#enable-accel-to-decel)
+    - [Accel to decel](#accel-to-decel)
 
 ## Normal printing
 
@@ -103,3 +105,14 @@ A value similar to the [outer wall acceleration](#outer-wall) is recommended.
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--travel-acceleration=1`.  
 Acceleration of [travel](speed_settings_travel) moves. This is usually set to a higher value than normal printing to reduce travel time.
+
+## Enable accel to decel
+
+Adjusts Klipper's `max_accel_to_decel` automatically. Each time Orca sets the acceleration with `SET_VELOCITY_LIMIT ACCEL=`, it adds `ACCEL_TO_DECEL=` at the [accel to decel](#accel-to-decel) percentage of that acceleration. When disabled, `ACCEL_TO_DECEL` is not sent.  
+This option is only shown when the [G-code flavor](printer_basic_information_advanced#g-code-flavor) is Klipper, and it is enabled by default.
+
+### Accel to decel
+
+Percentage of the acceleration that Klipper's `max_accel_to_decel` is set to, from 1% to 100% (default 50%).  
+For example, at 5000 mm/s² and 50%, Orca sends `SET_VELOCITY_LIMIT ACCEL=5000 ACCEL_TO_DECEL=2500`.  
+It can only be edited when [Enable accel to decel](#enable-accel-to-decel) is checked.
