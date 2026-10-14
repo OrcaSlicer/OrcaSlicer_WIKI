@@ -176,11 +176,11 @@ In this special case, ERS will be doing all the heavy lifting that pressure adva
 
 ## A note on ERS Segment length
 
-Ideally, you want this value set low (for example, 1) to allow for more steps between each speed transition. However, this may result in G-code that is too large, with too many commands sent to your MCU per second, and it may not be able to keep up. It will also slow down the OrcaSlicer front end as the sliced model is more complex to render.
+The default value of 3 works well for most cases, so start there.
 
-For Klipper printers, a segment length of 1 works OK as the RPI or similar have enough computational power to handle the G-code command volume.
+A lower value allows for more steps between each speed transition, which makes the transitions smoother. However, this may result in G-code that is too large, with too many commands sent to your MCU per second, and it may not be able to keep up. It will also slow down the OrcaSlicer front end as the sliced model is more complex to render.
 
-Similarly, for a Bambu Lab printer, a segment length of 1 works well. **However, if you do notice your printer stuttering or stalling** (which may be the case with the lower-powered P1 series printers) **or getting "Timer too close" errors** in Klipper, **increase this value to 2 or 3**. This would reduce the effectiveness of the setting but will present a more manageable load to your printer.
+If you want smoother transitions, you can lower it, down to the minimum of 0.5. Klipper printers usually handle a segment length of 1 OK, as the RPI or similar have enough computational power to handle the G-code command volume, and Bambu Lab printers usually do too. **However, if you do notice your printer stuttering or stalling** (which may be the case with the lower-powered P1 series printers) **or getting "Timer too close" errors** in Klipper, **increase this value**, back to the default of 3 or higher (up to 5). This would reduce the effectiveness of the setting but will present a more manageable load to your printer.
 
 ## Apply only on external features
 
