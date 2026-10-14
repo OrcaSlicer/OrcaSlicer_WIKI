@@ -5,7 +5,7 @@
 [CLI Example](cli_mode#setting-overrides): `--tree-support-auto-brim=1` (`tree_support_auto_brim` shown; other variables above follow their own type).  
 This section contains specific settings for tree support structures.
 
-[Tip Diameter](#tip-diameter), [Branch Density](#branch-density), [Branch Diameter Angle](#branch-diameter-angle) and [Preferred Branch Angle](#preferred-branch-angle) apply only to the [Organic](support_settings_support#organic) style. [Branch Distance](#branch-distance), [Branch Diameter](#branch-diameter) and [Branch Angle](#branch-angle) have separate values for the Organic style and for the Tree Slim, Tree Strong and Tree Hybrid styles.
+[Tip Diameter](#tip-diameter), [Branch Density](#branch-density), [Branch Diameter Angle](#branch-diameter-angle) and [Preferred Branch Angle](#preferred-branch-angle) apply only to the [Organic](support_settings_support#organic) style. [Branch Distance](#branch-distance), [Branch Diameter](#branch-diameter) and [Branch Angle](#branch-angle) have separate values for the Organic style and for the Tree Slim, Tree Strong and Tree Hybrid styles. [Auto brim width](#auto-brim-width) and [Tree support brim width](#tree-support-brim-width) apply only to the Tree Slim, Tree Strong and Tree Hybrid styles.
 
 ## Tip Diameter
 
@@ -62,3 +62,13 @@ This setting determines the maximum overhang angle that the branches of tree sup
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--tree-support-angle-slow=1`.  
 The preferred angle of the branches, when they do not have to avoid the model. Use a lower angle to make them more vertical and more stable. Use a higher angle for branches to merge faster.
+
+## Auto brim width
+
+On the first layer, each branch is widened by a brim that helps it stick to the build plate. When this is enabled, the brim width is calculated per branch as half the branch height divided by its radius at the plate, so tall, thin branches get a wider brim: a 40 mm tall branch with a 2 mm radius gets a 10 mm brim. It is never less than 2 mm, and is otherwise capped so that a branch and its brim stay within 12 mm of the branch center.
+
+The brim is only added when there is no raft. With the Tree Hybrid style, it is added to the branches only; the parts printed as normal support use [Initial layer expansion](support_settings_support#initial-layer-expansion) instead.
+
+### Tree support brim width
+
+The brim width used when [Auto brim width](#auto-brim-width) is disabled: the distance from the edge of each branch to the outer edge of its brim. `0` disables the brim.

@@ -17,6 +17,7 @@
 - [Support/object XY distance](#supportobject-xy-distance)
 - [Support/object first layer gap](#supportobject-first-layer-gap)
 - [Don't support bridges](#dont-support-bridges)
+- [Max bridge length](#max-bridge-length)
 - [Independent support layer height](#independent-support-layer-height)
 
 ## Z distance
@@ -45,6 +46,8 @@ This setting specifies the number of support walls, from 0 to 2. 0 means auto.
 [Options](option_type#choice): `default, rectilinear, rectilinear-grid, honeycomb, lightning, hollow`.  
 [CLI Example](cli_mode#setting-overrides): `--support-base-pattern=default`.  
 Line pattern for the base of the support.
+
+`Default` depends on the support type: normal supports use `Rectilinear`, and tree supports are left `Hollow`, with only the branch walls printed. With the [Tree Hybrid](support_settings_support#tree-hybrid) style, `Default` fills the parts printed as normal support with `Rectilinear` and leaves the branches hollow, while choosing `Rectilinear` fills the branches too.
 
 ### Base pattern spacing
 
@@ -98,8 +101,13 @@ Each option lays the interface lines out differently, and all of them are measur
 | `Default` | Straight lines crossing the support at 90° to Pattern angle. Switches to concentric loops when the interface touches the model, which is the usual case for soluble supports. |
 | `Rectilinear` | Straight lines at 90° to Pattern angle. With the [Snug](support_settings_support#snug) style they are rotated a further 45°. |
 | `Concentric` | Loops following the outline of the interface, which peel off in one piece and leave no line ends on the surface. |
+| `Spiral Inset` | Like `Concentric`, but the loops are joined into a continuous [spiral](strength_settings_patterns#spiral-inset), so the nozzle steps from one ring to the next without stopping. |
 | `Rectilinear Interlaced` | Straight lines that swing 45° one way then the other on each successive layer, so the layers cross instead of stacking. This ties the interface together and makes it stiffer under the overhang. |
 | `Grid` | Straight lines crossing in a grid on every layer: one set runs along Pattern angle, in line with the [Base Pattern](#base-pattern) below, and the other at 90° to it. |
+
+> [!IMPORTANT]
+> NEW FEATURE: **Spiral Inset interface pattern**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 If [Interface spacing](#interface-spacing) is wide enough that the interface is no longer solid, `Default` and `Rectilinear` switch to the base support pattern so that the sparse lines still anchor to each other.
 
@@ -147,7 +155,13 @@ XY separation between an object and its support at the first layer.
 [CLI Example](cli_mode#setting-overrides): `--bridge-no-support=1`.  
 Don't support bridge areas, which would otherwise make the support very large. Bridges can usually be printed directly without support if they are not very long.
 
-This option is only shown for normal supports. Tree supports use **Max bridge length** instead: bridges up to that length are left unsupported, and `0` supports all bridges.
+This option is only shown for normal supports. Tree supports use [Max bridge length](#max-bridge-length) instead.
+
+## Max bridge length
+
+The longest bridge that tree supports leave unsupported. It replaces [Don't support bridges](#dont-support-bridges) for every tree style, including Organic. Bridges up to this length that are anchored at both ends are printed without support, and longer ones are supported along their whole length. `0` supports all bridges, and a very large value leaves every bridge unsupported.
+
+With the Tree Slim, Tree Strong and Tree Hybrid styles, the branch tips placed inside an overhang are also spaced at least half this length apart, so a value above twice [Branch Distance](support_settings_tree#branch-distance) spreads them further apart.
 
 ## Independent support layer height
 
