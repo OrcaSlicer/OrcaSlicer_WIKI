@@ -1,5 +1,6 @@
 # Support
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `enable_support`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--enable-support=1`.  

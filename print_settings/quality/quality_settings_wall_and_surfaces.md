@@ -91,6 +91,7 @@ Other flow ratios, such as ratios for the first layer (does not affect brims and
 
 ## Only one wall
 
+[Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `only_one_wall_first_layer`, `only_one_wall_top`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--only-one-wall-first-layer=1` (same pattern for the other variables above).  

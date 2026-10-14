@@ -18,6 +18,7 @@ Controls how the top and bottom solid layers (shells) are generated.
 
 ## Shell Layers
 
+[Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `top_shell_layers`, `bottom_shell_layers`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--top-shell-layers=1` (same pattern for the other variables above).  
@@ -29,6 +30,7 @@ It's usually recommended to have at least 3 shell layers for most prints.
 
 ## Shell Thickness
 
+[Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `top_shell_thickness`, `bottom_shell_thickness`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--top-shell-thickness=1` (same pattern for the other variables above).  
@@ -37,6 +39,7 @@ The number of solid layers is increased during slicing if the thickness calculat
 
 ## Surface Density
 
+[Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `top_surface_density`, `bottom_surface_density`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--top-surface-density=20%` (same pattern for the other variables above).  
@@ -57,6 +60,7 @@ A value of 25-30% is a good starting point. The percentage value is relative to 
 
 ## Surface Pattern
 
+[Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `top_surface_pattern`, `bottom_surface_pattern`.  
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `monotonic, monotonicline, rectilinear, alignedrectilinear, concentric, spiralinset, hilbertcurve, archimedeanchords, octagramspiral`.  

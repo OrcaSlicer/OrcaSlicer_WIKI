@@ -62,6 +62,7 @@ The preferred angle of the branches, when they do not have to avoid the model. U
 
 ## Auto brim width
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `tree_support_auto_brim`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--tree-support-auto-brim=1`.  
@@ -71,6 +72,7 @@ The brim is only added when there is no raft. With the Tree Hybrid style, it is 
 
 ### Tree support brim width
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `tree_support_brim_width`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--tree-support-brim-width=1`.  

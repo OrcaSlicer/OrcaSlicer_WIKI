@@ -39,6 +39,10 @@ Min and max layer height limits for the extruder. These settings are used when a
 
 ## Extruder printable area
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `extruder_printable_area[extruder_idx]`.  
+[Type](option_type#list-types): `Point group list`.  
+[CLI Example](cli_mode#setting-overrides): `--extruder-printable-area=value`.  
 The area of the bed that each extruder can reach, on printers whose extruders can't all cover the whole bed. On the Bambu Lab H2D, for example, the left nozzle reaches X 0 to 325 mm and the right nozzle X 25 to 350 mm of the 350 mm wide bed, so a 25 mm strip on each side can only be printed by one nozzle.
 
 Orca uses these areas to:
@@ -57,7 +61,7 @@ This value comes from the printer profile and can't be edited. It is only shown 
 ## Extruder offset Position
 
 [Mode](option_mode): `Advanced`.  
-[Variables](built_in_placeholders_variables): `extruder_printable_area[extruder_idx]`, `extruder_offset[extruder_idx]`.  
-[Type](option_type): `extruder_printable_area` (Point group list), `extruder_offset` (Point list).  
-[CLI Example](cli_mode#setting-overrides): `--extruder-printable-area=value` (`extruder_printable_area` shown; other variables above follow their own type).  
+[Variable](built_in_placeholders_variables): `extruder_offset[extruder_idx]`.  
+[Type](option_type#list-types): `Point list`.  
+[CLI Example](cli_mode#setting-overrides): `--extruder-offset=100,100`.  
 If your firmware doesn't handle the extruder displacement you need the G-code to take it into account. This option lets you specify the displacement of each extruder with respect to the first one. It expects positive coordinates (they will be subtracted from the XY coordinate).

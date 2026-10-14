@@ -681,6 +681,7 @@ Mathematical, isotropic surface providing equal strength in all directions. Exce
 
 ### Gyroid Optimized
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `gyroid_optimized`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--gyroid-optimized=1`.  

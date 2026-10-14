@@ -24,6 +24,7 @@ Adjusting wall settings can significantly affect layer adhesion, strength, appea
 
 ## Wall loops
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `wall_loops`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--wall-loops=1`.  

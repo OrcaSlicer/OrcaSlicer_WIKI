@@ -79,6 +79,7 @@ Right click to reset value to system default.
 
 ## Diameter
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `filament_diameter`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--filament-diameter=1`.  
@@ -136,6 +137,7 @@ The material softens at this temperature, so when the bed temperature is equal t
 
 ## Idle temperature
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `idle_temperature`.  
 [Type](option_type#list-types): `Integer list`.  
 [CLI Example](cli_mode#setting-overrides): `--idle-temperature=1`.  

@@ -32,6 +32,7 @@ Always refer to the filament manufacturer's recommendations and [calibrations](t
 
 ## Nozzle
 
+[Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `nozzle_temperature_initial_layer`, `nozzle_temperature`.  
 [Type](option_type#list-types): `Integer list`.  
 [CLI Example](cli_mode#setting-overrides): `--nozzle-temperature-initial-layer=1` (same pattern for the other variables above).  
@@ -41,6 +42,7 @@ You can set a higher temperature for the first layer to improve bed adhesion but
 
 ## Bed
 
+[Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `supertack_plate_temp_initial_layer`, `supertack_plate_temp`, `cool_plate_temp_initial_layer`, `cool_plate_temp`, `textured_cool_plate_temp_initial_layer`, `textured_cool_plate_temp`, `eng_plate_temp_initial_layer`, `eng_plate_temp`, `hot_plate_temp_initial_layer`, `hot_plate_temp`, `textured_plate_temp_initial_layer`, `textured_plate_temp`.  
 [Type](option_type#list-types): `Integer list`.  
 [CLI Example](cli_mode#setting-overrides): `--supertack-plate-temp-initial-layer=1` (same pattern for the other variables above).  

@@ -201,6 +201,7 @@ Results in:
 
 ## Precise wall
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `precise_outer_wall`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--precise-outer-wall=1`.  

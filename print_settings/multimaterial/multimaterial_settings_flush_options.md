@@ -2,6 +2,7 @@
 
 ## Flush into objects' infill
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `flush_into_infill`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--flush-into-infill=1`.  
@@ -9,6 +10,7 @@ Purging after a filament change will be done inside the objects' infill. This ma
 
 ## Flush into this object
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `flush_into_objects`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--flush-into-objects=1`.  
@@ -18,6 +20,7 @@ This is a per-object setting, so it isn't shown in the global process settings. 
 
 ## Flush into objects' support
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `flush_into_support`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--flush-into-support=1`.  

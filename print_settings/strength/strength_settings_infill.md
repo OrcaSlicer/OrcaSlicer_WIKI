@@ -30,6 +30,7 @@ Infill is the internal structure of a 3D print, providing strength and support. 
 
 ## Sparse infill density
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `sparse_infill_density`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--sparse-infill-density=20%`.  
@@ -47,6 +48,7 @@ Infill density determines the amount of material used to fill the interior of a 
 
 ## Fill Multiline
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `fill_multiline`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--fill-multiline=1`.  
@@ -247,6 +249,7 @@ With the [Line](strength_settings_patterns#line) pattern both settings are disab
 
 ## Internal Solid Infill
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `internal_solid_infill_pattern`.  
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `monotonic, monotonicline, rectilinear, alignedrectilinear, concentric, spiralinset, hilbertcurve, archimedeanchords, octagramspiral`.  
@@ -309,6 +312,7 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 
 ## Sparse Infill Pattern
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `sparse_infill_pattern`.  
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `rectilinear, alignedrectilinear, zigzag, crosszag, lockedzag, line, grid, triangles, tri-hexagon, cubic, adaptivecubic, quartercubic, supportcubic, lightning, honeycomb, 3dhoneycomb, lateral-honeycomb, lateral-lattice, crosshatch, tpmsd, tpmsfk, gyroid, concentric, hilbertcurve, archimedeanchords, octagramspiral`.  
