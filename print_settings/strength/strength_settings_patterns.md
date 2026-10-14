@@ -235,7 +235,7 @@ Two sets of perpendicular lines on every layer, forming a grid. Overlapping poin
     - **Vertical (Z):** High ![level-to-better-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-6.svg?raw=true)
 - **Density Calculation:**  % of  total infill volume
     - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
-    - **Print Time:** Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true)
+    - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
         - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
         - **Layer time Variability:** None
 - **Extra:**
@@ -743,10 +743,14 @@ The step from one loop to the next is extruded, not traveled. When the next loop
 On solid top and bottom surfaces, the loops use variable line widths, as in the [Arachne](quality_settings_wall_generator#arachne) wall generator, to fill the gaps that fixed-width loops would leave. Internal solid infill, support interfaces and surfaces below 100% density use fixed-width loops, and a short line into the center fills the small hole the innermost loop can leave there.  
 On top and bottom surfaces, the direction of the spiral is set by [Fill Order](strength_settings_top_bottom_shells#fill-order).
 
-- **Strength:** Not measured yet.
+- **Strength**
+    - **Horizontal (X-Y):** Low ![level-to-better-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-2.svg?raw=true)
+    - **Vertical (Z):** Normal ![level-to-better-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-4.svg?raw=true)
 - **Density Calculation:** Same as [Concentric](#concentric).
-    - **Material Usage:** Not measured yet.
-    - **Print Time:** Not measured yet.
+    - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
+    - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
+        - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
+        - **Layer time Variability:** None
 - **Extra:**
     - **[Multiline](strength_settings_infill#fill-multiline):** N/A
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** N/A
