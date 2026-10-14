@@ -130,6 +130,14 @@ There are 3 main ways to set up these links:
     optgroup->append_single_option_line("seam_slope_type", "quality_settings_seam#scarf-joint-seam"); // Wiki  page and redirection to `Scarf Joint Seam` section
     ```
 
+    An option that is customized first is passed as an `Option` object; the sync script reads its key from the `get_option` call that created it:
+
+    ```cpp
+    option = optgroup->get_option("filename_format");
+    option.opt.is_code = true;
+    optgroup->append_single_option_line(option, "others_settings_g_code_output#filename-format");
+    ```
+
 2. Using `append_option_line` with a third string argument for the wiki page.
 
     ```cpp

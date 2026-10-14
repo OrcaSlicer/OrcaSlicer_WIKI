@@ -106,6 +106,21 @@ function Get-CppSourceContent {
     return Get-Content -LiteralPath $Source -Raw
 }
 
+function Clear-CppComments {
+    param([string]$Content)
+
+    # Spaces keep indexes and lines in place; literals match first so a "//" in a URL isn't a comment.
+    $pattern = '(?s)"[^"\\]*(?:\\.[^"\\]*)*"|''[^''\\\r\n]*(?:\\.[^''\\\r\n]*)*''|//[^\r\n]*|/\*.*?\*/'
+    return [regex]::Replace($Content, $pattern, {
+        param($m)
+        if ($m.Value[0] -ne '/') {
+            return $m.Value
+        }
+
+        return [regex]::Replace($m.Value, '[^\r\n]', ' ')
+    })
+}
+
 function Resolve-PublishSettingsPath {
     param(
         [string]$Explicit,
@@ -237,6 +252,47 @@ function Get-AppendLineBlockEntries {
     return $entries
 }
 
+function Resolve-OptionVariable {
+    param(
+        [string]$Content,
+        [string]$Name,
+        [int]$BeforeIndex,
+        [hashtable]$AssignmentCache
+    )
+
+    # The nearest preceding declaration or assignment of <name>; only a get_option("var"[, idx]) one names a key.
+    if (-not $AssignmentCache.ContainsKey($Name)) {
+        $escapedName = [regex]::Escape($Name)
+        $AssignmentCache[$Name] = [regex]::Matches($Content, '(?:\bOption\s+' + $escapedName + '\b|(?<![\w.>])' + $escapedName + '\s*=(?!=))[^;]*;')
+    }
+
+    $assignment = $null
+    foreach ($am in $AssignmentCache[$Name]) {
+        if ($am.Index -ge $BeforeIndex) {
+            break
+        }
+
+        $assignment = $am
+    }
+
+    if ($null -eq $assignment) {
+        return $null
+    }
+
+    $gm = [regex]::Match($assignment.Value, 'get_option\(\s*"(?<variable>[^"]+)"(?:\s*,\s*(?<indexer>[^\),]+))?\s*\)')
+    if (-not $gm.Success) {
+        return $null
+    }
+
+    $variable = $gm.Groups['variable'].Value.Trim()
+    $indexer = $gm.Groups['indexer'].Value.Trim()
+    if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
+        $variable = "${variable}[$indexer]"
+    }
+
+    return $variable
+}
+
 function Get-OptionModesByVariable {
     param([string]$Content)
 
@@ -282,7 +338,8 @@ function Remove-StaleSectionMetadata {
     param(
         [System.Collections.Generic.List[string]]$Buffer,
         [hashtable]$ExpectedAnchors,
-        [string]$MetadataLinePattern
+        [string]$MetadataLinePattern,
+        [string]$TypeLinePattern
     )
 
     $sectionsPruned = 0
@@ -320,11 +377,27 @@ function Remove-StaleSectionMetadata {
             continue
         }
 
+        # Type sync lines go with the [Mode]/[Variable] block they sit in; blocks without one are kept.
         $metadataIndexes = New-Object System.Collections.Generic.List[int]
+        $blockIndexes = New-Object System.Collections.Generic.List[int]
+        $blockHasMetadata = $false
         for ($k = $sectionStart + 1; $k -le $sectionEnd; $k++) {
-            if ($Buffer[$k] -match $MetadataLinePattern) {
-                $metadataIndexes.Add($k)
+            $isMetadata = $Buffer[$k] -match $MetadataLinePattern
+            if ($isMetadata -or $Buffer[$k] -match $TypeLinePattern) {
+                $blockIndexes.Add($k)
+                $blockHasMetadata = $blockHasMetadata -or $isMetadata
+                continue
             }
+
+            if ($blockHasMetadata) {
+                $metadataIndexes.AddRange($blockIndexes)
+            }
+            $blockIndexes.Clear()
+            $blockHasMetadata = $false
+        }
+
+        if ($blockHasMetadata) {
+            $metadataIndexes.AddRange($blockIndexes)
         }
 
         if ($metadataIndexes.Count -eq 0) {
@@ -333,6 +406,12 @@ function Remove-StaleSectionMetadata {
 
         for ($r = $metadataIndexes.Count - 1; $r -ge 0; $r--) {
             $Buffer.RemoveAt($metadataIndexes[$r])
+        }
+
+        # Drop the blank the insert added before a following heading, so no double blank is left.
+        $first = $metadataIndexes[0]
+        if ($first -lt $Buffer.Count -and [string]::IsNullOrWhiteSpace($Buffer[$first]) -and [string]::IsNullOrWhiteSpace($Buffer[$first - 1])) {
+            $Buffer.RemoveAt($first)
         }
 
         $sectionsPruned++
@@ -390,10 +469,12 @@ if (-not (Test-Path -LiteralPath $WikiRoot)) {
 }
 
 Set-SyncStage -Step 1 -Status "Loading Tab.cpp content"
-$tabContent = Get-CppSourceContent -Source $TabCppPath -Description "Tab.cpp"
+$tabContent = Clear-CppComments -Content (Get-CppSourceContent -Source $TabCppPath -Description "Tab.cpp")
 
 Set-SyncStage -Step 2 -Status "Parsing option mappings from Tab.cpp"
 $patternSingle = 'append_single_option_line\(\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
+# option = optgroup->get_option("var"[, idx]); ... optgroup->append_single_option_line(option, "ref");
+$patternSingleOptionVar = 'append_single_option_line\(\s*(?<name>[A-Za-z_]\w*)\s*,\s*"(?<ref>[^"]+)"\s*\)'
 $patternOption = 'append_option_line\(\s*[^,]+\s*,\s*"(?<variable>[^"]+)"\s*,\s*"(?<ref>[^"]+)"(?:\s*,\s*(?<indexer>[^\)]+))?\s*\)'
 $patternAppendLineBlock = '(?s)(?<obj>\w+)\.label_path\s*=\s*"(?<ref>[^"]+)"\s*;(?<body>.*?)(?:\w+->)?append_line\(\s*\k<obj>\s*\)\s*;'
 # Bound the brace block and the body span: unbounded '.*?' here backtracks catastrophically
@@ -406,6 +487,7 @@ $patternForBlock = '(?s)for\s*\(\s*const\s+std::string\s*&\s*(?<iter>\w+)\s*:\s*
 $patternPublishableForBlock = '(?s)for\s*\(\s*const\s+PublishablePrinterOption\s*&\s*(?<iter>\w+)\s*:\s*(?<table>\w+)\s*\(\s*\)\s*\)\s*(?<body>\{[^{}]{0,2000}\}|[^{}]{0,2000}?;)'
 
 $singleMatches = [regex]::Matches($tabContent, $patternSingle)
+$singleOptionVarMatches = [regex]::Matches($tabContent, $patternSingleOptionVar)
 $optionMatches = [regex]::Matches($tabContent, $patternOption)
 $appendLineMatches = [regex]::Matches($tabContent, $patternAppendLineBlock)
 $appendLineAssignedMatches = [regex]::Matches($tabContent, $patternAppendLineAssignedBlock)
@@ -425,7 +507,7 @@ if ($publishableForMatches.Count -gt 0) {
     }
     else {
         try {
-            $publishSettingsContent = Get-CppSourceContent -Source $publishSettingsSource -Description "PublishSettings.cpp"
+            $publishSettingsContent = Clear-CppComments -Content (Get-CppSourceContent -Source $publishSettingsSource -Description "PublishSettings.cpp")
             $publishableOptionTables = Get-PublishablePrinterOptionTables -Content $publishSettingsContent
         }
         catch {
@@ -441,6 +523,20 @@ foreach ($m in $singleMatches) {
     $indexer = $m.Groups['indexer'].Value.Trim()
     if (-not [string]::IsNullOrWhiteSpace($indexer) -and $indexer -match '^[A-Za-z_]\w*$') {
         $variable = "${variable}[$indexer]"
+    }
+
+    $rawEntries.Add([PSCustomObject]@{
+        Variable = $variable
+        Ref      = $m.Groups['ref'].Value.Trim()
+        Index    = [int]$m.Index
+    })
+}
+
+$optionAssignments = @{}
+foreach ($m in $singleOptionVarMatches) {
+    $variable = Resolve-OptionVariable -Content $tabContent -Name $m.Groups['name'].Value -BeforeIndex ([int]$m.Index) -AssignmentCache $optionAssignments
+    if ([string]::IsNullOrWhiteSpace($variable)) {
+        continue
     }
 
     $rawEntries.Add([PSCustomObject]@{
@@ -595,7 +691,7 @@ Set-SyncStage -Step 3 -Status "Loading and parsing option modes from PrintConfig
 $optionModesByVariable = @{}
 if (-not [string]::IsNullOrWhiteSpace($PrintConfigCppPath)) {
     try {
-        $printConfigContent = Get-CppSourceContent -Source $PrintConfigCppPath -Description "PrintConfig.cpp"
+        $printConfigContent = Clear-CppComments -Content (Get-CppSourceContent -Source $PrintConfigCppPath -Description "PrintConfig.cpp")
         $optionModesByVariable = Get-OptionModesByVariable -Content $printConfigContent
     }
     catch {
@@ -675,6 +771,8 @@ $alreadyPresent = 0
 $normalizedSections = 0
 $entriesWithMode = @($entries | Where-Object { -not [string]::IsNullOrWhiteSpace($_.Mode) }).Count
 $metadataLinePattern = '^\s*(?:\[(?:Variable|Variables|Mode|Modes)\]\([^\)]+\)|`[^`]+`\s+\[(?:Variable|Variables)\]\([^\)]+\)|Variables?|Modes?)\s*:\s*'
+# The exact shapes sync_option_types_to_wiki.py generates; hand-written [Type]/[CLI Example] lines don't match.
+$typeLinePattern = '^(?:\[Type\]\(option_type#[a-z-]+\): `[^`]+`|\[Type\]\(option_type\): `\w+` \(.*\)|\[Options\]\(option_type#choice\): `[^`]*`|\[CLI Example\]\(cli_mode#setting-overrides\): `--[^`]+`(?: \((?:same pattern for the other variables above|`\w+` shown; other variables above follow their own type|`\w+`(?:, `\w+`)* (?:is|are) not available via CLI; same pattern for the rest)\))?|(?:Not available via CLI|None of the variables above are available via CLI) \u2014 see \[Setting Overrides\]\(cli_mode#setting-overrides\) for the full list of excluded keys)\.\s*$'
 
 $managedTargetPaths = @{}
 foreach ($fileKey in $mdByName.Keys) {
@@ -904,7 +1002,7 @@ foreach ($group in $groupedByFile) {
         $fileChanged = $true
     }
 
-    $staleSectionsPruned = Remove-StaleSectionMetadata -Buffer $buffer -ExpectedAnchors $expectedAnchorsByPath[$targetPath] -MetadataLinePattern $metadataLinePattern
+    $staleSectionsPruned = Remove-StaleSectionMetadata -Buffer $buffer -ExpectedAnchors $expectedAnchorsByPath[$targetPath] -MetadataLinePattern $metadataLinePattern -TypeLinePattern $typeLinePattern
     if ($staleSectionsPruned -gt 0) {
         $normalizedSections += $staleSectionsPruned
         $fileChanged = $true
@@ -929,7 +1027,7 @@ foreach ($managedTargetPath in $managedTargetPaths.Keys) {
         $expectedAnchors = $expectedAnchorsByPath[$managedTargetPath]
     }
 
-    $staleSectionsPruned = Remove-StaleSectionMetadata -Buffer $buffer -ExpectedAnchors $expectedAnchors -MetadataLinePattern $metadataLinePattern
+    $staleSectionsPruned = Remove-StaleSectionMetadata -Buffer $buffer -ExpectedAnchors $expectedAnchors -MetadataLinePattern $metadataLinePattern -TypeLinePattern $typeLinePattern
     if ($staleSectionsPruned -le 0) {
         continue
     }
