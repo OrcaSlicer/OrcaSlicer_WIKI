@@ -85,16 +85,18 @@ With **Export statistics with G-code** enabled in the Preferences (`Developer` >
 
 The file holds the estimates the preview shows, for scripts and spreadsheets that compare prints or settings. Times are in seconds, in the normal time mode, lengths in mm, volumes in mm³ and weights in g, as its `units` say.
 
+`version` goes up only when a key is removed, renamed or changes meaning. New keys can appear without it, so a script should check `version` and ignore the keys it doesn't know.
+
 - `summary`: the whole plate.
     - `time`: the estimated print time, and `prepare_time` the part of it the start G-code takes.
     - `travel_time` and `travel_distance`.
     - `layer_count`.
-    - `volume`, `weight` and `cost` of all the extrusions. Filament flushed outside the prime tower is not counted.
+    - `volume`, `weight` and `filament_cost` of all the filament the plate uses, the flush included, as in the preview's filament table. The cost of the print time is not included.
     - `filament_changes`.
-    - `filaments`: one entry per filament used, with its `id` (from 1), `length`, `volume`, `weight` and `cost`.
-    - `features`: the `time`, `volume` and `weight` of each feature, by its name in the preview's legend, such as `Outer wall`, `Sparse infill`, or `Custom` for the start and end G-code.
+    - `filaments`: one entry per filament used, with its `id` (from 1), `length`, `volume`, `weight` and `cost`, and the `volume` and `weight` it uses for the `model`, `support`, `prime_tower` and `flush`.
+    - `features`: the `time`, `volume` and `weight` of each feature, by its name in the preview's legend, such as `Outer wall`, `Sparse infill`, or `Custom` for the start and end G-code. Features and layers count only what is extruded, so they leave the flush out.
 - `layers`: one entry per layer, from the first: its `z`, the `time` of all its moves, its `travel_time`, `volume` and `weight`, and its `features` as in the summary. The first layer also holds the start G-code, and the last one the end G-code.
-- `objects`: one entry per object instance, with its `name`, its `instance` number (from 0), and the `volume` and `weight` of its extrusions and of its supports (`support_volume`, `support_weight`). The skirt, brim, prime tower and custom G-code belong to no object.
+- `objects`: one entry per object instance, with its `name`, its `instance` number among the object's copies (from 0), and the `volume` and `weight` of its extrusions and of its supports (`support_volume`, `support_weight`). The skirt, brim, prime tower and custom G-code belong to no object.
 
 An example, with its layers and features cut short:
 
@@ -109,12 +111,18 @@ An example, with its layers and features cut short:
     "travel_time": 1638.822,
     "travel_distance": 195218.36,
     "layer_count": 500,
-    "volume": 150322.619,
+    "volume": 150322.628,
     "weight": 150.3226,
-    "cost": 3.01,
+    "filament_cost": 3.01,
     "filament_changes": 0,
     "filaments": [
-      { "id": 1, "length": 62496.88, "volume": 150322.619, "weight": 150.3226, "cost": 3.01 }
+      {
+        "id": 1, "length": 62496.89, "volume": 150322.628, "weight": 150.3226, "cost": 3.01,
+        "model": { "volume": 150322.628, "weight": 150.3226 },
+        "support": { "volume": 0, "weight": 0 },
+        "prime_tower": { "volume": 0, "weight": 0 },
+        "flush": { "volume": 0, "weight": 0 }
+      }
     ],
     "features": {
       "Sparse infill": { "time": 12845.096, "volume": 150058.732, "weight": 150.0587 },
