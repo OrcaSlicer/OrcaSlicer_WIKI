@@ -10,6 +10,7 @@ OrcaSlicer offers various export options to import and export 3D models, project
     - [Export Project](#export-project)
 - [Sliced](#sliced)
     - [Export Sliced](#export-sliced)
+    - [Export Statistics](#export-statistics)
     - [Import Sliced](#import-sliced)
 - [Presets](#presets)
     - [Export Preset Bundle](#export-preset-bundle)
@@ -77,6 +78,66 @@ After slicing a model, you can export the sliced result for printing.
 - **Toolpaths as OBJ:** Export the sliced model 3D preview as an OBJ file.
 
 ![export_toolpaths_obj](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/import_export/export_toolpaths_obj.png?raw=true)
+
+### Export Statistics
+
+With **Export statistics with G-code** enabled in the Preferences (`Control` > `Slicing`), exporting a G-code file also writes `<name>.statistics.json` next to it. The CLI writes the same file for each sliced plate with [`--export-statistics`](cli_misc#output-logging).
+
+The file holds the estimates the preview shows, for scripts and spreadsheets that compare prints or settings. Times are in seconds, in the normal time mode, lengths in mm, volumes in mm³ and weights in g, as its `units` say.
+
+- `summary`: the whole plate.
+    - `time`: the estimated print time, and `prepare_time` the part of it the start G-code takes.
+    - `travel_time` and `travel_distance`.
+    - `layer_count`.
+    - `volume`, `weight` and `cost` of all the extrusions. Filament flushed outside the prime tower is not counted.
+    - `filament_changes`.
+    - `filaments`: one entry per filament used, with its `id` (from 1), `length`, `volume`, `weight` and `cost`.
+    - `features`: the `time`, `volume` and `weight` of each feature, by its name in the preview's legend, such as `Outer wall`, `Sparse infill`, or `Custom` for the start and end G-code.
+- `layers`: one entry per layer, from the first: its `z`, the `time` of all its moves, its `travel_time`, `volume` and `weight`, and its `features` as in the summary. The first layer also holds the start G-code, and the last one the end G-code.
+- `objects`: one entry per object instance, with its `name`, its `instance` number (from 0), and the `volume` and `weight` of its extrusions and of its supports (`support_volume`, `support_weight`). The skirt, brim, prime tower and custom G-code belong to no object.
+
+An example, with its layers and features cut short:
+
+```json
+{
+  "version": 1,
+  "generator": "OrcaSlicer 2.5.0",
+  "units": { "time": "s", "length": "mm", "volume": "mm3", "weight": "g" },
+  "summary": {
+    "time": 14626.632,
+    "prepare_time": 442.673,
+    "travel_time": 1638.822,
+    "travel_distance": 195218.36,
+    "layer_count": 500,
+    "volume": 150322.619,
+    "weight": 150.3226,
+    "cost": 3.01,
+    "filament_changes": 0,
+    "filaments": [
+      { "id": 1, "length": 62496.88, "volume": 150322.619, "weight": 150.3226, "cost": 3.01 }
+    ],
+    "features": {
+      "Sparse infill": { "time": 12845.096, "volume": 150058.732, "weight": 150.0587 },
+      "Custom": { "time": 37.785, "volume": 263.887, "weight": 0.2639 }
+    }
+  },
+  "layers": [
+    {
+      "z": 0.4,
+      "time": 28.296,
+      "travel_time": 2.468,
+      "volume": 299.97,
+      "weight": 0.3,
+      "features": {
+        "Sparse infill": { "time": 25.651, "volume": 299.97, "weight": 0.3 }
+      }
+    }
+  ],
+  "objects": [
+    { "name": "Cube", "instance": 0, "volume": 150058.742, "weight": 150.0587, "support_volume": 0, "support_weight": 0 }
+  ]
+}
+```
 
 ### Import Sliced
 

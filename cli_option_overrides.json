@@ -288,6 +288,12 @@
       "description": "Output directory for exported files.",
       "notes": "Created recursively if it doesn't exist; the process exits with an error if creation fails."
     },
+    "export_statistics": {
+      "group": "Output & Logging",
+      "input": "boolean",
+      "description": "Write the statistics of each sliced plate as JSON to `plate_N.statistics.json` in the output directory: print time, filament and feature totals, and the same per layer and per object.",
+      "notes": "Same file as the [Export Statistics](import_export#export-statistics) preference. Without `--outputdir` it is written to the working directory."
+    },
     "debug": {
       "group": "Output & Logging",
       "input": "`level` (int, 0-5)",
