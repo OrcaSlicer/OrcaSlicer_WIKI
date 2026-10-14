@@ -2,16 +2,22 @@
 """
 Rate the infill patterns of the wiki from OrcaSlicer's own estimates.
 
-Slices infill_calculator.3mf once per pattern with the OrcaSlicer CLI and its --export-statistics output, rates each
-pattern's material usage, print time, material per time and layer time variability, and rewrites those ratings in
-strength_settings_patterns.md and strength_settings_patterns_quick_reference.md. Strength is not measured: XY-N and Z-N
-are set by hand in infill_patterns.csv. The measured values are written to infill_analysis_results.csv.
+Slices three models with the settings of infill_calculator.3mf through the OrcaSlicer CLI and its --export-statistics
+output: the project's 100 mm cube, and the 3DBenchy and Stanford bunny OrcaSlicer ships as handy models, swapped into a
+copy of the project. Each pattern is sliced at 5, 15, 30 and 50% sparse infill density, the patterns that only print
+solid infill at 100%, and the patterns that support multiline also with 2 and 3 lines.
+
+A pattern is rated on the mean of its runs: material usage, print time and material per time. Layer time variability
+comes from the cube alone, as the other models change their cross-section along their height. The ratings are written
+into strength_settings_patterns.md and strength_settings_patterns_quick_reference.md, the ratings' values into
+infill_analysis_results.csv and every run into infill_analysis_runs.csv. Strength is not measured: XY-N and Z-N are set
+by hand in infill_patterns.csv.
 
 Usage:
     python infill_analysis.py --orca "C:/Program Files/OrcaSlicer/orca-slicer.exe"
-    python infill_analysis.py --orca ./orca-slicer --jobs 4 --out out      # keep the G-code and statistics in out/
-    python infill_analysis.py --out out --reuse                            # rate again from the statistics in out/
-    python infill_analysis.py --orca ./orca-slicer --dry-run               # print the ratings, write nothing
+    python infill_analysis.py --orca ./orca-slicer --jobs 6 --out out     # keep the G-code and statistics in out/
+    python infill_analysis.py --out out --reuse                           # rate again from the statistics in out/
+    python infill_analysis.py --orca ./orca-slicer --dry-run              # print the ratings, write nothing
 """
 
 import argparse
@@ -19,9 +25,11 @@ import csv
 import json
 import re
 import statistics
+import struct
 import subprocess
 import sys
 import tempfile
+import zipfile
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -29,15 +37,17 @@ HERE = Path(__file__).resolve().parent
 PROJECT = HERE / "infill_calculator.3mf"
 PATTERNS_CSV = HERE / "infill_patterns.csv"
 RESULTS_CSV = HERE / "infill_analysis_results.csv"
+RUNS_CSV = HERE / "infill_analysis_runs.csv"
 PATTERNS_PAGE = HERE.parent / "strength_settings_patterns.md"
 QUICK_REFERENCE_PAGE = HERE.parent / "strength_settings_patterns_quick_reference.md"
 
-# Plate 1 holds a 100 mm cube at 15% sparse infill. Plate 2 holds a 53.13 mm cube at 100%, which fills about the
-# same volume, for the patterns that only print solid infill.
-TESTS = {"sparse": (1, "--sparse-infill-pattern"), "surface": (2, "--internal-solid-infill-pattern")}
-
-# The filament, in g at the project's 1 g/cm³, that rates as exactly the 15% the density asks for.
-EXPECTED_WEIGHT = 997.25 * 0.15
+# Plate 1 of the project holds the cube; the other models replace its mesh in a copy. The models are OrcaSlicer's.
+MODELS = {"cube": None, "benchy": "3DBenchy.drc", "bunny": "Stanford_Bunny.drc"}
+DENSITIES = (5, 15, 30, 50)
+SOLID = 100
+MULTILINES = (2, 3)
+# The solid pattern whose fill measures each model's volume.
+REFERENCE = "monotonic"
 
 # The rating of a ratio is the first level whose limit is not below it. Strength levels are set by hand.
 LEVELS = [(0.15, "Ultra-Low"), (0.4, "Extra-Low"), (0.75, "Low"), (0.925, "Normal-Low"), (1.075, "Normal"),
@@ -61,24 +71,113 @@ def rated(kind, n):
     return f"{LEVELS[n][1]} {icon(kind, n)}"
 
 
-def statistics_file(out, pattern, test):
-    return out / pattern / f"plate_{TESTS[test][0]}.statistics.json"
+def find_models(orca, models):
+    if models:
+        return Path(models)
+    exe = Path(orca).resolve().parent
+    for candidate in (exe / "resources" / "handy_models", exe.parent / "Resources" / "handy_models"):
+        if candidate.is_dir():
+            return candidate
+    sys.exit("OrcaSlicer's handy_models folder was not found next to --orca; pass it with --models")
 
 
-def slice_pattern(orca, out, pattern, test):
-    plate, option = TESTS[test]
-    target = out / pattern
+def read_stl(path):
+    data = path.read_bytes()
+    count = struct.unpack("<I", data[80:84])[0]
+    index, vertices, triangles = {}, [], []
+    for i in range(count):
+        triangle = []
+        for k in range(3):
+            start = 84 + 50 * i + 12 + 12 * k
+            point = struct.unpack("<3f", data[start:start + 12])
+            if point not in index:
+                index[point] = len(vertices)
+                vertices.append(point)
+            triangle.append(index[point])
+        triangles.append(triangle)
+    return vertices, triangles
+
+
+def model_project(orca, models, out, name):
+    """A copy of the project whose plate 1 holds the model instead of the cube."""
+    project = out / "models" / f"{name}.3mf"
+    if project.exists():
+        return project
+    project.parent.mkdir(parents=True, exist_ok=True)
+    source = models / MODELS[name]
+    run = subprocess.run([orca, "--export-stls", str(project.parent), str(source)], cwd=project.parent,
+                         stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, errors="replace")
+    stl = project.parent / f"obj_1_{source.name}.stl"
+    if run.returncode != 0 or not stl.exists():
+        raise RuntimeError(f"{name}: OrcaSlicer could not export {source} as STL\n{run.stderr.strip()}")
+    vertices, triangles = read_stl(stl)
+    low = [min(v[a] for v in vertices) for a in range(3)]
+    high = [max(v[a] for v in vertices) for a in range(3)]
+    center = [(lo + hi) / 2 for lo, hi in zip(low, high)]
+    mesh = "<vertices>\n" + "".join(
+        f'     <vertex x="{x - center[0]:.6g}" y="{y - center[1]:.6g}" z="{z - center[2]:.6g}"/>\n' for x, y, z in vertices)
+    mesh += "    </vertices>\n    <triangles>\n" + "".join(
+        f'     <triangle v1="{a}" v2="{b}" v3="{c}"/>\n' for a, b, c in triangles) + "    </triangles>"
+    with zipfile.ZipFile(PROJECT) as source_zip, zipfile.ZipFile(project, "w", zipfile.ZIP_DEFLATED) as target:
+        for info in source_zip.infolist():
+            text = source_zip.read(info.filename)
+            if info.filename == "3D/Objects/Cube_29.model":
+                # The cube's mesh stays for the other plates, which share it.
+                model = re.sub(r"<vertices>.*</triangles>", lambda m: mesh, text.decode("utf-8"), flags=re.S)
+                target.writestr("3D/Objects/Model.model", model)
+            elif info.filename == "3D/3dmodel.model":
+                text = text.decode("utf-8")
+                cube = re.search(r'<object id="2".*?</object>', text, re.S).group(0)
+                text = text.replace(cube, cube.replace("/3D/Objects/Cube_29.model", "/3D/Objects/Model.model"))
+                text = re.sub(r'(<item objectid="2"[^>]*transform=")[^"]*"',
+                              lambda m: m.group(1) + f'1 0 0 0 1 0 0 0 1 128 128 {(high[2] - low[2]) / 2:.6g}"', text)
+                text = text.encode("utf-8")
+            elif info.filename == "3D/_rels/3dmodel.model.rels":
+                text = text.decode("utf-8").replace("</Relationships>", ' <Relationship Target="/3D/Objects/Model.model" '
+                    'Id="rel-model" Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel"/>\n</Relationships>')
+                text = text.encode("utf-8")
+            elif info.filename == "Metadata/model_settings.config":
+                text = text.decode("utf-8")
+                cube = re.search(r'<object id="2">.*?</object>', text, re.S).group(0)
+                text = text.replace(cube, cube.replace('value="Cube"', f'value="{name}"')).encode("utf-8")
+            target.writestr(info, text)
+    return project
+
+
+def runs(patterns):
+    for model in MODELS:
+        for p in patterns:
+            if p["test"] == "sparse":
+                for density in DENSITIES:
+                    yield model, p["pattern"], density, 1
+                    if p["multiline"]:
+                        for lines in MULTILINES:
+                            yield model, p["pattern"], density, lines
+            if p["solid"]:
+                yield model, p["pattern"], SOLID, 1
+
+
+def statistics_file(out, key):
+    model, pattern, density, lines = key
+    return out / "runs" / model / f"{pattern}_{density}_{lines}" / "plate_1.statistics.json"
+
+
+def slice_run(orca, out, projects, key):
+    model, pattern, density, lines = key
+    target = statistics_file(out, key).parent
     target.mkdir(parents=True, exist_ok=True)
-    # Without walls and shells Lightning leaves the lower half of the cube empty. The first layer must not be, so every
-    # pattern gets a bottom shell there and is measured from the second layer; the empty layers above only warn, unless
+    option = "--internal-solid-infill-pattern" if density == SOLID else "--sparse-infill-pattern"
+    # Without walls and shells Lightning leaves the lower part of a model empty. The first layer must not be, so every
+    # run gets a bottom shell there and is measured from the second layer; the empty layers above only warn, unless
     # --no-check comes before --slice, as the CLI runs its actions in order.
-    command = [orca, "--no-check", "--slice", str(plate), option, pattern, "--bottom-shell-layers", "1",
-               "--export-statistics", "--outputdir", str(target), str(PROJECT)]
+    command = [orca, "--no-check", "--slice", "1", option, pattern, "--sparse-infill-density", f"{density}%",
+               "--fill-multiline", str(lines), "--bottom-shell-layers", "1", "--export-statistics",
+               "--outputdir", str(target), str(projects[model])]
     # In the output folder, which gets the log the CLI writes to its working directory.
     run = subprocess.run(command, cwd=target, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, errors="replace")
     if run.returncode != 0:
-        raise RuntimeError(f"{pattern}: OrcaSlicer exited with {run.returncode}\n{run.stderr.strip()}")
-    print(f"sliced {pattern}", flush=True)
+        raise RuntimeError(f"{key}: OrcaSlicer exited with {run.returncode}\n{run.stderr.strip()}")
+    print(f"sliced {model} {pattern} {density}% x{lines}", flush=True)
 
 
 def measure(stats):
@@ -95,22 +194,39 @@ def measure(stats):
 
 
 def rate(patterns, measured):
+    # The material of a run against the density of the model's volume.
+    volume = {model: measured[(model, REFERENCE, SOLID, 1)]["weight"] for model in MODELS}
+    for (model, _, density, _), m in measured.items():
+        m["usage"] = m["weight"] / (volume[model] * density / 100)
+    # Time and material per time are rated against the single-line runs of normal material usage on the same model
+    # and density.
+    groups = {}
+    for key, m in measured.items():
+        if key[3] == 1:
+            groups.setdefault((key[0], key[2]), []).append(m)
+    baselines = {}
+    for group, runs_in_group in groups.items():
+        normal = [m for m in runs_in_group if level(m["usage"]) == NORMAL] or runs_in_group
+        baselines[group] = (statistics.fmean(m["time"] for m in normal), statistics.fmean(m["weight"] / m["time"] for m in normal))
+    for (model, _, density, _), m in measured.items():
+        time, rate_ = baselines[(model, density)]
+        m["time_ratio"] = m["time"] / time
+        m["rate_ratio"] = m["weight"] / m["time"] / rate_
+
     results = []
     for p in patterns:
-        m = measured[p["pattern"]]
-        usage = m["weight"] / EXPECTED_WEIGHT
-        results.append({**p, **m, "usage": usage, "usage_level": level(usage)})
-    # Time and material per time are rated against the patterns of normal material usage.
-    normal = [r for r in results if r["usage_level"] == NORMAL]
-    mean_time = statistics.fmean(r["time"] for r in normal)
-    mean_rate = statistics.fmean(r["weight"] / r["time"] for r in normal)
-    for r in results:
-        r["time_ratio"] = r["time"] / mean_time
-        r["rate_ratio"] = r["weight"] / r["time"] / mean_rate
-        r["time_level"] = level(r["time_ratio"])
-        r["rate_level"] = level(r["rate_ratio"])
+        densities = DENSITIES if p["test"] == "sparse" else (SOLID,)
+
+        def mean(name, lines=1, models=MODELS):
+            return statistics.fmean(measured[(model, p["pattern"], density, lines)][name] for model in models for density in densities)
+
+        r = {**p, "usage": mean("usage"), "time_ratio": mean("time_ratio"), "rate_ratio": mean("rate_ratio"),
+             "variability": mean("variability", models=("cube",))}
+        r["usage_level"], r["time_level"], r["rate_level"] = level(r["usage"]), level(r["time_ratio"]), level(r["rate_ratio"])
         r["variability_name"], r["variability_level"] = next(
             (name, n) for limit, name, n in VARIABILITY if r["variability"] <= limit)
+        r["lines"] = {lines: (mean("usage", lines), mean("time_ratio", lines)) for lines in MULTILINES} if p["multiline"] else {}
+        results.append(r)
     return results
 
 
@@ -120,6 +236,20 @@ def replace_value(lines, label, value):
     if len(hits) != 1:
         raise ValueError(f"expected one '{label}' line, found {len(hits)}")
     lines[hits[0]] = pattern.sub(lambda m: m.group(1) + value, lines[hits[0]])
+
+
+def replace_multiline(lines, r):
+    hits = [i for i, line in enumerate(lines) if "**[Multiline](strength_settings_infill#fill-multiline):**" in line]
+    if len(hits) != 1:
+        raise ValueError(f"expected one Multiline line, found {len(hits)}")
+    i = hits[0]
+    while i + 1 < len(lines) and re.match(r"\s*- \*\*\d lines:\*\*", lines[i + 1]):
+        del lines[i + 1]
+    indent = re.match(r"\s*", lines[i]).group(0) + "    "
+    eol = lines[i][len(lines[i].rstrip("\r\n")):]
+    for n, (usage, time) in reversed(list(r["lines"].items())):
+        lines.insert(i + 1, f"{indent}- **{n} lines:** Material Usage {rated('worse', level(usage))}, "
+                            f"Print Time {rated('worse', level(time))}{eol}")
 
 
 def update_patterns_page(text, results):
@@ -137,6 +267,7 @@ def update_patterns_page(text, results):
             replace_value(lines, "Print Time:", rated("worse", r["time_level"]))
             replace_value(lines, "Material/Time (Higher better):", rated("better", r["rate_level"]))
             replace_value(lines, "Layer time Variability:", r["variability_name"])
+            replace_multiline(lines, r)
         except ValueError as error:
             raise ValueError(f"{PATTERNS_PAGE.name}, {r['name']}: {error}") from None
         sections[i] = "".join(lines)
@@ -149,7 +280,7 @@ def update_quick_reference(text, results):
     lines = text.splitlines(keepends=True)
     for i, line in enumerate(lines):
         cells = line.rstrip("\r\n").split("|")
-        name = re.match(r"\s*\[([^\]]+)\]", cells[2]) if len(cells) == 9 else None
+        name = re.match(r"\s*\[([^\]]+)\]", cells[2]) if len(cells) == 10 else None
         if not name or name.group(1) not in by_name:
             continue
         r = by_name[name.group(1)]
@@ -157,6 +288,8 @@ def update_quick_reference(text, results):
         cells[4] = f" {icon('worse', r['usage_level'])} "
         cells[5] = f" {icon('worse', r['time_level'])} "
         cells[6] = f" {icon('worse', r['variability_level'])} "
+        cells[8] = " " + "<br> ".join(f"{n}: {icon('worse', level(usage))} {icon('worse', level(time))}"
+                                       for n, (usage, time) in r["lines"].items()) + " " if r["lines"] else " - "
         lines[i] = "|".join(cells) + line[len(line.rstrip("\r\n")):]
         seen.add(r["name"])
     missing = set(by_name) - seen
@@ -165,19 +298,28 @@ def update_quick_reference(text, results):
     return "".join(lines)
 
 
-def write_results(results):
-    columns = ["pattern", "name", "time_min", "weight_g", "material_usage", "print_time", "material_per_time",
-               "layer_time_s", "layer_time_variability", "xy", "z", "material_usage_rating", "print_time_rating",
-               "material_per_time_rating", "layer_time_variability_rating"]
-    with open(RESULTS_CSV, "w", newline="", encoding="utf-8") as file:
+def write_csv(path, rows):
+    with open(path, "w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
-        writer.writerow(columns)
-        for r in results:
-            writer.writerow([r["pattern"], r["name"], f"{r['time'] / 60:.2f}", f"{r['weight']:.3f}", f"{r['usage']:.3f}",
-                             f"{r['time_ratio']:.3f}", f"{r['rate_ratio']:.3f}", f"{r['layer_time']:.3f}",
-                             f"{r['variability']:.3f}", LEVELS[r["xy_n"]][1], LEVELS[r["z_n"]][1],
-                             LEVELS[r["usage_level"]][1], LEVELS[r["time_level"]][1], LEVELS[r["rate_level"]][1],
-                             r["variability_name"]])
+        writer.writerows(rows)
+
+
+def write_results(results, measured):
+    rows = [["pattern", "name", "material_usage", "print_time", "material_per_time", "layer_time_variability", "xy", "z",
+             "material_usage_rating", "print_time_rating", "material_per_time_rating", "layer_time_variability_rating"]
+            + [f"{n}_lines_{column}" for n in MULTILINES for column in ("material_usage", "print_time")]]
+    for r in results:
+        rows.append([r["pattern"], r["name"], f"{r['usage']:.3f}", f"{r['time_ratio']:.3f}", f"{r['rate_ratio']:.3f}",
+                     f"{r['variability']:.3f}", LEVELS[r["xy_n"]][1], LEVELS[r["z_n"]][1], LEVELS[r["usage_level"]][1],
+                     LEVELS[r["time_level"]][1], LEVELS[r["rate_level"]][1], r["variability_name"]]
+                    + [f"{value:.3f}" if r["lines"] else "" for n in MULTILINES for value in r["lines"].get(n, (0, 0))])
+    write_csv(RESULTS_CSV, rows)
+    rows = [["model", "pattern", "density", "lines", "time_min", "weight_g", "material_usage", "print_time",
+             "material_per_time", "layer_time_s", "layer_time_variability"]]
+    for (model, pattern, density, lines), m in sorted(measured.items()):
+        rows.append([model, pattern, density, lines, f"{m['time'] / 60:.2f}", f"{m['weight']:.3f}", f"{m['usage']:.3f}",
+                     f"{m['time_ratio']:.3f}", f"{m['rate_ratio']:.3f}", f"{m['layer_time']:.3f}", f"{m['variability']:.3f}"])
+    write_csv(RUNS_CSV, rows)
 
 
 def rewrite(path, update, results):
@@ -193,38 +335,44 @@ def rewrite(path, update, results):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--orca", help="the orca-slicer executable; needed unless --reuse finds every statistics file")
+    parser.add_argument("--models", help="OrcaSlicer's resources/handy_models folder; found next to --orca if not given")
     parser.add_argument("--out", type=Path, help="where to keep the G-code and statistics; a temporary folder if not given")
-    parser.add_argument("--reuse", action="store_true", help="do not slice a pattern whose statistics are already in --out")
-    parser.add_argument("--jobs", type=int, default=2, help="patterns to slice at the same time (default 2)")
+    parser.add_argument("--reuse", action="store_true", help="do not slice a run whose statistics are already in --out")
+    parser.add_argument("--jobs", type=int, default=4, help="runs to slice at the same time (default 4)")
     parser.add_argument("--dry-run", action="store_true", help="print the ratings without writing any file")
     args = parser.parse_args()
 
     with open(PATTERNS_CSV, encoding="utf-8", newline="") as file:
-        patterns = [{**row, "xy_n": int(row["xy_n"]), "z_n": int(row["z_n"])} for row in csv.DictReader(file)]
+        patterns = [{**row, "solid": row["solid"] == "1", "multiline": row["multiline"] == "1",
+                     "xy_n": int(row["xy_n"]), "z_n": int(row["z_n"])} for row in csv.DictReader(file)]
+    keys = list(runs(patterns))
 
     with tempfile.TemporaryDirectory() as temporary:
         # Absolute, as the CLI runs in the output folder.
         out = (args.out or Path(temporary)).resolve()
-        todo = [p for p in patterns if not (args.reuse and statistics_file(out, p["pattern"], p["test"]).exists())]
+        todo = [key for key in keys if not (args.reuse and statistics_file(out, key).exists())]
         if todo:
             if not args.orca:
-                sys.exit(f"--orca is needed to slice {len(todo)} pattern(s)")
+                sys.exit(f"--orca is needed to slice {len(todo)} run(s)")
             orca = str(Path(args.orca).resolve()) if Path(args.orca).exists() else args.orca
+            models = find_models(orca, args.models)
+            projects = {name: PROJECT if file is None else model_project(orca, models, out, name) for name, file in MODELS.items()}
             with ThreadPoolExecutor(max_workers=max(1, args.jobs)) as pool:
-                list(pool.map(lambda p: slice_pattern(orca, out, p["pattern"], p["test"]), todo))
+                list(pool.map(lambda key: slice_run(orca, out, projects, key), todo))
         measured = {}
-        for p in patterns:
-            with open(statistics_file(out, p["pattern"], p["test"]), encoding="utf-8") as file:
-                measured[p["pattern"]] = measure(json.load(file))
+        for key in keys:
+            with open(statistics_file(out, key), encoding="utf-8") as file:
+                measured[key] = measure(json.load(file))
 
     results = rate(patterns, measured)
     for r in results:
         print(f"{r['name']:<20} usage {r['usage']:6.3f} {LEVELS[r['usage_level']][1]:<12} time {r['time_ratio']:6.3f} "
               f"{LEVELS[r['time_level']][1]:<12} g/t {r['rate_ratio']:6.3f} {LEVELS[r['rate_level']][1]:<12} "
-              f"layers {r['variability']:6.3f} {r['variability_name']}")
+              f"layers {r['variability']:6.3f} {r['variability_name']:<20}"
+              + "".join(f" x{n}: {u:5.3f} {t:5.3f}" for n, (u, t) in r["lines"].items()))
     if args.dry_run:
         return
-    write_results(results)
+    write_results(results, measured)
     rewrite(PATTERNS_PAGE, update_patterns_page, results)
     rewrite(QUICK_REFERENCE_PAGE, update_quick_reference, results)
 

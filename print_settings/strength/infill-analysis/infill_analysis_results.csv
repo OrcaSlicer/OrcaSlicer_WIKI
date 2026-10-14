@@ -1,30 +1,30 @@
-pattern,name,time_min,weight_g,material_usage,print_time,material_per_time,layer_time_s,layer_time_variability,xy,z,material_usage_rating,print_time_rating,material_per_time_rating,layer_time_variability_rating
-monotonic,Monotonic,230.57,149.831,1.002,0.865,1.104,52.132,0.000,Normal,Normal,Normal,Normal-Low,Normal-High,None
-monotonicline,Monotonic line,234.55,149.619,1.000,0.880,1.084,53.034,0.003,Normal,Normal,Normal,Normal-Low,Normal-High,None
-rectilinear,Rectilinear,235.50,149.700,1.001,0.884,1.080,28.268,0.008,Normal-Low,Low,Normal,Normal-Low,Normal-High,None
-alignedrectilinear,Aligned Rectilinear,236.70,149.700,1.001,0.888,1.074,28.411,0.009,Normal-Low,Normal,Normal,Normal-Low,Normal,None
-zigzag,Zig Zag,234.59,149.700,1.001,0.881,1.084,28.158,0.014,Normal-Low,Low,Normal,Normal-Low,Normal-High,Unnoticeable
-crosszag,Cross Zag,236.33,149.700,1.001,0.887,1.076,28.366,0.012,Normal,Low,Normal,Normal-Low,Normal-High,Unnoticeable
-lockedzag,Locked Zag,283.55,160.684,1.074,1.064,0.963,34.019,0.011,Normal-Low,Normal-Low,Normal,Normal,Normal,Unnoticeable
-line,Line,227.71,153.692,1.027,0.855,1.147,27.350,0.012,Low,Low,Normal,Normal-Low,Normal-High,Unnoticeable
-grid,Grid,222.00,148.602,0.993,0.833,1.137,26.653,0.016,High,High,Normal,Normal-Low,Normal-High,Unnoticeable
-triangles,Triangles,229.48,148.852,0.995,0.861,1.102,27.546,0.015,High,Normal,Normal,Normal-Low,Normal-High,Unnoticeable
-tri-hexagon,Tri-hexagon,228.35,148.602,0.993,0.857,1.106,27.412,0.015,High,Normal-High,Normal,Normal-Low,Normal-High,Unnoticeable
-cubic,Cubic,229.43,148.596,0.993,0.861,1.100,27.539,0.014,High,High,Normal,Normal-Low,Normal-High,Unnoticeable
-adaptivecubic,Adaptive Cubic,155.02,94.876,0.634,0.582,1.040,18.594,0.172,Normal-High,Normal-High,Low,Low,Normal,Unnoticeable
-quartercubic,Quarter Cubic,232.33,148.615,0.993,0.872,1.087,27.889,0.022,High,High,Normal,Normal-Low,Normal-High,Unnoticeable
-supportcubic,Support Cubic,66.81,38.772,0.259,0.251,0.986,7.966,1.718,Low,Low,Extra-Low,Extra-Low,Normal,Likely Noticeable
-lightning,Lightning,27.18,9.070,0.061,0.102,0.567,5.847,2.420,Low,Low,Ultra-Low,Ultra-Low,Low,Likely Noticeable
-honeycomb,Honeycomb,456.37,190.734,1.275,1.713,0.710,54.829,0.014,High,High,High,Extra-High,Low,Unnoticeable
-3dhoneycomb,3D Honeycomb,384.46,135.891,0.908,1.443,0.600,46.176,0.174,Normal-High,Normal-High,Normal-Low,High,Low,Unnoticeable
-lateral-honeycomb,Lateral Honeycomb,233.92,149.197,0.997,0.878,1.084,28.043,0.672,Normal-Low,Normal-Low,Normal,Normal-Low,Normal-High,Possibly Noticeable
-lateral-lattice,Lateral Lattice,232.81,148.602,0.993,0.874,1.084,27.943,0.014,Normal-Low,Low,Normal,Normal-Low,Normal-High,Unnoticeable
-crosshatch,Cross Hatch,301.17,144.493,0.966,1.130,0.815,36.184,0.735,Normal-High,Normal-High,Normal,Normal-High,Normal-Low,Possibly Noticeable
-tpmsd,TPMS-D,345.65,151.076,1.010,1.297,0.743,41.517,0.646,High,High,Normal,High,Low,Possibly Noticeable
-tpmsfk,TPMS-FK,480.61,151.849,1.015,1.804,0.537,57.738,0.333,Normal-High,Normal-High,Normal,Extra-High,Low,Possibly Noticeable
-gyroid,Gyroid,441.65,141.369,0.945,1.658,0.544,53.061,0.134,High,High,Normal,Extra-High,Low,Unnoticeable
-concentric,Concentric,235.70,156.786,1.048,0.885,1.130,28.299,0.000,Low,Normal,Normal,Normal-Low,Normal-High,None
-spiralinset,Spiral Inset,227.12,149.831,1.002,0.852,1.121,51.353,0.000,Low,Normal,Normal,Normal-Low,Normal-High,None
-hilbertcurve,Hilbert Curve,345.85,148.602,0.993,1.298,0.730,41.539,0.011,Low,Normal,Normal,High,Low,Unnoticeable
-archimedeanchords,Archimedean Chords,229.82,148.403,0.992,0.863,1.097,27.589,0.002,Low,Normal,Normal,Normal-Low,Normal-High,None
-octagramspiral,Octagram Spiral,258.65,148.203,0.991,0.971,0.973,31.047,0.012,Low,Normal,Normal,Normal,Normal,Unnoticeable
+pattern,name,material_usage,print_time,material_per_time,layer_time_variability,xy,z,material_usage_rating,print_time_rating,material_per_time_rating,layer_time_variability_rating,2_lines_material_usage,2_lines_print_time,3_lines_material_usage,3_lines_print_time
+monotonic,Monotonic,1.000,0.833,1.096,0.002,Normal,Normal,Normal,Normal-Low,Normal-High,None,,,,
+monotonicline,Monotonic line,0.998,0.846,1.076,0.002,Normal,Normal,Normal,Normal-Low,Normal-High,None,,,,
+rectilinear,Rectilinear,1.033,0.941,1.048,0.017,Normal-Low,Low,Normal,Normal,Normal,Unnoticeable,1.002,0.840,0.995,0.811
+alignedrectilinear,Aligned Rectilinear,1.033,0.934,1.055,0.015,Normal-Low,Normal,Normal,Normal,Normal,Unnoticeable,1.002,0.834,0.992,0.803
+zigzag,Zig Zag,1.033,0.940,1.049,0.017,Normal-Low,Low,Normal,Normal,Normal,Unnoticeable,,,,
+crosszag,Cross Zag,1.031,0.945,1.043,0.016,Normal,Low,Normal,Normal,Normal,Unnoticeable,,,,
+lockedzag,Locked Zag,1.373,1.308,0.953,0.011,Normal-Low,Normal-Low,High,High,Normal,Unnoticeable,,,,
+line,Line,1.101,0.837,1.245,0.014,Low,Low,Normal-High,Normal-Low,Normal-High,Unnoticeable,,,,
+grid,Grid,1.003,0.858,1.114,0.017,High,High,Normal,Normal-Low,Normal-High,Unnoticeable,0.956,1.108,1.004,1.024
+triangles,Triangles,1.004,0.847,1.130,0.020,High,Normal,Normal,Normal-Low,Normal-High,Unnoticeable,0.989,0.932,1.047,0.893
+tri-hexagon,Tri-hexagon,0.987,0.810,1.159,0.017,High,Normal-High,Normal,Normal-Low,Normal-High,Unnoticeable,0.984,1.108,0.949,0.970
+cubic,Cubic,1.008,0.830,1.154,0.020,High,High,Normal,Normal-Low,Normal-High,Unnoticeable,0.979,1.046,1.027,0.969
+adaptivecubic,Adaptive Cubic,0.625,0.593,1.012,0.344,Normal-High,Normal-High,Low,Low,Normal,Possibly Noticeable,0.704,0.737,0.774,0.731
+quartercubic,Quarter Cubic,0.996,0.843,1.125,0.024,High,High,Normal,Normal-Low,Normal-High,Unnoticeable,0.984,0.982,1.010,0.882
+supportcubic,Support Cubic,0.469,0.468,0.972,1.996,Low,Low,Low,Low,Normal,Likely Noticeable,0.575,0.588,0.677,0.625
+lightning,Lightning,0.145,0.224,0.523,2.553,Low,Low,Ultra-Low,Extra-Low,Low,Likely Noticeable,0.133,0.182,0.146,0.183
+honeycomb,Honeycomb,1.237,1.608,0.774,0.019,High,High,Normal-High,Extra-High,Normal-Low,Unnoticeable,1.259,1.347,1.220,1.200
+3dhoneycomb,3D Honeycomb,0.965,1.510,0.649,0.130,Normal-High,Normal-High,Normal,High,Low,Unnoticeable,0.944,1.184,0.966,1.062
+lateral-honeycomb,Lateral Honeycomb,1.006,0.862,1.109,0.668,Normal-Low,Normal-Low,Normal,Normal-Low,Normal-High,Possibly Noticeable,0.927,0.786,0.920,0.751
+lateral-lattice,Lateral Lattice,1.003,0.861,1.109,0.020,Normal-Low,Low,Normal,Normal-Low,Normal-High,Unnoticeable,0.935,0.778,0.957,0.758
+crosshatch,Cross Hatch,0.978,1.060,0.872,0.869,Normal-High,Normal-High,Normal,Normal,Normal-Low,Likely Noticeable,0.966,0.931,0.955,0.868
+tpmsd,TPMS-D,1.016,1.352,0.737,0.614,High,High,Normal,High,Low,Possibly Noticeable,1.014,1.089,1.005,0.975
+tpmsfk,TPMS-FK,1.023,1.626,0.629,0.354,Normal-High,Normal-High,Normal,Extra-High,Low,Possibly Noticeable,1.019,1.312,1.015,1.159
+gyroid,Gyroid,0.952,1.508,0.632,0.186,High,High,Normal,High,Low,Unnoticeable,0.956,1.263,0.946,1.097
+concentric,Concentric,1.372,1.009,1.256,0.006,Low,Normal,High,Normal,High,None,1.791,1.228,2.123,1.418
+spiralinset,Spiral Inset,0.978,0.886,1.007,0.000,Low,Normal,Normal,Normal-Low,Normal,None,,,,
+hilbertcurve,Hilbert Curve,1.006,1.319,0.748,0.013,Low,Normal,Normal,High,Low,Unnoticeable,0.993,1.121,0.980,0.993
+archimedeanchords,Archimedean Chords,0.990,0.840,1.119,0.004,Low,Normal,Normal,Normal-Low,Normal-High,None,0.949,0.792,0.934,0.763
+octagramspiral,Octagram Spiral,0.988,0.945,0.995,0.015,Low,Normal,Normal,Normal,Normal,Unnoticeable,0.944,0.898,0.918,0.849
