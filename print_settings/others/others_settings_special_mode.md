@@ -161,6 +161,10 @@ This option is only shown for Bambu Lab printers. The moves and camera commands 
 
 ## Enable clumping detection
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `enable_wrapping_detection`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-wrapping-detection=1`.  
 Lets the printer check, by probing, whether filament has clumped around the nozzle during the first layers of the print. When enabled, the printer's [Clumping detection G-code](printer_machine_gcode#clumping-detection-g-code) is inserted on each layer, and the Bambu Lab profiles run the check on a few of the early layers.
 
 This option is only shown for printers that support it, currently the Bambu Lab H2D, H2D Pro, H2C and P2S. It is turned off when switching to a printer that does not support it.

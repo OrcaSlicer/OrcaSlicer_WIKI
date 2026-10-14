@@ -4,6 +4,10 @@ Material dependencies help ensure that a material profile is only used with comp
 
 ## Compatible printers
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `compatible_printers_condition`.  
+[Type](option_type#text): `Text`.  
+Not available via CLI — see [Setting Overrides](cli_mode#setting-overrides) for the full list of excluded keys.  
 Set of printers that this material profile is compatible with if you want to limit its usage to specific printers.
 
 ### Printer Condition
@@ -13,6 +17,10 @@ Set of printers that this material profile is compatible with if you want to lim
 
 ## Compatible process profiles
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `compatible_prints_condition`.  
+[Type](option_type#text): `Text`.  
+Not available via CLI — see [Setting Overrides](cli_mode#setting-overrides) for the full list of excluded keys.  
 Set of process profiles that this material profile is compatible with if you want to limit its usage to specific process profiles.
 
 ### Process Condition

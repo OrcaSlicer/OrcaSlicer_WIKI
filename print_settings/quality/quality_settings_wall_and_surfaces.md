@@ -153,9 +153,9 @@ Use this setting to balance print time and wall quality: longer detours mean few
 ## Small area flow compensation
 
 [Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `small_area_infill_flow_compensation`.  
-[Type](option_type#boolean): `Boolean`.  
-[CLI Example](cli_mode#setting-overrides): `--small-area-infill-flow-compensation=1`.  
+[Variables](built_in_placeholders_variables): `small_area_infill_flow_compensation`, `small_area_infill_flow_compensation_model`.  
+[Type](option_type): `small_area_infill_flow_compensation` (Boolean), `small_area_infill_flow_compensation_model` (Text list).  
+[CLI Example](cli_mode#setting-overrides): `--small-area-infill-flow-compensation=1` (`small_area_infill_flow_compensation` shown; other variables above follow their own type).  
 Enables adaptive flow control for small infill areas.
 This feature helps address extrusion problems that often occur in small regions of solid infill, such as the tops of narrow letters or fine features.  
 In these cases, standard extrusion flow may be too much for the available space, leading to over-extrusion or poor surface quality.

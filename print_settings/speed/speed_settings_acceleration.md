@@ -1,9 +1,5 @@
 # Acceleration
 
-[Mode](option_mode): `Advanced`.  
-[Variables](built_in_placeholders_variables): `accel_to_decel_enable`, `accel_to_decel_factor`.  
-[Type](option_type): `accel_to_decel_enable` (Boolean), `accel_to_decel_factor` (Percentage).  
-[CLI Example](cli_mode#setting-overrides): `--accel-to-decel-enable=1` (`accel_to_decel_enable` shown; other variables above follow their own type).  
 Acceleration in 3D printing is usually set in the printer's firmware.  
 These settings override the firmware acceleration when the [normal printing acceleration](#normal-printing) is greater than 0.  
 Orca limits the acceleration so it doesn't exceed the maximum set in the printer's Motion Ability settings.
@@ -108,11 +104,19 @@ Acceleration of [travel](speed_settings_travel) moves. This is usually set to a 
 
 ## Enable accel to decel
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `accel_to_decel_enable`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--accel-to-decel-enable=1`.  
 Adjusts Klipper's `max_accel_to_decel` automatically. Each time Orca sets the acceleration with `SET_VELOCITY_LIMIT ACCEL=`, it adds `ACCEL_TO_DECEL=` at the [accel to decel](#accel-to-decel) percentage of that acceleration. When disabled, `ACCEL_TO_DECEL` is not sent.  
 This option is only shown when the [G-code flavor](printer_basic_information_advanced#g-code-flavor) is Klipper, and it is enabled by default.
 
 ### Accel to decel
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `accel_to_decel_factor`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--accel-to-decel-factor=20%`.  
 Percentage of the acceleration that Klipper's `max_accel_to_decel` is set to, from 1% to 100% (default 50%).  
 For example, at 5000 mm/s² and 50%, Orca sends `SET_VELOCITY_LIMIT ACCEL=5000 ACCEL_TO_DECEL=2500`.  
 It can only be edited when [Enable accel to decel](#enable-accel-to-decel) is checked.

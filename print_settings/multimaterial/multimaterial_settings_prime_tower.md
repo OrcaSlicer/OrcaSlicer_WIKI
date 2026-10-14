@@ -1,10 +1,9 @@
 # Prime Tower
 
-[Modes](option_mode):  
-`Simple` [Variables](built_in_placeholders_variables): `enable_prime_tower`, `prime_volume`.  
-`Advanced` [Variables](built_in_placeholders_variables): `prime_tower_skip_points`, `enable_tower_interface_features`, `enable_tower_interface_cooldown_during_tower`, `prime_tower_enable_framework`, `prime_tower_infill_gap`, `single_extruder_multi_material_priming`.  
-[Type](option_type): `enable_prime_tower` (Boolean), `prime_volume` (Float), `prime_tower_skip_points` (Boolean), `enable_tower_interface_features` (Boolean), `enable_tower_interface_cooldown_during_tower` (Boolean), `prime_tower_enable_framework` (Boolean), `prime_tower_infill_gap` (Percentage), `single_extruder_multi_material_priming` (Boolean).  
-[CLI Example](cli_mode#setting-overrides): `--enable-prime-tower=1` (`enable_prime_tower` shown; other variables above follow their own type).  
+[Mode](option_mode): `Simple`.  
+[Variable](built_in_placeholders_variables): `enable_prime_tower`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-prime-tower=1`.  
 The prime tower can be used to clean up residue on the nozzle and stabilize the chamber pressure inside the nozzle, in order to avoid appearance defects when printing objects.
 
 > [!NOTE]
@@ -12,20 +11,36 @@ The prime tower can be used to clean up residue on the nozzle and stabilize the 
 
 ## Skip points
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `prime_tower_skip_points`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--prime-tower-skip-points=1`.  
 Leaves a short gap in the outer wall of the prime tower where each tool change starts its purge, so the nozzle enters the tower through the gap instead of crossing the printed wall. Enabled by default. It has no effect on the [Cone](#cone) wall of the Type 2 tower.
 
 ## Enable tower interface features
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `enable_tower_interface_features`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-tower-interface-features=1`.  
 Changes how the prime tower is printed on interface layers, where different materials meet. On these layers the nozzle is heated to the filament's **Interface layer print temperature** (its maximum recommended nozzle temperature when set to -1), and extra filament can be pre-extruded before the purge. These values are set per filament in [Multimaterial Wipe Tower Parameters](material_multimaterial#multimaterial-wipe-tower-parameters).
 
 The Type 1 tower applies this on the layers where a material category starts or stops being printed on the tower. The Type 2 tower applies it on every layer with a filament change, and also adds the filament's **Interface layer purge length** to the purge.
 
 ### Cool down from interface boost during prime tower
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `enable_tower_interface_cooldown_during_tower`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-tower-interface-cooldown-during-tower=1`.  
 Only shown when [Enable tower interface features](#enable-tower-interface-features) is enabled, and only used by the Type 2 tower. After heating to the interface temperature, the nozzle is set back to its print temperature at the start of the purge, so it cools down while the tower is printed. When disabled, the print temperature is restored only after the purge is finished.
 
 ## Internal ribs
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `prime_tower_enable_framework`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--prime-tower-enable-framework=1`.  
 Adds internal ribs to increase the stability of the prime tower. Only used by the Type 1 tower, where each purge section of the tower keeps its full size up to the top instead of shrinking on upper layers that need less purging.
 
 ## Width
@@ -38,6 +53,10 @@ Width of the prime tower.
 
 ## Prime volume
 
+[Mode](option_mode): `Simple`.  
+[Variable](built_in_placeholders_variables): `prime_volume`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--prime-volume=1`.  
 Volume of material, in mm³, printed on the prime tower after each tool change to prime the new extruder. Default is 45 mm³.
 
 Unless the printer is a single extruder multi-material printer with [Purge in prime tower](printer_multimaterial_wipe_tower#purge-in-prime-tower) enabled, the Type 2 tower purges this fixed volume at each tool change instead of the flushing volumes. On such printers the tower purges the flushing volumes and this option is hidden. The Type 1 tower takes the prime volume from each filament profile and uses this value only as a fallback.
@@ -52,6 +71,10 @@ Width of the brim around the prime tower.
 
 ## Infill gap
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `prime_tower_infill_gap`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--prime-tower-infill-gap=20%`.  
 Spacing of the purge lines on the Type 1 prime tower, as a percentage of the line width. At 100% the lines are placed right next to each other; higher values leave gaps between them and make the tower larger for the same purge volume. Default is 150%.
 
 The Type 2 tower ignores it and uses [Wipe tower purge lines spacing](#wipe-tower-purge-lines-spacing) instead.
@@ -204,6 +227,10 @@ Layers are merged following these rules:
 
 ## Prime all printing extruders
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `single_extruder_multi_material_priming`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--single-extruder-multi-material-priming=1`.  
 If enabled, all extruders used in the print are primed at the start of the print, before the first layer, by printing a short purge area for each of them side by side along the front edge of the bed. Only shown for printers using the Type 2 tower, and hidden when [Single Extruder Multi Material](printer_multimaterial_setup#single-extruder-multi-material) is enabled.
 
 With Marlin firmware, the printer beeps and pauses after priming: if the print overlaps the priming area, it waits for you to remove the priming extrusions, otherwise it continues after 10 seconds. With other firmware, Orca warns when the print is too close to the priming area.

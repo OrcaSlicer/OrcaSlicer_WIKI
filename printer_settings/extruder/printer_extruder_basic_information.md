@@ -39,7 +39,7 @@ Min and max layer height limits for the extruder. These settings are used when a
 ## Extruder offset Position
 
 [Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `extruder_offset[extruder_idx]`.  
-[Type](option_type#list-types): `Point list`.  
-[CLI Example](cli_mode#setting-overrides): `--extruder-offset=100,100`.  
+[Variables](built_in_placeholders_variables): `extruder_printable_area[extruder_idx]`, `extruder_offset[extruder_idx]`.  
+[Type](option_type): `extruder_printable_area` (Point group list), `extruder_offset` (Point list).  
+[CLI Example](cli_mode#setting-overrides): `--extruder-printable-area=value` (`extruder_printable_area` shown; other variables above follow their own type).  
 If your firmware doesn't handle the extruder displacement you need the G-code to take it into account. This option lets you specify the displacement of each extruder with respect to the first one. It expects positive coordinates (they will be subtracted from the XY coordinate).

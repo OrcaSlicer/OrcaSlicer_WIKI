@@ -1,10 +1,5 @@
 # Support Advanced
 
-[Mode](option_mode): `Advanced`.  
-[Variables](built_in_placeholders_variables): `support_interface_loop_pattern`, `max_bridge_length`.  
-[Type](option_type): `support_interface_loop_pattern` (Boolean), `max_bridge_length` (Float).  
-[CLI Example](cli_mode#setting-overrides): `--support-interface-loop-pattern=1` (`support_interface_loop_pattern` shown; other variables above follow their own type).  
-
 - [Z distance](#z-distance)
 - [Support wall loops](#support-wall-loops)
 - [Base Pattern](#base-pattern)
@@ -159,6 +154,10 @@ This option is only shown for normal supports. Tree supports use [Max bridge len
 
 ## Max bridge length
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `max_bridge_length`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--max-bridge-length=1`.  
 The longest bridge that tree supports leave unsupported. It replaces [Don't support bridges](#dont-support-bridges) for every tree style, including Organic. Bridges up to this length that are anchored at both ends are printed without support, and longer ones are supported along their whole length. `0` supports all bridges, and a very large value leaves every bridge unsupported.
 
 With the Tree Slim, Tree Strong and Tree Hybrid styles, the branch tips placed inside an overhang are also spaced at least half this length apart, so a value above twice [Branch Distance](support_settings_tree#branch-distance) spreads them further apart.

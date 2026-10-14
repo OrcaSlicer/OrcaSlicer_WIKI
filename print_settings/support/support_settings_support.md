@@ -1,9 +1,8 @@
 # Support
 
-[Mode](option_mode): `Developer`.  
-[Variables](built_in_placeholders_variables): `enable_support`, `enforce_support_layers`.  
-[Type](option_type): `enable_support` (Boolean), `enforce_support_layers` (Integer).  
-[CLI Example](cli_mode#setting-overrides): `--enable-support=1` (`enable_support` shown; other variables above follow their own type).  
+[Variable](built_in_placeholders_variables): `enable_support`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-support=1`.  
 Support structures are used in 3D printing to provide stability to overhangs and complex geometries.
 
 - [Type](#type)

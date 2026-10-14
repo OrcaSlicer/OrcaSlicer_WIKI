@@ -128,6 +128,10 @@ Disable generating of the M73: Set remaining print time in the final G-code.
 
 ## G-code thumbnails
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `thumbnails`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--thumbnails=48x48/PNG,300x300/PNG`.  
 Picture sizes to be stored into a .gcode and .sl1 / .sl1s files, in the following format: "XxY, XxY, ..."
 
 ## Use relative E distances

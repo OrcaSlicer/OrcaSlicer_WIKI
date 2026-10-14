@@ -249,11 +249,10 @@ By enabling this parameter, the layer height of the last five layers is adjusted
 
 ## Polyholes
 
-[Modes](option_mode):  
-`Advanced` [Variables](built_in_placeholders_variables): `hole_to_polyhole`, `hole_to_polyhole_threshold`, `hole_to_polyhole_twisted`.  
-`Expert` [Variable](built_in_placeholders_variables): `hole_to_polyhole_max_edges`.  
-[Type](option_type): `hole_to_polyhole` (Boolean), `hole_to_polyhole_threshold` (Float or Percentage), `hole_to_polyhole_twisted` (Boolean), `hole_to_polyhole_max_edges` (Integer).  
-[CLI Example](cli_mode#setting-overrides): `--hole-to-polyhole=1` (`hole_to_polyhole` shown; other variables above follow their own type).  
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `hole_to_polyhole`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--hole-to-polyhole=1`.  
 A polyhole is a technique used in FFF 3D printing to improve the accuracy of circular holes. Instead of modeling a perfect circle, the hole is represented as a polygon with a reduced number of flat sides. This simplification forces the slicer to treat each segment as a straight line, which prints more reliably. By carefully choosing the number of sides and ensuring the polygon sits on the outer boundary of the hole, you can produce openings that more closely match the intended diameter.
 
 ![PolyHoles](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Precision/PolyHoles.png?raw=true)
@@ -263,6 +262,10 @@ A polyhole is a technique used in FFF 3D printing to improve the accuracy of cir
 
 ### Polyhole detection margin
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `hole_to_polyhole_threshold`.  
+[Type](option_type#integer-float-percentage): `Float or Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--hole-to-polyhole-threshold=20%`.  
 How far the points of a hole may deviate from its estimated circle for the hole to still be detected as circular, in mm or as a percentage of the hole radius. Cylinders are often exported with triangles of varying size, so their points are not always exactly on the circumference; a larger margin broadens the detection.
 
 Only convex holes with more than 8 points are considered. The same margin is used to match a hole across consecutive layers, and a hole is only converted if it spans at least two layers or is on the first layer.
@@ -271,12 +274,20 @@ This option is only shown when *Convert holes to polyholes* is enabled.
 
 ### Polyhole twist
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `hole_to_polyhole_twisted`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--hole-to-polyhole-twisted=1`.  
 Rotates the polyhole on every layer so its corners don't line up vertically. Each layer uses one of five orientations, spaced a fifth of the angle between two corners apart, and the sequence repeats every five layers. When disabled, every layer uses the same polygon.
 
 This option is only shown when *Convert holes to polyholes* is enabled.
 
 ### Maximum Polyhole edge count
 
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `hole_to_polyhole_max_edges`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--hole-to-polyhole-max-edges=1`.  
 > [!IMPORTANT]
 > NEW FEATURE: **Maximum Polyhole edge count**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.

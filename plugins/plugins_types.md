@@ -17,6 +17,8 @@ Script plugins are run manually from the Plugins window.
 
 ## Slicing Pipeline
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `slicing_pipeline_plugin`.  
 Slicing-pipeline plugins run at selected points in the slicing workflow. They can inspect or modify
 the live slicing graph, or edit the exported G-code at the post-processing step. This capability is
 experimental and intended for plugin developers and testers.

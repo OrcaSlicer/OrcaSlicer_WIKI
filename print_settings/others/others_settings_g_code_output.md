@@ -59,6 +59,10 @@ Add commands to the G-code that define each object and mark where it starts and 
 
 ## Filename Format
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `filename_format`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--filename-format={input_filename_base}_{filament_type[initial_tool]}_{print_time}.gcode`.  
 Define a filename template for exported G-code. Templates may include tokens like project name, date, or other metadata to produce consistent and informative filenames on export.
 
 For example:
@@ -74,6 +78,10 @@ This can be used to generate filenames like `OrcaCube_PLA_1h15m.gcode`.
 
 ## Change extrusion role G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `process_change_extrusion_role_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--process-change-extrusion-role-gcode=value`.  
 This G-code is inserted when the [extrusion role](built_in_placeholders_variables#extrusion-roles) is changed.  
 This is the process version of the **Change extrusion role G-code** that is also available in the [Material settings](material_advanced#change-extrusion-role-g-code) and [Printer settings](printer_machine_gcode#change-extrusion-role-g-code), and it runs after both of them.
 

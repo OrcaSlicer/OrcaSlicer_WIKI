@@ -1,9 +1,9 @@
 # Speed Advanced - Extrusion Rate Smoothing
 
 [Mode](option_mode): `Advanced`.  
-[Variables](built_in_placeholders_variables): `max_volumetric_extrusion_rate_slope`, `max_volumetric_extrusion_rate_slope_segment_length`, `extrusion_rate_smoothing_external_perimeter_only`.  
-[Type](option_type): `max_volumetric_extrusion_rate_slope` (Float), `max_volumetric_extrusion_rate_slope_segment_length` (Float), `extrusion_rate_smoothing_external_perimeter_only` (Boolean).  
-[CLI Example](cli_mode#setting-overrides): `--max-volumetric-extrusion-rate-slope=1` (`max_volumetric_extrusion_rate_slope` shown; other variables above follow their own type).  
+[Variables](built_in_placeholders_variables): `max_volumetric_extrusion_rate_slope`, `max_volumetric_extrusion_rate_slope_segment_length`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--max-volumetric-extrusion-rate-slope=1` (same pattern for the other variables above).  
 Extrusion Rate Smoothing (ERS) (pressure equalizer in PrusaSlicer) aims to **limit the rate of extrusion volume change to be below a user-set threshold (the ERS value)**.  
 It aims to assist the printer firmware's internal motion planner and pressure advance in achieving the desired nozzle flow and reducing deviations from the ideal flow.
 
@@ -184,6 +184,10 @@ Similarly, for a Bambu Lab printer, a segment length of 1 works well. **However,
 
 ## Apply only on external features
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `extrusion_rate_smoothing_external_perimeter_only`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--extrusion-rate-smoothing-external-perimeter-only=1`.  
 Applies extrusion rate smoothing only to outer walls and overhang walls, leaving the flow of all other features unchanged. This can reduce artifacts caused by sharp speed transitions on visible overhangs without slowing down features that won't be seen.  
 This option is only shown when Extrusion rate smoothing is greater than 0, and it is disabled by default.
 
