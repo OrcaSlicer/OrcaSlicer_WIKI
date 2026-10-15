@@ -98,10 +98,21 @@ Shortens the travel between the infill paths of each island, which [Intra-layer 
 
 By default the infill and ironing paths of an island are chained greedily, joining the closest free path ends first, which tends to leave a few long travels across the island for the last joins. With this option the chain is refined afterwards: runs of paths are reversed or moved elsewhere in the sequence whenever that shortens the travel, starting from where the nozzle is when the infill begins. Paths that must keep their direction, such as [Grid](strength_settings_patterns#grid) infill, are only reordered.
 
-The extrusions themselves do not change, only their order and direction. Across the infill patterns on a 3DBenchy, a Stanford bunny and a 100 mm cube with 2 walls and 15% infill, the travel between infill paths was 8 to 24% shorter (median per model) and up to 40% shorter on some patterns, which saved about 0.3% (bunny) to 1.3% (Benchy) of the print time. Slicing takes slightly longer.
+The extrusions themselves do not change, only their order and direction, so the filament used is the same. Measured with OrcaSlicer's own print time estimate, slicing every print with the option off and on:
+
+- **Typical settings** (2 walls, 15% infill, 20 mm infill anchors), every sparse pattern on a 3DBenchy, a Stanford bunny and a 100 mm cube: the travel between infill paths was 8 to 23% shorter (median per model), up to 40% on some patterns, and the print time 0.3% (bunny) to 1.3% (Benchy) shorter. One print of 78 took 5 seconds longer.
+- **[Infill pattern analysis](strength_settings_patterns) runs** (no walls, 5 to 50% density, multiline and solid patterns; 867 prints per row):
+
+| [Maximum length of the infill anchor](strength_settings_infill#anchor) | Travel | Print time | Prints faster / slower | Slicing time (CPU) |
+|---:|---:|---:|---:|---:|
+| 0 | -11.3% | -0.19% | 722 / 101 | +1.0% |
+| 2 mm | -10.0% | -0.14% | 737 / 66 | +0.8% |
+| 1000 mm | -7.1% | -0.09% | 709 / 45 | +0.5% |
+
+The prints that got longer are mostly short ones, and by at most about 3%. The option minimizes the travel distance and does not know which travels will need a retraction, and the time estimate of a wavy path such as Gyroid depends on the direction it is printed in, which the option may flip. Without walls, each layer's infill also starts where the previous layer's ended, so where the refined chain ends matters more than in a print with walls.
 
 > [!TIP]
-> The gain is largest when the infill is cut into many pieces: complex islands, patterns that cross themselves, or [Infill anchor](strength_settings_infill#anchor) disabled.
+> The gain is largest when the infill is cut into many pieces: complex islands, patterns that cross themselves, and short or disabled [infill anchors](strength_settings_infill#anchor). Those are also the prints where slicing takes longest, up to about 17% more time on dense, fragmented infill.
 
 ## Spiral vase
 
