@@ -171,6 +171,7 @@ nav:
   - "Color Painting": print_prepare/prepare_color_painting.md
   - "Cutting Tool": print_prepare/prepare_cutting_tool.md
   - Emboss: print_prepare/prepare_emboss.md
+  - Image: print_prepare/prepare_image_tool.md
   - "Mesh Boolean": print_prepare/prepare_mesh_boolean.md
   - "Object Manipulation": print_prepare/prepare_object_manipulation.md
   - "Object Set": print_prepare/prepare_object_set.md
