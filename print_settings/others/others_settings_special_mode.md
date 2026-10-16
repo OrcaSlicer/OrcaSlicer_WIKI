@@ -10,7 +10,6 @@ These settings control advanced slicing and printing behaviors, such as how laye
     - [By Layer](#by-layer)
         - [Intra-layer order](#intra-layer-order)
     - [By Object](#by-object)
-- [Optimize infill travel](#optimize-infill-travel)
 - [Spiral vase](#spiral-vase)
     - [Smooth Spiral](#smooth-spiral)
         - [Max XY Smoothing](#max-xy-smoothing)
@@ -72,13 +71,15 @@ Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over part
 > NEW FEATURE: **Snake and Best of all (shortest path) intra-layer ordering**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-- **Default**: Nearest-neighbor chaining, refined with 2-opt and crossing removal. A good general choice and the recommended option for most plates.
+- **Default**: Up to ten instances or islands are visited along the shortest possible closed path. Larger sets use nearest-neighbor chaining, refined by reversing sections of the path (2-opt), moving short runs of stops elsewhere (or-opt) and removing crossings. A good general choice and the recommended option for most plates.
 - **As object list**: Instances are printed in the same order as the object list, without any path optimization. Use it when you need a predictable, manually controlled order, for custom sequencing or debugging.
 - **Snake**: Serpentine, row-by-row traversal (objects are grouped into rows and each row is traversed in the opposite direction to the previous one), refined with 2-opt. Well suited to regular grids of many small parts.
 - **Best of all (shortest path)**: Every strategy is evaluated and the shortest one is used. The object instance order is decided once for the whole print, while the ordering of individual islands is decided per layer, so different layers may end up using different strategies. Slightly slower to slice.
 
 > [!NOTE]
 > Except with **As object list**, ordering is applied at the island level, not only per instance, so each separate region of a layer is ordered individually. This mainly benefits assemblies and objects whose layers overlap.
+>
+> Inside each island, the infill, ironing and support paths are also printed in a short order, whatever this setting: up to eight paths in the shortest possible order, more by refining a nearest-neighbor chain. Paths that must keep their direction, such as [Grid](strength_settings_patterns#grid) infill, are only reordered.
 >
 > With multiple filaments or tools in the same layer, minimizing tool changes takes priority: objects are grouped by filament first, and this setting only orders the instances within each filament group. The overall sequence may therefore not look like the shortest path across the plate.
 
@@ -87,32 +88,6 @@ Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over part
 This option prints each object completely before moving on to the next object. This is better for prints where objects need to cool separately or when using different materials per object, but it may increase total print time.
 
 This setting requires more space between models and may not be suitable for all print scenarios.
-
-## Optimize infill travel
-
-[Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `optimize_infill_travel`.  
-[Type](option_type#boolean): `Boolean`.  
-[CLI Example](cli_mode#setting-overrides): `--optimize-infill-travel=1`.  
-Shortens the travel between the infill paths of each island, which [Intra-layer order](#intra-layer-order) does not reach: it only decides the order of the objects and islands.
-
-By default the infill and ironing paths of an island are chained greedily, joining the closest free path ends first, which tends to leave a few long travels across the island for the last joins. With this option the chain is refined afterwards: runs of paths are reversed or moved elsewhere in the sequence whenever that shortens the travel, starting from where the nozzle is when the infill begins. Paths that must keep their direction, such as [Grid](strength_settings_patterns#grid) infill, are only reordered.
-
-The extrusions themselves do not change, only their order and direction, so the filament used is the same. Measured with OrcaSlicer's own print time estimate, slicing every print with the option off and on:
-
-- **Typical settings** (2 walls, 15% infill, 20 mm infill anchors), every sparse pattern on a 3DBenchy, a Stanford bunny and a 100 mm cube: the travel between infill paths was 9 to 24% shorter (median per model), up to 52% on some patterns, and the print time 0.04% (cube) to 1.3% (Benchy) shorter. Three prints of 78 took longer, by up to 35 seconds on a 5-hour print.
-- **[Infill pattern analysis](strength_settings_patterns) runs** (no walls, 5 to 50% density, multiline and solid patterns; 867 prints per row):
-
-| [Maximum length of the infill anchor](strength_settings_infill#anchor) | Travel | Print time | Prints faster / slower | Slicing time (CPU) |
-|---:|---:|---:|---:|---:|
-| 0 | -11.3% | -0.19% | 722 / 101 | +1.0% |
-| 2 mm | -10.0% | -0.14% | 737 / 66 | +0.8% |
-| 1000 mm | -7.1% | -0.09% | 709 / 45 | +0.5% |
-
-The prints that got longer are mostly short ones, and by at most about 3%. The option minimizes the travel distance, not the travel time: it does not know which travels will need a retraction, and a short travel, limited by acceleration, does not take time in proportion to its length. The time estimate of a wavy path such as Gyroid depends on the direction it is printed in, which the option may flip. Without walls, each layer's infill also starts where the previous layer's ended, so where the refined chain ends matters more than in a print with walls.
-
-> [!TIP]
-> The gain is largest when the infill is cut into many pieces: complex islands, patterns that cross themselves, and short or disabled [infill anchors](strength_settings_infill#anchor). Those are also the prints where slicing takes longest, up to about 17% more time on dense, fragmented infill.
 
 ## Spiral vase
 
