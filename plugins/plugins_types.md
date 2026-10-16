@@ -33,6 +33,14 @@ working G-code path; geometry steps receive the active slicing context instead.
 > Slicing-pipeline plugins can change generated geometry or G-code. Review and test plugins from
 > sources you trust before using them for a print.
 
+## Resource Textures
+
+Resource-texture plugins contribute height-map images as a resource pack. Each plugin provides one pack of images, and the pack's name is how it appears in the app.
+
+These plugins install as wheels (`.whl`) only, because a pack ships image files alongside its code.
+
+Enabling, disabling, or uninstalling a pack adds or removes its textures, and the change shows up without a restart. A project that has already used a pack texture keeps working, because it stores its own copy of the image.
+
 ## Plugin Configuration
 
 Select a plugin, open the **Config** tab, and select one of its capabilities. Edit the JSON

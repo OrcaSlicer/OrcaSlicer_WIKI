@@ -6,7 +6,7 @@ capability base classes, the package base, result types, and capability registra
 
 | Symbol | Kind | Members / purpose |
 |---|---|---|
-| `orca.PluginType` | enum | `PrinterConnection`, `Automation`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `SlicingPipeline`, `Unknown` |
+| `orca.PluginType` | enum | `PrinterConnection`, `Pages`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `SlicingPipeline`, `ResourceTexture`, `Unknown` |
 | `orca.PluginResult` | enum | `Success`, `Skipped`, `RecoverableError`, `FatalError` |
 | `orca.PluginContext` | class | base context, field `orca_version: str` |
 | `orca.ExecutionResult` | class | fields `status`, `message`, `data`; factories below |
@@ -16,6 +16,7 @@ capability base classes, the package base, result types, and capability registra
 | `orca.register_capability(cls)` | function | register one capability class; call it inside `register_capabilities()` |
 | `orca.slicing` | submodule | [Slicing Pipeline](slicing): `Step`, `SlicingPipelineContext`, `SlicingPipelineCapabilityBase` |
 | `orca.script` | submodule | [Script](script): `ScriptPluginCapabilityBase` |
+| `orca.resource_texture` | submodule | [Resource Texture](resource_texture): `ResourceTexturePluginCapabilityBase` |
 | `orca.printer_agent` | submodule | [Printer Agent](printer_agent): `PrinterAgentBase` and its data types |
 | `orca.host` | submodule | [Host](host): read-only host access to the live model, presets, and mesh geometry |
 | `orca.host.ui` | submodule | [Host UI](host_ui): dialogs, progress dialogs, and interactive windows |

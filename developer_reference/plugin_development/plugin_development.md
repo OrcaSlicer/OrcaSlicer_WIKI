@@ -124,7 +124,8 @@ fields live at the TOML root. Parsing is implemented in
 
 The detailed API reference is split into [Registry](registry),
 [Host](host), [Host UI](host_ui),
-[Script](script), [Slicing Pipeline](slicing), and
+[Script](script), [Slicing Pipeline](slicing),
+[Resource Texture](resource_texture), and
 [Printer Agent](printer_agent). The summary below covers the main symbols
 used when writing a plugin.
 
@@ -136,7 +137,7 @@ for read-only access to the live slicer model graph, presets, and mesh geometry 
 
 | Symbol | Kind | Members / purpose |
 |---|---|---|
-| `orca.PluginType` | enum | `PrinterConnection`, `Automation`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `SlicingPipeline`, `Unknown` |
+| `orca.PluginType` | enum | `PrinterConnection`, `Pages`, `Analysis`, `Importer`, `Exporter`, `Visualization`, `Script`, `SlicingPipeline`, `ResourceTexture`, `Unknown` |
 | `orca.PluginResult` | enum | `Success`, `Skipped`, `RecoverableError`, `FatalError` |
 | `orca.PluginContext` | class | base context, field `orca_version: str` |
 | `orca.ExecutionResult` | class | fields `status`, `message`, `data`; factories below |
@@ -146,6 +147,7 @@ for read-only access to the live slicer model graph, presets, and mesh geometry 
 | `orca.register_capability(cls)` | function | register one capability class; call it inside `register_capabilities()` |
 | `orca.slicing` | submodule | [Slicing Pipeline](slicing): `Step`, `SlicingPipelineContext`, `SlicingPipelineCapabilityBase` |
 | `orca.script` | submodule | `ScriptPluginCapabilityBase` |
+| `orca.resource_texture` | submodule | `ResourceTexturePluginCapabilityBase` and `get_texture_dir()` |
 | `orca.printer_agent` | submodule | `PrinterAgentBase` and its data types |
 | `orca.host` | submodule | read-only host access: live `Model` graph, presets/bundle, and zero-copy mesh geometry |
 
@@ -557,7 +559,8 @@ Each typed base defines the method(s) OrcaSlicer will call and the type returned
 nothing).
 
 The API Reference keeps the per-module details in separate pages:
-[Script](script), [Slicing Pipeline](slicing), and
+[Script](script), [Slicing Pipeline](slicing),
+[Resource Texture](resource_texture), and
 [Printer Agent](printer_agent).
 
 | Base class | `get_type()` returns | Required methods | Invoked by |
@@ -565,6 +568,7 @@ The API Reference keeps the per-module details in separate pages:
 | `orca.script.ScriptPluginCapabilityBase` | `Script` | `get_name()`, `execute(self) -> ExecutionResult` | the **Plugins dialog -> Run** action |
 | `orca.slicing.SlicingPipelineCapabilityBase` | `SlicingPipeline` | `get_name()`, `execute(self, ctx) -> ExecutionResult` | configured slicing steps and **G-code export / post-processing** |
 | `orca.printer_agent.PrinterAgentBase` | `PrinterConnection` | `get_name()` + ~30 agent methods (`get_agent_info`, `connect_printer`, ...) | the **network / printer-agent** layer on load |
+| `orca.resource_texture.ResourceTexturePluginCapabilityBase` | `ResourceTexture` | `get_name()`, `get_texture_dir(self) -> str` | OrcaSlicer, when the capability is materialized |
 
 > [!NOTE]
 > `get_name()` is required; `get_type()` usually is not. Every capability must implement
@@ -877,7 +881,7 @@ The shared building blocks come from `PythonPluginInterface.hpp`:
 
 If your type needs a new `PluginCapabilityType` value, **add it to the enum and to all three
 maps** in `PythonPluginInterface.hpp`, choosing the string the maps translate. Reuse an
-existing value (e.g. `Automation`) if it fits.
+existing value (e.g. `Pages`) if it fits.
 
 ### Step 2: Decide the API Surface
 
@@ -1025,6 +1029,7 @@ that matches your type and model it on an existing one:
 | `slicingPipeline` | `Print.cpp` and `PostProcessor.cpp` | resolve the preset's capability refs, cast to `SlicingPipelinePluginCapability`, build `SlicingPipelineContext`, and call `execute(ctx)` under the GIL |
 | `script` | `PluginsDialog.cpp` (Run action) | `get_plugin_capability_by_name(...)`, `dynamic_pointer_cast<ScriptPluginCapability>(cap->instance)`, call `execute()` |
 | `printerAgent` | `NetworkAgentFactory.cpp`, wired in `GUI_App.cpp` | register via `subscribe_on_capability_load_callback` / `subscribe_on_capability_unload_callback`; the callback filters by `capability.type == PluginCapabilityType::PrinterConnection`, then registers/deregisters an agent |
+| `resourceTexture` | `GUI_App.cpp` (`init_plugin_gui_wiring`) | register via the capability load/unload callbacks; the callback filters by `capability.type == PluginCapabilityType::ResourceTexture` and updates `PluginResourceTextures`, which consumers read a pack's cached directory from |
 
 For your new type, add a call site (or an on-capability-load callback) that:
 

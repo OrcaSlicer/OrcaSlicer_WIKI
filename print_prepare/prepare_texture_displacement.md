@@ -115,11 +115,13 @@ Work in **Fast** while you drag sliders, then switch to **Normal** before you co
 
 A texture is a greyscale image read as heights - white lifts the surface by **Depth**, black leaves it alone.
 
-Click a layer's image to open the picker. **Built-in** ships 43 seamless height maps, all of which tile without a visible join:
+Click a layer's image to open the picker. It has a fixed size and scrolls, and every group in it is a collapsible section you can click to fold away. **Built-in** ships 43 seamless height maps, all of which tile without a visible join:
 
 ![td-texture-library](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-texture-library.png?raw=true)
 
-**My textures**, below them in the picker, holds your own. Import a PNG, JPG or BMP and it is converted to a height map and copied into your own texture folder, where application updates cannot overwrite it. Hover one of your own to remove it.
+**Texture libraries** holds packs contributed by [plugins](plugins_types). Each pack is its own collapsible section, named after the pack, so packs you do not use can be folded away. Enabling or uninstalling a pack adds or removes its section. **Explore more texture libraries** opens OrcaCloud to browse for packs.
+
+**My textures**, last, holds your own. Import a PNG, JPG or BMP and it is converted to a height map and copied into your own texture folder, where application updates cannot overwrite it. Hover one of your own to remove it.
 
 What makes an image work well as a height map:
 
