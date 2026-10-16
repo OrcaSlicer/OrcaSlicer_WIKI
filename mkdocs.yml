@@ -271,6 +271,7 @@ nav:
   - "For creators": publishing_3mf/publish_3mf_creators.md
 - Releases:
   - Releases: releases/releases_index.md
+  - "V2.5.0 Alpha": releases/release_2_5_0_alpha.md
   - V2.4.2: releases/release_2_4_2.md
   - V2.4.1: releases/release_2_4_1.md
   - V2.4.0: releases/release_2_4_0.md
