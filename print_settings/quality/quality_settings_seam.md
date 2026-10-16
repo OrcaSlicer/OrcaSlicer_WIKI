@@ -47,7 +47,7 @@ However, as seams create weak points and slight surface "bulges" or "divots", [r
 
 ### Aligned
 
-Will attempt to align the seam to a hidden internal facet of the model.
+Will attempt to align the seams vertically across layers, placing them at the least visible spots of the model, such as concave corners.
 
 ![seam-aligned](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-aligned.png?raw=true)
 
@@ -67,7 +67,7 @@ Picks the seam at the point that is closest to where the nozzle already is (whil
 
 ### Back
 
-This option places the seam on the back side (Min Y point in that layer) of the object, away from the view. It is useful for objects that will be displayed with a specific orientation.
+This option places the seam on the back side (Max Y point in that layer) of the object, away from the view. It is useful for objects that will be displayed with a specific orientation.
 
 ![seam-back](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-back.png?raw=true)
 
@@ -85,7 +85,7 @@ This option places the seam randomly across the object, which can help to distri
 [Variable](built_in_placeholders_variables): `staggered_inner_seams`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--staggered-inner-seams=1`.  
-As the seam location forms a weak point in the print, staggering the seam on the internal perimeters can help reduce stress points. This setting moves the start of the internal wall's seam around across layers as well as away from the external perimeter seam. This way, the internal and external seams don't all align at the same point and between them across layers, distributing those weak points further away from the seam location, hence making the part stronger. It can also help improve the water tightness of your model.
+As the seam location forms a weak point in the print, staggering the seam on the internal perimeters can help reduce stress points. This setting shifts the seam of each internal wall along the loop, away from the external perimeter seam, by an amount based on the wall's depth, forming a zigzag pattern. This way, the internal and external seams don't all align at the same point, distributing those weak points further away from the seam location, hence making the part stronger. It can also help improve the water tightness of your model.
 
 ![seam-staggered-inner](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-staggered-inner.gif?raw=true)
 
@@ -100,7 +100,7 @@ Controls the gap in mm or as a percentage of the nozzle size between the two end
 - A larger gap will reduce the bulging seen at the seam.
 - A smaller gap reduces the visual appearance of a seam.
 
- For a well-tuned printer with [pressure advance](pressure_advance_calib) and [filament retraction](retraction_calib), a value of **0-15%** is typically optimal.
+For a well-tuned printer with [pressure advance](pressure_advance_calib) and [filament retraction](retraction_calib), a value of **0-15%** is typically optimal.
 
 ![seam-gap](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-gap.gif?raw=true)
 
@@ -125,17 +125,20 @@ Disadvantages:
 - Less effective on sharp corners and overhangs
 - Requires tuning of parameters like length, speed, and flow for best results
 
+Scarf joints are never applied on the first layer, in [spiral vase](others_settings_special_mode#spiral-vase) mode, or on [belt printers](belt_printing#features-that-are-not-available).
+
 > [!NOTE]
 > Read more here: [Better Seams - An OrcaSlicer Guide](https://www.printables.com/model/783313-better-seams-an-orca-slicer-guide-to-using-scarf-s).
 
 #### Scarf joint seam Type
 
-- **Contour:** Applies scarf seams exclusively to the outermost perimeter of the model.
-- **Contour and hole:** Extends scarf seams to both the outer perimeter and the inner walls surrounding holes within the part.
+- **None:** Scarf joint seams are disabled (default).
+- **Contour:** Applies scarf seams only to the outer wall of the model's contours, not to holes.
+- **Contour and hole:** Applies scarf seams to the outer walls of both contours and holes.
 
 #### Conditional scarf joint
 
-Dynamically applies scarf joints only on smooth, curved perimeters where traditional seams would be visually prominent. Sharp corners will still use standard seams to maintain dimensional accuracy.
+Applies scarf joints only to smooth, curved perimeters, where a traditional seam cannot be hidden in a sharp corner. A perimeter with a corner sharper than the *Conditional angle threshold* (default 155°) keeps a standard seam, as does a seam whose overhang exceeds the *Conditional overhang threshold* (default 40% of the wall width).
 
 #### Scarf joint speed
 
@@ -146,7 +149,7 @@ It's also advisable to enable [Extrusion rate smoothing](speed_settings_advanced
 #### Scarf joint height
 
 Defines the vertical offset for the start of the scarf ramp, specified either in millimeters or as a percentage of the current layer height.  
-A value of 0 means the scarf begins at the same height as the current layer and ramps up to the full layer height over the scarf length.  
+A value of 0 means the scarf begins at the top of the previous layer and ramps up to the full layer height over the scarf length.  
 For example, on the second layer with a 0.2 mm layer height, setting this to 50% (0.1 mm) will start the scarf at 0.3 mm and ramp up to 0.4 mm by the end of the scarf length, while the rest of the lines print at 0.4 mm.  
 This setting helps create a smoother transition and can reduce visible seam artifacts.
 
@@ -156,7 +159,7 @@ If enabled, the scarf joint wraps around the full perimeter of the wall. Typical
 
 #### Scarf length
 
-Defines the horizontal length over which the scarf ramp transitions. A value of 0 disables the scarf joint. The default (e.g. 20 mm) generally offers smooth and effective blending.
+Defines the horizontal length over which the scarf ramp transitions. A value of 0 disables the scarf joint. The default (20 mm) generally offers smooth and effective blending.
 
 #### Scarf steps
 
@@ -165,12 +168,12 @@ More steps create a smoother gradient, but the default value (10) is sufficient 
 
 #### Scarf joint flow ratio
 
-Adjusts extrusion flow during scarf printing. A value of 100% applies standard flow. Lower values reduce flow but may introduce under-extrusion.  
-Recommended to keep at 100%.
+Adjusts extrusion flow during scarf printing. A value of 1 applies standard flow. Lower values reduce flow but may introduce under-extrusion.  
+Recommended to keep at 1.
 
 #### Scarf joint for inner walls
 
-When enabled, scarf joints are also applied to inner perimeters (e.g., holes). This has minimal visual impact and is usually left disabled unless inner seam quality is a priority.
+When enabled, scarf joints are also applied to inner walls, not only to the outer wall. This has minimal visual impact and is usually left disabled unless inner seam quality is a priority.
 
 ### Role based wipe speed
 
@@ -187,7 +190,7 @@ It is recommended to turn this option on, to ensure the nozzle performs the wipe
 [Variable](built_in_placeholders_variables): `wipe_speed`.  
 [Type](option_type#integer-float-percentage): `Float or Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-speed=20%`.  
-If role-based wipe speed is disabled, set this field to the absolute wipe speed or as a percentage over the travel speed.
+If [Role based wipe speed](#role-based-wipe-speed) is disabled, this sets the wipe speed, either as an absolute value or as a percentage of the travel speed.
 
 ### Wipe on loop (inward movement)
 
@@ -195,8 +198,8 @@ If role-based wipe speed is disabled, set this field to the absolute wipe speed 
 [Variable](built_in_placeholders_variables): `wipe_on_loops`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-on-loops=1`.  
-When finishing printing a "loop" (i.e., an extrusion that starts and ends at the same point), move the nozzle slightly inwards towards the part. That move aims to reduce seam unevenness by tucking in the end of the seam to the part. It also slightly cleans the nozzle before traveling to the next area of the model, reducing stringing.  
-This setting will use your printer/material Wipe Distance and retract amount before wipe values.
+When finishing printing an outer wall "loop" (i.e., an extrusion that starts and ends at the same point), move the nozzle slightly inwards towards the part. This only applies when [Wall loops](strength_settings_walls#wall-loops) is greater than 1. That move aims to reduce seam unevenness by tucking in the end of the seam to the part. It also slightly cleans the nozzle before traveling to the next area of the model, reducing stringing.  
+The inward move itself is a short, fixed move of about 20% of the nozzle diameter. The wipe and retraction that follow use your printer/material Wipe distance and Retract amount before wipe values.
 
 ![seam-wipe-on-loop](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/seam/seam-wipe-on-loop.png?raw=true)
 
@@ -243,9 +246,9 @@ This option is only shown when *Wipe inward* is enabled.
 [Variable](built_in_placeholders_variables): `wipe_before_external_loop`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-before-external-loop=1`.  
-To minimize the visibility of potential over-extrusion at the start of an external perimeter, the de-retraction move is performed slightly on the inside of the model and, hence, the start of the external perimeter. That way, any potential over-extrusion is hidden from the outside surface.
+To minimize the visibility of potential over-extrusion at the start of an external perimeter, the de-retraction move is performed slightly inside the model, next to the start of the external perimeter. That way, any potential over-extrusion is hidden from the outside surface.
 
-This is useful when printing with [Outer/Inner](quality_settings_wall_and_surfaces#outerinner) or [Inner/Outer/Inner](quality_settings_wall_and_surfaces#innerouterinner) wall print order, as in these modes, it is more likely an external perimeter is printed immediately after a de-retraction move, which would cause slight extrusion variance at the start of a seam.
+This is useful when printing with [Outer/Inner](quality_settings_wall_and_surfaces#outerinner) or [Inner/Outer/Inner](quality_settings_wall_and_surfaces#innerouterinner) wall print order, as in these modes it is more likely that an external perimeter is printed immediately after a de-retraction move, which would cause slight extrusion variance at the start of a seam.
 
 ## Tips
 
@@ -271,13 +274,13 @@ However, due to mechanical and material tolerances, as well as the very nature o
 
 Imagine the scenario where the toolhead finishes printing a layer line on one side of the bed, retracts, travels the whole distance of the bed to de-retract, and starts printing another part. Compare this to the scenario where the toolhead finishes printing an internal perimeter and only travels a few mm to start printing an external perimeter, without even retracting or de-retracting.
 
-The first scenario has much more opportunity for the filament to ooze outside the nozzle, resulting in a small blob forming at the start of the seam or, conversely, if too much material has leaked, a gap/under extrusion at the start of the seam.
+The first scenario has much more opportunity for the filament to ooze outside the nozzle, resulting in a small blob forming at the start of the seam or, conversely, if too much material has leaked, a gap/under-extrusion at the start of the seam.
 
 The key to a consistent start of a seam is to reduce the opportunity for ooze as much as possible. The good news is that this is mostly tunable by:
 
 1. **Ensure your pressure advance is calibrated correctly**. A too low pressure advance will result in the nozzle experiencing excess pressure at the end of the previous extrusion, which increases the chance of oozing when traveling.
 2. **Make sure your travel speed is as fast as possible within your printer's limits**, and the travel acceleration is as high as practically possible, again within the printer's limits. This reduces the travel time between features, reducing oozing.
-3. **Enable wipe before external perimeters** – this setting performs the de-retraction move inside the model, hence reducing the visual appearance of the "blob" if it does appear at the seam.
+3. **Enable Wipe before external loop** – this setting performs the de-retraction move inside the model, hence reducing the visual appearance of the "blob" if it does appear at the seam.
 4. **Increase your travel distance threshold to be such that small travel moves do not trigger a retraction and de-retraction operation**, reducing extrusion variances caused by the extruder tolerances. 2-4mm is a good starting point as, if your PA is tuned correctly and your travel speed and acceleration are high, it is unlikely that the nozzle will ooze in the milliseconds it will take to travel to the new location.
 5. **Enable retract on layer change**, to ensure the start of your layer is always performed under the same conditions – a de-pressurized nozzle with retracted filament.
 
@@ -303,4 +306,4 @@ Finally, the techniques of **wiping can help improve the visual continuity and c
 
 The order of wall printing plays a significant role in the appearance of a seam. **Starting to print the external perimeter first after a long travel move will always result in more visible artifacts compared to printing the internal perimeters first and traveling just a few mm to print the external perimeter.**
 
-For optimal seam performance, printing with **inner-outer-inner wall order is typically best, followed by inner-outer**. It reduces the amount of traveling performed prior to printing the external perimeter and ensures the nozzle is having as consistent pressure as possible, compared to printing outer-inner.
+For optimal seam performance, printing with **inner-outer-inner wall order is typically best, followed by inner-outer**. It reduces the amount of traveling performed prior to printing the external perimeter and keeps the nozzle pressure as consistent as possible, compared to printing outer-inner.

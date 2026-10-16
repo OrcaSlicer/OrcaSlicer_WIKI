@@ -3,6 +3,9 @@
 In FDM 3D printing, temperature is a critical factor that affects print quality.
 There is no other calibration that can have such a big impact on print quality as temperature calibration.
 
+> [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
 - [Nozzle Temp Tower](#nozzle-temp-tower)
     - [Interpreting results](#interpreting-results)
 
@@ -36,7 +39,7 @@ Once the print is complete, examine each block of the tower and determine the op
 
 ### Interpreting results
 
-- **Stringing:** lower temperatures typically reduce stringing.
+- **Stringing:** lower temperatures typically reduce stringing, but going too low can cause it too.
 - **Layer adhesion / strength:** higher temperatures generally improve adhesion.
 - **Overhangs / bridging:** higher temperatures can help flow, but too high causes sagging.
 - **Surface finish:** balance temperature and flow for the best finish.

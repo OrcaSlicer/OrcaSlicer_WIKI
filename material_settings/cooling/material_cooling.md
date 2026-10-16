@@ -88,6 +88,7 @@ When auto-cooling is enabled, the fan speed may increase as needed, up to the de
 
 ### Keep fan always on
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `reduce_fan_stop_start_freq`.  
 [Type](option_type#list-types): `Boolean list`.  
 [CLI Example](cli_mode#setting-overrides): `--reduce-fan-stop-start-freq=1`.  
@@ -95,6 +96,7 @@ Enabling this setting means that part cooling fan will never stop entirely and w
 
 ### Slow printing down for better layer cooling
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `slow_down_for_layer_cooling`.  
 [Type](option_type#list-types): `Boolean list`.  
 [CLI Example](cli_mode#setting-overrides): `--slow-down-for-layer-cooling=1`.  
@@ -102,6 +104,7 @@ Enable this option to slow printing speed down to ensure that the final layer ti
 
 ### Don't slow down outer walls
 
+[Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `dont_slow_down_outer_wall`.  
 [Type](option_type#list-types): `Boolean list`.  
 [CLI Example](cli_mode#setting-overrides): `--dont-slow-down-outer-wall=1`.  

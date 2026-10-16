@@ -7,6 +7,9 @@ This Calibration guide will help you to calibrate the [Input Shaping](printer_mo
 > If your printer has one, consider using it as it can provide more accurate results in less time and usually is autosaved into the printer firmware.
 
 > [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
+> [!TIP]
 > It's usually recommended to perform Input Shaping calibration once a year or after any mechanical or structural changes such as relocation, changing the support surface, new belts, motors, frame, etc.
 
 - [Calibration](#calibration)

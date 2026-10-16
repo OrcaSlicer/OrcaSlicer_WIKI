@@ -17,12 +17,12 @@ A good starting point is setting the line width to **100% of the nozzle diameter
 However, slightly wider lines generally improve **layer bonding** and **print strength**, especially for internal features like walls and infill.
 
 > [!NOTE]
-> **100% line width will extrude slightly narrower than the nozzle**, but once squished onto the layer below, it flattens to match the nozzle size.  
+> **Line width is the width of the line as laid on the layer.** Orca calculates the extruded volume from the line width and layer height, so a 100% line width gives a line as wide as the nozzle, and higher values squish the line wider than the nozzle opening.  
 > You can read more on the flow math here: [Flow Math](https://manual.slic3r.org/advanced/flow-math).
 
 > [!IMPORTANT]
 > This will match only if using the [**Classic** wall generator](quality_settings_wall_generator#classic).  
-> [**Arachne**](quality_settings_wall_generator#arachne) will adjust the line width dynamically based on the model's geometry, using this values as a reference.
+> [**Arachne**](quality_settings_wall_generator#arachne) will adjust the line width dynamically based on the model's geometry, using these values as a reference.
 
 ## Line Types
 
@@ -83,7 +83,7 @@ If you need stronger infill, it's recommended to use [infill line multiplier](st
 [Variable](built_in_placeholders_variables): `internal_solid_infill_line_width`.  
 [Type](option_type#integer-float-percentage): `Float or Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--internal-solid-infill-line-width=20%`.  
-Used for solid top/bottom layers or [100% infill](strength_settings_infill#sparse-infill-density).  
+Used for internal solid infill, bottom surfaces, and [100% infill](strength_settings_infill#sparse-infill-density).  
 Recommended: **~110%** for good layer adhesion and visual quality.
 
 ### Support
@@ -92,7 +92,7 @@ Recommended: **~110%** for good layer adhesion and visual quality.
 [Variable](built_in_placeholders_variables): `support_line_width`.  
 [Type](option_type#integer-float-percentage): `Float or Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--support-line-width=20%`.  
-Typically set to **100%** to balance material usage and functionality. Reducing it too much can lead to weak support structures that may not hold up during printing or break easily during removal leaving debris on the model.
+Typically set to **100%** to balance material usage and functionality. Reducing it too much can lead to weak support structures that may not hold up during printing or break easily during removal, leaving debris on the model.
 
 ### Bridge
 
@@ -101,12 +101,12 @@ Typically set to **100%** to balance material usage and functionality. Reducing 
 [Type](option_type#integer-float-percentage): `Float or Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--bridge-line-width=20%`.  
 Bridges are printed in mid-air, so the bridge line width can't exceed the nozzle diameter.  
-To achieve proper bridge lines union between contiguous lines and reduce sagging, it's recommended to use **~100%** of the nozzle diameter and increase [Bridge density](quality_settings_bridging#bridge-density).
+To make adjacent bridge lines bond properly and reduce sagging, it's recommended to use **~100%** of the nozzle diameter and increase [Bridge density](quality_settings_bridging#bridge-density).
 
 ![bridge_line_width_1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge_line_width_1.svg?raw=true)
 ![bridge_line_width_2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/bridging/bridge_line_width_2.svg?raw=true)
 
 > [!TIP]
-> If disabled (set to 0), [Internal Solid Infill](#internal-solid-infill) line width will be used for bridges.  
+> If disabled (set to 0), [Internal Solid Infill](#internal-solid-infill) line width will be used for bridges (thick bridges use the nozzle diameter instead).  
 > This allows you to use a theoretically wider line width for bridges.  
 > However, it is recommended to use [thick bridges](quality_settings_bridging#thick-bridges) or a [bridge flow adjustment](quality_settings_bridging#flow-ratio) instead.

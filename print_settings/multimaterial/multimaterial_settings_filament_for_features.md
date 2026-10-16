@@ -1,6 +1,6 @@
 # Filament for Features
 
-These settings allow you to specify which extruder to use for different features of the print, such as walls, infill, and wipe tower.
+These settings allow you to specify which filament to use for different features of the print, such as walls, infill, and the wipe tower.
 
 <div class="orca-video-embed">
   <a class="orca-video-poster-link" href="https://www.youtube.com/watch?v=hcuQw55OzjU" aria-label="Watch filament for features video">
@@ -17,7 +17,7 @@ These settings allow you to specify which extruder to use for different features
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--outer-wall-filament-id=1`.  
 Filament to print outer walls.  
-This can also be used to use a translucent filament for outer walls to achieve a frosted glass effect.  
+You can also print the outer walls with a translucent filament to achieve a frosted glass effect.  
 When using a [mixed nozzle size setup](mixed_nozzle_sizes), it's recommended to use the smaller nozzle for outer walls to achieve better surface quality and detail.
 
 ## Inner Walls
@@ -44,7 +44,7 @@ When using a [mixed nozzle size setup](mixed_nozzle_sizes), you can use a larger
 [Variable](built_in_placeholders_variables): `internal_solid_filament_id`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--internal-solid-filament-id=1`.  
-Filament to print internal solid infill.
+Filament to print internal solid infill.  
 When using a [mixed nozzle size setup](mixed_nozzle_sizes), you can use a larger nozzle for internal solid infill to speed up printing while maintaining good layer adhesion.
 
 ## Top Surface
@@ -64,7 +64,7 @@ When using a [mixed nozzle size setup](mixed_nozzle_sizes), it's recommended to 
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--bottom-surface-filament-id=1`.  
 Filament to print bottom surfaces.  
-This can be used to use a different filament for the bottom layer, such as a more adhesive filament to improve bed adhesion.  
+You can use a different filament for the bottom surfaces, such as a more adhesive one to improve bed adhesion.  
 When using a [mixed nozzle size setup](mixed_nozzle_sizes), you can use a larger nozzle for bottom surfaces to speed up printing while maintaining good layer adhesion.
 
 ## Wipe Tower
@@ -73,4 +73,4 @@ When using a [mixed nozzle size setup](mixed_nozzle_sizes), you can use a larger
 [Variable](built_in_placeholders_variables): `wipe_tower_filament`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-tower-filament=1`.  
-The extruder to use when printing perimeter of the wipe tower. Set to 0 to use the one that is available (non-soluble would be preferred).
+Filament to print the perimeter of the wipe tower. Set to `Default` to use any available filament, preferring a non-soluble one.

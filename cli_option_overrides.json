@@ -192,6 +192,12 @@
       "description": "Detect models saved in meters or inches and convert them to millimeters.",
       "notes": ""
     },
+    "repair": {
+      "group": "Geometry",
+      "input": "boolean",
+      "description": "Repair every part of the loaded models as [Fix Model](prepare_stl_transformation#fix-model) does: close holes and cracks, orient the meshes outward and remove local self-intersections. Painting is kept.",
+      "notes": "Disabled by default. A part the repair cannot turn into a solid is left as it was, with a warning in the log."
+    },
     "repetitions": {
       "group": "Object Handling",
       "input": "`count` (int)",
@@ -281,6 +287,12 @@
       "input": "`dir`",
       "description": "Output directory for exported files.",
       "notes": "Created recursively if it doesn't exist; the process exits with an error if creation fails."
+    },
+    "export_statistics": {
+      "group": "Output & Logging",
+      "input": "boolean",
+      "description": "Write the statistics of each sliced plate as JSON, as `plate_N.statistics.json` next to its G-code in the output directory and inside the 3MF of [`--export-3mf`](cli_actions#export): print time, filament and feature totals, and the same per layer and per object.",
+      "notes": "Same files as the [Export Statistics](import_export#export-statistics) preference."
     },
     "debug": {
       "group": "Output & Logging",

@@ -27,11 +27,11 @@ This can noticeably smooth domes, chamfers, shallow slopes, and similar top-faci
 [Variable](built_in_placeholders_variables): `zaa_minimize_perimeter_height`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--zaa-minimize-perimeter-height=1`.  
-Reduce the height of top-surface perimeters so they better match the model edge on shallow slopes.  
+Reduce the height of top-surface perimeters so they better match the model edge on slopes steeper than this angle.  
 This setting affects both internal and external perimeters.  
 Set `0` to disable it.
 
-Although 35 degrees is a reasonable starting point, the current implementation defaults to `0`, so this behavior is off unless you enable it explicitly.
+The default of 35 degrees is a reasonable starting point.
 
 ## Minimum z height
 
@@ -42,7 +42,7 @@ Although 35 degrees is a reasonable starting point, the current implementation d
 Minimum local layer height allowed for contoured toolpaths. This setting also controls the slicing plane used for contoured layers.
 
 - Lower values allow stronger contouring but leave less minimum layer thickness.
-- Higher values reduce the amount of contouring and keep the adjusted path closer to the nominal layer height.
+- Higher values move the slicing plane up (it sits this far above the bottom of the layer), and paths are never lowered below it, so walls and top surface infill can drop less. Top surface infill can also rise up to this amount above the nominal layer height, while walls are never raised.
 
 ## Don't alternate fill direction
 
@@ -50,5 +50,5 @@ Minimum local layer height allowed for contoured toolpaths. This setting also co
 [Variable](built_in_placeholders_variables): `zaa_dont_alternate_fill_direction`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--zaa-dont-alternate-fill-direction=1`.  
-Keep fill direction consistent from layer to layer on contoured layers instead of alternating it.  
+Keep the fill direction consistent from layer to layer instead of alternating it.  
 This can help produce a more consistent surface pattern on curved top surfaces. It only has an effect when Z contouring is enabled for that region.

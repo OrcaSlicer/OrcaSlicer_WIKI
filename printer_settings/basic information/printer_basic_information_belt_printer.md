@@ -2,7 +2,7 @@
 
 > [!IMPORTANT]
 > NEW FEATURE: **Belt printer support**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) with the `_belt` suffix (built from the `belt-printer` branch) or Releases greater than **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 ![belt_printer_settings_group](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/belt/belt_printer_settings_group.png?raw=true)
 
@@ -48,9 +48,6 @@ Disable this option to have OrcaSlicer flag parts that extend beyond the plate a
 
 ## Belt tilt
 
-[Modes](option_mode):  
-`Advanced` [Variable](built_in_placeholders_variables): `belt_slice_rotation_angle`.  
-`Developer` [Variable](built_in_placeholders_variables): `belt_slice_rotation`.  
 [Type](option_type): `belt_slice_rotation_angle` (Float), `belt_slice_rotation` (Choice: none, x, y, z).  
 [CLI Example](cli_mode#setting-overrides): `--belt-slice-rotation-angle=45` (`belt_slice_rotation_angle` shown; other variables above follow their own type).  
 Defines the tilt of the gantry relative to the belt. The angle and axis control:
@@ -65,6 +62,10 @@ Every object is rotated about one common origin, so parts at different positions
 
 ### Tilt angle
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `belt_slice_rotation_angle`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--belt-slice-rotation-angle=1`.  
 The angle between the belt and the gantry, in degrees. Most belt printers use 45°.
 
 A positive value rotates counter-clockwise when looking down the positive tilt axis. The sign determines the direction in which the layers lean, and the magnitude specifies the physical tilt angle.
@@ -74,6 +75,11 @@ A positive value rotates counter-clockwise when looking down the positive tilt a
 
 ### Tilt axis
 
+[Mode](option_mode): `Developer`.  
+[Variable](built_in_placeholders_variables): `belt_slice_rotation`.  
+[Type](option_type#choice): `Choice`.  
+[Options](option_type#choice): `none, x, y, z`.  
+[CLI Example](cli_mode#setting-overrides): `--belt-slice-rotation=none`.  
 The axis about which the model is rotated. It is part of the printer's kinematics, so it is only shown when the settings [mode](option_mode) is **Developer**; the belt profiles set it once.
 
 ![belt_printer_settings_developer](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/belt/belt_printer_settings_developer.png?raw=true)

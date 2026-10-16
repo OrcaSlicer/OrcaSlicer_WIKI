@@ -1,9 +1,9 @@
 # Support
 
-[Mode](option_mode): `Developer`.  
-[Variables](built_in_placeholders_variables): `enable_support`, `enforce_support_layers`.  
-[Type](option_type): `enable_support` (Boolean), `enforce_support_layers` (Integer).  
-[CLI Example](cli_mode#setting-overrides): `--enable-support=1` (`enable_support` shown; other variables above follow their own type).  
+[Mode](option_mode): `Simple`.  
+[Variable](built_in_placeholders_variables): `enable_support`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--enable-support=1`.  
 Support structures are used in 3D printing to provide stability to overhangs and complex geometries.
 
 - [Type](#type)
@@ -33,11 +33,11 @@ Support structures are used in 3D printing to provide stability to overhangs and
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `normal(auto), tree(auto), normal(manual), tree(manual)`.  
 [CLI Example](cli_mode#setting-overrides): `--support-type=normal(auto)`.  
-Support structures can be generated in various styles, each suited for different printing needs:
+There are several support types, each suited for different printing needs:
 
 ### Normal
 
-Normal support structures are generated in a grid pattern, providing a stable base for overhangs and complex geometries.
+Normal support structures are projected straight down from the overhangs, providing a stable base for overhangs and complex geometries.
 
 ### Tree
 
@@ -49,15 +49,15 @@ Tree-like support structures are designed to minimize material usage while still
 [Variable](built_in_placeholders_variables): `support_critical_regions_only`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--support-critical-regions-only=1`.  
-Only create support for critical regions including sharp tail, cantilever, etc.
+Only creates support for critical regions, such as sharp tails and cantilevers. Available only with `Tree (auto)`.
 
 ### Auto
 
-Automatically generates support structures where needed, based on the model's geometry and overhangs and manual placement in the prepare view.
+Automatically generates support wherever the model's overhangs need it, as well as where support enforcers are placed in the Prepare view.
 
 ### Manual
 
-Limit support generation to specific areas defined by manual placement in the prepare view.
+Only generates support where support enforcers are placed in the Prepare view.
 
 ## Style
 
@@ -67,18 +67,19 @@ Limit support generation to specific areas defined by manual placement in the pr
 [Options](option_type#choice): `default, grid, snug, organic, tree_slim, tree_strong, tree_hybrid`.  
 [CLI Example](cli_mode#setting-overrides): `--support-style=default`.  
 Style and shape of the support.  
+Grid and Snug apply to normal supports, while Organic, Tree Slim, Tree Strong and Tree Hybrid apply to tree supports. `Default (Grid/Organic)` uses Grid for normal supports and Organic for tree supports.
 
 ### Grid
 
-Default in normal support, projecting the supports into a regular grid will create more stable supports.
+Default for normal supports. Projecting the supports into a regular grid creates more stable supports.
 
 ### Snug
 
-Snug support towers will save material and reduce object scarring.
+Snug support towers save material and reduce object scarring.
 
 ### Organic
 
-Default style for tree support, which merges slim and organic style branches more aggressively and saves material.
+Default style for tree supports. Like Tree Slim, it merges branches more aggressively and saves a lot of material.
 
 ### Tree Slim
 
@@ -90,7 +91,7 @@ Strong tree support branches are designed to be more robust and provide addition
 
 ### Tree Hybrid
 
-Create similar structure to normal support under large flat overhangs.
+Creates a structure similar to normal support under large flat overhangs.
 
 ## Threshold angle
 
@@ -98,7 +99,8 @@ Create similar structure to normal support under large flat overhangs.
 [Variable](built_in_placeholders_variables): `support_threshold_angle`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--support-threshold-angle=1`.  
-Support will be generated for overhangs whose slope angle is below the threshold.
+Support will be generated for overhangs whose slope angle is below the threshold. The smaller this value is, the steeper the overhang that can be printed without support.  
+If set to `0`, normal supports use the [Threshold overlap](#threshold-overlap) instead, while tree supports use 30°.
 
 ## Threshold overlap
 
@@ -106,8 +108,9 @@ Support will be generated for overhangs whose slope angle is below the threshold
 [Variable](built_in_placeholders_variables): `support_threshold_overlap`.  
 [Type](option_type#integer-float-percentage): `Float or Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--support-threshold-overlap=20%`.  
-If threshold angle is zero, support will be generated for overhangs whose overlap is below the threshold.
-The smaller this value is, the steeper the overhang that can be printed without support.
+If [Threshold angle](#threshold-angle) is zero, support will be generated for overhangs whose overlap with the layer below is below the threshold. A percentage is relative to the outer wall line width.
+The smaller this value is, the steeper the overhang that can be printed without support.  
+Tree supports don't use this setting, so it is hidden for them.
 
 ## Initial layer density
 
@@ -123,7 +126,7 @@ Density of the first raft or support layer.
 [Variable](built_in_placeholders_variables): `raft_first_layer_expansion`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--raft-first-layer-expansion=1`.  
-Expand the first raft or support layer to improve bed plate adhesion.
+Expands the first raft or support layer to improve build plate adhesion. It is disabled for the Tree Slim and Tree Strong styles unless a raft is used.
 
 ## On build plate only
 
@@ -131,7 +134,7 @@ Expand the first raft or support layer to improve bed plate adhesion.
 [Variable](built_in_placeholders_variables): `support_on_build_plate_only`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--support-on-build-plate-only=1`.  
-Don't create support on model surface, only on build plate.
+Don't create support on the model surface, only on the build plate.
 
 ## Ignore small overhangs
 
@@ -139,4 +142,4 @@ Don't create support on model surface, only on build plate.
 [Variable](built_in_placeholders_variables): `support_remove_small_overhang`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--support-remove-small-overhang=1`.  
-With this setting small overhangs that possibly need no supports will be ignored from support generation.
+With this setting, small overhangs that possibly don't need support are ignored by support generation.

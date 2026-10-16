@@ -18,10 +18,12 @@
     Root of the wiki checkout. Defaults to the script's own directory.
 
 .PARAMETER TabCppPath
-    Passed through to sync-tab-options-to-wiki.ps1 (Tab.cpp URL or local path). Uses that script's default when omitted.
+    Passed through to sync-tab-options-to-wiki.ps1 (Tab.cpp URL or local path). Defaults to OrcaSlicer main,
+    pinned to its current commit.
 
 .PARAMETER PrintConfigCppPath
-    Passed through to the sync scripts (PrintConfig.cpp URL or local path). Uses each script's default when omitted.
+    Passed through to the sync scripts (PrintConfig.cpp URL or local path). Defaults to OrcaSlicer main,
+    pinned to its current commit.
 
 .PARAMETER PublishSettingsCppPath
     Passed through to sync-tab-options-to-wiki.ps1 (PublishSettings.cpp URL or local path), which reads the
@@ -61,6 +63,20 @@ $glossaryScript = Join-Path $WikiRoot 'generate_glossary.py'
 foreach ($required in @($fixScript, $syncScript, $typeSyncScript, $cliSyncScript, $navScript, $glossaryScript)) {
     if (-not (Test-Path -LiteralPath $required)) {
         throw "Required script not found: $required"
+    }
+}
+
+# raw.githubusercontent.com caches a branch's files for 5 minutes; pin every step to one main commit.
+if ([string]::IsNullOrWhiteSpace($TabCppPath) -or [string]::IsNullOrWhiteSpace($PrintConfigCppPath)) {
+    try {
+        $mainSha = (Invoke-RestMethod -Uri 'https://api.github.com/repos/OrcaSlicer/OrcaSlicer/git/ref/heads/main').object.sha
+        $sourceRoot = "https://github.com/OrcaSlicer/OrcaSlicer/blob/$mainSha/src"
+        if ([string]::IsNullOrWhiteSpace($TabCppPath)) { $TabCppPath = "$sourceRoot/slic3r/GUI/Tab.cpp" }
+        if ([string]::IsNullOrWhiteSpace($PrintConfigCppPath)) { $PrintConfigCppPath = "$sourceRoot/libslic3r/PrintConfig.cpp" }
+        Write-Host "Using OrcaSlicer main at $mainSha" -ForegroundColor Cyan
+    }
+    catch {
+        Write-Host "[WARN] Could not resolve OrcaSlicer main to a commit ($($_.Exception.Message)); the steps read main directly." -ForegroundColor Yellow
     }
 }
 

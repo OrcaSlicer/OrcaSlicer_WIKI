@@ -14,6 +14,9 @@ To correct for these variations, OrcaSlicer provides:
     - [Precise Z height](quality_settings_precision#precise-z-height)  
   ![QualityPrecision](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Tolerance/QualityPrecision.png?raw=true)
 
+> [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
 ## Handy Models
 
 OrcaSlicer includes several handy models to help you test and calibrate your printer.  

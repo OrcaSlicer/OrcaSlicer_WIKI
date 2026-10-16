@@ -2,6 +2,9 @@
 
 This [Retraction](printer_extruder_retraction) test generates a retraction tower automatically. The retraction tower is a vertical structure with multiple notches, each printed at a different retraction length. After the print is complete, we can examine each section of the tower to determine the optimal retraction length for the filament. The optimal retraction length is the shortest one that produces the cleanest tower.
 
+> [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
 ![retraction_test](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/retraction/retraction_test.gif?raw=true)
 
 ![retraction_test_menu](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/retraction/retraction_test_menu.png?raw=true)
@@ -16,7 +19,7 @@ Measure this section's height and search in the gcode preview the `Calib_Retract
 ![retraction_test_measure](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/retraction/retraction_test_measure.png?raw=true)
 
 > [!WARNING]
-> Use the `Calib_Retraction_tower` instead of the `; retract` gcode command as it not necessarily reflects the actual retraction length due to the fact it not contains the full retraction length like the [Retract amount before wipe](printer_extruder_retraction#retract-amount-before-wipe) value.
+> Use the `Calib_Retraction_tower` comment instead of the `; retract` G-code command. The `; retract` command doesn't always show the actual retraction length, as it doesn't include values like [Retract amount before wipe](printer_extruder_retraction#retract-amount-before-wipe).
 
 > [!NOTE]
 > When testing filaments such as PLA or ABS that have minimal oozing, the retraction settings can be highly effective.  

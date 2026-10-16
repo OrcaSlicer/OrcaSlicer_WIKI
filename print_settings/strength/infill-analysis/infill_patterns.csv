@@ -1,0 +1,30 @@
+pattern,name,test,solid,multiline,xy_n,z_n
+monotonic,Monotonic,solid,1,0,4,4
+monotonicline,Monotonic line,solid,1,0,4,4
+rectilinear,Rectilinear,sparse,1,1,3,2
+alignedrectilinear,Aligned Rectilinear,sparse,1,1,3,4
+zigzag,Zig Zag,sparse,0,0,3,2
+crosszag,Cross Zag,sparse,0,0,4,2
+lockedzag,Locked Zag,sparse,0,0,3,3
+line,Line,sparse,0,0,2,2
+grid,Grid,sparse,0,1,6,6
+triangles,Triangles,sparse,0,1,6,4
+tri-hexagon,Tri-hexagon,sparse,0,1,6,5
+cubic,Cubic,sparse,0,1,6,6
+adaptivecubic,Adaptive Cubic,sparse,0,1,5,5
+quartercubic,Quarter Cubic,sparse,0,1,6,6
+supportcubic,Support Cubic,sparse,0,1,2,2
+lightning,Lightning,sparse,0,1,2,2
+honeycomb,Honeycomb,sparse,0,1,6,6
+3dhoneycomb,3D Honeycomb,sparse,0,1,5,5
+lateral-honeycomb,Lateral Honeycomb,sparse,0,1,3,3
+lateral-lattice,Lateral Lattice,sparse,0,1,3,2
+crosshatch,Cross Hatch,sparse,0,1,5,5
+tpmsd,TPMS-D,sparse,0,1,6,6
+tpmsfk,TPMS-FK,sparse,0,1,5,5
+gyroid,Gyroid,sparse,0,1,6,6
+concentric,Concentric,sparse,1,1,2,4
+spiralinset,Spiral Inset,solid,1,0,2,4
+hilbertcurve,Hilbert Curve,sparse,1,1,2,4
+archimedeanchords,Archimedean Chords,sparse,1,1,2,4
+octagramspiral,Octagram Spiral,sparse,1,1,2,4

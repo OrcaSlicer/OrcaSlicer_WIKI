@@ -2,7 +2,7 @@
 
 A compiler cache keeps the object file each compile produced, stored against a hash of the source, the headers it pulled in and the command line. When those inputs come round again the object is copied back instead of compiled. Rebuilding after a branch switch, a reconfigure, or into a new build directory then costs a fraction of the usual time.
 
-OrcaSlicer supports [ccache](https://ccache.dev/) and [sccache](https://github.com/mozilla/sccache) on Windows and Linux.
+OrcaSlicer supports [ccache](https://ccache.dev/) and [sccache](https://github.com/mozilla/sccache) on Windows, Linux and macOS.
 
 - [What It Costs](#what-it-costs)
 - [Windows](#windows)
@@ -16,7 +16,7 @@ OrcaSlicer supports [ccache](https://ccache.dev/) and [sccache](https://github.c
 
 Caching is not free, and whether it pays depends on how you work.
 
-A cache only helps when it is asked for something it already holds, so the first build of anything fills it and gains nothing. Both tools also refuse to cache a compile that uses a precompiled header, so enabling a cache means building without one. That makes every compile parse the full header set itself, which roughly doubles a build from scratch.
+A cache only helps when it is asked for something it already holds, so the first build of anything fills it and gains nothing. On Windows neither tool caches a compile that uses a precompiled header, so enabling a cache there means building without one. That makes every compile parse the full header set itself, which roughly doubles a build from scratch. On Linux and macOS the build scripts set ccache up to cache those compiles, so the precompiled header stays on.
 
 What you get back is the rebuild. A configuration already in the cache links rather than compiles, so the same work drops from tens of minutes to around a minute, most of which is linking.
 
@@ -73,11 +73,34 @@ Install ccache from the package manager, for example `apt install ccache` or `pa
 CMAKE_CCACHE=ccache ./build_linux.sh -s
 ```
 
-Add `-p` to disable the precompiled header, which the script's own help describes as boosting the ccache hit rate. On Windows `--cache` does this for you; on Linux it stays a separate choice, so a cache without `-p` will refuse most of what it is offered.
+For ccache the script also sets the options that let it cache compiles using the precompiled header, so the header stays on. A change to a header the precompiled header covers then misses every compile that uses it. `-p` turns the precompiled header off, so such a change misses only the files that include that header, at the cost of slower misses.
 
 ## macOS
 
-Not supported. `build_release_macos.sh` has no compiler launcher option, and nothing in the macOS build sets one, so there is nothing to enable.
+Install ccache with `brew install ccache`.
+
+[`build_release_macos.sh`](how_to_build_macos) enables caching by itself once a tool is on `PATH`, preferring sccache over ccache. A launcher already set in `CMAKE_CXX_COMPILER_LAUNCHER` or `CMAKE_C_COMPILER_LAUNCHER` takes precedence over that, and `CMAKE_CCACHE` over both. Name the tool you want with `CMAKE_CCACHE`, or set it to `none` to build without one:
+
+```bash
+CMAKE_CCACHE=ccache ./build_release_macos.sh -s
+```
+
+Each run applies its own choice to the build directory. A run without `CMAKE_CCACHE` picks again, replacing a tool an earlier run named, and a run that finds no tool turns caching off.
+
+Builds that skip the script's configure step keep the tool the last configure recorded. These are `-b`, `cmake --build` and builds from the Xcode app. After uninstalling the tool, run the script once without `-b`. Until you do, those builds fail because the tool is missing.
+
+Caching works with both the default Xcode generator, through Xcode's Compiler Launcher setting, and Ninja (`-x`). As on Linux, the script sets ccache up to cache compiles that use the precompiled header, so the header stays on.
+
+### Building from the Xcode app
+
+A project the script generated still compiles through ccache when you build it from the Xcode app, but without the script's environment, so ccache has only its configuration file to go on. `ccache -sv` names that file as `Config file`. Add:
+
+```text
+sloppiness = pch_defines,time_macros,include_file_mtime,include_file_ctime,clang_index_store
+depend_mode = true
+```
+
+Xcode indexes while it builds Debug and RelWithDebInfo, the configurations compiled without optimisation, and passes `-index-store-path` on each of those compiles. Without `clang_index_store` ccache refuses all of them. With it, a cache hit does not update Xcode's index for that file.
 
 ## Cache Size
 

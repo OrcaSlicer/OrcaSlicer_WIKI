@@ -16,6 +16,9 @@ This feature introduces the below options under the filament settings:
 
 ## Pre-Requisites
 
+> [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
 This feature has been tested with Klipper-based printers. While it may work with Marlin or Bambu lab printers, it is currently untested with them. It shouldn't adversely affect the machine; however, the quality results from enabling it are not validated.
 
 > [!IMPORTANT]

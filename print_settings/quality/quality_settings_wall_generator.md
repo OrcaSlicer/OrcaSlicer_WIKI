@@ -9,7 +9,7 @@ The Wall Generator defines how the outer and inner walls (perimeters) of the mod
 
 - [Classic](#classic)
 - [Arachne](#arachne)
-    - [Wall transitioning threshhold angle](#wall-transitioning-threshhold-angle)
+    - [Wall transitioning threshold angle](#wall-transitioning-threshold-angle)
     - [Wall transitioning filter margin](#wall-transitioning-filter-margin)
     - [Wall transitioning length](#wall-transitioning-length)
     - [Wall distribution count](#wall-distribution-count)
@@ -36,13 +36,13 @@ The Arachne wall generator dynamically adjusts extrusion width to follow the sha
 > [!NOTE]
 > [A Framework for Adaptive Width Control of Dense Contour-Parallel Toolpaths in Fused Deposition Modeling](https://www.sciencedirect.com/science/article/pii/S0010448520301007?via%3Dihub)
 
-### Wall transitioning threshhold angle
+### Wall transitioning threshold angle
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `wall_transition_angle`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--wall-transition-angle=1`.  
-Defines the minimum angle (in degrees) required for the algorithm to create a transition between an even and odd number of walls. If a wedge shape exceeds this angle, no extra center wall will be added. Lowering this value reduces center walls but may cause under- or over-extrusion in sharp corners.
+Defines the maximum wedge angle (in degrees) at which the algorithm creates a transition between an even and odd number of walls. If a wedge shape exceeds this angle, no extra center wall will be added. Lowering this value reduces the number and length of center walls but may leave gaps or over-extrude.
 
 ### Wall transitioning filter margin
 
@@ -64,7 +64,7 @@ Higher values reduce transitions, travel moves, and extrusion starts/stops, but 
 [Variable](built_in_placeholders_variables): `wall_transition_length`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--wall-transition-length=20%`.  
-Controls how far into the model the transition between wall counts extends. A lower value shortens or removes center walls, improving print time but potentially reducing coverage in tight areas.
+When the number of walls changes as the part becomes thinner, this sets the length allotted to split or join the wall segments. Expressed as a percentage of nozzle diameter.
 
 ### Wall distribution count
 
@@ -72,7 +72,7 @@ Controls how far into the model the transition between wall counts extends. A lo
 [Variable](built_in_placeholders_variables): `wall_distribution_count`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--wall-distribution-count=1`.  
-Sets how many walls (counted inward from the outer wall) are allowed to vary in width. Lower values constrain variation to inner walls, keeping outer walls consistent for best surface quality.
+Sets how many walls (counted from the center) the width variation is spread over. Lower values constrain variation to the innermost walls, keeping outer walls consistent for best surface quality.
 
 ### Minimum wall width
 
@@ -80,7 +80,7 @@ Sets how many walls (counted inward from the outer wall) are allowed to vary in 
 [Variable](built_in_placeholders_variables): `min_bead_width`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--min-bead-width=20%`.  
-Defines the narrowest wall that can be printed to represent thin features. If the feature is thinner than this value, the wall will match its width. Expressed as a percentage of nozzle diameter.
+Defines the width of the wall that replaces thin features (those above the [Minimum feature size](#minimum-feature-size)). If the feature is thicker than this value, the wall will match its width. Expressed as a percentage of nozzle diameter.
 
 #### First layer minimum wall width
 
@@ -96,7 +96,7 @@ Specifies the minimum wall width for the first layer. It is recommended to match
 [Variable](built_in_placeholders_variables): `min_feature_size`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--min-feature-size=20%`.  
-Minimum width required for a model feature to be printed. Features below this value are skipped; features above it are widened to match the [Minimum Wall Width](#minimum-wall-width). Expressed as a percentage of nozzle diameter.
+Minimum width required for a model feature to be printed. Features below this value are skipped; features above it but thinner than the [Minimum Wall Width](#minimum-wall-width) are widened to match it. Expressed as a percentage of nozzle diameter.
 
 ### Minimum wall length
 
@@ -109,7 +109,7 @@ Increasing this value removes short unconnected walls, **improving efficiency**.
 
 > [!NOTE]
 > Top and bottom surfaces are not affected by this setting to avoid visual artifacts.
-> Use the One Wall Threshold (in Advanced settings) to adjust how aggressively OrcaSlicer considers a region a top surface. This option only appears when this setting exceeds 0.5, or if single-wall top surfaces are enabled.
+> Use the [One wall threshold](quality_settings_wall_and_surfaces#threshold) to adjust how aggressively OrcaSlicer considers a region a top surface. That option only appears when this setting exceeds 0.5, or if single-wall top surfaces are enabled.
 
 ### Maximum wall resolution
 

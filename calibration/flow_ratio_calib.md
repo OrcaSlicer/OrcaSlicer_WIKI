@@ -6,6 +6,9 @@ A properly calibrated flow ratio ensures consistent layer adhesion and accurate 
 - Too **low** flow ratio causes under-extrusion, which leads to gaps, weak layers, and poor structural integrity.
 - Too **high** flow ratio causes over-extrusion, resulting in excess material, rough surfaces, and dimensional inaccuracies.
 
+> [!TIP]
+> Follow the recommended calibration order in the [Calibration Guide](calibration_guide).
+
 > [!WARNING]
 > **BambuLab Printers:** Make sure you do **not** select the 'Flow calibration' option.
 > ![flowrate-Bambulab-uncheck](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Flow-Rate/flowrate-Bambulab-uncheck.png?raw=true)

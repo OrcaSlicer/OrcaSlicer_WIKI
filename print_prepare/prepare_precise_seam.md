@@ -70,7 +70,7 @@ A weak modifier can also contain a whole wall:
 
 - **Seam Enforced** marks the whole wall as preferred, like painting it all round. The [Seam Position](quality_settings_seam#seam-position) setting then picks the best spot on it.
 - **Seam Neutral** clears the whole wall, removing painting and the zones of lower modifiers.
-- **Seam Blocked** is skipped on that wall, because the seam has to go somewhere. Lower modifiers and painting still apply there.
+- **Seam Blocked** blocks the whole wall, like painting it all round in red, overriding painting and lower modifiers. The seam has to go somewhere, so on a wall that stays blocked all round it is placed as on an unmarked wall, and slicing shows a [warning](#warnings-and-limitations).
 
 ## Priority
 
@@ -86,7 +86,7 @@ The order in the object list is the priority order: a modifier higher in the lis
 - **Reach the middle of the outer wall.** The modifier is compared with the centerline of the outer wall, which lies half an outer wall line width inside the surface. Let the body extend at least that far into the model; going deeper is safer. A modifier that only touches the centerline may have no effect.
 - **Cross each wall once with strong modifiers.** A strong modifier sets only one seam per wall, so if it crosses a wall in several places, only the longest crossing is used. Crossings of nearly the same length, such as both sides of a thin wall, can make the seam jump between them from layer to layer.
 - **Any shape works.** Bodies with holes, such as a Torus lying flat, and bodies that pass through the whole object are supported. Each part of the wall inside the body counts as a crossing.
-- **Enclose a whole wall only with Seam Enforced or Seam Neutral.** Strong modifiers and *Seam Blocked* are skipped on a wall they fully contain.
+- **Enclose a whole wall only with Seam Enforced or Seam Neutral.** A strong modifier is skipped on a wall it fully contains, and a *Seam Blocked* modifier that blocks a whole wall leaves the seam placed as on an unmarked wall.
 
 To make the seam follow a curve, draw the path on the model's surface in your CAD software and sweep a small profile along it. A circle is the easiest profile, as its orientation does not matter; a triangle or a regular polygon works too and gives a lighter mesh. Save the helper body once and reuse it.
 
@@ -97,11 +97,12 @@ The modifier acts on the outer walls of each layer, including the walls around h
 
 ## Warnings and limitations
 
-When a modifier cannot be applied as intended, slicing shows a single warning starting with **Precise Seam:** that lists every problem found and ends with *Seam placement may differ from expected.* Each problem names the modifier types involved, for example *(Seam Left, Seam Enforced)*:
+When a modifier cannot be applied as intended, slicing shows a single warning starting with **Precise Seam:** that lists every problem found and ends with *Seam placement may differ from expected.* Most problems name the modifier types involved, for example *(Seam Left, Seam Enforced)*:
 
 - **failed to process some intersections:** in a rare geometry case, a crossing could not be matched to the wall and was ignored. The other crossings are still used.
 - **multiple intersections with a perimeter, only one was used:** a strong modifier crosses one wall in more than one place. Only the longest crossing is used.
-- **a perimeter is fully inside a modifier, the modifier was not applied to it:** a strong or *Seam Blocked* modifier contains a whole wall and was skipped there.
+- **a perimeter is fully inside a modifier, the modifier was not applied to it:** a strong modifier contains a whole wall and was skipped there.
+- **Seam Blocked modifier "name" of "object" covers an entire perimeter:** a *Seam Blocked* modifier blocks a whole wall, and no weak modifier higher in the list marks any part of it as Enforced or Neutral, so the seam is placed as on an unmarked wall. Only the first such modifier is named; when there are several, the warning shows how many in total, and the log lists all of them.
 - **modifier "name" of "object" had no effect on the seam (it might not reach the centerline of the printed perimeter):** a modifier never crossed the middle of an outer wall. Only the first such modifier is named; when there are several, the warning shows how many in total, and the log lists all of them.
 
 In each case the seam on the affected walls may differ from what you expect. Adjust the modifier as described in [Designing a modifier](#designing-a-modifier).

@@ -1,5 +1,6 @@
 # Layer Height
 
+[Mode](option_mode): `Simple`.  
 [Variables](built_in_placeholders_variables): `layer_height`, `initial_layer_print_height`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--layer-height=1` (same pattern for the other variables above).  
@@ -47,7 +48,7 @@ Controls the thickness of the initial layer.
 A thicker first layer improves bed adhesion and compensates for build surface imperfections.
 
 **Recommended:** 0.25mm for 0.4mm nozzle (62.5% of nozzle diameter)  
-**Maximum:** 65% of nozzle diameter
+**Recommended maximum:** 65% of nozzle diameter
 
 ## Layer Height Overhangs Impacts
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Insert/refresh [Type], [Options] and [CLI Example] tags on the wiki's
-print/printer/material settings pages, from the option definitions in
+print/printer/material settings and plugins pages, from the option definitions in
 libslic3r/PrintConfig.cpp. The [Type] counterpart to sync-tab-options-to-
 wiki.ps1's [Mode]/[Variable] sync — only touches headings that already
 carry a [Variable] tag; never places one itself.
@@ -28,7 +28,7 @@ import urllib.request
 
 DEFAULT_SOURCE = "https://github.com/OrcaSlicer/OrcaSlicer/blob/main/src/libslic3r/PrintConfig.cpp"
 DEFAULT_OVERRIDES = "option_type_overrides.json"
-SETTINGS_DIRS = ["print_settings", "printer_settings", "material_settings"]
+SETTINGS_DIRS = ["print_settings", "printer_settings", "material_settings", "plugins"]
 
 # C++ option type -> human label shown in [Type]. Extend here for a new coXxx.
 TYPE_MAP = {
@@ -215,7 +215,7 @@ SELFTEST_CASES = [
     ("sparse_infill_pattern", "enum_values_len", 26),
     ("retract_lift_enforce", "enum_values_contains", "All Surfaces"),  # space in value -> quoting
     ("nozzle_volume_type", "enum_values_contains", "High Flow"),  # L()-wrapped push_back
-    ("brim_type", "enum_values_len", 7),  # plain .emplace_back(), not L()-wrapped
+    ("brim_type", "enum_values_len", 8),  # plain .emplace_back(), not L()-wrapped
     ("use_relative_e_distances", "type", "coBool"),
     ("bottom_surface_pattern", "enum_values_equals_key", "top_surface_pattern"),  # copied-reference
     ("machine_max_jerk_x", "type", "coFloats"),  # loop-generated, must come from overrides
@@ -578,7 +578,8 @@ def main():
     any_changed = False
 
     for path in sorted(files):
-        rel_path = os.path.relpath(path, args.wiki_root)
+        # MANUAL_HOLDOUTS keys use "/", relpath gives "\" on Windows.
+        rel_path = os.path.relpath(path, args.wiki_root).replace(os.sep, "/")
         changed = process_file(path, rel_path, keydata, stats, review, do_write=args.update)
         any_changed = any_changed or changed
 

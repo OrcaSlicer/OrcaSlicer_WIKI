@@ -2,7 +2,7 @@
 
 > [!IMPORTANT]
 > NEW FEATURE: **Belt printer support**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) with the `_belt` suffix (built from the `belt-printer` branch) or Releases greater than **2.4.2**.
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 ![belt_machine_frame_transforms](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/belt/belt_machine_frame_transforms.png?raw=true)
 
@@ -80,6 +80,7 @@ flowchart LR
 
 ## G-code axis remap
 
+[Mode](option_mode): `Developer`.  
 [Variables](built_in_placeholders_variables): `gcode_remap_x`, `gcode_remap_y`, `gcode_remap_z`.  
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `pos_x, pos_y, pos_z, neg_x, neg_y, neg_z, rev_x, rev_y, rev_z`.  

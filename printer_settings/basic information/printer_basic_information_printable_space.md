@@ -43,6 +43,10 @@ STL file defining the custom shape of the print bed.
 
 ## Excluded bed area
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `bed_exclude_area`.  
+[Type](option_type#list-types): `Point list`.  
+[CLI Example](cli_mode#setting-overrides): `--bed-exclude-area=100,100`.  
 Unprintable area in XY plane. For example, X1 Series printers use the front left corner to cut filament during filament change. The area is expressed as polygon by points in following format: "XxY, XxY, ..."
 
 ## Printable height

@@ -1,12 +1,8 @@
 # Acceleration
 
-[Mode](option_mode): `Advanced`.  
-[Variables](built_in_placeholders_variables): `accel_to_decel_enable`, `accel_to_decel_factor`.  
-[Type](option_type): `accel_to_decel_enable` (Boolean), `accel_to_decel_factor` (Percentage).  
-[CLI Example](cli_mode#setting-overrides): `--accel-to-decel-enable=1` (`accel_to_decel_enable` shown; other variables above follow their own type).  
-Acceleration in 3D printing is usually set on the printer's firmware settings.  
-This setting will try to override the acceleration when [normal printing acceleration](#normal-printing) value is different than 0.  
-Orca will limit the acceleration to not exceed the acceleration set in the Printer's Motion Ability settings.
+Acceleration in 3D printing is usually set in the printer's firmware.  
+These settings override the firmware acceleration when the [normal printing acceleration](#normal-printing) is greater than 0.  
+Orca limits the acceleration so it doesn't exceed the maximum set in the printer's Motion Ability settings.
 
 - [Normal printing](#normal-printing)
 - [Outer wall](#outer-wall)
@@ -18,6 +14,8 @@ Orca will limit the acceleration to not exceed the acceleration set in the Print
 - [Initial layer travel](#initial-layer-travel)
 - [Top surface](#top-surface)
 - [Travel](#travel)
+- [Enable accel to decel](#enable-accel-to-decel)
+    - [Accel to decel](#accel-to-decel)
 
 ## Normal printing
 
@@ -25,10 +23,10 @@ Orca will limit the acceleration to not exceed the acceleration set in the Print
 [Variable](built_in_placeholders_variables): `default_acceleration`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--default-acceleration=1`.  
-The default acceleration of both normal printing and travel.
+The default acceleration for both normal printing and travel after the first layer.
 
 > [!NOTE]
-> If this value is set to 0, the acceleration will be set to the printer's default acceleration.
+> If this value is set to 0, Orca doesn't send acceleration commands, so the printer's own acceleration is used and the other acceleration settings are disabled.
 
 ## Outer wall
 
@@ -94,7 +92,7 @@ Using a lower value can improve build plate adhesion. If the value is expressed 
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--top-surface-acceleration=1`.  
 Acceleration of [top surface infill](speed_settings_other_layers_speed#top-surface). Using a lower value may improve top surface quality.  
-Recommended to use a similar value to the [outer wall acceleration](#outer-wall).
+A value similar to the [outer wall acceleration](#outer-wall) is recommended.
 
 ## Travel
 
@@ -103,3 +101,22 @@ Recommended to use a similar value to the [outer wall acceleration](#outer-wall)
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--travel-acceleration=1`.  
 Acceleration of [travel](speed_settings_travel) moves. This is usually set to a higher value than normal printing to reduce travel time.
+
+## Enable accel to decel
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `accel_to_decel_enable`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--accel-to-decel-enable=1`.  
+Adjusts Klipper's `max_accel_to_decel` automatically. Each time Orca sets the acceleration with `SET_VELOCITY_LIMIT ACCEL=`, it adds `ACCEL_TO_DECEL=` at the [accel to decel](#accel-to-decel) percentage of that acceleration. When disabled, `ACCEL_TO_DECEL` is not sent.  
+This option is only shown when the [G-code flavor](printer_basic_information_advanced#g-code-flavor) is Klipper, and it is enabled by default.
+
+### Accel to decel
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `accel_to_decel_factor`.  
+[Type](option_type#integer-float-percentage): `Percentage`.  
+[CLI Example](cli_mode#setting-overrides): `--accel-to-decel-factor=20%`.  
+Percentage of the acceleration that Klipper's `max_accel_to_decel` is set to, from 1% to 100% (default 50%).  
+For example, at 5000 mm/s² and 50%, Orca sends `SET_VELOCITY_LIMIT ACCEL=5000 ACCEL_TO_DECEL=2500`.  
+It can only be edited when [Enable accel to decel](#enable-accel-to-decel) is checked.

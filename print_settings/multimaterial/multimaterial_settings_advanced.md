@@ -18,7 +18,7 @@
 [Variable](built_in_placeholders_variables): `interlocking_beam`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--interlocking-beam=1`.  
-Generate interlocking beam structure at the locations where different filaments touch. This improves the adhesion between filaments, especially models printed in different materials.
+Generates an interlocking beam structure at the locations where different filaments touch. This improves the adhesion between filaments, especially for models printed in different materials.
 
 ## Toolchange Ordering
 
@@ -35,7 +35,7 @@ Generate interlocking beam structure at the locations where different filaments 
 Determines the order of tool changes on each layer:
 
 - **Default:** starts with the last used extruder to minimize tool changes.
-- **Cyclic:** uses a fixed tool sequence each layer. This sacrifices speed for better surface quality, as the extra toolchanges allow layers more time to cool.
+- **Cyclic:** uses a fixed tool sequence each layer. This sacrifices speed for better surface quality, as the extra tool changes allow layers more time to cool.
 
 ### Toolchange Order
 
@@ -58,7 +58,7 @@ Entries that cannot be used are dropped and the rest of the sequence still appli
 - Repeated numbers, where only the first occurrence counts.
 - Anything that is not a plain number, such as `abc` or `2x`.
 
-**Apply cyclic order to first layer** extends that sequence to the first layer as well. It is disabled by default, because the first layer is instead ordered for the best bed adhesion: filaments that print small, fragile first-layer features are printed last, so the following toolchanges and travel moves are less likely to knock those weakly anchored parts loose. This adhesion order also honors a custom first layer filament sequence when one is set, and the cooling benefit of the cyclic order does not apply to the first layer, which is printed slowly and hot for adhesion.
+**Apply cyclic order to first layer** extends that sequence to the first layer as well. It is disabled by default, because the first layer is instead ordered for the best bed adhesion: filaments that print small, fragile first-layer features are printed last, so the following tool changes and travel moves are less likely to knock those weakly anchored parts loose. This adhesion order also honors a custom first layer filament sequence when one is set. The cooling benefit of the cyclic order does not apply to the first layer anyway, since it is printed slowly and hot for adhesion.
 
 > [!TIP]
 > Enable it only if you need the exact same tool sequence on every layer, including the first, at the cost of that adhesion optimization.
@@ -69,7 +69,7 @@ Entries that cannot be used are dropped and the rest of the sequence still appli
 [Variable](built_in_placeholders_variables): `interface_shells`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--interface-shells=1`.  
-Force the generation of solid shells between adjacent materials/volumes. Useful for multi-extruder prints with translucent materials or manual soluble support material.
+Forces the generation of solid shells between adjacent materials/volumes. Useful for multi-extruder prints with translucent materials or manual soluble support material.
 
 ## Maximum Width of Segmented Region
 
@@ -77,7 +77,7 @@ Force the generation of solid shells between adjacent materials/volumes. Useful 
 [Variable](built_in_placeholders_variables): `mmu_segmented_region_max_width`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--mmu-segmented-region-max-width=1`.  
-Maximum width of a segmented region. Zero disables this feature.
+Maximum width of a segmented region. Zero disables this feature. Ignored when [Interlocking Beam](#interlocking-beam) is enabled.
 
 ## Interlocking depth of Segmented Region
 
@@ -85,7 +85,7 @@ Maximum width of a segmented region. Zero disables this feature.
 [Variable](built_in_placeholders_variables): `mmu_segmented_region_interlocking_depth`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--mmu-segmented-region-interlocking-depth=1`.  
-Interlocking depth of a segmented region. It will be ignored if \"mmu_segmented_region_max_width\" is zero or if \"mmu_segmented_region_interlocking_depth\" is bigger than \"mmu_segmented_region_max_width\". Zero disables this feature.
+Interlocking depth of a segmented region. On every other layer, the painted region reaches only this deep into the model instead of the [Maximum Width of Segmented Region](#maximum-width-of-segmented-region), so consecutive layers interlock. Zero disables this feature. Hidden and ignored when [Interlocking Beam](#interlocking-beam) is enabled.
 
 ## Interlocking Beam Width
 
@@ -101,7 +101,7 @@ The width of the interlocking structure beams.
 [Variable](built_in_placeholders_variables): `interlocking_orientation`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--interlocking-orientation=1`.  
-Orientation of interlock beams.
+Orientation of the interlocking beams.
 
 ## Interlocking Beam Layers
 
@@ -109,7 +109,7 @@ Orientation of interlock beams.
 [Variable](built_in_placeholders_variables): `interlocking_beam_layer_count`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--interlocking-beam-layer-count=1`.  
-The height of the beams of the interlocking structure, measured in number of layers. Less layers is stronger, but more prone to defects.
+The height of the beams of the interlocking structure, measured in number of layers. Fewer layers are stronger, but more prone to defects.
 
 ## Interlocking Depth
 

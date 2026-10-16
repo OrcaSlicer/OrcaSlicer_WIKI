@@ -28,6 +28,10 @@ Machine G-code are custom G-code scripts that are executed at specific points du
 
 ## Machine start G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `machine_start_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--machine-start-gcode=value`.  
 This G-code is executed at the beginning of a print job, before any printing starts. It is typically used to prepare the printer for printing, such as homing axes, heating the bed and nozzle, and performing any necessary pre-print checks.
 
 You can also use it for setting up custom notifications with M300 (play beep sound) or use a custom purge sequence:
@@ -67,34 +71,66 @@ G92 E0.0 ; reset extruder
 
 ## Machine end G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `machine_end_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--machine-end-gcode=value`.  
 This G-code is executed at the end of a print job, after all printing is complete. It is typically used to turn off heaters, move the print head away from the print, and perform any necessary post-print actions.
 
 ## Printing by object G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `printing_by_object_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--printing-by-object-gcode=value`.  
 This G-code is executed at the start of printing each individual object in a multi-object print job. It can be used to set specific parameters or perform actions for each object.
 
 ## Before layer change G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `before_layer_change_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--before-layer-change-gcode=value`.  
 This G-code is inserted at every layer change before the Z lift.
 
 ## Layer change G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `layer_change_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--layer-change-gcode=value`.  
 This G-code is inserted at every layer change after the Z lift.
 
 ## Timelapse G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `time_lapse_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--time-lapse-gcode=value`.  
 This G-code is used for capturing timelapse videos. It typically includes commands to move the print head out of the way for a photo and then return it to the previous position.
 
 ## Clumping detection G-code
 
-This G-code is executed when clumping is detected during printing. It can be used to pause the print, retract filament, or perform other actions to address the clumping issue.
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `wrapping_detection_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--wrapping-detection-gcode=value`.  
+This G-code is inserted on every layer when [Enable clumping detection](others_settings_special_mode#enable-clumping-detection) is enabled, to run the printer's check for filament clumped around the nozzle. Use the `layer_num` placeholder to choose the layers to check; the Bambu Lab profiles check a few of the early layers.
 
 ## Change filament G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `change_filament_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--change-filament-gcode=value`.  
 This G-code is inserted when filament is changed, including T commands to trigger tool change.
 
 ## Change extrusion role G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `change_extrusion_role_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--change-extrusion-role-gcode=value`.  
 This G-code is inserted when the [extrusion role](built_in_placeholders_variables#extrusion-roles) is changed.
 This is the Machine section of the feature "Change Extrusion Role G-code" that is also available in the [Material settings](material_advanced#change-extrusion-role-g-code) and [Process settings](others_settings_g_code_output#change-extrusion-role-g-code).
 
@@ -132,8 +168,16 @@ Example G-codes:
 
 ## Pause G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `machine_pause_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--machine-pause-gcode=value`.  
 This G-code will be used as a code for the pause print. Users can insert pause G-code in the G-code viewer.
 
 ## Template Custom G-code
 
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `template_custom_gcode`.  
+[Type](option_type#text): `Text`.  
+[CLI Example](cli_mode#setting-overrides): `--template-custom-gcode=value`.  
 This section allows users to define custom G-code templates that can be reused across different print jobs. Users can create and manage their own G-code snippets for various purposes.

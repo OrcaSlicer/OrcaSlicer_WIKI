@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Insert/refresh [Type], [Options] and [CLI Example] tags on the wiki's
-    print/printer/material settings pages, from the option definitions in
+    print/printer/material settings and plugins pages, from the option definitions in
     libslic3r/PrintConfig.cpp.
 
 .DESCRIPTION
@@ -89,7 +89,7 @@ $ManualHoldouts = @{
     'print_settings/quality/quality_settings_wall_and_surfaces.md' = @('Surface flow ratio')
 }
 
-$SettingsDirs = @('print_settings', 'printer_settings', 'material_settings')
+$SettingsDirs = @('print_settings', 'printer_settings', 'material_settings', 'plugins')
 
 $HeadingPattern = '^(#{1,6})\s+(.+?)\s*$'
 $KeyInBackticksPattern = '`(?<key>[a-zA-Z0-9_]+)(\[[a-zA-Z_]+\])?`'
@@ -738,7 +738,7 @@ function Invoke-SelfTest {
     Test-Case -Key 'sparse_infill_pattern' -Check 'enum_values_len' -Expected 26
     Test-Case -Key 'retract_lift_enforce' -Check 'enum_values_contains' -Expected 'All Surfaces'
     Test-Case -Key 'nozzle_volume_type' -Check 'enum_values_contains' -Expected 'High Flow'
-    Test-Case -Key 'brim_type' -Check 'enum_values_len' -Expected 7
+    Test-Case -Key 'brim_type' -Check 'enum_values_len' -Expected 8
     Test-Case -Key 'use_relative_e_distances' -Check 'type' -Expected 'coBool'
     Test-Case -Key 'bottom_surface_pattern' -Check 'enum_values_equals_key' -Expected 'top_surface_pattern'
     Test-Case -Key 'machine_max_jerk_x' -Check 'type' -Expected 'coFloats'

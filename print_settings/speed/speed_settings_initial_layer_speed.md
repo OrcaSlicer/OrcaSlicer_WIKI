@@ -8,7 +8,8 @@ Printing the first layer slower than the rest of the print is a widely recommend
 [Variable](built_in_placeholders_variables): `initial_layer_speed`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--initial-layer-speed=1`.  
-This setting determines the printing speed for the first layer, excluding [solid infill](strength_settings_top_bottom_shells) regions.  It applies to the [outer/inner walls](strength_settings_walls), [sparse infill](strength_settings_infill) when [bottom layers](strength_settings_top_bottom_shells#shell-layers) is set to 0.  
+This setting determines the printing speed of the [outer/inner walls](strength_settings_walls) and the brim on the first layer.  
+All other first layer extrusions, such as [solid infill](strength_settings_top_bottom_shells) and the [sparse infill](strength_settings_infill) printed when [bottom layers](strength_settings_top_bottom_shells#shell-layers) is set to 0, use the [First layer infill](#initial-layer-infill) speed.  
 Adjusting this speed helps ensure proper adhesion and print quality for the initial layer.
 
 ## Initial layer infill
@@ -17,7 +18,7 @@ Adjusting this speed helps ensure proper adhesion and print quality for the init
 [Variable](built_in_placeholders_variables): `initial_layer_infill_speed`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--initial-layer-infill-speed=1`.  
-Defines the speed used specifically for [solid infill](strength_settings_top_bottom_shells#shell-layers) regions on the first layer. These areas require more precise and consistent extrusion to create a flat and stable surface for subsequent layers. Printing this section too fast may result in high internal stresses (increased risk of warping), poor layer uniformity, or adhesion failures.
+Defines the speed used for everything on the first layer except walls and brim, mainly the [solid infill](strength_settings_top_bottom_shells#shell-layers) regions. These areas require more precise and consistent extrusion to create a flat and stable surface for subsequent layers. Printing this section too fast may result in high internal stresses (increased risk of warping), poor layer uniformity, or adhesion failures.
 
 ## Initial layer travel speed
 
@@ -25,7 +26,7 @@ Defines the speed used specifically for [solid infill](strength_settings_top_bot
 [Variable](built_in_placeholders_variables): `initial_layer_travel_speed`.  
 [Type](option_type#list-types): `Float or Percentage list`.  
 [CLI Example](cli_mode#setting-overrides): `--initial-layer-travel-speed=20%`.  
-Sets the travel (non-printing movement) speed for the first layer. This doesn't affect the printing quality and can be set to a percentage of the [travel speed](speed_settings_travel).  
+Sets the travel (non-printing movement) speed for the first layer. This doesn't affect print quality and can be set as a percentage of the [travel speed](speed_settings_travel).  
 Usually, this is set to 100% of the [travel speed](speed_settings_travel), but it can be reduced if you want to minimize vibrations or if your printer has issues with high-speed travel movements.
 
 ## Number of slow layers

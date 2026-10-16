@@ -38,6 +38,7 @@ These load the same per-tab JSON files produced by each settings tab's Save/Expo
 | --- | --- | --- | --- |
 | `--datadir` | `dir` | Load and store settings at the given directory, instead of the default user config location. Useful for maintaining separate profile sets. Related concept: [Portable User Configuration](how_to_build#portable-user-configuration). | |
 | `--outputdir` | `dir` | Output directory for exported files. | Created recursively if it doesn't exist; the process exits with an error if creation fails. |
+| `--export-statistics` | boolean | Write the statistics of each sliced plate as JSON, as `plate_N.statistics.json` next to its G-code in the output directory and inside the 3MF of [`--export-3mf`](cli_actions#export): print time, filament and feature totals, and the same per layer and per object. | Same files as the [Export Statistics](import_export#export-statistics) preference. |
 | `--debug` | `level` (int, 0-5) | Debug logging level: `0` fatal, `1` error, `2` warning, `3` info, `4` debug, `5` trace. | Default: `1`. |
 | `--logfile` | `file` | Redirect debug logging to a file instead of stderr. | |
 

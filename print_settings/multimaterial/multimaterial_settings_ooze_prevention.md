@@ -12,7 +12,7 @@ This option will drop the temperature of the inactive extruders to prevent oozin
 [Variable](built_in_placeholders_variables): `standby_temperature_delta`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--standby-temperature-delta=1`.  
-Temperature difference to be applied when an extruder is not active. The value is not used when 'idle_temperature' in filament settings is set to non-zero value.
+Temperature difference to be applied when an extruder is not active. The value is not used when [Idle temperature](material_basic_information#idle-temperature) in the filament settings is set to a non-zero value.
 
 ## Preheat time
 
@@ -20,7 +20,7 @@ Temperature difference to be applied when an extruder is not active. The value i
 [Variable](built_in_placeholders_variables): `preheat_time`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--preheat-time=1`.  
-To reduce the waiting time after tool change, Orca can preheat the next tool while the current tool is still in use. This setting specifies the time in seconds to preheat the next tool. Orca will insert a M104 command to preheat the tool in advance.
+To reduce the waiting time after tool change, Orca can preheat the next tool while the current tool is still in use. This setting specifies the time in seconds to preheat the next tool. Orca will insert an M104 command to preheat the tool in advance.
 
 ## Preheat steps
 
@@ -28,4 +28,4 @@ To reduce the waiting time after tool change, Orca can preheat the next tool whi
 [Variable](built_in_placeholders_variables): `preheat_steps`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--preheat-steps=1`.  
-Insert multiple preheat commands (e.g. M104.1). Only useful for Prusa XL. For other printers, please set it to 1.
+Inserts multiple preheat commands (e.g. M104.1). Only useful for the Prusa XL. For other printers, set it to 1.

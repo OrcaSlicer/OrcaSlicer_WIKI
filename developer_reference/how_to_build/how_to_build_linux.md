@@ -128,8 +128,27 @@ The build system supports multiple Linux distributions including Ubuntu/Debian a
 - `-j N`: Limit builds to N cores (useful for low-memory systems)
 - `-1`: Limit builds to one core
 - `-l`: Use Clang instead of GCC
+- `-L`: Use `ld.lld` as the linker (if available)
 - `-p`: Disable precompiled headers (boost ccache hit rate)
 - `-r`: Skip RAM and disk checks (for low-memory systems)
+
+**Custom compiler, flags and linker:**
+
+Everything after `--` is passed unchanged to the `cmake` configure step of the dependencies (`-d`) and OrcaSlicer (`-s`, `-t`) builds, so any CMake variable can be set without editing the script:
+
+```bash
+./build_linux.sh -s -- -DCMAKE_CXX_FLAGS="-O2 -march=native"
+./build_linux.sh -s -- -DCMAKE_C_COMPILER=gcc-14 -DCMAKE_CXX_COMPILER=g++-14
+./build_linux.sh -s -- -DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=mold -DCMAKE_SHARED_LINKER_FLAGS=-fuse-ld=mold
+./build_linux.sh -g -st -- -DSLIC3R_PCH=OFF
+```
+
+These arguments come last on the `cmake` command line, so they override what `-l` and `-L` set. They also work with `-g`, which forwards them into the container. Pass them to the invocation that configures the build you want to change: the dependencies in a `-d` run, OrcaSlicer in a `-s` or `-t` run.
+
+The `DEPS_EXTRA_BUILD_ARGS` and `ORCA_EXTRA_BUILD_ARGS` environment variables add whitespace-separated configure arguments to the dependencies and OrcaSlicer builds respectively. They cannot carry an argument that contains a space and are not forwarded into the `-g` container, so prefer `--`.
+
+> [!NOTE]
+> CMake only reads compiler and flag settings when it configures a build directory for the first time. To change them on an existing build, pass `-c` for a clean build or edit `build/CMakeCache.txt`.
 
 > [!NOTE]
 > The build script automatically detects your Linux distribution and uses the appropriate package manager (apt, pacman) to install dependencies.

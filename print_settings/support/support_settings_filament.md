@@ -1,6 +1,6 @@
 # Support Filament
 
-Support filament settings allow you to customize the material used for support structures in your 3D prints. This can include settings for the base layer, interface, and support style.
+Support filament settings allow you to customize the material used for support structures in your 3D prints. You can choose separate filaments for the support base and raft, and for the support interface.
 
 - [Base](#base)
 - [Interface](#interface)
@@ -13,7 +13,7 @@ Support filament settings allow you to customize the material used for support s
 [Variable](built_in_placeholders_variables): `support_filament`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--support-filament=1`.  
-Filament to print support base and raft. "Default" means no specific filament for support and current filament is used.
+Filament to print the support base and raft. "Default" means no specific filament for support, and the current filament is used.
 
 ## Interface
 
@@ -21,7 +21,7 @@ Filament to print support base and raft. "Default" means no specific filament fo
 [Variable](built_in_placeholders_variables): `support_interface_filament`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--support-interface-filament=1`.  
-Filament to print support interface. "Default" means no specific filament for support interface and current filament is used.
+Filament to print the support interface. "Default" means no specific filament for the support interface, and the current filament is used.
 
 ### Avoid interface filament for base
 
@@ -29,7 +29,7 @@ Filament to print support interface. "Default" means no specific filament for su
 [Variable](built_in_placeholders_variables): `support_interface_not_for_body`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--support-interface-not-for-body=1`.  
-Avoid using support interface filament to print support base if possible.
+Avoid using the support interface filament to print the support base if possible. This option is shown only when an interface filament is selected and **Support/raft base** is `Default`.
 
 This affects the support **body** only. It is a separate thing from the bonding layer described below, which is part of the interface itself.
 
@@ -46,7 +46,7 @@ How many layers you get of each material depends on the [Interface layers](suppo
 | 3 | 2 | 1 |
 | N | N − 1 | 1 |
 
-The layer facing the model is always the interface material, so if you want the interface printed purely in its own filament, set the count to `1`. From `2` upwards you always get exactly one bonding layer in the base filament, no matter how thick the interface is or what [Z distance](support_settings_advanced#z-distance) you use. Top and bottom interfaces are worked out separately, each from its own count.
+The layer facing the model is always the interface material, so if you want the interface printed purely in its own filament, set the count to `1`. From `2` upwards you always get exactly one bonding layer in the base filament, no matter how thick the interface is or what [Z distance](support_settings_advanced#z-distance) you use, except in the soluble case described in the note below. Top and bottom interfaces are worked out separately, each from its own count.
 
 > [!NOTE]
 > A soluble interface sitting directly on a non-soluble base, with no Z gap, is split differently: up to half the layers, and never more than two, are printed in the non-soluble filament, so the soluble material has something rigid underneath it.
@@ -55,5 +55,5 @@ Worth knowing:
 
 - Going from `1` to `2` interface layers does more than add a layer — it brings a second material into the interface, which means extra tool changes and purge on a multi-material printer.
 - The bonding layer counts as support base, so speed and cooling settings you have tuned for the interface do not apply to it.
-- If **Base** is left as `Default`, that layer prints in whatever filament is already loaded, normally the one the model is being printed with.
-- Choosing an interface filament while **Base** is `Default` still counts as two different materials, because support filaments cannot be used for the support body.
+- If **Support/raft base** is left as `Default`, that layer prints in whatever filament is already loaded, normally the one the model is being printed with.
+- Choosing an interface filament while **Support/raft base** is `Default` still counts as two different materials, because support filaments cannot be used for the support body.

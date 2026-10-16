@@ -220,14 +220,14 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 - [<img alt="param_extruder_temp" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_extruder_temp.svg?raw=true" height="22"> Temperature](temp_calib)
 - [<img alt="param_volumetric_speed" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_volumetric_speed.svg?raw=true" height="22"> Volumetric Speed](volumetric_speed_calib)
 - [<img alt="param_flow_ratio_and_pressure_advance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true" height="22"> Pressure Advance](pressure_advance_calib)
-    - [Adaptive Pressure Advance Guide](adaptive_pressure_advance_calib)
 - [<img alt="param_line_width" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_line_width.svg?raw=true" height="22"> Flow Ratio](flow_ratio_calib)
 - [<img alt="param_retraction" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_retraction.svg?raw=true" height="22"> Retraction](retraction_calib)
-- [<img alt="param_precision" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_precision.svg?raw=true" height="22"> Tolerance](tolerance_calib)
 - Advanced:
     - [<img alt="param_jerk" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_jerk.svg?raw=true" height="22"> Cornering (Jerk & Junction Deviation)](cornering_calib)
     - [<img alt="param_resonance_avoidance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_resonance_avoidance.svg?raw=true" height="22"> Input Shaping](input_shaping_calib)
         - [VFA](vfa_calib)
+    - [<img alt="param_flow_ratio_and_pressure_advance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true" height="22"> Adaptive Pressure Advance](adaptive_pressure_advance_calib)
+- [<img alt="param_precision" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_precision.svg?raw=true" height="22"> Tolerance](tolerance_calib)
 
 ## General Settings
 

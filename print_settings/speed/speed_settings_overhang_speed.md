@@ -11,8 +11,8 @@
 [Variable](built_in_placeholders_variables): `enable_overhang_speed`.  
 [Type](option_type#list-types): `Boolean list`.  
 [CLI Example](cli_mode#setting-overrides): `--enable-overhang-speed=1`.  
-Enable this option to slow printing down for different overhang degree.
-This can help improve print quality and reduce issues like stringing or sagging.
+Enable this option to slow printing down for different overhang degrees.
+This can help improve print quality and reduce issues like sagging.
 
 ### Slow down for curled perimeters
 
@@ -38,7 +38,7 @@ Root cause of these artifacts is most likely PA tuning being slightly off, espec
 
 > [!NOTE]
 > When this option is enabled, overhang perimeters are treated like overhangs, meaning the overhang speed is applied even if the overhanging perimeter is part of a bridge.  
-> For example, when the perimeters are 100% overhanging, with no wall supporting them from underneath, the 100% overhang speed will be applied.
+> For example, when the perimeters are 100% overhanging, with no wall supporting them from underneath, the 75% [overhang speed](#speed) will be applied, capped at the external [bridge speed](#bridge-speed).
 
 ### Speed
 
@@ -47,6 +47,7 @@ Root cause of these artifacts is most likely PA tuning being slightly off, espec
 [Type](option_type#list-types): `Float or Percentage list`.  
 [CLI Example](cli_mode#setting-overrides): `--overhang-1-4-speed=20%` (same pattern for the other variables above).  
 This is the speed for various overhang degrees. Overhang degrees are expressed as a percentage of [line width](quality_settings_line_width).  
+If expressed as a percentage, the speed is calculated from the [outer wall speed](speed_settings_other_layers_speed#outer-wall) for outer walls and from the [inner wall speed](speed_settings_other_layers_speed#inner-wall) for inner walls.
 
 > [!NOTE]
 > 0 speed means no slowing down for the overhang degree range and wall speed is used.
@@ -54,4 +55,7 @@ This is the speed for various overhang degrees. Overhang degrees are expressed a
 ## Bridge speed
 
 Set speed for external and internal bridges.  
-It's usually recommended to increase internal bridge speed to reduce print time, while external bridge speed should be reduced to improve print quality.
+It's usually recommended to increase internal bridge speed to reduce print time, while external bridge speed should be reduced to improve print quality.  
+The internal bridge speed can be set in mm/s or as a percentage of the external bridge speed (default 150%).
+
+When [Slow down for overhang](#slow-down-for-overhang) is enabled and [Slow down for curled perimeters](#slow-down-for-curled-perimeters) is disabled, the external bridge speed also applies to overhang walls supported by less than 13% of their line width: their speed blends from the 75% [overhang speed](#speed) to the external bridge speed as the support drops to 0%.

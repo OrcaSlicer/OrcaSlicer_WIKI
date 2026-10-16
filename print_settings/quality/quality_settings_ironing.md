@@ -1,11 +1,11 @@
 # Ironing
 
-Ironing is a process used to improve the surface finish of 3D prints by smoothing out the top layers. This is achieved by printing a second time at the same height, but with a very [low flow rate](#flow) and a specific [pattern](#pattern). The result is a smoother surface that can enhance the aesthetic quality of the print increasing print time.
+Ironing is a process used to improve the surface finish of 3D prints by smoothing out the top layers. This is achieved by printing a second time at the same height, but with a very [low flow rate](#flow) and a specific [pattern](#pattern). The result is a smoother surface that can enhance the aesthetic quality of the print at the cost of increased print time.
 
 ![ironing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ironing/ironing.png?raw=true)
 
 > [!TIP]
-> For Multi-material print, consider using [Material Setting Overrides](material_setting_overrides#ironing) to customize ironing settings for each material.
+> For multi-material prints, consider using [Material Setting Overrides](material_setting_overrides#ironing) to customize ironing settings for each material.
 
 > [!IMPORTANT]
 > Ironing can cause filament to move very slowly through the hotend, which increases the risk of heat creep and potential clogging. Monitor your printer during ironing and ensure your hotend cooling is adequate to prevent jams.
@@ -17,11 +17,11 @@ Ironing is a process used to improve the surface finish of 3D prints by smoothin
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `no ironing, top, topmost, solid`.  
 [CLI Example](cli_mode#setting-overrides): `--ironing-type="no ironing"`.  
-This setting controls which layer being ironed.
+This setting controls which layers are ironed.
 
-- **Top Surfaces**: All [top surfaces](strength_settings_top_bottom_shells) will be ironed. This is the most common setting and is used to smooth out the top layers of the print.  
+- **All top surfaces**: All [top surfaces](strength_settings_top_bottom_shells) will be ironed. This is the most common setting and is used to smooth out the top layers of the print.  
   ![ironing-top-surfaces](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ironing/ironing-top-surfaces.png?raw=true)
-- **Topmost Surface**: Only the last [top layer](strength_settings_top_bottom_shells) of the print will be ironed. This is useful for prints where only the last layer needs to be smoothed.  
+- **Topmost surface only**: Only the last [top layer](strength_settings_top_bottom_shells) of each object will be ironed. This is useful for prints where only the last layer needs to be smoothed.  
   ![ironing-topmost-surface](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ironing/ironing-topmost-surface.png?raw=true)
 - **All solid layers**: All solid layers, including [internal solid infill](strength_settings_infill#internal-solid-infill) and [top layers](strength_settings_top_bottom_shells), will be ironed. This can be useful for prints that require a very smooth finish on all solid surfaces but may increase print time significantly.  
     ![ironing-all-solid-layers](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ironing/ironing-all-solid-layers.png?raw=true)
@@ -38,7 +38,7 @@ The pattern that will be used when ironing. Usually, the best pattern is the one
 > [!TIP]
 > See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
 
- The ironing patterns are:
+The ironing patterns are:
 
 - **[Concentric](strength_settings_patterns#concentric)**
 - **[Rectilinear](strength_settings_patterns#rectilinear)**
@@ -50,7 +50,7 @@ The pattern that will be used when ironing. Usually, the best pattern is the one
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--ironing-flow=20%`.  
 The amount of material to extrude during ironing.  
-This % is a percentage of the normal flow rate. A lower value will result in a smoother finish but may not cover the surface completely. A higher value may cover the surface better but can lead to over extrusion or rougher finish.
+It is a percentage of the flow of a normal layer height. A lower value will result in a smoother finish but may not cover the surface completely. A higher value may cover the surface better but can lead to over-extrusion or a rougher finish.
 
 A lower layer height may require higher flow due to less volumetric extrusion per distance.
 
@@ -73,7 +73,7 @@ The distance to keep from the edges, which can help prevent over-extrusion at th
 
 ![ironing-inset](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ironing/ironing-inset.png?raw=true)
 
-If this value is set to 0, the ironing toolpath will start directly at the perimeter edges without any inward offset. This means the [ironing pattern](#pattern) will extend all the way to the outer boundaries of the top surface being ironed.
+If this value is set to 0, an inset of half the nozzle diameter is used, so the [ironing pattern](#pattern) stays slightly inside the outer boundaries of the top surface being ironed.
 
 ## Angle Offset
 
@@ -81,9 +81,10 @@ If this value is set to 0, the ironing toolpath will start directly at the perim
 [Variable](built_in_placeholders_variables): `ironing_angle`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--ironing-angle=1`.  
-The angle of ironing lines offset relative to the top surface solid infill direction.
+The angle of ironing lines offset relative to the top surface solid infill direction.  
+This option can only be edited when the ironing [Pattern](#pattern) is Rectilinear.
 
-Commonly used ironing angle offsets are 0°, 45°, and 90° each producing a [different surface finish](https://github.com/OrcaSlicer/OrcaSlicer/issues/10834#issuecomment-3322628589) which will depend on your printer nozzle.
+Commonly used ironing angle offsets are 0°, 45°, and 90°, each producing a [different surface finish](https://github.com/OrcaSlicer/OrcaSlicer/issues/10834#issuecomment-3322628589) which will depend on your printer nozzle.
 
 > [!TIP]
 > Enable [Align directions to model](strength_settings_advanced#align-directions-to-model) to make the ironing direction follow the model's orientation on the build plate.
@@ -96,9 +97,11 @@ Commonly used ironing angle offsets are 0°, 45°, and 90° each producing a [di
 [CLI Example](cli_mode#setting-overrides): `--ironing-angle-fixed=1`.  
 Use a fixed absolute angle for ironing that is not offset from the top surface infill direction. This results in an ironing finish that does not have alternating line directions and may result in a more uniform surface finish and reduced tiger striping effect when reflecting light.
 
-Set the Ironing Angle Offset to an angle with optimal ironing angle offsets from all affected top surface solid infill directions.
+When enabled, the [Angle Offset](#angle-offset) value is used as the absolute ironing angle. Choose an angle that is well offset from all the affected top surface solid infill directions.
 
 Suggested fixed ironing angles are 0° and 90° if you are using the default solid infill direction of 45°.
+
+This option can only be edited when the ironing [Pattern](#pattern) is Rectilinear.
 
 ## Speed
 

@@ -1,15 +1,18 @@
 # Speed Advanced - Extrusion Rate Smoothing
 
 [Mode](option_mode): `Advanced`.  
-[Variables](built_in_placeholders_variables): `max_volumetric_extrusion_rate_slope`, `max_volumetric_extrusion_rate_slope_segment_length`, `extrusion_rate_smoothing_external_perimeter_only`.  
-[Type](option_type): `max_volumetric_extrusion_rate_slope` (Float), `max_volumetric_extrusion_rate_slope_segment_length` (Float), `extrusion_rate_smoothing_external_perimeter_only` (Boolean).  
-[CLI Example](cli_mode#setting-overrides): `--max-volumetric-extrusion-rate-slope=1` (`max_volumetric_extrusion_rate_slope` shown; other variables above follow their own type).  
+[Variables](built_in_placeholders_variables): `max_volumetric_extrusion_rate_slope`, `max_volumetric_extrusion_rate_slope_segment_length`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--max-volumetric-extrusion-rate-slope=1` (same pattern for the other variables above).  
 Extrusion Rate Smoothing (ERS) (pressure equalizer in PrusaSlicer) aims to **limit the rate of extrusion volume change to be below a user-set threshold (the ERS value)**.  
-It aims to assist the printer firmware internal motion planners, pressure advance in achieving the desired nozzle flow and reducing deviations against the ideal flow.
+It aims to assist the printer firmware's internal motion planner and pressure advance in achieving the desired nozzle flow and reducing deviations from the ideal flow.
 
 This happens by reducing the stresses put on the extrusion system as well as reducing the absolute deviations from the ideal extrusion flow caused by pressure advance smooth time.
 
 This feature is especially helpful when printing at high accelerations and large flow rates as the deviations are larger in these cases.
+
+> [!NOTE]
+> A value of 0 disables Extrusion rate smoothing. Any value greater than 0 turns off [Arc fitting](quality_settings_precision#arc-fitting) and locks that option while smoothing is enabled.
 
 ![ers-intro](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/ERS/ers-intro.png?raw=true)
 
@@ -19,6 +22,7 @@ This feature is especially helpful when printing at high accelerations and large
 - [Finding the ideal Extrusion Rate smoothing value](#finding-the-ideal-extrusion-rate-smoothing-value)
 - [A note for Bowden printers using Marlin without pressure advance](#a-note-for-bowden-printers-using-marlin-without-pressure-advance)
 - [A note on ERS Segment length](#a-note-on-ers-segment-length)
+- [Apply only on external features](#apply-only-on-external-features)
 - [Limitations](#limitations)
 - [Credits](#credits)
 
@@ -26,9 +30,9 @@ This feature is especially helpful when printing at high accelerations and large
 
 Enabling this feature creates a small **speed "ramp"** by slowing down and ramping up print speeds prior to and after the features causing a sudden change in extrusion flow rate needs, such as overhangs and overhang perimeters.
 
-This works by breaking down the printed line segments into smaller "chunks", proportional to the ERS segment length, and reduces the print speed of these segments so that the **requested extrusion volumetric flow rate change is less than or equal to the ERS threshold**.
+This works by breaking down the printed line segments into smaller "chunks", proportional to the ERS segment length, and reducing the print speed of these segments so that the **requested extrusion volumetric flow rate change is less than or equal to the ERS threshold**.
 
-In summary, **it takes the "edge" off rapid extrusion changes caused by acceleration/deceleration as these are now spread over a longer distance and time.** Therefore, it can reduce wall artifacts that show when the print speeds change suddenly. These artifacts are occurring because the extruder and firmware cannot perfectly adhere to the flow rates requested by the slicer, especially when the extrusion rate is changing rapidly.
+In summary, **it takes the "edge" off rapid extrusion changes caused by acceleration/deceleration as these are now spread over a longer distance and time.** Therefore, it can reduce wall artifacts that show when the print speeds change suddenly. These artifacts occur because the extruder and firmware cannot perfectly adhere to the flow rates requested by the slicer, especially when the extrusion rate is changing rapidly.
 
 **The example below shows the artifact that is mitigated by ERS.**
 
@@ -114,7 +118,7 @@ In essence, **pressure advance smooth time creates an intentional deviation from
 
 There is a great example of pressure advance smooth time induced deviations in [this Klipper forum post](https://klipper.discourse.group/t/pressure-advance-smooth-time-skews-pressure-advance/13451) that is worth a read to get more insight in this trade-off.
 
-In the worked example above, **we need to set an Extrusion Rate smoothing value enough to decrease the error introduced by pressure advance smooth time against the produced output flow.** The lower the extrusion rate smoothing value, the lower the changes in flow over time hence the lower the absolute deviation from the ideal extrusion caused by the smooth time algorithm. However, going too low will result in a material decrease in overall print speed, as the print speed will be materially reduced to achieve low extrusion deviations between features, for no real benefit after a point.
+In the worked example above, **we need to set an Extrusion Rate Smoothing value low enough to decrease the error introduced by pressure advance smooth time against the produced output flow.** The lower the extrusion rate smoothing value, the lower the changes in flow over time hence the lower the absolute deviation from the ideal extrusion caused by the smooth time algorithm. However, going too low will result in a material decrease in overall print speed, as the print speed will be materially reduced to achieve low extrusion deviations between features, for no real benefit after a point.
 
 **The best way to find the lower beneficial limit is through experimentation.** Print an object with sharp overhangs that are slowed down because of the overhang print speed settings and observe for extrusion inconsistencies.
 
@@ -124,39 +128,39 @@ In the worked example above, **we need to set an Extrusion Rate smoothing value 
 
 **Below are some approximate ERS values for 0.42 line width and 0.16 layer height.**
 
-1. 30mm³/sec for 0.5k acceleration
-2. 60.5mm³/sec for 1k acceleration
+1. 30mm³/sec² for 0.5k acceleration
+2. 60.5mm³/sec² for 1k acceleration
 3. 121mm³/sec² for 2k acceleration
 4. 242mm³/sec² for 4k acceleration
 
 **Below are some approximate ERS values for 0.42 line width and 0.20 layer height.**
 
-1. 38mm³/sec for 0.5k acceleration
-2. 76mm³/sec for 1k acceleration
+1. 38mm³/sec² for 0.5k acceleration
+2. 76mm³/sec² for 1k acceleration
 3. 150mm³/sec² for 2k acceleration
 4. 300mm³/sec² for 4k acceleration
 
 **Below are some approximate ERS values for 0.45 line width and 0.16 layer height.**
 
-1. 32mm³/sec for 0.5k acceleration
-2. 65mm³/sec for 1k acceleration
+1. 32mm³/sec² for 0.5k acceleration
+2. 65mm³/sec² for 1k acceleration
 3. 129mm³/sec² for 2k acceleration
 4. 260mm³/sec² for 4k acceleration
 
-**So, your tuning starting point needs to be an ERS value that is less than this.** A good point experiment with test prints would be **a value of 60-80%** of the above maximum values. This will give some meaningful assistance to pressure advance, reducing the deviation introduced by pressure advance smooth time. The greater the smooth time, the greater the quality benefit will be.
+**So, your tuning starting point needs to be an ERS value that is less than this.** A good starting point for test prints would be **a value of 60-80%** of the above maximum values. This will give some meaningful assistance to pressure advance, reducing the deviation introduced by pressure advance smooth time. The greater the smooth time, the greater the quality benefit will be.
 
-Therefore, for a **0.42 line width and 0.16 layer height**, the below are a recommended set of starting ERS values
+Therefore, for a **0.42 line width and 0.16 layer height**, the following are recommended starting ERS values:
 
-1. 18-25mm³/sec for 0.5k acceleration
-2. 35-50mm³/sec for 1k acceleration
+1. 18-25mm³/sec² for 0.5k acceleration
+2. 35-50mm³/sec² for 1k acceleration
 3. 70-100mm³/sec² for 2k acceleration
 4. 145-200mm³/sec² for 4k acceleration
 
 If you are printing with a 0.2 layer height, you can increase these values by 25% and similarly reduce if printing with lower.
 
-**The second factor is your extruder's mechanical abilities.** Direct drive extruders with a good grip on the filament typically are more responsive to extrusion rate changes. Similarly with stiff filaments. So, a Bowden printer or when printing softer material like TPU or soft PLAs like polyterra there is more opportunity for the extruder to slip or deviate from the desired extrusion amount due to mechanical grip or material deformation or just delay in propagating the pressure changes (in a Bowden setup).
+**The second factor is your extruder's mechanical abilities.** Direct drive extruders with a good grip on the filament typically are more responsive to extrusion rate changes. Similarly with stiff filaments. So, with a Bowden printer or when printing softer materials like TPU or soft PLAs like PolyTerra, there is more opportunity for the extruder to slip or deviate from the desired extrusion amount due to mechanical grip or material deformation or just delay in propagating the pressure changes (in a Bowden setup).
 
-**The final factor is the deviation introduced by pressure advance smooth time**, or equivalents in closed source firmware. The higher this value the larger the extrusion deviation from ideal. If you are using a direct drive extruder, reduce this value to 0.02 in your klipper firmware before tuning ERS, as a lower value results in lower deviations to mitigate. Then proceed to experimentally tune ERS.
+**The final factor is the deviation introduced by pressure advance smooth time**, or equivalents in closed source firmware. The higher this value the larger the extrusion deviation from ideal. If you are using a direct drive extruder, reduce this value to 0.02 in your Klipper firmware before tuning ERS, as a lower value results in lower deviations to mitigate. Then proceed to experimentally tune ERS.
 
 **So where does that leave us?**
 
@@ -168,15 +172,24 @@ If you're not noticing any artifacts, increase by 10%, but don't go over the max
 
 If your printer is not equipped with pressure advance and, especially, if you are using a Bowden setup, you don't have the benefit of pressure advance dynamically adjusting your flow.
 
-In this special case, ERS will be doing all the heavy lifting that pressure advance would typically perform. In this scenario, a low value of 8-10mm³/sec is usually recommended, irrespective of your acceleration settings, to smooth out pressure changes in the extrusion system as much as possible without impacting print speed too much.
+In this special case, ERS will be doing all the heavy lifting that pressure advance would typically perform. In this scenario, a low value of 8-10mm³/sec² is usually recommended, irrespective of your acceleration settings, to smooth out pressure changes in the extrusion system as much as possible without impacting print speed too much.
 
 ## A note on ERS Segment length
 
-Ideally, you want this value set to 1 to allow for the largest number of steps between each speed transition. However, this may result in G-code that is too large, with too many commands sent to your MCU per second and it may not be able to keep up. It will also slow down the OrcaSlicer front end as the sliced model is more complex to render.
+The default value of 3 works well for most cases, so start there.
 
-For Klipper printers, a segment length of 1 works OK as the RPI or similar have enough computational power to handle the G-code command volume.
+A lower value allows for more steps between each speed transition, which makes the transitions smoother. However, this may result in G-code that is too large, with too many commands sent to your MCU per second, and it may not be able to keep up. It will also slow down the OrcaSlicer front end as the sliced model is more complex to render.
 
-Similarly, for a Bambu Lab printer, a segment length of 1 works well. **However, if you do notice your printer stuttering or stalling** (which may be the case with the lower-powered P1 series printers) **or getting "Timer too close" errors** in Klipper, **increase this value to 2 or 3**. This would reduce the effectiveness of the setting but will present a more manageable load to your printer.
+If you want smoother transitions, you can lower it, down to the minimum of 0.5. Klipper printers usually handle a segment length of 1 OK, as the RPI or similar have enough computational power to handle the G-code command volume, and Bambu Lab printers usually do too. **However, if you do notice your printer stuttering or stalling** (which may be the case with the lower-powered P1 series printers) **or getting "Timer too close" errors** in Klipper, **increase this value**, back to the default of 3 or higher (up to 5). This would reduce the effectiveness of the setting but will present a more manageable load to your printer.
+
+## Apply only on external features
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `extrusion_rate_smoothing_external_perimeter_only`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--extrusion-rate-smoothing-external-perimeter-only=1`.  
+Applies extrusion rate smoothing only to outer walls and overhang walls, leaving the flow of all other features unchanged. This can reduce artifacts caused by sharp speed transitions on visible overhangs without slowing down features that won't be seen.  
+This option is only shown when Extrusion rate smoothing is greater than 0, and it is disabled by default.
 
 ## Limitations
 
