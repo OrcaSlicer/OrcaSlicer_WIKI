@@ -7,15 +7,17 @@ output: the project's 100 mm cube, and the 3DBenchy and Stanford bunny OrcaSlice
 copy of the project. Each pattern is sliced at 5, 15, 30 and 50% sparse infill density, the patterns that only print
 solid infill at 100%, and the patterns that support multiline also with 2 and 3 lines.
 
-A pattern is rated on the mean of its runs: material usage, print time and material per time. Layer time variability
-comes from the cube alone, as the other models change their cross-section along their height. The ratings are written
-into strength_settings_patterns.md and strength_settings_patterns_quick_reference.md, the ratings' values into
-infill_analysis_results.csv and every run into infill_analysis_runs.csv. Strength is not measured: XY-N and Z-N are set
-by hand in infill_patterns.csv.
+A pattern is rated on the mean of its runs: material usage, print time, material per time, slicing time and G-code
+size. Slicing time is the wall time of each CLI run, so slices run one at a time unless --jobs says otherwise; slices
+that run together compete for the CPU and take longer. Layer time variability comes from the cube alone, as the other
+models change their cross-section along their height. With 2 and 3 lines, the print time is also compared with the
+pattern's own one-line runs. The ratings are written into strength_settings_patterns.md and
+strength_settings_patterns_quick_reference.md, the ratings' values into infill_analysis_results.csv and every run into
+infill_analysis_runs.csv. Strength is not measured: XY-N and Z-N are set by hand in infill_patterns.csv.
 
 Usage:
     python infill_analysis.py --orca "C:/Program Files/OrcaSlicer/orca-slicer.exe"
-    python infill_analysis.py --orca ./orca-slicer --jobs 6 --out out     # keep the G-code and statistics in out/
+    python infill_analysis.py --orca ./orca-slicer --out out              # keep the G-code and statistics in out/
     python infill_analysis.py --out out --reuse                           # rate again from the statistics in out/
     python infill_analysis.py --orca ./orca-slicer --dry-run              # print the ratings, write nothing
 """
@@ -32,6 +34,7 @@ import tempfile
 import zipfile
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from time import perf_counter
 
 HERE = Path(__file__).resolve().parent
 PROJECT = HERE / "infill_calculator.3mf"
@@ -162,6 +165,10 @@ def statistics_file(out, key):
     return out / "runs" / model / f"{pattern}_{density}_{lines}" / "plate_1.statistics.json"
 
 
+def slicing_file(out, key):
+    return statistics_file(out, key).with_name("slicing.json")
+
+
 def slice_run(orca, out, projects, key):
     model, pattern, density, lines = key
     target = statistics_file(out, key).parent
@@ -174,13 +181,17 @@ def slice_run(orca, out, projects, key):
                "--fill-multiline", str(lines), "--bottom-shell-layers", "1", "--export-statistics",
                "--outputdir", str(target), str(projects[model])]
     # In the output folder, which gets the log the CLI writes to its working directory.
+    start = perf_counter()
     run = subprocess.run(command, cwd=target, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, errors="replace")
+    seconds = perf_counter() - start
     if run.returncode != 0:
         raise RuntimeError(f"{key}: OrcaSlicer exited with {run.returncode}\n{run.stderr.strip()}")
-    print(f"sliced {model} {pattern} {density}% x{lines}", flush=True)
+    slicing = {"slicing_time": seconds, "gcode_size": (target / "plate_1.gcode").stat().st_size}
+    slicing_file(out, key).write_text(json.dumps(slicing), encoding="utf-8")
+    print(f"sliced {model} {pattern} {density}% x{lines} in {seconds:.1f} s", flush=True)
 
 
-def measure(stats):
+def measure(stats, slicing):
     # The first layer holds the bottom shell and the start G-code, the last one the end G-code.
     layers = stats["layers"][1:]
     layer_times = [layer["time"] for layer in layers[:-1] if layer["time"] > 0]
@@ -190,6 +201,8 @@ def measure(stats):
         "weight": sum(feature["weight"] for layer in layers for name, feature in layer["features"].items() if name != "Custom"),
         "layer_time": mean,
         "variability": 2 * statistics.pstdev(layer_times) / mean,
+        "slicing_time": slicing["slicing_time"],
+        "gcode_size": slicing["gcode_size"],
     }
 
 
@@ -198,8 +211,8 @@ def rate(patterns, measured):
     volume = {model: measured[(model, REFERENCE, SOLID, 1)]["weight"] for model in MODELS}
     for (model, _, density, _), m in measured.items():
         m["usage"] = m["weight"] / (volume[model] * density / 100)
-    # Time and material per time are rated against the single-line runs of normal material usage on the same model
-    # and density.
+    # Time, material per time, slicing time and G-code size are rated against the single-line runs of normal material
+    # usage on the same model and density.
     groups = {}
     for key, m in measured.items():
         if key[3] == 1:
@@ -207,11 +220,14 @@ def rate(patterns, measured):
     baselines = {}
     for group, runs_in_group in groups.items():
         normal = [m for m in runs_in_group if level(m["usage"]) == NORMAL] or runs_in_group
-        baselines[group] = (statistics.fmean(m["time"] for m in normal), statistics.fmean(m["weight"] / m["time"] for m in normal))
+        baselines[group] = (statistics.fmean(m["time"] for m in normal), statistics.fmean(m["weight"] / m["time"] for m in normal),
+                            statistics.fmean(m["slicing_time"] for m in normal), statistics.fmean(m["gcode_size"] for m in normal))
     for (model, _, density, _), m in measured.items():
-        time, rate_ = baselines[(model, density)]
+        time, rate_, slicing, size = baselines[(model, density)]
         m["time_ratio"] = m["time"] / time
         m["rate_ratio"] = m["weight"] / m["time"] / rate_
+        m["slicing_ratio"] = m["slicing_time"] / slicing
+        m["size_ratio"] = m["gcode_size"] / size
 
     results = []
     for p in patterns:
@@ -220,12 +236,18 @@ def rate(patterns, measured):
         def mean(name, lines=1, models=MODELS):
             return statistics.fmean(measured[(model, p["pattern"], density, lines)][name] for model in models for density in densities)
 
+        def against_one_line(lines):
+            return statistics.fmean(measured[(model, p["pattern"], density, lines)]["time"] / measured[(model, p["pattern"], density, 1)]["time"]
+                                    for model in MODELS for density in densities)
+
         r = {**p, "usage": mean("usage"), "time_ratio": mean("time_ratio"), "rate_ratio": mean("rate_ratio"),
-             "variability": mean("variability", models=("cube",))}
+             "variability": mean("variability", models=("cube",)), "slicing_ratio": mean("slicing_ratio"), "size_ratio": mean("size_ratio")}
         r["usage_level"], r["time_level"], r["rate_level"] = level(r["usage"]), level(r["time_ratio"]), level(r["rate_ratio"])
+        r["slicing_level"], r["size_level"] = level(r["slicing_ratio"]), level(r["size_ratio"])
         r["variability_name"], r["variability_level"] = next(
             (name, n) for limit, name, n in VARIABILITY if r["variability"] <= limit)
-        r["lines"] = {lines: (mean("usage", lines), mean("time_ratio", lines)) for lines in MULTILINES} if p["multiline"] else {}
+        r["lines"] = {lines: (mean("usage", lines), mean("time_ratio", lines), against_one_line(lines))
+                      for lines in MULTILINES} if p["multiline"] else {}
         results.append(r)
     return results
 
@@ -247,9 +269,9 @@ def replace_multiline(lines, r):
         del lines[i + 1]
     indent = re.match(r"\s*", lines[i]).group(0) + "    "
     eol = lines[i][len(lines[i].rstrip("\r\n")):]
-    for n, (usage, time) in reversed(list(r["lines"].items())):
-        lines.insert(i + 1, f"{indent}- **{n} lines:** Material Usage {rated('worse', level(usage))}, "
-                            f"Print Time {rated('worse', level(time))}{eol}")
+    for n, (_, time, against_one) in reversed(list(r["lines"].items())):
+        change = f"{abs(against_one - 1) * 100:.0f}% {'Faster' if against_one < 1 else 'Slower'}"
+        lines.insert(i + 1, f"{indent}- **{n} lines:** Print Time {rated('worse', level(time))} ({change} over single line){eol}")
 
 
 def update_patterns_page(text, results):
@@ -267,6 +289,8 @@ def update_patterns_page(text, results):
             replace_value(lines, "Print Time:", rated("worse", r["time_level"]))
             replace_value(lines, "Material/Time (Higher better):", rated("better", r["rate_level"]))
             replace_value(lines, "Layer time Variability:", r["variability_name"])
+            replace_value(lines, "Slicing Time:", rated("worse", r["slicing_level"]))
+            replace_value(lines, "G-code Size:", rated("worse", r["size_level"]))
             replace_multiline(lines, r)
         except ValueError as error:
             raise ValueError(f"{PATTERNS_PAGE.name}, {r['name']}: {error}") from None
@@ -289,7 +313,7 @@ def update_quick_reference(text, results):
         cells[5] = f" {icon('worse', r['time_level'])} "
         cells[6] = f" {icon('worse', r['variability_level'])} "
         cells[8] = " " + "<br> ".join(f"{n}: {icon('worse', level(usage))} {icon('worse', level(time))}"
-                                       for n, (usage, time) in r["lines"].items()) + " " if r["lines"] else " - "
+                                       for n, (usage, time, _) in r["lines"].items()) + " " if r["lines"] else " - "
         lines[i] = "|".join(cells) + line[len(line.rstrip("\r\n")):]
         seen.add(r["name"])
     missing = set(by_name) - seen
@@ -305,20 +329,23 @@ def write_csv(path, rows):
 
 
 def write_results(results, measured):
-    rows = [["pattern", "name", "material_usage", "print_time", "material_per_time", "layer_time_variability", "xy", "z",
-             "material_usage_rating", "print_time_rating", "material_per_time_rating", "layer_time_variability_rating"]
-            + [f"{n}_lines_{column}" for n in MULTILINES for column in ("material_usage", "print_time")]]
+    rows = [["pattern", "name", "material_usage", "print_time", "material_per_time", "layer_time_variability",
+             "slicing_time", "gcode_size", "xy", "z", "material_usage_rating", "print_time_rating",
+             "material_per_time_rating", "layer_time_variability_rating", "slicing_time_rating", "gcode_size_rating"]
+            + [f"{n}_lines_{column}" for n in MULTILINES for column in ("material_usage", "print_time", "print_time_vs_1_line")]]
     for r in results:
         rows.append([r["pattern"], r["name"], f"{r['usage']:.3f}", f"{r['time_ratio']:.3f}", f"{r['rate_ratio']:.3f}",
-                     f"{r['variability']:.3f}", LEVELS[r["xy_n"]][1], LEVELS[r["z_n"]][1], LEVELS[r["usage_level"]][1],
-                     LEVELS[r["time_level"]][1], LEVELS[r["rate_level"]][1], r["variability_name"]]
-                    + [f"{value:.3f}" if r["lines"] else "" for n in MULTILINES for value in r["lines"].get(n, (0, 0))])
+                     f"{r['variability']:.3f}", f"{r['slicing_ratio']:.3f}", f"{r['size_ratio']:.3f}", LEVELS[r["xy_n"]][1],
+                     LEVELS[r["z_n"]][1], LEVELS[r["usage_level"]][1], LEVELS[r["time_level"]][1], LEVELS[r["rate_level"]][1],
+                     r["variability_name"], LEVELS[r["slicing_level"]][1], LEVELS[r["size_level"]][1]]
+                    + [f"{value:.3f}" if r["lines"] else "" for n in MULTILINES for value in r["lines"].get(n, (0, 0, 0))])
     write_csv(RESULTS_CSV, rows)
-    rows = [["model", "pattern", "density", "lines", "time_min", "weight_g", "material_usage", "print_time",
-             "material_per_time", "layer_time_s", "layer_time_variability"]]
+    rows = [["model", "pattern", "density", "lines", "time_min", "weight_g", "slicing_s", "gcode_mb", "material_usage",
+             "print_time", "material_per_time", "layer_time_s", "layer_time_variability", "slicing_time", "gcode_size"]]
     for (model, pattern, density, lines), m in sorted(measured.items()):
-        rows.append([model, pattern, density, lines, f"{m['time'] / 60:.2f}", f"{m['weight']:.3f}", f"{m['usage']:.3f}",
-                     f"{m['time_ratio']:.3f}", f"{m['rate_ratio']:.3f}", f"{m['layer_time']:.3f}", f"{m['variability']:.3f}"])
+        rows.append([model, pattern, density, lines, f"{m['time'] / 60:.2f}", f"{m['weight']:.3f}", f"{m['slicing_time']:.2f}",
+                     f"{m['gcode_size'] / 1e6:.2f}", f"{m['usage']:.3f}", f"{m['time_ratio']:.3f}", f"{m['rate_ratio']:.3f}",
+                     f"{m['layer_time']:.3f}", f"{m['variability']:.3f}", f"{m['slicing_ratio']:.3f}", f"{m['size_ratio']:.3f}"])
     write_csv(RUNS_CSV, rows)
 
 
@@ -338,7 +365,8 @@ def main():
     parser.add_argument("--models", help="OrcaSlicer's resources/handy_models folder; found next to --orca if not given")
     parser.add_argument("--out", type=Path, help="where to keep the G-code and statistics; a temporary folder if not given")
     parser.add_argument("--reuse", action="store_true", help="do not slice a run whose statistics are already in --out")
-    parser.add_argument("--jobs", type=int, default=4, help="runs to slice at the same time (default 4)")
+    parser.add_argument("--jobs", type=int, default=1,
+                        help="runs to slice at the same time (default 1); more are faster but make the slicing times longer")
     parser.add_argument("--dry-run", action="store_true", help="print the ratings without writing any file")
     args = parser.parse_args()
 
@@ -350,7 +378,7 @@ def main():
     with tempfile.TemporaryDirectory() as temporary:
         # Absolute, as the CLI runs in the output folder.
         out = (args.out or Path(temporary)).resolve()
-        todo = [key for key in keys if not (args.reuse and statistics_file(out, key).exists())]
+        todo = [key for key in keys if not (args.reuse and statistics_file(out, key).exists() and slicing_file(out, key).exists())]
         if todo:
             if not args.orca:
                 sys.exit(f"--orca is needed to slice {len(todo)} run(s)")
@@ -362,14 +390,15 @@ def main():
         measured = {}
         for key in keys:
             with open(statistics_file(out, key), encoding="utf-8") as file:
-                measured[key] = measure(json.load(file))
+                measured[key] = measure(json.load(file), json.loads(slicing_file(out, key).read_text(encoding="utf-8")))
 
     results = rate(patterns, measured)
     for r in results:
         print(f"{r['name']:<20} usage {r['usage']:6.3f} {LEVELS[r['usage_level']][1]:<12} time {r['time_ratio']:6.3f} "
               f"{LEVELS[r['time_level']][1]:<12} g/t {r['rate_ratio']:6.3f} {LEVELS[r['rate_level']][1]:<12} "
-              f"layers {r['variability']:6.3f} {r['variability_name']:<20}"
-              + "".join(f" x{n}: {u:5.3f} {t:5.3f}" for n, (u, t) in r["lines"].items()))
+              f"layers {r['variability']:6.3f} {r['variability_name']:<20} slicing {r['slicing_ratio']:6.3f} "
+              f"{LEVELS[r['slicing_level']][1]:<12} size {r['size_ratio']:6.3f} {LEVELS[r['size_level']][1]:<12}"
+              + "".join(f" x{n}: {u:5.3f} {t:5.3f} {a:5.3f}" for n, (u, t, a) in r["lines"].items()))
     if args.dry_run:
         return
     write_results(results, measured)

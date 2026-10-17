@@ -84,6 +84,18 @@ To check which patterns support multiline infill, see the Patterns Quick Referen
 
 ![infill-multiline-aesthetic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-aesthetic.gif?raw=true)
 
+### Print time
+
+With more lines, the pattern is laid out that many times larger and each of its lines is printed as that many parallel lines, so the same density prints the same length of line. That length has fewer corners and gentler curves, where the nozzle has to slow down, and the lines of a group end next to each other, where they are joined instead of traveling between them.
+
+In the [infill analysis](strength_settings_patterns#multiline), more lines usually printed faster:
+
+- Curved and angular patterns gain the most: [Gyroid](strength_settings_patterns#gyroid), [TPMS-D](strength_settings_patterns#tpms-d), [TPMS-FK](strength_settings_patterns#tpms-fk), [Honeycomb](strength_settings_patterns#honeycomb), [3D Honeycomb](strength_settings_patterns#3d-honeycomb) and [Hilbert Curve](strength_settings_patterns#hilbert-curve) printed 14-21% faster with 2 lines and 24-28% faster with 3.
+- The other patterns whose lines do not cross printed 4-18% faster.
+- Patterns whose lines cross take longer: the [Non-Crossing](#non-crossing-strategy) paths of [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) turn at every crossing instead of running straight across, and [Quarter Cubic](strength_settings_patterns#quarter-cubic) prints [closed loops](#classic-strategy). They took 6-61% longer than with 1 line, and [Concentric](strength_settings_patterns#concentric) 19-35% longer.
+
+Each pattern's 2 and 3 lines entries in the [Patterns section](strength_settings_patterns) show its own print time over a single line.
+
 ### Strategy
 
 The way multiple lines are generated depends on the selected infill pattern.  
@@ -236,6 +248,10 @@ This setting applies to top, bottom and solid infill and, if using the [classic 
 [CLI Example](cli_mode#setting-overrides): `--infill-anchor-max=20%` (same pattern for the other variables above).  
 Connect an infill line to an internal perimeter with a short segment of an additional perimeter. If expressed as a percentage (example: 15%), it is calculated over the infill extrusion width.
 OrcaSlicer tries to connect two close infill lines to a short perimeter segment. If no such perimeter segment shorter than the Maximum length of the infill anchor is found, the infill line is connected to a perimeter segment at just one side and the length of the perimeter segment taken is limited to the Sparse infill anchor length, but no longer than the Maximum length of the infill anchor. If the Maximum length of the infill anchor is set to 0, the old algorithm for infill connection is used, which should create the same result as 1000 & 0.
+
+When a line end cannot be connected to its neighbor, its anchor runs along the wall toward the nearest free line end, where the next infill path usually starts. Two line ends whose anchors would meet are connected instead. With [multiline](#fill-multiline) infill, an anchor stops short of the other lines of its group instead of printing over them.
+
+Line ends left next to each other, about two line widths apart or closer, are joined with a short straight segment so they print as one path, also when the Maximum length of the infill anchor is `0`.
 
 [Concentric](strength_settings_patterns#concentric) loops follow the outline of the infill area instead of ending at the walls, so there is nothing to anchor and both settings are hidden for that pattern.  
 With the [Line](strength_settings_patterns#line) pattern both settings are disabled, and the Sparse infill anchor length is also disabled whenever the Maximum length of the infill anchor is `0`.
