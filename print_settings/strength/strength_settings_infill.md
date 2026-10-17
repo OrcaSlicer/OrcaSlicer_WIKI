@@ -94,7 +94,7 @@ In the [infill analysis](strength_settings_patterns#multiline), more lines usual
 - The other patterns whose lines do not cross printed 4-18% faster.
 - Patterns whose lines cross take longer: the [Non-Crossing](#non-crossing-strategy) paths of [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) turn at every crossing instead of running straight across, and [Quarter Cubic](strength_settings_patterns#quarter-cubic) prints [closed loops](#classic-strategy). They took 6-61% longer than with 1 line, and [Concentric](strength_settings_patterns#concentric) 19-35% longer.
 
-Each pattern's **Print Time vs 1 line** in the [Patterns section](strength_settings_patterns) shows its own result.
+Each pattern's 2 and 3 lines entries in the [Patterns section](strength_settings_patterns) show its own print time over a single line.
 
 ### Strategy
 
