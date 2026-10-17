@@ -270,7 +270,8 @@ def replace_multiline(lines, r):
     indent = re.match(r"\s*", lines[i]).group(0) + "    "
     eol = lines[i][len(lines[i].rstrip("\r\n")):]
     for n, (_, time, against_one) in reversed(list(r["lines"].items())):
-        lines.insert(i + 1, f"{indent}- **{n} lines:** Print Time {rated('worse', level(time))} ({against_one:.2f}x over single line){eol}")
+        change = f"{abs(against_one - 1) * 100:.0f}% {'Faster' if against_one < 1 else 'Slower'}"
+        lines.insert(i + 1, f"{indent}- **{n} lines:** Print Time {rated('worse', level(time))} ({change} over single line){eol}")
 
 
 def update_patterns_page(text, results):
