@@ -84,6 +84,18 @@ To check which patterns support multiline infill, see the Patterns Quick Referen
 
 ![infill-multiline-aesthetic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-aesthetic.gif?raw=true)
 
+### Print time
+
+With more lines, the pattern is laid out that many times larger and each of its lines is printed as that many parallel lines, so the same density prints the same length of line. That length has fewer corners and gentler curves, where the nozzle has to slow down, and the lines of a group end next to each other, where they are joined instead of traveling between them.
+
+In the [infill analysis](strength_settings_patterns#multiline), more lines usually printed faster:
+
+- Curved and angular patterns gain the most: [Gyroid](strength_settings_patterns#gyroid), [TPMS-D](strength_settings_patterns#tpms-d), [TPMS-FK](strength_settings_patterns#tpms-fk), [Honeycomb](strength_settings_patterns#honeycomb), [3D Honeycomb](strength_settings_patterns#3d-honeycomb) and [Hilbert Curve](strength_settings_patterns#hilbert-curve) printed 14-21% faster with 2 lines and 24-28% faster with 3.
+- The other patterns whose lines do not cross printed 4-18% faster.
+- Patterns whose lines cross take longer: the [Non-Crossing](#non-crossing-strategy) paths of [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) turn at every crossing instead of running straight across, and [Quarter Cubic](strength_settings_patterns#quarter-cubic) prints [closed loops](#classic-strategy). They took 6-61% longer than with 1 line, and [Concentric](strength_settings_patterns#concentric) 19-35% longer.
+
+Each pattern's **Print Time vs 1 line** in the [Patterns section](strength_settings_patterns) shows its own result.
+
 ### Strategy
 
 The way multiple lines are generated depends on the selected infill pattern.  
