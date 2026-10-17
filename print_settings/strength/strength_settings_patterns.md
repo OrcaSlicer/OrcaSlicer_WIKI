@@ -112,6 +112,8 @@ Parallel lines spaced according to infill density. Each layer is printed perpend
     - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
     - **[Surface](strength_settings_top_bottom_shells)**
     - **[Ironing](quality_settings_ironing)**
+    - **[Support Base](support_settings_advanced#base-pattern)**
+    - **[Support Interface](support_settings_advanced#interface-pattern)**
 
 ![infill-top-rectilinear](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-rectilinear.png?raw=true)
 
@@ -257,6 +259,7 @@ Two sets of perpendicular lines on every layer, forming a grid. Overlapping poin
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+    - **[Support Interface](support_settings_advanced#interface-pattern)**
 
 ![infill-top-grid](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-grid.png?raw=true)
 
@@ -442,6 +445,7 @@ A higher value will allow for more straightening, improving strength but increas
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+    - **[Support Base](support_settings_advanced#base-pattern)**
 
 ![infill-top-lightning](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-lightning.png?raw=true)
 
@@ -465,6 +469,7 @@ Hexagonal pattern balancing strength and material use. Double walls in each hexa
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+    - **[Support Base](support_settings_advanced#base-pattern)**
 
 ![infill-top-honeycomb](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-honeycomb.png?raw=true)
 
@@ -772,6 +777,7 @@ Fills the area with progressively smaller versions of the outer contour, creatin
     - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
     - **[Surface](strength_settings_top_bottom_shells)**
     - **[Ironing](quality_settings_ironing)**
+    - **[Support Interface](support_settings_advanced#interface-pattern)**
 
 ![infill-top-concentric](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-concentric.png?raw=true)
 

@@ -2,7 +2,8 @@
   "[markdown]": {
     "editor.detectIndentation": false,
     "editor.insertSpaces": true,
-    "editor.tabSize": 4
+    "editor.tabSize": 4,
+    "files.trimTrailingWhitespace": false
   },
   "markdown.extension.list.indentationSize": 4,
   "markdown.extension.toc.levels": "2..6",
