@@ -53,6 +53,19 @@ Insert comments that label moves with the object they belong to (object index or
 [CLI Example](cli_mode#setting-overrides): `--exclude-object=1`.  
 Add commands to the G-code that define each object and mark where it starts and ends, so the printer firmware can skip (cancel) individual objects during the print: `EXCLUDE_OBJECT_DEFINE`, `EXCLUDE_OBJECT_START` and `EXCLUDE_OBJECT_END` for Klipper, and `M486` for Marlin and RepRapFirmware.
 
+### Outline Tolerance
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `exclude_object_tolerance`.  
+[Type](option_type#float): `Float (mm)`.  
+[CLI Example](cli_mode#setting-overrides): `--exclude-object-tolerance=0.2`.  
+
+Controls the precision of the exclude-object outlines simplified via the Douglas-Peucker algorithm. This setting only applies to **Klipper** firmware (`EXCLUDE_OBJECT_DEFINE` lines), as Marlin and RepRapFirmware use `M486` commands without polygon definitions.
+
+* **Default:** `0.1 mm`.
+* **When to adjust:** If your printer has a limited CPU capacity and you are printing a full plate with many objects, highly detailed outlines can generate very large arrays. Processing these lines or running macros that iterate over them (such as KAMP adaptive meshing) can cause Klipper to trigger a `Timer too close` error.
+* **Recommendation:** Raising this value to `0.2 mm` - `0.4 mm` significantly reduces the total number of points and prevents printer timeouts, with a negligible impact on outline precision. Setting it to `0` retains every point of the convex hull.
+
 ## Filename Format
 
 [Mode](option_mode): `Advanced`.  
