@@ -1,0 +1,208 @@
+﻿English	Description	ca
+Infill	Material printed inside the walls to give the part its strength.	Farciment
+Sparse infill	The low-density infill of the part interior, whose density and pattern are configurable.	Farciment poc dens
+Pattern	The line layout used to fill a region — applies to surfaces (top and bottom), to fills such as sparse or internal solid infill, and to ironing.	Patró
+Rectilinear	Pattern of parallel straight lines — the default fill for most solid regions and supports. Shares its root with the Aligned Rectilinear, Rectilinear grid and Rectilinear Interlaced variants; keep all four consistent.	Rectilini
+Concentric	Pattern of nested loops that follow the region outline. One of the center-based patterns, together with Spiral Inset, Archimedean Chords and Octagram Spiral.	Concèntric
+Aligned Rectilinear	Rectilinear variant whose lines keep the same angle on every layer instead of alternating. Keep the Rectilinear root recognizable across the whole family.	Alineat Rectilini
+Rectilinear grid	Support base pattern of crossed rectilinear lines forming a grid. Distinct from Rectilinear Interlaced — the two are separate dropdown options and must not share a translation.	Quadrícula rectilínia
+Rectilinear Interlaced	Support interface pattern whose rectilinear lines alternate direction between layers. Distinct from Rectilinear grid — the two must not share a translation.	Entrellaçat Rectilini
+Monotonic	Fill ordering that lays every line down in one consistent direction for a uniform surface finish. The mathematical sense, not the everyday "monotonous".	Monotònic
+Monotonic line	Monotonic variant that keeps each line continuous. Keep the same root as Monotonic.	Línia monotònica
+Zig Zag	Infill pattern of connected back-and-forth lines. Distinct from the Snake print order, which also walks a serpentine path.	Zig Zag
+Cross Zag	Zig Zag variant that rotates the pattern between layers. Keep the Zag family recognizable together.	Cross Zag
+Locked Zag	Zig Zag variant whose layers interlock for added strength. Keep the Zag family recognizable together.	Locked Zag
+Grid	Infill and support interface pattern of two crossing sets of lines. The pattern name — not the build plate or preview grid.	Graella
+Triangles	Infill pattern of three crossing sets of lines forming triangles.	Triangles
+Tri-hexagon	Infill pattern combining triangles and hexagons.	Tri-hexàgon
+Cubic	Infill pattern of stacked cubes standing on a corner. Root of the Adaptive Cubic, Quarter Cubic and Support Cubic variants.	Cúbic
+Adaptive Cubic	Cubic variant that subdivides towards the part surface, denser near the shell than in the core. Keep the Cubic root.	Cúbic adaptatiu
+Quarter Cubic	Cubic variant built from quarter-offset cells. Keep the Cubic root.	Quart cúbic
+Support Cubic	Very sparse Cubic variant meant to hold up top surfaces rather than add strength. Keep the Cubic root.	Suport Cúbic
+Lightning	Pattern that grows only branching supports under top surfaces and leaves the rest hollow. Used both as a sparse infill and as a support base pattern.	Llampec
+Honeycomb	Infill pattern of hexagonal cells. Root of the 3D Honeycomb and Lateral Honeycomb variants.	Panal d'abella
+3D Honeycomb	Honeycomb variant whose cell walls shift with height. Keep the Honeycomb root.	Panal d'abella 3D
+Lateral Honeycomb	Honeycomb variant oriented sideways for lateral strength. Keep the Honeycomb root.	Panal d'abella lateral
+Lateral Lattice	Infill pattern of sideways-oriented lattice cells.	Gelosia 2D
+Cross Hatch	Infill pattern whose layers cross at alternating angles.	Quadrícula
+TPMS-D	Infill based on the Schwarz D (Diamond) triply periodic minimal surface. TPMS is an acronym and Schwarz a proper name; most catalogs keep the label verbatim.	TPMS-D
+TPMS-FK	Infill based on the Fischer-Koch S triply periodic minimal surface. TPMS is an acronym and Fischer-Koch a proper name; most catalogs keep the label verbatim.	TPMS-FK
+Gyroid	Infill pattern based on the gyroid minimal surface. Proper name of the surface.	Giroide
+Hilbert Curve	Infill following the Hilbert space-filling curve. Named after the mathematician; keep the proper name.	Corba de Hilbert
+Archimedean Chords	Center-based pattern following an Archimedean spiral. Named after Archimedes; keep the proper name.	Acords d'Arquimedes
+Octagram Spiral	Center-based pattern that spirals outward as an eight-pointed star.	Octograma en Espiral
+Spiral Inset	Center-based pattern whose nested loops are joined into one continuous inward spiral. Shares its shape with Concentric; keep the two distinct.	Espiral interior
+Hollow	Support base pattern meaning no base pattern at all — the support interior is left empty. The Default for Tree supports.	Buit
+Outer wall	The outermost perimeter loop of each layer — the surface the user sees.	Perímetre exterior
+Inner wall	The perimeter loops printed behind the outer wall.	Perímetre interior
+Wall loops	The number of perimeter loops (walls) printed around each layer.	Bucles de perímetre
+Shell	The solid outer skin of the part — its walls plus the top and bottom layers.	Carcassa
+Top	The upward-facing side of the print — its surfaces, shells and layers (Top surface, Top shell layers). Not the camera “Top view”, and not the text-alignment sense (msgctxt “Alignment”).	Superior
+Bottom	The downward-facing side of the print, the one against the build plate — its surfaces, shells and layers (Bottom surface, Bottom shell layers). Not the camera “Bottom view”, and not the text-alignment sense (msgctxt “Alignment”).	Inferior
+Fillet	A rounded transition between two edges or surfaces.	Arrodoniment
+Chamfer	A flat, angled (beveled) transition between two edges or surfaces (contrast with a rounded Fillet).	Xamfrà
+Brim	A flat band of extrusions around the first layer that improves bed adhesion.	Vora d'Adherència
+Elephant foot	Bulging or flaring of the first layers, caused by the weight of the print pressing them out.	Peu d'elefant
+Skirt	A loop printed around the object without touching it, to prime and stabilise the flow.	Faldilla
+Draft shield	A tall wall printed around the model to shield it from drafts and keep chamber heat even.	Escut contra corrents d'aire
+Raft	A printed platform under the object, used instead of printing on the bed directly.	Rai
+Prime tower / Wipe tower	Tower printed beside the model to purge the nozzle after each filament change. Two English names for one object — see the note below.	Torre de Purga
+Flush / Purge	Extruding filament to clear the previous material from the nozzle, e.g. at the prime tower on a filament change. Two English names for one action.	Purga
+Interface layer	The prime tower layer where two materials meet and are purged into each other. Distinct from a support interface.	Capa d'interfície
+PA Tower	Calibration model for tuning Pressure Advance.	Torre PA (Pressure Advance)
+Ringing Tower	Calibration model that shows ringing/ghosting artifacts, used to tune input shaping.	Torre de Ringing
+Fast Tower	Input-shaping calibration model printed at high speed and acceleration.	Torre ràpida
+VFA	Vertical Fine Artifacts: faint repeating vertical wall marks, targeted by the VFA test. Acronym kept in English.	VFA
+Artifacts	Unwanted visual defects on the printed surface.	Defectes
+Bridge	An extrusion spanning a gap with no material beneath it.	Pont
+Bridging	Printing a flat span across a gap between two supports, with no material beneath. See Bridge.	Ponts
+Overhang	A downward-facing surface sloped beyond the angle the printer can print without support.	Voladís
+Polyhole	A hole approximated as a many-sided polygon so it prints closer to round.	Poliforat
+Ironing	A second, hot pass over top surfaces that smooths them.	Planxat
+Seam	The visible start/end point of each perimeter loop on a layer.	Costura
+Scarf joint	A seam split into a sloped, overlapping (scarfed) transition to hide it and add strength. The woodworking joint, not the clothing scarf.	Unió en bisell
+Support	Printed structure that holds up overhangs and is removed after the print.	Suport
+Tree supports	Organic, branch-shaped supports that touch the model at fewer points.	Suports d'arbre
+Gap fill	Extra extrusions that fill thin spaces the walls are too wide to cover.	Farcir el buit
+Fuzzy skin	Deliberately roughened outer surface, produced by jittering the wall path.	Pell difusa
+Perlin	Fuzzy skin type: Proper name of the noise function. Smooth, natural-looking variations with coherent structure.	Perlin
+Billow	Fuzzy skin type: Cloud-like noise pattern for fuzzy skin.	Billow
+Ridged Multifractal	Fuzzy skin type: Noise pattern that produces sharp ridges.	Multifractal estriat
+Voronoi	Fuzzy skin type: Cell-based noise pattern for fuzzy skin, named after the Voronoi diagram.	Voronoi
+Ripple	Fuzzy skin type: Wave-like noise pattern for fuzzy skin.	Ripple
+Nozzle	The replaceable tip the melt is pushed through; its bore sets the extrusion width.	Broquet
+Hotend	The heated assembly — heat sink, heat break, heater block, heater cartridge, thermistor — that melts the filament and holds the nozzle. Not the nozzle alone, and not the extruder.	Hotend
+Extruder	The motor and gears that push filament into the hotend; in multi-tool printers also a whole toolhead.	Extrusor
+Extruder type	Whether the extruder is Direct Drive or Bowden.	Tipus d'extrusora
+Direct Drive	Extruder mounted on the toolhead, directly above the hotend.	Direct Drive
+Bowden	Extruder mounted on the frame, feeding filament through a PTFE tube to the hotend.	Bowden
+Nozzle volume	The molten volume held inside the hotend, used to compute flushing on filament change.	Volum del broquet
+Bed / Build plate	The heated print surface, i.e. the removable build plate, that the first layer sticks to. Two English names for one object.	Llit
+Plate	One of the project's plates: each holds its own objects and is sliced and printed separately (Add plate, Slice plate, current plate). Where the language has a separate word, keep it apart from Bed / Build plate.	Placa
+Build volume	The printable space of the printer — the build plate area times the maximum Z height.	Volum de construcció
+Toolhead	The moving assembly that carries the hotend and nozzle (and on some printers the extruder).	Capçal
+Chamber	The printer's enclosed build volume (the hardware enclosure itself, not its temperature setting).	Cambra
+Part cooling fan	The fan that blows air onto freshly extruded plastic to solidify it.	Ventilador de refrigeració de peces
+Exhaust fan	The fan that vents chamber air out of the enclosure.	Ventilador d'extracció
+Cooling	Part-cooling settings that control fan behaviour during printing.	Refrigeració
+Filament	The plastic feedstock on the spool.	Filament
+Mixed filament	A filament slot made up of several physical filaments, printed as alternating sub-layers so their colors blend.	Filament mixt
+Physical filament	A real filament loaded in the printer, as opposed to a mixed filament assembled from several of them.	Filament físic
+Mixed filament gradient	Z-direction mode in which a mixed filament's sub-layer ratios shift gradually from one component to another as the print rises.	Degradat del filament mixt
+Cool Plate	Bambu Lab low-temperature build plate, for PLA and PVA.	Base Freda
+Engineering Plate	Bambu Lab high-temperature plate for engineering materials such as ABS, PC and PA.	Base d'Enginyeria
+Textured PEI Plate	PEI-coated plate with a textured surface, leaving a matte finish on the bottom layer.	Base PEI amb Textura
+Slice	Convert the model into layers and toolpaths — i.e. generate the G-code.	Laminar
+Preset	A saved, selectable set of settings (print, filament or printer).	Perfil
+Retraction	Pulling filament back to stop the nozzle oozing during travel moves.	Retracció
+Unretract	Pushing filament forward again to resume extrusion after a retraction; the reverse of retraction.	Desretracció
+Flow ratio	A multiplier on extrusion flow used to correct over- or under-extrusion.	Relació de flux
+Flow Rate	The volume of material extruded per unit of time (mm³/s).	Cabal de flux
+Flow Dynamics	Nozzle pressure-compensation calibration (the Pressure Advance factor). Keep it distinct from “Flow ratio” (an extrusion multiplier) and “Flow Rate” (volume per unit of time) — English often shortens all three to “flow”, but most languages need three different terms.	Dinàmiques de Flux
+Volumetric Speed	Extrusion rate measured by volume rather than by distance (mm³/s).	Velocitat volumètrica
+Ooze	Unwanted material seeping from the nozzle when it should not be extruding.	Prevenció de degoteig
+Layer height	The thickness of a single printed layer.	Alçada de capa
+Layer	One printed horizontal slice of the model.	Capa
+Sublayer	One of the thin slices a layer is split into so the components of a mixed filament can be laid down in sequence.	Subcapa
+Mixed color sublayer	The setting that splits layers containing mixed filaments into sub-layers to produce the color-blending effect.	Subcapa de color mixt
+Line	A single extruded strand of material; also the wall/infill width-spacing unit.	Línia
+Extrusion role	The function of an extrusion — outer wall, inner wall, infill, support, etc. — which sets its speed and parameters.	Rol d'extrusió
+Contouring	Shaping a path or surface to follow the outline (contour) of the model.	Contornejat en Z
+Jerk	The instantaneous speed change a machine allows at a corner; Marlin-style motion setting.	Jerk
+Travel	A non-printing move between extrusions, with no material laid down.	Recorregut
+Chamber temperature	The air temperature inside the printer's enclosure.	Temperatura de la cambra
+Spiral vase	Mode that prints the object as one continuous single-wall spiral, with no layer seam.	Gerro en Espiral
+Timelapse	Video assembled from one frame captured per layer.	Timelapse
+Instance	An additional placement of one object on the plate, sharing that object’s geometry. Not Clone or Copy, which produce independent objects — “Fill bed with instances” and “Fill bed with copies” are different actions and must not share a translation. Not the running-application sense either — see Instance (application).	Instància
+Instance (application)	A running copy of the application itself (“Allow only one OrcaSlicer instance”, “Failed to launch a new instance.”). A different sense from the object Instance on the plate — where a language uses the copy/duplicate word for the object sense, this one needs its own term.	Instància
+Clone	Duplicating an object into independent objects, each with its own geometry, counted in “Number of copies”. Distinct from Instance, which only adds another placement of the same object.	Clonar
+Mirror	Flipping an object, part or SVG across an axis (“Mirror along the X Axis”, “Mirror horizontally”). It transforms the object in place — unlike Clone, nothing new is created. The bare “Mirror” is a short input label in the SVG/emboss tool.	Mirall
+Primitive	A built-in basic shape (cube, cylinder, sphere, ...) that can be added to the plate.	Primitiva
+Access Code	The code shown on the printer that authorizes a LAN connection to it.	Clau d'Accés
+Plugin	An add-on software component that extends the application (e.g. the network plug-in).	Connector
+Dialog	A UI dialog box. Translate the "dialog box" sense, not the "dialogue"/conversation sense.	Quadre de diàleg
+Outline	The outer boundary line of a shape or selection.	Contorn
+Wireframe	A see-through view showing only a model's edges, not solid surfaces.	Malla alàmbrica
+Top (Camera View)	Navigator-cube face / View-menu item that looks straight down at the plate. Camera sense — not the Top of the printed part.	Superior
+Bottom (Camera View)	Navigator-cube face / View-menu item that looks up from below. Camera sense — not the Bottom of the printed part.	Inferior
+Front (Camera View)	Navigator-cube face / View-menu item that looks at the front of the plate.	Frontal
+Back (Camera View)	Navigator-cube face that looks from behind (msgctxt “Camera View”). The direction “behind” — NOT the “go back / return” button, which is “Back” with msgctxt “Navigation”. The View menu calls the same direction “Rear”.	Darrera
+Left (Camera View)	Navigator-cube face / View-menu item that looks from the left (msgctxt “Camera View”). Not the left nozzle or text alignment.	Esquerra
+Right (Camera View)	Navigator-cube face / View-menu item that looks from the right (msgctxt “Camera View”). Not the right nozzle or text alignment.	Dreta
+Internal solid infill	The 100%-dense infill under top surfaces and above bottom ones, as opposed to Sparse infill.	Farciment sòlid intern
+Wipe	Wiping the nozzle tip clean / relieving nozzle pressure. Distinct from Flush / Purge, which clears the previous material out of the nozzle channel.	Netejar
+Support interface	The denser layers between the support and the model surface it touches. Not the prime-tower Interface layer.	Interfície de suport
+Model	A whole 3D object on the plate. Where a string covers both a model and its parts, prefer the neutral "object".	Model
+Part	A component of a model. Where a string covers both a model and its parts, prefer the neutral "object".	Peça
+Volume	A solid body making up a model; a negative volume is a cut-out. Not the numeric volume measurement.	Volum
+Texture	The image painted onto a surface (custom plate image, model UV map) - not the *textured* rough finish of a plate, fuzzy skin or top surface, which is a different word in most languages.	Textura
+Gizmo	An on-canvas manipulation tool (move/scale/rotate handles, cut, paint...).	Gizmo
+Adaptive bed mesh	Bed levelling that probes only the area the print occupies, instead of the whole bed.	Malla de placa adaptativa
+Damping	The damping ratio used by input shaping when computing damped oscillations.	Esmorteïment
+Snake	Object-instance print order that walks the plate in a serpentine, row-by-row path (refined with 2-opt). The movement pattern — not the animal, and distinct from the Zig Zag infill pattern.	Serpentí
+Nearest-neighbor	The default object-instance ordering heuristic: each next instance is the closest one not yet visited (“nearest-neighbor chaining”, then refined with 2-opt). It has no standalone msgid — it appears inside the print-order tooltip. Not the “Nearest” seam position, which is a different setting.	Veí més proper
+Design (tab)	The main tab for parametric CAD modelling, next to Prepare and Preview; "New Design" starts a new model there.	Disseny
+Sketch	A 2D drawing (lines, arcs, circles, splines) made on a plane or a face in the Design tab, which features such as Extrude or Revolve turn into a solid.	Esbós
+Constraint	A geometric or dimensional rule between sketch entities (horizontal, parallel, tangent, coincident, a fixed distance…) that the sketch solver keeps satisfied.	Restricció
+Dimension (sketch)	A driving measurement (length, distance, radius, angle) placed on sketch geometry; editing its value resizes the sketch. Not the object's size ("Dimensions").	Cota
+Construction geometry	Sketch lines and arcs used only as references for drawing and constraints; they are not part of the profile. Toggled with "Construction".	Geometria de construcció
+Extrude	Design-tab feature that pushes a closed sketch profile, or a picked face, along a straight direction to add or remove material. Not the G-code viewer's Extrude move type.	Extrusió
+Revolve	Design-tab feature that spins a sketch profile around an axis to make a solid of revolution.	Revolució
+Sweep	Design-tab feature that moves a profile along a path sketch to make a solid or a sheet body.	Escombratge
+Loft	Design-tab feature that skins a smooth shape between two or more profile sketches.	Recobriment
+Body	A solid, or an open sheet, produced by the Design tab's features — the CAD counterpart of an object before it is committed to the plate. Not a model Part or Volume.	Cos
+Sheet body	An open surface body with no thickness and no volume, made by the Surface features; Thicken turns it into a solid.	Cos de superfície
+Feature (Design)	One step of the Design tab's model history — a sketch, extrude, fillet, plane… — listed in the feature tree and recomputed in order. Not "feature" in the sense of an application capability.	Operació
+Datum	Reference geometry — a plane, axis or coordinate system — created to place sketches and features; it adds no material.	Referència
+Reference plane	A plane that sketches are drawn on in the Design tab: one of the origin planes (XY, XZ, YZ) or a datum plane added with the Plane feature.	Pla de referència
+Coordinate system (Design)	Design-tab datum that sets a local origin and axes on a body; a Mate aligns two of them. Not the World / Object coordinates used by the Prepare tab's transform tools.	Sistema de coordenades
+Mate	An assembly relation that aligns one coordinate system to another (fastened, planar, revolute, slider, cylindrical) to position a body.	Relació de posició
+Thread (screw)	A helical screw thread made on a cylindrical surface or in a hole. Not a processing (CPU) thread.	Rosca
+Draft (Design)	Design-tab feature that tilts a face by an angle so it tapers. Unrelated to the Draft shield.	Desmoldeig
+Shell (Design)	Design-tab feature that hollows a solid to a wall thickness, opening a picked face. Not the slicer Shell (walls plus top and bottom layers).	Buidat
+Pattern (Design)	Design-tab feature that repeats a body in a linear or circular arrangement. Not an infill or surface Pattern.	Matriu
+Section view	View that hides the model on one side of a movable cutting plane, to show the inside.	Vista de secció
+Commit to Plate	Design-tab command that sends the bodies to the Prepare tab as printable objects, either as one object with a part per body or as one object per body.	Enviar a la placa
+Speed Dial	The searchable action launcher (Space by default) that runs commands, opens tabs and keeps recent and favourite actions.	Accés ràpid
+Precise Seam	A modifier volume added to an object that steers seam placement: the Center, Left and Right subtypes pin the seam to the modifier, while Enforced, Blocked and Neutral mark areas where the seam is preferred, avoided or left to the normal rules.	Costura precisa
+Developer mode	Mode that unlocks developer-only settings and tools.	Mode de desenvolupament
+Texture displacement	Tool that paints greyscale height-map textures onto a model and bakes them into real surface relief, optionally in colour.	Desplaçament de textura
+Height map	A greyscale image whose brightness says how far each point of the surface is pushed out.	Mapa d'alçades
+Bake	Texture-displacement step that turns the painted height maps into real geometry on the model.	Fixar
+Remesh	Rebuilding a model's triangles to an even density, done before texture displacement is baked.	Remallar
+Unwrap	Flattening the painted area into 2D (UV) so a texture maps onto it with as little stretching as possible (LSCM).	Desplegar
+Island (UV)	A connected piece of the unwrapped UV surface, edited in the UV editor. Not an island of a print layer.	Illa UV
+Seam (UV)	A line marked on the model where the UV unwrap is cut open. Not the print Seam (the start and end of a wall loop).	Costura UV
+Layer (texture)	One texture-displacement layer: a texture with its own settings, painted onto the model. Not a print layer.	Capa de textura
+Non-manifold	Mesh geometry that cannot bound a closed solid: an open edge, or an edge shared by more than two triangles.	No moldejat
+G-code flavor	The G-code dialect the printer firmware expects (Marlin, Klipper, RepRapFirmware…), chosen in the printer settings. A kind or type, not a taste.	Tipus de G-code
+Belt printer	A printer whose build surface is a moving conveyor belt under a gantry tilted over it (usually 45°), so a part can be longer than the machine. Not a belt-driven motion system.	Impressora de cinta
+Belt purge tower	The long, thin object added beside the parts on a belt printer for filament changes to purge into. It replaces the prime tower, which cannot be printed on a belt.	Torre de purga de la cinta
+Leading edge (belt)	On a belt printer, the end of a part that reaches the belt first; the leading brim options anchor it to the belt.	Vora d'atac
+Machine frame (belt)	The printer's own coordinate system on a belt printer, into which the sliced coordinates are converted (axis remap, shear and scale). A coordinate frame, not the physical frame of the machine.	Sistema de coordenades de la màquina
+Gantry	The beam that carries one or more carriages across the bed. IDEX/IQEX printers have one or two; on a belt printer it is tilted over the belt.	Pòrtic
+Carriage	One independently moving toolhead carrier on a gantry. In parallel printing each active carriage prints one copy of the part.	Carro
+Parallel printing	IDEX/IQEX printing of several copies of a part at once, one per active carriage, in Copy or Mirror roles; a plate set to it is in a parallel mode.	Impressió en paral·lel
+Zone (IDEX/IQEX)	The part of the bed one active carriage prints in during parallel printing; parts are placed in T0's primary zone. Not a resonance or temperature zone.	Zona
+Primary (IDEX/IQEX)	The role of tool T0, whose toolpaths are sliced while the other carriages follow it, and the normal one-tool-at-a-time mode a plate starts in. The role tiles in the Modes editor use the translated name.	Principal
+Copy (IDEX/IQEX)	Carriage role in parallel printing: prints the same part as T0, moving the same way, in its own zone. Not the clipboard Copy. The role tiles in the Modes editor use the translated name.	Còpia
+Mirror (IDEX/IQEX)	Carriage role in parallel printing: prints a mirror image of T0's part, reflected across the zone boundary. The role (a noun), not the Mirror tool. The role tiles in the Modes editor use the translated name.	Mirall
+Span (IDEX/IQEX)	Carriage role on T0's gantry that partners T0 to print a part in several colors while the other gantry copies or mirrors it. A coined role name, kept in English.	Span
+Capability (plugin)	A function a plugin provides to OrcaSlicer (an importer, exporter, analysis, slicing step…), enabled and configured globally or per preset. Not a printer's hardware capability.	Capacitat
+Tool (printer)	One of a printer's numbered extrusion tools (T0, T1, …) that a tool change switches between: a toolhead or nozzle. Not a gizmo or other UI tool.	Eina
+Leading brim (belt)	On a belt printer, the brim extended ahead of a part along the belt (Leading brim length) to anchor its leading edge.	Vora d'Adherència frontal
+Bundle (preset)	A preset bundle: a package of printer, filament and process presets, installed from a file or subscribed to on OrcaCloud.	Paquet
+Firmware	The software running on the printer's controller board (Klipper, Marlin, RepRapFirmware…).	Firmware
+Bounding box	The smallest axis-aligned box (or rectangle, in 2D) that encloses an object.	Caixa delimitadora
+Help	The Help menu and the help it gives ("Help > Migrate Filament Presets", "command help"); not the verb in tooltips such as "can help reduce warping".	Ajuda
+Perimeter	A wall loop of the print, inner or outer — a synonym of wall in many labels and tooltips, so Outer wall and Inner wall are the outer and inner perimeters; not only the outer one, and not the Outline of a shape.	Perímetre
+Modifier	A part added to an object, or a height range, that is not printed but changes the settings where it applies ("Add Modifier", "Height Range Modifier", the Precise Seam modifiers); not a printable part or a negative part.	Modificador
+Sparse layers	Prime tower layers with no tool change, on which the tower is printed only to keep it growing ("No sparse layers", "Combine sparse layers"); not Sparse infill.	Capes poc denses
+Backup	A saved copy of presets, a project or a plugin, kept so it can be restored ("Auto backup", "A backup of your presets"); not AMS filament backup, which switches to a spare spool.	Còpia de seguretat
+Build plate (sheet)	The removable build sheet as a physical object separate from the heatbed: placed on it, detected, cleaned or flipped (Build Plate Detection, Side A/B, "place it back on the heatbed"). Where a string means the print surface in general, use Bed / Build plate.	
+Gradient	A smooth transition from one color to another: color-picker gradients (Gradient start, Gradient end, Linear gradient) and gradient effects. Not the Mixed filament gradient, which is a Z-direction print mode.	Gradient
+Palette	A named collection of preset colors offered in the color picker (Orca Palette, RAL Classic, Palettes).	Paleta
+Distribute	Object-manipulation command that spaces the selected objects or parts evenly along an axis. Not Align, which lines them up on a reference.	Distribuir
+Focus mode	View mode that hides the surrounding interface to concentrate on the 3D canvas.	Mode de concentració
+Resource texture	A plugin capability type: textures supplied by a plugin from a resource directory inside its plugin folder, offered alongside the built-in texture libraries. The plugin-supplied sense of Texture.	Textura de recurs
+Feature (print)	The category of a printed line in the G-code preview and statistics (outer wall, infill, support…), called Line Type in the viewer; the statistics export groups its totals by it. Not the Design-tab Feature, and not an application capability.	Tipus de línia

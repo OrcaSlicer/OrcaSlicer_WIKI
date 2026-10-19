@@ -1,0 +1,25 @@
+name: Validate Localization Glossary
+
+on:
+  pull_request:
+    paths:
+      - 'developer_reference/glossary/**'
+      - 'developer_reference/localization_glossary.md'
+      - 'generate_glossary.py'
+  workflow_dispatch:
+
+jobs:
+  localization-glossary:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Check the glossary files and the generated table
+        run: |
+          if ! python3 generate_glossary.py --check; then
+            echo '::error::The glossary files are inconsistent or localization_glossary.md is out of date. Run `python generate_glossary.py --sync` then `python generate_glossary.py --update` and commit the result.'
+            exit 1
+          fi

@@ -11,7 +11,7 @@ The authoritative contributor guide is [developer_reference/how_to_wiki.md](deve
 - **Prefer Markdown over raw HTML.** The only sanctioned HTML is an `<img>` tag when you must constrain image size (see [Images](#images)).
 - **Every new page must be linked** from another page (usually `home.md`) — unreferenced pages fail CI.
 - **Every image under `images/` must be referenced** by at least one page — unreferenced images fail CI.
-- **Never hand-edit generated blocks.** The `[Mode]`/`[Variable(s)]` option lines (from `Tab.cpp`), the translation table in [`developer_reference/localization_glossary.md`](developer_reference/localization_glossary.md) (from its TSV), and the `nav:` in `mkdocs.yml` are all script output. Edit the source, then run the generator.
+- **Never hand-edit generated blocks.** The `[Mode]`/`[Variable(s)]` option lines (from `Tab.cpp`), the translation table in [`developer_reference/localization_glossary.md`](developer_reference/localization_glossary.md) (from the per-language files in `developer_reference/glossary/`), and the `nav:` in `mkdocs.yml` are all script output. Edit the source, then run the generator.
 - Keep changes minimal and match the surrounding style, tone, and formatting of the page you edit.
 
 ## File & Directory Naming
@@ -118,15 +118,22 @@ The `[Mode](option_mode)` and `[Variable(s)](built_in_placeholders_variables)` l
 
 ## Translation Glossary
 
-The table under *Translation table glossary* in [`developer_reference/localization_glossary.md`](developer_reference/localization_glossary.md) is **generated — never hand-edited**. The source of truth is `developer_reference/localization_glossary.tsv`: the first column is the English term, the second its description, and every remaining column is a language catalog (`de`, `es`, … — the folder name under `localization/i18n/`). Add a term with a row, a language with a column, leave a cell empty when that language has no translation (the generator renders it as `—`), then run [`generate_glossary.py`](generate_glossary.py) from the repo root:
+The table under *Translation table glossary* in [`developer_reference/localization_glossary.md`](developer_reference/localization_glossary.md) is **generated — never hand-edited**. The source of truth is the per-language files in `developer_reference/glossary/`, so a translator opens only the file for their language:
+
+- `terms.tsv` — the English term and its description; it defines which terms exist and their order.
+- `<lang>.tsv` (`de.tsv`, `fr.tsv`, … — the folder name under `localization/i18n/`) — the English term, its description and that language's translation. Leave the translation empty when the language has none (the generator renders it as `—`). The first two columns repeat `terms.tsv`; `--sync` keeps them in step.
+- `languages.txt` — the language codes, in the column order of the table.
+
+Add a term with a row in `terms.tsv`, run `--sync`, fill the language files, run `--update`. Add a language by listing it in `languages.txt`, running `--sync` and filling the new file. Run [`generate_glossary.py`](generate_glossary.py) from the repo root:
 
 ```bash
+python generate_glossary.py --sync     # copy terms.tsv (new terms, descriptions, order) into every <lang>.tsv
 python generate_glossary.py --update   # rewrite the table in the page
 python generate_glossary.py            # print the table, report whether the page is stale
-python generate_glossary.py --check    # exit 1 if the page no longer matches the TSV
+python generate_glossary.py --check    # exit 1 on an inconsistent file or a stale page
 ```
 
-No CI job validates this, so a TSV change that is not regenerated ships a stale page — always commit the regenerated Markdown alongside the TSV. Everything outside that one table (the *Kept in English* list, *Language specifics*) is ordinary Markdown, edited by hand.
+`validate_localization_glossary.yml` runs `--check` on every PR touching the glossary files, so commit the regenerated Markdown alongside the TSV changes. Everything outside that one table (the *Kept in English* list, *Language specifics*) is ordinary Markdown, edited by hand.
 
 `pwsh ./update-wiki.ps1` (repo root) runs the image fixer, the `Tab.cpp` option sync, the `mkdocs.yml` nav generator and this glossary generator in one pass; add `-DryRun` to preview.
 
@@ -142,6 +149,7 @@ PRs touching Markdown run these validators (all must pass):
 | `validate_list_indentation.yml` | list indent is 0 or a multiple of 4 |
 | `orphaned_files.yml` | every page is referenced by another page |
 | `unreferenced_images.yml` | every `images/` file is referenced by a page |
+| `validate_localization_glossary.yml` | glossary files are consistent and `localization_glossary.md` matches them (`generate_glossary.py --check`) |
 | `validate_tab_links.yml` | (scheduled) Tab.cpp links resolve to real pages/anchors |
 
 On push to `main`: `publish_docs_to_wiki.yml` mirrors content to the GitHub Wiki, and `deploy-wiki.yml` builds with mkdocs and deploys to the website.

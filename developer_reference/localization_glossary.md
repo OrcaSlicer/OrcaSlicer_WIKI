@@ -275,32 +275,35 @@ Languages with non-Latin scripts (ja, ko, zh, ru, uk, th) keep the Latin acronym
 ### Updating the glossary
 
 The [translation table](#translation-table-glossary) is **generated**.  
-Its source is `developer_reference/localization_glossary.tsv`, and edits made directly to the table in this page are overwritten the next time the generator runs.
+Its source is the per-language files in `developer_reference/glossary/`, so a translator opens only the file for their language. Edits made directly to the table in this page are overwritten the next time the generator runs.
 
-The file is **tab-separated**, so a cell is exactly the text between two tabs and commas or quotation marks inside a description need no escaping. It opens as a spreadsheet in Excel, LibreOffice and Google Sheets — just keep the tabs when saving, and never type one inside a cell.  
-It has one row per term and one column per catalog:
+The files are **tab-separated**, so a cell is exactly the text between two tabs and commas or quotation marks inside a description need no escaping. They open as a spreadsheet in Excel, LibreOffice and Google Sheets — just keep the tabs when saving, and never type one inside a cell.
 
-| Column | Contents |
+| File | Contents |
 | --- | --- |
-| `English` | The English term, i.e. the `msgid` as it appears in the UI. Rendered bold in the table. |
-| `Description` | One sentence saying what the term is, so a translator can render it without opening the slicer. |
-| `de`, `es`, `fr`, … | One column per language, named after its folder under `localization/i18n/`. Leave a cell empty when the catalog has no established translation — the table shows `—`. |
+| `<lang>.tsv` (`de.tsv`, `fr.tsv`, …) | One row per term, named after the language's folder under `localization/i18n/`. Columns: `English` (the term, i.e. the `msgid` as it appears in the UI), `Description` (one sentence saying what the term is, so a translator can render it without opening the slicer) and the language's translation. Leave the translation empty when the catalog has no established one — the table shows `—`. |
+| `terms.tsv` | The English term and its description. It defines which terms exist and their order. |
+| `languages.txt` | The language codes, in the column order of the table. |
 
-Run the generator from the repo root:
+The `English` and `Description` columns of every `<lang>.tsv` repeat `terms.tsv`, so each file reads on its own. Change them in `terms.tsv` only and run `--sync` to copy them into the language files.
+
+To correct or add a translation, edit your language's file and regenerate the page:
 
 ```bash
 python generate_glossary.py --update   # rewrite the table in this page
 ```
 
+To add a term, add a row to `terms.tsv`, run `python generate_glossary.py --sync`, fill the rows in the language files, then run `--update`. To add a language, list its code in `languages.txt`, run `--sync` and fill the new file.
+
 Extra:
 
 ```bash
-python generate_glossary.py            # print the table and report whether the page is stale
+python generate_glossary.py              # print the table and report problems or a stale page
+python generate_glossary.py --sync --prune   # also drop rows whose term was removed from terms.tsv
+python generate_glossary.py --check      # exit 1 on an inconsistent file or a stale page
 ```
 
-```bash
-python generate_glossary.py --check    # exit 1 if the page no longer matches the TSV
-```
+Every pull request that touches the glossary files or this page runs `--check` in CI (`validate_localization_glossary.yml`). It fails when a language file is missing a term or carries a different description, or when the table in this page does not match the files — run `--sync` and `--update` and commit the result.
 
 ## Language specifics
 

@@ -10,7 +10,7 @@
       3. sync-option-types-to-wiki.ps1 - insert/refresh the [Type]/[Options]/[CLI Example] option metadata from PrintConfig.cpp
       4. sync-cli-options-to-wiki.ps1 - regenerate the cli/ option pages from PrintConfig.cpp
       5. generate_nav.py --update   - regenerate the nav section of mkdocs.yml (the mkdocs.yml part of build.ps1)
-      6. generate_glossary.py --update - regenerate the translation table in developer_reference/localization_glossary.md from its CSV
+      6. generate_glossary.py --update - regenerate the translation table in developer_reference/localization_glossary.md from developer_reference/glossary/
 
     Step 5 only updates mkdocs.yml; it does NOT run the full mkdocs site build. Use build.ps1 for that.
 
