@@ -665,10 +665,10 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 ### Adaptive Density
 
 [Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `tpms_adaptive`.  
+[Variable](built_in_placeholders_variables): `adaptive_infill_mode`.  
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `disabled, distance_warp, smooth_blend, stepped_shells, lobes, normal_z, normal_y, normal_x`.  
-[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive=disabled`.  
+[CLI Example](cli_mode#setting-overrides): `--adaptive-infill-mode=disabled`.  
 Grades the Gyroid and TPMS infill inside the object: its cells grow from the surface of the object towards its center. The [Sparse infill density](strength_settings_infill#sparse-infill-density) is used at the surface and the [Interior Density](#interior-density) at the center.
 
 | Mode | Follows | Use it for |
@@ -695,19 +695,19 @@ Grades the Gyroid and TPMS infill inside the object: its cells grow from the sur
 ### Interior Density
 
 [Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `tpms_interior_density`.  
+[Variable](built_in_placeholders_variables): `adaptive_infill_interior_density`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
-[CLI Example](cli_mode#setting-overrides): `--tpms-interior-density=20%`.  
+[CLI Example](cli_mode#setting-overrides): `--adaptive-infill-interior-density=20%`.  
 Density of the adaptive infill at the center of the object.  
 It can also be higher than the sparse infill density, to make the core denser than the surface.
 
 ### Adaptive Gradient
 
 [Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `tpms_adaptive_gradient`.  
+[Variable](built_in_placeholders_variables): `adaptive_infill_gradient`.  
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `linear, quadratic, exponential`.  
-[CLI Example](cli_mode#setting-overrides): `--tpms-adaptive-gradient=linear`.  
+[CLI Example](cli_mode#setting-overrides): `--adaptive-infill-gradient=linear`.  
 How the density changes from the surface (depth `0`) to the center of the object (depth `1`), where `S` is the sparse infill density and `I` the interior density:
 
 | Gradient | Density at depth `t` | Behavior |
