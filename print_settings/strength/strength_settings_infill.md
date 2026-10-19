@@ -23,6 +23,7 @@ Infill is the internal structure of a 3D print, providing strength and support. 
     - [Explicit Layer List](#explicit-layer-list)
 - [Sparse Infill Pattern](#sparse-infill-pattern)
 - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor)
+    - [Print time and material](#print-time-and-material)
     - [Supported patterns](#supported-patterns)
     - [Corners left sharp](#corners-left-sharp)
 - [Top-Bottom Direction](#top-bottom-direction)
@@ -375,6 +376,33 @@ Example with the [Octagram Spiral](strength_settings_patterns#octagram-spiral) p
 - **100%:** the curves of two neighboring corners meet at the midpoint of the segment they share, leaving no straight section between them.
 
 ![infill-smooth-factor-100](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-smooth-factor-100.png?raw=true)
+
+### Print time and material
+
+Rounded corners let the toolhead keep more of its speed through the turns, so the infill prints faster. This is how much shorter the print time of the sparse infill was than with `0%`, counting the travel between its lines, in the setup of the [infill analysis](strength_settings_patterns_quick_reference) (the mean of a 100 mm cube, a 3DBenchy and the Stanford bunny at 5, 15, 30 and 50% density):
+
+| Pattern | 25% | 50% | 100% |
+| :-- | --: | --: | --: |
+| [Octagram Spiral](strength_settings_patterns#octagram-spiral) | 7% | 16% | 28% |
+| [3D Honeycomb](strength_settings_patterns#3d-honeycomb) | 10% | 16% | 25% |
+| [Honeycomb](strength_settings_patterns#honeycomb) | 10% | 12% | 22% |
+| [Hilbert Curve](strength_settings_patterns#hilbert-curve) | 6% | 9% | 18% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 2 lines | 7% | 9% | 14% |
+| [Cross Hatch](strength_settings_patterns#cross-hatch) | 6% | 10% | 13% |
+| [Cubic](strength_settings_patterns#cubic), 2 lines | 5% | 8% | 12% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 3 lines | 6% | 9% | 12% |
+| [Grid](strength_settings_patterns#grid), 2 lines | 4% | 6% | 10% |
+| [Cubic](strength_settings_patterns#cubic), 3 lines | 5% | 8% | 10% |
+| [Grid](strength_settings_patterns#grid), 3 lines | 3% | 6% | 8% |
+| [Concentric](strength_settings_patterns#concentric) | 3% | 4% | 6% |
+| [Triangles](strength_settings_patterns#triangles), 3 lines | 1% | 2% | 6% |
+| [Lightning](strength_settings_patterns#lightning) | 2% | 3% | 4% |
+| [Triangles](strength_settings_patterns#triangles), 2 lines | 1% | 2% | 3% |
+
+[Octagram Spiral](strength_settings_patterns#octagram-spiral) and [Hilbert Curve](strength_settings_patterns#hilbert-curve) also get a shorter path when their corners are rounded, so at `100%` they print 30% and 16% less material. Most of their time saving is that: per gram of material they print within 3% of the speed they had. The other patterns keep their material within 8%, so their saving comes from speed.
+
+> [!NOTE]
+> A curve is made of several short moves instead of a single straight line, so the G-code file gets larger as the smooth factor goes up: at `100%`, about 70% larger for [Lightning](strength_settings_patterns#lightning) and over seven times larger for [Octagram Spiral](strength_settings_patterns#octagram-spiral).
 
 ### Supported patterns
 
