@@ -9,7 +9,7 @@ patterns that only print solid infill at 100%, and the patterns that support mul
 
 Only the infill is measured: the sparse infill of a sparse run, and the internal solid infill of a 100% run, which a
 pattern is rated on against the other patterns' 100% runs. A pattern is rated on the mean of its runs: material usage,
-print time (of the infill extrusions, without travel), material per time, slicing time and G-code size (of the infill
+print time (of the infill extrusions and the travel of the layers that print them), material per time, slicing time and G-code size (of the infill
 blocks). Slicing time is the wall time of each CLI run, so slices run one at a time unless --jobs says otherwise; slices
 that run together compete for the CPU and take longer, unless --keep-slicing-time takes the times from the last
 infill_analysis_runs.csv. Layer time variability comes from the cube alone, as the other models change their
@@ -186,13 +186,14 @@ def slice_run(orca, out, files, presets, key):
 
 
 def measure(stats, slicing, name):
-    # Of the layers that print the feature; a layer without it, such as a shell, is not measured.
-    layers = [layer["features"][name] for layer in stats["layers"] if name in layer["features"]]
-    layer_times = [layer["time"] for layer in layers if layer["time"] > 0]
+    # Of the layers that print the feature, a layer without it such as a shell is not measured. The statistics give the
+    # travel of a layer, not of a feature, so the time of the feature is its extrusions and the travel of its layers.
+    layers = [layer for layer in stats["layers"] if name in layer["features"]]
+    layer_times = [layer["features"][name]["time"] + layer["travel_time"] for layer in layers]
     mean = statistics.fmean(layer_times)
     return {
-        "time": sum(layer["time"] for layer in layers),
-        "weight": sum(layer["weight"] for layer in layers),
+        "time": sum(layer_times),
+        "weight": sum(layer["features"][name]["weight"] for layer in layers),
         "layer_time": mean,
         "variability": 2 * statistics.pstdev(layer_times) / mean,
         "slicing_time": slicing["slicing_time"],
