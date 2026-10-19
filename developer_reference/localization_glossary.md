@@ -11,8 +11,8 @@ before translating a recurring term, check here for the established form so the 
     - [Updating the glossary](#updating-the-glossary)
 - [Language specifics](#language-specifics)
     - [Russian (ru)](#russian-ru)
+    - [Turkish (tr)](#turkish-tr)
     - [French (fr)](#french-fr)
-    - [Portuguese (pt_BR)](#portuguese-pt_br)
 
 ## Kept in English (do not translate)
 
@@ -341,8 +341,3 @@ Settled in [PR #15119](https://github.com/OrcaSlicer/OrcaSlicer/pull/15119) and 
 - **Chamber** — *Caisson*, in the label and in `Chamber temperature`. *Chambre* is no longer used.
 - **Gizmo** — *gizmo* in every gizmo string (`Entering Cut gizmo` → *Entrée dans le gizmo Couper*), not *outil*.
 - **Color names** — the CSS and Orca palette names are translated (*Bleu ciel*, *Vert forêt*). The RAL names follow the official French RAL names, noun first (*Bleu vert*, *Rouge pourpre*).
-
-### Portuguese (pt_BR)
-
-- **Gradient** — *Degradê*, for the color picker and the `Mixed filament gradient` (*Degradê do filamento misto*); not *Gradiente*.
-- **Color names** — translated into Brazilian Portuguese, with the color word first and the qualifier after it (*Azul claro*, *Verde oliva*, *Vermelho carmim*).
