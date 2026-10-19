@@ -5,6 +5,7 @@ Infill is the internal structure of a 3D print, providing strength and support. 
 - [Sparse infill density](#sparse-infill-density)
 - [Fill Multiline](#fill-multiline)
     - [Use cases](#use-cases)
+    - [Print time](#print-time)
     - [Strategy](#strategy)
         - [Classic Strategy](#classic-strategy)
         - [Non-Crossing Strategy](#non-crossing-strategy)
