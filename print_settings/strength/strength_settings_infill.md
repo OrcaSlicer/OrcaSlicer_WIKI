@@ -96,6 +96,12 @@ In the [infill analysis](strength_settings_patterns#multiline), more lines usual
 
 Each pattern's 2 and 3 lines entries in the [Patterns section](strength_settings_patterns) show its own print time over a single line.
 
+> [!TIP]
+> Two other settings cut the time of the sparse infill, with or without multiline:
+>
+> - [Reduce Infill Retraction](others_settings_g_code_output#reduce-infill-retraction) skips the retraction, wipe and Z-hop of travels that stay inside the infill, where oozing can't be seen. Each skipped retraction saves tens of milliseconds, which add up over the thousands of infill travels of a large print.
+> - [Infill Combination](strength_settings_advanced#infill-combination) prints the sparse infill of several layers as one thicker layer, while the walls keep the original layer height. Fewer, thicker layers mean fewer infill moves for the same volume.
+
 ### Strategy
 
 The way multiple lines are generated depends on the selected infill pattern.  
