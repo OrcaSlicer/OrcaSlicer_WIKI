@@ -2,16 +2,19 @@
 """
 Rate the infill patterns of the wiki from OrcaSlicer's own estimates.
 
-Slices three models with the settings of infill_calculator.3mf through the OrcaSlicer CLI and its --export-statistics
-output: the project's 100 mm cube, and the 3DBenchy and Stanford bunny OrcaSlicer ships as handy models, swapped into a
-copy of the project. Each pattern is sliced at 5, 15, 30 and 50% sparse infill density, the patterns that only print
-solid infill at 100%, and the patterns that support multiline also with 2 and 3 lines.
+Slices three models through the OrcaSlicer CLI and its --export-statistics output on the Qidi Q2 0.4 nozzle, with its
+0.20mm Standard process and QIDI PLA Rapido and the changes in SETTINGS: a 100 mm cube written here, and the 3DBenchy and
+Stanford bunny OrcaSlicer ships as handy models. Each pattern is sliced at 5, 15, 30 and 50% sparse infill density, the
+patterns that only print solid infill at 100%, and the patterns that support multiline also with 2 and 3 lines.
 
-A pattern is rated on the mean of its runs: material usage, print time, material per time, slicing time and G-code
-size. Slicing time is the wall time of each CLI run, so slices run one at a time unless --jobs says otherwise; slices
-that run together compete for the CPU and take longer. Layer time variability comes from the cube alone, as the other
-models change their cross-section along their height. With 2 and 3 lines, the print time is also compared with the
-pattern's own one-line runs. The ratings are written into strength_settings_patterns.md and
+Only the infill is measured: the sparse infill of a sparse run, and the internal solid infill of a 100% run, which a
+pattern is rated on against the other patterns' 100% runs. A pattern is rated on the mean of its runs: material usage,
+print time (of the infill extrusions, without travel), material per time, slicing time and G-code size (of the infill
+blocks). Slicing time is the wall time of each CLI run, so slices run one at a time unless --jobs says otherwise; slices
+that run together compete for the CPU and take longer, unless --keep-slicing-time takes the times from the last
+infill_analysis_runs.csv. Layer time variability comes from the cube alone, as the other models change their
+cross-section along their height. With 2 and 3 lines, the print time is also compared with the pattern's own one-line
+runs. The ratings are written into strength_settings_patterns.md and
 strength_settings_patterns_quick_reference.md, the ratings' values into infill_analysis_results.csv and every run into
 infill_analysis_runs.csv. Strength is not measured: XY-N and Z-N are set by hand in infill_patterns.csv.
 
@@ -20,6 +23,7 @@ Usage:
     python infill_analysis.py --orca ./orca-slicer --out out              # keep the G-code and statistics in out/
     python infill_analysis.py --out out --reuse                           # rate again from the statistics in out/
     python infill_analysis.py --orca ./orca-slicer --dry-run              # print the ratings, write nothing
+    python infill_analysis.py --orca ./orca-slicer --keep-slicing-time --jobs 6   # keep the slicing times, slice in parallel
 """
 
 import argparse
@@ -31,21 +35,35 @@ import struct
 import subprocess
 import sys
 import tempfile
-import zipfile
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from time import perf_counter
 
 HERE = Path(__file__).resolve().parent
-PROJECT = HERE / "infill_calculator.3mf"
 PATTERNS_CSV = HERE / "infill_patterns.csv"
 RESULTS_CSV = HERE / "infill_analysis_results.csv"
 RUNS_CSV = HERE / "infill_analysis_runs.csv"
 PATTERNS_PAGE = HERE.parent / "strength_settings_patterns.md"
 QUICK_REFERENCE_PAGE = HERE.parent / "strength_settings_patterns_quick_reference.md"
 
-# Plate 1 of the project holds the cube; the other models replace its mesh in a copy. The models are OrcaSlicer's.
+# The cube is written as an STL; the other models are OrcaSlicer's handy models.
 MODELS = {"cube": None, "benchy": "3DBenchy.drc", "bunny": "Stanford_Bunny.drc"}
+CUBE = 100
+# System presets of OrcaSlicer's profiles, as (vendor, name).
+PRINTER = ("Qidi", "Qidi Q2 0.4 nozzle")
+PROCESS = ("Qidi", "0.20mm Standard @Qidi Q2")
+FILAMENT = ("Qidi", "QIDI PLA Rapido @Qidi Q2 0.4 nozzle")
+# What the runs change in the process and the filament. The shell thicknesses make the one top and bottom layer the only
+# ones, and without the slow down for layer cooling a short layer is not slowed to the layer time.
+SETTINGS = {
+    "infill_anchor_max": "0", "infill_combination": "0", "reduce_infill_retraction": "1", "wall_loops": "1",
+    "top_shell_layers": "1", "bottom_shell_layers": "1", "top_shell_thickness": "0", "bottom_shell_thickness": "0",
+    "gap_fill_target": "nowhere", "separated_infills": "1", "wall_generator": "classic", "is_infill_first": "1",
+    "wall_sequence": "inner wall/outer wall", "fuzzy_skin": "disabled_fuzzy", "detect_thin_wall": "0",
+    "slow_down_for_layer_cooling": "0",
+}
+SPARSE_FEATURE = "Sparse infill"
+SOLID_FEATURE = "Internal solid infill"
 DENSITIES = (5, 15, 30, 50)
 SOLID = 100
 MULTILINES = (2, 3)
@@ -84,67 +102,29 @@ def find_models(orca, models):
     sys.exit("OrcaSlicer's handy_models folder was not found next to --orca; pass it with --models")
 
 
-def read_stl(path):
-    data = path.read_bytes()
-    count = struct.unpack("<I", data[80:84])[0]
-    index, vertices, triangles = {}, [], []
-    for i in range(count):
-        triangle = []
-        for k in range(3):
-            start = 84 + 50 * i + 12 + 12 * k
-            point = struct.unpack("<3f", data[start:start + 12])
-            if point not in index:
-                index[point] = len(vertices)
-                vertices.append(point)
-            triangle.append(index[point])
-        triangles.append(triangle)
-    return vertices, triangles
+def preset_file(models, kind, preset):
+    vendor, name = preset
+    found = next((models.parent / "profiles" / vendor / kind).rglob(f"{name}.json"), None)
+    if found is None:
+        sys.exit(f"the {kind} preset '{name}' was not found in the profiles next to the handy_models folder")
+    return found
 
 
-def model_project(orca, models, out, name):
-    """A copy of the project whose plate 1 holds the model instead of the cube."""
-    project = out / "models" / f"{name}.3mf"
-    if project.exists():
-        return project
-    project.parent.mkdir(parents=True, exist_ok=True)
-    source = models / MODELS[name]
-    run = subprocess.run([orca, "--export-stls", str(project.parent), str(source)], cwd=project.parent,
-                         stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, errors="replace")
-    stl = project.parent / f"obj_1_{source.name}.stl"
-    if run.returncode != 0 or not stl.exists():
-        raise RuntimeError(f"{name}: OrcaSlicer could not export {source} as STL\n{run.stderr.strip()}")
-    vertices, triangles = read_stl(stl)
-    low = [min(v[a] for v in vertices) for a in range(3)]
-    high = [max(v[a] for v in vertices) for a in range(3)]
-    center = [(lo + hi) / 2 for lo, hi in zip(low, high)]
-    mesh = "<vertices>\n" + "".join(
-        f'     <vertex x="{x - center[0]:.6g}" y="{y - center[1]:.6g}" z="{z - center[2]:.6g}"/>\n' for x, y, z in vertices)
-    mesh += "    </vertices>\n    <triangles>\n" + "".join(
-        f'     <triangle v1="{a}" v2="{b}" v3="{c}"/>\n' for a, b, c in triangles) + "    </triangles>"
-    with zipfile.ZipFile(PROJECT) as source_zip, zipfile.ZipFile(project, "w", zipfile.ZIP_DEFLATED) as target:
-        for info in source_zip.infolist():
-            text = source_zip.read(info.filename)
-            if info.filename == "3D/Objects/Cube_29.model":
-                # The cube's mesh stays for the other plates, which share it.
-                model = re.sub(r"<vertices>.*</triangles>", lambda m: mesh, text.decode("utf-8"), flags=re.S)
-                target.writestr("3D/Objects/Model.model", model)
-            elif info.filename == "3D/3dmodel.model":
-                text = text.decode("utf-8")
-                cube = re.search(r'<object id="2".*?</object>', text, re.S).group(0)
-                text = text.replace(cube, cube.replace("/3D/Objects/Cube_29.model", "/3D/Objects/Model.model"))
-                text = re.sub(r'(<item objectid="2"[^>]*transform=")[^"]*"',
-                              lambda m: m.group(1) + f'1 0 0 0 1 0 0 0 1 128 128 {(high[2] - low[2]) / 2:.6g}"', text)
-                text = text.encode("utf-8")
-            elif info.filename == "3D/_rels/3dmodel.model.rels":
-                text = text.decode("utf-8").replace("</Relationships>", ' <Relationship Target="/3D/Objects/Model.model" '
-                    'Id="rel-model" Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel"/>\n</Relationships>')
-                text = text.encode("utf-8")
-            elif info.filename == "Metadata/model_settings.config":
-                text = text.decode("utf-8")
-                cube = re.search(r'<object id="2">.*?</object>', text, re.S).group(0)
-                text = text.replace(cube, cube.replace('value="Cube"', f'value="{name}"')).encode("utf-8")
-            target.writestr(info, text)
-    return project
+def write_cube(path):
+    vertices = [(x, y, z) for z in (0, CUBE) for y in (0, CUBE) for x in (0, CUBE)]
+    faces = [(0, 2, 3, 1), (4, 5, 7, 6), (0, 1, 5, 4), (2, 6, 7, 3), (0, 4, 6, 2), (1, 3, 7, 5)]
+    triangles = [t for a, b, c, d in faces for t in ((a, b, c), (a, c, d))]
+    data = bytearray(80) + struct.pack("<I", len(triangles))
+    for triangle in triangles:
+        data += struct.pack("<3f", 0, 0, 0) + b"".join(struct.pack("<3f", *vertices[i]) for i in triangle) + b"\0\0"
+    path.write_bytes(bytes(data))
+
+
+def model_files(models, out):
+    cube = out / "models" / "cube.stl"
+    cube.parent.mkdir(parents=True, exist_ok=True)
+    write_cube(cube)
+    return {name: cube if file is None else models / file for name, file in MODELS.items()}
 
 
 def runs(patterns):
@@ -169,41 +149,61 @@ def slicing_file(out, key):
     return statistics_file(out, key).with_name("slicing.json")
 
 
-def slice_run(orca, out, projects, key):
+def feature_of(density):
+    return SOLID_FEATURE if density == SOLID else SPARSE_FEATURE
+
+
+def infill_size(gcode, feature):
+    """The bytes of the G-code blocks that print the feature."""
+    size, inside = 0, False
+    with open(gcode, "rb") as file:
+        for line in file:
+            if line.startswith(b";TYPE:"):
+                inside = line[6:].strip() == feature.encode()
+            if inside:
+                size += len(line)
+    return size
+
+
+def slice_run(orca, out, files, presets, key):
     model, pattern, density, lines = key
     target = statistics_file(out, key).parent
     target.mkdir(parents=True, exist_ok=True)
-    option = "--internal-solid-infill-pattern" if density == SOLID else "--sparse-infill-pattern"
-    # Without walls and shells Lightning leaves the lower part of a model empty. The first layer must not be, so every
-    # run gets a bottom shell there and is measured from the second layer; the empty layers above only warn, unless
-    # --no-check comes before --slice, as the CLI runs its actions in order.
-    command = [orca, "--no-check", "--slice", "1", option, pattern, "--sparse-infill-density", f"{density}%",
-               "--fill-multiline", str(lines), "--bottom-shell-layers", "1", "--export-statistics",
-               "--outputdir", str(target), str(projects[model])]
+    option = "internal_solid_infill_pattern" if density == SOLID else "sparse_infill_pattern"
+    options = {**SETTINGS, option: pattern, "sparse_infill_density": f"{density}%", "fill_multiline": str(lines)}
+    command = [orca, "--load-settings", presets[0], "--load-filaments", presets[1], "--slice", "0",
+               *(f"--{name.replace('_', '-')}={value}" for name, value in options.items()),
+               "--export-statistics", "--outputdir", str(target), str(files[model])]
     # In the output folder, which gets the log the CLI writes to its working directory.
     start = perf_counter()
     run = subprocess.run(command, cwd=target, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, errors="replace")
     seconds = perf_counter() - start
     if run.returncode != 0:
         raise RuntimeError(f"{key}: OrcaSlicer exited with {run.returncode}\n{run.stderr.strip()}")
-    slicing = {"slicing_time": seconds, "gcode_size": (target / "plate_1.gcode").stat().st_size}
+    slicing = {"slicing_time": seconds, "gcode_size": infill_size(target / "plate_1.gcode", feature_of(density))}
     slicing_file(out, key).write_text(json.dumps(slicing), encoding="utf-8")
     print(f"sliced {model} {pattern} {density}% x{lines} in {seconds:.1f} s", flush=True)
 
 
-def measure(stats, slicing):
-    # The first layer holds the bottom shell and the start G-code, the last one the end G-code.
-    layers = stats["layers"][1:]
-    layer_times = [layer["time"] for layer in layers[:-1] if layer["time"] > 0]
+def measure(stats, slicing, name):
+    # Of the layers that print the feature; a layer without it, such as a shell, is not measured.
+    layers = [layer["features"][name] for layer in stats["layers"] if name in layer["features"]]
+    layer_times = [layer["time"] for layer in layers if layer["time"] > 0]
     mean = statistics.fmean(layer_times)
     return {
         "time": sum(layer["time"] for layer in layers),
-        "weight": sum(feature["weight"] for layer in layers for name, feature in layer["features"].items() if name != "Custom"),
+        "weight": sum(layer["weight"] for layer in layers),
         "layer_time": mean,
         "variability": 2 * statistics.pstdev(layer_times) / mean,
         "slicing_time": slicing["slicing_time"],
         "gcode_size": slicing["gcode_size"],
     }
+
+
+def kept_slicing_times():
+    with open(RUNS_CSV, encoding="utf-8", newline="") as file:
+        return {(row["model"], row["pattern"], int(row["density"]), int(row["lines"])): float(row["slicing_s"])
+                for row in csv.DictReader(file)}
 
 
 def rate(patterns, measured):
@@ -367,6 +367,8 @@ def main():
     parser.add_argument("--reuse", action="store_true", help="do not slice a run whose statistics are already in --out")
     parser.add_argument("--jobs", type=int, default=1,
                         help="runs to slice at the same time (default 1); more are faster but make the slicing times longer")
+    parser.add_argument("--keep-slicing-time", action="store_true",
+                        help="take each run's slicing time from infill_analysis_runs.csv instead of the slice, so --jobs does not matter")
     parser.add_argument("--dry-run", action="store_true", help="print the ratings without writing any file")
     args = parser.parse_args()
 
@@ -374,6 +376,7 @@ def main():
         patterns = [{**row, "solid": row["solid"] == "1", "multiline": row["multiline"] == "1",
                      "xy_n": int(row["xy_n"]), "z_n": int(row["z_n"])} for row in csv.DictReader(file)]
     keys = list(runs(patterns))
+    kept = kept_slicing_times() if args.keep_slicing_time else {}
 
     with tempfile.TemporaryDirectory() as temporary:
         # Absolute, as the CLI runs in the output folder.
@@ -384,13 +387,18 @@ def main():
                 sys.exit(f"--orca is needed to slice {len(todo)} run(s)")
             orca = str(Path(args.orca).resolve()) if Path(args.orca).exists() else args.orca
             models = find_models(orca, args.models)
-            projects = {name: PROJECT if file is None else model_project(orca, models, out, name) for name, file in MODELS.items()}
+            files = model_files(models, out)
+            presets = (f"{preset_file(models, 'machine', PRINTER)};{preset_file(models, 'process', PROCESS)}",
+                       str(preset_file(models, "filament", FILAMENT)))
             with ThreadPoolExecutor(max_workers=max(1, args.jobs)) as pool:
-                list(pool.map(lambda key: slice_run(orca, out, projects, key), todo))
+                list(pool.map(lambda key: slice_run(orca, out, files, presets, key), todo))
         measured = {}
         for key in keys:
+            slicing = json.loads(slicing_file(out, key).read_text(encoding="utf-8"))
+            if kept:
+                slicing["slicing_time"] = kept[key]
             with open(statistics_file(out, key), encoding="utf-8") as file:
-                measured[key] = measure(json.load(file), json.loads(slicing_file(out, key).read_text(encoding="utf-8")))
+                measured[key] = measure(json.load(file), slicing, feature_of(key[2]))
 
     results = rate(patterns, measured)
     for r in results:
