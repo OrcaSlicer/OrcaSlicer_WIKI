@@ -389,49 +389,53 @@ Example with the [Octagram Spiral](strength_settings_patterns#octagram-spiral) p
 
 The curve that rounds the corners, named by how smoothly it joins the straight legs:
 
-- **G1 (arc):** a circular arc, tangent to both legs. For the same size it bends the least of the three, so it allows the most speed, but its curvature starts all at once where it leaves a leg: a sudden sideways pull on the toolhead that can show as ringing.
+- **G1 (arc):** a circular arc, tangent to both legs. Its curvature starts all at once where it leaves a leg: a sudden sideways pull on the toolhead that can show as ringing. It keeps within the [G-code resolution](quality_settings_precision#resolution) with the fewest moves of the three, so it makes the smallest G-code file but prints slower.
 - **G2 (quintic):** a quintic Bézier curve whose curvature grows from zero at both legs, so the nozzle eases into and out of the turn instead of snapping into it. This is the default.
-- **G3 (septic):** a degree 7 Bézier curve whose curvature and the rate of its curvature both start from zero, the smoothest join of the three, and a little slower.
+- **G3 (septic):** a degree 7 Bézier curve whose curvature and the rate of its curvature both start from zero, the smoothest join of the three.
 
-The three differ by only a few percent in print time, see [Print time and material](#print-time-and-material).
+G2 and G3 print about as fast as each other, and G1 gives up about a quarter of their time saving, see [Print time and material](#print-time-and-material).
 
 ### How rounded corners are printed
 
-A curve is printed as straight moves, and the printer slows down at each junction between two moves by how much it turns there. A rounded corner is therefore printed as the polygon of the curve's tangents taken at equal steps of direction, so every one of its vertices turns by the same angle. How many vertices a corner gets is set by two limits:
+A curve is printed as straight moves, and the printer slows down at each junction between two moves by how much it turns there. A rounded corner is therefore printed as the polygon of the curve's tangents taken at equal steps of direction, so every one of its vertices turns by the same angle.
 
-- **What the printer needs.** Enough vertices for its junctions to be as fast as the curve itself allows, worked out from the junction deviation the printer plans with: from the square corner velocity and the acceleration with Klipper, or the junction deviation set in the machine limits with Marlin 2. With other firmware, the polygon keeps within the [G-code resolution](quality_settings_precision#resolution) of the curve. A corner is never split finer than that resolution would keep.
-- **The G-code budget.** The rounded corners may take a limited number of vertices per area of infill, which grows with the density as the curves get smaller: on a path laid at the density, about one vertex every 1.2 mm at 5% and every 0.55 mm at 50% with 0.45 mm lines. A pattern that lays more path per area, such as [Honeycomb](strength_settings_patterns#honeycomb), gets fewer vertices per mm of it, and what a corner leaves of its share goes on to the next ones.
+How many vertices a corner gets follows the [G-code resolution](quality_settings_precision#resolution), like every other path: the fewest that keep the polygon within the resolution of the curve. It depends only on the shape of the corner and the resolution, not on the printer, and a larger curve takes more vertices.
 
-Where the budget allows fewer vertices than the curve needs, the curve is tightened to the radius those vertices can take at full speed, so the corner is still quicker than a sharp one. This is why patterns with many short legs, like [Honeycomb](strength_settings_patterns#honeycomb), get small rounded corners even at `100%`.
+The vertices are what make a rounded corner fast: each one is a slowdown, and the gentler its turn, the less it slows the toolhead. A curve split into a few vertices saves little, and can even print slower than the sharp corner, as the short moves between its vertices leave no room to accelerate.
 
 ### Print time and material
 
 Rounded corners let the toolhead keep more of its speed through the turns, so the infill prints faster. This is how much shorter the print time of the sparse infill was than with `0%`, counting the travel between its lines, in the setup of the [infill analysis](strength_settings_patterns_quick_reference) (the mean of a 100 mm cube, a 3DBenchy and the Stanford bunny at 5, 15, 30 and 50% density, on a Klipper printer):
 
-| Pattern | G2 25% | G2 50% | G2 100% | G1 100% | G3 100% |
-| :-- | --: | --: | --: | --: | --: |
-| [Octagram Spiral](strength_settings_patterns#octagram-spiral) | 9% | 16% | 25% | 28% | 25% |
-| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 3 lines | 6% | 12% | 17% | 15% | 16% |
-| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 2 lines | 7% | 10% | 16% | 14% | 15% |
-| [Cubic](strength_settings_patterns#cubic), 3 lines | 5% | 9% | 15% | 13% | 14% |
-| [Cubic](strength_settings_patterns#cubic), 2 lines | 5% | 8% | 14% | 12% | 12% |
-| [Grid](strength_settings_patterns#grid), 3 lines | 3% | 6% | 10% | 12% | 10% |
-| [Grid](strength_settings_patterns#grid), 2 lines | 3% | 4% | 8% | 9% | 10% |
-| [3D Honeycomb](strength_settings_patterns#3d-honeycomb) | 5% | 6% | 6% | 7% | 6% |
-| [Hilbert Curve](strength_settings_patterns#hilbert-curve) | 5% | 6% | 6% | 6% | 5% |
-| [Cross Hatch](strength_settings_patterns#cross-hatch) | 3% | 5% | 5% | 5% | 5% |
-| [Triangles](strength_settings_patterns#triangles), 3 lines | 1% | 3% | 5% | 5% | 5% |
-| [Triangles](strength_settings_patterns#triangles), 2 lines | 0% | 1% | 5% | 6% | 4% |
-| [Honeycomb](strength_settings_patterns#honeycomb) | 5% | 5% | 5% | 5% | 4% |
-| [Concentric](strength_settings_patterns#concentric) | 2% | 4% | 5% | 4% | 4% |
-| [Lightning](strength_settings_patterns#lightning) | 2% | 3% | 4% | 4% | 4% |
+| Pattern | G2 25% | G2 50% | G2 75% | G2 100% | G1 100% | G3 100% |
+| :-- | --: | --: | --: | --: | --: | --: |
+| [Octagram Spiral](strength_settings_patterns#octagram-spiral) | 9% | 17% | 23% | 29% | 23% | 29% |
+| [3D Honeycomb](strength_settings_patterns#3d-honeycomb) | 3% | 10% | 14% | 21% | 14% | 21% |
+| [Honeycomb](strength_settings_patterns#honeycomb) | 2% | 9% | 13% | 19% | 15% | 21% |
+| [Hilbert Curve](strength_settings_patterns#hilbert-curve) | 1% | 5% | 9% | 18% | 10% | 18% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 3 lines | 3% | 6% | 10% | 14% | 11% | 14% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 2 lines | 4% | 9% | 9% | 13% | 9% | 13% |
+| [Cubic](strength_settings_patterns#cubic), 3 lines | 2% | 5% | 9% | 12% | 9% | 12% |
+| [Cross Hatch](strength_settings_patterns#cross-hatch) | 2% | 5% | 8% | 12% | 10% | 11% |
+| [Cubic](strength_settings_patterns#cubic), 2 lines | 2% | 6% | 7% | 10% | 8% | 11% |
+| [Grid](strength_settings_patterns#grid), 3 lines | 1% | 3% | 3% | 8% | 8% | 8% |
+| [Grid](strength_settings_patterns#grid), 2 lines | 0% | 2% | 6% | 5% | 5% | 5% |
+| [Concentric](strength_settings_patterns#concentric) | 1% | 2% | 3% | 4% | 3% | 3% |
+| [Triangles](strength_settings_patterns#triangles), 2 lines | 0% | -1% | 0% | 3% | 3% | 3% |
+| [Lightning](strength_settings_patterns#lightning) | 1% | 2% | 2% | 3% | 2% | 3% |
+| [Triangles](strength_settings_patterns#triangles), 3 lines | 0% | 0% | 2% | 1% | 1% | 4% |
 
-The patterns with the shortest legs, [Honeycomb](strength_settings_patterns#honeycomb), [3D Honeycomb](strength_settings_patterns#3d-honeycomb), [Hilbert Curve](strength_settings_patterns#hilbert-curve) and [Cross Hatch](strength_settings_patterns#cross-hatch), gain the least, as the G-code budget gives their corners few vertices.
-
-[Octagram Spiral](strength_settings_patterns#octagram-spiral) cuts its corners deeply enough to print 24% less material at `100%`, which is most of its time saving: per gram of material it prints about as fast as before. The other patterns keep their material within 3%, so their saving comes from speed.
+[Octagram Spiral](strength_settings_patterns#octagram-spiral), [Hilbert Curve](strength_settings_patterns#hilbert-curve) and [Honeycomb](strength_settings_patterns#honeycomb) cut their corners deeply enough to print 29%, 15% and 7% less material at `100%`, which is part of their time saving. The other patterns keep their material within 4%, so their saving comes from speed.
 
 > [!NOTE]
-> A rounded corner takes several moves instead of one, so the G-code file gets larger as the smooth factor goes up. The vertex budget keeps that in check where corners are dense: at `100%` the infill G-code is about 1.5 to 3 times that of the sharp path, [Honeycomb](strength_settings_patterns#honeycomb)'s about twice and [Hilbert Curve](strength_settings_patterns#hilbert-curve)'s three times, and about 7 times for [Octagram Spiral](strength_settings_patterns#octagram-spiral), whose sharp path has very few vertices.
+> A rounded corner takes several moves instead of one, so the G-code file gets larger as the smooth factor goes up. At `100%` the infill G-code is about 1.5 to 3 times that of the sharp path for most patterns, about 5 times for [Honeycomb](strength_settings_patterns#honeycomb), 6 times for [Hilbert Curve](strength_settings_patterns#hilbert-curve) and 8 times for [Octagram Spiral](strength_settings_patterns#octagram-spiral), whose sharp path has very few vertices.
+
+### Best smooth factor for speed
+
+- **`100%` prints fastest** for almost every pattern and density in the analysis: the largest curves get the most vertices and the gentlest turns. The exceptions are close: [Grid](strength_settings_patterns#grid) with 2 lines and [Triangles](strength_settings_patterns#triangles) with 3 lines print about one point faster at `75%`.
+- **Lower factors save less.** On average `50%` saves about half of what `100%` saves, and [Triangles](strength_settings_patterns#triangles) saves nothing below `100%` with 2 lines, or below `75%` with 3 lines. Use them for the look of the infill, not for speed.
+- **G2 or G3 for speed.** G1 makes a smaller G-code file but gives up about a quarter of the saving.
+- **A finer [G-code resolution](quality_settings_precision#resolution) prints faster.** It splits every corner into more and gentler turns: on the 100 mm cube at `100%`, going from 0.012 to 0.006 mm raised the mean saving from 14% to 21%, for about 1.5 times the infill G-code. The resolution applies to the whole print, walls included.
 
 ### Supported patterns
 
@@ -460,7 +464,6 @@ Not every vertex of a supported pattern can be rounded, so some parts of the pat
 - **Hairpins.** A turn that doubles back on itself (a direction change sharper than about 154 degrees) would collapse into a degenerate loop instead of a curve, so it is left sharp. This is what keeps the tips of the [Lightning](strength_settings_patterns#lightning) branches pointed.
 - **Straight layers.** Layers where a pattern degenerates into straight lines have no corner to round — the flat layers of [3D Honeycomb](strength_settings_patterns#3d-honeycomb), the repeat layers of [Cross Hatch](strength_settings_patterns#cross-hatch) and the straight base lines of the [Triangles](strength_settings_patterns#triangles) family.
 - **[Concentric](strength_settings_patterns#concentric) corners that would leave the fill region.** Its loops are offsets of the region rather than a path clipped to it, and rounding always cuts toward the inside of the turn. Around a hole, at a concave feature or across a thin region that cut falls outside the fill and would put the extrusion over a wall, so those corners keep their original shape. The reach is also capped at half the distance between two loops, since a loop is as long as the object rather than as long as one cell of a pattern.
-- **Corners with too little path around them.** A corner whose share of the G-code budget comes to fewer than two vertices stays sharp, until the corners before it have left it enough of theirs.
 - **[Lightning](strength_settings_patterns#lightning) turns are capped as well.** Cutting a corner moves the whole branch, so the reach is limited to half the distance between two branches — or, with [Fill Multiline](#fill-multiline), to half the printed branch width, which keeps the outlines drawn around merging branches from breaking up into separate loops.
 
 ## Top-Bottom Direction
