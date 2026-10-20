@@ -57,7 +57,7 @@ Add commands to the G-code that define each object and mark where it starts and 
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `exclude_object_tolerance`.  
-[Type](option_type#float): `Float (mm)`.  
+[Type](option_type#integer-float-percentage): `Float (mm)`.  
 [CLI Example](cli_mode#setting-overrides): `--exclude-object-tolerance=0.2`.  
 
 Controls the precision of the exclude-object outlines simplified via the Douglas-Peucker algorithm. This setting only applies to **Klipper** firmware (`EXCLUDE_OBJECT_DEFINE` lines), as Marlin and RepRapFirmware use `M486` commands without polygon definitions.
