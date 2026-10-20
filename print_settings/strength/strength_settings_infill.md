@@ -403,6 +403,8 @@ How many vertices a corner gets follows the [G-code resolution](quality_settings
 
 The vertices are what make a rounded corner fast: each one is a slowdown, and the gentler its turn, the less it slows the toolhead. A curve split into a few vertices saves little, and can even print slower than the sharp corner, as the short moves between its vertices leave no room to accelerate.
 
+A curve is only as fast as its sharpest vertex. On a Klipper printer with a square corner velocity of 9 mm/s and 10,000 mm/s² acceleration, a vertex turning by 13.6 degrees allows about 69 mm/s, and one turning by 9 degrees about 104 mm/s. At `100%` the curves of neighboring corners meet on patterns like [Hilbert Curve](strength_settings_patterns#hilbert-curve), so the whole infill path is curves and runs at that speed rather than at the sparse infill speed. That is why the [G-code resolution](quality_settings_precision#resolution), which sets how finely a curve is split, matters most on those patterns.
+
 ### Print time and material
 
 Rounded corners let the toolhead keep more of its speed through the turns, so the infill prints faster. This is how much shorter the print time of the sparse infill was than with `0%`, counting the travel between its lines, in the setup of the [infill analysis](strength_settings_patterns_quick_reference) (the mean of a 100 mm cube, a 3DBenchy and the Stanford bunny at 5, 15, 30 and 50% density, on a Klipper printer):
