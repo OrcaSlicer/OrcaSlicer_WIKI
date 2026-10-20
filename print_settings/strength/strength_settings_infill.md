@@ -105,7 +105,7 @@ Each pattern's 2 and 3 lines entries in the [Patterns section](strength_settings
 >
 > - [Reduce Infill Retraction](others_settings_g_code_output#reduce-infill-retraction) skips the retraction, wipe and Z-hop of travels that stay inside the infill, where oozing can't be seen. Each skipped retraction saves tens of milliseconds, which add up over the thousands of infill travels of a large print.
 > - [Infill Combination](strength_settings_advanced#infill-combination) prints the sparse infill of several layers as one thicker layer, while the walls keep the original layer height. Fewer, thicker layers mean fewer infill moves for the same volume.
-> - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor) rounds the corners of the sparse infill path, so the toolhead keeps more of its speed through the turns. At `100%` it shortened the infill print time of the patterns that support it by 4-25% (see [how much for each pattern](#print-time-and-material)), with a larger G-code file that stays below that of [Gyroid](strength_settings_patterns#gyroid).
+> - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor) rounds the corners of the sparse infill path, so the toolhead keeps more of its speed through the turns. At `100%` it shortened the infill print time of the patterns that support it by 4-25% (see [how much for each pattern](#print-time-and-material)), at the cost of a larger G-code file, which its [vertex budget](#how-rounded-corners-are-printed) keeps in check.
 
 ### Strategy
 
@@ -400,7 +400,7 @@ The three differ by only a few percent in print time, see [Print time and materi
 A curve is printed as straight moves, and the printer slows down at each junction between two moves by how much it turns there. A rounded corner is therefore printed as the polygon of the curve's tangents taken at equal steps of direction, so every one of its vertices turns by the same angle. How many vertices a corner gets is set by two limits:
 
 - **What the printer needs.** Enough vertices for its junctions to be as fast as the curve itself allows, worked out from the junction deviation the printer plans with: from the square corner velocity and the acceleration with Klipper, or the junction deviation set in the machine limits with Marlin 2. With other firmware, the polygon keeps within the [G-code resolution](quality_settings_precision#resolution) of the curve. A corner is never split finer than that resolution would keep.
-- **The G-code budget.** The rounded corners of a pattern take at most 80% of the vertices per area that [Gyroid](strength_settings_patterns#gyroid) takes at the same density, so no rounded pattern makes more G-code than Gyroid, the largest of the patterns. A pattern that lays more path per area, such as [Honeycomb](strength_settings_patterns#honeycomb), gets fewer vertices per mm of it, and what a corner leaves of its share goes on to the next ones.
+- **The G-code budget.** The rounded corners may take a limited number of vertices per area of infill, which grows with the density as the curves get smaller: on a path laid at the density, about one vertex every 1.2 mm at 5% and every 0.55 mm at 50% with 0.45 mm lines. A pattern that lays more path per area, such as [Honeycomb](strength_settings_patterns#honeycomb), gets fewer vertices per mm of it, and what a corner leaves of its share goes on to the next ones.
 
 Where the budget allows fewer vertices than the curve needs, the curve is tightened to the radius those vertices can take at full speed, so the corner is still quicker than a sharp one. This is why patterns with many short legs, like [Honeycomb](strength_settings_patterns#honeycomb), get small rounded corners even at `100%`.
 
@@ -431,7 +431,7 @@ The patterns with the shortest legs, [Honeycomb](strength_settings_patterns#hone
 [Octagram Spiral](strength_settings_patterns#octagram-spiral) cuts its corners deeply enough to print 24% less material at `100%`, which is most of its time saving: per gram of material it prints about as fast as before. The other patterns keep their material within 3%, so their saving comes from speed.
 
 > [!NOTE]
-> A rounded corner takes several moves instead of one, so the G-code file gets larger as the smooth factor goes up, but never larger than that of [Gyroid](strength_settings_patterns#gyroid) at the same density: at `100%` the largest, [Hilbert Curve](strength_settings_patterns#hilbert-curve), takes about 90% of it.
+> A rounded corner takes several moves instead of one, so the G-code file gets larger as the smooth factor goes up. The vertex budget keeps that in check where corners are dense: at `100%` the infill G-code is about 1.5 to 3 times that of the sharp path, [Honeycomb](strength_settings_patterns#honeycomb)'s about twice and [Hilbert Curve](strength_settings_patterns#hilbert-curve)'s three times, and about 7 times for [Octagram Spiral](strength_settings_patterns#octagram-spiral), whose sharp path has very few vertices.
 
 ### Supported patterns
 
