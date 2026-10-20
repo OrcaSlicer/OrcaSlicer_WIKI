@@ -11,7 +11,7 @@ This is particularly useful for models with visible surfaces where you want to m
 - [Tools](#tools)
 - [Common workflows](#common-workflows)
 
-Open the tool from the toolbar or with the `P` key.
+Open the tool from the toolbar or with the `P` key. This is the default shortcut, and you can change it in [Keyboard Shortcuts](keyboard_shortcuts).
 
 ## Enforce, block and erase
 

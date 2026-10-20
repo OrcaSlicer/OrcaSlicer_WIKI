@@ -9,7 +9,7 @@ This is particularly useful for models with overhangs or complex geometries wher
 - [Highlight overhangs](#highlight-overhangs)
 - [Common workflows](#common-workflows)
 
-Open the tool from the toolbar, from the right-click menu of an object, or with the `L` key.
+Open the tool from the toolbar, from the right-click menu of an object, or with the `L` key. This is the default shortcut, and you can change it in [Keyboard Shortcuts](keyboard_shortcuts).
 
 ## Enforce, block and erase
 
@@ -43,7 +43,7 @@ The tool reads the [Threshold angle](support_settings_support#threshold-angle) a
 
 ## Tools
 
-Pick a tool from the **Tool type** row. Each one has a shortcut that works while the tool is open.
+Pick a tool from the **Tool type** row. Each one has a default shortcut that works while the tool is open. You can change them in [Keyboard Shortcuts](keyboard_shortcuts).
 
 | Tool | Shortcut | What it does |
 |------|----------|--------------|
@@ -53,6 +53,10 @@ Pick a tool from the **Tool type** row. Each one has a shortcut that works while
 | Gap Fill | `G` | Merges small painted patches into their neighbours. Set the **Gap area** (0 to 5) and press **Apply**. |
 
 **Brush size** (Circle and Sphere) ranges from 0.4 to 8.
+
+> [!IMPORTANT]
+> NEW FEATURE: **Vertical and Horizontal stroke lock in Support Painting**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 With Circle or Sphere you can also tick **Vertical** or **Horizontal**. While you drag, the stroke is locked to a straight vertical or horizontal line on the screen. These two are mutually exclusive.
 

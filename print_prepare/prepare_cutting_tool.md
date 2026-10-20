@@ -14,7 +14,7 @@ You can cut a model with a flat plane or with a dovetail profile, decide what to
 
 ## Open the tool
 
-Select an object and press `C`, or choose the cutting tool from the toolbar. A cut plane appears on the model, with the upper part and the lower part drawn in different colors.
+Select an object and press `C` (the default shortcut, which you can change in [Keyboard Shortcuts](keyboard_shortcuts)), or choose the cutting tool from the toolbar. A cut plane appears on the model, with the upper part and the lower part drawn in different colors.
 
 | Action | Control |
 |--------|---------|

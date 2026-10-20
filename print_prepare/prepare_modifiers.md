@@ -22,6 +22,10 @@ Right-click an object in the object list to add a part. The type decides what th
 | Support Enforcer | A body that forces supports inside its volume. |
 | [Precise Seam](prepare_precise_seam) | A body that decides where the seam goes. |
 
+> [!IMPORTANT]
+> NEW FEATURE: **Precise Seam modifiers**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 > [!TIP]
 > Blockers and enforcers do the same job as [Support Painting](prepare_support_painting), but as a shape you can move and resize. Use a body when the area is simple and regular, and painting when it is organic.
 
