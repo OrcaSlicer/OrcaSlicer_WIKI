@@ -23,6 +23,8 @@ Infill is the internal structure of a 3D print, providing strength and support. 
     - [Explicit Layer List](#explicit-layer-list)
 - [Sparse Infill Pattern](#sparse-infill-pattern)
 - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor)
+    - [Sparse Infill Smooth Curve](#sparse-infill-smooth-curve)
+    - [How rounded corners are printed](#how-rounded-corners-are-printed)
     - [Print time and material](#print-time-and-material)
     - [Supported patterns](#supported-patterns)
     - [Corners left sharp](#corners-left-sharp)
@@ -103,7 +105,7 @@ Each pattern's 2 and 3 lines entries in the [Patterns section](strength_settings
 >
 > - [Reduce Infill Retraction](others_settings_g_code_output#reduce-infill-retraction) skips the retraction, wipe and Z-hop of travels that stay inside the infill, where oozing can't be seen. Each skipped retraction saves tens of milliseconds, which add up over the thousands of infill travels of a large print.
 > - [Infill Combination](strength_settings_advanced#infill-combination) prints the sparse infill of several layers as one thicker layer, while the walls keep the original layer height. Fewer, thicker layers mean fewer infill moves for the same volume.
-> - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor) rounds the corners of the sparse infill path, so the toolhead keeps more of its speed through the turns. At `100%` it shortened the infill print time of the patterns that support it by 3-28% (see [how much for each pattern](#print-time-and-material)), at the cost of a larger G-code file.
+> - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor) rounds the corners of the sparse infill path, so the toolhead keeps more of its speed through the turns. At `100%` it shortened the infill print time of the patterns that support it by 4-25% (see [how much for each pattern](#print-time-and-material)), with a larger G-code file that stays below that of [Gyroid](strength_settings_patterns#gyroid).
 
 ### Strategy
 
@@ -356,11 +358,8 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 > NEW FEATURE: **Sparse infill smooth factor**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-Rounds the corners of the sparse infill path, replacing each sharp direction change with a quintic Bézier curve that joins the two straight legs meeting at it.  
+Rounds the corners of the sparse infill path, replacing each sharp direction change with a curve that joins the two straight legs meeting at it, of the type set by [Sparse Infill Smooth Curve](#sparse-infill-smooth-curve).  
 `0%` keeps the original sharp path, while `100%` produces the largest possible curves between adjacent infill lines. A curve never consumes more than half of the shorter leg on each side of a corner, so the curves of two neighboring corners meet at most at the midpoint of the segment they share and never overlap.
-
-> [!NOTE]
-> Unlike a simple rounded corner (an arc with constant curvature), a quintic Bézier curve eases into and out of the turn gradually, starting and ending straight. This lets the nozzle change direction smoothly instead of snapping into a curve, which is what actually cuts down on vibration and ringing, compared to a plain round-over.
 
 Smoothing the corners reduces plastic shrinkage at each turn and helps keep the nozzle from scratching the infill during travel moves made with little or no Z-hop. It also lets the toolhead keep more of its speed through the turns instead of decelerating into every corner.
 
@@ -378,32 +377,61 @@ Example with the [Octagram Spiral](strength_settings_patterns#octagram-spiral) p
 
 ![infill-smooth-factor-100](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-smooth-factor-100.png?raw=true)
 
+### Sparse Infill Smooth Curve
+
+[Mode](option_mode): `Advanced`.
+[Variable](built_in_placeholders_variables): `sparse_infill_smooth_curve`.
+[Type](option_type#choice): `Choice`.
+[CLI Example](cli_mode#setting-overrides): `--sparse-infill-smooth-curve=g2`.
+> [!IMPORTANT]
+> NEW FEATURE: **Sparse infill smooth curve**
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+The curve that rounds the corners, named by how smoothly it joins the straight legs:
+
+- **G1 (arc):** a circular arc, tangent to both legs. For the same size it bends the least of the three, so it allows the most speed, but its curvature starts all at once where it leaves a leg: a sudden sideways pull on the toolhead that can show as ringing.
+- **G2 (quintic):** a quintic Bézier curve whose curvature grows from zero at both legs, so the nozzle eases into and out of the turn instead of snapping into it. This is the default.
+- **G3 (septic):** a degree 7 Bézier curve whose curvature and the rate of its curvature both start from zero, the smoothest join of the three, and a little slower.
+
+The three differ by only a few percent in print time, see [Print time and material](#print-time-and-material).
+
+### How rounded corners are printed
+
+A curve is printed as straight moves, and the printer slows down at each junction between two moves by how much it turns there. A rounded corner is therefore printed as the polygon of the curve's tangents taken at equal steps of direction, so every one of its vertices turns by the same angle. How many vertices a corner gets is set by two limits:
+
+- **What the printer needs.** Enough vertices for its junctions to be as fast as the curve itself allows, worked out from the junction deviation the printer plans with: from the square corner velocity and the acceleration with Klipper, or the junction deviation set in the machine limits with Marlin 2. With other firmware, the polygon keeps within the [G-code resolution](quality_settings_precision#resolution) of the curve. A corner is never split finer than that resolution would keep.
+- **The G-code budget.** The rounded corners of a pattern take at most 80% of the vertices per area that [Gyroid](strength_settings_patterns#gyroid) takes at the same density, so no rounded pattern makes more G-code than Gyroid, the largest of the patterns. A pattern that lays more path per area, such as [Honeycomb](strength_settings_patterns#honeycomb), gets fewer vertices per mm of it, and what a corner leaves of its share goes on to the next ones.
+
+Where the budget allows fewer vertices than the curve needs, the curve is tightened to the radius those vertices can take at full speed, so the corner is still quicker than a sharp one. This is why patterns with many short legs, like [Honeycomb](strength_settings_patterns#honeycomb), get small rounded corners even at `100%`.
+
 ### Print time and material
 
-Rounded corners let the toolhead keep more of its speed through the turns, so the infill prints faster. This is how much shorter the print time of the sparse infill was than with `0%`, counting the travel between its lines, in the setup of the [infill analysis](strength_settings_patterns_quick_reference) (the mean of a 100 mm cube, a 3DBenchy and the Stanford bunny at 5, 15, 30 and 50% density):
+Rounded corners let the toolhead keep more of its speed through the turns, so the infill prints faster. This is how much shorter the print time of the sparse infill was than with `0%`, counting the travel between its lines, in the setup of the [infill analysis](strength_settings_patterns_quick_reference) (the mean of a 100 mm cube, a 3DBenchy and the Stanford bunny at 5, 15, 30 and 50% density, on a Klipper printer):
 
-| Pattern | 25% | 50% | 100% |
-| :-- | --: | --: | --: |
-| [Octagram Spiral](strength_settings_patterns#octagram-spiral) | 7% | 16% | 28% |
-| [3D Honeycomb](strength_settings_patterns#3d-honeycomb) | 10% | 16% | 25% |
-| [Honeycomb](strength_settings_patterns#honeycomb) | 10% | 12% | 22% |
-| [Hilbert Curve](strength_settings_patterns#hilbert-curve) | 6% | 9% | 18% |
-| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 2 lines | 7% | 9% | 14% |
-| [Cross Hatch](strength_settings_patterns#cross-hatch) | 6% | 10% | 13% |
-| [Cubic](strength_settings_patterns#cubic), 2 lines | 5% | 8% | 12% |
-| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 3 lines | 6% | 9% | 12% |
-| [Grid](strength_settings_patterns#grid), 2 lines | 4% | 6% | 10% |
-| [Cubic](strength_settings_patterns#cubic), 3 lines | 5% | 8% | 10% |
-| [Grid](strength_settings_patterns#grid), 3 lines | 3% | 6% | 8% |
-| [Concentric](strength_settings_patterns#concentric) | 3% | 4% | 6% |
-| [Triangles](strength_settings_patterns#triangles), 3 lines | 1% | 2% | 6% |
-| [Lightning](strength_settings_patterns#lightning) | 2% | 3% | 4% |
-| [Triangles](strength_settings_patterns#triangles), 2 lines | 1% | 2% | 3% |
+| Pattern | G2 25% | G2 50% | G2 100% | G1 100% | G3 100% |
+| :-- | --: | --: | --: | --: | --: |
+| [Octagram Spiral](strength_settings_patterns#octagram-spiral) | 9% | 16% | 25% | 28% | 25% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 3 lines | 6% | 12% | 17% | 15% | 16% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 2 lines | 7% | 10% | 16% | 14% | 15% |
+| [Cubic](strength_settings_patterns#cubic), 3 lines | 5% | 9% | 15% | 13% | 14% |
+| [Cubic](strength_settings_patterns#cubic), 2 lines | 5% | 8% | 14% | 12% | 12% |
+| [Grid](strength_settings_patterns#grid), 3 lines | 3% | 6% | 10% | 12% | 10% |
+| [Grid](strength_settings_patterns#grid), 2 lines | 3% | 4% | 8% | 9% | 10% |
+| [3D Honeycomb](strength_settings_patterns#3d-honeycomb) | 5% | 6% | 6% | 7% | 6% |
+| [Hilbert Curve](strength_settings_patterns#hilbert-curve) | 5% | 6% | 6% | 6% | 5% |
+| [Cross Hatch](strength_settings_patterns#cross-hatch) | 3% | 5% | 5% | 5% | 5% |
+| [Triangles](strength_settings_patterns#triangles), 3 lines | 1% | 3% | 5% | 5% | 5% |
+| [Triangles](strength_settings_patterns#triangles), 2 lines | 0% | 1% | 5% | 6% | 4% |
+| [Honeycomb](strength_settings_patterns#honeycomb) | 5% | 5% | 5% | 5% | 4% |
+| [Concentric](strength_settings_patterns#concentric) | 2% | 4% | 5% | 4% | 4% |
+| [Lightning](strength_settings_patterns#lightning) | 2% | 3% | 4% | 4% | 4% |
 
-[Octagram Spiral](strength_settings_patterns#octagram-spiral) and [Hilbert Curve](strength_settings_patterns#hilbert-curve) also get a shorter path when their corners are rounded, so at `100%` they print 30% and 16% less material. Most of their time saving is that: per gram of material they print within 3% of the speed they had. The other patterns keep their material within 8%, so their saving comes from speed.
+The patterns with the shortest legs, [Honeycomb](strength_settings_patterns#honeycomb), [3D Honeycomb](strength_settings_patterns#3d-honeycomb), [Hilbert Curve](strength_settings_patterns#hilbert-curve) and [Cross Hatch](strength_settings_patterns#cross-hatch), gain the least, as the G-code budget gives their corners few vertices.
+
+[Octagram Spiral](strength_settings_patterns#octagram-spiral) cuts its corners deeply enough to print 24% less material at `100%`, which is most of its time saving: per gram of material it prints about as fast as before. The other patterns keep their material within 3%, so their saving comes from speed.
 
 > [!NOTE]
-> A curve is made of several short moves instead of a single straight line, so the G-code file gets larger as the smooth factor goes up: at `100%`, about 70% larger for [Lightning](strength_settings_patterns#lightning) and over seven times larger for [Octagram Spiral](strength_settings_patterns#octagram-spiral).
+> A rounded corner takes several moves instead of one, so the G-code file gets larger as the smooth factor goes up, but never larger than that of [Gyroid](strength_settings_patterns#gyroid) at the same density: at `100%` the largest, [Hilbert Curve](strength_settings_patterns#hilbert-curve), takes about 90% of it.
 
 ### Supported patterns
 
@@ -432,6 +460,7 @@ Not every vertex of a supported pattern can be rounded, so some parts of the pat
 - **Hairpins.** A turn that doubles back on itself (a direction change sharper than about 154 degrees) would collapse into a degenerate loop instead of a curve, so it is left sharp. This is what keeps the tips of the [Lightning](strength_settings_patterns#lightning) branches pointed.
 - **Straight layers.** Layers where a pattern degenerates into straight lines have no corner to round — the flat layers of [3D Honeycomb](strength_settings_patterns#3d-honeycomb), the repeat layers of [Cross Hatch](strength_settings_patterns#cross-hatch) and the straight base lines of the [Triangles](strength_settings_patterns#triangles) family.
 - **[Concentric](strength_settings_patterns#concentric) corners that would leave the fill region.** Its loops are offsets of the region rather than a path clipped to it, and rounding always cuts toward the inside of the turn. Around a hole, at a concave feature or across a thin region that cut falls outside the fill and would put the extrusion over a wall, so those corners keep their original shape. The reach is also capped at half the distance between two loops, since a loop is as long as the object rather than as long as one cell of a pattern.
+- **Corners with too little path around them.** A corner whose share of the G-code budget comes to fewer than two vertices stays sharp, until the corners before it have left it enough of theirs.
 - **[Lightning](strength_settings_patterns#lightning) turns are capped as well.** Cutting a corner moves the whole branch, so the reach is limited to half the distance between two branches — or, with [Fill Multiline](#fill-multiline), to half the printed branch width, which keeps the outlines drawn around merging branches from breaking up into separate loops.
 
 ## Top-Bottom Direction
