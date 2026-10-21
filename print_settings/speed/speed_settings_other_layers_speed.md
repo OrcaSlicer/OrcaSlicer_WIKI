@@ -9,6 +9,7 @@
 > - Machine / Motion ability
 > - [Acceleration](speed_settings_acceleration)
 > - [Jerk settings](speed_settings_jerk_xy)
+> - [Filament layer cooling time](material_cooling#slow-printing-down-for-better-layer-cooling)
 
 - [Speed limitations](#speed-limitations)
 - [Outer wall](#outer-wall)
@@ -32,7 +33,8 @@
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--outer-wall-speed=1`.  
 Speed of the outer wall, which is the outermost, visible wall. It is usually printed slower than the [inner wall](#inner-wall) to get better quality and good layer adhesion.
-This setting is also limited by [Machine / Motion ability / Resonance avoidance speed settings](vfa_calib).
+This setting is also limited by [Machine / Motion ability / Resonance avoidance speed settings](vfa_calib).  
+It can be excluded from the [layer cooling slowdown](material_cooling#slow-printing-down-for-better-layer-cooling) with [Don't slow down outer walls](material_cooling#dont-slow-down-outer-walls).
 
 ## Inner wall
 

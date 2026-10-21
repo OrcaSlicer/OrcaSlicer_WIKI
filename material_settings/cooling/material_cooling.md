@@ -10,6 +10,7 @@
         - [Max fan speed threshold](#max-fan-speed-threshold)
     - [Keep fan always on](#keep-fan-always-on)
     - [Slow printing down for better layer cooling](#slow-printing-down-for-better-layer-cooling)
+        - [How the slowdown is calculated](#how-the-slowdown-is-calculated)
     - [Don't slow down outer walls](#dont-slow-down-outer-walls)
     - [Min print speed](#min-print-speed)
     - [Force cooling for overhangs and bridges](#force-cooling-for-overhangs-and-bridges)
@@ -100,7 +101,46 @@ Enabling this setting means that part cooling fan will never stop entirely and w
 [Variable](built_in_placeholders_variables): `slow_down_for_layer_cooling`.  
 [Type](option_type#list-types): `Boolean list`.  
 [CLI Example](cli_mode#setting-overrides): `--slow-down-for-layer-cooling=1`.  
-Enable this option to slow printing speed down to ensure that the final layer time is not shorter than the layer time threshold in [Max fan speed threshold](#max-fan-speed-threshold), so that the layer can be cooled for a longer time. This can improve the quality for small details.
+Enable this option to slow printing speed down to ensure that the final layer time is not shorter than the **Layer time** threshold in [Max fan speed threshold](#max-fan-speed-threshold), so that the layer can be cooled for a longer time. This can improve the quality for small details.
+
+This happens after the [print speeds](speed_settings_other_layers_speed) have been applied, so on small or fast layers the printed speed can be lower than the value you set. It applies to every layer, including the first one, and the slowed-down speeds are written into the G-code: you can see them in the Preview **Speed** view.
+
+The slowdown has a floor: no extrusion is slowed down below the filament's [Min print speed](#min-print-speed).  
+If the layer would still be shorter than the Layer time with every extrusion at Min print speed, everything that can be slowed down prints at Min print speed and the layer finishes earlier than the target.
+
+> [!TIP]
+> If small layers still don't cool enough because Min print speed was reached, print several copies of the part at once so each layer takes longer.
+
+#### How the slowdown is calculated
+
+1. **Estimate the layer time.** For each layer, OrcaSlicer adds up the time of every move (extrusions, travels and dwells) as `length / speed`, starting at the first extrusion of the layer. Acceleration is not taken into account, so the real layer time is usually a bit longer than the estimate.
+2. **Compare it with the Layer time.** If the estimate is equal or longer, the layer is not changed.
+3. **Find the missing time.** Otherwise the missing time is `Layer time - estimated time`.
+4. **Slow down the fastest extrusions first.** Only extrusion moves are slowed down: travels and wipes keep their speed but still count towards the layer time. Instead of scaling every speed by the same factor, OrcaSlicer finds a speed cap $F$. Every extrusion faster than $F$ is lowered to $F$, and slower extrusions keep their speed. $F$ is chosen so that the extra time equals the missing time:
+
+$$
+\sum_{v_i > F} t_i \left(\frac{v_i}{F} - 1\right) = \text{Layer time} - \text{Estimated time}
+$$
+
+Where $v_i$ is the speed and $t_i$ the time of each extrusion faster than $F$.  
+$F$ is never lower than the [Min print speed](#min-print-speed).
+
+For example, a layer with a Layer time of 15 s:
+
+| Feature | Length | Set speed | Time | Speed after slowdown | Time after slowdown |
+| --- | --- | --- | --- | --- | --- |
+| Outer wall | 200 mm | 100 mm/s | 2 s | 100 mm/s | 2 s |
+| Inner wall | 600 mm | 200 mm/s | 3 s | 150 mm/s | 4 s |
+| Sparse infill | 1200 mm | 300 mm/s | 4 s | 150 mm/s | 8 s |
+| Travel | - | - | 1 s | - | 1 s |
+| **Total** | | | **10 s** | | **15 s** |
+
+5 s are missing. The infill and inner wall are capped at $F = \frac{600 + 1200}{3 + 4 + 5} = 150$ mm/s, and the outer wall, which is already slower than 150 mm/s, is not touched.
+
+> [!NOTE]
+> - The part cooling fan speed is calculated from the layer time **after** the slowdown.
+> - When a layer prints with several filaments, the time of all of them is added up and only the filaments with the slowdown enabled are slowed down.
+> - If Min print speed is set to `0`, there is no floor and all the extrusions are slowed down by the same factor instead.
 
 ### Don't slow down outer walls
 
@@ -114,13 +154,35 @@ If enabled, this setting will ensure external perimeters are not slowed down to 
 2. To avoid changes in external wall speed which may create slight wall artifacts that appear like Z banding
 3. To avoid printing at speeds which cause VFAs (fine artifacts) on the external walls
 
+When enabled, the outer walls are left out of the slowdown: they always print at their [outer wall speed](speed_settings_other_layers_speed#outer-wall) and their time counts as fixed time, like travels.
+
+The whole missing time is then taken from the rest of the extrusions, so:
+
+- Inner walls, infill and other features are slowed down more than they would be otherwise, and can end up slower than the outer wall.
+- [Min print speed](#min-print-speed) is reached sooner, so small layers are more likely to finish faster than the Layer time.
+- Overhang walls are still slowed down, as they are a different feature from the outer wall.
+
+Using the [previous example](#how-the-slowdown-is-calculated) with a Layer time of 22 s (12 s missing):
+
+| Feature | Without the option | With the option |
+| --- | --- | --- |
+| Outer wall | 95.2 mm/s | 100 mm/s |
+| Inner wall | 95.2 mm/s | 94.7 mm/s |
+| Sparse infill | 95.2 mm/s | 94.7 mm/s |
+
+Without the option, the cap reaches the outer wall and all three print at $\frac{2000}{9 + 12} \approx 95.2$ mm/s.  
+With it, the outer wall keeps its 100 mm/s and the inner wall and infill drop to $\frac{1800}{7 + 12} \approx 94.7$ mm/s.
+
+This keeps the outer surface consistent between layers at the cost of less cooling time on small layers.
+
 ### Min print speed
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `slow_down_min_speed`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--slow-down-min-speed=1`.  
-The minimum print speed to which the printer slows down to maintain the minimum layer time defined above when the slowdown for better layer cooling is enabled.
+The minimum print speed to which the printer slows down to maintain the minimum layer time defined above when the slowdown for better layer cooling is enabled.  
+See [How the slowdown is calculated](#how-the-slowdown-is-calculated).
 
 ### Force cooling for overhangs and bridges
 
