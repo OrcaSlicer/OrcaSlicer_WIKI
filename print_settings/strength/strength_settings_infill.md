@@ -23,9 +23,9 @@ Infill is the internal structure of a 3D print, providing strength and support. 
     - [Explicit Layer List](#explicit-layer-list)
 - [Sparse Infill Pattern](#sparse-infill-pattern)
 - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor)
-    - [Sparse Infill Smooth Curve](#sparse-infill-smooth-curve)
     - [How rounded corners are printed](#how-rounded-corners-are-printed)
     - [Print time and material](#print-time-and-material)
+    - [Best smooth factor for speed](#best-smooth-factor-for-speed)
     - [Supported patterns](#supported-patterns)
     - [Corners left sharp](#corners-left-sharp)
 - [Top-Bottom Direction](#top-bottom-direction)
@@ -358,7 +358,7 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 > NEW FEATURE: **Sparse infill smooth factor**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-Rounds the corners of the sparse infill path, replacing each sharp direction change with a curve that joins the two straight legs meeting at it, of the type set by [Sparse Infill Smooth Curve](#sparse-infill-smooth-curve).  
+Rounds the corners of the sparse infill path, replacing each sharp direction change with a curve that joins the two straight legs meeting at it. The curvature of the curve grows from zero at both legs, so the nozzle eases into and out of the turn instead of snapping into it.  
 `0%` keeps the original sharp path, while `100%` produces the largest possible curves between adjacent infill lines. A curve never consumes more than half of the shorter leg on each side of a corner, so the curves of two neighboring corners meet at most at the midpoint of the segment they share and never overlap.
 
 Smoothing the corners reduces plastic shrinkage at each turn and helps keep the nozzle from scratching the infill during travel moves made with little or no Z-hop. It also lets the toolhead keep more of its speed through the turns instead of decelerating into every corner.
@@ -377,26 +377,6 @@ Example with the [Octagram Spiral](strength_settings_patterns#octagram-spiral) p
 
 ![infill-smooth-factor-100](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-smooth-factor-100.png?raw=true)
 
-### Sparse Infill Smooth Curve
-
-[Mode](option_mode): `Expert`.
-[Variable](built_in_placeholders_variables): `sparse_infill_smooth_curve`.
-[Type](option_type#choice): `Choice`.
-[CLI Example](cli_mode#setting-overrides): `--sparse-infill-smooth-curve=continuous_curvature`.
-> [!IMPORTANT]
-> NEW FEATURE: **Sparse infill smooth curve**
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
-The curve that rounds the corners, named by how smoothly it joins the straight legs:
-
-- **Tangent arc:** a circular arc, tangent to both legs. Its curvature starts all at once where it leaves a leg: a sudden sideways pull on the toolhead that can show as ringing. It keeps within the [G-code resolution](quality_settings_precision#resolution) with the fewest moves of the three, so it makes the smallest G-code file but prints slower.
-- **Continuous curvature:** a quintic Bézier curve whose curvature grows from zero at both legs, so the nozzle eases into and out of the turn instead of snapping into it. This is the default.
-- **Smooth curvature:** a degree 7 Bézier curve whose curvature and the rate of its curvature both start from zero, the smoothest join of the three.
-
-In geometric terms the three join the legs with G1, G2 and G3 continuity, which has nothing to do with the G1, G2 and G3 moves of the G-code.
-
-Continuous curvature and Smooth curvature print about as fast as each other, and Tangent arc gives up about a fifth of their time saving, see [Print time and material](#print-time-and-material).
-
 ### How rounded corners are printed
 
 A curve is printed as straight moves, and the printer slows down at each junction between two moves by how much it turns there. A rounded corner is therefore printed as the polygon of the curve's tangents taken at equal steps of direction, so every one of its vertices turns by the same angle.
@@ -409,25 +389,25 @@ A curve is only as fast as its sharpest vertex. On a Klipper printer with a squa
 
 ### Print time and material
 
-Rounded corners let the toolhead keep more of its speed through the turns, so the infill prints faster. This is how much shorter the print time of the sparse infill was than with `0%`, counting the travel between its lines, in the setup of the [infill analysis](strength_settings_patterns_quick_reference) (the mean of a 100 mm cube, a 3DBenchy and the Stanford bunny at 5, 15, 30 and 50% density, on a Klipper printer). The first four columns use the default Continuous curvature:
+Rounded corners let the toolhead keep more of its speed through the turns, so the infill prints faster. This is how much shorter the print time of the sparse infill was than with `0%`, counting the travel between its lines, in the setup of the [infill analysis](strength_settings_patterns_quick_reference) (the mean of a 100 mm cube, a 3DBenchy and the Stanford bunny at 5, 15, 30 and 50% density, on a Klipper printer):
 
-| Pattern | 25% | 50% | 75% | 100% | Tangent arc, 100% | Smooth curvature, 100% |
-| :-- | --: | --: | --: | --: | --: | --: |
-| [Octagram Spiral](strength_settings_patterns#octagram-spiral) | 9% | 17% | 23% | 29% | 23% | 29% |
-| [3D Honeycomb](strength_settings_patterns#3d-honeycomb) | 3% | 10% | 14% | 21% | 14% | 21% |
-| [Honeycomb](strength_settings_patterns#honeycomb) | 2% | 9% | 13% | 19% | 15% | 21% |
-| [Hilbert Curve](strength_settings_patterns#hilbert-curve) | 1% | 5% | 9% | 18% | 10% | 18% |
-| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 3 lines | 4% | 8% | 12% | 16% | 13% | 16% |
-| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 2 lines | 6% | 11% | 11% | 16% | 12% | 16% |
-| [Cubic](strength_settings_patterns#cubic), 3 lines | 3% | 6% | 10% | 13% | 10% | 13% |
-| [Cubic](strength_settings_patterns#cubic), 2 lines | 4% | 8% | 9% | 13% | 10% | 13% |
-| [Cross Hatch](strength_settings_patterns#cross-hatch) | 2% | 5% | 8% | 12% | 10% | 11% |
-| [Grid](strength_settings_patterns#grid), 3 lines | 1% | 5% | 5% | 10% | 10% | 10% |
-| [Grid](strength_settings_patterns#grid), 2 lines | 2% | 3% | 9% | 8% | 8% | 8% |
-| [Triangles](strength_settings_patterns#triangles), 2 lines | 0% | 1% | 2% | 5% | 5% | 5% |
-| [Concentric](strength_settings_patterns#concentric) | 1% | 2% | 3% | 4% | 3% | 3% |
-| [Lightning](strength_settings_patterns#lightning) | 1% | 2% | 2% | 3% | 2% | 3% |
-| [Triangles](strength_settings_patterns#triangles), 3 lines | -1% | 0% | 3% | 2% | 2% | 5% |
+| Pattern | 25% | 50% | 75% | 100% |
+| :-- | --: | --: | --: | --: |
+| [Octagram Spiral](strength_settings_patterns#octagram-spiral) | 9% | 17% | 23% | 29% |
+| [3D Honeycomb](strength_settings_patterns#3d-honeycomb) | 3% | 10% | 14% | 21% |
+| [Honeycomb](strength_settings_patterns#honeycomb) | 2% | 9% | 13% | 19% |
+| [Hilbert Curve](strength_settings_patterns#hilbert-curve) | 1% | 5% | 9% | 18% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 3 lines | 4% | 8% | 12% | 16% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 2 lines | 6% | 11% | 11% | 16% |
+| [Cubic](strength_settings_patterns#cubic), 3 lines | 3% | 6% | 10% | 13% |
+| [Cubic](strength_settings_patterns#cubic), 2 lines | 4% | 8% | 9% | 13% |
+| [Cross Hatch](strength_settings_patterns#cross-hatch) | 2% | 5% | 8% | 12% |
+| [Grid](strength_settings_patterns#grid), 3 lines | 1% | 5% | 5% | 10% |
+| [Grid](strength_settings_patterns#grid), 2 lines | 2% | 3% | 9% | 8% |
+| [Triangles](strength_settings_patterns#triangles), 2 lines | 0% | 1% | 2% | 5% |
+| [Concentric](strength_settings_patterns#concentric) | 1% | 2% | 3% | 4% |
+| [Lightning](strength_settings_patterns#lightning) | 1% | 2% | 2% | 3% |
+| [Triangles](strength_settings_patterns#triangles), 3 lines | -1% | 0% | 3% | 2% |
 
 [Octagram Spiral](strength_settings_patterns#octagram-spiral), [Hilbert Curve](strength_settings_patterns#hilbert-curve) and [Honeycomb](strength_settings_patterns#honeycomb) cut their corners deeply enough to print 29%, 15% and 7% less material at `100%`, which is part of their time saving. The other patterns keep their material within 4%, so their saving comes from speed.
 
@@ -438,7 +418,6 @@ Rounded corners let the toolhead keep more of its speed through the turns, so th
 
 - **`100%` prints fastest** for almost every pattern and density in the analysis: the largest curves get the most vertices and the gentlest turns. The exceptions are close: [Grid](strength_settings_patterns#grid) with 2 lines and [Triangles](strength_settings_patterns#triangles) with 3 lines print about one point faster at `75%`.
 - **Lower factors save less.** On average `50%` saves about half of what `100%` saves, and [Triangles](strength_settings_patterns#triangles) saves almost nothing below `75%`. Use them for the look of the infill, not for speed.
-- **Continuous curvature or Smooth curvature for speed.** Tangent arc makes a smaller G-code file but gives up about a fifth of the saving.
 - **A finer [G-code resolution](quality_settings_precision#resolution) prints faster.** It splits every corner into more and gentler turns: on the 100 mm cube at `100%`, going from 0.012 to 0.006 mm raised the mean saving from 16% to 22%, for about 1.5 times the infill G-code. The resolution applies to the whole print, walls included.
 
 ### Supported patterns
