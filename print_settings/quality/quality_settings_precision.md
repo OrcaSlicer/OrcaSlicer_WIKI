@@ -94,20 +94,13 @@ Additionally, modern STLs often have a higher resolution than the segments gener
 
 ### Arc fitting on curved infill
 
-Arc fitting replaces each run of points that stays within its tolerance of a circle with one circular arc, which has the same radius from end to end. A [smoothed sparse infill](strength_settings_infill#sparse-infill-smooth-factor) corner is not a circle: its curvature starts at zero where it leaves the straight line and grows towards the middle of the turn. Fitted as a perfect circle, the corner changes curvature abruptly at both ends of the arc, and the arc can meet the straight line at an angle. In the test below, many arcs meet their lines with a direction change of 14° to 20°, while the smoothed curve turned about 8° to 14° at each point.
+Arc fitting replaces each run of points that stays within its tolerance of a circle with one circular arc, which has the same radius from end to end. A [smoothed sparse infill](strength_settings_infill#sparse-infill-smooth-factor) corner is not a circle: its curvature starts at zero where it leaves the straight line and grows towards the middle of the turn. Fitted as a perfect circle, the corner changes curvature abruptly at both ends of the arc, and the arc can meet the straight line at an angle, a sharper change of direction than the smoothed curve makes at any single point.
 
-The printer then turns every arc back into straight lines. Klipper splits an arc into `length / resolution` lines, rounded down, with a [resolution](https://www.klipper3d.org/Config_Reference.html#gcode_arcs) of 1 mm by default, so an arc shorter than the resolution becomes a single line. A rounded infill corner is often only 1.4 to 2.6 mm long, so most come back as one or two lines, with sharp bends of up to about 50° that the printer has to slow down for. Lowering the Klipper resolution gives finer lines at the cost of more work for the host, but does not remove the angle where an arc meets a line.
+The printer then turns every arc back into straight lines. Klipper splits an arc into `length / resolution` lines, rounded down, with a [resolution](https://www.klipper3d.org/Config_Reference.html#gcode_arcs) of 1 mm by default, so an arc shorter than the resolution becomes a single line. A rounded infill corner is often only one or two millimeters long, so it comes back as one or two lines with sharp bends that the printer has to slow down for. Lowering the Klipper resolution gives finer lines at the cost of more work for the host, but does not remove the angle where an arc meets a line.
 
 Klipper's author has also questioned whether G2/G3 are worth it: Klipper only executes them as line segments, true arc motion would need changes to its motion planning, and the commands only describe circles, see [Klipper issue #202](https://github.com/Klipper3d/klipper/issues/202).
 
-Test: a 40 mm cube with one wall and no top or bottom layers, Hilbert curve sparse infill at 15% with a [Sparse infill smooth factor](strength_settings_infill#sparse-infill-smooth-factor) of 100%, printed on a Snapmaker U1 (Klipper) with the sparse infill at about 138 mm/s and 10000 mm/s².
-
-| Arc fitting | Print time | OrcaSlicer estimate | G-code size |
-| :-- | --: | --: | --: |
-| Disabled | 25:04 | 23:37 | 9964 KB |
-| Sparse infill only | 33:48 | 29:13 | 2062 KB |
-
-The arcs cut the G-code to a fifth but made the print 35% slower. OrcaSlicer's estimate, which splits the arcs into much finer lines than Klipper does, already rose by more than 5 minutes; the real print rose by almost 9.
+As a result, smoothed infill can print noticeably slower with arcs than without, even though its G-code is much smaller. OrcaSlicer's time estimate splits arcs into much finer lines than Klipper does, so it shows less of this slowdown than the printer.
 
 > [!NOTE]
 > A `.gcode.3mf` already compresses the G-code. If the printer accepts one (Printer settings → Basic information → Advanced → **Use 3MF instead of G-code**), the G-code is stored at about a quarter to a third of its plain size, with or without arcs. Arc fitting alone saves much less on most models: on 3DBenchy and the Stanford bunny, Sparse infill only made the G-code about 5% smaller with Grid infill and 13% to 35% smaller with Gyroid. Smoothed infill shrinks more, as its rounded corners are made of many short moves. On every model tested, a compressed file without arcs was smaller than a plain file with them.
