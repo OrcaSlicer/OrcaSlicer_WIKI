@@ -110,7 +110,7 @@ Test: a 40 mm cube with one wall and no top or bottom layers, Hilbert curve spar
 The arcs cut the G-code to a fifth but made the print 35% slower. OrcaSlicer's estimate, which splits the arcs into much finer lines than Klipper does, already rose by more than 5 minutes; the real print rose by almost 9.
 
 > [!NOTE]
-> A `.gcode.3mf` already compresses the G-code. If the printer accepts one (Printer settings → Basic information → Advanced → **Use 3MF instead of G-code**), the G-code of this test shrinks from 9964 KB to about 1960 KB with arc fitting disabled, roughly the size of the uncompressed G-code with arcs. With arcs it shrinks further, to about 70 KB.
+> A `.gcode.3mf` already compresses the G-code. If the printer accepts one (Printer settings → Basic information → Advanced → **Use 3MF instead of G-code**), the G-code is stored at about a quarter to a third of its plain size, with or without arcs. Arc fitting alone saves much less on most models: on 3DBenchy and the Stanford bunny, Sparse infill only made the G-code about 5% smaller with Grid infill and 13% to 35% smaller with Gyroid. Smoothed infill shrinks more, as its rounded corners are made of many short moves. On every model tested, a compressed file without arcs was smaller than a plain file with them.
 
 ## X-Y Compensation
 
