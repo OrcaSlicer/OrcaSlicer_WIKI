@@ -382,18 +382,20 @@ Example with the [Octagram Spiral](strength_settings_patterns#octagram-spiral) p
 [Mode](option_mode): `Expert`.
 [Variable](built_in_placeholders_variables): `sparse_infill_smooth_curve`.
 [Type](option_type#choice): `Choice`.
-[CLI Example](cli_mode#setting-overrides): `--sparse-infill-smooth-curve=g2`.
+[CLI Example](cli_mode#setting-overrides): `--sparse-infill-smooth-curve=continuous_curvature`.
 > [!IMPORTANT]
 > NEW FEATURE: **Sparse infill smooth curve**
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 The curve that rounds the corners, named by how smoothly it joins the straight legs:
 
-- **G1 (arc):** a circular arc, tangent to both legs. Its curvature starts all at once where it leaves a leg: a sudden sideways pull on the toolhead that can show as ringing. It keeps within the [G-code resolution](quality_settings_precision#resolution) with the fewest moves of the three, so it makes the smallest G-code file but prints slower.
-- **G2 (quintic):** a quintic Bézier curve whose curvature grows from zero at both legs, so the nozzle eases into and out of the turn instead of snapping into it. This is the default.
-- **G3 (septic):** a degree 7 Bézier curve whose curvature and the rate of its curvature both start from zero, the smoothest join of the three.
+- **Tangent arc:** a circular arc, tangent to both legs. Its curvature starts all at once where it leaves a leg: a sudden sideways pull on the toolhead that can show as ringing. It keeps within the [G-code resolution](quality_settings_precision#resolution) with the fewest moves of the three, so it makes the smallest G-code file but prints slower.
+- **Continuous curvature:** a quintic Bézier curve whose curvature grows from zero at both legs, so the nozzle eases into and out of the turn instead of snapping into it. This is the default.
+- **Smooth curvature:** a degree 7 Bézier curve whose curvature and the rate of its curvature both start from zero, the smoothest join of the three.
 
-G2 and G3 print about as fast as each other, and G1 gives up about a fifth of their time saving, see [Print time and material](#print-time-and-material).
+In geometric terms the three join the legs with G1, G2 and G3 continuity, which has nothing to do with the G1, G2 and G3 moves of the G-code.
+
+Continuous curvature and Smooth curvature print about as fast as each other, and Tangent arc gives up about a fifth of their time saving, see [Print time and material](#print-time-and-material).
 
 ### How rounded corners are printed
 
@@ -407,9 +409,9 @@ A curve is only as fast as its sharpest vertex. On a Klipper printer with a squa
 
 ### Print time and material
 
-Rounded corners let the toolhead keep more of its speed through the turns, so the infill prints faster. This is how much shorter the print time of the sparse infill was than with `0%`, counting the travel between its lines, in the setup of the [infill analysis](strength_settings_patterns_quick_reference) (the mean of a 100 mm cube, a 3DBenchy and the Stanford bunny at 5, 15, 30 and 50% density, on a Klipper printer):
+Rounded corners let the toolhead keep more of its speed through the turns, so the infill prints faster. This is how much shorter the print time of the sparse infill was than with `0%`, counting the travel between its lines, in the setup of the [infill analysis](strength_settings_patterns_quick_reference) (the mean of a 100 mm cube, a 3DBenchy and the Stanford bunny at 5, 15, 30 and 50% density, on a Klipper printer). The first four columns use the default Continuous curvature:
 
-| Pattern | G2 25% | G2 50% | G2 75% | G2 100% | G1 100% | G3 100% |
+| Pattern | 25% | 50% | 75% | 100% | Tangent arc, 100% | Smooth curvature, 100% |
 | :-- | --: | --: | --: | --: | --: | --: |
 | [Octagram Spiral](strength_settings_patterns#octagram-spiral) | 9% | 17% | 23% | 29% | 23% | 29% |
 | [3D Honeycomb](strength_settings_patterns#3d-honeycomb) | 3% | 10% | 14% | 21% | 14% | 21% |
@@ -436,7 +438,7 @@ Rounded corners let the toolhead keep more of its speed through the turns, so th
 
 - **`100%` prints fastest** for almost every pattern and density in the analysis: the largest curves get the most vertices and the gentlest turns. The exceptions are close: [Grid](strength_settings_patterns#grid) with 2 lines and [Triangles](strength_settings_patterns#triangles) with 3 lines print about one point faster at `75%`.
 - **Lower factors save less.** On average `50%` saves about half of what `100%` saves, and [Triangles](strength_settings_patterns#triangles) saves almost nothing below `75%`. Use them for the look of the infill, not for speed.
-- **G2 or G3 for speed.** G1 makes a smaller G-code file but gives up about a fifth of the saving.
+- **Continuous curvature or Smooth curvature for speed.** Tangent arc makes a smaller G-code file but gives up about a fifth of the saving.
 - **A finer [G-code resolution](quality_settings_precision#resolution) prints faster.** It splits every corner into more and gentler turns: on the 100 mm cube at `100%`, going from 0.012 to 0.006 mm raised the mean saving from 16% to 22%, for about 1.5 times the infill G-code. The resolution applies to the whole print, walls included.
 
 ### Supported patterns
