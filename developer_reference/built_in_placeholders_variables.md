@@ -1,8 +1,6 @@
 # Placeholders Variables
 
-Built-in placeholder variables exposed by OrcaSlicer when expanding custom G-code snippets and template expressions.
-
-Every print, filament and printer setting is also a placeholder, under its config key. This page lists the extra placeholders that OrcaSlicer sets while it slices. To find the key of a setting, hover its label in the UI, or read the *Variable* line in the setting's wiki description.
+OrcaSlicer fills in placeholders when it expands custom G-code and the file name template. Every print, filament and printer setting is a placeholder, under its config key. This page lists the other placeholders, which OrcaSlicer sets while it slices. To find the key of a setting, hover its label in the UI, or read the *Variable* line in the setting's wiki description.
 
 ![variable_name](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
 
@@ -33,15 +31,15 @@ Every print, filament and printer setting is also a placeholder, under its confi
 ## Reading the tables
 
 - The **Type** column gives the unit of each value, for example `float (mm)`. Counts, text and booleans have no unit.
-- `[]` after a name marks a list, with one value per filament, extruder or nozzle as the Type column says. See [Expressions and functions](#expressions-and-functions) for how to pick one value.
-- For a number that points at a filament, an extruder or a nozzle, the Type column says which one. Many older names say *extruder* for a filament, for example `current_extruder`, `previous_extruder` and `is_extruder_used`, so go by the Type column, not the name.
+- `[]` after a name marks a list, for example one value per filament. See [Expressions and functions](#expressions-and-functions) for how to pick one value.
+- For a filament, extruder or nozzle index, the Type column says which of the three it is. Many older names say *extruder* for a filament, for example `current_extruder`, `previous_extruder` and `is_extruder_used`, so check the Type column.
     - **Filament index**: the position in the filament list, starting at 0.
     - **Extruder index**: the physical extruder or toolhead, starting at 0, as in `current_extruder_id`. `filament_map[]` gives the extruder of each filament.
     - **Nozzle index**: the nozzle, which equals the extruder number unless the printer has several nozzles per extruder.
 
 ## Expressions and functions
 
-Template expressions inside `{ }` can be computed, not just substituted, using a small built-in expression language. Parentheses group sub-expressions. Placeholder names are case sensitive.
+Inside `{ }`, OrcaSlicer evaluates a small expression language. Parentheses group sub-expressions. Placeholder names are case sensitive.
 
 The following operators are available:
 
@@ -63,11 +61,11 @@ The following functions are available:
 | `zdigits(value, width [, decimals])` | Like `digits`, padded with leading zeros. `{zdigits(5, 4)}` is `0005`. |
 | `random(a, b)` | A random number between `a` and `b`. |
 | `interpolate_table(x, (x0, y0), (x1, y1), ...)` | Piecewise-linear interpolation of `x` through the given points. |
-| `one_of(value, a, b, ...)` | True when `value` matches one of the listed entries; entries may be `/regex/` patterns. |
+| `one_of(value, a, b, ...)` | True when `value` matches one of the listed entries, which may be `/regex/` patterns. |
 | `regex_replace(text, /pattern/, replacement)` | Replace every match of `/pattern/` in `text` with `replacement`, which may reference capture groups (`$1`, `$2`, ...). |
 | `size(vec)`, `empty(vec)` | Length of a vector option, and whether it is empty. |
 
-Expressions can also branch. `{if}` / `{elsif}` / `{else}` / `{endif}` chooses between values, so `{if layer_num == 1}first{else}later{endif}` selects text by layer.
+`{if}` / `{elsif}` / `{else}` / `{endif}` choose between blocks of text, for example `{if layer_num == 0}first{else}later{endif}`.
 
 Intermediate values can be stored in variables. `{local name = "part"}{name}` defines one and reuses it. A `{local}` value is scoped to the current template, while a `{global}` value stays available to the other templates evaluated during the same print.
 
@@ -77,7 +75,7 @@ Booleans print as `true`/`false` inside `{ }` and as `1`/`0` in the older `[ ]` 
 
 ## Global Slicing State
 
-Momentary toolhead state when a custom G-code block runs.
+The toolhead state when a custom G-code block starts.
 
 ### Read Only
 
@@ -89,14 +87,12 @@ Momentary toolhead state when a custom G-code block runs.
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `position[]` | float[3] (mm) | XYZ position of the tool when control entered the custom block. Update this if you move the tool so the slicer keeps continuity. |
+| `position[]` | float[3] (mm) | XYZ position of the tool when the custom block starts. If you move the tool, update this so OrcaSlicer knows where it is. |
 | `e_position[]` | float per extruder (mm) | Absolute extruder axis position, used only when the G-code uses absolute E coordinates. |
 | `e_retracted[]` | float per extruder (mm) | Retraction state at block entry. Update when you manually retract or unretract so OrcaSlicer can compensate afterwards. |
 | `e_restart_extra[]` | float per extruder (mm) | Planned extra priming after the next de-retraction. |
 
 ## Slicing State
-
-Tracks which extruder, object, and priming helpers are active during the current print.
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
@@ -106,7 +102,7 @@ Tracks which extruder, object, and priming helpers are active during the current
 | `current_hotend` | int | Extruder printing now on most printers. On Bambu Lab printers it is the hotend-rack nozzle when the print moves filaments between nozzles, and `-1` otherwise. |
 | `current_object_idx` | int | Zero-based index of the object being printed (used by sequential printing). |
 | `has_wipe_tower` | bool | `true` when a wipe tower is present in the job. |
-| `has_single_extruder_multi_material_priming` | bool | Indicates whether the single-extruder MMU priming area is in use. |
+| `has_single_extruder_multi_material_priming` | bool | `true` when the single-extruder MMU priming area is in use. |
 | `initial_extruder` / `initial_tool` / `initial_filament_id` | int (filament index) | First filament used in the print. All three expose the same value. |
 | `initial_nozzle_id` | int (nozzle index) | Nozzle of the first filament. |
 | `initial_no_support_extruder` / `initial_no_support_tool` / `initial_no_support_filament_id` | int (filament index) | First filament that is not a support filament. |
@@ -125,8 +121,6 @@ Tracks which extruder, object, and priming helpers are active during the current
 | `is_all_bbl_filament`, `has_tpu_in_first_layer`, `enable_high_low_temp_mix`, `hold_chamber_temp_for_flat_print`, `max_additional_fan`, `during_print_exhaust_fan_speed_num[]` | various | Values used by the Bambu Lab start G-code. |
 
 ## Print Statistics
-
-Summaries of the sliced job such as time estimates, material usage, and wipe-tower costs.
 
 Most of these values are only known once the whole G-code exists. In custom G-code, OrcaSlicer writes a marker and replaces it with the final value after the G-code is generated. These are marked *filled in after generation* below. Decimal values are written with two decimals.
 
@@ -158,20 +152,16 @@ This also applies after you copy the value to a variable or pass it through `reg
 
 ## Objects
 
-Metadata describing the loaded models and their instances.
-
 | Placeholder | Type | Description |
 | --- | --- | --- |
 | `num_objects` | int | Number of distinct objects on the plate. |
 | `num_instances` | int | Count of all printed instances across every object. |
-| `scale[]` | string per object | Human-readable scale applied to each object (zero-based object index). Example: `x:100% y:50% z:100%`. |
+| `scale[]` | string per object | Human-readable scale applied to each object (zero-based object index), for example `x:100% y:50% z:100%`. |
 | `input_filename_base` | string | Name of the first printable object (or its source file name if it has none), without the extension. In `filename_format` for a saved project, the project name. |
 | `input_filename` | string | `input_filename_base` followed by `.gcode`. |
 | `first_object_name` | string | Name of the first printable object on the plate. |
 
 ## Plates
-
-Metadata describing the currently selected plates.
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
@@ -183,8 +173,6 @@ Metadata describing the currently selected plates.
 | `imex_mode_gcode` | string | That mode's [Mode G-code](printer_multimaterial_idex_iqex#mode-g-code), before its placeholders are expanded. |
 
 ## Dimensions
-
-Geometric measurements of the first layer and printable bed area, useful for positioning macros.
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
@@ -206,8 +194,6 @@ Geometric measurements of the first layer and printable bed area, useful for pos
 
 ## Temperatures
 
-Bed, nozzle, and chamber set-points taken directly from the filament profiles.
-
 | Placeholder | Type | Description |
 | --- | --- | --- |
 | `bed_temperature[]` | int per filament (°C) | Bed temperature of each filament for the current plate type. |
@@ -221,8 +207,6 @@ Bed, nozzle, and chamber set-points taken directly from the filament profiles.
 
 ## Timestamps
 
-Timestamp components information recorded when slicing began.
-
 | Placeholder | Type | Description |
 | --- | --- | --- |
 | `timestamp` | string (`yyyyMMdd-hhmmss`) | Local time when G-code export started. In `filename_format`, the time the file name is built. |
@@ -231,16 +215,12 @@ Timestamp components information recorded when slicing began.
 
 ## Environment
 
-Runtime environment information.
-
 | Placeholder | Type | Description |
 | --- | --- | --- |
 | `user` | string | Username resolved from `USER`/`USERNAME` environment variables (falls back to `unknown`). |
 | `version` | string | OrcaSlicer version string. |
 
 ## Preset Metadata
-
-Names of the print, filament, and printer presets that provided the configuration values.
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
@@ -250,8 +230,6 @@ Names of the print, filament, and printer presets that provided the configuratio
 | `printer_preset` | string | Logical printer preset used for slicing. |
 
 ## Filename Templates
-
-Notes about the limited placeholder set that is available when OrcaSlicer builds the export filename.
 
 The file name is built with its own set of placeholders, separate from the one custom G-code uses. Print statistics in the file name are always the final values. If the name is needed before the G-code exists, OrcaSlicer fills them in after export.
 
@@ -264,7 +242,6 @@ These placeholders can be used in `filename_format`:
 
 Placeholders that OrcaSlicer sets while it generates G-code are **not** available inside `filename_format`, and using one makes the file name fail. That covers everything else in this page that is not a configuration setting:
 
-
 - *Global Slicing State* and *Custom G-code Contexts*.
 - *Slicing State* and *Dimensions*, apart from the few listed above.
 - Temperature values that are not settings themselves, such as `bed_temperature_initial_layer_single` and `overall_chamber_temperature`.
@@ -272,9 +249,7 @@ Placeholders that OrcaSlicer sets while it generates G-code are **not** availabl
 
 ## Custom G-code Contexts
 
-Runtime-only placeholders injected right before specific custom G-code hooks are evaluated.
-
-In addition to the global placeholders above, OrcaSlicer injects context-specific values when it evaluates individual G-code macros.
+The placeholders in this section are set only in the custom G-code listed with each table, in addition to the ones above.
 
 ### Layer-aware placeholders
 
@@ -296,20 +271,20 @@ In addition to the global placeholders above, OrcaSlicer injects context-specifi
 
 ### Toolchange and wipe tower placeholders
 
-The following placeholders are populated only while `change_filament_gcode` (and the wipe-tower driven toolchange flow) is being evaluated.
+These placeholders are set in `change_filament_gcode`.
 
 `change_filament_gcode` also runs once at the start of the print, when the first filament is selected. In that call `previous_extruder`, `current_filament_id` and `current_hotend` are `-1`, `layer_num` is `-1`, and `toolchange_count` is `1`. Test `toolchange_count > 1` to skip it.
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `previous_extruder` / `next_extruder` | int (filament index) | Filament being unloaded and filament being loaded. Despite the names, these are filament numbers. |
+| `previous_extruder` / `next_extruder` | int (filament index) | Filament being unloaded and filament being loaded. |
 | `current_filament_id` / `next_filament_id` | int (filament index) | Same values as `previous_extruder` / `next_extruder`. |
 | `current_hotend` / `next_hotend` | int | Outgoing and incoming extruder on most printers. On Bambu Lab printers, the hotend-rack nozzle when the print moves filaments between nozzles, and `-1` otherwise. |
 | `current_nozzle_id` / `next_nozzle_id` | int (nozzle index) | Outgoing and incoming nozzle. |
 | `old_extruder_variant` / `new_extruder_variant` | string | Extruder variant of the outgoing and incoming extruder, for example `Direct Drive Standard`. |
-| `toolchange_z` | float (mm) | Actual Z height at the moment the toolchange macro is called. |
+| `toolchange_z` | float (mm) | Z height when the toolchange G-code starts. |
 | `outer_wall_volumetric_speed` | float (mm³/s) | Volumetric speed of outer walls for the new filament, capped at its maximum volumetric speed. |
-| `relative_e_axis` | bool | Indicates whether the slicer is emitting relative E moves (`G91 E`). |
+| `relative_e_axis` | bool | `true` when OrcaSlicer writes relative E moves. |
 | `toolchange_count` | int | Running count of tool changes, where the print-start selection counts as `1`. The first real change reads `2`, and the last one reads `total_toolchanges + 1`. |
 | `fan_speed` | int | Legacy placeholder kept for compatibility (always `0`). |
 | `filament_retract_length_nc` | float (mm) | Nozzle-change retraction length of the outgoing filament, `0` if there is none. |
@@ -334,8 +309,6 @@ The following placeholders are populated only while `change_filament_gcode` (and
 | `travel_point_2_x` / `travel_point_2_y` | float (mm) | Second intermediate travel waypoint. |
 | `travel_point_3_x` / `travel_point_3_y` | float (mm) | Third intermediate travel waypoint. |
 
-All `layer_*` placeholders from the previous section are also available inside `change_filament_gcode`.
-
 ### Filament start/end placeholders
 
 | Placeholder | Type | Description |
@@ -356,7 +329,7 @@ At the end of the print, `filament_end_gcode` runs once for each filament in the
 | `most_used_physical_extruder_id` | int | Physical extruder that prints most of the layer. Supplied to `time_lapse_gcode` and `wrapping_detection_gcode`. |
 | `curr_physical_extruder_id` | int | Physical extruder currently active when the macro runs. Provided to the same scripts as above. |
 | `timelapse_pos_x` / `timelapse_pos_y` | int (mm) | XY coordinates selected for taking the snapshot, rounded down to whole millimeters. Available only inside `time_lapse_gcode`. |
-| `has_timelapse_safe_pos` | bool | Indicates whether a safe snapshot position was found. Available in `time_lapse_gcode`. |
+| `has_timelapse_safe_pos` | bool | `true` when a safe snapshot position was found. Available in `time_lapse_gcode`. |
 | `timelapse_inline_photo` | bool | `true` when the snapshot is taken without moving to a picked position. Available in `time_lapse_gcode`. |
 | `farthest_point_timelapse_enabled` | bool | `true` when the farthest-point timelapse is active for this layer. Available in `time_lapse_gcode`. |
 | `clear_to_x0` | bool | `true` when the nozzle can travel to X = 0 without crossing the print. Available in `time_lapse_gcode`. |
