@@ -307,5 +307,5 @@ nav:
       - "Resource Texture": developer_reference/plugin_development/api_reference/resource_texture.md
       - "Slicing Pipeline": developer_reference/plugin_development/api_reference/slicing.md
     - "Plugin Audit Hook": developer_reference/plugin_development/plugin_audit_hook.md
-  - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
+  - "Placeholders and Expressions": developer_reference/built_in_placeholders_variables.md
   - Hierarchy: developer_reference/slicing_hierarchy.md

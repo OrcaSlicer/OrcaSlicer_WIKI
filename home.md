@@ -327,5 +327,5 @@ See the [all releases](releases_index) overview, or jump straight to a version:
         - [Resource Texture](resource_texture)
         - [Slicing Pipeline](slicing)
     - [Plugin Audit Hook](plugin_audit_hook)
-- [Built-in placeholders & variables](built_in_placeholders_variables)
+- [Placeholders and Expressions](built_in_placeholders_variables)
 - [Slicing Call Hierarchy](slicing_hierarchy)
