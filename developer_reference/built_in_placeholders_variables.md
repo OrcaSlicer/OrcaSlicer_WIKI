@@ -1,6 +1,8 @@
 # Placeholders and Expressions
 
-OrcaSlicer fills in placeholders when it expands custom G-code and the file name template. Write a placeholder inside curly braces, for example `M190 S{bed_temperature_initial_layer_single}`. Every print, filament and printer setting is a placeholder, with its config key as the name. This page lists the other placeholders, which OrcaSlicer sets while it slices. To find the key of a setting, hover over its label in OrcaSlicer, or read the *Variable* line in the setting's wiki page.
+OrcaSlicer fills in placeholders when it expands custom G-code and the file name template.
+
+Write a placeholder inside curly braces, for example `{layer_num}`. Every print, filament and printer setting is a placeholder, with its config key as the name. This page lists the other placeholders, which OrcaSlicer sets while it slices. To find the key of a setting, hover over its label in OrcaSlicer, or read the *Variable* line in the setting's wiki page.
 
 ![variable_name](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
 
@@ -27,10 +29,11 @@ OrcaSlicer fills in placeholders when it expands custom G-code and the file name
     - [Change Extrusion Role G-code](#change-extrusion-role-g-code)
     - [Extrusion Roles](#extrusion-roles)
 - [File Name Template](#file-name-template)
+- [Examples](#examples)
 
 ## Placeholders by G-code Field
 
-Every custom G-code field can use all settings and the placeholders in [Filaments, Extruders and Nozzles](#filaments-extruders-and-nozzles), [Temperatures](#temperatures), [Dimensions](#dimensions), [Print Statistics](#print-statistics), [Objects](#objects), [Plates](#plates), [Presets](#presets), [Timestamps](#timestamps), [Environment](#environment) and [Toolhead Position](#toolhead-position). Some fields also have the extra placeholders in this table. The custom G-code editor in OrcaSlicer shows the same list for each field.
+Every custom G-code field can use all settings and the placeholders in [Filaments, Extruders and Nozzles](#filaments-extruders-and-nozzles), [Temperatures](#temperatures), [Dimensions](#dimensions), [Print Statistics](#print-statistics), [Objects](#objects), [Plates](#plates), [Presets](#presets), [Timestamps](#timestamps), [Environment](#environment) and [Toolhead Position](#toolhead-position). Some fields also have the extra placeholders in this table.
 
 | Field | Key | Extra placeholders |
 | --- | --- | --- |
@@ -62,7 +65,6 @@ The file name template, `filename_format`, uses a different set. See [File Name 
     - **Filament index**: the position in the filament list, counting from 0.
     - **Extruder index**: the physical extruder or toolhead, counting from 0, as in `current_extruder_id`. `filament_map[]` gives the extruder of each filament.
     - **Nozzle index**: the nozzle. It is the same as the extruder index unless the printer has several nozzles per extruder.
-- A description that starts with *Added in 2.4.0.* gives the first release with that placeholder. Placeholders without this note were already in 2.3.2.
 - **Type 1** and **Type 2** prime tower are the two values of the *Wipe tower type* setting. Type 1 is the Bambu Lab style prime tower. Bambu Lab printers always use Type 1.
 
 ## Expressions and Functions
@@ -90,7 +92,7 @@ The following functions are available:
 | `random(a, b)` | A random number between `a` and `b`. |
 | `interpolate_table(x, (x0, y0), (x1, y1), ...)` | The `y` value for `x` on the straight lines between the given points. The x values must increase, and `x` must be between the first and the last x value. |
 | `one_of(value, a, b, ...)` | True when the text `value` is equal to one of the listed texts. A listed value can be a `/regex/` pattern, which must match the whole text. `value` must be text, not a number. |
-| `regex_replace(text, /pattern/, replacement)` | `text` with every match of `/pattern/` replaced by `replacement`. The replacement can use capture groups (`$1`, `$2`, ...). |
+| `regex_replace(text, /pattern/, replacement)` | *Added in 2.5.0.* `text` with every match of `/pattern/` replaced by `replacement`. The replacement can use capture groups (`$1`, `$2`, ...). |
 | `size(list)`, `empty(list)` | The number of values in a list, and whether the list is empty. |
 | `is_nil(name)` | True when the value is not set, for example a filament override that is left empty. For a list, give an index. |
 | `filament_change(n)` | From this point in the custom G-code, a list of decimal numbers without an index gives the value for filament `n`. |
@@ -179,15 +181,20 @@ When a placeholder in custom G-code fails, the G-code export fails. The message 
 > NEW FEATURE: **Print statistics in custom G-code**
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds). In 2.5.0-alpha and older, `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `total_weight`, `total_cost`, `total_wipe_tower_cost` and `total_wipe_tower_filament` work only in the file name. In custom G-code, they stop slicing with "Not a variable name". The error for calculations is also only in nightly builds. Older versions give a wrong result or a different error.
 
-Most of these values are known only after the whole G-code is generated. In custom G-code, OrcaSlicer first writes a marker, and replaces it with the final value after the G-code is generated. These values are marked *Filled in after generation* below. In custom G-code, their decimal values have two decimal places. In the file name, they can have more digits.
+Some of these values are marked *Filled in after generation*. OrcaSlicer knows them only after the whole G-code is generated. In custom G-code, it first writes a marker, and replaces the marker with the value at the end. In custom G-code, these values have two decimal places. In the file name, they can have more digits.
 
-You can print these values and join them to text, for example `{"Weight: " + total_weight + " g"}`. You cannot calculate with them. Slicing stops with the error "This value is known only after the G-code is generated. It can be printed, but not used in a calculation or a comparison." when you use one of them:
+Because the value is not known yet, you can print it and join it to text, but you cannot calculate with it:
 
-- In arithmetic. This includes `+` with a number or with another of these values, so `{total_weight + 5}` fails.
-- In a comparison, in a condition such as `{if total_weight > 100}`, or in a regular-expression match.
-- In a function such as `int()`, `round()`, `min()`, `max()`, `digits()`, `one_of()` or `filament_change()`.
+| Works | Fails |
+| --- | --- |
+| `{total_weight}` | `{total_weight * 2}` |
+| `{"Weight: " + total_weight + " g"}` | `{total_weight + 5}` |
+| `{local w = total_weight}{w}` | `{if total_weight > 100}heavy{endif}` |
+| | `{int(total_weight)}` |
 
-This also applies when you copy the value to a variable or pass it through `regex_replace()`. Text that already contains one of these values works like other text, so `+` with a number adds the number to the end of the text.
+An expression in the Fails column stops slicing with "This value is known only after the G-code is generated. It can be printed, but not used in a calculation or a comparison." The same error comes from functions such as `round()`, `min()` and `one_of()`, from regular-expression matches, and from a copy of the value in a variable.
+
+OrcaSlicer reads `+` from left to right, and text joined with a number stays text. So `{"W: " + total_weight + 5}` prints `W: 123.455` for a weight of 123.45 g. It does not add 5.
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
@@ -421,3 +428,70 @@ Placeholders that OrcaSlicer sets while it generates G-code do **not** work in `
 - [Filaments, Extruders and Nozzles](#filaments-extruders-and-nozzles) and [Dimensions](#dimensions), except the ones listed above. `filament_map[]` is also a setting, so it works in the file name.
 - Temperatures that are not settings, such as `bed_temperature_initial_layer_single` and `overall_chamber_temperature`.
 - `total_layer_count`, `print_time_total_sec`, `print_time_day`, `print_time_hour`, `print_time_minute`, `print_time_sec` and `used_filament_length`.
+
+## Examples
+
+### Start Macro with Temperatures
+
+In the printer start G-code, pass the first-layer temperatures to a Klipper macro. `first_layer_temperature[]` has one value per filament, so the index `initial_extruder` picks the filament that prints first.
+
+```gcode
+PRINT_START BED={bed_temperature_initial_layer_single} EXTRUDER={first_layer_temperature[initial_extruder]}
+```
+
+### Layer Progress
+
+In the layer change G-code, show the layer on the printer screen. `layer_num` counts from 0, so add 1.
+
+```gcode
+M117 Layer {layer_num + 1} of {total_layer_count}
+```
+
+### Real Tool Changes Only
+
+In the change filament G-code, skip the call at print start. `layer_num` is `-1` before the first layer.
+
+```gcode
+{if layer_num >= 0}
+; From filament {previous_extruder + 1} to filament {next_extruder + 1}
+M109 S{new_filament_temp}
+{endif}
+```
+
+### Settings for One Extrusion Role
+
+In the change extrusion role G-code, use a lower acceleration for outer walls.
+
+```gcode
+{if extrusion_role == "ExternalPerimeter"}
+M204 S1000
+{else}
+M204 S3000
+{endif}
+```
+
+### Value from a Table
+
+Choose a purge length from the nozzle diameter, and store it in a variable. This example uses relative E distances.
+
+```gcode
+{local purge = interpolate_table(nozzle_diameter[0], (0.2, 10), (0.4, 20), (0.8, 40))}
+G1 E{purge} F300
+```
+
+### Print Summary in the File Header
+
+In the file header G-code, write the print time and the filament use. This works only in [nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds), see [Print Statistics](#print-statistics).
+
+```gcode
+; Print time: {print_time}
+; Filament: {used_filament} m, {total_weight} g
+```
+
+### File Name
+
+This is the default file name template. To add the plate number, add `_plate{plate_number}` before `.gcode`.
+
+```text
+{input_filename_base}_{filament_type[initial_tool]}_{print_time}.gcode
+```
