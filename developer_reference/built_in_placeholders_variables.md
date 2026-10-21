@@ -52,8 +52,7 @@ Every custom G-code field can use all settings and the placeholders in [Filament
 | Between Object G-code | `printing_by_object_gcode` | None |
 | End G-code (filament) | `filament_end_gcode` | [Layer Placeholders](#layer-placeholders) and [Filament Start and End G-code](#filament-start-and-end-g-code) |
 | End G-code (printer) | `machine_end_gcode` | [Layer Placeholders](#layer-placeholders) and the filament values in [Filament Start and End G-code](#filament-start-and-end-g-code) |
-
-The file name template, `filename_format`, uses a different set. See [File Name Template](#file-name-template).
+| File name template | `filename_format` | A different set: all settings, and the placeholders marked *Also works in the file name*. See [File Name Template](#file-name-template). |
 
 `machine_pause_gcode` has no extra placeholders. The old `color_change_extruder` placeholder is no longer set, and using it fails.
 
@@ -111,7 +110,7 @@ When a placeholder in custom G-code fails, the G-code export fails. The message 
 
 | Error | Cause |
 | --- | --- |
-| `Not a variable name` (inside `{ }`) or `Variable does not exist` (inside `[ ]`) | The name is misspelled, the field does not have this placeholder (see [Placeholders by G-code Field](#placeholders-by-g-code-field)), or your version of OrcaSlicer does not have it yet. In `filename_format`, only the placeholders in [File Name Template](#file-name-template) exist. |
+| `Not a variable name` (inside `{ }`) or `Variable does not exist` (inside `[ ]`) | The name is misspelled, the field does not have this placeholder (see [Placeholders by G-code Field](#placeholders-by-g-code-field)), or your version of OrcaSlicer does not have it yet. In `filename_format`, only settings and the placeholders marked *Also works in the file name* exist, see [File Name Template](#file-name-template). |
 | `Referencing a vector variable when scalar is expected` | A list of integers, booleans, text or points is used without an index. Add an index, for example `{nozzle_temperature[0]}`. |
 | `This value is known only after the G-code is generated. It can be printed, but not used in a calculation or a comparison.` | A value marked *Filled in after generation* is used in a calculation. See [Print Statistics](#print-statistics). |
 
@@ -124,15 +123,15 @@ When a placeholder in custom G-code fails, the G-code export fails. The message 
 | `current_nozzle_id` | int (nozzle index) | *Added in 2.5.0.* Nozzle printing now. |
 | `current_hotend` | int | *Added in 2.4.0.* On most printers, the extruder printing now. On Bambu Lab printers, the hotend-rack nozzle when the print moves filaments between nozzles, and `-1` otherwise. |
 | `has_single_extruder_multi_material_priming` | bool | `true` when the single-extruder multi-material priming area is used. |
-| `initial_extruder` / `initial_tool` / `initial_filament_id` | int (filament index) | *`initial_filament_id` added in 2.5.0.* First filament used in the print. All three names give the same value. |
+| `initial_extruder` / `initial_tool` / `initial_filament_id` | int (filament index) | *`initial_filament_id` added in 2.5.0.* First filament used in the print. All three names give the same value. `initial_extruder` and `initial_tool` also work in the file name. |
 | `initial_nozzle_id` | int (nozzle index) | *Added in 2.5.0.* Nozzle of the first filament. |
-| `initial_no_support_extruder` / `initial_no_support_tool` / `initial_no_support_filament_id` | int (filament index) | *`initial_no_support_filament_id` added in 2.5.0.* First filament that is not a support filament. |
+| `initial_no_support_extruder` / `initial_no_support_tool` / `initial_no_support_filament_id` | int (filament index) | *`initial_no_support_filament_id` added in 2.5.0.* First filament that is not a support filament. `initial_no_support_extruder` also works in the file name. |
 | `initial_no_support_hotend` | int | *Added in 2.4.0.* Hotend of that filament, with the same rule as `current_hotend`. |
 | `is_extruder_used[]` | bool per filament | `true` for each filament that the print uses. |
-| `filament_map[]` | int per filament (extruder index + 1) | Extruder of each filament, counting from **1**. In `change_filament_gcode`, `filament_map[next_extruder] - 1` is the incoming extruder. |
+| `filament_map[]` | int per filament (extruder index + 1) | Extruder of each filament, counting from **1**. In `change_filament_gcode`, `filament_map[next_extruder] - 1` is the incoming extruder. Also works in the file name. |
 | `first_tools[]` / `first_filaments[]` | int per extruder (filament index) | First filament that each extruder prints, or `-1`. Correct on Bambu Lab and IDEX/IQEX printers. On other printers with several extruders, the values are currently wrong. |
 | `first_non_support_tools[]` / `first_non_support_filaments[]` / `first_non_support_hotend[]` | int per extruder | *`first_non_support_hotend` added in 2.5.0.* Like `first_tools[]`, but without support filaments. `first_non_support_hotend[]` gives the hotend of that filament instead, with the same rule as `current_hotend`. The same limitation applies. |
-| `num_extruders` | int | Number of physical extruders on the printer, also when the print uses fewer. |
+| `num_extruders` | int | Number of physical extruders on the printer, also when the print uses fewer. Also works in the file name. |
 | `nozzle_diameter_at_nozzle_id[]` / `nozzle_volume_types[]` | float (mm) / string per nozzle | *Added in 2.5.0.* Diameter and flow type of each nozzle. On printers with one nozzle per extruder, there is one value per extruder. |
 | `flush_temperatures[]` / `flush_volumetric_speeds[]` | int (°C) / float (mm³/s) per filament | Purge temperature and purge speed of each filament. |
 | `retraction_distance_when_cut` | float (mm) | Retraction distance when the filament is cut by the AMS or a filament cutter, for the current filament. |
@@ -148,8 +147,8 @@ When a placeholder in custom G-code fails, the G-code export fails. The message 
 | `bed_temperature_initial_layer[]` / `first_layer_bed_temperature[]` | int per filament (°C) | First-layer bed temperature of each filament for the current plate type. |
 | `bed_temperature_initial_layer_single` | int (°C) | First-layer bed temperature of the filament that prints first (`initial_extruder`). If the bed temperature formula is set to the highest temperature, it is the highest first-layer bed temperature of the filaments used on the first layer. |
 | `first_layer_temperature[]` | int per filament (°C) | First-layer nozzle temperature of each filament. |
-| `chamber_temperature[]` | int per filament (°C) | Chamber temperature of each filament. |
-| `chamber_minimal_temperature[]` | int per filament (°C) | *Added in 2.4.1.* Minimum chamber temperature of each filament. |
+| `chamber_temperature[]` | int per filament (°C) | Chamber temperature of each filament. Also works in the file name. |
+| `chamber_minimal_temperature[]` | int per filament (°C) | *Added in 2.4.1.* Minimum chamber temperature of each filament. Also works in the file name. |
 | `overall_chamber_temperature` | int (°C) | Highest `chamber_temperature[]` of the filaments used. |
 | `min_vitrification_temperature` | int (°C) | Lowest softening temperature of the filaments used. |
 
@@ -198,41 +197,41 @@ OrcaSlicer reads `+` from left to right, and text joined with a number stays tex
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `normal_print_time` / `print_time` | string | Estimated print time in normal mode, written like `2d3h15m`, `2h15m`, `5m30s` or `45s`. Times of one hour or more are rounded to the minute. Filled in after generation. |
-| `silent_print_time` | string | Estimated print time in silent mode, in the same format. `0s` unless the G-code flavor is Marlin and *Silent Mode* is on. Filled in after generation. |
+| `normal_print_time` / `print_time` | string | Estimated print time in normal mode, written like `2d3h15m`, `2h15m`, `5m30s` or `45s`. Times of one hour or more are rounded to the minute. Filled in after generation. Also works in the file name. |
+| `silent_print_time` | string | Estimated print time in silent mode, in the same format. `0s` unless the G-code flavor is Marlin and *Silent Mode* is on. Filled in after generation. Also works in the file name. |
 | `print_time_total_sec` | float (s) | *Added in 2.5.0.* Estimated print time in normal mode, in seconds. Filled in after generation. |
 | `print_time_day` / `print_time_hour` / `print_time_minute` / `print_time_sec` | int (d / h / min / s) | *`print_time_day`, `print_time_hour` and `print_time_minute` added in 2.5.0.* Days, hours, minutes and seconds of the normal-mode print time. `print_time_sec` is only the seconds, not the total. Filled in after generation. |
 | `total_layer_count` | int | Number of layers. |
-| `total_toolchanges` | int | Number of filament changes in the print. The filament selected at print start does not count. With a prime tower, this is the prime tower's count. Without one, OrcaSlicer counts the changes in the planned tool order. It is `0` when printing by object without a prime tower. |
-| `used_filament` / `used_filament_length` | float (m) | Length of filament that the whole print uses. Filled in after generation. |
-| `extruded_volume[]` | float per filament (mm³) | Volume extruded so far with each filament. In custom G-code, this is a running total, so it is `0` in the start G-code. |
-| `extruded_volume_total` | float (mm³) | Sum of `extruded_volume[]`. Also a running total. |
+| `total_toolchanges` | int | Number of filament changes in the print. The filament selected at print start does not count. With a prime tower, this is the prime tower's count. Without one, OrcaSlicer counts the changes in the planned tool order. It is `0` when printing by object without a prime tower. Also works in the file name. |
+| `used_filament` / `used_filament_length` | float (m) | Length of filament that the whole print uses. Filled in after generation. `used_filament` also works in the file name. |
+| `extruded_volume[]` | float per filament (mm³) | Volume extruded so far with each filament. In custom G-code, this is a running total, so it is `0` in the start G-code. `extruded_volume` also works in the file name, as the total volume. |
+| `extruded_volume_total` | float (mm³) | Sum of `extruded_volume[]`. Also a running total. Also works in the file name, as the total of the whole print. |
 | `extruded_weight[]` | float per filament (g) | Weight extruded so far with each filament, from the filament density. Also a running total. |
-| `extruded_weight_total` | float (g) | Sum of `extruded_weight[]`. Also a running total. For the weight of the whole print, use `total_weight`. |
-| `total_weight` | float (g) | Filament weight of the whole print. Filled in after generation. |
-| `total_cost` | float (currency) | Filament cost plus the printer's time cost (`time_cost` per hour of printing). Filled in after generation. |
-| `total_wipe_tower_cost` | float (currency) | Filament cost of the prime tower. Filled in after generation. It is currently `0` with the Type 1 prime tower, in custom G-code and in the file name. |
-| `total_wipe_tower_filament` | float (mm) | Length of filament used for the prime tower. Filled in after generation. It is currently `0` with the Type 1 prime tower, in custom G-code and in the file name. |
+| `extruded_weight_total` | float (g) | Sum of `extruded_weight[]`. Also a running total. For the weight of the whole print, use `total_weight`. Also works in the file name, as the total of the whole print. |
+| `total_weight` | float (g) | Filament weight of the whole print. Filled in after generation. Also works in the file name. |
+| `total_cost` | float (currency) | Filament cost plus the printer's time cost (`time_cost` per hour of printing). Filled in after generation. Also works in the file name. |
+| `total_wipe_tower_cost` | float (currency) | Filament cost of the prime tower. Filled in after generation. It is currently `0` with the Type 1 prime tower. Also works in the file name. |
+| `total_wipe_tower_filament` | float (mm) | Length of filament used for the prime tower. Filled in after generation. It is currently `0` with the Type 1 prime tower. Also works in the file name. |
 
 ## Objects
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `num_objects` | int | Number of objects on the plate. Copies of an object count in `num_instances`. |
-| `num_instances` | int | Number of printed instances of all objects. |
+| `num_objects` | int | Number of objects on the plate. Copies of an object count in `num_instances`. Also works in the file name. |
+| `num_instances` | int | Number of printed instances of all objects. Also works in the file name. |
 | `current_object_idx` | int | Position of the object printing now in the print order, counting from 0. Each copy of an object counts. It changes only when printing by object. |
-| `scale[]` | string per object | Scale of each object as text, for example `x:100% y:50% z:100%`. |
-| `input_filename_base` | string | Name of the first printable object, without the extension. If the object has no name, the name of its source file. In `filename_format` for a saved project, the project name. |
-| `input_filename` | string | `input_filename_base` followed by `.gcode`. |
-| `first_object_name` | string | *Added in 2.4.2.* Name of the first printable object on the plate. |
+| `scale[]` | string per object | Scale of each object as text, for example `x:100% y:50% z:100%`. Also works in the file name. |
+| `input_filename_base` | string | Name of the first printable object, without the extension. If the object has no name, the name of its source file. Also works in the file name, where it is the project name for a saved project. |
+| `input_filename` | string | `input_filename_base` followed by `.gcode`. Also works in the file name. |
+| `first_object_name` | string | *Added in 2.4.2.* Name of the first printable object on the plate. Also works in the file name. |
 
 ## Plates
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `plate_name` | string | Name of the plate. |
-| `plate_number` | string | Number of the plate, counting from 1 and padded to two digits, for example `01`. |
-| `model_name` | string | Model name saved in the 3MF project, or empty. |
+| `plate_name` | string | Name of the plate. Also works in the file name. |
+| `plate_number` | string | Number of the plate, counting from 1 and padded to two digits, for example `01`. Also works in the file name. |
+| `model_name` | string | Model name saved in the 3MF project, or empty. Also works in the file name. |
 | `imex_mode` | string | *Added in 2.5.0.* Name of the plate's [IDEX/IQEX](printer_multimaterial_idex_iqex) parallel mode, or `primary` in Primary mode. Empty when the printer is not an IDEX/IQEX printer. |
 | `imex_mode_index` | int | *Added in 2.5.0.* Index of that mode in the printer's `imex_mode_names`, counting from 0. This is its row in the [Modes](printer_multimaterial_idex_iqex#modes) grid. `0` is Primary. |
 | `imex_mode_gcode` | string | *Added in 2.5.0.* The [Mode G-code](printer_multimaterial_idex_iqex#mode-g-code) of that mode, before its placeholders are filled in. |
@@ -241,25 +240,25 @@ OrcaSlicer reads `+` from left to right, and text joined with a number stays tex
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `print_preset` | string | Name of the print preset. |
-| `filament_preset[]` | string per filament | Name of the preset of each filament. |
-| `filament_type[]` | string per filament | Material type of each filament, for example `PLA` or `PETG`. |
-| `printer_preset` | string | Name of the printer preset. |
+| `print_preset` | string | Name of the print preset. Also works in the file name. |
+| `filament_preset[]` | string per filament | Name of the preset of each filament. Also works in the file name. |
+| `filament_type[]` | string per filament | Material type of each filament, for example `PLA` or `PETG`. Also works in the file name. |
+| `printer_preset` | string | Name of the printer preset. Also works in the file name. |
 
 ## Timestamps
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `timestamp` | string (`yyyyMMdd-hhmmss`) | Local time when G-code export started. In `filename_format`, the time when the file name is built. |
-| `year` / `month` / `day` | int | Date of `timestamp`. |
-| `hour` / `minute` / `second` | int | Time of day of `timestamp`. |
+| `timestamp` | string (`yyyyMMdd-hhmmss`) | Local time when G-code export started. Also works in the file name, as the time when the name is built. |
+| `year` / `month` / `day` | int | Date of `timestamp`. Also works in the file name. |
+| `hour` / `minute` / `second` | int | Time of day of `timestamp`. Also works in the file name. |
 
 ## Environment
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `user` | string | User name from the `USER` or `USERNAME` environment variable, or `unknown`. |
-| `version` | string | OrcaSlicer version. |
+| `user` | string | User name from the `USER` or `USERNAME` environment variable, or `unknown`. Also works in the file name. |
+| `version` | string | OrcaSlicer version. Also works in the file name. |
 
 ## Toolhead Position
 
@@ -411,23 +410,20 @@ These placeholders are available in `change_extrusion_role_gcode`, `filament_cha
 
 ## File Name Template
 
-The file name has its own set of placeholders, separate from the set that custom G-code uses. In the file name, print statistics are always the final values. If the name is needed before the G-code exists, OrcaSlicer fills them in after export.
+The file name template, `filename_format`, has its own set of placeholders. It can use all settings, and the placeholders marked *Also works in the file name* in the tables above. Any other placeholder makes the file name fail with "Processing of the filename_format template failed."
 
-These placeholders work in `filename_format`:
+In the file name:
 
-- All settings of the active print, filament and printer presets, and `print_preset`, `filament_preset[]` and `printer_preset`.
-- Object and plate values: `input_filename`, `input_filename_base`, `first_object_name`, `num_objects`, `num_instances`, `scale[]`, `plate_name`, `plate_number` and `model_name`, the [Timestamps](#timestamps), `user` and `version`.
-- *Added in 2.4.0.* `filament_name`, the preset name of the lowest-numbered filament that the plate uses, cut at `@`.
-- `num_extruders` and `num_filaments`, which both give the number of extruders.
-- *`initial_extruder` added in 2.4.0, `initial_no_support_extruder` added in 2.5.0.* `initial_tool`, `initial_extruder` and `initial_no_support_extruder`.
-- Print statistics: `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `total_cost`, `total_toolchanges`, `total_weight`, `total_wipe_tower_cost`, `total_wipe_tower_filament`, `extruded_volume_total` and `extruded_weight_total`. Here `extruded_weight_total` is the same as `total_weight`, and `extruded_volume` is the total volume, not a list. *`extruded_volume_total` and `extruded_weight_total` added in 2.4.0.*
+- Print statistics are always the final values. If the name is needed before the G-code exists, OrcaSlicer fills them in after export.
+- `extruded_volume`, `extruded_volume_total` and `extruded_weight_total` are totals for the whole print. `extruded_volume` is one value, not a list.
+- `extruded_volume_total`, `extruded_weight_total` and `initial_extruder` work since 2.4.0, and `initial_no_support_extruder` works since 2.5.0.
 
-Placeholders that OrcaSlicer sets while it generates G-code do **not** work in `filename_format`. Using one makes the file name fail. These are all the other placeholders on this page that are not settings:
+These placeholders work only in the file name:
 
-- [Toolhead Position](#toolhead-position) and [Placeholders for Specific G-code](#placeholders-for-specific-g-code).
-- [Filaments, Extruders and Nozzles](#filaments-extruders-and-nozzles) and [Dimensions](#dimensions), except the ones listed above. `filament_map[]` is also a setting, so it works in the file name.
-- Temperatures that are not settings, such as `bed_temperature_initial_layer_single` and `overall_chamber_temperature`.
-- `total_layer_count`, `print_time_total_sec`, `print_time_day`, `print_time_hour`, `print_time_minute`, `print_time_sec` and `used_filament_length`.
+| Placeholder | Type | Description |
+| --- | --- | --- |
+| `filament_name` | string | *Added in 2.4.0.* Preset name of the lowest-numbered filament that the plate uses, cut at `@`. |
+| `num_filaments` | int | Number of extruders. It is the same as `num_extruders`. |
 
 ## Examples
 
