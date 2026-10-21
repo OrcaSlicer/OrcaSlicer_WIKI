@@ -197,6 +197,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
         - [<img alt="toolbar_scale_dark" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_scale_dark.svg?raw=true" height="22"> Scale](prepare_object_manipulation#scale)
         - [<img alt="toolbar_flatten_dark" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_flatten_dark.svg?raw=true" height="22"> Lay on Face](prepare_object_manipulation#lay-on-face)
     - [<img alt="toolbar_cut_dark" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_cut_dark.svg?raw=true" height="22"> Cutting Tool](prepare_cutting_tool)
+    - [Parts, Modifiers and Per-Object Settings](prepare_modifiers)
     - [<img alt="toolbar_meshboolean_dark" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_meshboolean_dark.svg?raw=true" height="22"> Mesh Boolean](prepare_mesh_boolean)
     - Painting/Marking Tools
         - [<img alt="toolbar_fuzzy_skin_paint_dark" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/toolbar_fuzzy_skin_paint_dark.svg?raw=true" height="22"> Support Painting](prepare_support_painting)

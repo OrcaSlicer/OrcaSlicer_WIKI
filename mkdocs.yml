@@ -173,6 +173,7 @@ nav:
   - Emboss: print_prepare/prepare_emboss.md
   - Image: print_prepare/prepare_image_tool.md
   - "Mesh Boolean": print_prepare/prepare_mesh_boolean.md
+  - "Parts, Modifiers and Per-Object Settings": print_prepare/prepare_modifiers.md
   - "Object Manipulation": print_prepare/prepare_object_manipulation.md
   - "Object Set": print_prepare/prepare_object_set.md
   - "Paint on Fuzzy Skin": print_prepare/prepare_paint_on_fuzzy_skin.md
