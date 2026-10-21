@@ -379,7 +379,7 @@ Example with the [Octagram Spiral](strength_settings_patterns#octagram-spiral) p
 
 ### Sparse Infill Smooth Curve
 
-[Mode](option_mode): `Advanced`.
+[Mode](option_mode): `Expert`.
 [Variable](built_in_placeholders_variables): `sparse_infill_smooth_curve`.
 [Type](option_type#choice): `Choice`.
 [CLI Example](cli_mode#setting-overrides): `--sparse-infill-smooth-curve=g2`.
@@ -393,7 +393,7 @@ The curve that rounds the corners, named by how smoothly it joins the straight l
 - **G2 (quintic):** a quintic Bézier curve whose curvature grows from zero at both legs, so the nozzle eases into and out of the turn instead of snapping into it. This is the default.
 - **G3 (septic):** a degree 7 Bézier curve whose curvature and the rate of its curvature both start from zero, the smoothest join of the three.
 
-G2 and G3 print about as fast as each other, and G1 gives up about a quarter of their time saving, see [Print time and material](#print-time-and-material).
+G2 and G3 print about as fast as each other, and G1 gives up about a fifth of their time saving, see [Print time and material](#print-time-and-material).
 
 ### How rounded corners are printed
 
@@ -415,17 +415,17 @@ Rounded corners let the toolhead keep more of its speed through the turns, so th
 | [3D Honeycomb](strength_settings_patterns#3d-honeycomb) | 3% | 10% | 14% | 21% | 14% | 21% |
 | [Honeycomb](strength_settings_patterns#honeycomb) | 2% | 9% | 13% | 19% | 15% | 21% |
 | [Hilbert Curve](strength_settings_patterns#hilbert-curve) | 1% | 5% | 9% | 18% | 10% | 18% |
-| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 3 lines | 3% | 6% | 10% | 14% | 11% | 14% |
-| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 2 lines | 4% | 9% | 9% | 13% | 9% | 13% |
-| [Cubic](strength_settings_patterns#cubic), 3 lines | 2% | 5% | 9% | 12% | 9% | 12% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 3 lines | 4% | 8% | 12% | 16% | 13% | 16% |
+| [Tri-hexagon](strength_settings_patterns#tri-hexagon), 2 lines | 6% | 11% | 11% | 16% | 12% | 16% |
+| [Cubic](strength_settings_patterns#cubic), 3 lines | 3% | 6% | 10% | 13% | 10% | 13% |
+| [Cubic](strength_settings_patterns#cubic), 2 lines | 4% | 8% | 9% | 13% | 10% | 13% |
 | [Cross Hatch](strength_settings_patterns#cross-hatch) | 2% | 5% | 8% | 12% | 10% | 11% |
-| [Cubic](strength_settings_patterns#cubic), 2 lines | 2% | 6% | 7% | 10% | 8% | 11% |
-| [Grid](strength_settings_patterns#grid), 3 lines | 1% | 3% | 3% | 8% | 8% | 8% |
-| [Grid](strength_settings_patterns#grid), 2 lines | 0% | 2% | 6% | 5% | 5% | 5% |
+| [Grid](strength_settings_patterns#grid), 3 lines | 1% | 5% | 5% | 10% | 10% | 10% |
+| [Grid](strength_settings_patterns#grid), 2 lines | 2% | 3% | 9% | 8% | 8% | 8% |
+| [Triangles](strength_settings_patterns#triangles), 2 lines | 0% | 1% | 2% | 5% | 5% | 5% |
 | [Concentric](strength_settings_patterns#concentric) | 1% | 2% | 3% | 4% | 3% | 3% |
-| [Triangles](strength_settings_patterns#triangles), 2 lines | 0% | -1% | 0% | 3% | 3% | 3% |
 | [Lightning](strength_settings_patterns#lightning) | 1% | 2% | 2% | 3% | 2% | 3% |
-| [Triangles](strength_settings_patterns#triangles), 3 lines | 0% | 0% | 2% | 1% | 1% | 4% |
+| [Triangles](strength_settings_patterns#triangles), 3 lines | -1% | 0% | 3% | 2% | 2% | 5% |
 
 [Octagram Spiral](strength_settings_patterns#octagram-spiral), [Hilbert Curve](strength_settings_patterns#hilbert-curve) and [Honeycomb](strength_settings_patterns#honeycomb) cut their corners deeply enough to print 29%, 15% and 7% less material at `100%`, which is part of their time saving. The other patterns keep their material within 4%, so their saving comes from speed.
 
@@ -435,9 +435,9 @@ Rounded corners let the toolhead keep more of its speed through the turns, so th
 ### Best smooth factor for speed
 
 - **`100%` prints fastest** for almost every pattern and density in the analysis: the largest curves get the most vertices and the gentlest turns. The exceptions are close: [Grid](strength_settings_patterns#grid) with 2 lines and [Triangles](strength_settings_patterns#triangles) with 3 lines print about one point faster at `75%`.
-- **Lower factors save less.** On average `50%` saves about half of what `100%` saves, and [Triangles](strength_settings_patterns#triangles) saves nothing below `100%` with 2 lines, or below `75%` with 3 lines. Use them for the look of the infill, not for speed.
-- **G2 or G3 for speed.** G1 makes a smaller G-code file but gives up about a quarter of the saving.
-- **A finer [G-code resolution](quality_settings_precision#resolution) prints faster.** It splits every corner into more and gentler turns: on the 100 mm cube at `100%`, going from 0.012 to 0.006 mm raised the mean saving from 14% to 21%, for about 1.5 times the infill G-code. The resolution applies to the whole print, walls included.
+- **Lower factors save less.** On average `50%` saves about half of what `100%` saves, and [Triangles](strength_settings_patterns#triangles) saves almost nothing below `75%`. Use them for the look of the infill, not for speed.
+- **G2 or G3 for speed.** G1 makes a smaller G-code file but gives up about a fifth of the saving.
+- **A finer [G-code resolution](quality_settings_precision#resolution) prints faster.** It splits every corner into more and gentler turns: on the 100 mm cube at `100%`, going from 0.012 to 0.006 mm raised the mean saving from 16% to 22%, for about 1.5 times the infill G-code. The resolution applies to the whole print, walls included.
 
 ### Supported patterns
 
