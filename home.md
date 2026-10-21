@@ -233,6 +233,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 - [Import and Export](import_export)
 - [Modes](option_mode)
+- [Option Types](option_type)
 - [Keyboard Shortcuts](keyboard_shortcuts)
 - [Transfer or Discard Changes popup dialog](transfer_discard_changes)
 - [User Profiles](user_profiles)
@@ -312,5 +313,19 @@ See the [all releases](releases_index) overview, or jump straight to a version:
 - [How to contribute to the wiki](how_to_wiki)
 - [Preset, PresetBundle and PresetCollection](preset_and_bundle)
 - [Plater, Sidebar, Tab, ComboBox](plater_sidebar_tab_combobox)
+- Plugin Development
+    - [Plugin System Overview](plugin_system)
+    - [Plugin Development](plugin_development)
+    - API Reference
+        - [Registry](registry)
+        - [Host](host)
+        - [Host UI](host_ui)
+        - [Script](script)
+        - [Printer Agent](printer_agent)
+        - [Lifecycle Events](lifecycle_events)
+        - [Pages](pages)
+        - [Resource Texture](resource_texture)
+        - [Slicing Pipeline](slicing)
+    - [Plugin Audit Hook](plugin_audit_hook)
 - [Built-in placeholders & variables](built_in_placeholders_variables)
 - [Slicing Call Hierarchy](slicing_hierarchy)

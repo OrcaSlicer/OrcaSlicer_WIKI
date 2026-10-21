@@ -66,6 +66,8 @@ For example, if you add `calibration/flow_ratio_calib.md`, link it like this:
 [Flow Ratio Calibration](flow_ratio_calib)
 ```
 
+Inside each section, the website sidebar follows the order of the list links on the Home page, so place the link where the page sits in the slicer.
+
 For long pages, include a table of contents at the top to help readers find sections quickly.
 
 ```markdown

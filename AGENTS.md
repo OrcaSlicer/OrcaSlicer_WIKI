@@ -109,6 +109,7 @@ Use fenced triple-backtick blocks and **specify the language** for highlighting 
 - Give each page one clear objective; open with a short intro, then either a step-by-step guide (procedures/calibration) or a GUI-ordered reference.
 - Add a table-of-contents list at the top of long pages.
 - When adding a new page, link it from `home.md` under the correct category, and confirm it doesn't duplicate an existing page.
+- Inside each section, the website sidebar (`nav:` in `mkdocs.yml`) follows the order of the list links in `home.md`, so place the link where the page sits in the slicer, then run `python generate_nav.py --update`. The order of the top-level sections is fixed by `TOP_LEVEL_FOLDER_ORDER` in [`generate_nav.py`](generate_nav.py); add a new top-level folder there.
 
 ## Orca → Wiki Redirection
 

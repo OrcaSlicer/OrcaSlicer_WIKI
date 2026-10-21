@@ -3,7 +3,10 @@
 Auto-generate mkdocs.yml navigation from folder structure.
 Fully dynamic - scans all folders and markdown files automatically.
 
-Entries already listed in mkdocs.yml keep the position they have there; only
+The top-level sections follow TOP_LEVEL_FOLDER_ORDER. Inside them, pages listed
+in home.md follow the order they are listed in there, so the nav matches the
+slicer's tab order; a folder takes the place of its first page.
+Entries home.md does not link keep the position they have in mkdocs.yml; only
 new files/folders are placed using the sort rules below. Pass --reorder to
 ignore the existing nav and sort everything from scratch.
 
@@ -124,11 +127,24 @@ PLUGINS_ORDER = {
     'plugin_types': 3,
     'managing_plugins': 4,
 }
-TOP_LEVEL_FOLDER_ORDER = {
-    'user_profiles': 10,
-    'plugins': 11,
-    'developer_reference': 12,
-}
+# Top-level sections in sidebar order. A folder not listed here keeps its slot.
+TOP_LEVEL_FOLDER_ORDER = [
+    'guides',
+    'calibration',
+    'general_settings',
+    'design',
+    'print_prepare',
+    'user_profiles',
+    'printer_settings',
+    'material_settings',
+    'print_settings',
+    'publishing_3mf',
+    'speed_dial',
+    'cli',
+    'plugins',
+    'releases',
+    'developer_reference',
+]
 
 
 def get_sort_key(path: Path) -> tuple:
@@ -153,9 +169,6 @@ def get_sort_key(path: Path) -> tuple:
 
     if path.is_file() and path.parent.name == 'plugins' and name in PLUGINS_ORDER:
         return (-1, PLUGINS_ORDER[name], name)
-
-    if path.is_dir() and path.parent == Path(__file__).parent and name in TOP_LEVEL_FOLDER_ORDER:
-        return (TOP_LEVEL_FOLDER_ORDER[name], name)
 
     # Release notes get their own priority bucket (distinct from the default 5)
     # so this negative-number key is only ever compared release-to-release.
@@ -300,9 +313,72 @@ def keep_existing_places(sorted_items: list, base_path: Path, existing_order: di
     return result
 
 
-def scan_folder(folder: Path, base_path: Path, existing_order: Optional[dict] = None) -> list:
+# A wiki-style page link in home.md: ](page_name) or ](page_name#anchor).
+HOME_LINK_RE = re.compile(r'\]\(([a-z0-9_]+)(?:#[^)]*)?\)')
+
+
+def read_home_order(home_path: Path) -> dict:
+    """Map each page stem linked from home.md's lists to its position there.
+
+    Only list items count, so links in notes and intro paragraphs don't move a
+    page. A page listed twice takes its last place: a shared page is listed
+    under its own section last (e.g. how_to_create_profiles in Guides and in
+    the Developer Section).
+    """
+    try:
+        content = home_path.read_text(encoding='utf-8')
+    except (UnicodeDecodeError, IOError, PermissionError):
+        return {}
+
+    order: dict = {}
+    position = 0
+    for line in content.splitlines():
+        if not line.lstrip().startswith('- '):
+            continue
+        for match in HOME_LINK_RE.finditer(line):
+            order[match.group(1)] = position
+            position += 1
+    return order
+
+
+def home_rank(path: Path, home_order: dict) -> Optional[int]:
+    """Position of a page in home.md; a folder ranks by its earliest page."""
+    if path.is_file():
+        return home_order.get(path.stem)
+    ranks = [home_order[f.stem] for f in path.rglob('*.md') if f.stem in home_order]
+    return min(ranks) if ranks else None
+
+
+def sort_ranked_in_place(items: list, ranks: dict) -> list:
+    """Sort the items that have a rank among the slots they already hold.
+
+    Items with a None rank stay where they are.
+    """
+    ranked = iter(sorted((item for item in items if ranks[item] is not None),
+                         key=lambda item: ranks[item]))
+    return [next(ranked) if ranks[item] is not None else item for item in items]
+
+
+def follow_home_order(items: list, home_order: dict) -> list:
+    """Reorder the items listed in home.md into home.md's order."""
+    if not home_order:
+        return items
+    return sort_ranked_in_place(items, {item: home_rank(item, home_order) for item in items})
+
+
+def follow_top_level_order(folders: list) -> list:
+    """Reorder the top-level folders into TOP_LEVEL_FOLDER_ORDER."""
+    ranks = {folder: TOP_LEVEL_FOLDER_ORDER.index(folder.name)
+             if folder.name in TOP_LEVEL_FOLDER_ORDER else None
+             for folder in folders}
+    return sort_ranked_in_place(folders, ranks)
+
+
+def scan_folder(folder: Path, base_path: Path, existing_order: Optional[dict] = None,
+                home_order: Optional[dict] = None) -> list:
     """Recursively scan a folder and build nav structure."""
     existing_order = existing_order or {}
+    home_order = home_order or {}
     nav_items = []
 
     try:
@@ -312,17 +388,20 @@ def scan_folder(folder: Path, base_path: Path, existing_order: Optional[dict] = 
 
     # Sort pages and subfolders as one list so a section can hold a slot
     # between loose pages; keep_existing_places then restores whatever order
-    # mkdocs.yml already records.
-    entries = keep_existing_places(
-        sorted(
-            [item for item in items
-             if (item.is_file() and item.suffix == '.md')
-             or (item.is_dir()
-                 and not item.name.startswith('.')
-                 and item.name.lower() not in EXCLUDED_FOLDERS)],
-            key=get_sort_key
+    # mkdocs.yml already records, and follow_home_order applies home.md's.
+    entries = follow_home_order(
+        keep_existing_places(
+            sorted(
+                [item for item in items
+                 if (item.is_file() and item.suffix == '.md')
+                 or (item.is_dir()
+                     and not item.name.startswith('.')
+                     and item.name.lower() not in EXCLUDED_FOLDERS)],
+                key=get_sort_key
+            ),
+            base_path, existing_order
         ),
-        base_path, existing_order
+        home_order
     )
 
     # A folder-level index.md becomes the section's index page (Material's
@@ -342,7 +421,7 @@ def scan_folder(folder: Path, base_path: Path, existing_order: Optional[dict] = 
             rel_path = item.relative_to(base_path)
             nav_items.append((title, str(rel_path).replace('\\', '/')))
         else:
-            sub_items = scan_folder(item, base_path, existing_order)
+            sub_items = scan_folder(item, base_path, existing_order, home_order)
             if sub_items:
                 folder_title = get_display_name(item.name)
                 nav_items.append((folder_title, sub_items))
@@ -350,9 +429,11 @@ def scan_folder(folder: Path, base_path: Path, existing_order: Optional[dict] = 
     return nav_items
 
 
-def generate_nav(base_path: Path, existing_order: Optional[dict] = None) -> list:
+def generate_nav(base_path: Path, existing_order: Optional[dict] = None,
+                 home_order: Optional[dict] = None) -> list:
     """Generate the complete navigation structure by scanning all folders."""
     existing_order = existing_order or {}
+    home_order = home_order or {}
     nav = []
 
     # Check for home.md -> becomes index.md
@@ -360,21 +441,23 @@ def generate_nav(base_path: Path, existing_order: Optional[dict] = None) -> list
         nav.append(("Home", "index.md"))
 
     # Scan all top-level folders that contain markdown files
-    top_level_folders = keep_existing_places(
-        sorted(
-            [d for d in base_path.iterdir()
-             if d.is_dir()
-             and not d.name.startswith('.')
-             and d.name.lower() not in EXCLUDED_FOLDERS
-             and any(d.rglob('*.md'))],  # Only include if has .md files
-            key=get_sort_key
-        ),
-        base_path, existing_order
+    top_level_folders = follow_top_level_order(
+        keep_existing_places(
+            sorted(
+                [d for d in base_path.iterdir()
+                 if d.is_dir()
+                 and not d.name.startswith('.')
+                 and d.name.lower() not in EXCLUDED_FOLDERS
+                 and any(d.rglob('*.md'))],  # Only include if has .md files
+                key=get_sort_key
+            ),
+            base_path, existing_order
+        )
     )
 
     # Build nav from each folder
     for folder in top_level_folders:
-        items = scan_folder(folder, base_path, existing_order)
+        items = scan_folder(folder, base_path, existing_order, home_order)
         if items:
             section_title = get_display_name(folder.name)
             nav.append((section_title, items))
@@ -526,7 +609,8 @@ def main():
     existing_order = {} if args.reorder else read_existing_order(mkdocs_path)
     if existing_order:
         print(f"📌 Keeping the current position of {len(existing_order)} existing nav entries\n")
-    nav = generate_nav(script_dir, existing_order)
+    home_order = read_home_order(script_dir / 'home.md')
+    nav = generate_nav(script_dir, existing_order, home_order)
     nav_yaml = nav_to_yaml(nav)
 
     print("📋 Navigation Structure:\n")

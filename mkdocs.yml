@@ -113,153 +113,163 @@ copyright: Copyright &copy; 2022-2026 Li Jiang. All rights reserved.
 nav:
 - Home: index.md
 - Guides:
+  - "Mixed Nozzle Sizes": guides/mixed_nozzle_sizes.md
   - "Calibration Guide": guides/calibration_guide.md
   - "Belt Printing": guides/belt_printing.md
-  - "How to Download Pull Requests Artifacts for Testing": guides/how_to_download_pr_artifacts.md
   - "IDEX/IQEX Parallel Printing": guides/idex_iqex_parallel_printing.md
-  - "Mixed Nozzle Sizes": guides/mixed_nozzle_sizes.md
+  - "How to Download Pull Requests Artifacts for Testing": guides/how_to_download_pr_artifacts.md
 - Calibration:
-  - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
-  - Cornering: calibration/cornering_calib.md
-  - "Flow Ratio Calibration": calibration/flow_ratio_calib.md
-  - "Input Shaping": calibration/input_shaping_calib.md
-  - "Pressure Advance": calibration/pressure_advance_calib.md
-  - "Retraction test": calibration/retraction_calib.md
   - "Temp Calibration": calibration/temp_calib.md
-  - "Filament Tolerance Calibration": calibration/tolerance_calib.md
-  - VFA: calibration/vfa_calib.md
   - "Max Volumetric Speed (FlowRate) Calibration": calibration/volumetric_speed_calib.md
-- "Command Line Interface":
-  - "CLI Actions": cli/cli_actions.md
-  - "CLI Mode": cli/cli_mode.md
-  - "CLI Transform": cli/cli_transform.md
-  - "CLI Misc": cli/cli_misc.md
-- Design:
-  - "Design Keyboard Shortcuts": design/design_keyboard_shortcuts.md
-  - "Modeling Tools": design/design_modeling_tools.md
-  - Sketching: design/design_sketching.md
-  - "Design Tab": design/design_tab.md
+  - "Pressure Advance": calibration/pressure_advance_calib.md
+  - "Flow Ratio Calibration": calibration/flow_ratio_calib.md
+  - "Retraction test": calibration/retraction_calib.md
+  - Cornering: calibration/cornering_calib.md
+  - "Input Shaping": calibration/input_shaping_calib.md
+  - VFA: calibration/vfa_calib.md
+  - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
+  - "Filament Tolerance Calibration": calibration/tolerance_calib.md
 - "General Settings":
   - "Import and Export": general_settings/import_export.md
-  - "Keyboard Shortcuts": general_settings/keyboard_shortcuts.md
   - "Option Modes": general_settings/option_mode.md
   - "Option Types": general_settings/option_type.md
+  - "Keyboard Shortcuts": general_settings/keyboard_shortcuts.md
   - "Transfer or Discard Changes popup dialog": general_settings/transfer_discard_changes.md
   - "Troubleshoot Center": general_settings/troubleshoot_center.md
+- Design:
+  - "Design Tab": design/design_tab.md
+  - Sketching: design/design_sketching.md
+  - "Modeling Tools": design/design_modeling_tools.md
+  - "Design Keyboard Shortcuts": design/design_keyboard_shortcuts.md
+- "Print Prepare":
+  - "STL Transformation": print_prepare/prepare_stl_transformation.md
+  - "Precise Seam": print_prepare/prepare_precise_seam.md
+  - "Prepare Toolbar": print_prepare/prepare_basic.md
+  - "Auto Orientation": print_prepare/prepare_auto_orient.md
+  - "Auto Arrange": print_prepare/prepare_auto_arrange.md
+  - "Object Set": print_prepare/prepare_object_set.md
+  - "Variable Layer Height": print_prepare/prepare_variable_layer_height.md
+  - "Object Manipulation": print_prepare/prepare_object_manipulation.md
+  - "Cutting Tool": print_prepare/prepare_cutting_tool.md
+  - "Mesh Boolean": print_prepare/prepare_mesh_boolean.md
+  - "Support Painting": print_prepare/prepare_support_painting.md
+  - "Seam Painting": print_prepare/prepare_seam_painting.md
+  - "Paint on Fuzzy Skin": print_prepare/prepare_paint_on_fuzzy_skin.md
+  - "Color Painting": print_prepare/prepare_color_painting.md
+  - "Texture Displacement": print_prepare/prepare_texture_displacement.md
+  - "Texture Displacement UV Editor": print_prepare/prepare_texture_displacement_uv_editor.md
+  - "Texture Displacement Pro Mode": print_prepare/prepare_texture_displacement_pro.md
+  - Image: print_prepare/prepare_image_tool.md
+  - Emboss: print_prepare/prepare_emboss.md
+  - "Brim ears Painting": print_prepare/prepare_brim_ears_painting.md
+  - "Assembly Tools": print_prepare/prepare_assembly_tools.md
+- "User Profiles":
+  - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
+- "Printer Settings":
+  - "Basic Information":
+    - "Printable Space": "printer_settings/basic information/printer_basic_information_printable_space.md"
+    - "Advanced Printer Settings": "printer_settings/basic information/printer_basic_information_advanced.md"
+    - "Belt Printer": "printer_settings/basic information/printer_basic_information_belt_printer.md"
+    - "Machine Frame Transforms": "printer_settings/basic information/printer_basic_information_machine_frame_transforms.md"
+    - "Cooling Fan": "printer_settings/basic information/printer_basic_information_cooling_fan.md"
+    - "Extruder Clearance": "printer_settings/basic information/printer_basic_information_extruder_clearance.md"
+    - "Adaptive Bed Mesh": "printer_settings/basic information/printer_basic_information_adaptive_bed_mesh.md"
+    - "Printer Accessory": "printer_settings/basic information/printer_basic_information_accessory.md"
+  - "Machine G-Code":
+    - "Machine G-code": "printer_settings/machine gcode/printer_machine_gcode.md"
+  - Multimaterial:
+    - "Multimaterial setup": printer_settings/multimaterial/printer_multimaterial_setup.md
+    - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
+    - "Single Extruder Multi-Material Parameters": printer_settings/multimaterial/printer_multimaterial_semm_parameters.md
+    - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
+    - "IDEX/IQEX Configuration": printer_settings/multimaterial/printer_multimaterial_idex_iqex.md
+  - Extruder:
+    - "Basic Extruder Information": printer_settings/extruder/printer_extruder_basic_information.md
+    - Retraction: printer_settings/extruder/printer_extruder_retraction.md
+    - "Z Hop": printer_settings/extruder/printer_extruder_z_hop.md
+  - "Motion Ability":
+    - "Motion Ability": "printer_settings/motion ability/printer_motion_ability.md"
 - "Material Settings":
-  - Cooling:
-    - "Material Cooling": material_settings/cooling/material_cooling.md
   - Filament:
     - "Material Basic Information": material_settings/filament/material_basic_information.md
     - "Material Flow Ratio and Pressure Advance": material_settings/filament/material_flow_ratio_and_pressure_advance.md
     - "Material Temperatures": material_settings/filament/material_temperatures.md
     - "Material Volumetric Speed Limitation": material_settings/filament/material_volumetric_speed_limitation.md
-  - Multimaterial:
-    - "Material Multimaterial Settings": material_settings/multimaterial/material_multimaterial.md
+  - Cooling:
+    - "Material Cooling": material_settings/cooling/material_cooling.md
   - "Setting Overrides":
     - "Material Setting Overrides": "material_settings/setting overrides/material_setting_overrides.md"
   - Advanced:
     - "Advanced Material Settings": material_settings/advanced/material_advanced.md
+  - Multimaterial:
+    - "Material Multimaterial Settings": material_settings/multimaterial/material_multimaterial.md
   - Dependencies:
     - "Material Dependencies": material_settings/dependencies/material_dependencies.md
-- "Print Prepare":
-  - "Prepare Toolbar": print_prepare/prepare_basic.md
-  - "Assembly Tools": print_prepare/prepare_assembly_tools.md
-  - "Auto Arrange": print_prepare/prepare_auto_arrange.md
-  - "Auto Orientation": print_prepare/prepare_auto_orient.md
-  - "Brim ears Painting": print_prepare/prepare_brim_ears_painting.md
-  - "Color Painting": print_prepare/prepare_color_painting.md
-  - "Cutting Tool": print_prepare/prepare_cutting_tool.md
-  - Emboss: print_prepare/prepare_emboss.md
-  - Image: print_prepare/prepare_image_tool.md
-  - "Mesh Boolean": print_prepare/prepare_mesh_boolean.md
-  - "Object Manipulation": print_prepare/prepare_object_manipulation.md
-  - "Object Set": print_prepare/prepare_object_set.md
-  - "Paint on Fuzzy Skin": print_prepare/prepare_paint_on_fuzzy_skin.md
-  - "Precise Seam": print_prepare/prepare_precise_seam.md
-  - "Seam Painting": print_prepare/prepare_seam_painting.md
-  - "STL Transformation": print_prepare/prepare_stl_transformation.md
-  - "Support Painting": print_prepare/prepare_support_painting.md
-  - "Texture Displacement": print_prepare/prepare_texture_displacement.md
-  - "Texture Displacement Pro Mode": print_prepare/prepare_texture_displacement_pro.md
-  - "Texture Displacement UV Editor": print_prepare/prepare_texture_displacement_uv_editor.md
-  - "Variable Layer Height": print_prepare/prepare_variable_layer_height.md
 - "Print Settings":
-  - Multimaterial:
-    - "Filament for Features": print_settings/multimaterial/multimaterial_settings_filament_for_features.md
-    - "Flush Options": print_settings/multimaterial/multimaterial_settings_flush_options.md
-    - "Ooze prevention": print_settings/multimaterial/multimaterial_settings_ooze_prevention.md
-    - "Prime Tower": print_settings/multimaterial/multimaterial_settings_prime_tower.md
-    - "Multimaterial Advanced": print_settings/multimaterial/multimaterial_settings_advanced.md
   - Quality:
-    - Bridging: print_settings/quality/quality_settings_bridging.md
-    - Ironing: print_settings/quality/quality_settings_ironing.md
     - "Layer Height": print_settings/quality/quality_settings_layer_height.md
     - "Line Width": print_settings/quality/quality_settings_line_width.md
-    - Overhangs: print_settings/quality/quality_settings_overhangs.md
-    - Precision: print_settings/quality/quality_settings_precision.md
     - Seam: print_settings/quality/quality_settings_seam.md
-    - "Wall and surfaces": print_settings/quality/quality_settings_wall_and_surfaces.md
-    - "Wall Generator": print_settings/quality/quality_settings_wall_generator.md
+    - Precision: print_settings/quality/quality_settings_precision.md
+    - Ironing: print_settings/quality/quality_settings_ironing.md
     - "Z Contouring": print_settings/quality/quality_settings_z_contouring.md
-  - Speed:
-    - Acceleration: print_settings/speed/speed_settings_acceleration.md
-    - "Initial layer speed": print_settings/speed/speed_settings_initial_layer_speed.md
-    - "Jerk XY": print_settings/speed/speed_settings_jerk_xy.md
-    - "Overhang Speed": print_settings/speed/speed_settings_overhang_speed.md
-    - Travel: print_settings/speed/speed_settings_travel.md
-    - "Speed Advanced - Extrusion Rate Smoothing": print_settings/speed/speed_settings_advanced.md
-    - "Other layers speed": print_settings/speed/speed_settings_other_layers_speed.md
+    - "Wall Generator": print_settings/quality/quality_settings_wall_generator.md
+    - "Wall and surfaces": print_settings/quality/quality_settings_wall_and_surfaces.md
+    - Bridging: print_settings/quality/quality_settings_bridging.md
+    - Overhangs: print_settings/quality/quality_settings_overhangs.md
   - Strength:
+    - Walls: print_settings/strength/strength_settings_walls.md
+    - "Top and Bottom Shells": print_settings/strength/strength_settings_top_bottom_shells.md
     - Infill: print_settings/strength/strength_settings_infill.md
-    - "Infill rotation template metalanguage": print_settings/strength/strength_settings_infill_rotation_template_metalanguage.md
     - Patterns: print_settings/strength/strength_settings_patterns.md
     - Reference: print_settings/strength/strength_settings_patterns_quick_reference.md
-    - "Top and Bottom Shells": print_settings/strength/strength_settings_top_bottom_shells.md
-    - Walls: print_settings/strength/strength_settings_walls.md
+    - "Infill rotation template metalanguage": print_settings/strength/strength_settings_infill_rotation_template_metalanguage.md
     - "Strength Advanced": print_settings/strength/strength_settings_advanced.md
+  - Speed:
+    - "Initial layer speed": print_settings/speed/speed_settings_initial_layer_speed.md
+    - "Other layers speed": print_settings/speed/speed_settings_other_layers_speed.md
+    - "Overhang Speed": print_settings/speed/speed_settings_overhang_speed.md
+    - Travel: print_settings/speed/speed_settings_travel.md
+    - Acceleration: print_settings/speed/speed_settings_acceleration.md
+    - "Jerk XY": print_settings/speed/speed_settings_jerk_xy.md
+    - "Speed Advanced - Extrusion Rate Smoothing": print_settings/speed/speed_settings_advanced.md
   - Support:
+    - Support: print_settings/support/support_settings_support.md
+    - Raft: print_settings/support/support_settings_raft.md
     - "Support Filament": print_settings/support/support_settings_filament.md
     - "Support Ironing": print_settings/support/support_settings_ironing.md
-    - Raft: print_settings/support/support_settings_raft.md
-    - Support: print_settings/support/support_settings_support.md
-    - "Tree Support": print_settings/support/support_settings_tree.md
     - "Support Advanced": print_settings/support/support_settings_advanced.md
+    - "Tree Support": print_settings/support/support_settings_tree.md
+  - Multimaterial:
+    - "Prime Tower": print_settings/multimaterial/multimaterial_settings_prime_tower.md
+    - "Filament for Features": print_settings/multimaterial/multimaterial_settings_filament_for_features.md
+    - "Ooze prevention": print_settings/multimaterial/multimaterial_settings_ooze_prevention.md
+    - "Flush Options": print_settings/multimaterial/multimaterial_settings_flush_options.md
+    - "Multimaterial Advanced": print_settings/multimaterial/multimaterial_settings_advanced.md
   - Others:
+    - Skirt: print_settings/others/others_settings_skirt.md
     - Brim: print_settings/others/others_settings_brim.md
+    - "Special Mode": print_settings/others/others_settings_special_mode.md
     - "Fuzzy Skin": print_settings/others/others_settings_fuzzy_skin.md
     - "G-Code Output": print_settings/others/others_settings_g_code_output.md
-    - Notes: print_settings/others/others_settings_notes.md
     - "Post-Processing Scripts": print_settings/others/others_settings_post_processing_scripts.md
-    - Skirt: print_settings/others/others_settings_skirt.md
-    - "Special Mode": print_settings/others/others_settings_special_mode.md
-- "Printer Settings":
-  - "Basic Information":
-    - "Printer Accessory": "printer_settings/basic information/printer_basic_information_accessory.md"
-    - "Adaptive Bed Mesh": "printer_settings/basic information/printer_basic_information_adaptive_bed_mesh.md"
-    - "Advanced Printer Settings": "printer_settings/basic information/printer_basic_information_advanced.md"
-    - "Belt Printer": "printer_settings/basic information/printer_basic_information_belt_printer.md"
-    - "Cooling Fan": "printer_settings/basic information/printer_basic_information_cooling_fan.md"
-    - "Extruder Clearance": "printer_settings/basic information/printer_basic_information_extruder_clearance.md"
-    - "Machine Frame Transforms": "printer_settings/basic information/printer_basic_information_machine_frame_transforms.md"
-    - "Printable Space": "printer_settings/basic information/printer_basic_information_printable_space.md"
-  - Extruder:
-    - "Basic Extruder Information": printer_settings/extruder/printer_extruder_basic_information.md
-    - Retraction: printer_settings/extruder/printer_extruder_retraction.md
-    - "Z Hop": printer_settings/extruder/printer_extruder_z_hop.md
-  - "Machine G-Code":
-    - "Machine G-code": "printer_settings/machine gcode/printer_machine_gcode.md"
-  - "Motion Ability":
-    - "Motion Ability": "printer_settings/motion ability/printer_motion_ability.md"
-  - Multimaterial:
-    - "IDEX/IQEX Configuration": printer_settings/multimaterial/printer_multimaterial_idex_iqex.md
-    - "Single Extruder Multi-Material Parameters": printer_settings/multimaterial/printer_multimaterial_semm_parameters.md
-    - "Multimaterial setup": printer_settings/multimaterial/printer_multimaterial_setup.md
-    - "Wipe Tower": printer_settings/multimaterial/printer_multimaterial_wipe_tower.md
-    - "Advanced Multi-Material Settings": printer_settings/multimaterial/printer_multimaterial_advanced.md
+    - Notes: print_settings/others/others_settings_notes.md
 - "Publishing 3MF":
   - "What does Publish 3MF do?": publishing_3mf/publish_3mf.md
   - "For creators": publishing_3mf/publish_3mf_creators.md
+- "Speed Dial":
+  - "Speed Dial": speed_dial/speed_dial.md
+- "Command Line Interface":
+  - "CLI Mode": cli/cli_mode.md
+  - "CLI Actions": cli/cli_actions.md
+  - "CLI Transform": cli/cli_transform.md
+  - "CLI Misc": cli/cli_misc.md
+- Plugins:
+  - "Getting Started": plugins/plugins_getting_started.md
+  - "Local Plugins": plugins/plugins_local.md
+  - "Cloud Plugins": plugins/plugins_cloud.md
+  - "Plugin Types": plugins/plugins_types.md
+  - "Managing Plugins": plugins/plugins_management.md
 - Releases:
   - Releases: releases/releases_index.md
   - "V2.5.0 Alpha": releases/release_2_5_0_alpha.md
@@ -268,30 +278,20 @@ nav:
   - V2.4.0: releases/release_2_4_0.md
   - "V2.4.0 Beta": releases/release_2_4_0_beta.md
   - "V2.4.0 Alpha": releases/release_2_4_0_alpha.md
-- "Speed Dial":
-  - "Speed Dial": speed_dial/speed_dial.md
-- "User Profiles":
-  - "OrcaSlicer User Profiles": user_profiles/user_profiles.md
-- Plugins:
-  - "Cloud Plugins": plugins/plugins_cloud.md
-  - "Getting Started": plugins/plugins_getting_started.md
-  - "Local Plugins": plugins/plugins_local.md
-  - "Managing Plugins": plugins/plugins_management.md
-  - "Plugin Types": plugins/plugins_types.md
 - "Developer Reference":
-  - "Localization and translation guide": developer_reference/localization_guide.md
-  - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
-  - "Clang-Tidy Check": developer_reference/clang_tidy.md
   - "How to Build":
-    - "Compiler Caching": developer_reference/how_to_build/compiler_caching.md
     - "Build Overview": developer_reference/how_to_build/how_to_build.md
-    - "Build on Linux": developer_reference/how_to_build/how_to_build_linux.md
-    - "Build on macOS": developer_reference/how_to_build/how_to_build_macos.md
     - "Build on Windows": developer_reference/how_to_build/how_to_build_windows.md
-  - "Guide: Develop Profiles for OrcaSlicer": developer_reference/how_to_create_profiles.md
+    - "Build on macOS": developer_reference/how_to_build/how_to_build_macos.md
+    - "Build on Linux": developer_reference/how_to_build/how_to_build_linux.md
+    - "Compiler Caching": developer_reference/how_to_build/compiler_caching.md
   - "How to Test": developer_reference/how_to_test.md
-  - "How to Contribute to the Wiki": developer_reference/how_to_wiki.md
+  - "Clang-Tidy Check": developer_reference/clang_tidy.md
+  - "Localization and translation guide": developer_reference/localization_guide.md
   - "Translation Glossary": developer_reference/localization_glossary.md
+  - "Guide: Develop Profiles for OrcaSlicer": developer_reference/how_to_create_profiles.md
+  - "How to Contribute to the Wiki": developer_reference/how_to_wiki.md
+  - "Preset and Bundle": developer_reference/preset_and_bundle.md
   - "Application Structure Overview": developer_reference/plater_sidebar_tab_combobox.md
   - "Plugin Development":
     - "Plugin System Overview": developer_reference/plugin_development/plugin_system.md
@@ -307,5 +307,5 @@ nav:
       - "Resource Texture": developer_reference/plugin_development/api_reference/resource_texture.md
       - "Slicing Pipeline": developer_reference/plugin_development/api_reference/slicing.md
     - "Plugin Audit Hook": developer_reference/plugin_development/plugin_audit_hook.md
-  - "Preset and Bundle": developer_reference/preset_and_bundle.md
+  - "Placeholders Variables": developer_reference/built_in_placeholders_variables.md
   - Hierarchy: developer_reference/slicing_hierarchy.md
