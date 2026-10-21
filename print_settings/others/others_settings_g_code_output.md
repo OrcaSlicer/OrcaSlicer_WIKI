@@ -93,7 +93,7 @@ For example:
 This can be used to generate filenames like `OrcaCube_PLA_1h15m.gcode`.
 
 > [!TIP]
-> Check [Filename Templates](built_in_placeholders_variables#filename-templates) for available tokens and their meanings.
+> Check [File Name Template](built_in_placeholders_variables#file-name-template) for available tokens and their meanings.
 
 ## Change extrusion role G-code
 
