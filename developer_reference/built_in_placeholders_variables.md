@@ -2,9 +2,7 @@
 
 OrcaSlicer fills in placeholders when it expands custom G-code and the file name template.
 
-Write a placeholder inside curly braces, for example `{layer_num}`. Every print, filament and printer setting is a placeholder, with its config key as the name. This page lists the other placeholders, which OrcaSlicer sets while it slices. To find the key of a setting, hover over its label in OrcaSlicer, or read the *Variable* line in the setting's wiki page.
-
-![variable_name](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
+Write a placeholder inside curly braces, for example `{layer_num}`. Every print, filament and printer setting is a placeholder, with its config key as the name. This page lists the other placeholders, which OrcaSlicer sets while it slices.
 
 - [Placeholders by G-code Field](#placeholders-by-g-code-field)
 - [Reading the Tables](#reading-the-tables)
@@ -30,6 +28,11 @@ Write a placeholder inside curly braces, for example `{layer_num}`. Every print,
     - [Extrusion Roles](#extrusion-roles)
 - [File Name Template](#file-name-template)
 - [Examples](#examples)
+
+> [!TIP]
+> To find the key of a setting, hover over its label in OrcaSlicer, or read the *Variable* line in the setting's wiki page.
+>
+> ![variable_name](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/develop/variable_name.png?raw=true)
 
 ## Placeholders by G-code Field
 
