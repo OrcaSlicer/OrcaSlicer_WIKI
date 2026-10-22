@@ -8,12 +8,11 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'     
+        description: 'Log level'
         required: true
         default: 'warning'
 
 env:
-  USER_TOKEN: ${{ secrets.GH_WIKI_PAT }} # This is the repository secret personal access token
   USER_NAME: OrcaSlicerBot # Enter the username of your (bot) account
   OWNER: OrcaSlicer # Target repository owner
   REPOSITORY_NAME: OrcaSlicer # Target repository name
@@ -22,20 +21,34 @@ jobs:
   publish_docs_to_wiki:
     name: Updated OrcaSlicer Wiki
     runs-on: ubuntu-latest
-    steps:  
+    steps:
+      # Always publish the newest main rather than the commit that triggered the run,
+      # so re-running an older run cannot roll the wiki back.
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: main
+          path: docs
+
+      # GH_WIKI_PAT is the bot account's personal access token with write access to the target repository.
+      # actions/checkout sends it as an auth header, which git keeps sending when GitHub redirects the wiki URL;
+      # a token embedded in the clone URL is dropped after that redirect.
+      - name: Checkout wiki
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ env.OWNER }}/${{ env.REPOSITORY_NAME }}.wiki
+          ref: master
+          token: ${{ secrets.GH_WIKI_PAT }}
+          path: wiki
 
       # Publish content to wiki
-      - name: Pull content from wiki
-        working-directory: ${{ github.workspace }}/..
+      - name: Push content to wiki
+        working-directory: wiki
         run: |
-          git config --global user.name "$USER_NAME"
-          git config --global user.email "$USER_NAME"@users.noreply.github.com
-          git clone https://"$USER_TOKEN"@github.com/"$OWNER"/"$REPOSITORY_NAME".wiki.git tmp_wiki
-          echo ${{ github.workspace }}
-          rsync -av --delete ${{ github.workspace }}/ tmp_wiki/ --exclude .git
-          cd tmp_wiki
+          git config user.name "$USER_NAME"
+          git config user.email "$USER_NAME"@users.noreply.github.com
+          rsync -av --delete ../docs/ ./ --exclude .git
           git add .
-          git commit -m "Updated Wiki content" 
+          # Skip the commit when the wiki already matches main; the push still runs so a bad token fails the job.
+          git diff --cached --quiet || git commit -m "Updated Wiki content"
           git push origin master
