@@ -410,6 +410,12 @@ img[height="200"] { /* Calibrations guide preview */
     table-layout: auto;
 }
 
+/* Keep names in the first column whole, so the column widens instead of breaking a name mid-word */
+.md-typeset table:not([class]) td:first-child code {
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
 /* Vertical align table cells so icons sit in the middle */
 .md-typeset table td,
 .md-typeset table th {
