@@ -45,7 +45,7 @@ Every custom G-code field can use all settings and the placeholders in [Filament
 | Timelapse G-code | `time_lapse_gcode` | [Layer Placeholders](#layer-placeholders) and [Timelapse and Clumping Detection G-code](#timelapse-and-clumping-detection-g-code) |
 | Clumping detection G-code | `wrapping_detection_gcode` | [Layer Placeholders](#layer-placeholders), `most_used_physical_extruder_id` and `curr_physical_extruder_id` |
 | Change filament G-code | `change_filament_gcode` | [Layer Placeholders](#layer-placeholders) and [Change Filament G-code](#change-filament-g-code) |
-| Change extrusion role G-code | `change_extrusion_role_gcode`, `filament_change_extrusion_role_gcode`, `process_change_extrusion_role_gcode` | *`filament_change_extrusion_role_gcode` and `process_change_extrusion_role_gcode` added in 2.4.0.* [Change Extrusion Role G-code](#change-extrusion-role-g-code) |
+| Change extrusion role G-code | `change_extrusion_role_gcode`<br>`filament_change_extrusion_role_gcode`<br>`process_change_extrusion_role_gcode` | *`filament_change_extrusion_role_gcode` and `process_change_extrusion_role_gcode` added in 2.4.0.* [Change Extrusion Role G-code](#change-extrusion-role-g-code) |
 | Pause G-code | `machine_pause_gcode` | None |
 | IDEX/IQEX Mode G-codes | `imex_mode_gcodes` | *Added in 2.5.0.* None. It runs before the printer start G-code. Errors in it are shown under the name `imex_mode_gcode`. |
 | Custom G-code | `template_custom_gcode` | None |
@@ -84,15 +84,15 @@ The following functions are available:
 | Function | Description |
 | --- | --- |
 | `int(x)` | `x` without its decimal part. `{int(13.9)}` is `13`. |
-| `round(x)`, `floor(x)`, `ceil(x)` | `x` rounded to the nearest, lower or higher whole number. |
-| `min(a, b)`, `max(a, b)` | The smaller or larger of two numbers. |
+| `round(x)`<br>`floor(x)`<br>`ceil(x)` | `x` rounded to the nearest, lower or higher whole number. |
+| `min(a, b)`<br>`max(a, b)` | The smaller or larger of two numbers. |
 | `digits(value, width [, decimals])` | `value` aligned right in `width` characters, with an optional fixed number of decimals. |
 | `zdigits(value, width [, decimals])` | Like `digits`, but padded with leading zeros. `{zdigits(5, 4)}` is `0005`. |
 | `random(a, b)` | A random number between `a` and `b`. |
 | `interpolate_table(x, (x0, y0), (x1, y1), ...)` | The `y` value for `x` on the straight lines between the given points. The x values must increase, and `x` must be between the first and the last x value. |
 | `one_of(value, a, b, ...)` | True when the text `value` is equal to one of the listed texts. A listed value can be a `/regex/` pattern, which must match the whole text. `value` must be text, not a number. |
 | `regex_replace(text, /pattern/, replacement)` | *Added in 2.5.0.* `text` with every match of `/pattern/` replaced by `replacement`. The replacement can use capture groups (`$1`, `$2`, ...). |
-| `size(list)`, `empty(list)` | The number of values in a list, and whether the list is empty. |
+| `size(list)`<br>`empty(list)` | The number of values in a list, and whether the list is empty. |
 | `is_nil(name)` | True when the value is not set, for example a filament override that is left empty. For a list, give an index. |
 | `filament_change(n)` | From this point in the custom G-code, a list of decimal numbers without an index gives the value for filament `n`. |
 
@@ -118,33 +118,33 @@ When a placeholder in custom G-code fails, the G-code export fails. The message 
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `current_extruder` / `current_filament_id` | int (filament index) | *`current_filament_id` added in 2.5.0.* Filament printing now. The two names usually give the same value. In the printer end G-code, and in the first filament start G-code on Bambu Lab printers, `current_filament_id` can be different. See [Filament Start and End G-code](#filament-start-and-end-g-code). |
+| `current_extruder`<br>`current_filament_id` | int (filament index) | *`current_filament_id` added in 2.5.0.* Filament printing now. The two names usually give the same value. In the printer end G-code, and in the first filament start G-code on Bambu Lab printers, `current_filament_id` can be different. See [Filament Start and End G-code](#filament-start-and-end-g-code). |
 | `current_extruder_id` | int (extruder index) | *Added in 2.5.0.* Extruder printing now. In `change_filament_gcode` it is still the outgoing extruder. |
 | `current_nozzle_id` | int (nozzle index) | *Added in 2.5.0.* Nozzle printing now. |
 | `current_hotend` | int | *Added in 2.4.0.* On most printers, the extruder printing now. On Bambu Lab printers, the hotend-rack nozzle when the print moves filaments between nozzles, and `-1` otherwise. |
 | `has_single_extruder_multi_material_priming` | bool | `true` when the single-extruder multi-material priming area is used. |
-| `initial_extruder` / `initial_tool` / `initial_filament_id` | int (filament index) | *`initial_filament_id` added in 2.5.0.* First filament used in the print. All three names give the same value. `initial_extruder` and `initial_tool` also work in the file name. |
+| `initial_extruder`<br>`initial_tool`<br>`initial_filament_id` | int (filament index) | *`initial_filament_id` added in 2.5.0.* First filament used in the print. All three names give the same value. `initial_extruder` and `initial_tool` also work in the file name. |
 | `initial_nozzle_id` | int (nozzle index) | *Added in 2.5.0.* Nozzle of the first filament. |
-| `initial_no_support_extruder` / `initial_no_support_tool` / `initial_no_support_filament_id` | int (filament index) | *`initial_no_support_filament_id` added in 2.5.0.* First filament that is not a support filament. `initial_no_support_extruder` also works in the file name. |
+| `initial_no_support_extruder`<br>`initial_no_support_tool`<br>`initial_no_support_filament_id` | int (filament index) | *`initial_no_support_filament_id` added in 2.5.0.* First filament that is not a support filament. `initial_no_support_extruder` also works in the file name. |
 | `initial_no_support_hotend` | int | *Added in 2.4.0.* Hotend of that filament, with the same rule as `current_hotend`. |
 | `is_extruder_used[]` | bool per filament | `true` for each filament that the print uses. |
 | `filament_map[]` | int per filament (extruder index + 1) | Extruder of each filament, counting from **1**. In `change_filament_gcode`, `filament_map[next_extruder] - 1` is the incoming extruder. Also works in the file name. |
-| `first_tools[]` / `first_filaments[]` | int per extruder (filament index) | First filament that each extruder prints, or `-1`. Correct on Bambu Lab and IDEX/IQEX printers. On other printers with several extruders, the values are currently wrong. |
-| `first_non_support_tools[]` / `first_non_support_filaments[]` / `first_non_support_hotend[]` | int per extruder | *`first_non_support_hotend` added in 2.5.0.* Like `first_tools[]`, but without support filaments. `first_non_support_hotend[]` gives the hotend of that filament instead, with the same rule as `current_hotend`. The same limitation applies. |
+| `first_tools[]`<br>`first_filaments[]` | int per extruder (filament index) | First filament that each extruder prints, or `-1`. Correct on Bambu Lab and IDEX/IQEX printers. On other printers with several extruders, the values are currently wrong. |
+| `first_non_support_tools[]`<br>`first_non_support_filaments[]`<br>`first_non_support_hotend[]` | int per extruder | *`first_non_support_hotend` added in 2.5.0.* Like `first_tools[]`, but without support filaments. `first_non_support_hotend[]` gives the hotend of that filament instead, with the same rule as `current_hotend`. The same limitation applies. |
 | `num_extruders` | int | Number of physical extruders on the printer, also when the print uses fewer. Also works in the file name. |
-| `nozzle_diameter_at_nozzle_id[]` / `nozzle_volume_types[]` | float (mm) / string per nozzle | *Added in 2.5.0.* Diameter and flow type of each nozzle. On printers with one nozzle per extruder, there is one value per extruder. |
-| `flush_temperatures[]` / `flush_volumetric_speeds[]` | int (°C) / float (mm³/s) per filament | Purge temperature and purge speed of each filament. |
+| `nozzle_diameter_at_nozzle_id[]`<br>`nozzle_volume_types[]` | float (mm)<br>string | *Added in 2.5.0.* Diameter and flow type of each nozzle. On printers with one nozzle per extruder, there is one value per extruder. |
+| `flush_temperatures[]`<br>`flush_volumetric_speeds[]` | int (°C)<br>float (mm³/s) | Purge temperature and purge speed of each filament. |
 | `retraction_distance_when_cut` | float (mm) | Retraction distance when the filament is cut by the AMS or a filament cutter, for the current filament. |
 | `long_retraction_when_cut` | bool | `true` when *Long retraction when cut* is on for the current filament. |
-| `retraction_distance_when_ec` / `long_retraction_when_ec` | float (mm) / bool | The same two values for an extruder change. |
-| `is_all_bbl_filament`, `has_tpu_in_first_layer`, `enable_high_low_temp_mix`, `hold_chamber_temp_for_flat_print`, `max_additional_fan`, `during_print_exhaust_fan_speed_num[]` | various | Values used by the Bambu Lab start G-code. |
+| `retraction_distance_when_ec`<br>`long_retraction_when_ec` | float (mm)<br>bool | The same two values for an extruder change. |
+| `is_all_bbl_filament`<br>`has_tpu_in_first_layer`<br>`enable_high_low_temp_mix`<br>`hold_chamber_temp_for_flat_print`<br>`max_additional_fan`<br>`during_print_exhaust_fan_speed_num[]` | various | Values used by the Bambu Lab start G-code. |
 
 ## Temperatures
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
 | `bed_temperature[]` | int per filament (°C) | Bed temperature of each filament for the current plate type. |
-| `bed_temperature_initial_layer[]` / `first_layer_bed_temperature[]` | int per filament (°C) | First-layer bed temperature of each filament for the current plate type. |
+| `bed_temperature_initial_layer[]`<br>`first_layer_bed_temperature[]` | int per filament (°C) | First-layer bed temperature of each filament for the current plate type. |
 | `bed_temperature_initial_layer_single` | int (°C) | First-layer bed temperature of the filament that prints first (`initial_extruder`). If the bed temperature formula is set to the highest temperature, it is the highest first-layer bed temperature of the filaments used on the first layer. |
 | `first_layer_temperature[]` | int per filament (°C) | First-layer nozzle temperature of each filament. |
 | `chamber_temperature[]` | int per filament (°C) | Chamber temperature of each filament. Also works in the file name. |
@@ -168,10 +168,10 @@ When a placeholder in custom G-code fails, the G-code export fails. The message 
 | `print_bed_size` | float[2] (mm) | Width and depth of the bed. |
 | `max_print_z` | int (mm) | Height of the tallest object, rounded up. |
 | `max_print_height` | int (mm) | Maximum print height of the printer. |
-| `adaptive_bed_mesh_min` / `adaptive_bed_mesh_max` | float[2] (mm) | Corners of the area to probe. See [Adaptive Bed Mesh](printer_basic_information_adaptive_bed_mesh#available-g-code-variables-for-adaptive-bed-mesh-command). |
-| `bed_mesh_probe_count` / `bed_mesh_algo` | int[2] / string | Number of probe points and interpolation algorithm for that area. |
+| `adaptive_bed_mesh_min`<br>`adaptive_bed_mesh_max` | float[2] (mm) | Corners of the area to probe. See [Adaptive Bed Mesh](printer_basic_information_adaptive_bed_mesh#available-g-code-variables-for-adaptive-bed-mesh-command). |
+| `bed_mesh_probe_count`<br>`bed_mesh_algo` | int[2]<br>string | Number of probe points and interpolation algorithm for that area. |
 | `has_wipe_tower` | bool | `true` when the print has a prime tower. |
-| `wipe_tower_center_pos_x` / `wipe_tower_center_pos_y` | float (mm) | *Added in 2.5.0.* A point just outside the prime tower, where the nozzle can wait while it heats. |
+| `wipe_tower_center_pos_x`<br>`wipe_tower_center_pos_y` | float (mm) | *Added in 2.5.0.* A point just outside the prime tower, where the nozzle can wait while it heats. |
 | `wipe_tower_center_pos_valid` | bool | *Added in 2.5.0.* `true` when the print has a prime tower and the point above is set. |
 
 ## Print Statistics
@@ -197,13 +197,13 @@ OrcaSlicer reads `+` from left to right, and text joined with a number stays tex
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `normal_print_time` / `print_time` | string | Estimated print time in normal mode, written like `2d3h15m`, `2h15m`, `5m30s` or `45s`. Times of one hour or more are rounded to the minute. Filled in after generation. Also works in the file name. |
+| `normal_print_time`<br>`print_time` | string | Estimated print time in normal mode, written like `2d3h15m`, `2h15m`, `5m30s` or `45s`. Times of one hour or more are rounded to the minute. Filled in after generation. Also works in the file name. |
 | `silent_print_time` | string | Estimated print time in silent mode, in the same format. `0s` unless the G-code flavor is Marlin and *Silent Mode* is on. Filled in after generation. Also works in the file name. |
 | `print_time_total_sec` | float (s) | *Added in 2.5.0.* Estimated print time in normal mode, in seconds. Filled in after generation. |
-| `print_time_day` / `print_time_hour` / `print_time_minute` / `print_time_sec` | int (d / h / min / s) | *`print_time_day`, `print_time_hour` and `print_time_minute` added in 2.5.0.* Days, hours, minutes and seconds of the normal-mode print time. `print_time_sec` is only the seconds, not the total. Filled in after generation. |
+| `print_time_day`<br>`print_time_hour`<br>`print_time_minute`<br>`print_time_sec` | int (d)<br>int (h)<br>int (min)<br>int (s) | *`print_time_day`, `print_time_hour` and `print_time_minute` added in 2.5.0.* Days, hours, minutes and seconds of the normal-mode print time. `print_time_sec` is only the seconds, not the total. Filled in after generation. |
 | `total_layer_count` | int | Number of layers. |
 | `total_toolchanges` | int | Number of filament changes in the print. The filament selected at print start does not count. With a prime tower, this is the prime tower's count. Without one, OrcaSlicer counts the changes in the planned tool order. It is `0` when printing by object without a prime tower. Also works in the file name. |
-| `used_filament` / `used_filament_length` | float (m) | Length of filament that the whole print uses. Filled in after generation. `used_filament` also works in the file name. |
+| `used_filament`<br>`used_filament_length` | float (m) | Length of filament that the whole print uses. Filled in after generation. `used_filament` also works in the file name. |
 | `extruded_volume[]` | float per filament (mm³) | Volume extruded so far with each filament. In custom G-code, this is a running total, so it is `0` in the start G-code. `extruded_volume` also works in the file name, as the total volume. |
 | `extruded_volume_total` | float (mm³) | Sum of `extruded_volume[]`. Also a running total. Also works in the file name, as the total of the whole print. |
 | `extruded_weight[]` | float per filament (g) | Weight extruded so far with each filament, from the filament density. Also a running total. |
@@ -250,8 +250,8 @@ OrcaSlicer reads `+` from left to right, and text joined with a number stays tex
 | Placeholder | Type | Description |
 | --- | --- | --- |
 | `timestamp` | string (`yyyyMMdd-hhmmss`) | Local time when G-code export started. Also works in the file name, as the time when the name is built. |
-| `year` / `month` / `day` | int | Date of `timestamp`. Also works in the file name. |
-| `hour` / `minute` / `second` | int | Time of day of `timestamp`. Also works in the file name. |
+| `year`<br>`month`<br>`day` | int | Date of `timestamp`. Also works in the file name. |
+| `hour`<br>`minute`<br>`second` | int | Time of day of `timestamp`. Also works in the file name. |
 
 ## Environment
 
@@ -303,8 +303,8 @@ These placeholders are available in before layer change, layer change, timelapse
 | Placeholder | Type | Description |
 | --- | --- | --- |
 | `filament_extruder_id` | int | In `filament_start_gcode`, the filament that is loaded. In `filament_end_gcode`, the filament that is unloaded. At a tool change without the Type 1 prime tower, `filament_end_gcode` gets the extruder of that filament instead. Not set in `change_filament_gcode`. |
-| `current_filament_id` / `current_nozzle_id` | int (filament / nozzle index) | *Added in 2.5.0.* Filament and nozzle that the G-code runs for. Set for most calls, including calls from the Type 1 prime tower. |
-| `retraction_distance_when_cut` / `long_retraction_when_cut` | float (mm) / bool | In `filament_start_gcode`, the values for the filament that is loaded. See [Filaments, Extruders and Nozzles](#filaments-extruders-and-nozzles). |
+| `current_filament_id`<br>`current_nozzle_id` | int (filament index)<br>int (nozzle index) | *Added in 2.5.0.* Filament and nozzle that the G-code runs for. Set for most calls, including calls from the Type 1 prime tower. |
+| `retraction_distance_when_cut`<br>`long_retraction_when_cut` | float (mm)<br>bool | In `filament_start_gcode`, the values for the filament that is loaded. See [Filaments, Extruders and Nozzles](#filaments-extruders-and-nozzles). |
 
 The filament start G-code for the first filament runs before the first layer, so `layer_num` is `-1` there. On Bambu Lab printers, this filament start G-code runs right after the printer start G-code, for the first filament that is not a support filament.
 
@@ -316,9 +316,9 @@ At the end of the print, `filament_end_gcode` runs once for each filament in the
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `current_filament_id` / `current_nozzle_id` | int (filament / nozzle index) | *Added in 2.5.0.* Filament and nozzle printing when the layer starts. |
+| `current_filament_id`<br>`current_nozzle_id` | int (filament index)<br>int (nozzle index) | *Added in 2.5.0.* Filament and nozzle printing when the layer starts. |
 | `most_used_physical_extruder_id` | int | Physical extruder that is used on the most layers of the print. It has the same value on every layer. |
-| `curr_layer_mass` / `curr_accumulated_mass` | float (g) | *Added in 2.5.0.* Weight of the previous layer, and weight of everything printed so far. For printers that limit the Y acceleration by the weight on the bed. With a prime tower, the weight includes the filament of the whole prime tower. |
+| `curr_layer_mass`<br>`curr_accumulated_mass` | float (g) | *Added in 2.5.0.* Weight of the previous layer, and weight of everything printed so far. For printers that limit the Y acceleration by the weight on the bed. With a prime tower, the weight includes the filament of the whole prime tower. |
 | `curr_y_acceleration_limit` | float (mm/s²) | *Added in 2.5.0.* Y acceleration allowed for that weight. |
 
 ### Timelapse and Clumping Detection G-code
@@ -327,7 +327,7 @@ At the end of the print, `filament_end_gcode` runs once for each filament in the
 | --- | --- | --- |
 | `most_used_physical_extruder_id` | int | Physical extruder that is used on the most layers of the print. Available in `time_lapse_gcode` and `wrapping_detection_gcode`. |
 | `curr_physical_extruder_id` | int | Physical extruder that is active when the G-code runs. Available in `time_lapse_gcode` and `wrapping_detection_gcode`. |
-| `timelapse_pos_x` / `timelapse_pos_y` | int (mm) | X and Y position chosen for the snapshot, rounded to whole millimeters. Only in `time_lapse_gcode`. |
+| `timelapse_pos_x`<br>`timelapse_pos_y` | int (mm) | X and Y position chosen for the snapshot, rounded to whole millimeters. Only in `time_lapse_gcode`. |
 | `has_timelapse_safe_pos` | bool | `true` when a safe snapshot position was found. Only in `time_lapse_gcode`. |
 | `timelapse_inline_photo` | bool | *Added in 2.5.0.* `true` when the snapshot is taken without moving to a chosen position. Only in `time_lapse_gcode`. |
 | `farthest_point_timelapse_enabled` | bool | *Added in 2.5.0.* `true` when the farthest-point timelapse is on for this layer. Only in `time_lapse_gcode`. |
@@ -343,11 +343,11 @@ With *Enable tower interface features* turned on, a tool change at a prime tower
 
 | Placeholder | Type | Description |
 | --- | --- | --- |
-| `previous_extruder` / `next_extruder` | int (filament index) | Filament that is unloaded, and filament that is loaded. |
-| `current_filament_id` / `next_filament_id` | int (filament index) | *Added in 2.5.0.* The same values as `previous_extruder` / `next_extruder`. |
-| `current_hotend` / `next_hotend` | int | *Added in 2.4.0.* On most printers, the outgoing and incoming extruder. On Bambu Lab printers, the hotend-rack nozzle when the print moves filaments between nozzles, and `-1` otherwise. |
-| `current_nozzle_id` / `next_nozzle_id` | int (nozzle index) | *Added in 2.5.0.* Outgoing and incoming nozzle. |
-| `old_extruder_variant` / `new_extruder_variant` | string | *Added in 2.5.0.* Extruder variant of the outgoing and incoming extruder, for example `Direct Drive Standard`. |
+| `previous_extruder`<br>`next_extruder` | int (filament index) | Filament that is unloaded, and filament that is loaded. |
+| `current_filament_id`<br>`next_filament_id` | int (filament index) | *Added in 2.5.0.* The same values as `previous_extruder` / `next_extruder`. |
+| `current_hotend`<br>`next_hotend` | int | *Added in 2.4.0.* On most printers, the outgoing and incoming extruder. On Bambu Lab printers, the hotend-rack nozzle when the print moves filaments between nozzles, and `-1` otherwise. |
+| `current_nozzle_id`<br>`next_nozzle_id` | int (nozzle index) | *Added in 2.5.0.* Outgoing and incoming nozzle. |
+| `old_extruder_variant`<br>`new_extruder_variant` | string | *Added in 2.5.0.* Extruder variant of the outgoing and incoming extruder, for example `Direct Drive Standard`. |
 | `toolchange_z` | float (mm) | Print height of the layer where the change happens. With the Type 1 prime tower, the height of the prime tower layer. It does not include the Z-hop. |
 | `outer_wall_volumetric_speed` | float (mm³/s) | Outer wall volumetric speed of the new filament, limited to its maximum volumetric speed. |
 | `relative_e_axis` | bool | `true` when OrcaSlicer uses relative E distances. |
@@ -355,23 +355,23 @@ With *Enable tower interface features* turned on, a tool change at a prime tower
 | `fan_speed` | int | Old placeholder, kept so that old G-code still works. Always `0`. |
 | `filament_retract_length_nc` | float (mm) | *Added in 2.5.0.* Nozzle-change retraction length of the outgoing filament, or `0` if there is none. |
 | `new_extruder_retracted_length` | float (mm) | *Added in 2.5.0.* How far the filament in the incoming extruder is retracted now. |
-| `old_retract_length` / `new_retract_length` | float (mm) | Retraction length of the outgoing and incoming filament. |
-| `old_retract_length_toolchange` / `new_retract_length_toolchange` | float (mm) | Tool change retraction length of the outgoing and incoming filament. |
-| `old_filament_temp` / `new_filament_temp` | int (°C) | Nozzle temperature of the outgoing and incoming filament. |
-| `old_filament_e_feedrate` / `new_filament_e_feedrate` | int (mm/min) | Extrusion feedrate of the outgoing and incoming filament, from its volumetric speed limit. |
-| `x_after_toolchange` / `y_after_toolchange` / `z_after_toolchange` | float (mm) | The nozzle position before the change, or the start point on the Type 1 prime tower. Changing them has no effect. To tell OrcaSlicer that the nozzle moved, update `position[]`. |
-| `first_flush_volume` / `second_flush_volume` | float (mm of filament) | First and second half of the planned purge length. |
+| `old_retract_length`<br>`new_retract_length` | float (mm) | Retraction length of the outgoing and incoming filament. |
+| `old_retract_length_toolchange`<br>`new_retract_length_toolchange` | float (mm) | Tool change retraction length of the outgoing and incoming filament. |
+| `old_filament_temp`<br>`new_filament_temp` | int (°C) | Nozzle temperature of the outgoing and incoming filament. |
+| `old_filament_e_feedrate`<br>`new_filament_e_feedrate` | int (mm/min) | Extrusion feedrate of the outgoing and incoming filament, from its volumetric speed limit. |
+| `x_after_toolchange`<br>`y_after_toolchange`<br>`z_after_toolchange` | float (mm) | The nozzle position before the change, or the start point on the Type 1 prime tower. Changing them has no effect. To tell OrcaSlicer that the nozzle moved, update `position[]`. |
+| `first_flush_volume`<br>`second_flush_volume` | float (mm of filament) | First and second half of the planned purge length. |
 | `flush_length` | float (mm of filament) | Total purge length for the tool change. |
 | `flush_length_1` … `flush_length_4` | float (mm of filament) | Parts of the purge. Unused parts are `0`. |
 | `wipe_avoid_perimeter` | bool | `true` when the travel avoids the prime tower for this change. Only set by the Type 1 prime tower, and `false` otherwise. |
 | `wipe_avoid_pos_x` | float (mm) | X position of the line that the travel avoids around the prime tower. Only used by the Type 1 prime tower. |
 | `is_prime_tower_interface` | bool | With the Type 1 prime tower, `true` when this change prints a prime tower interface layer. |
-| `filament_tower_interface_purge_volume` / `filament_tower_interface_print_temp` | float (mm of filament) / int (°C) | Interface purge length and interface print temperature of the new filament. |
+| `filament_tower_interface_purge_volume`<br>`filament_tower_interface_print_temp` | float (mm of filament)<br>int (°C) | Interface purge length and interface print temperature of the new filament. |
 | `filament_cooling_before_tower[]` | float per filament (°C) | *Added in 2.4.0.* How much the temperature drops before the nozzle enters the prime tower. Only set by the Type 1 prime tower, and `0` on the first layer and on interface layers. |
-| `wipe_tower_center_pos_x` / `wipe_tower_center_pos_y` / `wipe_tower_center_pos_valid` | float (mm) / bool | *Added in 2.5.0.* The same point as in [Dimensions](#dimensions). With the Type 1 prime tower, the point is next to where this tool change starts. |
-| `travel_point_1_x` / `travel_point_1_y` | float (mm) | First point of the travel path that the Bambu Lab filament cutter uses. Fixed default values on other printers. |
-| `travel_point_2_x` / `travel_point_2_y` | float (mm) | Second point of that travel path. |
-| `travel_point_3_x` / `travel_point_3_y` | float (mm) | Third point of that travel path. |
+| `wipe_tower_center_pos_x`<br>`wipe_tower_center_pos_y`<br>`wipe_tower_center_pos_valid` | float (mm)<br>float (mm)<br>bool | *Added in 2.5.0.* The same point as in [Dimensions](#dimensions). With the Type 1 prime tower, the point is next to where this tool change starts. |
+| `travel_point_1_x`<br>`travel_point_1_y` | float (mm) | First point of the travel path that the Bambu Lab filament cutter uses. Fixed default values on other printers. |
+| `travel_point_2_x`<br>`travel_point_2_y` | float (mm) | Second point of that travel path. |
+| `travel_point_3_x`<br>`travel_point_3_y` | float (mm) | Third point of that travel path. |
 
 ### Change Extrusion Role G-code
 
