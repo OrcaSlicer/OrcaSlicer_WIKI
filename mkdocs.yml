@@ -279,6 +279,7 @@ nav:
   - "V2.4.0 Beta": releases/release_2_4_0_beta.md
   - "V2.4.0 Alpha": releases/release_2_4_0_alpha.md
 - "Developer Reference":
+  - "How to Contribute": developer_reference/how_to_contribute.md
   - "How to Build":
     - "Build Overview": developer_reference/how_to_build/how_to_build.md
     - "Build on Windows": developer_reference/how_to_build/how_to_build_windows.md
