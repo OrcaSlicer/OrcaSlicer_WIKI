@@ -1,12 +1,13 @@
 # How to Contribute
 
-This page explains what reviewers need from a pull request (PR), for each kind of PR. The short version, and the rules for using AI tools, are in [CONTRIBUTING.md](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/CONTRIBUTING.md) in the main repository.
+This page explains what makes a clear issue, and what reviewers need from each kind of pull request (PR). The short version, and the rules for using AI tools, are in [CONTRIBUTING.md](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/CONTRIBUTING.md) in the main repository.
 
 Review is the slowest part of getting a PR merged. A small group of reviewers works through hundreds of open PRs in their spare time. If a PR has what they need, it is reviewed sooner and is more likely to be merged.
 
 For questions about using OrcaSlicer, please ask on [Discord](https://discord.gg/P4VE9UY9gJ) or in [Discussions](https://github.com/OrcaSlicer/OrcaSlicer/discussions), not in an issue or PR.
 
-- [Before You Start](#before-you-start)
+- [Opening an Issue](#opening-an-issue)
+- [Before You Start a PR](#before-you-start-a-pr)
 - [What Every PR Needs](#what-every-pr-needs)
     - [Keep It Focused](#keep-it-focused)
     - [Write a Description Reviewers Can Use](#write-a-description-reviewers-can-use)
@@ -28,7 +29,19 @@ For questions about using OrcaSlicer, please ask on [Discord](https://discord.gg
     - [If Your PR Is Closed](#if-your-pr-is-closed)
 - [Other Ways to Help](#other-ways-to-help)
 
-## Before You Start
+## Opening an Issue
+
+A clear issue is easier to reproduce and fix. The issue forms ask for most of this.
+
+- **Search existing issues first**, including closed ones. If the problem is already reported, add your details there.
+- **Check the latest nightly build.** The problem may already be fixed.
+- **Report one problem per issue.**
+- **Add screenshots**, even when the description seems clear.
+- **Attach the project file (`.3mf`) and the log.** The bug report form explains where to find them.
+- **For a feature request, describe the problem** you want to solve, not only the solution.
+- **Reply to questions** from people who try to reproduce it.
+
+## Before You Start a PR
 
 - **Search open PRs, not only issues.** Search for the issue number, the function name and the file you plan to change. PRs are often closed without merging because another PR already fixed the same thing. If a PR already exists, test it and comment there.
 - **Claim an issue** by commenting `/assign-me` on it, so others know you are working on it.
@@ -202,6 +215,7 @@ We may close a PR that doesn't meet this guide. You're welcome to open a new one
 ## Other Ways to Help
 
 - **Test open PRs.** For PRs that change code, CI builds test versions you can download. See [Download Pull Requests Artifacts for Testing](how_to_download_pr_artifacts). Post what you tested, on which OS and printer, and whether it worked. Reporting that something fails is just as useful as reporting that it works.
-- **Reproduce bug reports.** Confirm the bug on the latest nightly build and attach a project file (`.3mf`) that reproduces it.
+- **Report bugs.** See [Opening an Issue](#opening-an-issue).
+- **Reproduce bug reports.** Confirm the bug on the latest nightly build, and attach screenshots and a project file (`.3mf`) that reproduces it.
 - **Review PRs.** You don't need write access to review. Read the change, try it, and say what you checked.
 - **Translations, profiles and the wiki.** See [Printer Profiles](#printer-profiles), [Translations](#translations) and [How to contribute to the wiki](how_to_wiki).
