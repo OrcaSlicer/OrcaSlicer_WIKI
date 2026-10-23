@@ -202,7 +202,14 @@ Backup	A saved copy of presets, a project or a plugin, kept so it can be restore
 Build plate (sheet)	The removable build sheet as a physical object separate from the heatbed: placed on it, detected, cleaned or flipped (Build Plate Detection, Side A/B, "place it back on the heatbed"). Where a string means the print surface in general, use Bed / Build plate.	
 Gradient	A smooth transition from one color to another: color-picker gradients (Gradient start, Gradient end, Linear gradient) and gradient effects. Not the Mixed filament gradient, which is a Z-direction print mode.	Gradientea
 Palette	A named collection of preset colors offered in the color picker (Orca Palette, RAL Classic, Palettes).	Paleta
-Distribute	Object-manipulation command that spaces the selected objects or parts evenly along an axis. Not Align, which lines them up on a reference.	Banatu
+Distribute	Object-manipulation command that spaces the selected objects or parts evenly along an axis. Not Align, which lines them up on a reference.	Berdinbanatu
 Focus mode	View mode that hides the surrounding interface to concentrate on the 3D canvas.	Kontzentrazio modua
 Resource texture	A plugin capability type: textures supplied by a plugin from a resource directory inside its plugin folder, offered alongside the built-in texture libraries. The plugin-supplied sense of Texture.	Baliabide-testura
 Feature (print)	The category of a printed line in the G-code preview and statistics (outer wall, infill, support…), called Line Type in the viewer; the statistics export groups its totals by it. Not the Design-tab Feature, and not an application capability.	Lerro-mota
+Collision volume	A region of space (a full-height polygon, or one limited in Z) that the toolhead must not enter; used to exclude models and generated material, check G-code moves and avoid travel. Not the nozzle volume, and not the excluded bed area.	Talka-bolumena
+Excluded bed area	The part of the bed where models and generated material may not be placed, but where the machine can still travel; a polygon. Not a collision volume.	Oheko baztertutako eremua
+Zero-based index	Numbering that starts at 0, so the first item has index 0; used in the G-code variables that report a filament, extruder or nozzle index.	zeroan oinarritua
+Outgoing / incoming filament	The filament being unloaded and the one being loaded at a filament or tool change; the same pair applies to the extruder or nozzle.	irteten ari den / sartzen ari den
+Wipe perimeter	The outline of the wipe tower area that travel moves avoid ("Avoid wipe perimeter"). Not a wall of the part.	garbiketa-perimetroa
+Tool change	Switching the active printing tool (a toolhead or nozzle) during a print. Not a filament change on a single tool.	tresna-aldaketa
+G-code line (number)	A numbered line of the G-code file, as in "G-code line 120". Not a Line, the extruded strand.	lerroa

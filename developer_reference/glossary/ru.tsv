@@ -119,7 +119,7 @@ Clone	Duplicating an object into independent objects, each with its own geometry
 Mirror	Flipping an object, part or SVG across an axis (“Mirror along the X Axis”, “Mirror horizontally”). It transforms the object in place — unlike Clone, nothing new is created. The bare “Mirror” is a short input label in the SVG/emboss tool.	Отразить
 Primitive	A built-in basic shape (cube, cylinder, sphere, ...) that can be added to the plate.	Фигура
 Access Code	The code shown on the printer that authorizes a LAN connection to it.	Код доступа
-Plugin	An add-on software component that extends the application (e.g. the network plug-in).	
+Plugin	An add-on software component that extends the application (e.g. the network plug-in).	плагин
 Dialog	A UI dialog box. Translate the "dialog box" sense, not the "dialogue"/conversation sense.	Диалоговое окно
 Outline	The outer boundary line of a shape or selection.	Обводка
 Wireframe	A see-through view showing only a model's edges, not solid surfaces.	Сетка модели
@@ -206,3 +206,10 @@ Distribute	Object-manipulation command that spaces the selected objects or parts
 Focus mode	View mode that hides the surrounding interface to concentrate on the 3D canvas.	Режим фокуса
 Resource texture	A plugin capability type: textures supplied by a plugin from a resource directory inside its plugin folder, offered alongside the built-in texture libraries. The plugin-supplied sense of Texture.	Текстура ресурса
 Feature (print)	The category of a printed line in the G-code preview and statistics (outer wall, infill, support…), called Line Type in the viewer; the statistics export groups its totals by it. Not the Design-tab Feature, and not an application capability.	Тип линии
+Collision volume	A region of space (a full-height polygon, or one limited in Z) that the toolhead must not enter; used to exclude models and generated material, check G-code moves and avoid travel. Not the nozzle volume, and not the excluded bed area.	Объём столкновения
+Excluded bed area	The part of the bed where models and generated material may not be placed, but where the machine can still travel; a polygon. Not a collision volume.	Область исключения
+Zero-based index	Numbering that starts at 0, so the first item has index 0; used in the G-code variables that report a filament, extruder or nozzle index.	начинается с нуля
+Outgoing / incoming filament	The filament being unloaded and the one being loaded at a filament or tool change; the same pair applies to the extruder or nozzle.	уходящий / приходящий
+Wipe perimeter	The outline of the wipe tower area that travel moves avoid ("Avoid wipe perimeter"). Not a wall of the part.	периметр очистки
+Tool change	Switching the active printing tool (a toolhead or nozzle) during a print. Not a filament change on a single tool.	смена инструмента
+G-code line (number)	A numbered line of the G-code file, as in "G-code line 120". Not a Line, the extruded strand.	строка

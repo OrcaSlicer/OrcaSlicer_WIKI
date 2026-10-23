@@ -206,3 +206,10 @@ Distribute	Object-manipulation command that spaces the selected objects or parts
 Focus mode	View mode that hides the surrounding interface to concentrate on the 3D canvas.	Focusmodus
 Resource texture	A plugin capability type: textures supplied by a plugin from a resource directory inside its plugin folder, offered alongside the built-in texture libraries. The plugin-supplied sense of Texture.	Resourcetextuur
 Feature (print)	The category of a printed line in the G-code preview and statistics (outer wall, infill, support…), called Line Type in the viewer; the statistics export groups its totals by it. Not the Design-tab Feature, and not an application capability.	Lijntype
+Collision volume	A region of space (a full-height polygon, or one limited in Z) that the toolhead must not enter; used to exclude models and generated material, check G-code moves and avoid travel. Not the nozzle volume, and not the excluded bed area.	Botsingsvolume
+Excluded bed area	The part of the bed where models and generated material may not be placed, but where the machine can still travel; a polygon. Not a collision volume.	Uitgesloten printbed gebied
+Zero-based index	Numbering that starts at 0, so the first item has index 0; used in the G-code variables that report a filament, extruder or nozzle index.	nulgebaseerd
+Outgoing / incoming filament	The filament being unloaded and the one being loaded at a filament or tool change; the same pair applies to the extruder or nozzle.	uitgaand / inkomend
+Wipe perimeter	The outline of the wipe tower area that travel moves avoid ("Avoid wipe perimeter"). Not a wall of the part.	veegperimeter
+Tool change	Switching the active printing tool (a toolhead or nozzle) during a print. Not a filament change on a single tool.	toolwissel
+G-code line (number)	A numbered line of the G-code file, as in "G-code line 120". Not a Line, the extruded strand.	regel
