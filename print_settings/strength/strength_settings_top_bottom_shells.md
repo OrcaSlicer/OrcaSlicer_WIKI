@@ -6,6 +6,7 @@ Controls how the top and bottom solid layers (shells) are generated.
 
 - [Shell Layers](#shell-layers)
 - [Shell Thickness](#shell-thickness)
+- [Paint Penetration Layers](#paint-penetration-layers)
 - [Surface Density](#surface-density)
 - [Infill/Wall Overlap](#infillwall-overlap)
 - [Surface Pattern](#surface-pattern)
@@ -36,6 +37,27 @@ It's usually recommended to have at least 3 shell layers for most prints.
 [CLI Example](cli_mode#setting-overrides): `--top-shell-thickness=1` (same pattern for the other variables above).  
 The number of solid layers is increased during slicing if the thickness calculated from shell layers is thinner than this value. This avoids having too thin a shell when layer height is small.  
 0 means this setting is disabled and shell thickness is determined entirely by [shell layers](#shell-layers).
+
+## Paint Penetration Layers
+
+[Mode](option_mode): `Advanced`.  
+[Variables](built_in_placeholders_variables): `top_color_penetration_layers`, `bottom_color_penetration_layers`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--top-color-penetration-layers=1` (same pattern for the other variables above).  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Paint penetration layers**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+When a top or bottom surface is painted with [Color Painting](prepare_color_painting), its color is also printed in the layers under a painted top surface and over a painted bottom surface, so the filament behind the paint doesn't show through. This is the number of layers that take the color, including the surface layer.  
+Each layer further from the surface is colored about two line widths narrower than the one before, so the color tapers into the model instead of reaching its walls.
+
+- **0:** uses the [Shell Layers](#shell-layers) count. This is the default, and how painted surfaces were always printed before this setting existed.
+- **Lower values:** keep a thick shell for strength while printing fewer layers in the painted color, saving a filament change and its purge on each layer left out.
+- **Higher values:** give a deeper, more saturated color, which helps with translucent or light filaments that let the layers behind them show through.
+
+> [!WARNING]
+> Keep the value within the shell, which is the larger of [Shell Layers](#shell-layers) and the layers needed to reach [Shell Thickness](#shell-thickness). A larger value also colors the [sparse infill](strength_settings_infill) under or over the painted area, adding filament changes where they can't be seen.
 
 ## Surface Density
 
