@@ -47,7 +47,7 @@ A clear issue is easier to reproduce and fix. The issue forms ask for most of th
 - **Claim an issue** by commenting `/assign-me` on it, so others know you are working on it.
 - **Work on a branch**, not on your fork's `main`.
 - **If this is your first PR, start with something small**, like a bug fix. Small PRs are merged more often and sooner.
-- **If you are new, please keep only a few PRs open at a time.** Review comments on your first PR often apply to the others too.
+- **Don't open many PRs at once.** If you already have several open, wait until some are merged before you open more. Review comments on one PR often apply to the others too. While you wait, see [Other Ways to Help](#other-ways-to-help).
 
 ## What Every PR Needs
 
