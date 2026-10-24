@@ -213,3 +213,9 @@ Outgoing / incoming filament	The filament being unloaded and the one being loade
 Wipe perimeter	The outline of the wipe tower area that travel moves avoid ("Avoid wipe perimeter"). Not a wall of the part.	拭き上げ外周
 Tool change	Switching the active printing tool (a toolhead or nozzle) during a print. Not a filament change on a single tool.	ツール交換
 G-code line (number)	A numbered line of the G-code file, as in "G-code line 120". Not a Line, the extruded strand.	行
+Physical extruder	A real extruder of the printer, as opposed to the filament index that some G-code variables (previous_extruder, next_extruder) call an extruder. The extruder counterpart of Physical filament.	物理押出機
+Nozzle volume type	The nozzle's flow class (Standard, High Flow, ...), set per nozzle. The UI labels it Nozzle Flow, and G-code variables also call it a nozzle volume variant. Not the Nozzle volume (the molten volume inside the hotend).	ノズルフロータイプ
+Paint penetration layers	How many layers behind a painted top or bottom surface also take the painted color (the Top and Bottom paint penetration layers settings).	色塗り浸透層数
+Toolpath	The path the nozzle follows while extruding, as the Preview draws it and the G-code encodes it. Not a travel move.	ツールパス
+Homing	Moving the axes to their endstops so the printer knows its position (G28). Not parking a toolhead or filament.	原点帰還
+Color painting	The tool that paints filament colors onto a model's surface, and the painted areas. Not support, seam or fuzzy skin painting.	色塗り

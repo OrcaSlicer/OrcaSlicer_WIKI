@@ -174,8 +174,8 @@ When a placeholder in custom G-code fails, the G-code export fails. The message 
 | `adaptive_bed_mesh_min`<br>`adaptive_bed_mesh_max` | float[2] (mm) | Corners of the area to probe. See [Adaptive Bed Mesh](printer_basic_information_adaptive_bed_mesh#available-g-code-variables-for-adaptive-bed-mesh-command). |
 | `bed_mesh_probe_count`<br>`bed_mesh_algo` | int[2]<br>string | Number of probe points and interpolation algorithm for that area. |
 | `has_wipe_tower` | bool | `true` when the print has a prime tower. |
-| `wipe_tower_center_pos_x`<br>`wipe_tower_center_pos_y` | float (mm) | *Added in 2.5.0.* A point just outside the prime tower, where the nozzle can wait while it heats. |
-| `wipe_tower_center_pos_valid` | bool | *Added in 2.5.0.* `true` when the print has a prime tower and the point above is set. |
+| `wipe_tower_wait_pos_x`<br>`wipe_tower_wait_pos_y` | float (mm) | *Added in 2.5.0.* A point just outside the prime tower, where the nozzle can wait while it heats. `wipe_tower_center_pos_x` and `wipe_tower_center_pos_y` hold the same values under the names Bambu Studio uses. |
+| `wipe_tower_wait_pos_valid` | bool | *Added in 2.5.0.* `true` when the print has a prime tower and the point above is set. `wipe_tower_center_pos_valid` holds the same value under the name Bambu Studio uses. |
 
 ## Print Statistics
 
@@ -321,7 +321,7 @@ At the end of the print, `filament_end_gcode` runs once for each filament in the
 | --- | --- | --- |
 | `current_filament_id`<br>`current_nozzle_id` | int (filament index)<br>int (nozzle index) | *Added in 2.5.0.* Filament and nozzle printing when the layer starts. |
 | `most_used_physical_extruder_id` | int | Physical extruder that is used on the most layers of the print. It has the same value on every layer. |
-| `curr_layer_mass`<br>`curr_accumulated_mass` | float (g) | *Added in 2.5.0.* Weight of the previous layer, and weight of everything printed so far. For printers that limit the Y acceleration by the weight on the bed. With a prime tower, the weight includes the filament of the whole prime tower. |
+| `previous_layer_mass`<br>`curr_accumulated_mass` | float (g) | *Added in 2.5.0.* Weight of the previous layer, and weight of everything printed so far. For printers that limit the Y acceleration by the weight on the bed. With a prime tower, the weight includes the filament of the whole prime tower. `curr_layer_mass` holds the same value as `previous_layer_mass` under the name Bambu Studio uses. |
 | `curr_y_acceleration_limit` | float (mm/s²) | *Added in 2.5.0.* Y acceleration allowed for that weight. |
 
 ### Timelapse and Clumping Detection G-code
@@ -371,7 +371,7 @@ With *Enable tower interface features* turned on, a tool change at a prime tower
 | `is_prime_tower_interface` | bool | With the Type 1 prime tower, `true` when this change prints a prime tower interface layer. |
 | `filament_tower_interface_purge_volume`<br>`filament_tower_interface_print_temp` | float (mm of filament)<br>int (°C) | Interface purge length and interface print temperature of the new filament. |
 | `filament_cooling_before_tower[]` | float per filament (°C) | *Added in 2.4.0.* How much the temperature drops before the nozzle enters the prime tower. Only set by the Type 1 prime tower, and `0` on the first layer and on interface layers. |
-| `wipe_tower_center_pos_x`<br>`wipe_tower_center_pos_y`<br>`wipe_tower_center_pos_valid` | float (mm)<br>float (mm)<br>bool | *Added in 2.5.0.* The same point as in [Dimensions](#dimensions). With the Type 1 prime tower, the point is next to where this tool change starts. |
+| `wipe_tower_wait_pos_x`<br>`wipe_tower_wait_pos_y`<br>`wipe_tower_wait_pos_valid` | float (mm)<br>float (mm)<br>bool | *Added in 2.5.0.* The same point as in [Dimensions](#dimensions). With the Type 1 prime tower, the point is next to where this tool change starts. Bambu Studio's names, `wipe_tower_center_pos_x`, `wipe_tower_center_pos_y` and `wipe_tower_center_pos_valid`, hold the same values. |
 | `travel_point_1_x`<br>`travel_point_1_y` | float (mm) | First point of the travel path that the Bambu Lab filament cutter uses. Fixed default values on other printers. |
 | `travel_point_2_x`<br>`travel_point_2_y` | float (mm) | Second point of that travel path. |
 | `travel_point_3_x`<br>`travel_point_3_y` | float (mm) | Third point of that travel path. |
