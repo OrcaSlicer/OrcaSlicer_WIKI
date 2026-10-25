@@ -219,3 +219,21 @@ Paint penetration layers	How many layers behind a painted top or bottom surface 
 Toolpath	The path the nozzle follows while extruding, as the Preview draws it and the G-code encodes it. Not a travel move.	Trajectòria d'eina
 Homing	Moving the axes to their endstops so the printer knows its position (G28). Not parking a toolhead or filament.	Col·locació al punt d'origen
 Color painting	The tool that paints filament colors onto a model's surface, and the painted areas. Not support, seam or fuzzy skin painting.	Pintura en color
+Preferences	The application settings dialog and its menu item, not a preset or a print setting.	
+External spool	A spool mounted outside the AMS and fed to the printer directly (Ext spool), not an AMS slot.	
+Print host	The printer's network service (OctoPrint, Moonraker, PrusaLink…) that receives uploaded G-code. Where the English says "printer host" for the printer itself, translate it as the printer.	
+Hotend rack	The rack on toolchanger printers (H2C) that holds spare hotends, not the toolhead.	
+Auto Refill	AMS feature that switches to another spool of the same filament when one runs out, also called AMS filament backup; not a data backup.	
+LAN only mode	Printer connection mode that works only on the local network, without the cloud.	
+Filament Track Switch	Bambu Lab hardware that routes AMS filament to either extruder (also "filament switcher"), not the generic act of switching filament.	
+Slot (filament)	A position in an AMS or filament list that holds one filament, not a slot in the build plate.	
+Ramming	Fast extrusion before a filament change that shapes the filament tip for a clean unload (single-extruder multi-material and wipe tower).	
+Cooling tube	The tube above the hot zone where the filament tip is cooled during a single-extruder multi-material change, not the heat break.	
+Parallel printheads	Several printheads printing copies of one object side by side (OrangeStorm Giga), distinct from IDEX/IQEX Parallel printing.	
+Flushing volume	The amount of filament purged to clear the previous color on a filament change, as set in the flushing-volume dialog.	
+Archive (file)	A packed file such as a ZIP or SL1 archive, not a backup and not the act of archiving.	
+Entity (sketch)	A sketch element such as a line, arc or point in the Design tab; not a solid Body.	
+Connector (Cut)	A plug, dowel or snap the Cut tool adds so the cut parts fit back together.	
+Connector (Design)	A mate connector in the Design tab: a coordinate system on a part that a mate attaches to.	
+Inscribed / Circumscribed	How a sketch polygon is sized against its circle: corners on the circle (inscribed) or sides touching it (circumscribed).	
+Top surface / Bottom surface	The upward- or downward-facing outer surfaces of the print, not the camera views and not the alignment sense.	
