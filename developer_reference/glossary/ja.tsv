@@ -14,7 +14,7 @@ Cross Zag	Zig Zag variant that rotates the pattern between layers. Keep the Zag 
 Locked Zag	Zig Zag variant whose layers interlock for added strength. Keep the Zag family recognizable together.	ロックザグ
 Grid	Infill and support interface pattern of two crossing sets of lines. The pattern name — not the build plate or preview grid.	グリッド
 Triangles	Infill pattern of three crossing sets of lines forming triangles.	三角形
-Tri-hexagon	Infill pattern combining triangles and hexagons.	六角形
+Tri-hexagon	Infill pattern combining triangles and hexagons.	三角六角形
 Cubic	Infill pattern of stacked cubes standing on a corner. Root of the Adaptive Cubic, Quarter Cubic and Support Cubic variants.	キュービック
 Adaptive Cubic	Cubic variant that subdivides towards the part surface, denser near the shell than in the core. Keep the Cubic root.	アダプティブ キュービック
 Quarter Cubic	Cubic variant built from quarter-offset cells. Keep the Cubic root.	クォーターキュービック
@@ -100,12 +100,12 @@ Flow ratio	A multiplier on extrusion flow used to correct over- or under-extrusi
 Flow Rate	The volume of material extruded per unit of time (mm³/s).	フロー率
 Flow Dynamics	Nozzle pressure-compensation calibration (the Pressure Advance factor). Keep it distinct from “Flow ratio” (an extrusion multiplier) and “Flow Rate” (volume per unit of time) — English often shortens all three to “flow”, but most languages need three different terms.	動的流量
 Volumetric Speed	Extrusion rate measured by volume rather than by distance (mm³/s).	体積速度
-Ooze	Unwanted material seeping from the nozzle when it should not be extruding.	垂れ出し抑止
+Ooze	Unwanted material seeping from the nozzle when it should not be extruding.	垂れ出し
 Layer height	The thickness of a single printed layer.	積層ピッチ
 Layer	One printed horizontal slice of the model.	積層
 Sublayer	One of the thin slices a layer is split into so the components of a mixed filament can be laid down in sequence.	サブレイヤー
 Mixed color sublayer	The setting that splits layers containing mixed filaments into sub-layers to produce the color-blending effect.	混色サブレイヤー
-Line	A single extruded strand of material; also the wall/infill width-spacing unit.	直線
+Line	A single extruded strand of material; also the wall/infill width-spacing unit.	線
 Extrusion role	The function of an extrusion — outer wall, inner wall, infill, support, etc. — which sets its speed and parameters.	押出ロール
 Contouring	Shaping a path or surface to follow the outline (contour) of the model.	輪郭処理
 Jerk	The instantaneous speed change a machine allows at a corner; Marlin-style motion setting.	Jerk
@@ -134,7 +134,7 @@ Wipe	Wiping the nozzle tip clean / relieving nozzle pressure. Distinct from Flus
 Support interface	The denser layers between the support and the model surface it touches. Not the prime-tower Interface layer.	サポート接触面
 Model	A whole 3D object on the plate. Where a string covers both a model and its parts, prefer the neutral "object".	モデル
 Part	A component of a model. Where a string covers both a model and its parts, prefer the neutral "object".	パーツ
-Volume	A solid body making up a model; a negative volume is a cut-out. Not the numeric volume measurement.	体積
+Volume	A solid body making up a model; a negative volume is a cut-out. Not the numeric volume measurement.	ボリューム
 Texture	The image painted onto a surface (custom plate image, model UV map) - not the *textured* rough finish of a plate, fuzzy skin or top surface, which is a different word in most languages.	テクスチャ
 Gizmo	An on-canvas manipulation tool (move/scale/rotate handles, cut, paint...).	ギズモ
 Adaptive bed mesh	Bed levelling that probes only the area the print occupies, instead of the whole bed.	アダプティブベッドメッシュ
@@ -199,7 +199,7 @@ Perimeter	A wall loop of the print, inner or outer — a synonym of wall in many
 Modifier	A part added to an object, or a height range, that is not printed but changes the settings where it applies ("Add Modifier", "Height Range Modifier", the Precise Seam modifiers); not a printable part or a negative part.	モディファイア
 Sparse layers	Prime tower layers with no tool change, on which the tower is printed only to keep it growing ("No sparse layers", "Combine sparse layers"); not Sparse infill.	スパース層
 Backup	A saved copy of presets, a project or a plugin, kept so it can be restored ("Auto backup", "A backup of your presets"); not AMS filament backup, which switches to a spare spool.	バックアップ
-Build plate (sheet)	The removable build sheet as a physical object separate from the heatbed: placed on it, detected, cleaned or flipped (Build Plate Detection, Side A/B, "place it back on the heatbed"). Where a string means the print surface in general, use Bed / Build plate.	
+Build plate (sheet)	The removable build sheet as a physical object separate from the heatbed: placed on it, detected, cleaned or flipped (Build Plate Detection, Side A/B, "place it back on the heatbed"). Where a string means the print surface in general, use Bed / Build plate.	ビルドプレート
 Gradient	A smooth transition from one color to another: color-picker gradients (Gradient start, Gradient end, Linear gradient) and gradient effects. Not the Mixed filament gradient, which is a Z-direction print mode.	グラデーション
 Palette	A named collection of preset colors offered in the color picker (Orca Palette, RAL Classic, Palettes).	パレット
 Distribute	Object-manipulation command that spaces the selected objects or parts evenly along an axis. Not Align, which lines them up on a reference.	均等配置
@@ -219,21 +219,32 @@ Paint penetration layers	How many layers behind a painted top or bottom surface 
 Toolpath	The path the nozzle follows while extruding, as the Preview draws it and the G-code encodes it. Not a travel move.	ツールパス
 Homing	Moving the axes to their endstops so the printer knows its position (G28). Not parking a toolhead or filament.	原点帰還
 Color painting	The tool that paints filament colors onto a model's surface, and the painted areas. Not support, seam or fuzzy skin painting.	色塗り
-Preferences	The application settings dialog and its menu item, not a preset or a print setting.	
-External spool	A spool mounted outside the AMS and fed to the printer directly (Ext spool), not an AMS slot.	
+Preferences	The application settings dialog and its menu item, not a preset or a print setting.	設定
+External spool	A spool mounted outside the AMS and fed to the printer directly (Ext spool), not an AMS slot.	外部スプール
 Print host	The printer's network service (OctoPrint, Moonraker, PrusaLink…) that receives uploaded G-code. Where the English says "printer host" for the printer itself, translate it as the printer.	
-Hotend rack	The rack on toolchanger printers (H2C) that holds spare hotends, not the toolhead.	
-Auto Refill	AMS feature that switches to another spool of the same filament when one runs out, also called AMS filament backup; not a data backup.	
-LAN only mode	Printer connection mode that works only on the local network, without the cloud.	
-Filament Track Switch	Bambu Lab hardware that routes AMS filament to either extruder (also "filament switcher"), not the generic act of switching filament.	
-Slot (filament)	A position in an AMS or filament list that holds one filament, not a slot in the build plate.	
-Ramming	Fast extrusion before a filament change that shapes the filament tip for a clean unload (single-extruder multi-material and wipe tower).	
-Cooling tube	The tube above the hot zone where the filament tip is cooled during a single-extruder multi-material change, not the heat break.	
+Hotend rack	The rack on toolchanger printers (H2C) that holds spare hotends, not the toolhead.	ホットエンドラック
+Auto Refill	AMS feature that switches to another spool of the same filament when one runs out, also called AMS filament backup; not a data backup.	自動補充
+LAN only mode	Printer connection mode that works only on the local network, without the cloud.	LANのみモード
+Filament Track Switch	Bambu Lab hardware that routes AMS filament to either extruder (also "filament switcher"), not the generic act of switching filament.	Filament Track Switch
+Slot (filament)	A position in an AMS or filament list that holds one filament, not a slot in the build plate.	スロット
+Ramming	Fast extrusion before a filament change that shapes the filament tip for a clean unload (single-extruder multi-material and wipe tower).	ラミング
+Cooling tube	The tube above the hot zone where the filament tip is cooled during a single-extruder multi-material change, not the heat break.	冷却チューブ
 Parallel printheads	Several printheads printing copies of one object side by side (OrangeStorm Giga), distinct from IDEX/IQEX Parallel printing.	
-Flushing volume	The amount of filament purged to clear the previous color on a filament change, as set in the flushing-volume dialog.	
+Flushing volume	The amount of filament purged to clear the previous color on a filament change, as set in the flushing-volume dialog.	フラッシュ量
 Archive (file)	A packed file such as a ZIP or SL1 archive, not a backup and not the act of archiving.	
 Entity (sketch)	A sketch element such as a line, arc or point in the Design tab; not a solid Body.	
-Connector (Cut)	A plug, dowel or snap the Cut tool adds so the cut parts fit back together.	
+Connector (Cut)	A plug, dowel or snap the Cut tool adds so the cut parts fit back together.	コネクタ
 Connector (Design)	A mate connector in the Design tab: a coordinate system on a part that a mate attaches to.	
 Inscribed / Circumscribed	How a sketch polygon is sized against its circle: corners on the circle (inscribed) or sides touching it (circumscribed).	
-Top surface / Bottom surface	The upward- or downward-facing outer surfaces of the print, not the camera views and not the alignment sense.	
+Top surface / Bottom surface	The upward- or downward-facing outer surfaces of the print, not the camera views and not the alignment sense.	上面 / 底面
+Input shaping	Firmware vibration compensation that filters motion commands to reduce ringing; the filter itself is the input shaper. Not a calibration of flow or pressure advance.	入力シェーピング
+Junction Deviation	Marlin's cornering-speed model that replaces classic XY jerk; the setting is its maximum deviation (M205 J). Not Jerk.	接合偏差
+Arc fitting	Replacing runs of short G-code segments with G2/G3 arc moves. Not a general curve fit of the model.	円弧フィッティング
+Nozzle clumping detection	Printer check that probes for filament clumped around the nozzle during a print. Not a nozzle clog check.	ノズルクランピング検出
+Excess chute	Opening at the back of a Bambu printer through which purged filament is discharged. Not the prime tower.	廃料排出口
+Brim ears	Small brim discs placed only at sharp corners to hold them down, painted or generated by the Brim ears tool. Not the full brim.	ブリムイヤー
+Emboss	The tool that adds raised or engraved text and SVG shapes to a model. Not texture displacement.	エンボス
+Print sequence	Whether objects are printed layer by layer across the plate or one object after another ("By layer", "By object"). Not the filament or wall order.	造形シーケンス
+Support enforcer	Modifier volume or paint that forces support where it would not be generated. Pairs with Support blocker.	サポート増強器
+Support blocker	Modifier volume or paint that prevents support where it would be generated. Pairs with Support enforcer.	サポート除去器
+Ooze prevention	The setting that lowers the temperature of inactive extruders on multi-tool printers so they do not ooze; the setting's name, not the oozing itself (see Ooze).	垂れ出し抑止
