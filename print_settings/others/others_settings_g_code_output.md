@@ -5,6 +5,7 @@ These settings control how G-code is generated and formatted. They impact readab
 - [Reduce Infill Retraction](#reduce-infill-retraction)
 - [Add line number](#add-line-number)
 - [Verbose G-code](#verbose-g-code)
+- [High precision G-code](#high-precision-g-code)
 - [Label Objects](#label-objects)
 - [Exclude Objects](#exclude-objects)
 - [Filename Format](#filename-format)
@@ -47,6 +48,26 @@ Prefix each G-code line with a sequential line number (N1, N2, ...). Useful for 
 Include descriptive comments for G-code lines and blocks to make the file human-readable and easier to debug.  
 Verbose mode produces much larger files and may slow down SD-card printing on some printers.
 
+## High precision G-code
+
+[Mode](option_mode): `Expert`.  
+[Variable](built_in_placeholders_variables): `high_precision_gcode`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--high-precision-gcode=1`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **High precision G-code (experimental)**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+Writes the X, Y, Z, I and J coordinates with 4 decimal places instead of 3, and E with 6 instead of 5, to reduce rounding errors in the G-code. Feedrates keep 3 decimal places.  
+With [relative E distances](printer_basic_information_advanced#use-relative-e-distances), the rounding error of each move is also carried over to the next one, so short moves of about the same length don't all round the flow in the same direction.
+
+This may help stabilize extrusion with small nozzles (e.g. 0.2 mm) and thin layers (e.g. 0.08 mm or less), where each move extrudes so little material that rounding errors matter most. The effect depends strongly on how well the rest of the settings are tuned and may be hard to notice unless the filament and print profiles are well [calibrated](calibration_guide).
+
+- **Supports** are removed after printing, so they keep the standard precision. Support ironing keeps the higher precision, as it smooths the surface the object is printed on.
+- **File size:** the G-code becomes about 10% larger, which may slow down printers that parse G-code slowly.
+- **Off:** the G-code is the same as before this option existed.
+
 ## Label Objects
 
 [Mode](option_mode): `Advanced`.  
@@ -67,8 +88,8 @@ Add commands to the G-code that define each object and mark where it starts and 
 
 [Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `exclude_object_tolerance`.  
-[Type](option_type#integer-float-percentage): `Float (mm)`.  
-[CLI Example](cli_mode#setting-overrides): `--exclude-object-tolerance=0.2`.  
+[Type](option_type#integer-float-percentage): `Float`.  
+[CLI Example](cli_mode#setting-overrides): `--exclude-object-tolerance=1`.  
 
 Controls the precision of the exclude-object outlines simplified via the Douglas-Peucker algorithm. This setting only applies to **Klipper** firmware (`EXCLUDE_OBJECT_DEFINE` lines), as Marlin and RepRapFirmware use `M486` commands without polygon definitions.
 

@@ -62,6 +62,7 @@ Available anywhere in the window, even while typing in a text field.
 | `Ctrl + 6` | Camera Angle - Right side |
 | `Ctrl + 7` | Camera view - Current plate |
 | `Ctrl + E` | Show object labels in 3D scene |
+| `Ctrl + Shift + K` | Show all [collision volumes](printer_basic_information_printable_space#toolhead-collision-volumes) |
 | `Ctrl + P` (Windows/Linux)<br>`Cmd + ,` (macOS) | Preferences |
 | `Ctrl + F` | Search |
 | `Space` | Open the [Speed Dial](speed_dial) |
