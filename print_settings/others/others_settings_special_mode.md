@@ -103,7 +103,7 @@ To change that order:
 - Drag an object to a new position inside its plate in the object list.
 - Right-click a plate, in the object list or in the 3D view, and choose **Order By** > **Name**, **Filament**, **Height** or **Size**. **Order By** > **All Plates** sorts the objects of every plate.
 
-Each sort is ascending. **Name** puts "Part 2" before "Part 10", **Height** compares the top of each object, and **Size** compares the volume of its bounding box. Objects with the same value keep their current order, so an order you made by dragging stays inside each group. Undo restores the previous order.
+Each sort is ascending. If the objects are already in that order, it reverses them, so choosing the same entry twice gives the descending order. **Name** puts "Part 2" before "Part 10", **Height** compares the top of each object, and **Size** compares the volume of its bounding box. Objects with the same value keep their current order, so an order you made by dragging stays inside each group. Undo restores the previous order.
 
 > [!TIP]
 >
