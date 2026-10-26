@@ -10,6 +10,7 @@ These settings control advanced slicing and printing behaviors, such as how laye
     - [By Layer](#by-layer)
         - [Intra-layer order](#intra-layer-order)
     - [By Object](#by-object)
+    - [Object order](#object-order)
 - [Spiral vase](#spiral-vase)
     - [Smooth Spiral](#smooth-spiral)
         - [Max XY Smoothing](#max-xy-smoothing)
@@ -72,7 +73,7 @@ Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over part
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 - **Default**: Up to ten instances or islands are visited along the shortest possible closed path. Larger sets use nearest-neighbor chaining, refined by reversing sections of the path (2-opt), moving short runs of stops elsewhere (or-opt) and removing crossings. A good general choice and the recommended option for most plates.
-- **As object list**: Instances are printed in the same order as the object list, without any path optimization. Use it when you need a predictable, manually controlled order, for custom sequencing or debugging.
+- **As object list**: Instances are printed in the same order as the object list, without any path optimization. Use it when you need a predictable, manually controlled order, for custom sequencing or debugging. See [Object order](#object-order) to change that order.
 - **Snake**: Serpentine, row-by-row traversal (objects are grouped into rows and each row is traversed in the opposite direction to the previous one), refined with 2-opt. Well suited to regular grids of many small parts.
 - **Best of all (shortest path)**: Every strategy is evaluated and the shortest one is used. The object instance order is decided once for the whole print, while the ordering of individual islands is decided per layer, so different layers may end up using different strategies. Slightly slower to slice.
 
@@ -88,6 +89,26 @@ Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over part
 This option prints each object completely before moving on to the next object. This is better for prints where objects need to cool separately or when using different materials per object, but it may increase total print time.
 
 This setting requires more space between models and may not be suitable for all print scenarios.
+
+### Object order
+
+> [!IMPORTANT]
+> NEW FEATURE: **Order By in the plate menu**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+With **By Object**, and with the **As object list** [Intra-layer order](#intra-layer-order), objects print in the order of the object list.
+
+To change that order:
+
+- Drag an object to a new position inside its plate in the object list.
+- Right-click a plate, in the object list or in the 3D view, and choose **Order By** > **Name**, **Filament**, **Height** or **Size**. **Order By** > **All Plates** sorts the objects of every plate.
+
+Each sort is ascending. **Name** puts "Part 2" before "Part 10", **Height** compares the top of each object, and **Size** compares the volume of its bounding box. Objects with the same value keep their current order, so an order you made by dragging stays inside each group. Undo restores the previous order.
+
+> [!TIP]
+>
+> - **Order By** > **Height** prints the tallest object last. Only the last object can use the full [Printable height](printer_basic_information_printable_space#printable-height). The objects before it must stay below the extruder clearance [Height to lid](printer_basic_information_extruder_clearance#height-to-lid) or [Height to rod](printer_basic_information_extruder_clearance#height-to-rod). An object reported as too tall may slice once it prints last.
+> - **Order By** > **Filament** prints the objects of each filament one after another, which saves filament changes with **By Object**.
 
 ## Spiral vase
 
