@@ -248,3 +248,5 @@ Print sequence	Whether objects are printed layer by layer across the plate or on
 Support enforcer	Modifier volume or paint that forces support where it would not be generated. Pairs with Support blocker.	サポート増強器
 Support blocker	Modifier volume or paint that prevents support where it would be generated. Pairs with Support enforcer.	サポート除去器
 Ooze prevention	The setting that lowers the temperature of inactive extruders on multi-tool printers so they do not ooze; the setting's name, not the oozing itself (see Ooze).	垂れ出し抑止
+Single Extruder Multi Material	Printer mode in which one extruder and one nozzle print several filaments by unloading and loading them (MMU-style), as opposed to a printer with several extruders. Not a multi-extruder or tool-changer setup.	
+Air filtration	The printer's air filter and exhaust fan that clean or vent the chamber air (Support air filtration, Activate air filtration). Not the cooling filter, which is a separate accessory.	
