@@ -714,13 +714,124 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 
 ![infill-top-tpms-fk](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-tpms-fk.png?raw=true)
 
+## TPMS-P
+
+Triply Periodic Minimal Surface (Schwarz Primitive), with its cells 1.5 times taller and thicker vertical tubes: `cos(x) + cos(y) + cos(z / 1.5) = -0.3`. At the same filament it is the stiffest and strongest TPMS pattern in shear across the layers (XZ), and at high densities also along Z. Every layer is a grid of separate rings, so it is softer in the X-Y plane, travels between the rings, and its layer times vary more than the other TPMS patterns.
+
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+
+## TPMS-IWP
+
+Triply Periodic Minimal Surface (Schoen I-WP): `2(cos(x)cos(y) + cos(y)cos(z) + cos(z)cos(x)) - (cos(2x) + cos(2y) + cos(2z)) = 0`. Every layer is a grid of rounded square rings, which move between the cell centers and corners from layer to layer.
+
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+
+## TPMS-Neovius
+
+Triply Periodic Minimal Surface (Neovius): `3(cos(x) + cos(y) + cos(z)) + 4cos(x)cos(y)cos(z) = 0`. Like [TPMS-P](#tpms-p), every layer is a grid of round rings, larger and closer together.
+
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+
+## TPMS-FRD
+
+Triply Periodic Minimal Surface (Schoen F-RD): `4cos(x)cos(y)cos(z) - (cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) = 0`. Every layer is a dense grid of small rings.
+
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+
+## TPMS-Lidinoid
+
+Triply Periodic Minimal Surface (Lidinoid): `(sin(2x)cos(y)sin(z) + sin(2y)cos(z)sin(x) + sin(2z)cos(x)sin(y)) / 2 - (cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) / 2 + 0.15 = 0`. Every layer is a set of continuous wavy lines, which turn from one direction to the other between layers like [Gyroid](#gyroid). It has no separate rings, so it travels less than the other new TPMS patterns.
+
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+
+## TPMS-Split P
+
+Triply Periodic Minimal Surface (Split P): `1.1(sin(2x)sin(z)cos(y) + sin(2y)sin(x)cos(z) + sin(2z)sin(y)cos(x)) - 0.2(cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) - 0.4(cos(2x) + cos(2y) + cos(2z)) = 0`. Every layer is a grid of bean-shaped rings, which tilt from layer to layer.
+
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+
+## TPMS Cells
+
+> [!IMPORTANT]
+> NEW FEATURE: **TPMS cell scale and rotation**
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+
+[Gyroid](#gyroid) and every TPMS pattern repeat in cells along X, Y and Z. These settings change the proportions and the orientation of the cells.
+
+- TPMS-FK, TPMS-IWP, TPMS-Neovius, TPMS-FRD, TPMS-Lidinoid and TPMS-Split P are always traced on a sampling grid, so they take longer to slice than Gyroid, TPMS-D and TPMS-P.
+- The layers of TPMS-P, TPMS-IWP, TPMS-Neovius, TPMS-FRD and TPMS-Split P are grids of separate rings, so they travel between the rings. Enable [Reduce infill retraction](others_settings_g_code_output#reduce-infill-retraction) to print them faster.
+
+### TPMS Scale
+
+[Mode](option_mode): `Expert`.
+[Variable](built_in_placeholders_variables): `tpms_scale_x`, `tpms_scale_y`, `tpms_scale_z`.
+[Type](option_type#integer-float-percentage): `Float`.
+[CLI Example](cli_mode#setting-overrides): `--tpms-scale-z=1.5`.
+Stretches the cells along each axis: `1` keeps the regular cells, `2` makes them twice as long along that axis and `0.5` half as long. From `0.1` to `10`.
+
+- X and Y are the axes of the pattern, which are the X and Y axes of the bed at the default [infill direction](strength_settings_infill#direction) of 45°. They turn with the infill direction.
+- X and Y change the amount of infill at the same [Sparse infill density](strength_settings_infill#sparse-infill-density): cells twice as long along both axes print about half the lines.
+- Z changes how quickly the pattern changes from layer to layer: values below 1 make flatter cells with shorter vertical columns, values above 1 taller cells.
+- The scale also applies to [Adaptive TPMS](#adaptive-tpms) infill, on top of its grading.
+- Gyroid, TPMS-D and TPMS-P stretched along X or Y are traced on a sampling grid, like the [Gyroid Optimized](#gyroid-optimized) wave, so they take longer to slice.
+
+### TPMS X Rotation
+
+[Mode](option_mode): `Expert`.
+[Variable](built_in_placeholders_variables): `tpms_rotation_x`.
+[Type](option_type#integer-float-percentage): `Float`.
+[CLI Example](cli_mode#setting-overrides): `--tpms-rotation-x=30`.
+Turns the cells around the X axis of the pattern, after the [TPMS Scale](#tpms-scale) stretches them, so that they tilt away from the vertical. From `-90°` to `90°`; `0°` keeps the cells upright.
+
+- The cells turn by the right-hand rule: a positive angle turns the Y axis of the pattern towards Z.
+- The X axis is the X axis of the pattern, which follows the [infill direction](strength_settings_infill#direction) like the scale.
+- The turn changes the shape of every layer. For example, TPMS-FK turned 45° prints without islands.
+- The turn mixes the Y and Z directions of the cells, and their strength along them. With stretched cells, a turn of 90° swaps their Y and Z scales.
+- Gyroid, TPMS-D and TPMS-P turned by any angle are traced on a sampling grid, so they take longer to slice.
+
 ## Adaptive TPMS
 
 > [!IMPORTANT]
 > NEW FEATURE: **Adaptive TPMS density**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-[Gyroid](#gyroid), [TPMS-D](#tpms-d) and [TPMS-FK](#tpms-fk) can grade their density inside the object: fine cells next to the walls and the top and bottom surfaces, where the infill supports the shells, growing continuously towards the center of the object, where they save material and print time.
+[Gyroid](#gyroid) and every TPMS pattern ([TPMS-D](#tpms-d), [TPMS-FK](#tpms-fk), [TPMS-P](#tpms-p), [TPMS-IWP](#tpms-iwp), [TPMS-Neovius](#tpms-neovius), [TPMS-FRD](#tpms-frd), [TPMS-Lidinoid](#tpms-lidinoid), [TPMS-Split P](#tpms-split-p)) can grade their density inside the object: fine cells next to the walls and the top and bottom surfaces, where the infill supports the shells, growing continuously towards the center of the object, where they save material and print time.
 
 ### Adaptive Density
 
