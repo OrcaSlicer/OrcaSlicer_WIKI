@@ -181,7 +181,7 @@ When a placeholder in custom G-code fails, the G-code export fails. The message 
 
 > [!IMPORTANT]
 > NEW FEATURE: **Print statistics in custom G-code**
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds). In 2.5.0-alpha and older, `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `total_weight`, `total_cost`, `total_wipe_tower_cost` and `total_wipe_tower_filament` work only in the file name. In custom G-code, they stop slicing with "Not a variable name". The error for calculations is also only in nightly builds. Older versions give a wrong result or a different error.
+> Available in: [2.5.0-beta](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.5.0-beta) and [nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds). In 2.5.0-alpha and older, `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `total_weight`, `total_cost`, `total_wipe_tower_cost` and `total_wipe_tower_filament` work only in the file name. In custom G-code, they stop slicing with "Not a variable name". The error for calculations is also new in 2.5.0-beta. Older versions give a wrong result or a different error.
 
 Some of these values are marked *Filled in after generation*. OrcaSlicer knows them only after the whole G-code is generated. In custom G-code, it first writes a marker, and replaces the marker with the value at the end. In custom G-code, these values have two decimal places. In the file name, they can have more digits.
 
@@ -206,6 +206,7 @@ OrcaSlicer reads `+` from left to right, and text joined with a number stays tex
 | `print_time_day`<br>`print_time_hour`<br>`print_time_minute`<br>`print_time_sec` | int (d)<br>int (h)<br>int (min)<br>int (s) | *`print_time_day`, `print_time_hour` and `print_time_minute` added in 2.5.0.* Days, hours, minutes and seconds of the normal-mode print time. `print_time_sec` is only the seconds, not the total. Filled in after generation. |
 | `total_layer_count` | int | Number of layers. |
 | `total_toolchanges` | int | Number of filament changes in the print. The filament selected at print start does not count. With a prime tower, this is the prime tower's count. Without one, OrcaSlicer counts the changes in the planned tool order. It is `0` when printing by object without a prime tower. Also works in the file name. |
+| `printing_filament_types` | string | *Only in [nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).* Filament types that the plate prints with, without duplicates, in the order of the filament list, joined with `_`. For example `ABS_PLA`. Also works in the file name. |
 | `used_filament`<br>`used_filament_length` | float (m) | Length of filament that the whole print uses. Filled in after generation. `used_filament` also works in the file name. |
 | `extruded_volume[]` | float per filament (mm³) | Volume extruded so far with each filament. In custom G-code, this is a running total, so it is `0` in the start G-code. `extruded_volume` also works in the file name, as the total volume. |
 | `extruded_volume_total` | float (mm³) | Sum of `extruded_volume[]`. Also a running total. Also works in the file name, as the total of the whole print. |
@@ -283,7 +284,7 @@ OrcaSlicer sets the placeholders in this section only in the G-code that each se
 
 > [!IMPORTANT]
 > NEW FEATURE: **Placeholders on every path**
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds). In 2.5.0-alpha and older, these placeholders are missing, and using one stops slicing with "Not a variable name":
+> Available in: [2.5.0-beta](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.5.0-beta) and [nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds). In 2.5.0-alpha and older, these placeholders are missing, and using one stops slicing with "Not a variable name":
 >
 > - `max_layer_z` in `layer_change_gcode`.
 > - `layer_num`, `layer_z` and `max_layer_z` in filament start G-code run by the Type 1 prime tower, and `max_layer_z` and `filament_extruder_id` in its filament end G-code.
@@ -480,7 +481,7 @@ G1 E{purge} F300
 
 ### Print Summary in the File Header
 
-In the file header G-code, write the print time and the filament use. This works only in [nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds), see [Print Statistics](#print-statistics).
+In the file header G-code, write the print time and the filament use. This works in [2.5.0-beta](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.5.0-beta) and newer, see [Print Statistics](#print-statistics).
 
 ```gcode
 ; Print time: {print_time}
@@ -489,7 +490,7 @@ In the file header G-code, write the print time and the filament use. This works
 
 ### File Name
 
-This is the default file name template. To add the plate number, add `_plate{plate_number}` before `.gcode`.
+This is the default file name template. To add the plate number, add `_plate{plate_number}` before `.gcode`. To name every filament type of a multi-material print, not only the first, use `{printing_filament_types}` instead of `{filament_type[initial_tool]}`.
 
 ```text
 {input_filename_base}_{filament_type[initial_tool]}_{print_time}.gcode
