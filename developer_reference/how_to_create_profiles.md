@@ -652,6 +652,7 @@ All checks run even if one fails, and the script exits with an error if any fail
 | Check | Catches |
 | --- | --- |
 | [`profile_tool`](#the-profile-tool) | Duplicate keys, `vendor_name.json` entries and profile files that don't match each other, two profiles in a bundle sharing a name, bad filament `compatible_printers`, profiles or indexes that [`normalize` or `update-index`](#the-profile-tool) would still rewrite, and [`setting_id`](#setting-ids) or [`filament_id`](#filament-ids) errors |
+| `version_bump` | A changed bundle whose `version` in `vendor_name.json` is not newer than before the change, or is not four numbers. CI compares the pull request with the branch it merges into; the script compares your checkout with the commit it left `main` at (`--base REF` / `-Base REF` picks another) |
 | `validate_system` | Profiles that fail to load, such as JSON errors, a missing parent profile, or a filament without a `filament_id` |
 | `validate_slice` | Custom G-code errors, found by slicing a test cube on every printer |
 | `validate_filament_subtypes` | Two filament presets with the same `filament_id` on one printer |
