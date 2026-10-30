@@ -228,6 +228,7 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
         - [VFA](vfa_calib)
     - [<img alt="param_flow_ratio_and_pressure_advance" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flow_ratio_and_pressure_advance.svg?raw=true" height="22"> Adaptive Pressure Advance](adaptive_pressure_advance_calib)
 - [<img alt="param_precision" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_precision.svg?raw=true" height="22"> Tolerance](tolerance_calib)
+- [<img alt="param_ironing" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_ironing.svg?raw=true" height="22"> Ironing Flow](ironing_flow_calib)
 
 ## General Settings
 
