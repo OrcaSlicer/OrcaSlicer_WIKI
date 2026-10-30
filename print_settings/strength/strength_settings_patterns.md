@@ -837,7 +837,7 @@ Triply Periodic Minimal Surface (Schoen F-RD): `4cos(x)cos(y)cos(z) - (cos(2x)co
 
 ## TPMS-Lidinoid
 
-Triply Periodic Minimal Surface (Lidinoid): `(sin(2x)cos(y)sin(z) + sin(2y)cos(z)sin(x) + sin(2z)cos(x)sin(y)) / 2 - (cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) / 2 + 0.15 = 0`. Every layer is a set of continuous wavy lines, which turn from one direction to the other between layers like [Gyroid](#gyroid). It has no separate rings, so it travels less than the other new TPMS patterns.
+Triply Periodic Minimal Surface (Lidinoid): `(sin(2x)cos(y)sin(z) + sin(2y)cos(z)sin(x) + sin(2z)cos(x)sin(y)) / 2 - (cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) / 2 + 0.15 = 0`. Its layers mix wavy lines, which turn from one direction to the other between layers like [Gyroid](#gyroid), with many small closed loops. About half of its line is in these loops, so like the other new TPMS patterns it travels more than Gyroid, TPMS-D and TPMS-FK.
 
 - **Strength**
     - **Horizontal (X-Y):** TBD
