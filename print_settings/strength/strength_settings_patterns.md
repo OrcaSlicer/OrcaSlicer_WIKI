@@ -739,8 +739,20 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 
 Triply Periodic Minimal Surface (Schwarz Primitive), with its cells 1.5 times taller and thicker vertical tubes: `cos(x) + cos(y) + cos(z / 1.5) = -0.3`. At the same filament it is the stiffest and strongest TPMS pattern in shear across the layers (XZ), and at high densities also along Z. Every layer is a grid of separate rings, so it is softer in the X-Y plane, travels between the rings, and its layer times vary more than the other TPMS patterns.
 
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
 - **Extra:**
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
     - **[Adaptive Density](#adaptive-density):** Yes
@@ -752,8 +764,20 @@ Triply Periodic Minimal Surface (Schwarz Primitive), with its cells 1.5 times ta
 
 Triply Periodic Minimal Surface (Schoen I-WP): `2(cos(x)cos(y) + cos(y)cos(z) + cos(z)cos(x)) - (cos(2x) + cos(2y) + cos(2z)) = 0`. Every layer is a grid of rounded square rings, which move between the cell centers and corners from layer to layer.
 
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
 - **Extra:**
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
     - **[Adaptive Density](#adaptive-density):** Yes
@@ -765,8 +789,20 @@ Triply Periodic Minimal Surface (Schoen I-WP): `2(cos(x)cos(y) + cos(y)cos(z) + 
 
 Triply Periodic Minimal Surface (Neovius): `3(cos(x) + cos(y) + cos(z)) + 4cos(x)cos(y)cos(z) = 0`. Like [TPMS-P](#tpms-p), every layer is a grid of round rings, larger and closer together.
 
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
 - **Extra:**
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
     - **[Adaptive Density](#adaptive-density):** Yes
@@ -778,8 +814,20 @@ Triply Periodic Minimal Surface (Neovius): `3(cos(x) + cos(y) + cos(z)) + 4cos(x
 
 Triply Periodic Minimal Surface (Schoen F-RD): `4cos(x)cos(y)cos(z) - (cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) = 0`. Every layer is a dense grid of small rings.
 
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
 - **Extra:**
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
     - **[Adaptive Density](#adaptive-density):** Yes
@@ -791,8 +839,20 @@ Triply Periodic Minimal Surface (Schoen F-RD): `4cos(x)cos(y)cos(z) - (cos(2x)co
 
 Triply Periodic Minimal Surface (Lidinoid): `(sin(2x)cos(y)sin(z) + sin(2y)cos(z)sin(x) + sin(2z)cos(x)sin(y)) / 2 - (cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) / 2 + 0.15 = 0`. Every layer is a set of continuous wavy lines, which turn from one direction to the other between layers like [Gyroid](#gyroid). It has no separate rings, so it travels less than the other new TPMS patterns.
 
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
 - **Extra:**
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
     - **[Adaptive Density](#adaptive-density):** Yes
@@ -804,8 +864,20 @@ Triply Periodic Minimal Surface (Lidinoid): `(sin(2x)cos(y)sin(z) + sin(2y)cos(z
 
 Triply Periodic Minimal Surface (Split P): `1.1(sin(2x)sin(z)cos(y) + sin(2y)sin(x)cos(z) + sin(2z)sin(y)cos(x)) - 0.2(cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) - 0.4(cos(2x) + cos(2y) + cos(2z)) = 0`. Every layer is a grid of bean-shaped rings, which tilt from layer to layer.
 
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
 - **Extra:**
     - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
     - **[Adaptive Density](#adaptive-density):** Yes
