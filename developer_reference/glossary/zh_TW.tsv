@@ -219,7 +219,7 @@ Paint penetration layers	How many layers behind a painted top or bottom surface 
 Toolpath	The path the nozzle follows while extruding, as the Preview draws it and the G-code encodes it. Not a travel move.	工具路徑 / 走線 ⚠
 Homing	Moving the axes to their endstops so the printer knows its position (G28). Not parking a toolhead or filament.	回原點
 Color painting	The tool that paints filament colors onto a model's surface, and the painted areas. Not support, seam or fuzzy skin painting.	顏色繪製
-Preferences	The application settings dialog and its menu item, not a preset or a print setting.	
+Preferences	The application settings dialog and its menu item, not a preset or a print setting.	偏好設定
 External spool	A spool mounted outside the AMS and fed to the printer directly (Ext spool), not an AMS slot.	
 Print host	The printer's network service (OctoPrint, Moonraker, PrusaLink…) that receives uploaded G-code. Where the English says "printer host" for the printer itself, translate it as the printer.	
 Hotend rack	The rack on toolchanger printers (H2C) that holds spare hotends, not the toolhead.	
