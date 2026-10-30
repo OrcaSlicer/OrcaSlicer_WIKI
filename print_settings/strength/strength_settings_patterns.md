@@ -124,6 +124,7 @@ Parallel lines spaced according to infill density. Each layer is printed perpend
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Basic Rectilinear, Rectilinear
     - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
     - **[Surface](strength_settings_top_bottom_shells)**
     - **[Ironing](quality_settings_ironing)**
@@ -155,6 +156,7 @@ Recommended with layer anchoring to improve non-perpendicular strength.
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Basic Rectilinear, Rectilinear
     - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
     - **[Surface](strength_settings_top_bottom_shells)**
 
@@ -180,6 +182,7 @@ Similar to [rectilinear](#rectilinear), with a consistent pattern between layers
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Basic Rectilinear, Rectilinear
 
 ![infill-top-zig-zag](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-zig-zag.png?raw=true)
 
@@ -207,6 +210,7 @@ Similar to [Zig Zag](#zig-zag), but each layer is shifted by the **Infill shift 
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Advanced Rectilinear, Rectilinear
 
 ![infill-top-cross-zag](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-cross-zag.png?raw=true)
 
@@ -238,6 +242,7 @@ Skeleton density * (Infill area - Skin area + Lock depth area) + (Skin density *
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Advanced Rectilinear, Rectilinear, Adaptive
 
 ![infill-top-locked-zag](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-locked-zag.png?raw=true)
 
@@ -261,6 +266,7 @@ Similar to [rectilinear](#rectilinear), but each line is slightly rotated to imp
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Basic Rectilinear, Rectilinear
 
 ![infill-top-line](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-line.png?raw=true)
 
@@ -286,6 +292,7 @@ Two sets of perpendicular lines on every layer, forming a grid. Overlapping poin
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Basic Rectilinear, Rectilinear
     - **[Support Interface](support_settings_advanced#interface-pattern)**
 
 ![infill-top-grid](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-grid.png?raw=true)
@@ -312,6 +319,7 @@ Triangle-based grid, offering strong X-Y strength but with triple overlaps at in
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Advanced Rectilinear, Rectilinear
 
 ![infill-top-triangles](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-triangles.png?raw=true)
 
@@ -337,6 +345,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Advanced Rectilinear, Rectilinear
 
 ![infill-top-tri-hexagon](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-tri-hexagon.png?raw=true)
 
@@ -362,6 +371,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Advanced Rectilinear, Rectilinear, Cubic
 
 ![infill-top-cubic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-cubic.png?raw=true)
 
@@ -387,6 +397,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Cubic, Adaptive
 
 ![infill-top-adaptive-cubic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-adaptive-cubic.png?raw=true)
 
@@ -412,6 +423,7 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Advanced Rectilinear, Rectilinear, Cubic
 
 ![infill-top-quarter-cubic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-quarter-cubic.png?raw=true)
 
@@ -437,6 +449,7 @@ Support Cubic is a variation of the [Cubic](#cubic) infill pattern that is speci
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Cubic, Support, Adaptive
 
 ![infill-top-support-cubic](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-support-cubic.png?raw=true)
 
@@ -486,6 +499,7 @@ A higher value will allow for more straightening, improving strength but increas
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Support, Adaptive
     - **[Support Base](support_settings_advanced#base-pattern)**
 
 ![infill-top-lightning](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-lightning.png?raw=true)
@@ -512,6 +526,7 @@ Hexagonal pattern balancing strength and material use. Double walls in each hexa
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Honeycomb
     - **[Support Base](support_settings_advanced#base-pattern)**
 
 ![infill-top-honeycomb](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-honeycomb.png?raw=true)
@@ -575,6 +590,7 @@ Behavior with other settings:
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Honeycomb
 
 ![infill-top-3d-honeycomb](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-3d-honeycomb.png?raw=true)
 
@@ -604,6 +620,7 @@ Vertical honeycomb pattern with acceptable torsional stiffness, developed for lo
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Honeycomb, 2D
 
 ![infill-top-lateral-honeycomb](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-lateral-honeycomb.png?raw=true)
 
@@ -633,6 +650,7 @@ Low-strength pattern with good flexibility. You can adjust **Angle 1** and **Ang
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** 2D
 
 ![infill-top-lateral-lattice](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-lateral-lattice.png?raw=true)
 
@@ -659,6 +677,7 @@ Easier to slice but consider using [TPMS-D](#tpms-d) or [Gyroid](#gyroid) for be
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Advanced Rectilinear, Rectilinear, TPMS
 
 ![infill-top-cross-hatch](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-cross-hatch.png?raw=true)
 
@@ -685,6 +704,7 @@ Triply Periodic Minimal Surface (Schwarz Diamond). Hybrid between [Cross Hatch](
     - **[Adaptive Density](#adaptive-density):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** TPMS, Adaptive
 
 ![infill-top-tpms-d](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-tpms-d.png?raw=true)
 
@@ -711,8 +731,198 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
     - **[Adaptive Density](#adaptive-density):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** TPMS, Adaptive
 
 ![infill-top-tpms-fk](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-tpms-fk.png?raw=true)
+
+## TPMS-P
+
+Triply Periodic Minimal Surface (Schwarz Primitive), with its cells 1.5 times taller and thicker vertical tubes: `cos(x) + cos(y) + cos(z / 1.5) = -0.3`. At the same filament it is the stiffest and strongest TPMS pattern in shear across the layers (XZ), and at high densities also along Z. Every layer is a grid of separate rings, so it is softer in the X-Y plane, travels between the rings, and its layer times vary more than the other TPMS patterns.
+
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** TPMS, Adaptive
+
+## TPMS-IWP
+
+Triply Periodic Minimal Surface (Schoen I-WP): `2(cos(x)cos(y) + cos(y)cos(z) + cos(z)cos(x)) - (cos(2x) + cos(2y) + cos(2z)) = 0`. Every layer is a grid of rounded square rings, which move between the cell centers and corners from layer to layer.
+
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** TPMS, Adaptive
+
+## TPMS-Neovius
+
+Triply Periodic Minimal Surface (Neovius): `3(cos(x) + cos(y) + cos(z)) + 4cos(x)cos(y)cos(z) = 0`. Like [TPMS-P](#tpms-p), every layer is a grid of round rings, larger and closer together.
+
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** TPMS, Adaptive
+
+## TPMS-FRD
+
+Triply Periodic Minimal Surface (Schoen F-RD): `4cos(x)cos(y)cos(z) - (cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) = 0`. Every layer is a dense grid of small rings.
+
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** TPMS, Adaptive
+
+## TPMS-Lidinoid
+
+Triply Periodic Minimal Surface (Lidinoid): `(sin(2x)cos(y)sin(z) + sin(2y)cos(z)sin(x) + sin(2z)cos(x)sin(y)) / 2 - (cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) / 2 + 0.15 = 0`. Its layers mix wavy lines, which turn from one direction to the other between layers like [Gyroid](#gyroid), with many small closed loops. About half of its line is in these loops, so like the other new TPMS patterns it travels more than Gyroid, TPMS-D and TPMS-FK.
+
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** TPMS, Adaptive
+
+## TPMS-Split P
+
+Triply Periodic Minimal Surface (Split P): `1.1(sin(2x)sin(z)cos(y) + sin(2y)sin(x)cos(z) + sin(2z)sin(y)cos(x)) - 0.2(cos(2x)cos(2y) + cos(2y)cos(2z) + cos(2z)cos(2x)) - 0.4(cos(2x) + cos(2y) + cos(2z)) = 0`. Every layer is a grid of bean-shaped rings, which tilt from layer to layer.
+
+- **Strength**
+    - **Horizontal (X-Y):** TBD
+    - **Vertical (Z):** TBD
+- **Density Calculation:**  % of  total infill volume
+    - **Material Usage:** TBD
+    - **Print Time:** TBD
+        - **Material/Time (Higher better):** TBD
+        - **Layer time Variability:** TBD
+    - **Slicing Time:** TBD
+    - **G-code Size:** TBD
+- **Extra:**
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Classic](strength_settings_infill#classic-strategy)
+        - **2 lines:** Print Time TBD
+        - **3 lines:** Print Time TBD
+    - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
+    - **[Adaptive Density](#adaptive-density):** Yes
+- **Applies to:**
+    - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** TPMS, Adaptive
+
+## TPMS Cells
+
+> [!IMPORTANT]
+> NEW FEATURE: **TPMS cell scale and rotation**
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+
+[Gyroid](#gyroid) and every TPMS pattern repeat in cells along X, Y and Z. These settings change the proportions and the orientation of the cells.
+
+- TPMS-FK, TPMS-IWP, TPMS-Neovius, TPMS-FRD, TPMS-Lidinoid and TPMS-Split P are always traced on a sampling grid, so they take longer to slice than Gyroid, TPMS-D and TPMS-P.
+- The layers of TPMS-P, TPMS-IWP, TPMS-Neovius, TPMS-FRD and TPMS-Split P are grids of separate rings, so they travel between the rings. Enable [Reduce infill retraction](others_settings_g_code_output#reduce-infill-retraction) to print them faster.
+
+### TPMS Scale
+
+[Mode](option_mode): `Expert`.
+[Variable](built_in_placeholders_variables): `tpms_scale_x`, `tpms_scale_y`, `tpms_scale_z`.
+[Type](option_type#integer-float-percentage): `Float`.
+[CLI Example](cli_mode#setting-overrides): `--tpms-scale-z=1.5`.
+Stretches the cells along each axis: `1` keeps the regular cells, `2` makes them twice as long along that axis and `0.5` half as long. From `0.1` to `10`.
+
+- X and Y are the axes of the pattern, which are the X and Y axes of the bed at the default [infill direction](strength_settings_infill#direction) of 45°. They turn with the infill direction.
+- X and Y change the amount of infill at the same [Sparse infill density](strength_settings_infill#sparse-infill-density): cells twice as long along both axes print about half the lines.
+- Z changes how quickly the pattern changes from layer to layer: values below 1 make flatter cells with shorter vertical columns, values above 1 taller cells.
+- The scale also applies to [Adaptive TPMS](#adaptive-tpms) infill, on top of its grading.
+- Gyroid, TPMS-D and TPMS-P stretched along X or Y are traced on a sampling grid, like the [Gyroid Optimized](#gyroid-optimized) wave, so they take longer to slice.
+
+### TPMS X Rotation
+
+[Mode](option_mode): `Expert`.
+[Variable](built_in_placeholders_variables): `tpms_rotation_x`.
+[Type](option_type#integer-float-percentage): `Float`.
+[CLI Example](cli_mode#setting-overrides): `--tpms-rotation-x=30`.
+Turns the cells around the X axis of the pattern, after the [TPMS Scale](#tpms-scale) stretches them, so that they tilt away from the vertical. From `-90°` to `90°`; `0°` keeps the cells upright.
+
+- The cells turn by the right-hand rule: a positive angle turns the Y axis of the pattern towards Z.
+- The X axis is the X axis of the pattern, which follows the [infill direction](strength_settings_infill#direction) like the scale.
+- The turn changes the shape of every layer. For example, TPMS-FK turned 45° prints without islands.
+- The turn mixes the Y and Z directions of the cells, and their strength along them. With stretched cells, a turn of 90° swaps their Y and Z scales.
+- Gyroid, TPMS-D and TPMS-P turned by any angle are traced on a sampling grid, so they take longer to slice.
 
 ## Adaptive TPMS
 
@@ -720,7 +930,7 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 > NEW FEATURE: **Adaptive TPMS density**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
-[Gyroid](#gyroid), [TPMS-D](#tpms-d) and [TPMS-FK](#tpms-fk) can grade their density inside the object: fine cells next to the walls and the top and bottom surfaces, where the infill supports the shells, growing continuously towards the center of the object, where they save material and print time.
+[Gyroid](#gyroid) and every TPMS pattern ([TPMS-D](#tpms-d), [TPMS-FK](#tpms-fk), [TPMS-P](#tpms-p), [TPMS-IWP](#tpms-iwp), [TPMS-Neovius](#tpms-neovius), [TPMS-FRD](#tpms-frd), [TPMS-Lidinoid](#tpms-lidinoid), [TPMS-Split P](#tpms-split-p)) can grade their density inside the object: fine cells next to the walls and the top and bottom surfaces, where the infill supports the shells, growing continuously towards the center of the object, where they save material and print time.
 
 ### Adaptive Density
 
@@ -808,6 +1018,7 @@ Tightens the gyroid wave along the Z (vertical) axis at low infill density to sh
     - **[Adaptive Density](#adaptive-density):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** TPMS, Adaptive
 
 ![infill-top-gyroid](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-gyroid.png?raw=true)
 
@@ -833,6 +1044,7 @@ Fills the area with progressively smaller versions of the outer contour, creatin
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Aesthetic
     - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
     - **[Surface](strength_settings_top_bottom_shells)**
     - **[Ironing](quality_settings_ironing)**
@@ -896,6 +1108,7 @@ Print speed is very low due to the complexity of the path, which can lead to lon
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Aesthetic
     - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
     - **[Surface](strength_settings_top_bottom_shells)**
 
@@ -923,6 +1136,7 @@ Spiral pattern that fills the area with concentric arcs, creating a smooth and c
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Aesthetic
     - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
     - **[Surface](strength_settings_top_bottom_shells)**
 
@@ -950,6 +1164,7 @@ Aesthetic pattern with low strength and high print time.
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** Yes
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
+        - **[Pattern groups](strength_settings_infill#pattern-group):** Aesthetic
     - **[Solid Infill](strength_settings_infill#internal-solid-infill)**
     - **[Surface](strength_settings_top_bottom_shells)**
 

@@ -343,10 +343,29 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 [Mode](option_mode): `Simple`.  
 [Variable](built_in_placeholders_variables): `sparse_infill_pattern`.  
 [Type](option_type#choice): `Choice`.  
-[Options](option_type#choice): `rectilinear, alignedrectilinear, zigzag, crosszag, lockedzag, line, grid, triangles, tri-hexagon, cubic, adaptivecubic, quartercubic, supportcubic, lightning, honeycomb, 3dhoneycomb, lateral-honeycomb, lateral-lattice, crosshatch, tpmsd, tpmsfk, gyroid, concentric, hilbertcurve, archimedeanchords, octagramspiral`.  
+[Options](option_type#choice): `rectilinear, alignedrectilinear, zigzag, crosszag, lockedzag, line, grid, triangles, tri-hexagon, cubic, adaptivecubic, quartercubic, supportcubic, lightning, honeycomb, 3dhoneycomb, lateral-honeycomb, lateral-lattice, crosshatch, tpmsd, tpmsfk, tpmsp, tpmsiwp, tpmsneovius, tpmsfrd, tpmslidinoid, tpmssplitp, gyroid, concentric, hilbertcurve, archimedeanchords, octagramspiral`.  
 [CLI Example](cli_mode#setting-overrides): `--sparse-infill-pattern=rectilinear`.  
 > [!TIP]
 > See [Infill Patterns Wiki List](strength_settings_patterns) with **detailed specifications**, including their strengths and weaknesses.
+
+### Pattern Group
+
+The Pattern group row, just before the sparse infill pattern, filters the pattern list by group, so that it shows only the patterns of that group. It changes only what the list shows: the selected pattern stays in the list, and the group is not saved in the profile.
+
+| Group | Patterns |
+| --- | --- |
+| All | Every pattern (default). |
+| Favorites | The patterns picked on the Favorites page of the preferences. |
+| Basic Rectilinear | Rectilinear, Aligned Rectilinear, Zig Zag, Line, Grid. |
+| Advanced Rectilinear | Cross Zag, Locked Zag, Triangles, Tri-hexagon, Cubic, Quarter Cubic, Cross Hatch. |
+| Rectilinear | Basic Rectilinear and Advanced Rectilinear. |
+| Cubic | Cubic, Adaptive Cubic, Quarter Cubic, Support Cubic. |
+| Support | Support Cubic, Lightning. |
+| Honeycomb | Honeycomb, 3D Honeycomb, Lateral Honeycomb. |
+| 2D | Lateral Honeycomb, Lateral Lattice. |
+| TPMS | Gyroid, every TPMS pattern, Cross Hatch. |
+| Aesthetic | Concentric, Hilbert Curve, Archimedean Chords, Octagram Spiral. |
+| Adaptive | Locked Zag, Adaptive Cubic, Support Cubic, Lightning, Gyroid and every TPMS pattern. |
 
 ## Sparse Infill Smooth Factor
 
