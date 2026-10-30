@@ -80,7 +80,7 @@ Nozzle volume	The molten volume held inside the hotend, used to compute flushing
 Bed / Build plate	The heated print surface, i.e. the removable build plate, that the first layer sticks to. Two English names for one object.	Mesa
 Plate	One of the project's plates: each holds its own objects and is sliced and printed separately (Add plate, Slice plate, current plate). Where the language has a separate word, keep it apart from Bed / Build plate.	Placa
 Build volume	The printable space of the printer — the build plate area times the maximum Z height.	Volume de impressão
-Toolhead	The moving assembly that carries the hotend and nozzle (and on some printers the extruder).	Cabeça da ferramenta
+Toolhead	The moving assembly that carries the hotend and nozzle (and on some printers the extruder).	Cabeçote
 Chamber	The printer's enclosed build volume (the hardware enclosure itself, not its temperature setting).	Câmara
 Part cooling fan	The fan that blows air onto freshly extruded plastic to solidify it.	Ventilador de resfriamento de peças
 Exhaust fan	The fan that vents chamber air out of the enclosure.	Ventilador de exaustão
@@ -180,7 +180,7 @@ Belt printer	A printer whose build surface is a moving conveyor belt under a gan
 Belt purge tower	The long, thin object added beside the parts on a belt printer for filament changes to purge into. It replaces the prime tower, which cannot be printed on a belt.	Torre de purga da esteira
 Leading edge (belt)	On a belt printer, the end of a part that reaches the belt first; the leading brim options anchor it to the belt.	Bordo de ataque
 Machine frame (belt)	The printer's own coordinate system on a belt printer, into which the sliced coordinates are converted (axis remap, shear and scale). A coordinate frame, not the physical frame of the machine.	Referencial da máquina
-Gantry	The beam that carries one or more carriages across the bed. IDEX/IQEX printers have one or two; on a belt printer it is tilted over the belt.	Pórtico
+Gantry	The beam that carries one or more carriages across the bed. IDEX/IQEX printers have one or two; on a belt printer it is tilted over the belt.	Ponte
 Carriage	One independently moving toolhead carrier on a gantry. In parallel printing each active carriage prints one copy of the part.	Carro
 Parallel printing	IDEX/IQEX printing of several copies of a part at once, one per active carriage, in Copy or Mirror roles; a plate set to it is in a parallel mode.	Impressão paralela
 Zone (IDEX/IQEX)	The part of the bed one active carriage prints in during parallel printing; parts are placed in T0's primary zone. Not a resonance or temperature zone.	Zona
