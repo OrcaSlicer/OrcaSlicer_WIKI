@@ -355,6 +355,7 @@ The Pattern group row, just before the sparse infill pattern, filters the patter
 | Group | Patterns |
 | --- | --- |
 | All | Every pattern (default). |
+| Favorites | The patterns picked on the Favorites page of the preferences. |
 | Basic Rectilinear | Rectilinear, Aligned Rectilinear, Zig Zag, Line, Grid. |
 | Advanced Rectilinear | Cross Zag, Locked Zag, Triangles, Tri-hexagon, Cubic, Quarter Cubic, Cross Hatch. |
 | Rectilinear | Basic Rectilinear and Advanced Rectilinear. |
