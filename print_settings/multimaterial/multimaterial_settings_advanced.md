@@ -11,6 +11,7 @@
 - [Interlocking Beam Layers](#interlocking-beam-layers)
 - [Interlocking Depth](#interlocking-depth)
 - [Interlocking Boundary Avoidance](#interlocking-boundary-avoidance)
+- [Interlocking Skip Bottom Layers](#interlocking-skip-bottom-layers)
 
 ## Interlocking Beam
 
@@ -126,3 +127,21 @@ The distance from the boundary between filaments to generate interlocking struct
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--interlocking-boundary-avoidance=1`.  
 The distance from the outside of a model where interlocking structures will not be generated, measured in cells.
+
+## Interlocking Skip Bottom Layers
+
+[Mode](option_mode): `Advanced`.  
+[Variable](built_in_placeholders_variables): `interlocking_skip_bottom_layers`.  
+[Type](option_type#integer-float-percentage): `Integer`.  
+[CLI Example](cli_mode#setting-overrides): `--interlocking-skip-bottom-layers=1`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Skip interlocking on the bottom layers**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
+The number of bottom layers on which no interlocking structure is generated. These layers keep the original outlines of the parts, so the beam pattern is not visible on the bottom surface and the first layer sticks to the bed the same way along the whole border between the filaments. Zero generates the interlocking structure starting from the first layer.
+
+[Interlocking Boundary Avoidance](#interlocking-boundary-avoidance) does not treat the build plate as the outside of the model, so it does not remove the beams from the bottom surface. Use this option instead.
+
+> [!TIP]
+> Use a multiple of [Interlocking Beam Layers](#interlocking-beam-layers), so the first beams are not cut partway through their height.
