@@ -2,6 +2,9 @@
 
 This page documents the settings used when printing with multiple materials in Orca Slicer. It explains wipe-tower parameters, tool-change behaviour for both single-extruder and multi-extruder multimaterial setups, and ramming/purge options that help ensure reliable, contamination-free material changes.
 
+> [!NOTE]
+> This tab is only shown when the printer has more than one extruder, has [Single Extruder Multi Material](printer_multimaterial_setup#single-extruder-multi-material) enabled, or is a Bambu Lab printer.
+
 - [Multimaterial Wipe Tower Parameters](#multimaterial-wipe-tower-parameters)
     - [Minimal purge on wipe tower](#minimal-purge-on-wipe-tower)
 - [Multi Filament](#multi-filament)

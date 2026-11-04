@@ -2,6 +2,9 @@
 
 Basic setup for multimaterial printing.
 
+> [!NOTE]
+> The **Multimaterial** tab in the Process and Material settings is only shown when the printer has more than one extruder, has [Single Extruder Multi Material](#single-extruder-multi-material) enabled, or is a Bambu Lab printer. This tab in the Printer settings is always shown, because these options turn those modes on.
+
 ## Single Extruder Multi Material
 
 [Mode](option_mode): `Advanced`.  
