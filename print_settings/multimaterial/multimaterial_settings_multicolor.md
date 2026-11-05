@@ -3,7 +3,7 @@
 These settings control how colors are printed: how far the colors applied with [Color Painting](prepare_color_painting) reach into the model, and how mixed filaments are layered.
 
 - [Paint Penetration Layers](#paint-penetration-layers)
-- [Horizontal Paint Penetration](#horizontal-paint-penetration)
+- [Maximum Width of Segmented Region](#maximum-width-of-segmented-region)
 - [Mixed Color Sublayer](#mixed-color-sublayer)
 
 ## Paint Penetration Layers
@@ -27,7 +27,7 @@ Each layer further from the surface is colored about two line widths narrower th
 > [!WARNING]
 > Keep the value within the shell, which is the larger of [Shell Layers](strength_settings_top_bottom_shells#shell-layers) and the layers needed to reach [Shell Thickness](strength_settings_top_bottom_shells#shell-thickness). A larger value also colors the [sparse infill](strength_settings_infill) under or over the painted area, adding filament changes where they can't be seen.
 
-## Horizontal Paint Penetration
+## Maximum Width of Segmented Region
 
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `mmu_segmented_region_max_width`.  

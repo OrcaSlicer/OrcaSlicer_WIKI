@@ -76,7 +76,7 @@ Forces the generation of solid shells between adjacent materials/volumes. Useful
 [Variable](built_in_placeholders_variables): `mmu_segmented_region_interlocking_depth`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--mmu-segmented-region-interlocking-depth=1`.  
-Interlocking depth of a segmented region. On every other layer, the painted region reaches only this deep into the model instead of the [Horizontal Paint Penetration](multimaterial_settings_multicolor#horizontal-paint-penetration), so consecutive layers interlock. Zero disables this feature. Hidden and ignored when [Interlocking Beam](#interlocking-beam) is enabled.
+Interlocking depth of a segmented region. On every other layer, the painted region reaches only this deep into the model instead of the [Maximum Width of Segmented Region](multimaterial_settings_multicolor#maximum-width-of-segmented-region), so consecutive layers interlock. Zero disables this feature. Hidden and ignored when [Interlocking Beam](#interlocking-beam) is enabled.
 
 ## Interlocking Beam Width
 
