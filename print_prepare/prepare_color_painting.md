@@ -12,7 +12,7 @@ This feature is useful for visualizing different sections of your model, plannin
 > Check [Mixed Nozzle Sizes Guide](mixed_nozzle_sizes).
 
 > [!TIP]
-> A painted top or bottom surface also colors the layers behind it. Set how many in [Paint Penetration Layers](strength_settings_top_bottom_shells#paint-penetration-layers).
+> A painted top or bottom surface also colors the layers behind it. Set how many in [Paint Penetration Layers](multimaterial_settings_multicolor#paint-penetration-layers).
 
 ## Tools
 
