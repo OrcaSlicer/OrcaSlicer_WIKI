@@ -241,9 +241,9 @@ nav:
     - "Support Advanced": print_settings/support/support_settings_advanced.md
     - "Tree Support": print_settings/support/support_settings_tree.md
   - Multimaterial:
-    - "Mixed Filament": print_settings/multimaterial/multimaterial_settings_mixed_filament.md
-    - "Prime Tower": print_settings/multimaterial/multimaterial_settings_prime_tower.md
+    - Multicolor: print_settings/multimaterial/multimaterial_settings_multicolor.md
     - "Filament for Features": print_settings/multimaterial/multimaterial_settings_filament_for_features.md
+    - "Prime Tower": print_settings/multimaterial/multimaterial_settings_prime_tower.md
     - "Ooze prevention": print_settings/multimaterial/multimaterial_settings_ooze_prevention.md
     - "Flush Options": print_settings/multimaterial/multimaterial_settings_flush_options.md
     - "Multimaterial Advanced": print_settings/multimaterial/multimaterial_settings_advanced.md

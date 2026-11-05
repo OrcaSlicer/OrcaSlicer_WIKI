@@ -140,9 +140,9 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 > [!NOTE]
 > This tab is only shown when the printer has more than one extruder, has [Single Extruder Multi Material](printer_multimaterial_setup#single-extruder-multi-material) enabled, or is a Bambu Lab printer.
 
-- [<img alt="param_mixed_color" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_mixed_color.svg?raw=true" height="22"> Mixed Filament](multimaterial_settings_mixed_filament)
-- [<img alt="param_tower" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tower.svg?raw=true" height="22"> Prime Tower](multimaterial_settings_prime_tower)
+- [<img alt="param_mixed_color" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_mixed_color.svg?raw=true" height="22"> Multicolor](multimaterial_settings_multicolor)
 - [<img alt="param_filament_for_features" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_filament_for_features.svg?raw=true" height="22"> Filament for Features](multimaterial_settings_filament_for_features)
+- [<img alt="param_tower" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_tower.svg?raw=true" height="22"> Prime Tower](multimaterial_settings_prime_tower)
 - [<img alt="param_ooze_prevention" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_ooze_prevention.svg?raw=true" height="22"> Ooze Prevention](multimaterial_settings_ooze_prevention)
 - [<img alt="param_flush" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_flush.svg?raw=true" height="22"> Flush Options](multimaterial_settings_flush_options)
 - [<img alt="param_advanced" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/param_advanced.svg?raw=true" height="22"> Advanced](multimaterial_settings_advanced)
