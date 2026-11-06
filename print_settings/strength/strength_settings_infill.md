@@ -96,7 +96,7 @@ In the [infill analysis](strength_settings_patterns#multiline), more lines usual
 
 - Curved and angular patterns gain the most: [Gyroid](strength_settings_patterns#gyroid), [TPMS-D](strength_settings_patterns#tpms-d), [TPMS-FK](strength_settings_patterns#tpms-fk), [Honeycomb](strength_settings_patterns#honeycomb), [3D Honeycomb](strength_settings_patterns#3d-honeycomb) and [Hilbert Curve](strength_settings_patterns#hilbert-curve) printed 15-21% faster with 2 lines and 23-32% faster with 3.
 - The other patterns whose lines do not cross printed 3-26% faster.
-- Patterns whose lines cross take longer: the [Non-Crossing](#non-crossing-strategy) paths of [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) turn at every crossing instead of running straight across, and [Quarter Cubic](strength_settings_patterns#quarter-cubic) prints [closed loops](#classic-strategy). They took 19-80% longer than with 1 line, and [Concentric](strength_settings_patterns#concentric) 16-22% longer.
+- Patterns whose lines cross take longer: the [Non-Crossing](#non-crossing-strategy) paths of [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Quarter Cubic](strength_settings_patterns#quarter-cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) turn at every crossing instead of running straight across. They took 21-87% longer than with 1 line, and [Concentric](strength_settings_patterns#concentric) 16-22% longer.
 
 Each pattern's 2 and 3 lines entries in the [Patterns section](strength_settings_patterns) show its own print time over a single line.
 
@@ -114,7 +114,7 @@ The following describes possible strategies for infill generation.
 
 #### Classic Strategy
 
-For most self-intersecting infills (e.g. [Quarter Cubic](strength_settings_patterns#quarter-cubic)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
+For most self-intersecting infills (e.g. [Gyroid](strength_settings_patterns#gyroid)) multiline will generate closed loops to avoid overlapping lines. This may lead to some increased print time.  
 
 In this example of a pattern of crossing lines and the [Gyroid](strength_settings_patterns#gyroid) pattern, you can see (in purple) the closed loops generated to avoid overlapping lines.
 
@@ -122,16 +122,17 @@ In this example of a pattern of crossing lines and the [Gyroid](strength_setting
 
 #### Non-Crossing Strategy
 
-[Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) & [Support Cubic](strength_settings_patterns#support-cubic) patterns use a Non-crossing multiline strategy.
+[Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Quarter Cubic](strength_settings_patterns#quarter-cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) & [Support Cubic](strength_settings_patterns#support-cubic) patterns use a Non-crossing multiline strategy.
 For these infill patterns, an alternative approach is used, generating trapezoidal trajectories designed to avoid self-intersections of the infill lines. In each layer, the pattern rotates to ensure isotropic strength.  
 This strategy improves printing times by avoiding closed loops in favor of continuous printing paths.  
 [3D Honeycomb](strength_settings_patterns#3d-honeycomb) is also non-crossing: it draws its multiline copies itself as parallel waves that never cross.  
 
 > [!IMPORTANT]
-> NEW FEATURE: **Non-Crossing Cubic, Adaptive Cubic and Support Cubic**  
+> NEW FEATURE: **Non-Crossing Cubic, Quarter Cubic, Adaptive Cubic and Support Cubic**  
 > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 - [Cubic](strength_settings_patterns#cubic) paths follow the same lines as its single-line pattern, so they still shift with the layer height: most layers look like [Tri-hexagon](strength_settings_patterns#tri-hexagon), and the layers where the three line directions meet look like [Triangles](strength_settings_patterns#triangles).
+- [Quarter Cubic](strength_settings_patterns#quarter-cubic) paths also follow the same lines as its single-line pattern. Parallel lines still come together until their walls touch, and where they are too close for a path to turn, it runs straight from one to the other.
 - [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) paths follow their lines of every cube size. Where a finer line ends on a coarser one, its path stops against the path of the coarser line.
 
 ![infill-multiline-non-crossing](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-multiline-non-crossing.gif?raw=true)
@@ -403,6 +404,8 @@ Rounded corners let the toolhead keep more of its speed through the turns, so th
 | [Cubic](strength_settings_patterns#cubic), 2 lines | 4% | 8% | 9% | 13% |
 | [Cross Hatch](strength_settings_patterns#cross-hatch) | 2% | 5% | 8% | 12% |
 | [Grid](strength_settings_patterns#grid), 3 lines | 1% | 5% | 5% | 10% |
+| [Quarter Cubic](strength_settings_patterns#quarter-cubic), 3 lines | 1% | 5% | 7% | 10% |
+| [Quarter Cubic](strength_settings_patterns#quarter-cubic), 2 lines | 2% | 5% | 8% | 9% |
 | [Grid](strength_settings_patterns#grid), 2 lines | 2% | 3% | 9% | 8% |
 | [Triangles](strength_settings_patterns#triangles), 2 lines | 0% | 1% | 2% | 5% |
 | [Concentric](strength_settings_patterns#concentric) | 1% | 2% | 3% | 4% |
@@ -436,9 +439,10 @@ The setting only affects **sparse infill**, and only the [patterns](strength_set
     - [Triangles](strength_settings_patterns#triangles)
     - [Tri-hexagon](strength_settings_patterns#tri-hexagon)
     - [Cubic](strength_settings_patterns#cubic)
+    - [Quarter Cubic](strength_settings_patterns#quarter-cubic)
 
 > [!NOTE]
-> [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon) and [Cubic](strength_settings_patterns#cubic) are only rounded in their trapezoidal, [Non-Crossing](#non-crossing-strategy) form, which needs more than one line per infill wall. With a single line they are plain crossing lines with no corner to round.
+> [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic) and [Quarter Cubic](strength_settings_patterns#quarter-cubic) are only rounded in their trapezoidal, [Non-Crossing](#non-crossing-strategy) form, which needs more than one line per infill wall. With a single line they are plain crossing lines with no corner to round.
 
 ### Corners left sharp
 

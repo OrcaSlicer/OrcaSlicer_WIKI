@@ -12,7 +12,7 @@ triangles,Triangles,0.965,0.776,1.142,0.000,0.917,0.336,High,Normal,Normal,Norma
 tri-hexagon,Tri-hexagon,0.951,0.740,1.176,0.001,0.876,0.315,High,Normal-High,Normal,Low,Normal-High,None,Normal-Low,Extra-Low,0.957,1.298,1.871,0.925,1.123,1.614
 cubic,Cubic,0.972,0.756,1.176,0.019,0.904,0.323,High,High,Normal,Normal-Low,Normal-High,Unnoticeable,Normal-Low,Extra-Low,0.961,1.202,1.685,1.019,1.087,1.510
 adaptivecubic,Adaptive Cubic,0.578,0.584,0.919,0.324,1.062,0.281,Normal-High,Normal-High,Low,Low,Normal-Low,Possibly Noticeable,Normal,Extra-Low,0.663,0.814,1.502,0.738,0.784,1.456
-quartercubic,Quarter Cubic,0.961,0.775,1.135,0.038,0.951,0.336,High,High,Normal,Normal-Low,Normal-High,Unnoticeable,Normal,Extra-Low,0.967,1.170,1.604,0.993,0.933,1.250
+quartercubic,Quarter Cubic,0.961,0.775,1.135,0.038,0.951,0.336,High,High,Normal,Normal-Low,Normal-High,Unnoticeable,Normal,Extra-Low,0.973,1.205,1.646,0.997,1.065,1.445
 supportcubic,Support Cubic,0.422,0.472,0.864,1.962,0.865,0.256,Low,Low,Low,Low,Normal-Low,Likely Noticeable,Normal-Low,Extra-Low,0.533,0.633,1.548,0.640,0.656,1.705
 lightning,Lightning,0.104,0.270,0.335,2.619,0.995,0.193,Low,Low,Ultra-Low,Extra-Low,Extra-Low,Likely Noticeable,Normal,Extra-Low,0.096,0.201,0.794,0.110,0.188,0.747
 honeycomb,Honeycomb,1.210,2.066,0.606,0.004,1.199,1.727,High,High,Normal-High,Ultra-High,Low,None,Normal-High,Extra-High,1.244,1.631,0.808,1.203,1.406,0.699
