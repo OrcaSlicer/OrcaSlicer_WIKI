@@ -150,7 +150,7 @@ Extrude	Design-tab feature that pushes a closed sketch profile, or a picked face
 Revolve	Design-tab feature that spins a sketch profile around an axis to make a solid of revolution.	旋转
 Sweep	Design-tab feature that moves a profile along a path sketch to make a solid or a sheet body.	扫掠
 Loft	Design-tab feature that skins a smooth shape between two or more profile sketches.	放样
-Body	A solid, or an open sheet, produced by the Design tab's features — the CAD counterpart of an object before it is committed to the plate. Not a model Part or Volume.	实体
+Body	A solid, or an open sheet, in CAD data, produced by the Design tab's features or read from an imported file. It is the CAD counterpart of an object before it is committed to the plate. Not a model Part or Volume.	实体
 Sheet body	An open surface body with no thickness and no volume, made by the Surface features; Thicken turns it into a solid.	曲面实体
 Feature (Design)	One step of the Design tab's model history — a sketch, extrude, fillet, plane… — listed in the feature tree and recomputed in order. Not "feature" in the sense of an application capability.	特征
 Datum	Reference geometry — a plane, axis or coordinate system — created to place sketches and features; it adds no material.	基准
@@ -250,3 +250,7 @@ Support blocker	Modifier volume or paint that prevents support where it would be
 Ooze prevention	The setting that lowers the temperature of inactive extruders on multi-tool printers so they do not ooze; the setting's name, not the oozing itself (see Ooze).	防渗料
 Single Extruder Multi Material	Printer mode in which one extruder and one nozzle print several filaments by unloading and loading them (MMU-style), as opposed to a printer with several extruders. Not a multi-extruder or tool-changer setup.	单挤出机多材料
 Air filtration	The printer's air filter and exhaust fan that clean or vent the chamber air (Support air filtration, Activate air filtration). Not the cooling filter, which is a separate accessory.	空气过滤
+Assembly (object)	An object made of several parts kept together, such as an imported multi-part file. Not the Assemble tool or the act of assembling.	装配体
+Permission (plugin)	A right granted to a plugin to do something, such as read a folder, reach a host or start a thread. Listed in the Plugins dialog. Not an operating system file permission.	权限
+Full access	The plugin setting that turns off permission checks for that plugin. It is not a sandbox.	完全访问
+Thread (CPU)	A processing thread that software starts. Not a screw thread.	线程
