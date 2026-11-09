@@ -26,10 +26,6 @@ It is recommended to enable the "Show Wireframe" option when running a simplific
 
 ## Fix Model
 
-> [!IMPORTANT]
-> NEW FEATURE: **Fix Model on every platform, Fix All and Fix All Plates**
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Fix Model repairs the mesh errors that make a model slice unpredictably or break other tools such as cut, mesh boolean and painting. It works on Windows, macOS and Linux.
 
 - [Running Fix Model](#running-fix-model)

@@ -43,9 +43,6 @@ Smaller values mean higher resolution and more time to slice. If you are slicing
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `disabled, enabled, sparse_infill`.  
 [CLI Example](cli_mode#setting-overrides): `--enable-arc-fitting=disabled`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Sparse infill only arc fitting**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Replaces many short straight moves (G1 segments) with fewer circular arc commands using [G2 and G3](https://marlinfw.org/docs/gcode/G002-G003.html).  
 
@@ -305,9 +302,6 @@ This option is only shown when *Convert holes to polyholes* is enabled.
 [Variable](built_in_placeholders_variables): `hole_to_polyhole_max_edges`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--hole-to-polyhole-max-edges=1`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Maximum Polyhole edge count**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Limits the number of sides a polyhole can have. The number of sides is calculated from the hole size and the nozzle diameter: about twice the hole diameter in mm with a 0.4 mm nozzle, proportionally fewer with larger nozzles, and never fewer than 3. With the default of 50, holes larger than about 25 mm are capped when using a 0.4 mm nozzle.
 

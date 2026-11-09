@@ -1,9 +1,5 @@
 # IDEX/IQEX Configuration
 
-> [!IMPORTANT]
-> NEW FEATURE: **IDEX/IQEX parallel printing**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 These settings describe a printer with independent carriages that print at the same time. OrcaSlicer slices the part for T0, and the printer's firmware repeats it on the other carriages. An IDEX (independent dual extruder) printer has two carriages, either side by side on one gantry or one on each of two gantries, front and rear; an IQEX (independent quad extruder) printer has two gantries with two carriages each. Other layouts, such as three or four carriages on one gantry, use the same settings.
 
 The settings are found in **Printer settings → Multimaterial → IDEX/IQEX Configuration**, which is shown when the settings mode is **Advanced** or higher. Until [IDEX/IQEX Printer](#idexiqex-printer) is enabled, the settings below it, except Pre-slice warnings, are grayed out and the [Modes](#modes) grid is hidden.

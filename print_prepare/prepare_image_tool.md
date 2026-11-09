@@ -1,9 +1,5 @@
 # Image
 
-> [!IMPORTANT]
-> NEW FEATURE: **Image**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 **Image** puts a colour picture on a model: a logo on a lid, a photograph on a plaque, a label on a bottle. The surface keeps its shape - nothing is raised or engraved - and the picture is printed by changing filament across it.
 
 ![td-image-tool-result](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/texture_displacement/td-image-tool-result.png?raw=true)

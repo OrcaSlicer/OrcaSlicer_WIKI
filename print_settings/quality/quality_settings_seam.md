@@ -212,10 +212,6 @@ The inward move itself is a short, fixed move of about 20% of the nozzle diamete
 [Type](option_type): `wipe_inward` (Boolean), `wipe_inward_distance` (Float or Percentage).  
 [CLI Example](cli_mode#setting-overrides): `--wipe-inward=1` (`wipe_inward` shown; other variables above follow their own type).  
 
-> [!IMPORTANT]
-> NEW FEATURE: **Wipe inward**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Shifts the wipe that follows an external wall away from the outer surface and onto the inner wall next to it. Instead of running the hot nozzle back over the outside of the part it has just extruded, the nozzle wipes over material that is no longer visible, which reduces the reheating that leaves a mark around the seam. This is most noticeable at layer heights below 0.1 mm, where wipe marks stand out the most.
 
 It applies only to external walls, including the walls around holes. On an outer contour the wipe moves inwards; around a hole it moves outwards, away from the hole and into the surrounding material. Inner walls, infill and supports keep their regular wipe.

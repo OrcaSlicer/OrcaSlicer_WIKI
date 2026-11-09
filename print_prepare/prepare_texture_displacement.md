@@ -1,9 +1,5 @@
 # Texture Displacement
 
-> [!IMPORTANT]
-> NEW FEATURE: **Texture displacement**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Texture Displacement paints a texture onto a model and turns it into **real relief** - knurling you can grip, brickwork you can feel, a logo engraved into a lid.
 
 The key idea is that it is not a print-time effect. [Fuzzy skin](prepare_paint_on_fuzzy_skin) perturbs the toolpath while slicing and leaves the model untouched; texture displacement rewrites the mesh. Once baked, the relief is ordinary geometry: it slices, previews, exports and measures like any other shape, and the slicer has no idea a texture was ever involved.

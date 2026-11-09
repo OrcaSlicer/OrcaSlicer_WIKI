@@ -70,10 +70,6 @@ The value is rounded to a multiple of the layer height, unless [Independent supp
 
 ## Expansion
 
-> [!IMPORTANT]
-> NEW FEATURE: **Raft expansion in the Raft settings**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Expands every raft layer in the XY plane around the first layer of the object. A wider raft spreads the warping forces over a larger area and gives the object a more stable base, at the cost of more material, longer print time and more space on the build plate.
 
 This setting is shown only when [Layers](#layers) is above `0`.

@@ -1,9 +1,5 @@
 # Speed Dial
 
-> [!IMPORTANT]
-> NEW FEATURE: **Speed Dial**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 The Speed Dial is a search-first launcher for everything runnable in OrcaSlicer: plugin
 script capabilities, built-in commands (slice and export, calibration, views, object and plate
 operations, help, and more), and individual settings. Open it from any page by pressing **Space**,

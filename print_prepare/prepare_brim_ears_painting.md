@@ -3,10 +3,6 @@
 This painting tool allows you to paint brim ears on the base of your 3D model to improve bed adhesion during printing.  
 It also includes an Auto-generate feature that automatically detects and applies brim ears to suitable areas of the model.
 
-> [!IMPORTANT]
-> NEW FEATURE: **The Head diameter control is renamed Brim ear radius and now accepts values from 0.1 mm to 100 mm.**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 ## Parameters
 
 - **Brim ear radius**: Sets the radius of brim ears placed manually or with Auto-generate. Values from 0.1 mm to 100 mm are supported.

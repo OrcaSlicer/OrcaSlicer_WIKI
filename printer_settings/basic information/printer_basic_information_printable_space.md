@@ -63,10 +63,6 @@ It keeps models and printed material out of the area, but the toolhead can still
 [Type](option_type): `bed_exclude_volumes` (Text), `bed_exclude_volume_mode` (Choice: shared, toolhead_offset, per_extruder), `extruder_bed_exclude_volumes` (Text list).  
 [CLI Example](cli_mode#setting-overrides): `--bed-exclude-volumes=value` (`bed_exclude_volumes` shown; other variables above follow their own type).  
 
-> [!IMPORTANT]
-> NEW FEATURE: **Toolhead collision volumes**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Obstacles the toolhead must not hit, such as bed clips, a tool dock, a camera arm or parts of the gantry. Each one is a polygon on the bed that can cover the full printable height or only a range of Z, so a low clip only blocks the first millimeters.
 
 Unlike the [Excluded bed area](#excluded-bed-area), which only keeps material out, collision volumes are also kept clear by the toolhead's moves:
