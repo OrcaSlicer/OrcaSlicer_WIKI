@@ -150,7 +150,7 @@ Extrude	Design-tab feature that pushes a closed sketch profile, or a picked face
 Revolve	Design-tab feature that spins a sketch profile around an axis to make a solid of revolution.	Erreboluzionatu
 Sweep	Design-tab feature that moves a profile along a path sketch to make a solid or a sheet body.	Ekortu
 Loft	Design-tab feature that skins a smooth shape between two or more profile sketches.	Trantsizioa
-Body	A solid, or an open sheet, produced by the Design tab's features — the CAD counterpart of an object before it is committed to the plate. Not a model Part or Volume.	Gorputza
+Body	A solid, or an open sheet, in CAD data, produced by the Design tab's features or read from an imported file. It is the CAD counterpart of an object before it is committed to the plate. Not a model Part or Volume.	Gorputza
 Sheet body	An open surface body with no thickness and no volume, made by the Surface features; Thicken turns it into a solid.	Xafla-gorputza
 Feature (Design)	One step of the Design tab's model history — a sketch, extrude, fillet, plane… — listed in the feature tree and recomputed in order. Not "feature" in the sense of an application capability.	Eragiketa
 Datum	Reference geometry — a plane, axis or coordinate system — created to place sketches and features; it adds no material.	Erreferentzia
@@ -220,13 +220,13 @@ Toolpath	The path the nozzle follows while extruding, as the Preview draws it an
 Homing	Moving the axes to their endstops so the printer knows its position (G28). Not parking a toolhead or filament.	Jatorrira eramatea
 Color painting	The tool that paints filament colors onto a model's surface, and the painted areas. Not support, seam or fuzzy skin painting.	Koloreak margotu / Kolore-margotzea ⚠
 Preferences	The application settings dialog and its menu item, not a preset or a print setting.	Hobespenak
-External spool	A spool mounted outside the AMS and fed to the printer directly (Ext spool), not an AMS slot.	
+External spool	A spool mounted outside the AMS and fed to the printer directly (Ext spool), not an AMS slot.	Kanpoko bobina
 Print host	The printer's network service (OctoPrint, Moonraker, PrusaLink…) that receives uploaded G-code. Where the English says "printer host" for the printer itself, translate it as the printer.	
 Hotend rack	The rack on toolchanger printers (H2C) that holds spare hotends, not the toolhead.	
 Auto Refill	AMS feature that switches to another spool of the same filament when one runs out, also called AMS filament backup; not a data backup.	
 LAN only mode	Printer connection mode that works only on the local network, without the cloud.	
 Filament Track Switch	Bambu Lab hardware that routes AMS filament to either extruder (also "filament switcher"), not the generic act of switching filament.	
-Slot (filament)	A position in an AMS or filament list that holds one filament, not a slot in the build plate.	
+Slot (filament)	A position in an AMS or filament list that holds one filament, not a slot in the build plate.	Arteka
 Ramming	Fast extrusion before a filament change that shapes the filament tip for a clean unload (single-extruder multi-material and wipe tower).	
 Cooling tube	The tube above the hot zone where the filament tip is cooled during a single-extruder multi-material change, not the heat break.	
 Parallel printheads	Several printheads printing copies of one object side by side (OrangeStorm Giga), distinct from IDEX/IQEX Parallel printing.	
@@ -250,3 +250,7 @@ Support blocker	Modifier volume or paint that prevents support where it would be
 Ooze prevention	The setting that lowers the temperature of inactive extruders on multi-tool printers so they do not ooze; the setting's name, not the oozing itself (see Ooze).	Jarioa saihestea ⚠
 Single Extruder Multi Material	Printer mode in which one extruder and one nozzle print several filaments by unloading and loading them (MMU-style), as opposed to a printer with several extruders. Not a multi-extruder or tool-changer setup.	
 Air filtration	The printer's air filter and exhaust fan that clean or vent the chamber air (Support air filtration, Activate air filtration). Not the cooling filter, which is a separate accessory.	Aire-iragazketa
+Assembly (object)	An object made of several parts kept together, such as an imported multi-part file. Not the Assemble tool or the act of assembling.	Multzo
+Permission (plugin)	A right granted to a plugin to do something, such as read a folder, reach a host or start a thread. Listed in the Plugins dialog. Not an operating system file permission.	Baimen
+Full access	The plugin setting that turns off permission checks for that plugin. It is not a sandbox.	Sarbide osoa
+Thread (CPU)	A processing thread that software starts. Not a screw thread.	Exekuzio-hari
