@@ -75,16 +75,8 @@ Determines the order in which object instances are visited within a single layer
 
 Shorter, more cyclic paths reduce oozing and avoid dragging the nozzle over parts that have already been printed, which can make [Z Hop](printer_extruder_z_hop) and [Avoid crossing walls](quality_settings_wall_and_surfaces#avoid-crossing-walls) unnecessary in many plates.
 
-> [!IMPORTANT]
-> NEW FEATURE: **Snake and Best of all (shortest path) intra-layer ordering**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 - **Default**: Up to ten instances or islands are visited along the shortest possible closed path. Larger sets use nearest-neighbor chaining, refined by reversing sections of the path (2-opt), moving short runs of stops elsewhere (or-opt) and removing crossings. A good general choice and the recommended option for most plates.
 - **As object list**: Instances are printed in the same order as the object list, without any path optimization. Use it when you need a predictable, manually controlled order, for custom sequencing or debugging. [By Object](#by-object) also prints in this order.
-
-    > [!IMPORTANT]
-    > NEW FEATURE: **Order By in the plate menu**  
-    > Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
     To change the order of the object list:
 

@@ -1,9 +1,5 @@
 # IDEX/IQEX Parallel Printing
 
-> [!IMPORTANT]
-> NEW FEATURE: **IDEX/IQEX parallel printing**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Printers with independent carriages can print several copies of a part at the same time, one per carriage. OrcaSlicer slices the part once, for tool T0, shows where every carriage will print on the plate, keeps parts out of the areas where the carriages could collide, and tells the firmware which mode to run.
 
 This guide covers how parallel printing works, how to set a printer up, and how to use it day to day. The individual settings are described in [IDEX/IQEX Configuration](printer_multimaterial_idex_iqex).

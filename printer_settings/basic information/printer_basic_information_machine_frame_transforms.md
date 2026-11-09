@@ -1,9 +1,5 @@
 # Machine Frame Transforms
 
-> [!IMPORTANT]
-> NEW FEATURE: **Belt printer support**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 ![belt_machine_frame_transforms](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/belt/belt_machine_frame_transforms.png?raw=true)
 
 These settings convert OrcaSlicer's coordinates into machine coordinates for a belt printer. They are found in **Printer settings → Basic information → Machine frame transforms** and are shown when [belt printing](printer_basic_information_belt_printer#enable-belt-printing) is enabled. The remap rows are only shown in **Developer** mode.

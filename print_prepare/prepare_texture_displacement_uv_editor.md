@@ -1,9 +1,5 @@
 # Texture Displacement UV Editor
 
-> [!IMPORTANT]
-> NEW FEATURE: **Texture displacement**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Every other [Texture Displacement](prepare_texture_displacement) mapping guesses how to wrap the image onto the surface - from three axes, around a centre, or from the camera. **Unwrap (LSCM)** does not guess: it flattens the painted area into pieces that lie flat, and maps the texture onto those. That is what makes it the only mapping with no stretching surprises, and the only one that asks you to make decisions.
 
 The UV Editor is where those decisions are made. Choose **Unwrap (LSCM)** as a layer's mapping and the pane opens beside the 3D view.

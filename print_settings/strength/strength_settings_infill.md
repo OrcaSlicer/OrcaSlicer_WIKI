@@ -128,8 +128,8 @@ This strategy improves printing times by avoiding closed loops in favor of conti
 [3D Honeycomb](strength_settings_patterns#3d-honeycomb) is also non-crossing: it draws its multiline copies itself as parallel waves that never cross.  
 
 > [!IMPORTANT]
-> NEW FEATURE: **Non-Crossing Cubic, Quarter Cubic, Adaptive Cubic and Support Cubic**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+> NEW FEATURE: **Non-Crossing Quarter Cubic**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.5.0**.
 
 - [Cubic](strength_settings_patterns#cubic) paths follow the same lines as its single-line pattern, so they still shift with the layer height: most layers look like [Tri-hexagon](strength_settings_patterns#tri-hexagon), and the layers where the three line directions meet look like [Triangles](strength_settings_patterns#triangles).
 - [Quarter Cubic](strength_settings_patterns#quarter-cubic) paths also follow the same lines as its single-line pattern. Parallel lines still come together until their walls touch, and where they are too close for a path to turn, it runs straight from one to the other.
@@ -355,9 +355,6 @@ Specify exact layer numbers (1-based) using comma-separated values. Each entry m
 [Variable](built_in_placeholders_variables): `sparse_infill_smooth_factor`.  
 [Type](option_type#integer-float-percentage): `Percentage`.  
 [CLI Example](cli_mode#setting-overrides): `--sparse-infill-smooth-factor=20%`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Sparse infill smooth factor**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Rounds the corners of the sparse infill path, replacing each sharp direction change with a curve that joins the two straight legs meeting at it. The curvature of the curve grows from zero at both legs, so the nozzle eases into and out of the turn instead of snapping into it.  
 `0%` keeps the original sharp path, while `100%` produces the largest possible curves between adjacent infill lines. A curve never consumes more than half of the shorter leg on each side of a corner, so the curves of two neighboring corners meet at most at the midpoint of the segment they share and never overlap.
@@ -460,10 +457,6 @@ Not every vertex of a supported pattern can be rounded, so some parts of the pat
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--top-layer-direction=1` (same pattern for the other variables above).  
 
-> [!IMPORTANT]
-> NEW FEATURE: **Top/Bottom layer direction**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Fixed angle (in degrees) for the top and bottom surface lines.  
 ![top-direction](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/directions/top-direction.png?raw=true)
 
@@ -476,10 +469,6 @@ Set to `-1` to follow the default solid infill [direction](#direction).
 [Variable](built_in_placeholders_variables): `separated_infills`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--separated-infills=1`.  
-
-> [!IMPORTANT]
-> NEW FEATURE: **Separated infills**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Centers the internal infill of each part on itself, as if it were sliced on its own, instead of on the whole assembly.  
 By default the entire assembly is treated as a single whole, so a centered or rotated infill pattern is referenced to one common center and rotates around it. When enabled, each part is centered on its own full 3D bounding box — producing the same pattern you would get by slicing that part on its own.

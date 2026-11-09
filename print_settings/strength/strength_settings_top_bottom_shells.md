@@ -45,10 +45,6 @@ The number of solid layers is increased during slicing if the thickness calculat
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--top-color-penetration-layers=1` (same pattern for the other variables above).  
 
-> [!IMPORTANT]
-> NEW FEATURE: **Paint penetration layers**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 When a top or bottom surface is painted with [Color Painting](prepare_color_painting), its color is also printed in the layers under a painted top surface and over a painted bottom surface, so the filament behind the paint doesn't show through. This is the number of layers that take the color, including the surface layer.  
 Each layer further from the surface is colored about two line widths narrower than the one before, so the color tapers into the model instead of reaching its walls.
 
@@ -114,10 +110,6 @@ The surface patterns are:
 [Variable](built_in_placeholders_variables): `top_surface_expansion`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--top-surface-expansion=1`.  
-
-> [!IMPORTANT]
-> NEW FEATURE: **Top surface expansion** (expansion, margin and direction)  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Expands the top surfaces by this distance (in mm) to connect distinct top surfaces and fill the gaps left where a feature rises through them.  
 This is useful when the top surface is interrupted by a raised feature, such as text or a boss on a plane, or when overlapping objects would otherwise split it: expanding the surface removes the holes beneath these features, keeps the top-surface pattern uninterrupted, and anchors the solid infill for a cleaner finish when printing on top. It also improves [concentric](strength_settings_patterns#concentric) top surfaces, whose pattern would otherwise be broken up by those small holes.  
@@ -187,10 +179,6 @@ When **Surface Expansion** is in use, those inner walls are removed over the top
 [Options](option_type#choice): `each_surface, each_model, each_assembly`.  
 [CLI Example](cli_mode#setting-overrides): `--center-of-surface-pattern=each_surface`.  
 
-> [!IMPORTANT]
-> NEW FEATURE: **Center surface pattern on**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Chooses where the centering point of centered top/bottom surface patterns ([Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)) is placed.  
 By default these patterns are centered individually on each surface, which does not keep the pattern continuous across a whole product — a drawback for some artistic prints where the surfaces should read as one piece. This setting widens the scope of the shared center:
 
@@ -213,10 +201,6 @@ By default these patterns are centered individually on each surface, which does 
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `default, outward, inward`.  
 [CLI Example](cli_mode#setting-overrides): `--top-surface-fill-order=default` (same pattern for the other variables above).  
-
-> [!IMPORTANT]
-> NEW FEATURE: **Fill order**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Direction in which the top and bottom surfaces are filled when using a center-based pattern ([Concentric](strength_settings_patterns#concentric), [Spiral Inset](strength_settings_patterns#spiral-inset), [Archimedean Chords](strength_settings_patterns#archimedean-chords), [Octagram Spiral](strength_settings_patterns#octagram-spiral)). The spirals/rings are then deposited consistently inward or outward instead of following the default shortest path.
 

@@ -16,10 +16,6 @@ The prime tower can be used to clean up residue on the nozzle and stabilize the 
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--prime-tower-skip-points=1`.  
 
-> [!IMPORTANT]
-> NEW FEATURE: **Skip points on the Type 2 prime tower**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Leaves a short gap in the outer wall of the prime tower where each tool change starts its purge, so the nozzle enters the tower through the gap instead of crossing the printed wall. Enabled by default. It has no effect on the [Cone](#cone) wall of the Type 2 tower.
 
 ## Enable tower interface features
@@ -188,10 +184,6 @@ Rounds the corners of the prime tower's rib wall.
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-tower-no-sparse-layers=1`.  
 
-> [!IMPORTANT]
-> NEW FEATURE: **No sparse layers on every prime tower type**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 If enabled, the prime tower is not printed on layers with no tool changes. The tower therefore stays low while the model keeps rising, and on the next layer that does have a tool change the extruder travels back down to print it.
 
 Because the tower ends up below the model, the toolhead has to reach down to it past everything already printed. Orca checks the plate for that before slicing and rejects layouts where the nozzle, the toolhead body or the gantry rod would hit an object, highlighting the collision area and the height limit it would exceed. Move the model further from the tower, lower its height, or turn this option off.
@@ -208,10 +200,6 @@ Because the tower ends up below the model, the toolhead has to reach down to it 
 [Variable](built_in_placeholders_variables): `wipe_tower_sparse_layers_combination`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--wipe-tower-sparse-layers-combination=1`.  
-
-> [!IMPORTANT]
-> NEW FEATURE: **Combine sparse prime tower layers**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 If enabled, consecutive layers on which the prime tower has no filament change (sparse layers) are printed as a single thicker tower layer instead of one thin layer each, the same way [Infill Combination](strength_settings_advanced#infill-combination) merges sparse infill. The merged layer is printed on the last layer of the run, at the combined height of all the layers it covers, and the layers below it skip the tower entirely.
 
@@ -246,9 +234,6 @@ With Marlin firmware, the printer beeps and pauses after priming: if the print o
 [Variable](built_in_placeholders_variables): `belt_purge_tower_width`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--belt-purge-tower-width=1`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Belt purge tower**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Sets the width of the [belt purge tower](printer_multimaterial_wipe_tower#belt-purge-tower), measured across the belt. This tower replaces the prime tower on belt printers. The setting is shown when the belt purge tower is enabled in the printer settings.
 

@@ -147,10 +147,6 @@ Speed for the support interface layers, which are the layers directly contacting
 [Type](option_type#list-types): `Float or Percentage list`.  
 [CLI Example](cli_mode#setting-overrides): `--small-support-perimeter-speed=20%`.  
 
-> [!IMPORTANT]
-> NEW FEATURE: **Small tree support perimeters** (speed and threshold)  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Same as [Small perimeters](#small-perimeters), but for supports.  
 This separate setting affects the speed of support extrusions whose length is within the [small support perimeters threshold](#small-tree-support-perimeters-threshold).  
 If expressed as a percentage (for example: 80%), it will be calculated on the [support](#support) or [support interface](#support-interface) speed.  

@@ -527,10 +527,6 @@ This infill tries to generate a printable honeycomb structure by printing square
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--infill-complete-top=1`.  
 
-> [!IMPORTANT]
-> NEW FEATURE: **Fill pattern tops**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 The square at the top of each cell is left open by default. This option covers those squares.
 
 Whenever the pattern changes its print direction, extra lines are bridged across the squares of the previous layer. This is added on top of the normal pattern, which keeps its structural stability.
@@ -716,10 +712,6 @@ Triply Periodic Minimal Surface (Fischer–Koch S) pattern. Its smooth, continuo
 
 ## Adaptive TPMS
 
-> [!IMPORTANT]
-> NEW FEATURE: **Adaptive TPMS density**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 [Gyroid](#gyroid), [TPMS-D](#tpms-d) and [TPMS-FK](#tpms-fk) can grade their density inside the object: fine cells next to the walls and the top and bottom surfaces, where the infill supports the shells, growing continuously towards the center of the object, where they save material and print time.
 
 ### Adaptive Density
@@ -841,10 +833,6 @@ Fills the area with progressively smaller versions of the outer contour, creatin
 ![infill-top-concentric](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/fill/infill-top-concentric.png?raw=true)
 
 ## Spiral Inset
-
-> [!IMPORTANT]
-> NEW FEATURE: **Spiral Inset pattern**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Version of [Concentric](#concentric) that joins its loops into one continuous spiral: each loop is cut short and runs straight into the next loop inside it, instead of being printed as a separate closed loop.
 

@@ -1,9 +1,5 @@
 # Belt Printer
 
-> [!IMPORTANT]
-> NEW FEATURE: **Belt printer support**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 ![belt_printer_settings_group](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/belt/belt_printer_settings_group.png?raw=true)
 
 These settings configure conveyor belt printers and are found in **Printer settings → Basic information → Belt printer**. The group is shown when the settings mode is **Advanced** or higher. The settings below [Enable belt printing](#enable-belt-printing) remain hidden until that option is enabled.

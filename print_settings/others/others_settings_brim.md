@@ -122,10 +122,6 @@ Useful as a per-object setting to skip the brim on parts that don't need one. Th
 
 ### Leading edge only
 
-> [!IMPORTANT]
-> NEW FEATURE: **Leading edge only brim for belt printers**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Available only on [belt printers](belt_printing). Generates a brim at and ahead of the object's first contact with the belt, without extending along the rest of the object.
 
 Use it with [Leading length](#leading-length) to anchor the leading edge without printing a brim along the entire part. The extension gives the brim material more time to adhere to the belt before the object begins printing. On printers without a belt, this type is printed as an [Outer](#outer) brim.
@@ -136,9 +132,6 @@ Use it with [Leading length](#leading-length) to anchor the leading edge without
 [Variable](built_in_placeholders_variables): `brim_ears_outer_only`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--brim-ears-outer-only=1`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Limit automatic and painted brim ears to outer contours**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 When enabled, brim ears are generated only on the model's outer contour. Ears that would otherwise be placed in holes or other enclosed sections are excluded.
 
@@ -155,7 +148,7 @@ Increasing this value widens the brim, which can improve adhesion but increases 
 
 On a [belt printer](#brim-on-belt-printers), the width is measured on the belt surface and applies to every brim type.
 
-When **Brim type** is set to **Mouse ear**, this setting is labeled **Brim ear radius** *(Nightly builds and releases greater than 2.4.2)*. Its value sets the radius of each automatically generated ear. When **Brim type** is set to **Painted**, the size of brim ears is controlled in the [Brim ears Painting tool](prepare_brim_ears_painting).
+When **Brim type** is set to **Mouse ear**, this setting is labeled **Brim ear radius**. Its value sets the radius of each automatically generated ear. When **Brim type** is set to **Painted**, the size of brim ears is controlled in the [Brim ears Painting tool](prepare_brim_ears_painting).
 
 ## Leading length
 
@@ -163,9 +156,6 @@ When **Brim type** is set to **Mouse ear**, this setting is labeled **Brim ear r
 [Variable](built_in_placeholders_variables): `leading_brim_length`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--leading-brim-length=1`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Leading brim length for belt printers**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Available only on belt printers. Extends the brim along the belt ahead of every leading edge of the object's contact area. This includes the object's first contact with the belt and any separate island that contacts the belt later in the print.
 
@@ -187,9 +177,6 @@ Set to 0 to disable.
 [Variable](built_in_placeholders_variables): `extra_brim_width`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--extra-brim-width=1`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Extra brim width for belt printers**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Available only on belt printers. Widens the brim across the belt without extending it farther ahead of or behind the object. Use it when a part needs more adhesion along its length than the [Width](#width) setting alone provides.
 
@@ -252,10 +239,6 @@ Combine adjacent brims into a single continuous brim when they touch.
 ![uncombined-brims](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/uncombined-brims.gif?raw=true)
 
 ## Brim on belt printers
-
-> [!IMPORTANT]
-> NEW FEATURE: **Belt printer brim**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 On a [belt printer](belt_printing), an object touches the belt along a narrow strip in each layer, so the entire brim cannot be printed in the first layer. Instead, the brim is printed on the tilted belt surface one strip at a time, across all layers that reach the belt.
 

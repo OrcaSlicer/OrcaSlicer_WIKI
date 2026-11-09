@@ -179,10 +179,6 @@ When a placeholder in custom G-code fails, the G-code export fails. The message 
 
 ## Print Statistics
 
-> [!IMPORTANT]
-> NEW FEATURE: **Print statistics in custom G-code**
-> Available in: [2.5.0-beta](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.5.0-beta) and [nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds). In 2.5.0-alpha and older, `print_time`, `normal_print_time`, `silent_print_time`, `used_filament`, `total_weight`, `total_cost`, `total_wipe_tower_cost` and `total_wipe_tower_filament` work only in the file name. In custom G-code, they stop slicing with "Not a variable name". The error for calculations is also new in 2.5.0-beta. Older versions give a wrong result or a different error.
-
 Some of these values are marked *Filled in after generation*. OrcaSlicer knows them only after the whole G-code is generated. In custom G-code, it first writes a marker, and replaces the marker with the value at the end. In custom G-code, these values have two decimal places. In the file name, they can have more digits.
 
 Because the value is not known yet, you can print it and join it to text, but you cannot calculate with it:
@@ -281,16 +277,6 @@ These values describe the toolhead when a custom G-code starts. Only `zhop` is r
 ## Placeholders for Specific G-code
 
 OrcaSlicer sets the placeholders in this section only in the G-code that each section names. [Placeholders by G-code Field](#placeholders-by-g-code-field) lists them by field.
-
-> [!IMPORTANT]
-> NEW FEATURE: **Placeholders on every path**
-> Available in: [2.5.0-beta](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.5.0-beta) and [nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds). In 2.5.0-alpha and older, these placeholders are missing, and using one stops slicing with "Not a variable name":
->
-> - `max_layer_z` in `layer_change_gcode`.
-> - `layer_num`, `layer_z` and `max_layer_z` in filament start G-code run by the Type 1 prime tower, and `max_layer_z` and `filament_extruder_id` in its filament end G-code.
-> - `layer_z` and `max_layer_z` in the first filament start G-code on Bambu Lab printers.
-> - The [Layer Change G-code](#layer-change-g-code) placeholders on the brim layers of belt printers.
-> - The timelapse placeholders other than the layer placeholders, except on Bambu Lab printers, printers with several extruders, and bed slingers outside spiral vase mode.
 
 ### Layer Placeholders
 
@@ -481,7 +467,7 @@ G1 E{purge} F300
 
 ### Print Summary in the File Header
 
-In the file header G-code, write the print time and the filament use. This works in [2.5.0-beta](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.5.0-beta) and newer, see [Print Statistics](#print-statistics).
+In the file header G-code, write the print time and the filament use, see [Print Statistics](#print-statistics).
 
 ```gcode
 ; Print time: {print_time}

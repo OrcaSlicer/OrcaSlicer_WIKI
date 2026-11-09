@@ -1,9 +1,5 @@
 # Texture Displacement Pro Mode
 
-> [!IMPORTANT]
-> NEW FEATURE: **Texture displacement**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Displacement moves the vertices a model already has. A plain imported box has eight of them, so a height map applied to it has nothing to move and produces nothing visible, however deep the texture is set. Somewhere between painting and relief, the mesh has to gain triangles.
 
 Standard mode does that inside **Bake**, at the resolution in its footer, and never shows you the intermediate mesh. Pro mode - the second position of the switch at the top of the [Texture Displacement](prepare_texture_displacement) panel - hands you the same machinery as separate steps you run and inspect yourself.

@@ -158,10 +158,6 @@ OrcaSlicer is a powerful open source slicer for FFF (FDM) 3D Printers. This wiki
 
 ## Design
 
-> [!IMPORTANT]
-> NEW FEATURE: **Design Tab**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 <img alt="tab_design_active" src="https://github.com/OrcaSlicer/OrcaSlicer/blob/main/resources/images/tab_design_active.svg?raw=true" height="22"> Parametric CAD inside the slicer: sketch, constrain, build solids and send them to the plate. Experimental, and switched on in [Preferences](design_tab#enabling-the-design-tab).
 
 - [Design Tab](design_tab)
@@ -250,10 +246,6 @@ OrcaSlicer can run headless from the command line for automation, batch processi
 
 ## Plugins
 
-> [!IMPORTANT]
-> NEW FEATURE: **Python Plugin System**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 - [Getting Started](plugins_getting_started)
 - [Local Plugins](plugins_local)
 - [Cloud Plugins](plugins_cloud)
@@ -261,16 +253,10 @@ OrcaSlicer can run headless from the command line for automation, batch processi
 - [Managing Plugins](plugins_management)
 
 ## Speed Dial
-> [!IMPORTANT]
-> NEW FEATURE: **Speed Dial**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
+
 - [Speed Dial](speed_dial)
 
 ## Publishing 3MF
-
-> [!IMPORTANT]
-> NEW FEATURE: **Publish 3MF**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 - [What does Publish 3MF do?](publish_3mf)
 - [For creators](publish_3mf_creators)

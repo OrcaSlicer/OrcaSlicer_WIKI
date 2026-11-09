@@ -1,9 +1,5 @@
 # What does Publish 3MF do?
 
-> [!IMPORTANT]
-> NEW FEATURE: **Publish 3MF**
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than 2.5.0.
-
 **Publish 3MF** embeds the settings you choose into a 3MF file, so the model and its configuration are shared together.
 
 Unlike **Save Project**, which captures a full snapshot, you pick exactly which settings are required for the print and would be packaged together.

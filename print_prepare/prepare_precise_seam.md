@@ -1,9 +1,5 @@
 # Precise Seam
 
-> [!IMPORTANT]
-> NEW FEATURE: **Precise Seam modifiers**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 A Precise Seam modifier is a helper body that decides where the seam goes. You attach it to an object like any other modifier, and on every layer the seam is placed where the body crosses the outer wall. You can pin the seam to an exact point, or mark zones where the seam is preferred or forbidden.
 
 Unlike [Seam Painting](prepare_seam_painting), the modifier is a separate body. It still works after you replace or edit the model, so you do not need to repaint seams after each design revision. A thin body swept along a path drawn on the model makes the seam follow that path exactly.

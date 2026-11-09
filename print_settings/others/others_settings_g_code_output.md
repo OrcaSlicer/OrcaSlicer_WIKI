@@ -55,10 +55,6 @@ Verbose mode produces much larger files and may slow down SD-card printing on so
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--high-precision-gcode=1`.  
 
-> [!IMPORTANT]
-> NEW FEATURE: **High precision G-code (experimental)**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Writes the X, Y, Z, I and J coordinates with 4 decimal places instead of 3, and E with 6 instead of 5, to reduce rounding errors in the G-code. Feedrates keep 3 decimal places.  
 With [relative E distances](printer_basic_information_advanced#use-relative-e-distances), the rounding error of each move is also carried over to the next one, so short moves of about the same length don't all round the flow in the same direction.
 

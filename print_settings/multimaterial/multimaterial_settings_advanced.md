@@ -28,10 +28,6 @@ Generates an interlocking beam structure at the locations where different filame
 [Options](option_type#choice): `default, cyclic`.  
 [CLI Example](cli_mode#setting-overrides): `--toolchange-ordering=default`.  
 
-> [!IMPORTANT]
-> NEW FEATURE: **Toolchange ordering**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
-
 Determines the order of tool changes on each layer:
 
 - **Default:** starts with the last used extruder to minimize tool changes.
@@ -43,10 +39,6 @@ Determines the order of tool changes on each layer:
 [Variables](built_in_placeholders_variables): `toolchange_cyclic_order`, `toolchange_cyclic_first_layer`.  
 [Type](option_type): `toolchange_cyclic_order` (Text), `toolchange_cyclic_first_layer` (Boolean).  
 [CLI Example](cli_mode#setting-overrides): `--toolchange-cyclic-order=value` (`toolchange_cyclic_order` shown; other variables above follow their own type).  
-
-> [!IMPORTANT]
-> NEW FEATURE: **Custom cyclic toolchange sequence**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Only available when [Toolchange Ordering](#toolchange-ordering) is set to `Cyclic`.
 

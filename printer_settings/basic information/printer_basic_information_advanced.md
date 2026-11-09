@@ -42,9 +42,6 @@ What kind of G-code the printer is compatible with.
 [Variable](built_in_placeholders_variables): `gcode_skip_config_block`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--gcode-skip-config-block=1`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Skip G-code config block**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Removes the `CONFIG_BLOCK` (the commented-out block listing every resolved slicer setting) from the exported G-code file.
 
@@ -185,9 +182,6 @@ The printer cost per hour.
 [Variables](built_in_placeholders_variables): `build_plate_tilt_x`, `build_plate_tilt_y`.  
 [Type](option_type#integer-float-percentage): `Float`.  
 [CLI Example](cli_mode#setting-overrides): `--build-plate-tilt-x=1` (same pattern for the other variables above).  
-> [!IMPORTANT]
-> NEW FEATURE: **Build plate tilt**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 **Build plate tilt X** and **Build plate tilt Y** specify the build surface's tilt in degrees. Support generation uses these values to adjust its gravity direction, so overhangs are evaluated relative to the machine's actual downward direction rather than the slicer's Z axis.
 

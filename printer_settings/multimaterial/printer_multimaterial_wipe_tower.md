@@ -41,9 +41,6 @@ Enable this option if you want the tool change to always be issued above the wip
 [Variable](built_in_placeholders_variables): `wait_for_temp_on_wipe_tower`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--wait-for-temp-on-wipe-tower=1`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Wait for temperature on wipe tower**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 Only relevant for multi-extruder (multi-toolhead) printers using a Type 2 wipe tower.  
 By default, the new tool's temperature wait happens immediately after the tool change command, wherever the toolhead is at that moment, which can leave ooze from the heat-up on top of the printed part.
@@ -59,9 +56,6 @@ Enable this option to defer that wait instead: the incoming tool's target temper
 [Variable](built_in_placeholders_variables): `enable_belt_purge_tower`.  
 [Type](option_type#boolean): `Boolean`.  
 [CLI Example](cli_mode#setting-overrides): `--enable-belt-purge-tower=1`.  
-> [!IMPORTANT]
-> NEW FEATURE: **Belt purge tower**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.4.2**.
 
 ![belt_purge_tower_printer_option](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/belt/belt_purge_tower_printer_option.png?raw=true)
 
