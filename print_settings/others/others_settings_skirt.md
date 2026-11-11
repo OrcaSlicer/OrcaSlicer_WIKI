@@ -117,6 +117,10 @@ This is most useful for open-frame printers without an enclosure.
 > [!NOTE]
 > The skirt is printed at the [skirt distance](#distance) from the brim, or from the object if it has no brim, so the draft shield does not intersect brims.
 
+> [!IMPORTANT]
+> NEW FEATURE: **Draft shield options against warping**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.5.0**.
+
 The draft shield of a large ABS part can warp itself: it is a thin wall with a one-line footprint, so it lifts at its corners and tears off the bed. The options below keep it on the bed. They are only available when the shield is enabled.
 
 Good starting values for a large ABS part, tested on a 170 × 39 mm part with tree support:
@@ -140,7 +144,7 @@ Save them as your own process preset to use them again with one click.
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield_brim_width`.  
 [Type](option_type#integer-float-percentage): `Float`.  
-[CLI Example](cli_mode#setting-overrides): `--draft-shield-brim-width=5`.  
+[CLI Example](cli_mode#setting-overrides): `--draft-shield-brim-width=1`.  
 Width of a brim printed on the first layer around the outside of the draft shield. It widens the shield's footprint on the bed, while the shield keeps its number of walls above the first layer.  
 The brim is cut at the edge of the bed (and at excluded bed areas), so a wide brim also works when the part is large.  
 Set to 0 to disable.
@@ -150,7 +154,7 @@ Set to 0 to disable.
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield_fillet_width`.  
 [Type](option_type#integer-float-percentage): `Float`.  
-[CLI Example](cli_mode#setting-overrides): `--draft-shield-fillet-width=1.5`.  
+[CLI Example](cli_mode#setting-overrides): `--draft-shield-fillet-width=1`.  
 Width of a stepped fillet between the draft shield and its brim. Without it, the shield can tear off its one-layer brim at the 90° step. Above the first layer, the brim loops next to the shield are printed again, fewer on each layer, until only the shield is left.  
 Limited to the [shield brim width](#shield-brim-width). 1 to 2 mm is usually enough. Set to 0 to disable.
 
@@ -159,7 +163,7 @@ Limited to the [shield brim width](#shield-brim-width). 1 to 2 mm is usually eno
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield_fillet_layers`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
-[CLI Example](cli_mode#setting-overrides): `--draft-shield-fillet-layers=3`.  
+[CLI Example](cli_mode#setting-overrides): `--draft-shield-fillet-layers=1`.  
 Number of layers above the first layer over which the [fillet](#shield-fillet-width) narrows down to the shield. 2 to 3 layers are usually enough.
 
 ### Shield serpentine depth
@@ -167,7 +171,7 @@ Number of layers above the first layer over which the [fillet](#shield-fillet-wi
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield_serpentine_depth`.  
 [Type](option_type#integer-float-percentage): `Float`.  
-[CLI Example](cli_mode#setting-overrides): `--draft-shield-serpentine-depth=6`.  
+[CLI Example](cli_mode#setting-overrides): `--draft-shield-serpentine-depth=1`.  
 How far outward serpentines in the long sides of the draft shield reach, next to its sharp corners.  
 A long shield side shrinks while it cools and pulls the corners at its ends off the bed. A serpentine of U-turns next to the corner works as a soft expansion joint: its legs stand across the side and bend, so the pull does not reach the corner.
 
@@ -182,7 +186,7 @@ At least half the [serpentine pitch](#shield-serpentine-pitch) is used. Set to 0
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield_serpentine_pitch`.  
 [Type](option_type#integer-float-percentage): `Float`.  
-[CLI Example](cli_mode#setting-overrides): `--draft-shield-serpentine-pitch=6`.  
+[CLI Example](cli_mode#setting-overrides): `--draft-shield-serpentine-pitch=1`.  
 Length along the shield side of one serpentine period (out and back). Its U-turns have a radius of a quarter of the pitch, so the legs stand half the pitch apart.
 
 ### Shield serpentines per corner
@@ -190,7 +194,7 @@ Length along the shield side of one serpentine period (out and back). Its U-turn
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield_serpentine_count`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
-[CLI Example](cli_mode#setting-overrides): `--draft-shield-serpentine-count=2`.  
+[CLI Example](cli_mode#setting-overrides): `--draft-shield-serpentine-count=1`.  
 Number of serpentine periods next to each sharp corner of the draft shield. Fewer are used where the side is too short.
 
 ### Shield speed
@@ -198,7 +202,7 @@ Number of serpentine periods next to each sharp corner of the draft shield. Fewe
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield_speed`.  
 [Type](option_type#integer-float-percentage): `Float`.  
-[CLI Example](cli_mode#setting-overrides): `--draft-shield-speed=150`.  
+[CLI Example](cli_mode#setting-overrides): `--draft-shield-speed=1`.  
 Speed of the draft shield walls above its first layer and its [fillet layers](#shield-fillet-layers), in mm/s. These bottom layers keep the [skirt speed](#speed) for good adhesion, the fillet included. A tall shield printed at the skirt speed on every layer can add a lot of print time.  
 Set to 0 to use the skirt speed on all layers.
 
@@ -207,7 +211,7 @@ Set to 0 to use the skirt speed on all layers.
 [Mode](option_mode): `Advanced`.  
 [Variable](built_in_placeholders_variables): `draft_shield_first_layer_flow_ratio`.  
 [Type](option_type#integer-float-percentage): `Float`.  
-[CLI Example](cli_mode#setting-overrides): `--draft-shield-first-layer-flow-ratio=1.1`.  
+[CLI Example](cli_mode#setting-overrides): `--draft-shield-first-layer-flow-ratio=1`.  
 Flow ratio of the first layer of the draft shield, its walls and its brim. A little over-extrusion, such as 1.1, fuses the lines so the first layer does not split while the shield pulls on it. Other layers are not changed.  
 The [brim flow ratio](others_settings_brim#brim-flow-ratio) applies to the shield brim as well.
 
