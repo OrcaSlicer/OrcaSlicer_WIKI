@@ -117,7 +117,7 @@ This is most useful for open-frame printers without an enclosure.
 > [!NOTE]
 > The skirt is printed at the [skirt distance](#distance) from the brim, or from the object if it has no brim, so the draft shield does not intersect brims.
 
-The draft shield of a large ABS or ASA part can warp itself: it is a thin wall with a one-line footprint, so it lifts at its corners and tears off the bed. The options below keep it on the bed. They are only available when the shield is enabled.
+The draft shield of a large ABS part can warp itself: it is a thin wall with a one-line footprint, so it lifts at its corners and tears off the bed. The options below keep it on the bed. They are only available when the shield is enabled.
 
 ### Shield brim width
 
