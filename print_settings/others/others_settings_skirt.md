@@ -119,6 +119,22 @@ This is most useful for open-frame printers without an enclosure.
 
 The draft shield of a large ABS part can warp itself: it is a thin wall with a one-line footprint, so it lifts at its corners and tears off the bed. The options below keep it on the bed. They are only available when the shield is enabled.
 
+Good starting values for a large ABS part, tested on a 170 × 39 mm part with tree support:
+
+| Setting | Value |
+|---|---|
+| [Loops](#loops) | 2 |
+| [Shield brim width](#shield-brim-width) | 5 mm |
+| [Shield fillet width](#shield-fillet-width) | 3 mm |
+| [Shield fillet layers](#shield-fillet-layers) | 3 |
+| [Shield serpentine depth](#shield-serpentine-depth) | 5 mm |
+| [Shield serpentine pitch](#shield-serpentine-pitch) | 6 mm |
+| [Shield serpentines per corner](#shield-serpentines-per-corner) | 2 |
+| [Shield speed](#shield-speed) | 150 mm/s |
+| [Shield first layer flow ratio](#shield-first-layer-flow-ratio) | 1.1 |
+
+Save them as your own process preset to use them again with one click.
+
 ### Shield brim width
 
 [Mode](option_mode): `Advanced`.  
