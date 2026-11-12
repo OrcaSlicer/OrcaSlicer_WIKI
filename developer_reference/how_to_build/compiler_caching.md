@@ -63,6 +63,18 @@ Neither reads the build script, so the same settings need added to [the preset f
 
 ccache has to be on `PATH` for the IDE process. Because those presets already build into the same directories `build_win.bat` uses, the IDE and the script then reuse each other's work instead of reconfiguring over it.
 
+### Depend Mode
+
+On a miss, ccache runs the preprocessor over the file before it compiles it, so that it can also look the preprocessed result up in the cache. Depend mode skips that run and takes the list of headers from the compiler's `/showIncludes` output instead. Add it to the file `ccache --show-config` names:
+
+```text
+depend_mode = true
+```
+
+On six large OrcaSlicer files built with clang-cl, ccache added 12% to the time of a miss by default and 5% in depend mode. Hits work as before. ccache still passes the header list on to Ninja, so changing a header still rebuilds the files that include it.
+
+What you give up are the hits that only the preprocessed result finds, for example after a change to a comment in a header. In one cache used for everyday work, those were 1.8% of lookups.
+
 ## Linux
 
 Install ccache from the package manager, for example `apt install ccache` or `pacman -S ccache`.
