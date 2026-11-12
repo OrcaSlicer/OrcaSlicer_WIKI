@@ -49,6 +49,20 @@ build_win.bat -s --tests --slicer-target libslic3r_tests
 
 Add `--no-configure` to skip the configure step when only sources changed. Opening the generated solution in Visual Studio and building the test project works too.
 
+After linking each test executable, the build runs it to list its tests for CTest. `libslic3r_tests` has more than 1,700 tests and takes about 14 s for that, and a change to libslic3r relinks almost every suite. To leave the listing to `ctest`, add this to `cacheVariables` in [the preset file](how_to_build_windows#the-preset-file):
+
+```json
+"CMAKE_CATCH_DISCOVER_TESTS_DISCOVERY_MODE": "PRE_TEST"
+```
+
+Or set it once in an existing build directory:
+
+```pwsh
+cmake -D CMAKE_CATCH_DISCOVER_TESTS_DISCOVERY_MODE=PRE_TEST build-clang
+```
+
+That saved 13 s in a build after a libslic3r change. The first `ctest` after a rebuild does the listing instead, which took 22 s for all suites, and later runs start at once.
+
 ### Running Tests on Windows
 
 `--run-tests` builds the suites and runs them:

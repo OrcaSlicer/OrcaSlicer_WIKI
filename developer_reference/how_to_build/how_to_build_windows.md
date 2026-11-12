@@ -18,6 +18,7 @@ Building OrcaSlicer for 64-bit Windows. `build_win.bat` installs the prerequisit
     - [Dependencies](#dependencies)
     - [Windows SDK](#windows-sdk)
     - [clang-cl](#clang-cl)
+    - [Slow Builds in VS Code](#slow-builds-in-vs-code)
 
 ## Tools Required
 
@@ -523,3 +524,10 @@ build-clang\src\Release\orca-slicer.exe
 > ```pwsh
 > build_win.bat -d -l -x -t dep_TBB
 > ```
+
+### Slow Builds in VS Code
+
+> [!TIP]
+> If the last steps of a build take minutes while VS Code has the repository open, look for dozens of `rg.exe` processes in Task Manager. The **Python Environments** extension (`ms-python.vscode-python-envs`), which comes with the Python extension, searches the whole repository each time a Python file is created or deleted, build and dependency folders included. Copying the Python runtime into the build folder creates hundreds of Python files. With version 1.42 on a 12-thread processor, up to 182 of these searches ran at once and kept every core busy for minutes, which slowed the links and test steps after the copy.
+>
+> The extension has no setting that stops this. Disable it for this workspace instead: in the **Extensions** view, open the gear menu of **Python Environments** and choose **Disable (Workspace)**.
