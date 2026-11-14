@@ -8,6 +8,7 @@ Release notes for each version of OrcaSlicer, newest first. Select a version to 
 > A stable release includes every feature from its earlier alpha and beta builds, but the stable changelog only lists what changed since the last stable release — it does not repeat those alpha and beta features.  
 > To see everything new between one stable release and the next, read the accompanying alpha and beta notes as well.
 
+- **[V2.5.1](release_2_5_1)** — Maintenance update with fixes for printer connections and uploads, crashes, slicing and security, plus per-nozzle settings copied to every tool of a toolchanger.
 - **[V2.5.0](release_2_5_0)** — The biggest update in OrcaSlicer's history: Python plugins, belt printers, color mixing, Texture Displacement, the experimental Design tab and IDEX/IQEX parallel printing, plus fixes for the blockers reported in the release candidate.
     - **[V2.5.0 RC](release_2_5_0_rc)** — Fixes for bugs and crashes reported in the beta: slicing works on the first click, Device tab crashes are gone, and each filament goes to the nozzle it's loaded on with the Bambu Lab H2D, X2D and H2C.
     - **[V2.5.0 Beta](release_2_5_0_beta)** — Toolhead collision volumes, shorter travel moves, faster slicing, translucent filaments in Preview, and fixes for crashes and hangs on exit.

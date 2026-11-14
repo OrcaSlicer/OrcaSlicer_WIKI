@@ -272,6 +272,7 @@ nav:
   - "Managing Plugins": plugins/plugins_management.md
 - Releases:
   - Releases: releases/releases_index.md
+  - V2.5.1: releases/release_2_5_1.md
   - V2.5.0: releases/release_2_5_0.md
   - "V2.5.0 RC": releases/release_2_5_0_rc.md
   - "V2.5.0 Beta": releases/release_2_5_0_beta.md
