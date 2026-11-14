@@ -275,6 +275,9 @@ OrcaSlicer can run headless from the command line for automation, batch processi
 
 See the [all releases](releases_index) overview, or jump straight to a version:
 
+- [OrcaSlicer V2.5.0](release_2_5_0)
+- [OrcaSlicer V2.5.0 RC](release_2_5_0_rc)
+- [OrcaSlicer V2.5.0 Beta](release_2_5_0_beta)
 - [OrcaSlicer V2.5.0 Alpha](release_2_5_0_alpha)
 - [OrcaSlicer V2.4.2](release_2_4_2)
 - [OrcaSlicer V2.4.1](release_2_4_1)
