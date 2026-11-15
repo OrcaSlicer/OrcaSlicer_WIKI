@@ -19,7 +19,7 @@ This test prints a single ironed band whose ironing flow grows steadily from one
 The test piece is a thin plate made of:
 
 - **The ironed band** at the back. Only its top layer is ironed, with lines running from front to back. The ironing flow grows linearly from the minimum at the left end of the band to the maximum at its right end.
-- **Labels** in front of the band, with a mark and its ironing flow value at regular steps, and a name strip identifying the filament.
+- **Labels** in front of the band, with a mark and its ironing flow value at regular steps, and a name strip identifying the filament. When the project has more than one filament, the labels print in the second one, so they stand out from the band.
 
 ![ironing-flow-calib-model](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/IroningFlow/ironing-flow-calib-model.png?raw=true)
 
