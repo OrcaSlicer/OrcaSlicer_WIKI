@@ -71,7 +71,8 @@ These settings control the behavior of the part cooling fan during printing. Pro
 
 ### Fan speed threshold
 
-These settings define how the slicer manages part-cooling behavior and printing speed based on the estimated time it takes to print each layer.
+These settings define how the slicer manages part-cooling behavior and printing speed based on the estimated time it takes to print each layer.  
+The layer time is estimated the same way as in the Preview, with acceleration and the printer's motion limits.
 
 #### Min fan speed threshold
 
@@ -109,10 +110,12 @@ If the layer would still be shorter than the Layer time with every extrusion at 
 
 #### How the slowdown is calculated
 
-1. **Estimate the layer time.** For each layer, OrcaSlicer adds up the time of every move (extrusions, travels and dwells) as `length / speed`, starting at the first extrusion of the layer. Acceleration is not taken into account, so the real layer time is usually a bit longer than the estimate.
+1. **Estimate the layer time.** For each layer, OrcaSlicer estimates the time of every move (extrusions, travels and dwells) the same way as the Preview, with acceleration, cornering and the printer's motion limits. A layer that starts with a filament change is counted from its first extrusion, so a long change doesn't hide a layer that prints quickly. The time the printer itself spends loading, unloading or changing a filament is left out, but the moves of a filament change, such as purging and the prime tower, count.
 2. **Compare it with the Layer time.** If the estimate is equal or longer, the layer is not changed.
 3. **Find the missing time.** Otherwise the missing time is `Layer time - estimated time`.
-4. **Slow down the fastest extrusions first.** Only extrusion moves are slowed down: travels and wipes keep their speed but still count towards the layer time. Instead of scaling every speed by the same factor, OrcaSlicer finds a speed cap $F$. Every extrusion faster than $F$ is lowered to $F$, and slower extrusions keep their speed. $F$ is chosen so that the extra time equals the missing time:
+4. **Slow down the fastest extrusions first.** Only extrusion moves are slowed down: travels and wipes keep their speed but still count towards the layer time. Instead of scaling every speed by the same factor, OrcaSlicer finds a speed cap $F$. Every extrusion faster than $F$ is lowered to $F$, and slower extrusions keep their speed. $F$ is chosen so that the extra time equals the missing time. A slower move also spends less time accelerating, so OrcaSlicer estimates the slowed layer again and adjusts $F$ a few times, until the layer takes the Layer time.
+
+Without acceleration, the extra time of each extrusion is simple to work out, and $F$ is the speed at which:
 
 $$
 \sum_{v_i > F} t_i \left(\frac{v_i}{F} - 1\right) = \text{Layer time} - \text{Estimated time}
@@ -121,7 +124,7 @@ $$
 Where $v_i$ is the speed and $t_i$ the time of each extrusion faster than $F$.  
 $F$ is never lower than the [Min print speed](#min-print-speed).
 
-For example, a layer with a Layer time of 15 s:
+For example, a layer with a Layer time of 15 s, leaving acceleration out:
 
 | Feature | Length | Set speed | Time | Speed after slowdown | Time after slowdown |
 | --- | --- | --- | --- | --- | --- |
