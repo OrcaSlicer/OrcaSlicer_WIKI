@@ -23,4 +23,5 @@ When enabled, the extrusion flow is limited by the smaller of the fitted value (
 [Variable](built_in_placeholders_variables): `filament_max_volumetric_speed`.  
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--filament-max-volumetric-speed=1`.  
-This setting is the volume of filament that can be melted and extruded per second. Printing speed is limited by max volumetric speed, in case of too high and unreasonable speed setting. This value cannot be zero.
+This setting is the volume of filament that can be melted and extruded per second. Printing speed is limited by max volumetric speed, in case of too high and unreasonable speed setting. This value cannot be zero.  
+It is also the reference for [volumetric speeds](speed_settings_other_layers_speed#volumetric-speeds) expressed as a percentage.

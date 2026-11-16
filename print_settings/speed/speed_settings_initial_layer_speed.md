@@ -5,20 +5,22 @@ Printing the first layer slower than the rest of the print is a widely recommend
 ## Initial layer
 
 [Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `initial_layer_speed`.  
-[Type](option_type#list-types): `Float list`.  
-[CLI Example](cli_mode#setting-overrides): `--initial-layer-speed=1`.  
+[Variables](built_in_placeholders_variables): `initial_layer_speed`, `initial_layer_volumetric_flow`.  
+[Type](option_type): `initial_layer_speed` (Float list), `initial_layer_volumetric_flow` (Float or Percentage list).  
+[CLI Example](cli_mode#setting-overrides): `--initial-layer-speed=1` (`initial_layer_speed` shown; other variables above follow their own type).  
 This setting determines the printing speed of the [outer/inner walls](strength_settings_walls) and the brim on the first layer.  
 All other first layer extrusions, such as [solid infill](strength_settings_top_bottom_shells) and the [sparse infill](strength_settings_infill) printed when [bottom layers](strength_settings_top_bottom_shells#shell-layers) is set to 0, use the [First layer infill](#initial-layer-infill) speed.  
-Adjusting this speed helps ensure proper adhesion and print quality for the initial layer.
+Adjusting this speed helps ensure proper adhesion and print quality for the initial layer.  
+With [Volumetric speeds](speed_settings_other_layers_speed#volumetric-speeds) enabled, it is set as a volumetric speed instead, 25% by default.
 
 ## Initial layer infill
 
 [Mode](option_mode): `Advanced`.  
-[Variable](built_in_placeholders_variables): `initial_layer_infill_speed`.  
-[Type](option_type#list-types): `Float list`.  
-[CLI Example](cli_mode#setting-overrides): `--initial-layer-infill-speed=1`.  
-Defines the speed used for everything on the first layer except walls and brim, mainly the [solid infill](strength_settings_top_bottom_shells#shell-layers) regions. These areas require more precise and consistent extrusion to create a flat and stable surface for subsequent layers. Printing this section too fast may result in high internal stresses (increased risk of warping), poor layer uniformity, or adhesion failures.
+[Variables](built_in_placeholders_variables): `initial_layer_infill_speed`, `initial_layer_infill_volumetric_flow`.  
+[Type](option_type): `initial_layer_infill_speed` (Float list), `initial_layer_infill_volumetric_flow` (Float or Percentage list).  
+[CLI Example](cli_mode#setting-overrides): `--initial-layer-infill-speed=1` (`initial_layer_infill_speed` shown; other variables above follow their own type).  
+Defines the speed used for everything on the first layer except walls and brim, mainly the [solid infill](strength_settings_top_bottom_shells#shell-layers) regions. These areas require more precise and consistent extrusion to create a flat and stable surface for subsequent layers. Printing this section too fast may result in high internal stresses (increased risk of warping), poor layer uniformity, or adhesion failures.  
+With [Volumetric speeds](speed_settings_other_layers_speed#volumetric-speeds) enabled, it is set as a volumetric speed instead, 50% by default.
 
 ## Initial layer travel speed
 
