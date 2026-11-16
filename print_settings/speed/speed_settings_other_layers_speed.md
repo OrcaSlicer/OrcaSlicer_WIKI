@@ -6,6 +6,7 @@
 > Every speed setting is limited by several parameters like:
 >
 > - [Maximum Volumetric Speed](volumetric_speed_calib)
+> - [Max external volumetric speed](material_volumetric_speed_limitation#max-external-volumetric-speed) on outer walls, external bridges, overhang walls and top surfaces that are not ironed
 > - Machine / Motion ability
 > - [Acceleration](speed_settings_acceleration)
 > - [Jerk settings](speed_settings_jerk_xy)
@@ -63,12 +64,13 @@ The cross section comes from the [line width](quality_settings_line_width) and [
 
 Both extrude the same 12 mm³/s, so the hotend melts the same amount of plastic per second whatever the line width or layer height. The same goes for gap infill, for Arachne walls, whose width changes along the wall, and for [variable layer heights](quality_settings_layer_height).
 
-The resulting speed is still limited by the filament's [Max volumetric speed](material_volumetric_speed_limitation#max-volumetric-speed).
+The resulting speed is still limited by the filament's [Max volumetric speed](material_volumetric_speed_limitation#max-volumetric-speed), and on the visible features by its [Max external volumetric speed](material_volumetric_speed_limitation#max-external-volumetric-speed).
 
 ### Why use volumetric speeds
 
 - **Faster prints with constant quality:** A speed in mm/s must be safe for the line that needs the most flow, such as a wide gap infill or a thick first layer, so most lines print below what the hotend can melt. With volumetric speeds every line of a feature gets the same flow: the print runs close to the hotend's limit, and each feature keeps the same melting, cooling and surface finish at any line width or layer height.
 - **Multi-material prints:** A volumetric speed expressed as a percentage follows each filament's own [Max volumetric speed](material_volumetric_speed_limitation#max-volumetric-speed). A fast-flowing filament is no longer held to speeds tuned for a slower one, and a slower filament is never pushed past its limit, all with the same process profile.
+- **Surface finish:** Combined with the filament's [Max external volumetric speed](material_volumetric_speed_limitation#max-external-volumetric-speed), the visible surfaces keep their gloss while inner walls, infill and support print at full flow.
 
 ### Speeds that are not replaced
 
@@ -89,7 +91,7 @@ These speeds have no volumetric version and apply over the resulting speeds:
 [Type](option_type): `outer_wall_speed` (Float list), `outer_wall_volumetric_flow` (Float or Percentage list).  
 [CLI Example](cli_mode#setting-overrides): `--outer-wall-speed=1` (`outer_wall_speed` shown; other variables above follow their own type).  
 Speed of the outer wall, which is the outermost, visible wall. It is usually printed slower than the [inner wall](#inner-wall) to get better quality and good layer adhesion.
-This setting is also limited by [Machine / Motion ability / Resonance avoidance speed settings](vfa_calib).  
+This setting is also limited by [Machine / Motion ability / Resonance avoidance speed settings](vfa_calib) and by the filament's [Max external volumetric speed](material_volumetric_speed_limitation#max-external-volumetric-speed). [Resonance avoidance](printer_motion_ability#resonance-avoidance) never raises it above that limit or the [Max volumetric speed](material_volumetric_speed_limitation#max-volumetric-speed).  
 It can be excluded from the [layer cooling slowdown](material_cooling#slow-printing-down-for-better-layer-cooling) with [Don't slow down outer walls](material_cooling#dont-slow-down-outer-walls).  
 With [Volumetric speeds](#volumetric-speeds) enabled, it is set as a volumetric speed instead, 50% by default.
 
@@ -166,6 +168,7 @@ With [Volumetric speeds](#volumetric-speeds) enabled, it is set as a volumetric 
 [Type](option_type): `top_surface_speed` (Float list), `top_surface_volumetric_flow` (Float or Percentage list).  
 [CLI Example](cli_mode#setting-overrides): `--top-surface-speed=1` (`top_surface_speed` shown; other variables above follow their own type).  
 Speed of the [topmost solid layers](strength_settings_top_bottom_shells) of the print. This is usually set similar to the [outer wall speed](#outer-wall) to achieve a smoother and higher-quality finish on visible surfaces. Lower speeds help minimize surface defects and improve the appearance of the final printed object.  
+Unless the surface is [ironed](quality_settings_ironing#type), it is also limited by the filament's [Max external volumetric speed](material_volumetric_speed_limitation#max-external-volumetric-speed).  
 With [Volumetric speeds](#volumetric-speeds) enabled, it is set as a volumetric speed instead, 50% by default.
 
 ## Gap infill

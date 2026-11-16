@@ -37,6 +37,8 @@ Resonance Compensations are the methods used to reduce the vibrations of the pri
 [CLI Example](cli_mode#setting-overrides): `--resonance-avoidance=1` (`resonance_avoidance` shown; other variables above follow their own type).  
 By reducing the speed of the outer wall to avoid the resonance zone of the printer, ringing on the surface of the model are avoided.
 
+An outer wall speed inside the range drops to the minimum when it is in the lower half and rises to the maximum when it is in the upper half; speeds above the maximum are not changed. A wall that the filament's [Max volumetric speed](material_volumetric_speed_limitation#max-volumetric-speed) or [Max external volumetric speed](material_volumetric_speed_limitation#max-external-volumetric-speed) keeps below the maximum drops to the minimum instead, so it never prints above that limit.
+
 > [!TIP]
 > Check the [VFA Calibration](vfa_calib).
 

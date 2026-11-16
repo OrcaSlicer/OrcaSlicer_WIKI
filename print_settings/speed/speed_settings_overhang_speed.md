@@ -61,6 +61,7 @@ If expressed as a percentage, the speed is calculated from the [outer wall speed
 Set speed for external and internal bridges.  
 It's usually recommended to increase internal bridge speed to reduce print time, while external bridge speed should be reduced to improve print quality.  
 The internal bridge speed can be set in mm/s or as a percentage of the external bridge speed (default 150%).  
-With [Volumetric speeds](speed_settings_other_layers_speed#volumetric-speeds) enabled, both are set as volumetric speeds instead, 25% for external and 40% for internal bridges by default.
+With [Volumetric speeds](speed_settings_other_layers_speed#volumetric-speeds) enabled, both are set as volumetric speeds instead, 25% for external and 40% for internal bridges by default.  
+The external bridge speed is also limited by the filament's [Max external volumetric speed](material_volumetric_speed_limitation#max-external-volumetric-speed).
 
 When [Slow down for overhang](#slow-down-for-overhang) is enabled and [Slow down for curled perimeters](#slow-down-for-curled-perimeters) is disabled, the external bridge speed also applies to overhang walls supported by less than 13% of their line width: their speed blends from the 75% [overhang speed](#speed) to the external bridge speed as the support drops to 0%.
