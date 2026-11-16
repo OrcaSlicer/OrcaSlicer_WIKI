@@ -15,14 +15,17 @@
 
 You will be prompted to enter the settings for the test: start volumetric speed, end volumetric speed, and step. It is recommended to use the default values (5mm³/s start, 20mm³/s end, with a step of 0.5), unless you already have an idea of the lower or upper limit for your filament. Select "OK", slice the plate, and send it to the printer.
 
-Once printed, take note of where the layers begin to fail and where the quality begins to suffer.
+Once printed, look for two points on the model:
+
+1. Where the surface stops being glossy, or its finish starts to suffer. This gives the [Max external volumetric speed](material_volumetric_speed_limitation#max-external-volumetric-speed).
+2. Where the layers begin to fail. This gives the [Max volumetric speed](material_volumetric_speed_limitation#max-volumetric-speed).
 
 > [!TIP]
-> A **change in surface sheen** (glossy vs. matte) is often a visual cue of material degradation or poor layer adhesion.
+> A **change in surface sheen** (glossy vs. matte) is often a visual cue of material degradation or poor layer adhesion. Materials that never print glossy show it as a rougher or duller surface.
 
 ![mvf_measurement_point](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/MVF/mvf_measurement_point.jpg?raw=true)
 
-Use calipers or a ruler to measure the **height** of the model just before the defects begin.  
+Use calipers or a ruler to measure the **height** of the model just before each point.  
 ![mvf_caliper_sample_mvf](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/MVF/mvf_caliper_sample_mvf.jpg?raw=true)
 
  Then you can:
@@ -30,7 +33,7 @@ Use calipers or a ruler to measure the **height** of the model just before the d
 - Use the following formula
 
   $$
-  Filament Max Volumetric Speed = start + (HeightMeasured * step)
+  Volumetric Speed = start + (HeightMeasured * step)
   $$
 
   In this case (19mm), so the calculation would be: `5 + (19 * 0.5) = 14.5mm³/s`
@@ -38,10 +41,14 @@ Use calipers or a ruler to measure the **height** of the model just before the d
 - Use OrcaSlicer in the "Preview" tab, make sure the color scheme "flow" is selected. Scroll down to the layer height that you measured, and click on the toolhead slider. This will indicate the max flow level for your filament.  
 ![mvf_gui_flow](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/MVF/mvf_gui_flow.png?raw=true)
 
-After you have determined the maximum volumetric speed, you can set it in the filament settings. This will ensure that the printer does not exceed the maximum flow rate for the filament.  
+After you have determined both values, set them in the filament settings:
+
+- **[Max volumetric speed](material_volumetric_speed_limitation#max-volumetric-speed):** the value where the layers began to fail, minus a safety margin (see the note below). No line of the print goes above it.
+- **[Max external volumetric speed](material_volumetric_speed_limitation#max-external-volumetric-speed):** the value just before the surface lost its gloss or finish. Outer walls, external bridges and top surfaces that are not ironed stay below it, so they keep that finish while the rest of the print runs at the full flow. It only has an effect when it is below the Max volumetric speed.
+
 ![mvf_material_settings](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/MVF/mvf_material_settings.png?raw=true)
 
 > [!NOTE]
 > This test is a best case scenario and doesn't take into account Retraction or other settings that can increase clogs or under-extrusion.  
-> You may want to reduce the flow by 10%-20% (or even further) to ensure print quality/strength.  
+> You may want to reduce the Max volumetric speed by 10%-20% (or even further) to ensure print quality/strength.  
 > **Printing at high volumetric speed can lead to poor layer adhesion or even clogs in the nozzle.**
