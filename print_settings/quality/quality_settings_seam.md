@@ -27,6 +27,7 @@ Unless printed in spiral vase mode, every layer needs to begin somewhere and end
     - [Wipe inward](#wipe-inward)
         - [Wipe inward distance](#wipe-inward-distance)
     - [Wipe Before External](#wipe-before-external)
+    - [Retract after outer wall](#retract-after-outer-wall)
 - [Tips](#tips)
 - [Troubleshooting Seam Performance](#troubleshooting-seam-performance)
     - [Troubleshooting the Start of a Seam](#troubleshooting-the-start-of-a-seam)
@@ -216,7 +217,7 @@ Shifts the wipe that follows an external wall away from the outer surface and on
 
 It applies only to external walls, including the walls around holes. On an outer contour the wipe moves inwards; around a hole it moves outwards, away from the hole and into the surrounding material. Inner walls, infill and supports keep their regular wipe.
 
-The inward wipe runs at the end of the external loop, after the [Wipe on loop](#wipe-on-loop-inward-movement) move if that option is enabled, and without retracting filament, so a short travel to the next wall still will not force a retraction or Z hop.
+The inward wipe runs at the end of the external loop, after the [Wipe on loop](#wipe-on-loop-inward-movement) move if that option is enabled. Like the regular wipe, it runs only when the travel off the wall retracts and never adds a retraction by itself. With [Retract after outer wall](#retract-after-outer-wall) on, the default, that travel always retracts, so the inward wipe also runs before a short travel to the next wall.
 
 For the option to take effect:
 
@@ -245,6 +246,32 @@ This option is only shown when *Wipe inward* is enabled.
 To minimize the visibility of potential over-extrusion at the start of an external perimeter, the de-retraction move is performed slightly inside the model, next to the start of the external perimeter. That way, any potential over-extrusion is hidden from the outside surface.
 
 This is useful when printing with [Outer/Inner](quality_settings_wall_and_surfaces#outerinner) or [Inner/Outer/Inner](quality_settings_wall_and_surfaces#innerouterinner) wall print order, as in these modes it is more likely that an external perimeter is printed immediately after a de-retraction move, which would cause slight extrusion variance at the start of a seam.
+
+### Retract after outer wall
+
+[Mode](option_mode): `Developer`.  
+[Variable](built_in_placeholders_variables): `retract_after_outer_wall`.  
+[Type](option_type#boolean): `Boolean`.  
+[CLI Example](cli_mode#setting-overrides): `--retract-after-outer-wall=1`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Retract after outer wall**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.5.1**.
+
+Always retracts when the nozzle leaves an outer wall, even if the travel is shorter than the [Travel distance threshold](printer_extruder_retraction#travel-distance-threshold).
+
+Without a retraction, the nozzle leaves the end of the outer wall still under pressure. When the next feature starts right next to the seam, as gap infill often does inside thin walls, the short travel drags the molten end of the wall inward. Layer after layer, this forms a dent along the seam.
+
+The retraction is the same as after a long travel: it uses your [retraction length](printer_extruder_retraction#length), [wipe](printer_extruder_retraction#wipe-while-retracting) and [Z-hop](printer_extruder_z_hop) settings, and runs the [inward wipe](#wipe-inward) if that option is enabled. With firmware retraction it emits `G10`/`G11`; with a retraction length of 0, only the wipe is added.
+
+Only the travel off the outer wall ignores the threshold, whether or not the wall overhangs, and including the walls around holes. Every other travel keeps it, including the short travel from an inner wall to the outer wall, so the start of the seam is not affected. [Extra perimeters on overhangs](quality_settings_overhangs#extra-perimeters-on-overhangs) do not count as an outer wall.
+
+Lowering the Travel distance threshold also removes the dent, but adds retractions everywhere: on the roof and chimney of a 3DBenchy, lowering it from 1 mm to 0.3 mm tripled the retractions, while this option added 3%. On a full 3DBenchy it adds about 1.5–5% more retractions and about 1% more print time.
+
+The option is on by default. To turn it off, enable [Developer mode](option_mode).
+
+> [!NOTE]
+> Retract after outer wall is switched off automatically during the [Pressure Advance](pressure_advance_calib) and [Retraction](retraction_calib) calibrations.
 
 ## Tips
 
