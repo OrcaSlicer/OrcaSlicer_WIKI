@@ -105,7 +105,7 @@ Each pattern's 2 and 3 lines entries in the [Patterns section](strength_settings
 >
 > - [Reduce Infill Retraction](others_settings_g_code_output#reduce-infill-retraction) skips the retraction, wipe and Z-hop of travels that stay inside the infill, where oozing can't be seen. Each skipped retraction saves tens of milliseconds, which add up over the thousands of infill travels of a large print.
 > - [Infill Combination](strength_settings_advanced#infill-combination) prints the sparse infill of several layers as one thicker layer, while the walls keep the original layer height. Fewer, thicker layers mean fewer infill moves for the same volume.
-> - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor) rounds the corners of the sparse infill path, so the toolhead keeps more of its speed through the turns. At `100%` it shortened the infill print time of the patterns that support it by 4-25% (see [how much for each pattern](#print-time-and-material)), at the cost of a larger G-code file, which its [vertex budget](#how-rounded-corners-are-printed) keeps in check.
+> - [Sparse Infill Smooth Factor](#sparse-infill-smooth-factor) rounds the corners of the sparse infill path, so the toolhead keeps more of its speed through the turns. At `100%` it shortened the infill print time of the patterns that support it by 4-25% (see [how much for each pattern](#print-time-and-material)), at the cost of a larger G-code file, which [grows with a finer resolution](#how-rounded-corners-are-printed).
 
 ### Strategy
 
@@ -381,6 +381,8 @@ A curve is printed as straight moves, and the printer slows down at each junctio
 
 How many vertices a corner gets follows the [G-code resolution](quality_settings_precision#resolution), like every other path: the fewest that keep the polygon within the resolution of the curve. It depends only on the shape of the corner and the resolution, not on the printer, and a larger curve takes more vertices.
 
+Corners are never split more finely than at a resolution of 0.005 mm, even when the resolution is finer. G-code coordinates are rounded to 0.001 mm, which makes the turns of a more finely split corner uneven, so it prints no faster. Its moves also come so close together that the printer may not process them as fast as it prints them: at a resolution of 0.001 mm and 10,000 mm/s², a Klipper printer has to plan about 1,100 moves per second through the curves, and when it falls behind it stops in the middle of the infill, pauses that the preview does not show.
+
 The vertices are what make a rounded corner fast: each one is a slowdown, and the gentler its turn, the less it slows the toolhead. A curve split into a few vertices saves little, and can even print slower than the sharp corner, as the short moves between its vertices leave no room to accelerate.
 
 A curve is only as fast as its sharpest vertex. On a Klipper printer with a square corner velocity of 9 mm/s and 10,000 mm/s² acceleration, a vertex turning by 13.6 degrees allows about 69 mm/s, and one turning by 9 degrees about 104 mm/s. At `100%` the curves of neighboring corners meet on patterns like [Hilbert Curve](strength_settings_patterns#hilbert-curve), so the whole infill path is curves and runs at that speed rather than at the sparse infill speed. That is why the [G-code resolution](quality_settings_precision#resolution), which sets how finely a curve is split, matters most on those patterns.
@@ -418,7 +420,7 @@ Rounded corners let the toolhead keep more of its speed through the turns, so th
 
 - **`100%` prints fastest** for almost every pattern and density in the analysis: the largest curves get the most vertices and the gentlest turns. The exceptions are close: [Grid](strength_settings_patterns#grid) with 2 lines and [Triangles](strength_settings_patterns#triangles) with 3 lines print about one point faster at `75%`.
 - **Lower factors save less.** On average `50%` saves about half of what `100%` saves, and [Triangles](strength_settings_patterns#triangles) saves almost nothing below `75%`. Use them for the look of the infill, not for speed.
-- **A finer [G-code resolution](quality_settings_precision#resolution) prints faster.** It splits every corner into more and gentler turns: on the 100 mm cube at `100%`, going from 0.012 to 0.006 mm raised the mean saving from 16% to 22%, for about 1.5 times the infill G-code. The resolution applies to the whole print, walls included.
+- **A finer [G-code resolution](quality_settings_precision#resolution) prints faster.** It splits every corner into more and gentler turns: on the 100 mm cube at `100%`, going from 0.012 to 0.006 mm raised the mean saving from 16% to 22%, for about 1.5 times the infill G-code. Below 0.005 mm the corners [stay as they are at 0.005 mm](#how-rounded-corners-are-printed). The resolution applies to the whole print, walls included.
 
 ### Supported patterns
 
