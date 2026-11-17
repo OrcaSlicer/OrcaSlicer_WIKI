@@ -147,6 +147,9 @@ In this example of a pattern of crossing lines and the [Gyroid](strength_setting
 With the Crossing [Strategy](#strategy), [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Quarter Cubic](strength_settings_patterns#quarter-cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) and [Support Cubic](strength_settings_patterns#support-cubic) keep the straight lines of their single-line pattern. With more than one line, each wall is printed as that many parallel copies of its line, a line width apart, running straight across the other walls.  
 The lines of two walls overlap at every crossing, so the crossings are over-extruded.
 
+> [!WARNING]
+> With more than 3 lines, the walls overlap over a large area at every crossing, which can over-extrude there and make the nozzle scrape the infill. OrcaSlicer warns about it when it slices. Use the [Non-Crossing](#non-crossing-strategy) strategy or fewer lines.
+
 #### Non-Crossing Strategy
 
 [Grid](strength_settings_patterns#grid), [Triangles](strength_settings_patterns#triangles), [Tri-hexagon](strength_settings_patterns#tri-hexagon), [Cubic](strength_settings_patterns#cubic), [Quarter Cubic](strength_settings_patterns#quarter-cubic), [Adaptive Cubic](strength_settings_patterns#adaptive-cubic) & [Support Cubic](strength_settings_patterns#support-cubic) patterns use a Non-crossing multiline strategy by default, or with any number of lines when [Strategy](#strategy) is set to Non-Crossing.
