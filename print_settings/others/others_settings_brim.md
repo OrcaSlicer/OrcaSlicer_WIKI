@@ -1,6 +1,7 @@
 # Brim
 
-Brim is a flat layer printed around a model's base to improve adhesion to the print bed. It is useful for models with small footprints or those prone to warping.
+Brim is a flat layer printed around a model's base to improve adhesion to the print bed. It is useful for models with small footprints or those prone to warping.  
+On a multi-material printer, the filament the brim prints with is set in [Filament for Features](multimaterial_settings_filament_for_features#brim).
 
 ![brim](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/brim/brim.png?raw=true)
 
