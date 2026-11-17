@@ -52,7 +52,8 @@ The size of each run's G-code file. Patterns made of many short moves give large
 
 ### Multiline
 
-The patterns that support [Fill Multiline](strength_settings_infill#fill-multiline) are also rated with 2 and 3 lines. **Print Time** is rated like the pattern's own, against the other patterns printed with one line, followed by how much faster or slower it is than the same pattern printed with one line on the same model and density.
+The patterns that support [Fill Multiline](strength_settings_infill#fill-multiline) are also rated with 2 and 3 lines. **Print Time** is rated like the pattern's own, against the other patterns printed with one line, followed by how much faster or slower it is than the same pattern printed with one line on the same model and density.  
+The patterns with a [Strategy](strength_settings_infill#strategy) are also rated with the strategies their default does not use: Non-Crossing with 1 line, and Crossing with 2 and 3 lines. All of them are compared with the default single line, which is Crossing.
 
 ## Monotonic
 
@@ -275,15 +276,18 @@ Two sets of perpendicular lines on every layer, forming a grid. Overlapping poin
     - **Material Usage:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
     - **Print Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
         - **Material/Time (Higher better):** Normal-High ![level-to-better-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-better-5.svg?raw=true)
-        - **Layer time Variability:** Unnoticeable
+        - **Layer time Variability:** None
     - **Slicing Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
     - **G-code Size:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true)
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
-        - **2 lines:** Print Time High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) (78% Slower over single line)
-        - **3 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (57% Slower over single line)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Crossing](strength_settings_infill#crossing-strategy) or [Non-Crossing](strength_settings_infill#non-crossing-strategy), by [Strategy](strength_settings_infill#strategy)
+        - **Crossing 2 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (2% Slower over single Crossing line)
+        - **Crossing 3 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (Same as single Crossing line)
+        - **Non-Crossing 1 line:** Print Time High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) (119% Slower over single Crossing line)
+        - **Non-Crossing 2 lines:** Print Time High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) (78% Slower over single Crossing line)
+        - **Non-Crossing 3 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (57% Slower over single Crossing line)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
-    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Non-Crossing](strength_settings_infill#non-crossing-strategy) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
     - **[Support Interface](support_settings_advanced#interface-pattern)**
@@ -305,11 +309,14 @@ Triangle-based grid, offering strong X-Y strength but with triple overlaps at in
     - **Slicing Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
     - **G-code Size:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true)
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
-        - **2 lines:** Print Time Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) (32% Slower over single line)
-        - **3 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (21% Slower over single line)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Crossing](strength_settings_infill#crossing-strategy) or [Non-Crossing](strength_settings_infill#non-crossing-strategy), by [Strategy](strength_settings_infill#strategy)
+        - **Crossing 2 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (Same as single Crossing line)
+        - **Crossing 3 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (1% Faster over single Crossing line)
+        - **Non-Crossing 1 line:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (55% Slower over single Crossing line)
+        - **Non-Crossing 2 lines:** Print Time Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) (32% Slower over single Crossing line)
+        - **Non-Crossing 3 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (21% Slower over single Crossing line)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
-    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Non-Crossing](strength_settings_infill#non-crossing-strategy) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -330,11 +337,14 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
     - **Slicing Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
     - **G-code Size:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true)
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
-        - **2 lines:** Print Time High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) (87% Slower over single line)
-        - **3 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (61% Slower over single line)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Crossing](strength_settings_infill#crossing-strategy) or [Non-Crossing](strength_settings_infill#non-crossing-strategy), by [Strategy](strength_settings_infill#strategy)
+        - **Crossing 2 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (2% Slower over single Crossing line)
+        - **Crossing 3 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (2% Faster over single Crossing line)
+        - **Non-Crossing 1 line:** Print Time High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) (131% Slower over single Crossing line)
+        - **Non-Crossing 2 lines:** Print Time High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) (87% Slower over single Crossing line)
+        - **Non-Crossing 3 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (61% Slower over single Crossing line)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
-    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Non-Crossing](strength_settings_infill#non-crossing-strategy) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -355,11 +365,14 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
     - **Slicing Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
     - **G-code Size:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true)
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
-        - **2 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (68% Slower over single line)
-        - **3 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (51% Slower over single line)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Crossing](strength_settings_infill#crossing-strategy) or [Non-Crossing](strength_settings_infill#non-crossing-strategy), by [Strategy](strength_settings_infill#strategy)
+        - **Crossing 2 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (Same as single Crossing line)
+        - **Crossing 3 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (2% Faster over single Crossing line)
+        - **Non-Crossing 1 line:** Print Time High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) (107% Slower over single Crossing line)
+        - **Non-Crossing 2 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (69% Slower over single Crossing line)
+        - **Non-Crossing 3 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (51% Slower over single Crossing line)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
-    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Non-Crossing](strength_settings_infill#non-crossing-strategy) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -380,9 +393,12 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
     - **Slicing Time:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
     - **G-code Size:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true)
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
-        - **2 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (50% Slower over single line)
-        - **3 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (46% Slower over single line)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Crossing](strength_settings_infill#crossing-strategy) or [Non-Crossing](strength_settings_infill#non-crossing-strategy), by [Strategy](strength_settings_infill#strategy)
+        - **Crossing 2 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (8% Slower over single Crossing line)
+        - **Crossing 3 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (7% Slower over single Crossing line)
+        - **Non-Crossing 1 line:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (51% Slower over single Crossing line)
+        - **Non-Crossing 2 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (50% Slower over single Crossing line)
+        - **Non-Crossing 3 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (46% Slower over single Crossing line)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**
@@ -405,11 +421,14 @@ Similar to the [triangles](#triangles) pattern but offset to prevent triple over
     - **Slicing Time:** Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true)
     - **G-code Size:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true)
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
-        - **2 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (65% Slower over single line)
-        - **3 lines:** Print Time Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) (45% Slower over single line)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Crossing](strength_settings_infill#crossing-strategy) or [Non-Crossing](strength_settings_infill#non-crossing-strategy), by [Strategy](strength_settings_infill#strategy)
+        - **Crossing 2 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (2% Slower over single Crossing line)
+        - **Crossing 3 lines:** Print Time Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true) (2% Faster over single Crossing line)
+        - **Non-Crossing 1 line:** Print Time High ![level-to-worse-6](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-6.svg?raw=true) (102% Slower over single Crossing line)
+        - **Non-Crossing 2 lines:** Print Time Normal-High ![level-to-worse-5](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-5.svg?raw=true) (65% Slower over single Crossing line)
+        - **Non-Crossing 3 lines:** Print Time Normal ![level-to-worse-4](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-4.svg?raw=true) (45% Slower over single Crossing line)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
-    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Multiline](strength_settings_infill#fill-multiline) only
+    - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** [Non-Crossing](strength_settings_infill#non-crossing-strategy) only
 - **Applies to:**
     - **[Sparse Infill](strength_settings_infill#sparse-infill-density)**
 
@@ -430,9 +449,12 @@ Support Cubic is a variation of the [Cubic](#cubic) infill pattern that is speci
     - **Slicing Time:** Normal-Low ![level-to-worse-3](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-3.svg?raw=true)
     - **G-code Size:** Extra-Low ![level-to-worse-1](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-1.svg?raw=true)
 - **Extra:**
-    - **[Multiline](strength_settings_infill#fill-multiline):** [Non-Crossing](strength_settings_infill#non-crossing-strategy)
-        - **2 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (55% Slower over single line)
-        - **3 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (71% Slower over single line)
+    - **[Multiline](strength_settings_infill#fill-multiline):** [Crossing](strength_settings_infill#crossing-strategy) or [Non-Crossing](strength_settings_infill#non-crossing-strategy), by [Strategy](strength_settings_infill#strategy)
+        - **Crossing 2 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (23% Slower over single Crossing line)
+        - **Crossing 3 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (35% Slower over single Crossing line)
+        - **Non-Crossing 1 line:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (34% Slower over single Crossing line)
+        - **Non-Crossing 2 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (55% Slower over single Crossing line)
+        - **Non-Crossing 3 lines:** Print Time Low ![level-to-worse-2](https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/misc/level-to-worse-2.svg?raw=true) (71% Slower over single Crossing line)
     - **[Symmetric infill Y axis](strength_settings_infill#symmetric-infill-y-axis):** No
     - **[Smooth Factor](strength_settings_infill#sparse-infill-smooth-factor):** No
 - **Applies to:**

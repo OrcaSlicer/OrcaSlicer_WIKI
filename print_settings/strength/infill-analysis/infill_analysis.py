@@ -5,7 +5,9 @@ Rate the infill patterns of the wiki from OrcaSlicer's own estimates.
 Slices three models through the OrcaSlicer CLI and its --export-statistics output on the Qidi Q2 0.4 nozzle, with its
 0.20mm Standard process and QIDI PLA Rapido and the changes in SETTINGS: a 100 mm cube written here, and the 3DBenchy and
 Stanford bunny OrcaSlicer ships as handy models. Each pattern is sliced at 5, 15, 30 and 50% sparse infill density, the
-patterns that only print solid infill at 100%, and the patterns that support multiline also with 2 and 3 lines.
+patterns that only print solid infill at 100%, and the patterns that support multiline also with 2 and 3 lines. The patterns
+with a sparse infill strategy are also sliced with the strategies their default does not use: Non-Crossing with 1 line and
+Crossing with 2 and 3 lines.
 
 Only the infill is measured: the sparse infill of a sparse run, and the internal solid infill of a 100% run, which a
 pattern is rated on against the other patterns' 100% runs. A pattern is rated on the mean of its runs: material usage,
@@ -17,6 +19,8 @@ cross-section along their height. With 2 and 3 lines, the print time is also com
 runs. The ratings are written into strength_settings_patterns.md and
 strength_settings_patterns_quick_reference.md, the ratings' values into infill_analysis_results.csv and every run into
 infill_analysis_runs.csv. Strength is not measured: XY-N and Z-N are set by hand in infill_patterns.csv.
+With --patterns, only those patterns are sliced and rated again; the other runs are read from infill_analysis_runs.csv and
+their ratings are left as they are.
 
 Usage:
     python infill_analysis.py --orca "C:/Program Files/OrcaSlicer/orca-slicer.exe"
@@ -24,6 +28,7 @@ Usage:
     python infill_analysis.py --out out --reuse                           # rate again from the statistics in out/
     python infill_analysis.py --orca ./orca-slicer --dry-run              # print the ratings, write nothing
     python infill_analysis.py --orca ./orca-slicer --keep-slicing-time --jobs 6   # keep the slicing times, slice in parallel
+    python infill_analysis.py --orca ./orca-slicer --patterns grid,cubic           # slice and rate only these patterns
 """
 
 import argparse
@@ -67,6 +72,11 @@ SOLID_FEATURE = "Internal solid infill"
 DENSITIES = (5, 15, 30, 50)
 SOLID = 100
 MULTILINES = (2, 3)
+# The sparse infill strategy of a run, and the runs of the patterns that have one beyond the default ones: the default is
+# Crossing with 1 line and Non-Crossing with more.
+DEFAULT = "default"
+STRATEGY_RUNS = ((1, "non_crossing"), (2, "crossing"), (3, "crossing"))
+STRATEGY_NAMES = {"crossing": "Crossing", "non_crossing": "Non-Crossing"}
 # The solid pattern whose fill measures each model's volume.
 REFERENCE = "monotonic"
 
@@ -132,17 +142,21 @@ def runs(patterns):
         for p in patterns:
             if p["test"] == "sparse":
                 for density in DENSITIES:
-                    yield model, p["pattern"], density, 1
+                    yield model, p["pattern"], density, 1, DEFAULT
                     if p["multiline"]:
                         for lines in MULTILINES:
-                            yield model, p["pattern"], density, lines
+                            yield model, p["pattern"], density, lines, DEFAULT
+                    if p["strategy"]:
+                        for lines, strategy in STRATEGY_RUNS:
+                            yield model, p["pattern"], density, lines, strategy
             if p["solid"]:
-                yield model, p["pattern"], SOLID, 1
+                yield model, p["pattern"], SOLID, 1, DEFAULT
 
 
 def statistics_file(out, key):
-    model, pattern, density, lines = key
-    return out / "runs" / model / f"{pattern}_{density}_{lines}" / "plate_1.statistics.json"
+    model, pattern, density, lines, strategy = key
+    suffix = "" if strategy == DEFAULT else f"_{strategy}"
+    return out / "runs" / model / f"{pattern}_{density}_{lines}{suffix}" / "plate_1.statistics.json"
 
 
 def slicing_file(out, key):
@@ -166,11 +180,13 @@ def infill_size(gcode, feature):
 
 
 def slice_run(orca, out, files, presets, key):
-    model, pattern, density, lines = key
+    model, pattern, density, lines, strategy = key
     target = statistics_file(out, key).parent
     target.mkdir(parents=True, exist_ok=True)
     option = "internal_solid_infill_pattern" if density == SOLID else "sparse_infill_pattern"
     options = {**SETTINGS, option: pattern, "sparse_infill_density": f"{density}%", "fill_multiline": str(lines)}
+    if strategy != DEFAULT:
+        options["sparse_infill_strategy"] = strategy
     command = [orca, "--load-settings", presets[0], "--load-filaments", presets[1], "--slice", "0",
                *(f"--{name.replace('_', '-')}={value}" for name, value in options.items()),
                "--export-statistics", "--outputdir", str(target), str(files[model])]
@@ -182,7 +198,7 @@ def slice_run(orca, out, files, presets, key):
         raise RuntimeError(f"{key}: OrcaSlicer exited with {run.returncode}\n{run.stderr.strip()}")
     slicing = {"slicing_time": seconds, "gcode_size": infill_size(target / "plate_1.gcode", feature_of(density))}
     slicing_file(out, key).write_text(json.dumps(slicing), encoding="utf-8")
-    print(f"sliced {model} {pattern} {density}% x{lines} in {seconds:.1f} s", flush=True)
+    print(f"sliced {model} {pattern} {density}% x{lines} {strategy} in {seconds:.1f} s", flush=True)
 
 
 def measure(stats, slicing, name):
@@ -201,29 +217,40 @@ def measure(stats, slicing, name):
     }
 
 
-def kept_slicing_times():
-    with open(RUNS_CSV, encoding="utf-8", newline="") as file:
-        return {(row["model"], row["pattern"], int(row["density"]), int(row["lines"])): float(row["slicing_s"])
-                for row in csv.DictReader(file)}
+def read_csv(path):
+    with open(path, encoding="utf-8", newline="") as file:
+        return list(csv.DictReader(file))
+
+
+def run_key(row):
+    return row["model"], row["pattern"], int(row["density"]), int(row["lines"]), row.get("strategy") or DEFAULT
+
+
+def previous_runs():
+    """The runs of infill_analysis_runs.csv by key, with the values measure() gives."""
+    return {run_key(row): {"row": row, "time": float(row["time_min"]) * 60, "weight": float(row["weight_g"]),
+                           "layer_time": float(row["layer_time_s"]), "variability": float(row["layer_time_variability"]),
+                           "slicing_time": float(row["slicing_s"]), "gcode_size": float(row["gcode_mb"]) * 1e6}
+            for row in read_csv(RUNS_CSV)}
 
 
 def rate(patterns, measured):
     # The material of a run against the density of the model's volume.
-    volume = {model: measured[(model, REFERENCE, SOLID, 1)]["weight"] for model in MODELS}
-    for (model, _, density, _), m in measured.items():
+    volume = {model: measured[(model, REFERENCE, SOLID, 1, DEFAULT)]["weight"] for model in MODELS}
+    for (model, _, density, _, _), m in measured.items():
         m["usage"] = m["weight"] / (volume[model] * density / 100)
     # Time, material per time, slicing time and G-code size are rated against the single-line runs of normal material
     # usage on the same model and density.
     groups = {}
     for key, m in measured.items():
-        if key[3] == 1:
+        if key[3] == 1 and key[4] == DEFAULT:
             groups.setdefault((key[0], key[2]), []).append(m)
     baselines = {}
     for group, runs_in_group in groups.items():
         normal = [m for m in runs_in_group if level(m["usage"]) == NORMAL] or runs_in_group
         baselines[group] = (statistics.fmean(m["time"] for m in normal), statistics.fmean(m["weight"] / m["time"] for m in normal),
                             statistics.fmean(m["slicing_time"] for m in normal), statistics.fmean(m["gcode_size"] for m in normal))
-    for (model, _, density, _), m in measured.items():
+    for (model, _, density, _, _), m in measured.items():
         time, rate_, slicing, size = baselines[(model, density)]
         m["time_ratio"] = m["time"] / time
         m["rate_ratio"] = m["weight"] / m["time"] / rate_
@@ -234,11 +261,13 @@ def rate(patterns, measured):
     for p in patterns:
         densities = DENSITIES if p["test"] == "sparse" else (SOLID,)
 
-        def mean(name, lines=1, models=MODELS):
-            return statistics.fmean(measured[(model, p["pattern"], density, lines)][name] for model in models for density in densities)
+        def mean(name, lines=1, strategy=DEFAULT, models=MODELS):
+            return statistics.fmean(measured[(model, p["pattern"], density, lines, strategy)][name]
+                                    for model in models for density in densities)
 
-        def against_one_line(lines):
-            return statistics.fmean(measured[(model, p["pattern"], density, lines)]["time"] / measured[(model, p["pattern"], density, 1)]["time"]
+        def against_one_line(lines, strategy=DEFAULT):
+            return statistics.fmean(measured[(model, p["pattern"], density, lines, strategy)]["time"] /
+                                    measured[(model, p["pattern"], density, 1, DEFAULT)]["time"]
                                     for model in MODELS for density in densities)
 
         r = {**p, "usage": mean("usage"), "time_ratio": mean("time_ratio"), "rate_ratio": mean("rate_ratio"),
@@ -249,6 +278,9 @@ def rate(patterns, measured):
             (name, n) for limit, name, n in VARIABILITY if r["variability"] <= limit)
         r["lines"] = {lines: (mean("usage", lines), mean("time_ratio", lines), against_one_line(lines))
                       for lines in MULTILINES} if p["multiline"] else {}
+        r["strategies"] = {(strategy, lines): (mean("usage", lines, strategy), mean("time_ratio", lines, strategy),
+                                               against_one_line(lines, strategy))
+                           for lines, strategy in STRATEGY_RUNS} if p["strategy"] else {}
         results.append(r)
     return results
 
@@ -266,13 +298,24 @@ def replace_multiline(lines, r):
     if len(hits) != 1:
         raise ValueError(f"expected one Multiline line, found {len(hits)}")
     i = hits[0]
-    while i + 1 < len(lines) and re.match(r"\s*- \*\*\d lines:\*\*", lines[i + 1]):
+    while i + 1 < len(lines) and re.match(r"\s*- \*\*((Non-)?Crossing )?\d lines?:\*\*", lines[i + 1]):
         del lines[i + 1]
     indent = re.match(r"\s*", lines[i]).group(0) + "    "
     eol = lines[i][len(lines[i].rstrip("\r\n")):]
-    for n, (_, time, against_one) in reversed(list(r["lines"].items())):
-        change = f"{abs(against_one - 1) * 100:.0f}% {'Faster' if against_one < 1 else 'Slower'}"
-        lines.insert(i + 1, f"{indent}- **{n} lines:** Print Time {rated('worse', level(time))} ({change} over single line){eol}")
+    # With a strategy, the default lines are Non-Crossing and its single line, which they are compared with, is Crossing.
+    if r["strategies"]:
+        entries = [(f"{STRATEGY_NAMES[strategy]} {n} line{'s' if n > 1 else ''}", values)
+                   for (strategy, n), values in r["strategies"].items()]
+        entries += [(f"{STRATEGY_NAMES['non_crossing']} {n} lines", values) for n, values in r["lines"].items()]
+        entries.sort()
+        single = "single Crossing line"
+    else:
+        entries = [(f"{n} lines", values) for n, values in r["lines"].items()]
+        single = "single line"
+    for label, (_, time, against_one) in reversed(entries):
+        percent = f"{abs(against_one - 1) * 100:.0f}"
+        change = f"Same as {single}" if percent == "0" else f"{percent}% {'Faster' if against_one < 1 else 'Slower'} over {single}"
+        lines.insert(i + 1, f"{indent}- **{label}:** Print Time {rated('worse', level(time))} ({change}){eol}")
 
 
 def update_patterns_page(text, results):
@@ -313,8 +356,12 @@ def update_quick_reference(text, results):
         cells[4] = f" {icon('worse', r['usage_level'])} "
         cells[5] = f" {icon('worse', r['time_level'])} "
         cells[6] = f" {icon('worse', r['variability_level'])} "
-        cells[8] = " " + "<br> ".join(f"{n}: {icon('worse', level(usage))} {icon('worse', level(time))}"
-                                       for n, (usage, time, _) in r["lines"].items()) + " " if r["lines"] else " - "
+        multiline = [(f"{n}", values) for n, values in r["lines"].items()]
+        if r["strategies"]:
+            multiline = [(f"{STRATEGY_NAMES[strategy]} {n}", values) for (strategy, n), values in r["strategies"].items() if n > 1]
+            multiline += [(f"{STRATEGY_NAMES['non_crossing']} {n}", values) for n, values in r["lines"].items()]
+        cells[8] = " " + "<br> ".join(f"{label}: {icon('worse', level(usage))} {icon('worse', level(time))}"
+                                       for label, (usage, time, _) in multiline) + " " if multiline else " - "
         lines[i] = "|".join(cells) + line[len(line.rstrip("\r\n")):]
         seen.add(r["name"])
     missing = set(by_name) - seen
@@ -329,24 +376,40 @@ def write_csv(path, rows):
         writer.writerows(rows)
 
 
-def write_results(results, measured):
-    rows = [["pattern", "name", "material_usage", "print_time", "material_per_time", "layer_time_variability",
-             "slicing_time", "gcode_size", "xy", "z", "material_usage_rating", "print_time_rating",
-             "material_per_time_rating", "layer_time_variability_rating", "slicing_time_rating", "gcode_size_rating"]
-            + [f"{n}_lines_{column}" for n in MULTILINES for column in ("material_usage", "print_time", "print_time_vs_1_line")]]
+def write_results(results, measured, kept):
+    """Writes the patterns rated and their runs. The rows of the other patterns are kept as they are."""
+    values = ("material_usage", "print_time", "print_time_vs_1_line")
+    header = (["pattern", "name", "material_usage", "print_time", "material_per_time", "layer_time_variability",
+               "slicing_time", "gcode_size", "xy", "z", "material_usage_rating", "print_time_rating",
+               "material_per_time_rating", "layer_time_variability_rating", "slicing_time_rating", "gcode_size_rating"]
+              + [f"{n}_lines_{column}" for n in MULTILINES for column in values]
+              + [f"{strategy}_{n}_lines_{column}" for n, strategy in STRATEGY_RUNS for column in values])
+    rated = {r["pattern"]: r for r in results}
+    rows = {}
+    for old in read_csv(RESULTS_CSV) if kept else []:
+        if old["pattern"] not in rated:
+            rows[old["pattern"]] = [old.get(column, "") for column in header]
     for r in results:
-        rows.append([r["pattern"], r["name"], f"{r['usage']:.3f}", f"{r['time_ratio']:.3f}", f"{r['rate_ratio']:.3f}",
-                     f"{r['variability']:.3f}", f"{r['slicing_ratio']:.3f}", f"{r['size_ratio']:.3f}", LEVELS[r["xy_n"]][1],
-                     LEVELS[r["z_n"]][1], LEVELS[r["usage_level"]][1], LEVELS[r["time_level"]][1], LEVELS[r["rate_level"]][1],
-                     r["variability_name"], LEVELS[r["slicing_level"]][1], LEVELS[r["size_level"]][1]]
-                    + [f"{value:.3f}" if r["lines"] else "" for n in MULTILINES for value in r["lines"].get(n, (0, 0, 0))])
-    write_csv(RESULTS_CSV, rows)
-    rows = [["model", "pattern", "density", "lines", "time_min", "weight_g", "slicing_s", "gcode_mb", "material_usage",
-             "print_time", "material_per_time", "layer_time_s", "layer_time_variability", "slicing_time", "gcode_size"]]
-    for (model, pattern, density, lines), m in sorted(measured.items()):
-        rows.append([model, pattern, density, lines, f"{m['time'] / 60:.2f}", f"{m['weight']:.3f}", f"{m['slicing_time']:.2f}",
-                     f"{m['gcode_size'] / 1e6:.2f}", f"{m['usage']:.3f}", f"{m['time_ratio']:.3f}", f"{m['rate_ratio']:.3f}",
-                     f"{m['layer_time']:.3f}", f"{m['variability']:.3f}", f"{m['slicing_ratio']:.3f}", f"{m['size_ratio']:.3f}"])
+        rows[r["pattern"]] = ([r["pattern"], r["name"], f"{r['usage']:.3f}", f"{r['time_ratio']:.3f}", f"{r['rate_ratio']:.3f}",
+                               f"{r['variability']:.3f}", f"{r['slicing_ratio']:.3f}", f"{r['size_ratio']:.3f}", LEVELS[r["xy_n"]][1],
+                               LEVELS[r["z_n"]][1], LEVELS[r["usage_level"]][1], LEVELS[r["time_level"]][1], LEVELS[r["rate_level"]][1],
+                               r["variability_name"], LEVELS[r["slicing_level"]][1], LEVELS[r["size_level"]][1]]
+                              + [f"{value:.3f}" if r["lines"] else "" for n in MULTILINES for value in r["lines"].get(n, (0, 0, 0))]
+                              + [f"{value:.3f}" if r["strategies"] else "" for n, strategy in STRATEGY_RUNS
+                                 for value in r["strategies"].get((strategy, n), (0, 0, 0))])
+    order = [row["pattern"] for row in read_csv(PATTERNS_CSV)]
+    write_csv(RESULTS_CSV, [header] + [rows[pattern] for pattern in order if pattern in rows])
+    header = ["model", "pattern", "density", "lines", "strategy", "time_min", "weight_g", "slicing_s", "gcode_mb",
+              "material_usage", "print_time", "material_per_time", "layer_time_s", "layer_time_variability", "slicing_time",
+              "gcode_size"]
+    rows = [header]
+    for key, m in sorted(measured.items()):
+        if key in kept:
+            rows.append([*key, *(kept[key]["row"][column] for column in header[5:])])
+        else:
+            rows.append([*key, f"{m['time'] / 60:.2f}", f"{m['weight']:.3f}", f"{m['slicing_time']:.2f}",
+                         f"{m['gcode_size'] / 1e6:.2f}", f"{m['usage']:.3f}", f"{m['time_ratio']:.3f}", f"{m['rate_ratio']:.3f}",
+                         f"{m['layer_time']:.3f}", f"{m['variability']:.3f}", f"{m['slicing_ratio']:.3f}", f"{m['size_ratio']:.3f}"])
     write_csv(RUNS_CSV, rows)
 
 
@@ -370,19 +433,30 @@ def main():
                         help="runs to slice at the same time (default 1); more are faster but make the slicing times longer")
     parser.add_argument("--keep-slicing-time", action="store_true",
                         help="take each run's slicing time from infill_analysis_runs.csv instead of the slice, so --jobs does not matter")
+    parser.add_argument("--patterns", help="comma-separated patterns to slice and rate again; the other runs are read from "
+                                           "infill_analysis_runs.csv and their ratings are left as they are")
     parser.add_argument("--dry-run", action="store_true", help="print the ratings without writing any file")
     args = parser.parse_args()
 
-    with open(PATTERNS_CSV, encoding="utf-8", newline="") as file:
-        patterns = [{**row, "solid": row["solid"] == "1", "multiline": row["multiline"] == "1",
-                     "xy_n": int(row["xy_n"]), "z_n": int(row["z_n"])} for row in csv.DictReader(file)]
+    patterns = [{**row, "solid": row["solid"] == "1", "multiline": row["multiline"] == "1", "strategy": row["strategy"] == "1",
+                 "xy_n": int(row["xy_n"]), "z_n": int(row["z_n"])} for row in read_csv(PATTERNS_CSV)]
+    selected = set(args.patterns.split(",")) if args.patterns else {p["pattern"] for p in patterns}
+    unknown = selected - {p["pattern"] for p in patterns}
+    if unknown:
+        sys.exit(f"unknown pattern(s): {', '.join(sorted(unknown))}")
     keys = list(runs(patterns))
-    kept = kept_slicing_times() if args.keep_slicing_time else {}
+    previous = previous_runs() if args.keep_slicing_time or args.patterns else {}
+    # The runs of the patterns not selected, as they are.
+    missing = [key for key in keys if key[1] not in selected and key not in previous]
+    if missing:
+        sys.exit(f"infill_analysis_runs.csv has no run {missing[0]}; slice its pattern with --patterns")
+    kept = {key: previous[key] for key in keys if key[1] not in selected}
 
     with tempfile.TemporaryDirectory() as temporary:
         # Absolute, as the CLI runs in the output folder.
         out = (args.out or Path(temporary)).resolve()
-        todo = [key for key in keys if not (args.reuse and statistics_file(out, key).exists() and slicing_file(out, key).exists())]
+        todo = [key for key in keys if key not in kept and
+                not (args.reuse and statistics_file(out, key).exists() and slicing_file(out, key).exists())]
         if todo:
             if not args.orca:
                 sys.exit(f"--orca is needed to slice {len(todo)} run(s)")
@@ -395,13 +469,17 @@ def main():
                 list(pool.map(lambda key: slice_run(orca, out, files, presets, key), todo))
         measured = {}
         for key in keys:
+            if key in kept:
+                measured[key] = {name: value for name, value in kept[key].items() if name != "row"}
+                continue
             slicing = json.loads(slicing_file(out, key).read_text(encoding="utf-8"))
-            if kept:
-                slicing["slicing_time"] = kept[key]
+            # A run new to infill_analysis_runs.csv keeps the time it was sliced in.
+            if args.keep_slicing_time and key in previous:
+                slicing["slicing_time"] = previous[key]["slicing_time"]
             with open(statistics_file(out, key), encoding="utf-8") as file:
                 measured[key] = measure(json.load(file), slicing, feature_of(key[2]))
 
-    results = rate(patterns, measured)
+    results = [r for r in rate(patterns, measured) if r["pattern"] in selected]
     for r in results:
         print(f"{r['name']:<20} usage {r['usage']:6.3f} {LEVELS[r['usage_level']][1]:<12} time {r['time_ratio']:6.3f} "
               f"{LEVELS[r['time_level']][1]:<12} g/t {r['rate_ratio']:6.3f} {LEVELS[r['rate_level']][1]:<12} "
@@ -410,7 +488,7 @@ def main():
               + "".join(f" x{n}: {u:5.3f} {t:5.3f} {a:5.3f}" for n, (u, t, a) in r["lines"].items()))
     if args.dry_run:
         return
-    write_results(results, measured)
+    write_results(results, measured, kept)
     rewrite(PATTERNS_PAGE, update_patterns_page, results)
     rewrite(QUICK_REFERENCE_PAGE, update_quick_reference, results)
 
