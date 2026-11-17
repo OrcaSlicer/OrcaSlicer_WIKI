@@ -111,7 +111,7 @@ Each pattern's 2 and 3 lines entries in the [Patterns section](strength_settings
 
 ### Strategy
 
-[Mode](option_mode): `Advanced`.  
+[Mode](option_mode): `Expert`.  
 [Variable](built_in_placeholders_variables): `sparse_infill_strategy`.  
 [Type](option_type#choice): `Choice`.  
 [Options](option_type#choice): `default, crossing, non_crossing`.  
