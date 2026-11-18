@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="760px" height="720px" viewBox="0 0 760 720" style="background: transparent; color-scheme: light dark;">
-  <title>Top view of one gantry: where T0 and a mirroring T1 touch, for mirror-image and for identical toolheads</title>
+  <title>Top view of one gantry: where T1 and a mirroring T2 touch, for mirror-image and for identical toolheads</title>
   <style>
     .ink   { stroke: #2b2b2b; stroke: light-dark(#2b2b2b, #e6e6e6); fill: none; stroke-width: 2; stroke-linecap: round; }
     .solid { fill: #2b2b2b; fill: light-dark(#2b2b2b, #e6e6e6); stroke: none; }
@@ -31,16 +31,16 @@
   <path class="ink" d="M 690 50 V 10" marker-end="url(#axis)"/>
   <text class="txt" x="676" y="22" text-anchor="middle">Y</text>
   <text class="txt bold" x="20" y="80">Mirror-image toolheads</text>
-  <text class="txt" x="20" y="100">T0 and T1 each have 80 mm from the nozzle to the side facing the other.</text>
+  <text class="txt" x="20" y="100">T1 and T2 each have 80 mm from the nozzle to the side facing the other.</text>
   <rect class="beam" x="20" y="234" width="720" height="24"/>
   <text class="txt small" x="734" y="251" text-anchor="end">Gantry</text>
   <path class="bnd" d="M 380 112 V 312"/>
   <rect class="car" x="248" y="150" width="132" height="132" rx="6"/>
-  <text class="txt bold" x="370" y="172" text-anchor="end">T0</text>
+  <text class="txt bold" x="370" y="172" text-anchor="end">T1</text>
   <circle class="solid" cx="284" cy="246" r="5"/>
   <path class="ink" d="M 273 246 H 295 M 284 235 V 257" style="stroke-width: 1"/>
   <rect class="car" x="380" y="150" width="132" height="132" rx="6"/>
-  <text class="txt bold" x="502" y="172" text-anchor="end">T1</text>
+  <text class="txt bold" x="502" y="172" text-anchor="end">T2</text>
   <circle class="solid" cx="476" cy="246" r="5"/>
   <path class="ink" d="M 465 246 H 487 M 476 235 V 257" style="stroke-width: 1"/>
   <path class="ext" d="M 284 126 V 310 M 476 126 V 310"/>
@@ -55,16 +55,16 @@
   <circle class="hit" cx="380" cy="216" r="9"/>
   <text class="txt" x="20" y="352">They touch when d = 80, on the boundary. Nozzle Clearance X = 80 is exact.</text>
   <text class="txt bold" x="20" y="397.0">Identical toolheads</text>
-  <text class="txt" x="20" y="417.0">Nozzle off-center in X: T0 has 80 mm toward T1, but T1 has only 30 mm toward T0.</text>
+  <text class="txt" x="20" y="417.0">Nozzle off-center in X: T1 has 80 mm toward T2, but T2 has only 30 mm toward T1.</text>
   <rect class="beam" x="20" y="551" width="720" height="24"/>
   <text class="txt small" x="734" y="568" text-anchor="end">Gantry</text>
   <path class="bnd" d="M 380 429.0 V 629"/>
   <rect class="car" x="278" y="467" width="132" height="132" rx="6"/>
-  <text class="txt bold" x="400" y="489" text-anchor="end">T0</text>
+  <text class="txt bold" x="400" y="489" text-anchor="end">T1</text>
   <circle class="solid" cx="314" cy="563" r="5"/>
   <path class="ink" d="M 303 563 H 325 M 314 552 V 574" style="stroke-width: 1"/>
   <rect class="car" x="410" y="467" width="132" height="132" rx="6"/>
-  <text class="txt bold" x="532" y="489" text-anchor="end">T1</text>
+  <text class="txt bold" x="532" y="489" text-anchor="end">T2</text>
   <circle class="solid" cx="446" cy="563" r="5"/>
   <path class="ink" d="M 435 563 H 457 M 446 552 V 574" style="stroke-width: 1"/>
   <path class="ext" d="M 314 443 V 627 M 446 443 V 627"/>
