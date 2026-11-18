@@ -73,6 +73,11 @@ When using a [mixed nozzle size setup](mixed_nozzle_sizes), you can use a larger
 [Variable](built_in_placeholders_variables): `brim_filament_id`.  
 [Type](option_type#integer-float-percentage): `Integer`.  
 [CLI Example](cli_mode#setting-overrides): `--brim-filament-id=1`.  
+
+> [!IMPORTANT]
+> NEW FEATURE: **Brim filament**  
+> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.5.1**.
+
 Filament to print the [brim](others_settings_brim). Set to `Default` to print it with the first filament that prints the object on the first layer.  
 The chosen filament prints the brim even when it prints nothing else on the object, so you can use a cheaper filament, or one that peels off more easily, for the brim alone.  
 Brims with different chosen filaments are never merged by [Combine brims](others_settings_brim#combine-brims).
