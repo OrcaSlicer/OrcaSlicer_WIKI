@@ -29,6 +29,10 @@ This feature has been tested with Klipper-based printers. While it may work with
 > [!TIP]
 > **Advanced users**: the fix to ensure optimal quality when dynamic PA is used does not require flashing the toolhead MCU or the printer MCU, but only an update of the host Python code. If you are using a commercial printer which does not offer straightforward MCU flashing (for example, Qidi printers), you might be able to manually patch the host code yourself.
 
+> [!WARNING]
+> **Marlin Printers:** every `M900` that changes the K value makes Marlin finish all queued moves before applying it ([M900.cpp](https://github.com/MarlinFirmware/Marlin/blob/2.1.2.5/Marlin/src/gcode/feature/advance/M900.cpp)). Each pressure advance change therefore brings the toolhead to a stop and interrupts look-ahead planning, which can cause hesitations and uneven walls. The effect is most visible on slower (8-bit) controllers, which also need longer to refill the motion queue after each stop.  
+> If you see hesitations on a Marlin printer with adaptive pressure advance enabled, disable it and use a single pressure advance value instead.
+
 ## Use case (what to expect)
 
 Following experimentation, it has been noticed that the optimal pressure advance value is less:
