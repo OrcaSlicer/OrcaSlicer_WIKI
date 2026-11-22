@@ -12,6 +12,7 @@ For questions about using OrcaSlicer, please ask on [Discord](https://discord.gg
     - [Keep It Focused](#keep-it-focused)
     - [Write a Description Reviewers Can Use](#write-a-description-reviewers-can-use)
     - [Build and Test It Yourself](#build-and-test-it-yourself)
+    - [Code From Other Projects](#code-from-other-projects)
 - [What Each Kind of PR Needs](#what-each-kind-of-pr-needs)
     - [Bug Fixes](#bug-fixes)
     - [New Features and Settings](#new-features-and-settings)
@@ -57,6 +58,7 @@ A clear issue is easier to reproduce and fix. The issue forms ask for most of th
 - **Don't split one change into many small PRs.** Reviewers then have to piece them back together, and PRs that depend on each other are hard to merge in the right order.
 - **Don't reformat existing code.** `.clang-format` is for new files. In existing files, match the style of the code around your change. [AGENTS.md](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/AGENTS.md) describes the code style. With formatting changes in the diff, the real change is hard to find, and `git blame` is harder to use.
 - **No unrelated edits.** Leave out typo fixes, renames and whitespace changes in code you are not otherwise changing.
+- **Change the code that needs it, don't rewrite it.** A PR that replaces a working file or feature with new code brings new bugs into code that works, and it is very hard to review. AI tools often do this, so check the diff. If you think a rewrite is needed, open an issue first and wait until a maintainer agrees.
 - **Split large work into a series of PRs** when each part works and is useful on its own. Code PRs under 50 lines are merged about three times as often as PRs over 1,000 lines, and much sooner.
 
 ### Write a Description Reviewers Can Use
@@ -72,9 +74,19 @@ Write the title and description so they could be used in the release notes. Use 
 
 ### Build and Test It Yourself
 
-- **Build and run your change on your own platform before you open the PR.** CI then builds it on the other platforms. See [How to build OrcaSlicer](how_to_build).
+- **Build and run your change on your own platform before you open the PR.** CI then builds it on the other platforms. A PR that was never built is not ready for review. See [How to build OrcaSlicer](how_to_build).
+- **Add screenshots of anything you can see in the app**, even when the change is small.
 - **Add an automated test when the code can be tested.** The best test fails without your change and passes with it. Run the tests before you push. See [Tests](#tests) and [How to run tests](how_to_test).
 - **Read through your own diff** before you ask for review.
+
+### Code From Other Projects
+
+Porting a fix or feature from PrusaSlicer, Bambu Studio or another fork is welcome, with these rules:
+
+- **Only port code that the other project has merged.** Unmerged code from a fork has not been reviewed or tested by anyone, and we can't review it for them.
+- **Check that its license allows it.** OrcaSlicer is licensed under AGPL-3.0.
+- **Link the source commit or PR, and credit the original author.**
+- **Test it in OrcaSlicer like your own change.** OrcaSlicer's code may have drifted from the other project. The change may no longer be right here, or it may cause unexpected problems.
 
 ## What Each Kind of PR Needs
 
@@ -210,7 +222,9 @@ If you can't continue with a PR, please say so in a comment. Someone else may be
 
 ### If Your PR Is Closed
 
-We may close a PR that doesn't meet this guide. You're welcome to open a new one once it does. See [If your PR is closed](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/CONTRIBUTING.md#if-your-pr-is-closed) in CONTRIBUTING.md.
+We may close a PR that doesn't meet this guide. Reviewers don't review PRs that were never tested, rewrite working code, port unmerged code from another fork, or duplicate another PR. See [PRs we don't review](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/CONTRIBUTING.md#prs-we-dont-review) in CONTRIBUTING.md.
+
+You're welcome to open a new PR once it meets this guide. See [If your PR is closed](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/CONTRIBUTING.md#if-your-pr-is-closed) in CONTRIBUTING.md.
 
 ## Other Ways to Help
 
