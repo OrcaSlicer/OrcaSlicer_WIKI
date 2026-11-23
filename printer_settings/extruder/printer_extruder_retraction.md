@@ -59,7 +59,7 @@ Speed for reloading filament into the nozzle. Zero means same speed of retractio
 [Type](option_type#list-types): `Float list`.  
 [CLI Example](cli_mode#setting-overrides): `--retraction-minimum-travel=1`.  
 Only trigger retraction when the travel distance is longer than this threshold.  
-The travel off an outer wall ignores it while [Retract after outer wall](quality_settings_seam#retract-after-outer-wall) is on.
+The travel off an outer wall always triggers a retraction unless [Retract after outer wall](quality_settings_seam#retract-after-outer-wall) is off.
 
 ## Retract on layer change
 
