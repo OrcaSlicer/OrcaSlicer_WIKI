@@ -222,7 +222,7 @@ If you can't continue with a PR, please say so in a comment. Someone else may be
 
 ### If Your PR Is Closed
 
-We may close a PR that doesn't meet this guide. Reviewers don't review PRs that were never tested, rewrite working code, port unmerged code from another fork, or duplicate another PR. See [PRs we don't review](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/CONTRIBUTING.md#prs-we-dont-review) in CONTRIBUTING.md.
+We may close a PR that doesn't meet this guide. Reviewers don't review PRs that were never tested, don't explain the change, mix unrelated changes, rewrite working code, port unmerged code from another fork, or duplicate another PR. See [PRs we don't review](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/CONTRIBUTING.md#prs-we-dont-review) in CONTRIBUTING.md.
 
 You're welcome to open a new PR once it meets this guide. See [If your PR is closed](https://github.com/OrcaSlicer/OrcaSlicer/blob/main/CONTRIBUTING.md#if-your-pr-is-closed) in CONTRIBUTING.md.
 
