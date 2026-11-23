@@ -256,7 +256,7 @@ This is useful when printing with [Outer/Inner](quality_settings_wall_and_surfac
 
 > [!IMPORTANT]
 > NEW FEATURE: **Retract after outer wall**  
-> Available in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.5.1**.
+> On by default in: [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds) or Releases greater than **2.5.1**.
 
 Always retracts when the nozzle leaves an outer wall, even if the travel is shorter than the [Travel distance threshold](printer_extruder_retraction#travel-distance-threshold).
 
