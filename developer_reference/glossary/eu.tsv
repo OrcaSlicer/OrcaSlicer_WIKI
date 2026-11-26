@@ -183,13 +183,13 @@ Machine frame (belt)	The printer's own coordinate system on a belt printer, into
 Gantry	The beam that carries one or more carriages across the bed. IDEX/IQEX printers have one or two; on a belt printer it is tilted over the belt.	Ataria
 Carriage	One independently moving toolhead carrier on a gantry. In parallel printing each active carriage prints one copy of the part.	Orga
 Parallel printing	IDEX/IQEX printing of several copies of a part at once, one per active carriage, in Copy or Mirror roles; a plate set to it is in a parallel mode.	Inprimatze paraleloa
-Zone (IDEX/IQEX)	The part of the bed one active carriage prints in during parallel printing; parts are placed in T0's primary zone. Not a resonance or temperature zone.	Eremua
-Primary (IDEX/IQEX)	The role of tool T0, whose toolpaths are sliced while the other carriages follow it, and the normal one-tool-at-a-time mode a plate starts in. The role tiles in the Modes editor use the translated name.	Nagusia
-Copy (IDEX/IQEX)	Carriage role in parallel printing: prints the same part as T0, moving the same way, in its own zone. Not the clipboard Copy. The role tiles in the Modes editor use the translated name.	Kopia
-Mirror (IDEX/IQEX)	Carriage role in parallel printing: prints a mirror image of T0's part, reflected across the zone boundary. The role (a noun), not the Mirror tool. The role tiles in the Modes editor use the translated name.	Ispilua
-Span (IDEX/IQEX)	Carriage role on T0's gantry that partners T0 to print a part in several colors while the other gantry copies or mirrors it. A coined role name, kept in English.	Span
+Zone (IDEX/IQEX)	The part of the bed one active carriage prints in during parallel printing; parts are placed in T1's primary zone. Not a resonance or temperature zone.	Eremua
+Primary (IDEX/IQEX)	The role of tool T1, whose toolpaths are sliced while the other carriages follow it, and the normal one-tool-at-a-time mode a plate starts in. The role tiles in the Modes editor use the translated name.	Nagusia
+Copy (IDEX/IQEX)	Carriage role in parallel printing: prints the same part as T1, moving the same way, in its own zone. Not the clipboard Copy. The role tiles in the Modes editor use the translated name.	Kopia
+Mirror (IDEX/IQEX)	Carriage role in parallel printing: prints a mirror image of T1's part, reflected across the zone boundary. The role (a noun), not the Mirror tool. The role tiles in the Modes editor use the translated name.	Ispilua
+Span (IDEX/IQEX)	Carriage role on T1's gantry that partners T1 to print a part in several colors while the other gantry copies or mirrors it. A coined role name, kept in English.	Span
 Capability (plugin)	A function a plugin provides to OrcaSlicer (an importer, exporter, analysis, slicing step…), enabled and configured globally or per preset. Not a printer's hardware capability.	Gaitasuna
-Tool (printer)	One of a printer's numbered extrusion tools (T0, T1, …) that a tool change switches between: a toolhead or nozzle. Not a gizmo or other UI tool.	Tresna
+Tool (printer)	One of a printer's numbered extrusion tools (T0, T1, … in G-code) that a tool change switches between: a toolhead or nozzle. Not a gizmo or other UI tool.	Tresna
 Leading brim (belt)	On a belt printer, the brim extended ahead of a part along the belt (Leading brim length) to anchor its leading edge.	Aurreko itsaspen ertza
 Bundle (preset)	A preset bundle: a package of printer, filament and process presets, installed from a file or subscribed to on OrcaCloud.	Paketea
 Firmware	The software running on the printer's controller board (Klipper, Marlin, RepRapFirmware…).	Firmware
