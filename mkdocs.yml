@@ -129,6 +129,7 @@ nav:
   - VFA: calibration/vfa_calib.md
   - "Adaptive Pressure Advance": calibration/adaptive_pressure_advance_calib.md
   - "Filament Tolerance Calibration": calibration/tolerance_calib.md
+  - "Ironing Flow": calibration/ironing_flow_calib.md
 - "General Settings":
   - "Import and Export": general_settings/import_export.md
   - "Option Modes": general_settings/option_mode.md

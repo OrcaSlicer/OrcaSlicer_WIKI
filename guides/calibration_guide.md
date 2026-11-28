@@ -62,8 +62,11 @@ These tests are optional. Most of them tune the printer rather than the filament
 
 ---
 
-**[Tolerance](tolerance_calib):** Calibrate the tolerances of your printer to ensure that it can accurately reproduce the dimensions of the model being printed. This is important for achieving a good fit between parts and for ensuring that the final print meets the desired specifications. Do it last, as the result depends on every calibration above.  
+**[Tolerance](tolerance_calib):** Calibrate the tolerances of your printer to ensure that it can accurately reproduce the dimensions of the model being printed. This is important for achieving a good fit between parts and for ensuring that the final print meets the desired specifications. Do it after the calibrations above, as the result depends on all of them.  
 <img alt="OrcaToleranceTes_m6" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/Tolerance/OrcaToleranceTes_m6.jpg?raw=true" height="200">
+
+**[Ironing Flow](ironing_flow_calib):** Find the ironing flow that hides the lines of the top surface without over-extruding. This advanced test is optional and only needed if you use ironing. It depends on the filament, so repeat it for each filament you iron, after the other calibrations: ironing only adds a finish to a top surface that is already well printed.  
+<img alt="ironing-flow-calib-reading" src="https://github.com/OrcaSlicer/OrcaSlicer_WIKI/blob/main/images/IroningFlow/ironing-flow-calib-reading.jpg?raw=true" height="200">
 
 ---
 
